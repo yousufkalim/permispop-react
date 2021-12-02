@@ -20,11 +20,11 @@ export default function ButtonComponent(props) {
       "& .MuiTypography-root": {
         textTransform: "none",
       },
-      ["@media (max-width:1366px)"]: {
+      "@media (max-width:1366px)": {
         // eslint-disable-line no-useless-computed-key
         height: "40px",
       },
-      ["@media (max-width:992px)"]: {
+      "@media (max-width:992px)": {
         // eslint-disable-line no-useless-computed-key
         height: "40px",
       },

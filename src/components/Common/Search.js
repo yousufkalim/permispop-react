@@ -18,7 +18,7 @@ const Search = styled("div")(({ theme }) => ({
     width: "auto",
   },
 
-  ["@media (max-width:992px)"]: {
+  "@media (max-width:992px)": {
     // eslint-disable-line no-useless-computed-key
     display: "none",
   },
@@ -43,7 +43,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     width: "100%",
     height: "40px",
     color: "#9A9EA7",
-    ["@media (max-width:1366px)"]: {
+    "@media (max-width:1366px)": {
       // eslint-disable-line no-useless-computed-key
       height: "25px",
     },
