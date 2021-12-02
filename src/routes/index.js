@@ -3,7 +3,7 @@ import React from "react";
 import { Route, Switch } from "react-router-dom";
 
 // Routes
-import Home from "../containers/Home.js";
+import Home from "../containers/LandingPage/index";
 
 const index = () => {
   return (
