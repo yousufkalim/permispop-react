@@ -87,7 +87,7 @@ export default function ActionAreaCard(props) {
   }));
   const classes = useStyles();
   return (
-    <Card className={classes.cardMain}>
+    <Card className={classes.cardMain} style={props.style}>
       <CardMedia component="img" image={props.image} alt="services" />
       <CardContent className={classes.cardContentDiv}>
         <Typography
