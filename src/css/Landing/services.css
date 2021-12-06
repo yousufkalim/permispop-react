@@ -82,6 +82,15 @@
 .dot_img {
   width: 4%;
 }
+.code_card_container {
+  min-width: 66%;
+}
+.code_card_main {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
 /* MEDIA QUERIES*/
 
 @media only screen and (max-width: 1366px) {
@@ -161,6 +170,9 @@
   }
   .dot_img {
     width: 3%;
+  }
+  .code_card_main {
+    flex-direction: column;
   }
 }
 
