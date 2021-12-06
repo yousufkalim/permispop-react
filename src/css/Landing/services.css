@@ -90,6 +90,16 @@
   align-items: center !important;
   justify-content: center !important;
 }
+.highway_code_btn {
+  margin-top: 4% !important;
+}
+.highway_btn_label {
+  width: 100% !important;
+  font-size: 20px !important;
+  font-weight: 400 !important;
+  font-family: Inter !important;
+  white-space: nowrap !important;
+}
 
 /* MEDIA QUERIES*/
 
@@ -126,6 +136,9 @@
   }
   .card_container_inner {
     margin-left: 0px;
+  }
+  .highway_btn_label {
+    font-size: 16px !important;
   }
 }
 
@@ -173,6 +186,9 @@
   }
   .code_card_main {
     flex-direction: column;
+  }
+  .highway_btn_label {
+    font-size: 14px !important;
   }
 }
 
