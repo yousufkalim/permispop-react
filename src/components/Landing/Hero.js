@@ -4,9 +4,23 @@ import Search from "../Common/Search";
 import Logo from "../../assets/images/logo.svg";
 import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
+import IconButton from "@mui/material/IconButton";
 import PlayCircleFilledWhiteOutlinedIcon from "@mui/icons-material/PlayCircleFilledWhiteOutlined";
+import MenuIcon from "@mui/icons-material/Menu";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import Fade from "@mui/material/Fade";
 
 const Hero = () => {
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
   return (
     <div className="main_hero_container">
       <div className="second_hero_container">
@@ -44,7 +58,36 @@ const Hero = () => {
               sx={{ margin: "10px" }}
               className={"divider"}
             />
-            <Button type="submit" text="Login"></Button>
+            <Button display="none" type="submit" text="Login"></Button>
+            <div className="burger_btn">
+              <IconButton
+                color="inherit"
+                edge="start"
+                aria-expanded={open ? "true" : undefined}
+                onClick={handleClick}
+              >
+                <MenuIcon sx={{ fontSize: 40 }} />
+              </IconButton>
+            </div>
+            <Menu
+              className="menu"
+              anchorEl={anchorEl}
+              open={open}
+              onClose={handleClose}
+              TransitionComponent={Fade}
+              anchorOrigin={{
+                vertical: "top",
+                horizontal: "left",
+              }}
+              transformOrigin={{
+                vertical: "top",
+                horizontal: "left",
+              }}
+            >
+              <MenuItem onClick={handleClose}>Home</MenuItem>
+              <MenuItem onClick={handleClose}>Services</MenuItem>
+              <MenuItem onClick={handleClose}>Contact Us</MenuItem>
+            </Menu>
           </div>
         </div>
         <div className="hero_title_div">
@@ -57,13 +100,15 @@ const Hero = () => {
             Join us to enjoy quality driving education
           </Typography>
         </div>
-        <div className="hero_subtitle_div">
+        <div className="hero_subtitle_btn_div">
           <Button
             style={{
               marginRight: "1%",
             }}
             type="submit"
             text="Join Now"
+            customWidth1="36%"
+            customWidth2="60%"
           ></Button>
           <Button
             startIcon={
@@ -73,6 +118,8 @@ const Hero = () => {
             color="white"
             textColor="#252831"
             text="Play Video"
+            customWidth1="36%"
+            customWidth2="60%"
           ></Button>
         </div>
       </div>
