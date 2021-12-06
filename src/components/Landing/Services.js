@@ -4,6 +4,10 @@ import service1 from "../../assets/images/services1.svg";
 import service2 from "../../assets/images/services2.svg";
 import service3 from "../../assets/images/services3.svg";
 import dot from "../../assets/images/servicesDot.svg";
+import Divider from "@mui/material/Divider";
+import Card from "../Common/Card";
+import CardImage1 from "../../assets/images/cardImg1.svg";
+import CardImage2 from "../../assets/images/cardImg2.svg";
 
 const Services = () => {
   return (
@@ -19,8 +23,7 @@ const Services = () => {
             Quisque lobortis ultrices dolor, fringilla venenatis leo sodales at.
           </Typography>
         </div>
-
-        {/*Card*/}
+        {/*Service Card*/}
         <div className="card_main">
           <div className="card_container_outer">
             <img src={service1} alt="services" className="service_img" />
@@ -63,6 +66,36 @@ const Services = () => {
               Aenean luctus varius lacus in imperdiet. Curabitur mi ligula,
               consequat
             </Typography>
+          </div>
+        </div>
+
+        <Divider
+          flexItem
+          variant="middle"
+          textAlign="center"
+          light={true}
+          sx={{
+            width: "90%",
+            margin: "6% 0px 6% 0px",
+            alignSelf: "center",
+            borderColor: "rgba(0, 0, 0, 0.05)",
+          }}
+        />
+
+        {/*Code Card*/}
+
+        <div className="code_card_container">
+          <div className="code_card_main">
+            <Card
+              heading="Pop Code"
+              subHeading="Online Training That Will Revolution Your Code and License"
+              image={CardImage1}
+            ></Card>
+            <Card
+              heading="Highway Code"
+              subHeading="The Full Road Code Only For €14.90"
+              image={CardImage2}
+            ></Card>
           </div>
         </div>
       </div>
