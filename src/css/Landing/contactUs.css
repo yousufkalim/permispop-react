@@ -1,0 +1,19 @@
+.contact_us_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-size: contain;
+  max-width: 100%;
+  height: auto;
+}
+.contact_us_title_div {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  margin-top: 10% !important;
+}
+.contact_us_title {
+  font-weight: 600 !important;
+  font-family: Inter !important;
+  font-size: 35px !important;
+}
