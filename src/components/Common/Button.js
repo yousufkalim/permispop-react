@@ -21,12 +21,19 @@ export default function ButtonComponent(props) {
         textTransform: "none",
       },
       "@media (max-width:1366px)": {
-        // eslint-disable-line no-useless-computed-key
         height: "40px",
       },
       "@media (max-width:992px)": {
-        // eslint-disable-line no-useless-computed-key
         height: "40px",
+      },
+      "@media (max-width:600px)": {
+        display: props.display,
+        width: props.customWidth1,
+        height: "55px",
+        marginTop: "12px",
+      },
+      "@media (max-width:400px)": {
+        width: props.customWidth2,
       },
     },
     label: {
@@ -54,7 +61,7 @@ export default function ButtonComponent(props) {
       <Typography
         noWrap
         variant="button"
-        className={[classes.label, "btn_main"]}
+        className={(classes.label, "btn_main")}
       >
         {props.text}
       </Typography>
