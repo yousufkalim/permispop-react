@@ -1,13 +1,15 @@
 import React from "react";
 import Typography from "@mui/material/Typography";
+import Divider from "../Common/Divider";
+import Card from "../Common/Card";
+import Button from "../Common/Button";
 import service1 from "../../assets/images/services1.svg";
 import service2 from "../../assets/images/services2.svg";
 import service3 from "../../assets/images/services3.svg";
 import dot from "../../assets/images/servicesDot.svg";
-import Divider from "@mui/material/Divider";
-import Card from "../Common/Card";
 import CardImage1 from "../../assets/images/cardImg1.svg";
 import CardImage2 from "../../assets/images/cardImg2.svg";
+import { ReactComponent as NextIcon } from "../../assets/images/nextIcon.svg";
 
 const Services = () => {
   return (
@@ -68,22 +70,8 @@ const Services = () => {
             </Typography>
           </div>
         </div>
-
-        <Divider
-          flexItem
-          variant="middle"
-          textAlign="center"
-          light={true}
-          sx={{
-            width: "90%",
-            margin: "6% 0px 6% 0px",
-            alignSelf: "center",
-            borderColor: "rgba(0, 0, 0, 0.05)",
-          }}
-        />
-
+        <Divider />
         {/*Code Card*/}
-
         <div className="code_card_container">
           <div className="code_card_main">
             <Card
@@ -98,6 +86,20 @@ const Services = () => {
             ></Card>
           </div>
         </div>
+        <div className="highway_code_btn">
+          <Button
+            endIcon={<NextIcon />}
+            text="Access The Highway Code Here"
+            height="60px"
+            height2="60px"
+            height3="60px"
+            height4="50px"
+            customWidth1="100%"
+            customWidth2="100%"
+            buttonLableStyle="highway_btn_label"
+          ></Button>
+        </div>
+        <Divider />
       </div>
     </div>
   );

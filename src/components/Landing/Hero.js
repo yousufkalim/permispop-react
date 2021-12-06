@@ -58,7 +58,12 @@ const Hero = () => {
               sx={{ margin: "10px" }}
               className={"divider"}
             />
-            <Button display="none" type="submit" text="Login"></Button>
+            <Button
+              display="none"
+              type="submit"
+              text="Login"
+              buttonLableStyle="btn_main"
+            ></Button>
             <div className="burger_btn">
               <IconButton
                 color="inherit"
@@ -109,6 +114,7 @@ const Hero = () => {
             text="Join Now"
             customWidth1="36%"
             customWidth2="60%"
+            buttonLableStyle="btn_main"
           ></Button>
           <Button
             startIcon={
@@ -120,6 +126,7 @@ const Hero = () => {
             text="Play Video"
             customWidth1="36%"
             customWidth2="60%"
+            buttonLableStyle="btn_main"
           ></Button>
         </div>
       </div>
