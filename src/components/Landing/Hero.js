@@ -1,6 +1,7 @@
 import React from "react";
 import Button from "../Common/Button";
 import Search from "../Common/Search";
+import TextField from "../Common/TextField";
 import Logo from "../../assets/images/logo.svg";
 import Typography from "@mui/material/Typography";
 import Divider from "@mui/material/Divider";
@@ -44,12 +45,24 @@ const Hero = () => {
                   <li>
                     <a href="#contactUs"> Contact Us </a>
                   </li>
+                  <li>
+                    <TextField
+                      label="Label"
+                      borderRadius="0"
+                      variant="standard"
+                      color="blue"
+                      type="password"
+                      placeholder="password"
+                    ></TextField>
+                  </li>
                 </ul>
               </li>
             </ul>
           </div>
+
           <div className="flex_rowAlign_spacebwt">
             <Search></Search>
+
             <Divider
               orientation="vertical"
               light={true}
