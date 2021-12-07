@@ -54,7 +54,7 @@ export default function SearchAppBar() {
   return (
     <Search>
       <SearchIconWrapper>
-        <SearchIcon sx={{ color: "#9296A2", width: "100%" }} />
+        <SearchIcon sx={{ color: "#9296A2" }} />
       </SearchIconWrapper>
       <StyledInputBase
         placeholder="Search"
