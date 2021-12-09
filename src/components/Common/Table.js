@@ -14,7 +14,6 @@ import MultipleSelectPlaceholder from "./SelectField";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 
 import NativeSelectDemo from "./MobileFilters";
-import BasicDatePicker from "./DatePicker";
 
 export default function DataTable(props) {
   const [page, setPage] = React.useState(0);
@@ -38,12 +37,6 @@ export default function DataTable(props) {
           </Grid>
           <Grid item xs={6} md={2}>
             <MultipleSelectPlaceholder label="Filter by reciever"></MultipleSelectPlaceholder>
-          </Grid>
-          <Grid item xs={6} md={2}>
-            <BasicDatePicker label="Start date"></BasicDatePicker>
-          </Grid>
-          <Grid item xs={6} md={2}>
-            <BasicDatePicker label="End date"></BasicDatePicker>
           </Grid>
         </Grid>
       </div>
