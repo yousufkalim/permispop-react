@@ -1,0 +1,18 @@
+@media (max-width: 660px) {
+  .Select {
+    display: none;
+  }
+}
+@media (max-width: 1920px) {
+  .Select {
+    display: none;
+  }
+  .mobileSelect {
+    display: none;
+  }
+}
+@media (max-width: 660px) {
+  .mobileSelect {
+    display: none;
+  }
+}
