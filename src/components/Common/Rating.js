@@ -4,9 +4,7 @@ import Box from "@mui/material/Box";
 import StarIcon from "@mui/icons-material/Star";
 import Typography from "@mui/material/Typography";
 import { makeStyles } from "@mui/styles";
-
 export default function HoverRating(props) {
-  const [showValue, setshowValue] = React.useState(2);
   const [hover, setHover] = React.useState(-1);
   console.log(props);
   const useStyles = makeStyles((theme) => ({
@@ -17,9 +15,9 @@ export default function HoverRating(props) {
     },
     icon: {
       opacity: props.opacity || "0.55",
-      fontFamily: props.fontFamily || "sans-serif",
+      fontFamily: props.fontFamily || "inter",
+      fontSize: "inherit",
     },
-
     text: {
       fontSize:
         props.size === "large"
@@ -37,9 +35,7 @@ export default function HoverRating(props) {
       },
     },
   }));
-
   const classes = useStyles();
-
   return (
     <Box
       sx={{
@@ -49,28 +45,26 @@ export default function HoverRating(props) {
       }}
       className={classes.rating}
     >
-      {showValue !== null && (
+      {props.showLabel && (
         <Box sx={{ ml: 2 }}>
           <Typography
             color={props.labelColor || "#2A3235"}
             className={classes.text}
-            {...props.typographyProps}
+            {...props.ratingLabelprops}
           >
             {props.value}
           </Typography>
         </Box>
       )}
       <Rating
-        name="rating-feedback"
+        name={props.name || "rating-feedback"}
         value={props.value}
         readOnly={props.readOnly}
         size={props.size || "large"}
-        precision={props.precision}
+        precision={props.precision || "0.5"}
         disabled={props.disabled}
         highlightSelectedOnly={props.highlightSelectedOnly}
-        onChange={(event, newValue) => {
-          setshowValue(newValue);
-        }}
+        onChange={props.onChange}
         onChangeActive={(event, newHover) => {
           setHover(newHover);
         }}
@@ -79,22 +73,18 @@ export default function HoverRating(props) {
     </Box>
   );
 }
-
 //how to use RATING-FEEDBACk
+/*
+   <Rating
+        name={props.name || "rating-feedback"}    =>  Rating name
+        size="large"                              => Rating size  
+        readOnly={true}     
+        value="2.5"                        => values of rating
+        showLabel={true}                   => for rating label
+        precision="0.5"                    => rating stars precision
+        disabled={false}
+        highlightSelectedOnly={false}      => only high light the selected ones
 
-// Rating   => props
-
-//  rating number   =>  value="5.0"
-
-//  rating size    => size="medium"
-
-//  rating precision =>  precision="0.5"
-
-//   rating show number => showValue={false}
-
-//  rating Read-only => readOnly={true}
-
-//  rating Disable => disabled={false}
-
-//  rating highlight only selected => highlightSelectedOnly={false}
-//
+    >
+    </Rating>
+*/
