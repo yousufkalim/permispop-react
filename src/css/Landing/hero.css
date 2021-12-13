@@ -103,6 +103,28 @@ ul {
   display: none;
 }
 
+@media only screen and (max-width: 1440px) {
+  .second_hero_container {
+    height: 80vh;
+  }
+  .hero_title {
+    font-size: 52px !important;
+  }
+  .hero_subtitle {
+    font-size: 26px !important;
+  }
+  .logo_title {
+    font-size: 18px !important;
+  }
+  .list li {
+    margin-left: 16px !important;
+    margin-right: 16px !important;
+  }
+  .list li a {
+    font-size: 14px;
+  }
+}
+
 @media only screen and (max-width: 1366px) {
   .second_hero_container {
     height: 80vh;

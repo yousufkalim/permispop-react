@@ -45,6 +45,7 @@
   justify-content: space-between !important;
   margin-top: 6%;
   width: 70%;
+  margin-left: 6%;
 }
 .card_container_inner {
   display: flex;
@@ -103,6 +104,24 @@
 
 /* MEDIA QUERIES*/
 
+@media only screen and (max-width: 1440px) {
+  .services_title {
+    font-size: 28px !important;
+  }
+  .card_title {
+    font-size: 18px !important;
+  }
+  .services_subtitle {
+    font-size: 18px !important;
+  }
+  .card_subtitle {
+    font-size: 14px !important;
+  }
+  .card_container_inner {
+    margin-left: 0px;
+  }
+}
+
 @media only screen and (max-width: 1366px) {
   .services_title {
     font-size: 28px !important;
@@ -159,6 +178,7 @@
   .card_main {
     flex-direction: column !important;
     width: 100%;
+    margin-left: 0%;
   }
   .card_container_outer {
     align-items: center !important;

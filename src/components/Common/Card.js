@@ -19,6 +19,10 @@ export default function ActionAreaCard(props) {
         ? props.boxShadow
         : "0px 31px 70px rgba(35, 17, 0, 0.07)",
 
+      "@media (max-width:1440px)": {
+        width: "38%",
+        minHeight: "500px",
+      },
       "@media (max-width:1366px)": {
         width: "38%",
         minHeight: "500px",
@@ -48,6 +52,9 @@ export default function ActionAreaCard(props) {
       color: "#25282f",
       fontWeight: "500",
       fontFamily: "Inter",
+      "@media (max-width:1440px)": {
+        fontSize: "28px",
+      },
       "@media (max-width:1366px)": {
         fontSize: "28px",
       },
@@ -75,6 +82,9 @@ export default function ActionAreaCard(props) {
       color: "#6A6D76",
       fontWeight: "400",
       fontFamily: "Inter",
+      "@media (max-width:1440px)": {
+        fontSize: "20px",
+      },
       "@media (max-width:1366px)": {
         fontSize: "20px",
       },

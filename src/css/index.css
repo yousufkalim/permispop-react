@@ -3,10 +3,12 @@
 @import url("./Components/index.css");
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap");
 /* Defaults */
+
 * {
   padding: 0;
   margin: 0;
   box-sizing: border-box;
+  scroll-behavior: smooth;
 }
 
 /* Primary Variables */
@@ -14,9 +16,6 @@
   --primary: "green";
 }
 
-.App {
-  /* height: 100%; */
-}
 .flex_rowAlign_center {
   display: flex;
   align-items: center;
@@ -38,7 +37,19 @@
   white-space: nowrap !important;
 }
 
+/* TextField Border CSS */
+.css-1wsyeu8-MuiInputBase-root-MuiInput-root:before {
+  border-bottom: 1px solid #e5e5e5 !important;
+  opacity: 0.5;
+}
+
 /* MEDIA QUERIES*/
+
+@media only screen and (max-width: 1440px) {
+  .btn_main {
+    font-size: 14px !important;
+  }
+}
 
 @media only screen and (max-width: 1366px) {
   .btn_main {
@@ -67,6 +78,8 @@
 
 /* DEFAULT MEDIA QUERIES (copy from here)
 
+@media only screen and (max-width: 1440px) {
+}
 
 @media only screen and (max-width: 1366px) {
 }

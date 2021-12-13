@@ -1,0 +1,81 @@
+/* Modal Component Sytle */
+
+.roots {
+  align-items: center !important;
+  text-align: center !important;
+}
+.box {
+  position: absolute !important;
+  top: 50% !important ;
+  left: 50% !important;
+  width: 30% !important;
+  padding: 1rem !important;
+  transform: translate(-50%, -50%) !important;
+  background-color: rgb(255, 255, 255) !important;
+  border-radius: 20px !important;
+  align-items: center !important;
+  justify-content: center !important;
+  overflow-y: auto !important;
+  max-height: 90% !important;
+  min-height: 30% !important;
+}
+.close {
+  display: flex !important;
+  margin-left: auto !important;
+  margin-right: 1rem !important;
+  border: none !important;
+  background-color: white !important;
+  cursor: pointer !important;
+}
+.title {
+  color: rgb(85, 80, 80) !important;
+  padding-top: 0.3rem !important;
+  padding-bottom: 0.3rem !important;
+}
+
+@media only screen and (max-width: 1366px) {
+  .box {
+    padding: 0.5rem !important;
+  }
+}
+
+@media only screen and (max-width: 992px) {
+  .box {
+    padding: 0.7rem !important;
+  }
+  .title {
+    font-size: 19px !important;
+    padding-top: 0.3rem !important;
+    padding-bottom: 0.2rem !important;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .box {
+    width: 60% !important;
+  }
+  .title {
+    font-size: 18px !important;
+    padding-top: 0.3rem !important;
+    padding-bottom: 0.2rem !important;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .box {
+    width: 90% !important;
+  }
+  .title {
+    font-size: 17px !important;
+    padding-top: 0.3rem !important;
+    padding-bottom: 0.2rem !important;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .title {
+    font-size: 15px !important;
+    padding-top: 0.3rem !important;
+    padding-bottom: 0.2rem !important;
+  }
+}
