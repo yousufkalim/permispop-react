@@ -1,0 +1,46 @@
+.css-dif3zo-MuiToolbar-root {
+  height: "80px";
+}
+.dashboard-logo {
+  width: 42px !important;
+}
+.drawer-icons {
+  width: 22px !important;
+  margin-left: 1.3rem !important;
+  margin-right: 1.5rem !important;
+}
+.content-div {
+  background-color: #fafafa;
+  position: relative;
+  padding-top: 10px;
+  padding-left: 1rem;
+  padding-right: 2rem;
+  height: 1259px;
+  width: 100%;
+}
+.text {
+  color: black;
+}
+.drawer-text {
+  text-align: center !important;
+  color: "#858A96" !important;
+  font-family: Inter !important;
+}
+.Avatar-appbar {
+  display: flex;
+  justify-content: end;
+  width: 100%;
+}
+.flags-appbar {
+  margin-right: 5px;
+}
+.drawer-list {
+  color: #858a96;
+  font-family: "Inter";
+  text-align: center;
+  margin-top: 1rem;
+}
+.selected-item {
+  color: white !important;
+  background-color: #149e7a !important;
+}
