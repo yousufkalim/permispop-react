@@ -15,6 +15,7 @@ export default function FilePicker(props) {
       padding: "20px",
       borderRadius: "10px",
       "@media (max-width:600px)": {
+        flexDirection: "column",
         justifyContent: "space-between",
       },
     },
@@ -69,7 +70,7 @@ export default function FilePicker(props) {
         width: "58%",
       },
       "@media (max-width:600px)": {
-        width: "38%",
+        width: "100%",
       },
     },
     label: {
@@ -78,6 +79,9 @@ export default function FilePicker(props) {
       fontSize: "16px",
       lineHeight: "24px",
       color: "#ADB5CE",
+      "@media (max-width:600px)": {
+        marginTop: "20px",
+      },
     },
   }));
   const classes = useStyles();
