@@ -1,6 +1,7 @@
 /* Importing all CSS files */
-@import url("./Landing/index.css");
 @import url("./Components/index.css");
+@import url("./Landing/index.css");
+@import url("./Register/index.css");
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap");
 /* Defaults */
 
@@ -41,6 +42,10 @@
 .css-1wsyeu8-MuiInputBase-root-MuiInput-root:before {
   border-bottom: 1px solid #e5e5e5 !important;
   opacity: 0.5;
+}
+
+.MuiCheckbox-root {
+  /* color: blue !important; */
 }
 
 /* MEDIA QUERIES*/
