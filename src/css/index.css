@@ -43,9 +43,8 @@
   border-bottom: 1px solid #e5e5e5 !important;
   opacity: 0.5;
 }
-
-.MuiCheckbox-root {
-  /* color: blue !important; */
+.stepperMain {
+  width: 100% !important;
 }
 
 /* MEDIA QUERIES*/
@@ -75,6 +74,9 @@
   .btn_main {
     font-size: 18px !important;
     font-weight: 500 !important;
+  }
+  .stepper {
+    display: none !important;
   }
 }
 

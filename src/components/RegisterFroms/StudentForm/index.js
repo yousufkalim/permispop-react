@@ -98,10 +98,10 @@ const StudentForm = (props) => {
               ></TextField>
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
-              <TextField label="Complement" placeholder="New york"></TextField>
+              <TextField label="City" placeholder="New york"></TextField>
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
-              <TextField label="first" placeholder="Student"></TextField>
+              <TextField label="Complement" placeholder="Student"></TextField>
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
               <TextField
@@ -136,13 +136,19 @@ const StudentForm = (props) => {
 
           <Grid container spacing={4} alignItems="flex-end">
             <Grid item xs={12} sm={12} md={4}>
-              <FilePicker title="Upload front of your ID Card/Passport" />
+              <FilePicker
+                title="Upload front of your ID Card/Passport"
+                label="front"
+              />
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
-              <FilePicker title="Upload back of your ID Card/Passport" />
+              <FilePicker
+                title="Upload back of your ID Card/Passport"
+                label="back"
+              />
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
-              <FilePicker title="Upload your profile picture" />
+              <FilePicker title="Upload your profile picture" label="profile" />
             </Grid>
           </Grid>
           <div className="termsConditionsCheckboxContainer">
