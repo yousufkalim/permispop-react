@@ -96,12 +96,12 @@ export default function FilePicker(props) {
       <Typography variant="h2" className={classes.title}>
         {props.title}
       </Typography>
-      <label htmlFor="contained-button-file">
+      <label htmlFor={`contained-button-file` + props.label}>
         <div className={classes.container}>
           <input
             className={classes.input}
             accept="image/*"
-            id="contained-button-file"
+            id={`contained-button-file` + props.label}
             type="file"
             onChange={(e) => handleChange(e)}
           />
