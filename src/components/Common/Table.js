@@ -10,10 +10,7 @@ import ButtonComponent from "./Button";
 import Pagination from "@mui/material/Pagination";
 import AddIcon from "@mui/icons-material/Add";
 import { Button, Grid, Tab, Typography } from "@mui/material";
-import MultipleSelectPlaceholder from "./SelectField";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
-
-import NativeSelectDemo from "./MobileFilters";
 
 export default function DataTable(props) {
   const [page, setPage] = React.useState(0);
@@ -27,25 +24,20 @@ export default function DataTable(props) {
         margin: "0px auto 20px auto",
       }}
     >
-      <div className="Select">
-        <Grid container spacing={1}>
-          <Grid item xs={12} md={4}>
-            <Typography sx={{ m: 2 }}>Pending requests</Typography>
-          </Grid>
-          <Grid item xs={6} md={2}>
-            <MultipleSelectPlaceholder label="All"></MultipleSelectPlaceholder>
-          </Grid>
-          <Grid item xs={6} md={2}>
-            <MultipleSelectPlaceholder label="Filter by reciever"></MultipleSelectPlaceholder>
-          </Grid>
-        </Grid>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          marginBottom: "40px",
+        }}
+      >
+        {props.filters}
       </div>
-      <div className="mobileSelect">
-        <NativeSelectDemo></NativeSelectDemo>
-      </div>
+      {props.children}
+
       <Paper sx={{ width: "100%", overflow: "hidden" }}>
         <TableContainer>
-          <Table stickyHeader aria-label="sticky table">
+          <Table stickyHeader aria-label="sticky table" {...props.tableProps}>
             <TableHead>
               <TableRow>
                 {props.columns.map((column) => (
@@ -109,16 +101,16 @@ export default function DataTable(props) {
             m: 2,
           }}
         >
-          <Grid item xs={6} md={9}>
+          <Grid item xs={5} md={9}>
             <Pagination count={10} color="secondary" shape="rounded" />
           </Grid>
-          <Grid item xs={6} md={3}>
+          <Grid item xs={7} md={3}>
             <ButtonComponent
               variant="outlined"
-              text="Create Request"
+              text={props.text || "Create Request"}
               startIcon={<AddIcon />}
             >
-              Create Request
+              {props.text}
             </ButtonComponent>
           </Grid>
         </Grid>
