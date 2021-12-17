@@ -5,7 +5,7 @@ import Box from "@mui/material/Box";
 import TextField from "../../Common/TextField";
 import Divider from "../../Common/Divider";
 import FilePicker from "../../Common/FilePicker";
-import Checkbox from "@mui/material/Checkbox";
+import DropDown from "../../Common/DropDown";
 
 const Step1 = (props) => {
   return (
@@ -20,109 +20,85 @@ const Step1 = (props) => {
     >
       <Grid container spacing={4}>
         <Grid item xs={12} sm={12} md={4}>
-          <TextField label="First Name" placeholder="John"></TextField>
-        </Grid>
-        <Grid item xs={12} sm={12} md={4}>
-          <TextField label="Surname" placeholder="Smith"></TextField>
-        </Grid>
-        <Grid item xs={12} sm={12} md={4}>
           <TextField
-            label="Address"
+            label="Date of 1st Registration"
+            placeholder="John"
+          ></TextField>
+        </Grid>
+        <Grid item xs={12} sm={12} md={4}>
+          <DropDown label="Brand" placeholder="Smith"></DropDown>
+        </Grid>
+        <Grid item xs={12} sm={12} md={4}>
+          <DropDown
+            label="Model"
             placeholder="102 Street, building 02, NY"
-          ></TextField>
+          ></DropDown>
+        </Grid>
+        <Grid item xs={12} sm={12} md={4}>
+          <TextField label="Number Plate" placeholder="19-10-1992 "></TextField>
+        </Grid>
+        <Grid item xs={12} sm={12} md={4}>
+          <TextField label="Color" placeholder="Red"></TextField>
+        </Grid>
+        <Grid item xs={12} sm={12} md={4}>
+          <TextField label="Energy" placeholder="712333"></TextField>
+        </Grid>
+        <Grid item xs={12} sm={12} md={4}>
+          <DropDown label="GearBox" placeholder="Auto"></DropDown>
+        </Grid>
+      </Grid>
+      <Divider width="100%" borderColor="#D5E4E8" margin="3% 0px 2% 0px" />
+      <Typography className="Heading1">Vehicle Insurance</Typography>
+      <Divider width="100%" borderColor="#D5E4E8" margin="2% 0px 3% 0px" />
+      <Grid container spacing={4}>
+        <Grid item xs={12} sm={12} md={4}>
+          <TextField label="Insurer" placeholder="Male"></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <TextField
-            label="Date of birth"
-            placeholder="19-10-1992 "
-          ></TextField>
-        </Grid>
-        <Grid item xs={12} sm={12} md={4}>
-          <TextField label="Place of birth" placeholder="France"></TextField>
-        </Grid>
-        <Grid item xs={12} sm={12} md={4}>
-          <TextField label="Zip Code" placeholder="712333"></TextField>
-        </Grid>
-        <Grid item xs={12} sm={12} md={4}>
-          <TextField label="Gender" placeholder="Male"></TextField>
-        </Grid>
-        <Grid item xs={12} sm={12} md={4}>
-          <TextField
-            label="Email"
+            label="Police Number"
             placeholder="arslan.alikh@gmail.com"
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
-          <TextField
-            label="Second Email"
-            placeholder="smart_coolkyo@yahoo.com"
-          ></TextField>
+          <TextField label="Start Date" placeholder="19-10-2021"></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
-          <TextField label="Phone" placeholder="+33 123 4567890"></TextField>
-        </Grid>
-        <Grid item xs={12} sm={12} md={4}>
-          <TextField
-            label="Second Phone"
-            placeholder="+33 123 4567890"
-          ></TextField>
-        </Grid>
-        <Grid item xs={12} sm={12} md={4}>
-          <TextField label="City" placeholder="New york"></TextField>
-        </Grid>
-        <Grid item xs={12} sm={12} md={4}>
-          <TextField label="Complement" placeholder="Student"></TextField>
-        </Grid>
-        <Grid item xs={12} sm={12} md={4}>
-          <TextField label="Password" placeholder="**************"></TextField>
-        </Grid>
-        <Grid item xs={12} sm={12} md={4}>
-          <TextField
-            label="Confirm Password"
-            placeholder="**************"
-          ></TextField>
-        </Grid>
-        <Grid item xs={12} sm={12} md={4}>
-          <TextField label="Number of hours" placeholder="44"></TextField>
-        </Grid>
-        <Grid item xs={12} sm={12} md={4}>
-          <TextField label="NEPH Number" placeholder="532-3321-111"></TextField>
-        </Grid>
-        <Grid item xs={12} sm={12} md={4}>
-          <TextField
-            label="Spoken Languages"
-            placeholder="English, French"
-          ></TextField>
+          <TextField label="End Date" placeholder="19-10-2021"></TextField>
         </Grid>
       </Grid>
-
-      <Divider width="100%" borderColor="#D5E4E8" />
-
+      <Divider width="100%" borderColor="#D5E4E8" margin="3% 0px 2% 0px" />
+      <Typography className="Heading1">Technical Control</Typography>
+      <Divider width="100%" borderColor="#D5E4E8" margin="2% 0px 3% 0px" />
+      <Grid container spacing={4}>
+        <Grid item xs={12} sm={12} md={4}>
+          <TextField
+            label="Date of Technical Control"
+            placeholder="19-10-2021"
+          ></TextField>
+        </Grid>
+        <Grid item xs={12} sm={12} md={4}>
+          <TextField label="End Date" placeholder="19-10-2021"></TextField>
+        </Grid>
+      </Grid>
+      <Divider width="100%" borderColor="#D5E4E8" margin="3% 0px 3% 0px" />
       <Grid container spacing={4} alignItems="flex-end">
         <Grid item xs={12} sm={12} md={4}>
-          <FilePicker
-            title="Upload front of your ID Card/Passport"
-            label="front"
-          />
+          <FilePicker title="Upload Image" label="uploadImg" />
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <FilePicker
-            title="Upload back of your ID Card/Passport"
-            label="back"
+            title="Upload Vehicle Registration Certificate"
+            label="Regcertificate"
           />
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
-          <FilePicker title="Upload your profile picture" label="profile" />
+          <FilePicker title="Upload Scanned Green Card" label="GreenCard" />
+        </Grid>
+        <Grid item xs={12} sm={12} md={4}>
+          <FilePicker title="Scan and Upload your CT" label="UploadCT" />
         </Grid>
       </Grid>
-      <div className="termsConditionsCheckboxContainer">
-        <div className="termsConditionsCheckbox">
-          <Checkbox defaultChecked className="checkbox" />
-          <Typography variant="body1" className="termsConditionsCheckboxTitle">
-            Are you working on other platform?
-          </Typography>
-        </div>
-      </div>
     </Box>
   );
 };
