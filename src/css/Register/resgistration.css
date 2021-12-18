@@ -9,6 +9,10 @@
   display: flex;
   color: #2b3135;
 }
+.HeadingContent {
+  font-weight: normal !important;
+  margin-top: 20px !important;
+}
 /*Allignment of grid container in step 3 */
 .css-19h80yh-MuiGrid-root {
   display: flex !important;
@@ -43,6 +47,30 @@
 #demo-simple-select-standard-label {
   /* margin-bottom: 7px !important; */
 }
+.DrivingSchool {
+  display: flex;
+  flex-direction: column;
+  margin-left: 32px;
+  width: 32.1% !important;
+}
+.DrivingSchool1 {
+  width: 100%;
+  margin-bottom: 50px;
+}
+.VehicleSection {
+  display: flex;
+  flex-direction: row;
+  margin-top: 65px !important;
+  /* width: 100%; */
+}
+.VehicleInsurance {
+  margin-top: 25px !important;
+}
+.DrivingInstrutor {
+  display: flex;
+  flex-direction: row;
+  margin-top: 50px !important;
+}
 
 @media only screen and (max-width: 1440px) {
   .Heading1 {
@@ -53,6 +81,10 @@
 @media only screen and (max-width: 1366px) {
   .Heading1 {
     font-size: 18px !important;
+  }
+  .VehicleSection {
+    display: flex !important;
+    justify-content: flex-end !important;
   }
 }
 
@@ -74,6 +106,13 @@
     flex-direction: column !important;
     justify-content: center !important;
     align-items: center !important;
+  }
+  .DrivingSchool {
+    width: 100% !important;
+  }
+  .HeadingContent {
+    display: flex !important;
+    justify-content: center !important;
   }
 }
 
