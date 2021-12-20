@@ -9,9 +9,8 @@ import TableRow from "@mui/material/TableRow";
 import ButtonComponent from "./Button";
 import Pagination from "@mui/material/Pagination";
 import AddIcon from "@mui/icons-material/Add";
-import { Button, Grid, Tab, Typography } from "@mui/material";
+import { Grid } from "@mui/material";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
-
 export default function DataTable(props) {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
@@ -40,57 +39,67 @@ export default function DataTable(props) {
           <Table stickyHeader aria-label="sticky table" {...props.tableProps}>
             <TableHead>
               <TableRow>
-                {props.columns.map((column) => (
-                  <TableCell
-                    key={column.id}
-                    align={column.align}
-                    style={{ minWidth: column.minWidth }}
-                  >
-                    {column.label}
-                  </TableCell>
-                ))}
+                {props.columns
+                  ? props.columns.map((column) => (
+                      <TableCell
+                        key={column.id}
+                        align={column.align}
+                        style={{ minWidth: column.minWidth }}
+                      >
+                        {column.label}
+                      </TableCell>
+                    ))
+                  : "No data found"}
               </TableRow>
             </TableHead>
 
             <TableBody>
               {props.data
-                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map((row) => {
-                  return (
-                    <TableRow
-                      hover
-                      role="checkbox"
-                      tabIndex={-1}
-                      key={row.bookingwith}
-                    >
-                      {props.columns.map((column) => {
-                        const value = row[column.id];
-                        return (
-                          <>
-                            {column.id !== "options" &&
-                            column.id !== "actions" ? (
-                              <TableCell key={column.id} align={column.align}>
-                                {column.format && typeof value === "number"
-                                  ? column.format(value)
-                                  : value}
-                              </TableCell>
-                            ) : column.id == "actions" ? (
-                              <TableCell align="right">
-                                <p style={{ color: "#149E7A" }} align="center">
-                                  Completed
-                                </p>
-                              </TableCell>
-                            ) : (
-                              <TableCell align="center">
-                                <MoreVertIcon />
-                              </TableCell>
-                            )}
-                          </>
-                        );
-                      })}
-                    </TableRow>
-                  );
-                })}
+                ? props.data
+                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                    .map((row) => {
+                      return (
+                        <TableRow
+                          hover
+                          role="checkbox"
+                          tabIndex={-1}
+                          key={row.bookingwith}
+                        >
+                          {props.columns.map((column) => {
+                            const value = row[column.id];
+                            return (
+                              <>
+                                {column.id !== "options" &&
+                                column.id !== "actions" ? (
+                                  <TableCell
+                                    key={column.id}
+                                    align={column.align}
+                                  >
+                                    {column.format && typeof value === "number"
+                                      ? column.format(value)
+                                      : value}
+                                  </TableCell>
+                                ) : column.id == "actions" ? (
+                                  <TableCell align="right">
+                                    <p
+                                      style={{ color: "#149E7A" }}
+                                      align="center"
+                                    >
+                                      Completed
+                                    </p>
+                                  </TableCell>
+                                ) : (
+                                  <TableCell align="center">
+                                    <MoreVertIcon />
+                                  </TableCell>
+                                )}
+                              </>
+                            );
+                          })}
+                        </TableRow>
+                      );
+                    })
+                : "No data found"}
             </TableBody>
           </Table>
         </TableContainer>
