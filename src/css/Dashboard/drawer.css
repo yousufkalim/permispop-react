@@ -1,46 +1,117 @@
+/* header  */
 .css-dif3zo-MuiToolbar-root {
-  height: "80px";
+  height: "80px" !important;
+  margin-left: "0.9rem" !important;
+  position: relative !important;
+  margin-top: "1rem" !important;
 }
 .dashboard-logo {
   width: 42px !important;
+  margin-left: 0.9rem !important;
+  position: relative !important;
+  margin-top: 1rem !important;
 }
 .drawer-icons {
   width: 22px !important;
   margin-left: 1.3rem !important;
   margin-right: 1.5rem !important;
 }
-.content-div {
-  background-color: #fafafa;
-  position: relative;
-  padding-top: 10px;
-  padding-left: 1rem;
-  padding-right: 2rem;
-  height: 1259px;
-  width: 100%;
+.defaultIcon {
+  color: #858a96 !important;
 }
-.text {
-  color: black;
+.iconSelected {
+  color: #ffffff !important;
 }
-.drawer-text {
-  text-align: center !important;
-  color: "#858A96" !important;
-  font-family: Inter !important;
-}
+
 .Avatar-appbar {
-  display: flex;
-  justify-content: end;
-  width: 100%;
+  display: flex !important;
+  justify-content: end !important;
+  width: 100% !important;
 }
 .flags-appbar {
-  margin-right: 5px;
+  margin-right: 5px !important;
+  height: 1.5rem !important;
+}
+
+.power-icon {
+  font-size: 1.5rem !important;
 }
 .drawer-list {
-  color: #858a96;
-  font-family: "Inter";
-  text-align: center;
-  margin-top: 1rem;
+  color: #858a96 !important;
+  font-family: "Inter" !important;
+  text-align: center !important;
+  margin-top: 0.4rem !important;
+}
+.appbar {
+  background-color: white !important;
+  z-index: 10000 !important;
+  position: fixed !important;
+}
+/* appbar box shadow */
+.css-u4zaln-MuiPaper-root-MuiAppBar-root {
+  box-shadow: unset !important ;
+}
+.main-box {
+  display: flex !important;
+}
+.drawer-list-text {
+  font-size: 1rem !important;
 }
 .selected-item {
   color: white !important;
   background-color: #149e7a !important;
+}
+.logo-title {
+  font-size: 16px !important;
+  color: black !important;
+  align-content: center !important;
+  font-weight: 600 !important;
+  margin-top: 1rem !important;
+  margin-left: 10px !important;
+  margin-bottom: 1px !important;
+}
+.divider {
+  margin: 10px !important;
+}
+
+@media only screen and (max-width: 1366px) {
+  .drawer-list-text {
+    font-size: 1rem !important;
+  }
+}
+@media only screen and (max-width: 992px) {
+  .drawer-list-text {
+    font-size: 0.9rem !important;
+  }
+  .drawer-icons {
+    width: 18px !important;
+  }
+  .logo-title {
+    font-size: 13px !important;
+  }
+}
+@media only screen and (max-width: 768px) {
+  .drawer-list-text {
+    font-size: 0.8rem !important;
+  }
+}
+@media only screen and (max-width: 600px) {
+  .logo-title {
+    display: none !important;
+  }
+  .dashboard-logo {
+    display: none !important;
+  }
+  .flag01 {
+    display: none !important;
+  }
+  .flag02 {
+    display: none !important;
+  }
+  .power-icon {
+    display: none !important;
+  }
+  .divider {
+    display: none !important;
+  }
 }
