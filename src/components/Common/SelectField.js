@@ -16,19 +16,6 @@ const MenuProps = {
   },
 };
 
-const names = [
-  "Oliver Hansen",
-  "Van Henry",
-  "April Tucker",
-  "Ralph Hubbard",
-  "Omar Alexander",
-  "Carlos Abbott",
-  "Miriam Wagner",
-  "Bradley Wilkerson",
-  "Virginia Andrews",
-  "Kelly Snyder",
-];
-
 function getStyles(name, personName, theme) {
   return {
     fontWeight:
@@ -40,26 +27,15 @@ function getStyles(name, personName, theme) {
 
 export default function MultipleSelectPlaceholder(props) {
   const theme = useTheme();
-  const [personName, setPersonName] = React.useState([]);
-
-  const handleChange = (event) => {
-    const {
-      target: { value },
-    } = event;
-    setPersonName(
-      // On autofill we get a the stringified value.
-      typeof value === "string" ? value.split(",") : value
-    );
-  };
-
+  let data = [];
   return (
     <div>
       <FormControl sx={{ m: 1, width: 170, height: 80 }}>
         <Select
           multiple
           displayEmpty
-          value={personName}
-          onChange={handleChange}
+          onChange={props.onChange}
+          value={props.value}
           input={<OutlinedInput />}
           renderValue={(selected) => {
             if (selected.length === 0) {
@@ -71,17 +47,36 @@ export default function MultipleSelectPlaceholder(props) {
           MenuProps={MenuProps}
           inputProps={{ "aria-label": "Without label" }}
         >
-          {names.map((name) => (
-            <MenuItem
-              key={name}
-              value={name}
-              style={getStyles(name, personName, theme)}
-            >
-              {name}
+          {props.items ? (
+            props.items.length > 0 ? (
+              props.items.map((item) => {
+                return <MenuItem value={item.value}>{item.name}</MenuItem>;
+              })
+            ) : (
+              <MenuItem value={0} disabled={true}>
+                No value found
+              </MenuItem>
+            )
+          ) : (
+            <MenuItem value={0} disabled={true}>
+              No value found
             </MenuItem>
-          ))}
+          )}
         </Select>
       </FormControl>
     </div>
   );
 }
+/* Use of selectfield component
+<DropDown
+label="gender"  //Label of the field
+value={age}    //Selected value
+onChange={handleChange}
+MenuItem={[
+{ name: "name", value: "value" },
+{ name: "name", value: "value" },
+{ name: "name", value: "value" },
+]} //items to be shown in dropdown
+> 
+</DropDown>
+*/
