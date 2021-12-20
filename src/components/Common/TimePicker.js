@@ -5,18 +5,14 @@ import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import TimePicker from "@mui/lab/TimePicker";
 
 export default function BasicTimePicker(props) {
-  const [value, setValue] = React.useState(new Date());
-
   return (
     <LocalizationProvider dateAdapter={DateAdapter}>
       <TimePicker
         label={props.label || "Time "}
-        value={value}
+        value={props.value}
         shouldDisableTime={props.shouldDisableTime}
         disabled={props.disabled === true ? true : false}
-        onChange={(newValue) => {
-          setValue(newValue);
-        }}
+        onChange={props.onChange}
         renderInput={(params) => <TextField {...params} />}
         {...props.timePickerProps}
       />
