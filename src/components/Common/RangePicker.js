@@ -6,16 +6,17 @@ import DateAdapter from "@mui/lab/AdapterMoment";
 import MobileDateRangePicker from "@mui/lab/MobileDateRangePicker";
 
 export default function ResponsiveDateRangePicker(props) {
-  const [value, setValue] = React.useState([null, null]);
-
   return (
     <LocalizationProvider dateAdapter={DateAdapter}>
       <MobileDateRangePicker
         startText={props.startText || "Start"}
-        value={value}
-        onChange={(newValue) => {
-          setValue(newValue);
-        }}
+        value={props.value ? props.value : [null, null]}
+        onChange={props.onChange}
+        disabled={props.disabled === true ? true : false}
+        maxDate={props.maxDate}
+        minDate={props.minDate}
+        shouldDisableDate={props.shouldDisableDate}
+        shouldDisableYear={props.shouldDisableYear}
         renderInput={(startProps, endProps) => (
           <React.Fragment>
             <TextField {...startProps} />
