@@ -22,6 +22,11 @@ export default function ButtonComponent(props) {
       "& .MuiTypography-root": {
         textTransform: "none",
       },
+
+      // Media queries for button styles
+      "@media (max-width:1440px)": {
+        height: props.height2 || "40px",
+      },
       "@media (max-width:1366px)": {
         height: props.height2 || "40px",
       },
@@ -38,6 +43,8 @@ export default function ButtonComponent(props) {
         width: props.customWidth2,
       },
     },
+
+    // Button lable styles
     label: {
       color: props.textColor || theme.palette.common.white,
     },
@@ -56,17 +63,41 @@ export default function ButtonComponent(props) {
       variant={props.variant || "contained"}
       component={props.component || "button"}
       fullWidth={props.fullWidth === false ? false : true}
-      className={classes.button}
+      className={[classes.button, props.className].join(" ")}
       style={props.style}
       classes={{ label: classes.label }}
+      {...props.buttonProps}
     >
       <Typography
         noWrap
         variant="button"
         className={[classes.label, props.buttonLableStyle].join(" ")}
+        {...props.buttonLableProps}
       >
         {props.text}
       </Typography>
     </Button>
   );
 }
+
+/* Using Button component:
+
+          <Button
+            startIcon={<muiIcon><MuiIcon>}   
+            type="submit"   
+            color="white"          // Button color
+            textColor="#252831"    // Button label color
+            text="Play Video"      // Button label text
+            width= "50%"           // default width
+            customWidth1="36%"     // width when width is 600px
+            customWidth2="60%"     // width when width is 400px
+            buttonLableStyle="btn_main"  // style for button labels
+            height ="40px"      // default height
+            height2 ="40px"     // height when width is 1336px and 1440px
+            height3 ="40px"     // height when width is 992px
+            height4 ="40px"     // height when width is 600px
+            buttonProps = {{prop1:value , prop2:value}}     // Default mui button props
+            buttonLableProps = {{prop1:value , prop2:value}}     // Default mui Typography props
+          ></Button>
+          
+*/

@@ -1,0 +1,126 @@
+.Heading1 {
+  font-family: Inter !important;
+  font-style: normal !important;
+  font-weight: 600 !important;
+  font-size: 25px !important;
+  line-height: 151.02%;
+  /* or 48px */
+
+  display: flex;
+  color: #2b3135;
+}
+.HeadingContent {
+  font-weight: normal !important;
+  margin-top: 20px !important;
+}
+/*Allignment of grid container in step 3 */
+.css-19h80yh-MuiGrid-root {
+  display: flex !important;
+  align-items: flex-end !important;
+}
+/*Allignment of dropdown menu */
+.css-1rxz5jq-MuiSelect-select-MuiInputBase-input-MuiInput-input.MuiSelect-select {
+  /* height: auto; */
+  height: "70px";
+  border-bottom: none;
+  font-style: normal;
+  font-size: 18px;
+  color: #c8cfd0;
+  opacity: 0.7;
+  font-weight: 300 !important;
+  font-family: Inter !important;
+  margin-top: 19px !important;
+  margin-bottom: 16px !important;
+  /* min-height: 2.6em !important; */
+}
+.css-1869usk-MuiFormControl-root {
+  margin: 0 !important;
+}
+
+.css-rszf0p-MuiButtonBase-root-MuiMenuItem-root.Mui-selected {
+  background-color: #fff !important;
+}
+
+.css-1rxz5jq-MuiSelect-select-MuiInputBase-input-MuiInput-input:focus {
+  background-color: #fff !important;
+}
+#demo-simple-select-standard-label {
+  /* margin-bottom: 7px !important; */
+}
+.DrivingSchool {
+  display: flex;
+  flex-direction: column;
+  margin-left: 32px;
+  width: 32.1% !important;
+}
+.DrivingSchool1 {
+  width: 100%;
+  margin-bottom: 50px;
+}
+.VehicleSection {
+  display: flex;
+  flex-direction: row;
+  margin-top: 65px !important;
+  /* width: 100%; */
+}
+.VehicleInsurance {
+  margin-top: 25px !important;
+}
+.DrivingInstrutor {
+  display: flex;
+  flex-direction: row;
+  margin-top: 50px !important;
+}
+
+@media only screen and (max-width: 1440px) {
+  .Heading1 {
+    font-size: 18px !important;
+  }
+}
+
+@media only screen and (max-width: 1366px) {
+  .Heading1 {
+    font-size: 18px !important;
+  }
+  .VehicleSection {
+    display: flex !important;
+    justify-content: flex-end !important;
+  }
+}
+
+@media only screen and (max-width: 992px) {
+  .Heading1 {
+    font-size: 16px !important;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .Heading1 {
+    font-size: 14px !important;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .Heading1 {
+    font-size: 14px !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    align-items: center !important;
+  }
+  .DrivingSchool {
+    width: 100% !important;
+  }
+  .HeadingContent {
+    display: flex !important;
+    justify-content: center !important;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .Heading1 {
+    font-size: 14px !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    align-items: center !important;
+  }
+}
