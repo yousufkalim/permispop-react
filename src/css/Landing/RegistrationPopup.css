@@ -1,0 +1,134 @@
+.RegisterModal {
+  display: flex;
+  justify-content: center;
+  /* align-items: center; */
+  /* align-content: center; */
+  margin-top: 50px !important;
+  margin-left: 8px;
+  width: none !important;
+}
+
+.Register_modal {
+  width: 40% !important;
+  padding-bottom: 4% !important;
+}
+.Register_title {
+  font-size: 30px !important;
+  font-family: Inter !important;
+  font-style: normal !important;
+  font-weight: 600 !important;
+}
+.Professional_modal {
+  padding-bottom: 4% !important;
+
+  width: 65% !important;
+}
+@media only screen and (max-width: 1450px) {
+  .Register_title {
+    font-size: 20px !important;
+  }
+  .Text_content1 {
+    font-size: 8px !important;
+  }
+}
+
+@media only screen and (max-width: 1320px) {
+  .Register_title {
+    font-size: 20px !important;
+  }
+  .Text_content {
+    font-size: 15px !important;
+  }
+}
+
+@media only screen and (max-width: 1135px) {
+  .Register_title {
+    font-size: 20px !important;
+  }
+  .Text_content {
+    font-size: 15px !important;
+  }
+}
+
+@media only screen and (max-width: 886px) {
+  .Register_title {
+    font-size: 20px !important;
+  }
+  .Text_content {
+    font-size: 12px !important;
+  }
+}
+@media only screen and (max-width: 768px) {
+  .Register_title {
+    font-size: 20px !important;
+  }
+  .Text_content {
+    font-size: 5px !important;
+  }
+}
+@media only screen and (max-width: 790px) {
+  .Register_title {
+    font-size: 20px !important;
+  }
+  .Text_content {
+    font-size: 10px !important;
+  }
+}
+@media only screen and (max-width: 738px) {
+  .Register_title {
+    font-size: 20px !important;
+  }
+  .Text_content {
+    font-size: 10px !important;
+  }
+}
+@media only screen and (max-width: 680px) {
+  .Register_title {
+    font-size: 20px !important;
+  }
+  .Text_content {
+    font-size: 10px !important;
+  }
+}
+
+@media only screen and (max-width: 627px) {
+  .Register_title {
+    font-size: 20px !important;
+  }
+  .Text_content {
+    font-size: 8px !important;
+  }
+}
+
+@media only screen and (max-width: 598px) {
+  .RegisterModal {
+    display: flex !important;
+    align-content: center !important;
+    justify-content: center !important;
+  }
+  .RegisterModal {
+    margin-bottom: 10px !important;
+    margin-left: 5px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+  }
+  .card1 {
+    margin-bottom: 10px !important;
+  }
+  .Text_content {
+    font-size: 10px !important;
+  }
+}
+@media only screen and (max-width: 375px) {
+  .RegisterModal {
+    margin-bottom: 10px !important;
+    margin-left: 5px !important;
+  }
+  .card1 {
+    margin-bottom: 5px !important;
+  }
+  .Text_content {
+    font-size: 10px !important;
+  }
+}

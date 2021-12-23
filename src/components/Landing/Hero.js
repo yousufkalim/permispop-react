@@ -3,8 +3,12 @@ import Button from "../Common/Button";
 import Header from "../Common/Header";
 import Typography from "@mui/material/Typography";
 import PlayCircleFilledWhiteOutlinedIcon from "@mui/icons-material/PlayCircleFilledWhiteOutlined";
+import RegisterModal from "./RegisterModal";
 
 const Hero = () => {
+  const [Registeropen, setRegisteropen] = React.useState(false);
+  const handleRegisterOpen = () => setRegisteropen(true);
+  const handleRegisterClose = () => setRegisteropen(false);
   return (
     <div className="main_hero_container">
       <div className="second_hero_container">
@@ -29,7 +33,9 @@ const Hero = () => {
             customWidth1="36%"
             customWidth2="60%"
             buttonLableStyle="btn_main"
+            onClick={handleRegisterOpen}
           ></Button>
+
           <Button
             startIcon={
               <PlayCircleFilledWhiteOutlinedIcon sx={{ color: "#43DAB1" }} />
@@ -44,6 +50,14 @@ const Hero = () => {
           ></Button>
         </div>
       </div>
+      <RegisterModal
+        open={Registeropen}
+        closebtn={true}
+        onClose={handleRegisterClose}
+        modalTitle="Register As"
+        modalboxclassName="Register_modal"
+        modalTitleclassName="Register_title"
+      ></RegisterModal>
     </div>
   );
 };

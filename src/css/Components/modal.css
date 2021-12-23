@@ -9,10 +9,10 @@
   top: 50% !important ;
   left: 50% !important;
   width: 30% !important;
-  padding: 1rem !important;
+  padding: 2rem !important;
   transform: translate(-50%, -50%) !important;
   background-color: rgb(255, 255, 255) !important;
-  border-radius: 20px !important;
+  border-radius: 40px !important;
   align-items: center !important;
   justify-content: center !important;
   overflow-y: auto !important;
@@ -52,7 +52,7 @@
 
 @media only screen and (max-width: 768px) {
   .box {
-    width: 60% !important;
+    width: 40% !important;
   }
   .title {
     font-size: 18px !important;
@@ -63,7 +63,7 @@
 
 @media only screen and (max-width: 600px) {
   .box {
-    width: 90% !important;
+    width: 50% !important;
   }
   .title {
     font-size: 17px !important;

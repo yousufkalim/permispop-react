@@ -7,25 +7,17 @@ import IconButton from "@mui/material/IconButton";
 import { ReactComponent as Modalclosebtn } from "../../assets/images/modalclosebtn.svg";
 
 export default function BasicModal(props) {
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
-
   return (
     <div>
-      <Button onClick={handleOpen} {...props.modalBtnProps}>
-        {props.modalBtn}
-      </Button>
-
       <Modal
-        open={open}
-        onClose={handleClose}
-        className={props.modalclassName || "roots"}
+        open={props.open}
+        onClose={props.onClose}
+        className={[props.modalclassName, "roots"].join(" ")}
         {...props.modalProps}
       >
         <>
           <Box
-            className={props.modalboxclassName || "box"}
+            className={[props.modalboxclassName, "box"].join(" ")}
             {...props.modalboxProps}
           >
             {props.closebtn ? (
@@ -33,8 +25,8 @@ export default function BasicModal(props) {
                 className={props.closebtnclassName || "close"}
                 color="inherit"
                 edge="start"
-                aria-expanded={open ? "true" : undefined}
-                onClick={handleClose}
+                aria-expanded={props.open ? "true" : undefined}
+                onClick={props.onClose}
                 {...props.closebtnProps}
               >
                 <Modalclosebtn style={{ width: "22px" }} />
