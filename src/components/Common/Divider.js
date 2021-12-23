@@ -23,6 +23,7 @@ export default function MainDivider(props) {
       light={props.light ? props.light : true}
       className={classes.divider}
       style={props.style}
+      {...props}
     />
   );
 }

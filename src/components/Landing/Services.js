@@ -13,7 +13,7 @@ import { ReactComponent as NextIcon } from "../../assets/images/nextIcon.svg";
 
 const Services = () => {
   return (
-    <div className="main_services_container">
+    <div className="main_services_container" id="services">
       <div className="second_services_container">
         <div className="services_title_div">
           <Typography variant="h2" align="center" className="services_title">

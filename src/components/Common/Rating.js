@@ -5,8 +5,6 @@ import StarIcon from "@mui/icons-material/Star";
 import Typography from "@mui/material/Typography";
 import { makeStyles } from "@mui/styles";
 export default function HoverRating(props) {
-  const [hover, setHover] = React.useState(-1);
-  console.log(props);
   const useStyles = makeStyles((theme) => ({
     rating: {
       display: props.display || "flex",
@@ -65,9 +63,6 @@ export default function HoverRating(props) {
         disabled={props.disabled}
         highlightSelectedOnly={props.highlightSelectedOnly}
         onChange={props.onChange}
-        onChangeActive={(event, newHover) => {
-          setHover(newHover);
-        }}
         emptyIcon={<StarIcon className={classes.icon} />}
       />
     </Box>
@@ -76,9 +71,9 @@ export default function HoverRating(props) {
 //how to use RATING-FEEDBACk
 /*
    <Rating
-        name={props.name || "rating-feedback"}    =>  Rating name
-        size="large"                              => Rating size  
-        readOnly={true}     
+        name="rating-feedback"             =>  Rating name
+        size="large"                       => Rating size  
+        readOnly={true}                    => Set if use as readonly
         value="2.5"                        => values of rating
         showLabel={true}                   => for rating label
         precision="0.5"                    => rating stars precision
