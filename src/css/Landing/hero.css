@@ -4,29 +4,34 @@
   justify-content: center;
   align-items: center;
   background-image: url("../../assets//images/heroImage.svg");
-  background-size: contain;
+  background-position: center;
+  background-size: cover;
+  -o-background-size: cover;
+  -moz-background-size: cover;
+  -webkit-background-size: cover;
   background-repeat: no-repeat;
-  max-width: 100%;
-  height: auto;
+  /* max-width: 100%;
+  height: 100%; */
 }
 .second_hero_container {
   width: 80%;
-  height: 100vh;
+  height: 70vh;
   z-index: 0;
   display: flex;
   flex-direction: column;
 }
 .logo_title {
+  color: #25282f;
   margin-left: 3% !important;
   font-size: 24px;
   font-weight: 500;
   font-family: Inter;
 }
 .home-logo {
-  width: 100% !important;
   min-width: 26px !important;
 }
 .main-list {
+  margin-top: 30px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -55,7 +60,6 @@ ul {
 }
 .list li a:hover {
   color: #252831;
-  font-weight: 500;
   text-decoration: none;
 }
 
@@ -66,13 +70,13 @@ ul {
   margin-top: 10% !important;
 }
 .hero_title {
+  color: #25282f;
   width: 32ch !important;
   margin-left: 10px !important;
   font-size: 72px !important;
   font-weight: 400 !important;
   font-family: Inter !important;
 }
-
 .hero_subtitle_div {
   display: flex !important;
   align-items: center !important;
@@ -86,8 +90,45 @@ ul {
   font-weight: 300 !important;
   font-family: Inter !important;
 }
+.hero_subtitle_btn_div {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  margin-top: 2% !important;
+}
+.burger_btn {
+  display: none;
+}
+.menu {
+  display: none;
+}
+
+@media only screen and (max-width: 1440px) {
+  .second_hero_container {
+    height: 80vh;
+  }
+  .hero_title {
+    font-size: 52px !important;
+  }
+  .hero_subtitle {
+    font-size: 26px !important;
+  }
+  .logo_title {
+    font-size: 18px !important;
+  }
+  .list li {
+    margin-left: 16px !important;
+    margin-right: 16px !important;
+  }
+  .list li a {
+    font-size: 14px;
+  }
+}
 
 @media only screen and (max-width: 1366px) {
+  .second_hero_container {
+    height: 80vh;
+  }
   .hero_title {
     font-size: 52px !important;
   }
@@ -137,27 +178,73 @@ ul {
 }
 
 @media only screen and (max-width: 600px) {
+  .main_hero_container {
+    margin-top: 20px;
+    background-image: url("../../assets//images/heroImage.svg");
+    background-size: cover;
+    background-position: center;
+  }
+  .hero_title_div {
+    margin-top: 20% !important;
+  }
   .hero_title {
-    font-size: 22px !important;
+    font-size: 32px !important;
+    font-weight: 500 !important;
+  }
+  .hero_subtitle_div {
+    margin-top: 6% !important;
   }
   .hero_subtitle {
-    font-size: 12px !important;
+    width: 22ch !important;
+    font-size: 24px !important;
+    font-weight: 400 !important;
+  }
+  .list {
+    display: none;
   }
   .list li {
     margin-left: 8px !important;
     margin-right: 8px !important;
   }
+  .burger_btn {
+    display: flex;
+  }
+  .menu {
+    display: flex;
+  }
+
+  .logo_title {
+    font-size: 20px !important;
+    font-weight: 500 !important;
+    margin-left: -10px !important;
+  }
+  .home-logo {
+    width: 70% !important;
+    min-width: 12px !important;
+  }
+  .hero_subtitle_btn_div {
+    display: flex !important;
+    flex-direction: column;
+  }
 }
 
 @media only screen and (max-width: 480px) {
-  .hero_title {
+  /* .hero_title {
     font-size: 18px !important;
   }
   .hero_subtitle {
     font-size: 10px !important;
-  }
-  .list li {
+  } */
+  /* .list li {
     margin-left: 6px !important;
     margin-right: 6px !important;
   }
+  .logo_title {
+    font-size: 14px !important;
+    margin-left: -20px !important;
+  }
+  .home-logo {
+    width: 50% !important;
+    min-width: 12px !important;
+  } */
 }

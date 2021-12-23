@@ -43,6 +43,10 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     width: "100%",
     height: "40px",
     color: "#9A9EA7",
+    "@media (max-width:1440px)": {
+      // eslint-disable-line no-useless-computed-key
+      height: "25px",
+    },
     "@media (max-width:1366px)": {
       // eslint-disable-line no-useless-computed-key
       height: "25px",
@@ -54,7 +58,7 @@ export default function SearchAppBar() {
   return (
     <Search>
       <SearchIconWrapper>
-        <SearchIcon sx={{ color: "#9296A2", width: "100%" }} />
+        <SearchIcon sx={{ color: "#9296A2" }} />
       </SearchIconWrapper>
       <StyledInputBase
         placeholder="Search"
