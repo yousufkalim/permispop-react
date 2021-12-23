@@ -13,16 +13,6 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Logo from "../../assets/images/logo.svg";
-import { ReactComponent as MyProfile } from "../../assets/DrawerIcons/my_profile.svg";
-import { ReactComponent as Chat } from "../../assets/DrawerIcons/chat.svg";
-import { ReactComponent as PendingReq } from "../../assets/DrawerIcons/pending_req.svg";
-import { ReactComponent as History } from "../../assets/DrawerIcons/history.svg";
-import { ReactComponent as Booking } from "../../assets/DrawerIcons/booking.svg";
-import { ReactComponent as FindInstructure } from "../../assets/DrawerIcons/find_instructure.svg";
-import { ReactComponent as InsOnMap } from "../../assets/DrawerIcons/ins_on_map.svg";
-import { ReactComponent as MyProcedure } from "../../assets/DrawerIcons/my_procedure.svg";
-import { ReactComponent as Disputes } from "../../assets/DrawerIcons/disputes.svg";
-import { ReactComponent as MyLearning } from "../../assets/DrawerIcons/my_learning.svg";
 import Avatar from "@mui/material/Avatar";
 import Tooltip from "@mui/material/Tooltip";
 import PowerSettingsNewIcon from "@mui/icons-material/PowerSettingsNew";
@@ -30,6 +20,7 @@ import Avatar_dumy from "../../assets/DrawerIcons/Avatar_dumy.svg";
 import flag_01 from "../../assets/DrawerIcons/flag_01.svg";
 import flag_02 from "../../assets/DrawerIcons/flag_02.svg";
 import { makeStyles } from "@mui/styles";
+import { NavLink } from "react-router-dom";
 
 const drawerWidth = 300;
 
@@ -73,7 +64,7 @@ function ResponsiveDrawer(props) {
       backgroundColor: "#fbfbfb",
       height: "100vh",
       padding: "3rem",
-
+      marginTop: "30px",
       width: { xmd: `calc(100% - ${drawerWidth}px)` },
       "@media (max-width:992px)": {
         width: { xmd: `calc(100% - ${drawerWidth - 40}px)` },
@@ -100,47 +91,26 @@ function ResponsiveDrawer(props) {
       <Toolbar />
       {/* drawer list text */}
       <List className="drawer-list">
-        {[
-          "My Profile",
-          "Chat",
-          "Pending Requests ",
-          "History",
-          "Bookings",
-          "Find Instructor",
-          "Instructor on Map",
-          "My Prodedures",
-          "Disputes",
-          "My Learning",
-        ]
-          // map for checking which index is active
-          .map((text, index) => (
-            <ListItem
-              button
-              key={text}
-              className={active === index && "selected-item"}
-              onClick={() => setActive(index)}
+        {props.routes.map((route, index) => (
+          <ListItem
+            button
+            component={NavLink}
+            to={route.layout + route.path}
+            key={route.name}
+            className={active === index && "selected-item"}
+            onClick={() => setActive(index)}
+          >
+            <ListItemIcon
+              className={active === index ? "iconSelected" : "defaultIcon"}
             >
-              {/* drawer list icons */}
-              <ListItemIcon
-                className={active === index ? "iconSelected" : "defaultIcon"}
-              >
-                {index === 0 && <MyProfile className="drawer-icons" />}
-                {index === 1 && <Chat className="drawer-icons" />}
-                {index === 2 && <PendingReq className="drawer-icons" />}
-                {index === 3 && <History className="drawer-icons" />}
-                {index === 4 && <Booking className="drawer-icons" />}
-                {index === 5 && <FindInstructure className="drawer-icons" />}
-                {index === 6 && <InsOnMap className="drawer-icons" />}
-                {index === 7 && <MyProcedure className="drawer-icons" />}
-                {index === 8 && <Disputes className="drawer-icons" />}
-                {index === 9 && <MyLearning className="drawer-icons" />}
-              </ListItemIcon>
-              <ListItemText
-                primary={text}
-                primaryTypographyProps={{ className: "drawer-list-text" }}
-              />
-            </ListItem>
-          ))}
+              {route.icon}
+            </ListItemIcon>
+            <ListItemText
+              primary={route.name}
+              primaryTypographyProps={{ className: "drawer-list-text" }}
+            />
+          </ListItem>
+        ))}
       </List>
     </div>
   );
@@ -169,7 +139,9 @@ function ResponsiveDrawer(props) {
           </Typography>
           <Box className="Avatar-appbar">
             <IconButton className="power-icon">
-              <PowerSettingsNewIcon />
+              <NavLink to="/" style={{ color: "inherit" }}>
+                <PowerSettingsNewIcon />
+              </NavLink>
             </IconButton>
             <Divider orientation="vertical" flexItem className="divider" />
 
@@ -230,7 +202,9 @@ function ResponsiveDrawer(props) {
         </Drawer>
       </Box>
       {/* main content box */}
-      <Box component="main" className={classes.mainBox}></Box>
+      <Box component="main" className={classes.mainBox}>
+        {props.children}
+      </Box>
     </Box>
   );
 }
