@@ -18,6 +18,7 @@ export default function MainDivider(props) {
   return (
     <Divider
       flexItem
+      orientation={props.orientation ? props.variant : "horizontal"}
       variant={props.variant ? props.variant : "middle"}
       textAlign={props.textAlign ? props.textAlign : "center"}
       light={props.light ? props.light : true}
