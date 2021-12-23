@@ -1,0 +1,87 @@
+.Login_text_field {
+  display: flex;
+  flex-direction: column;
+  padding: 10px !important;
+  margin: 15px !important;
+
+  margin-left: 30px !important;
+  margin-bottom: 5px !important;
+  font-family: Inter !important;
+}
+.login_modal_title {
+  color: #2f363d !important;
+}
+.login_div {
+  padding-right: 10px !important;
+  padding-bottom: 10px !important;
+}
+.MuiOutlinedInput-root {
+  /* margin-top: 10px !important; */
+  margin-bottom: 10px !important;
+  margin-left: 25px !important;
+  border-radius: 100px !important;
+  width: 400px !important;
+  border: none !important;
+  box-shadow: 0px 14px 59px rgb(115 55 0 / 15%);
+}
+.MuiOutlinedInput-notchedOutline {
+  border: none !important;
+}
+
+.termsConditionsCheckboxTitle1 {
+  font-family: Inter !important;
+  margin-top: 15px !important;
+  font-weight: 300 !important;
+  margin-right: 10px !important;
+  font-size: 14px !important;
+  color: #818aa4 !important;
+}
+.termsandconditions {
+  margin-top: 15px !important;
+}
+.termsConditionsCheckbox1 {
+  display: flex;
+  justify-content: center;
+}
+.LoginModalButton {
+  margin-top: 20px;
+}
+.Register_now {
+  display: flex;
+  justify-content: center;
+  font-family: Inter !important;
+  margin-top: 25px !important;
+  margin-bottom: 25px !important;
+  font-weight: 300 !important;
+  font-size: 10px !important;
+  color: #818aa4 !important;
+  padding-bottom: 20px !important;
+}
+.account {
+  margin-right: 10px !important;
+}
+svg {
+  height: 30px !important;
+}
+
+@media only screen and (max-width: 1440px) {
+  .MuiOutlinedInput-root {
+    width: 330px !important;
+    margin-left: 0px !important;
+  }
+}
+
+@media only screen and (max-width: 1366px) {
+  .MuiOutlinedInput-root {
+    width: 300px !important;
+  }
+}
+@media only screen and (max-width: 992px) {
+  .MuiOutlinedInput-root {
+    width: 200px !important;
+  }
+  .account {
+    display: flex;
+    flex-direction: column-reverse;
+  }
+}

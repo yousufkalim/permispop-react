@@ -1,52 +1,18 @@
 import React from "react";
 import Button from "../Common/Button";
-import Search from "../Common/Search";
-import Logo from "../../assets/images/logo.svg";
+import Header from "../Common/Header";
 import Typography from "@mui/material/Typography";
-import Divider from "@mui/material/Divider";
 import PlayCircleFilledWhiteOutlinedIcon from "@mui/icons-material/PlayCircleFilledWhiteOutlined";
+import RegisterModal from "./RegisterModal";
 
 const Hero = () => {
+  const [Registeropen, setRegisteropen] = React.useState(false);
+  const handleRegisterOpen = () => setRegisteropen(true);
+  const handleRegisterClose = () => setRegisteropen(false);
   return (
     <div className="main_hero_container">
       <div className="second_hero_container">
-        <div className="main-list">
-          <div className="flex_rowAlign_center">
-            <a href="http://localhost:3000">
-              <img className="home-logo img-fluid w-75" src={Logo} alt="" />
-            </a>
-            <Typography variant="p" className="logo_title">
-              PERMISPOP
-            </Typography>
-            <ul className="list mt-2 text-center">
-              <li>
-                <ul>
-                  <li>
-                    <a href="#home"> Home </a>
-                  </li>
-                  <li>
-                    <a href="#services"> Services </a>
-                  </li>
-                  <li>
-                    <a href="#contactUs"> Contact Us </a>
-                  </li>
-                </ul>
-              </li>
-            </ul>
-          </div>
-          <div className="flex_rowAlign_spacebwt">
-            <Search></Search>
-            <Divider
-              orientation="vertical"
-              light={true}
-              flexItem
-              variant="middle"
-              sx={{ margin: "10px" }}
-              className={"divider"}
-            />
-            <Button type="submit" text="Login"></Button>
-          </div>
-        </div>
+        <Header />
         <div className="hero_title_div">
           <Typography variant="h2" align="center" className="hero_title">
             The Revolutionary platform for true Driving education freelancers.
@@ -57,14 +23,19 @@ const Hero = () => {
             Join us to enjoy quality driving education
           </Typography>
         </div>
-        <div className="hero_subtitle_div">
+        <div className="hero_subtitle_btn_div">
           <Button
             style={{
               marginRight: "1%",
             }}
             type="submit"
             text="Join Now"
+            customWidth1="36%"
+            customWidth2="60%"
+            buttonLableStyle="btn_main"
+            onClick={handleRegisterOpen}
           ></Button>
+
           <Button
             startIcon={
               <PlayCircleFilledWhiteOutlinedIcon sx={{ color: "#43DAB1" }} />
@@ -73,9 +44,20 @@ const Hero = () => {
             color="white"
             textColor="#252831"
             text="Play Video"
+            customWidth1="36%"
+            customWidth2="60%"
+            buttonLableStyle="btn_main"
           ></Button>
         </div>
       </div>
+      <RegisterModal
+        open={Registeropen}
+        closebtn={true}
+        onClose={handleRegisterClose}
+        modalTitle="Register As"
+        modalboxclassName="Register_modal"
+        modalTitleclassName="Register_title"
+      ></RegisterModal>
     </div>
   );
 };
