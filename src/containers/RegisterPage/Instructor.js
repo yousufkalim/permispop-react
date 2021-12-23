@@ -123,6 +123,34 @@ const Instructor = () => {
         }}
       >
         <Box sx={{ width: "96%" }}>
+          <Typography
+            sx={{
+              mt: 2,
+              mb: 1,
+              color: "#2B3135",
+              display: "flex",
+              textAlign: "center",
+              justifyContent: "center",
+              alignItem: "center",
+              fontFamily: "Inter",
+              fontStyle: "normal",
+              fontWeight: 600,
+              fontSize: "30px",
+              marginBottom: "50px",
+            }}
+          >
+            {activeStep === 1 ? (
+              <>Instructor Identity</>
+            ) : activeStep === 2 ? (
+              <>Driver’s License</>
+            ) : activeStep === 3 ? (
+              <>Insurance</>
+            ) : activeStep === 4 ? (
+              <>Vehicle Details</>
+            ) : (
+              ""
+            )}
+          </Typography>
           <Stepper
             alternativeLabel
             activeStep={activeStep}
@@ -192,7 +220,7 @@ const Instructor = () => {
                     }}
                   >
                     <Button
-                      disabled={activeStep === 0}
+                      disabled={activeStep === 1}
                       onClick={handleBack}
                       text="Back"
                       buttonLableStyle="btn_main"
