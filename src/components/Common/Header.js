@@ -13,18 +13,15 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import Fade from "@mui/material/Fade";
 import BasicModal from "./BasicModal";
-import LoginModal from "../Landing/RegisterModal";
 import Checkbox from "@mui/material/Checkbox";
 import { Link } from "@mui/material";
 import { InputAdornment } from "@mui/material";
-import PersonIcon from "@mui/icons-material/Person";
 import { OutlinedInput } from "@mui/material";
 import { FormControl } from "@mui/material";
-import { InputLabel } from "@mui/material";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import TextField from "@mui/material/TextField";
-
+import { useHistory } from "react-router-dom";
 import { Grid } from "@mui/material";
 
 export default function Header(props) {
@@ -40,7 +37,8 @@ export default function Header(props) {
     password: "",
     showPassword: false,
   });
-
+  const history = useHistory();
+  const handleLogin = () => history.push("/student/myProfille");
   const handleChange = (prop) => (event) => {
     setValues({ ...values, [prop]: event.target.value });
   };
@@ -194,6 +192,7 @@ export default function Header(props) {
                 buttonLableStyle="btn_main"
                 width="250px"
                 height="50px"
+                onClick={handleLogin}
               ></Button>
             </div>
             <Grid item className="Register_now">
