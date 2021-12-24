@@ -26,16 +26,15 @@
 
 .Avatar-appbar {
   display: flex !important;
-  justify-content: end !important;
+  justify-content: flex-end !important;
   width: 100% !important;
 }
 .flags-appbar {
-  margin-right: 5px !important;
   height: 1.5rem !important;
 }
 
 .power-icon {
-  font-size: 1.5rem !important;
+  color: #2a3235 !important;
 }
 .drawer-list {
   color: #858a96 !important;
@@ -72,12 +71,22 @@
   margin-bottom: 1px !important;
 }
 .divider {
-  margin: 10px !important;
+  margin: 8px !important;
+}
+
+.navbar_avatar {
+  width: 40px !important;
+  height: 40px !important;
+  margin-top: 2px !important;
 }
 
 @media only screen and (max-width: 1366px) {
   .drawer-list-text {
     font-size: 1rem !important;
+  }
+  .navbar_avatar {
+    width: 40px !important;
+    height: 40px !important;
   }
 }
 @media only screen and (max-width: 992px) {
