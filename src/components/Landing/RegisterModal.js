@@ -8,9 +8,17 @@ import Grid from "@mui/material/Grid";
 import Divider from "../../components/Common/Divider";
 import RegisterStudent from "../../assets/images/RegisterStudent.svg";
 import RegisterProfessional from "../../assets/images/RegisterProfessional.svg";
+import { useHistory } from "react-router-dom";
 
 export default function RegisterModal(props) {
   const [register, setRegister] = React.useState(true);
+
+  const history = useHistory();
+  const handleStudentRegister = () => history.push("/register/student");
+  const handleInstructorRegister = () => history.push("/register/instructor");
+  const handleDrivingSchoolRegister = () =>
+    history.push("register/drivingSchool");
+  const handleRentalCarRegister = () => history.push("/register/carRental");
 
   React.useEffect(() => {
     setRegister(true);
@@ -41,6 +49,7 @@ export default function RegisterModal(props) {
                   borderRadius: "30px",
                   cursor: "pointer",
                 }}
+                onClick={handleStudentRegister}
               >
                 <CardContent>
                   <CardMedia
@@ -122,6 +131,7 @@ export default function RegisterModal(props) {
                   borderRadius: "30px",
                   cursor: "pointer",
                 }}
+                onClick={handleInstructorRegister}
               >
                 <CardContent>
                   <CardMedia
@@ -165,6 +175,7 @@ export default function RegisterModal(props) {
                   // marginLeft: "30px",
                   cursor: "pointer",
                 }}
+                onClick={handleDrivingSchoolRegister}
               >
                 <CardContent>
                   <CardMedia
@@ -209,6 +220,7 @@ export default function RegisterModal(props) {
                   // marginLeft: "30px",
                   cursor: "pointer",
                 }}
+                onClick={handleRentalCarRegister}
               >
                 <CardContent>
                   <CardMedia
