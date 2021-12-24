@@ -18,6 +18,10 @@ import AssignmentTurnedInOutlinedIcon from "@mui/icons-material/AssignmentTurned
 //test component
 import Test from "../containers/Dashboard/index.js";
 
+import InsCalendar from "../containers/Dashboard/Instructor/Calendar";
+import DsInsCalendar from "../containers/Dashboard/DsInstructor/Calendar";
+import DsCalendar from "../containers/Dashboard/DrivingSchool/Calendar";
+import CrCalendar from "../containers/Dashboard/CarRental/Calendar";
 // routes
 
 // Student Routes
@@ -134,7 +138,7 @@ var InstructorRoutes = [
     path: "/mycalendar",
     name: "My Calendar",
     icon: <Calendar className="drawer-icons" />,
-    component: Test,
+    component: InsCalendar,
     layout: "/instructor",
   },
   {
@@ -159,7 +163,7 @@ var InstructorRoutes = [
     layout: "/instructor",
   },
 ];
-// Driving School Routes
+// Driving School Instructor Routes
 
 var DsInstructorRoutes = [
   {
@@ -201,7 +205,7 @@ var DsInstructorRoutes = [
     path: "/mycalendar",
     name: "My Calendar",
     icon: <Calendar className="drawer-icons" />,
-    component: Test,
+    component: DsInsCalendar,
     layout: "/DsInstructor",
   },
   {
@@ -267,7 +271,7 @@ var DrivingSchoolRoutes = [
     path: "/mycalendar",
     name: "My Calendar",
     icon: <Calendar className="drawer-icons" />,
-    component: Test,
+    component: DsCalendar,
     layout: "/DrivingSchool",
   },
   {
@@ -334,7 +338,7 @@ var CarRentalRoutes = [
     path: "/mycalendar",
     name: "My Calendar",
     icon: <Calendar className="drawer-icons" />,
-    component: Test,
+    component: CrCalendar,
     layout: "/carRental",
   },
 
