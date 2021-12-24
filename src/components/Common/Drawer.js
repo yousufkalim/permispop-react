@@ -71,8 +71,9 @@ function ResponsiveDrawer(props) {
     mainBox: {
       flexGrow: 1,
       backgroundColor: "#fbfbfb",
-      height: "100vh",
+      height: "100%",
       padding: "3rem",
+      marginTop: "40px",
 
       width: { xmd: `calc(100% - ${drawerWidth}px)` },
       "@media (max-width:992px)": {
@@ -230,7 +231,9 @@ function ResponsiveDrawer(props) {
         </Drawer>
       </Box>
       {/* main content box */}
-      <Box component="main" className={classes.mainBox}></Box>
+      <Box component="main" className={classes.mainBox}>
+        {props.children}
+      </Box>
     </Box>
   );
 }
