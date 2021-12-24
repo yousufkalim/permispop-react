@@ -1,0 +1,86 @@
+/*About section */
+.Abouttitlle {
+  margin-top: 70px !important;
+  font-family: Inter !important;
+  font-style: normal !important;
+  font-weight: 500 !important;
+  font-size: 20px !important;
+  line-height: 24px !important;
+  display: flex !important;
+  align-items: center !important;
+
+  color: #2a3235 !important;
+}
+.AboutHeading {
+  font-family: Inter !important;
+  font-style: normal !important;
+  font-weight: bold !important;
+  font-size: 16px !important;
+  line-height: 19px !important;
+  display: flex !important;
+  align-items: center !important;
+  text-transform: uppercase !important;
+  margin-top: 45px !important;
+  margin-left: 60px !important;
+  color: #110000 !important;
+}
+.Information {
+  font-family: Inter !important;
+  font-style: normal !important;
+  font-weight: 500 !important;
+  font-size: 18px !important;
+  line-height: 22px !important;
+  /* identical to box height */
+  margin-left: 30px !important;
+  margin-top: 30px !important;
+  display: flex !important;
+  align-items: center !important;
+
+  color: #110000 !important;
+}
+.RoleInformation {
+  font-family: Inter !important;
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-size: 18px !important;
+  margin-top: 30px !important;
+
+  display: flex !important;
+  align-items: center !important;
+
+  color: #b3b5c2 !important;
+}
+.formdata {
+  margin-left: 30px !important;
+}
+.ProfileDivider {
+  margin-top: 30px !important;
+}
+@media only screen and (max-width: 768px) {
+  .profileButton {
+    margin-bottom: 20px !important;
+  }
+  .formdata {
+    margin-right: 30px !important;
+  }
+  .Information {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .RoleInformation {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .AboutHeading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .Abouttitlle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+}
