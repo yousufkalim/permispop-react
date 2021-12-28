@@ -8,8 +8,8 @@ import Divider from "../../../components/Common/Divider";
 const Profile = () => {
   return (
     <React.Fragment>
-      <Grid container spacing={1}>
-        <Grid md={3}>
+      <Grid container spacing={1} className="maindiv">
+        <Grid md={3} className="leftprofilediv">
           <ProfileImage src={Studentprofile}></ProfileImage>
         </Grid>
 
