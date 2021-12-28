@@ -7,13 +7,15 @@ export default function ButtonComponent(props) {
   const useStyles = makeStyles((theme) => ({
     button: {
       height: props.height || "55px",
-      width: props.width || "fit-content",
+      width: props.width || "fit-content !important",
       // minWidth: props.minWidth ? props.minWidth : "150px",
       // maxWidth: props.maxWidth ? props.maxWidth : "150px",
       color: props.textColor || theme.palette.common.white,
       backgroundColor: props.color || theme.palette.primary.main,
       boxShadow: "0px 7px 14px rgba(140, 69, 0, 0.21)",
       borderRadius: props.borderRadius || "33px",
+      borderColor: props.borderColor || "#149e7a !important",
+
       margin: props.margin || "",
       padding: props.padding || "",
       "&:hover": {
