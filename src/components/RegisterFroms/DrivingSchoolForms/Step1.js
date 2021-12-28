@@ -5,16 +5,9 @@ import Box from "@mui/material/Box";
 import TextField from "../../Common/TextField";
 import DropDown from "../../Common/DropDown";
 import Divider from "../../Common/Divider";
-import FilePicker from "../../Common/FilePicker";
 import Checkbox from "@mui/material/Checkbox";
 
 const Step1 = (props) => {
-  const [age, setAge] = React.useState("");
-
-  const handleChange = (event) => {
-    setAge(event.target.value);
-  };
-
   return (
     <Box
       component="form"

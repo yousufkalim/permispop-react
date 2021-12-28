@@ -13,14 +13,13 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import Logo from "../../assets/images/logo.svg";
-import Avatar from "@mui/material/Avatar";
-import Tooltip from "@mui/material/Tooltip";
 import PowerSettingsNewIcon from "@mui/icons-material/PowerSettingsNew";
 import Avatar_dumy from "../../assets/DrawerIcons/Avatar_dumy.svg";
 import flag_01 from "../../assets/DrawerIcons/flag_01.svg";
 import flag_02 from "../../assets/DrawerIcons/flag_02.svg";
 import { makeStyles } from "@mui/styles";
 import { NavLink } from "react-router-dom";
+import BasicAvatar from "../Common/BasicAvatar";
 
 const drawerWidth = 300;
 
@@ -138,9 +137,9 @@ function ResponsiveDrawer(props) {
             PERMISPOP.
           </Typography>
           <Box className="Avatar-appbar">
-            <IconButton className="power-icon">
-              <NavLink to="/" style={{ color: "inherit" }}>
-                <PowerSettingsNewIcon />
+            <IconButton>
+              <NavLink to="/">
+                <PowerSettingsNewIcon className="power-icon" />
               </NavLink>
             </IconButton>
             <Divider orientation="vertical" flexItem className="divider" />
@@ -152,11 +151,13 @@ function ResponsiveDrawer(props) {
             <IconButton className="flag02">
               <img alt="Russia" src={flag_02} className="flags-appbar" />
             </IconButton>
-
             <IconButton>
-              <Tooltip title="My Profile">
-                <Avatar alt="Profile" src={Avatar_dumy} />
-              </Tooltip>
+              <BasicAvatar
+                showActiveStatus={true}
+                online={true}
+                src={Avatar_dumy}
+                avatarclassName="navbar_avatar"
+              />
             </IconButton>
           </Box>
         </Toolbar>

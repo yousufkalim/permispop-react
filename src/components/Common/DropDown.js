@@ -53,7 +53,7 @@ export default function DropDown(props) {
     helper: {},
   }));
   const classes = useStyles();
-  let array = [];
+
   return (
     <div>
       <FormControl
@@ -67,7 +67,6 @@ export default function DropDown(props) {
           id="demo-simple-select-standard-label"
           shrink={true}
           className={[classes.inputLabels, props.inputLabelStyle].join(" ")}
-          shrink={true}
           {...props.inputLabelProps}
         >
           {props.label}

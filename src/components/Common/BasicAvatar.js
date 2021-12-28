@@ -24,6 +24,7 @@ export default function BasicAvatars(props) {
           <Avatar
             className={props.avatarclassName || "avatar"}
             onClick={props.onClick}
+            src={props.src}
             {...props.avatarProps}
           />
         </StyledBadge>
