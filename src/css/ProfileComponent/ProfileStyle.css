@@ -26,6 +26,7 @@
 }
 .locationicon {
   margin-left: 15px !important;
+  margin-right: 10px !important;
   margin-top: 15px !important;
 }
 .Name {
@@ -69,20 +70,26 @@
   color: #2a3235 !important;
 }
 
-.profileButton {
-  width: 95% !important;
-}
 .ButtonSection {
-  margin-top: 40px !important;
+  margin-top: 30px !important;
 }
 .VectorIcon {
   margin-top: 15px !important;
-  margin-right: 10px !important;
+  margin-right: 15px !important;
+  /* margin-left: 10px !important; */
 }
 .css-15g1vfm-MuiButtonBase-root-MuiButton-root {
   background-color: white;
 }
-
+.css-d0uhtl {
+  margin-left: 0px !important;
+  margin-right: 10px !important;
+  font-weight: 500 !important;
+}
+.css-1e4gvzl-MuiTypography-root {
+  font-weight: 700 !important;
+  font-size: 24px !important;
+}
 /*About section */
 .Abouttitlle {
   margin-top: 70px !important;
@@ -97,8 +104,121 @@
   color: #2a3235 !important;
 }
 
+@media only screen and (max-width: 1366px) {
+  /* .maindiv {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    align-items: center !important;
+    width: 100% !important;
+  } */
+}
+
 @media only screen and (max-width: 768px) {
-  .profileButton {
+  .maindiv {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    align-items: center !important;
+    width: 100% !important;
+  }
+  .leftprofilediv {
+    width: 100% !important;
+  }
+  .LanguageButton {
     margin-bottom: 20px !important;
+    margin-top: 20px !important;
+  }
+  .ProfileButton {
+    margin-top: 20px !important;
+  }
+  .VectorIcon {
+    display: none !important;
+  }
+  .Profile-img {
+    display: flex !important;
+    justify-content: center !important;
+    align-content: center !important;
+    align-items: center !important;
+  }
+  .uppersection {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    align-content: center !important;
+  }
+  .Role {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    align-content: center !important;
+  }
+  .Ranking {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    align-content: center !important;
+  }
+  .rating {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+  }
+  .profile_image_container {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    width: 100% !important;
+  }
+}
+
+@media only screen and (max-width: 555px) {
+  .uppersection {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    align-content: center !important;
+  }
+  .Role {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    align-content: center !important;
+  }
+  .Ranking {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    align-content: center !important;
+  }
+  .rating {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+  }
+  .profile_image_container {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    width: 80% !important;
+  }
+  .ButtonSection {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    align-content: center !important;
+    /* margin-left: 100px !important;
+    margin-top: 18px !important; */
+  }
+  .uppersection {
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
+    align-content: center !important;
+  }
+  .leftprofilediv {
+    display: flex !important;
+    justify-content: center !important;
+    margin-left: 30px !important;
   }
 }
