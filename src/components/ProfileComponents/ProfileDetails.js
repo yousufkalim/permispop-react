@@ -31,6 +31,7 @@ const ProfileDetails = (props) => {
       <Typography className="Role">{props.role}</Typography>
       <Typography className="Ranking">{props.ranking}</Typography>
       <Rating
+        className="rating"
         name="rating-feedback"
         size="large"
         readOnly={true}
@@ -48,9 +49,13 @@ const ProfileDetails = (props) => {
       <Grid container className="ButtonSection">
         <Grid xs={12} sm={12} md={2}>
           <Button
+            className="LanguageButton"
             text="Languages"
-            backgroundColor="primary"
-            className="profileButton"
+            variant="outlined"
+            margin="0px 10px 0px 0px !important"
+            textColor="#149e7a"
+            borderColor="#149e7a !important"
+            width="90% !important"
             aria-expanded={open ? "true" : undefined}
             onClick={handleClick}
           ></Button>
@@ -71,8 +76,10 @@ const ProfileDetails = (props) => {
         <Grid xs={12} sm={12} md={2}>
           <Button
             startIcon={<Editprofile />}
+            className="ProfileButton"
             text="Edit Profile"
-            className="profileButton"
+            width="90% !important"
+            color="#149e7a !important"
             onClick={(e) => seteditProfile(!editProfile)}
           ></Button>
         </Grid>
@@ -82,11 +89,19 @@ const ProfileDetails = (props) => {
             <Grid xs={12} sm={12} md={3}>
               <Button
                 text="Request Profile Update"
-                className="profileButton"
+                variant="outlined"
+                width="90% !important"
+                textColor="#149e7a"
+                className="LanguageButton"
               ></Button>
             </Grid>
-            <Grid xs={12} sm={12} md={2}>
-              <Button text="Change Password" className="profileButton"></Button>
+            <Grid xs={12} sm={12} md={3}>
+              <Button
+                text="Change Password"
+                variant="outlined"
+                width="90% !important"
+                textColor="#149e7a"
+              ></Button>
             </Grid>{" "}
           </>
         ) : (
