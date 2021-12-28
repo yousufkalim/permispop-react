@@ -1,10 +1,8 @@
 import React from "react";
-import Drawer from "../../components/Common/Drawer";
-
 const index = () => {
   return (
     <React.Fragment>
-      <Drawer />
+      <h1>TEST COMPONENT //TEMPORARY </h1>
     </React.Fragment>
   );
 };
