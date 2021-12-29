@@ -1,0 +1,363 @@
+//Icons
+import { ReactComponent as MyProfile } from "../assets/DrawerIcons/my_profile.svg";
+import { ReactComponent as Chat } from "../assets/DrawerIcons/chat.svg";
+import { ReactComponent as PendingReq } from "../assets/DrawerIcons/pending_req.svg";
+import { ReactComponent as History } from "../assets/DrawerIcons/history.svg";
+import { ReactComponent as Booking } from "../assets/DrawerIcons/booking.svg";
+import { ReactComponent as FindInstructure } from "../assets/DrawerIcons/find_instructure.svg";
+import { ReactComponent as InsOnMap } from "../assets/DrawerIcons/ins_on_map.svg";
+import { ReactComponent as MyProcedure } from "../assets/DrawerIcons/my_procedure.svg";
+import { ReactComponent as Dispute } from "../assets/DrawerIcons/disputes.svg";
+import { ReactComponent as MyLearing } from "../assets/DrawerIcons/my_learning.svg";
+import { ReactComponent as Car } from "../assets/DrawerIcons/car.svg";
+import { ReactComponent as Calendar } from "../assets/DrawerIcons/Icon-Calendar.svg";
+import QuizOutlinedIcon from "@mui/icons-material/QuizOutlined";
+import GroupOutlinedIcon from "@mui/icons-material/GroupOutlined";
+import AssignmentTurnedInOutlinedIcon from "@mui/icons-material/AssignmentTurnedInOutlined";
+// components
+//test component
+import Test from "../containers/Dashboard/index.js";
+
+// routes
+
+// Student Routes
+var StudentRoutes = [
+  {
+    path: "/myProfille",
+    name: "My Profile",
+    icon: <MyProfile className="drawer-icons" />,
+    component: Test,
+    layout: "/student",
+  },
+  {
+    path: "/chat",
+    name: "Chat",
+    icon: <Chat className="drawer-icons" />,
+    component: Test,
+    layout: "/student",
+  },
+  {
+    path: "/pendingRequest",
+    name: "Pending Request",
+    icon: <PendingReq className="drawer-icons" />,
+    component: Test,
+    layout: "/student",
+  },
+  {
+    path: "/history",
+    name: "History",
+    icon: <History className="drawer-icons" />,
+    component: Test,
+    layout: "/student",
+  },
+  {
+    path: "/booking",
+    name: "Booking",
+    icon: <Booking className="drawer-icons" />,
+    component: Test,
+    layout: "/student",
+  },
+  {
+    path: "/findInstructure",
+    name: "Find Instructure",
+    icon: <FindInstructure className="drawer-icons" />,
+    component: Test,
+    layout: "/student",
+  },
+  {
+    path: "/instructureOnMap",
+    name: "Instructure On Map",
+    icon: <InsOnMap className="drawer-icons" />,
+    component: Test,
+    layout: "/student",
+  },
+  {
+    path: "/MyProcedure",
+    name: "My Procedure",
+    icon: <MyProcedure className="drawer-icons" />,
+    component: Test,
+    layout: "/student",
+  },
+  {
+    path: "/dispute",
+    name: "Dispute",
+    icon: <Dispute className="drawer-icons" />,
+    component: Test,
+    layout: "/student",
+  },
+  {
+    path: "/myLearning",
+    name: "My Learning",
+    icon: <MyLearing className="drawer-icons" />,
+    component: Test,
+    layout: "/student",
+  },
+];
+// Instructor Routes
+var InstructorRoutes = [
+  {
+    path: "/myprofile",
+    name: "My Profile",
+    icon: <MyProfile className="drawer-icons" />,
+    component: Test,
+    layout: "/instructor",
+  },
+  {
+    path: "/insuranceDetails",
+    name: "Insurance Details",
+    icon: <AssignmentTurnedInOutlinedIcon className="drawer-icons" />,
+    component: Test,
+    layout: "/instructor",
+  },
+  {
+    path: "/chat",
+    name: "Chat",
+    icon: <Chat className="drawer-icons" />,
+    component: Test,
+    layout: "/instructor",
+  },
+  {
+    path: "/pendingRequest",
+    name: "Pending Request",
+    icon: <PendingReq className="drawer-icons" />,
+    component: Test,
+    layout: "/instructor",
+  },
+  {
+    path: "/history",
+    name: "History",
+    icon: <History className="drawer-icons" />,
+    component: Test,
+    layout: "/instructor",
+  },
+  {
+    path: "/mycalendar",
+    name: "My Calendar",
+    icon: <Calendar className="drawer-icons" />,
+    component: Test,
+    layout: "/instructor",
+  },
+  {
+    path: "/vehicles",
+    name: "Vehicles",
+    icon: <Car className="drawer-icons" />,
+    component: Test,
+    layout: "/instructor",
+  },
+  {
+    path: "/disputes",
+    name: "Disputes",
+    icon: <Dispute className="drawer-icons" />,
+    component: Test,
+    layout: "/instructor",
+  },
+  {
+    path: "/faq's",
+    name: "FAQ'S",
+    icon: <QuizOutlinedIcon className="drawer-icons" />,
+    component: Test,
+    layout: "/instructor",
+  },
+];
+// Driving School Routes
+
+var DsInstructorRoutes = [
+  {
+    path: "/myprofile",
+    name: "My Profile",
+    icon: <MyProfile className="drawer-icons" />,
+    component: Test,
+    layout: "/DsInstructor",
+  },
+  {
+    path: "/insuranceDetails",
+    name: "Insurance Details",
+    icon: <AssignmentTurnedInOutlinedIcon className="drawer-icons" />,
+    component: Test,
+    layout: "/DsInstructor",
+  },
+  {
+    path: "/chat",
+    name: "Chat",
+    icon: <Chat className="drawer-icons" />,
+    component: Test,
+    layout: "/DsInstructor",
+  },
+  {
+    path: "/pendingRequest",
+    name: "Pending Request",
+    icon: <PendingReq className="drawer-icons" />,
+    component: Test,
+    layout: "/DsInstructor",
+  },
+  {
+    path: "/history",
+    name: "History",
+    icon: <History className="drawer-icons" />,
+    component: Test,
+    layout: "/DsInstructor",
+  },
+  {
+    path: "/mycalendar",
+    name: "My Calendar",
+    icon: <Calendar className="drawer-icons" />,
+    component: Test,
+    layout: "/DsInstructor",
+  },
+  {
+    path: "/vehicles",
+    name: "Vehicles",
+    icon: <Car className="drawer-icons" />,
+    component: Test,
+    layout: "/DsInstructor",
+  },
+  {
+    path: "/disputes",
+    name: "Disputes",
+    icon: <Dispute className="drawer-icons" />,
+    component: Test,
+    layout: "/DsInstructor",
+  },
+  {
+    path: "/faq's",
+    name: "FAQ'S",
+    icon: <QuizOutlinedIcon className="drawer-icons" />,
+    component: Test,
+    layout: "/DsInstructor",
+  },
+];
+// Driving School routes
+var DrivingSchoolRoutes = [
+  {
+    path: "/myprofile",
+    name: "My Profile",
+    icon: <MyProfile className="drawer-icons" />,
+    component: Test,
+    layout: "/DrivingSchool",
+  },
+  {
+    path: "/insuranceDetails",
+    name: "Insurance Details",
+    icon: <AssignmentTurnedInOutlinedIcon className="drawer-icons" />,
+    component: Test,
+    layout: "/DrivingSchool",
+  },
+  {
+    path: "/chat",
+    name: "Chat",
+    icon: <Chat className="drawer-icons" />,
+    component: Test,
+    layout: "/DrivingSchool",
+  },
+  {
+    path: "/pendingRequest",
+    name: "Pending Request",
+    icon: <PendingReq className="drawer-icons" />,
+    component: Test,
+    layout: "/DrivingSchool",
+  },
+  {
+    path: "/history",
+    name: "History",
+    icon: <History className="drawer-icons" />,
+    component: Test,
+    layout: "/DrivingSchool",
+  },
+  {
+    path: "/mycalendar",
+    name: "My Calendar",
+    icon: <Calendar className="drawer-icons" />,
+    component: Test,
+    layout: "/DrivingSchool",
+  },
+  {
+    path: "/instructor",
+    name: "Instructor",
+    icon: <GroupOutlinedIcon className="drawer-icons" />,
+    component: Test,
+    layout: "/DrivingSchool",
+  },
+  {
+    path: "/vehicles",
+    name: "Vehicles",
+    icon: <Car className="drawer-icons" />,
+    component: Test,
+    layout: "/DrivingSchool",
+  },
+  {
+    path: "/disputes",
+    name: "Disputes",
+    icon: <Dispute className="drawer-icons" />,
+    component: Test,
+    layout: "/DrivingSchool",
+  },
+];
+// Car Rental routes
+
+var CarRentalRoutes = [
+  {
+    path: "/myprofile",
+    name: "My Profile",
+    icon: <MyProfile className="drawer-icons" />,
+    component: Test,
+    layout: "/CarRental",
+  },
+  {
+    path: "/insuranceDetails",
+    name: "Insurance Details",
+    icon: <AssignmentTurnedInOutlinedIcon className="drawer-icons" />,
+    component: Test,
+    layout: "/carRental",
+  },
+  {
+    path: "/chat",
+    name: "Chat",
+    icon: <Chat className="drawer-icons" />,
+    component: Test,
+    layout: "/carRental",
+  },
+  {
+    path: "/pendingRequest",
+    name: "Pending Requests",
+    icon: <PendingReq className="drawer-icons" />,
+    component: Test,
+    layout: "/carRental",
+  },
+  {
+    path: "/history",
+    name: "History",
+    icon: <History className="drawer-icons" />,
+    component: Test,
+    layout: "/carRental",
+  },
+  {
+    path: "/mycalendar",
+    name: "My Calendar",
+    icon: <Calendar className="drawer-icons" />,
+    component: Test,
+    layout: "/carRental",
+  },
+
+  {
+    path: "/vehicles",
+    name: "Vehicles",
+    icon: <Car className="drawer-icons" />,
+    component: Test,
+    layout: "/carRental",
+  },
+  {
+    path: "/disputes",
+    name: "Disputes",
+    icon: <Dispute className="drawer-icons" />,
+    component: Test,
+    layout: "/carRental",
+  },
+];
+const Routes = {
+  StudentRoutes,
+  InstructorRoutes,
+  DsInstructorRoutes,
+  DrivingSchoolRoutes,
+  CarRentalRoutes,
+};
+export default Routes;

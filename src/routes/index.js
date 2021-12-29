@@ -1,18 +1,61 @@
 // Init
 import React from "react";
-import { Route, Switch } from "react-router-dom";
 
 // Routes
+import { Route, Switch, Redirect } from "react-router-dom";
+import InstructorLayout from "../Layout/instructor";
+import StudentLayout from "../Layout/Student";
+import DsInstructorLayout from "../Layout/DsInstructor";
+import DrivingSchoolLayout from "../Layout/DrivingSchool";
+import CarRentalLayout from "../Layout/CarRental";
 import Home from "../containers/LandingPage/index";
-import Dashboard from "../containers/Dashboard/index";
-import Register from "../containers/RegisterPage/index";
+//registration form routes
+import StudentRegister from "../containers/RegisterPage/Student";
+import RentalCarRegister from "../containers/RegisterPage/RentalCar";
+import InstructorRegister from "../containers/RegisterPage/Instructor";
+import DrivingSchoolRegister from "../containers/RegisterPage/DrivingSchool";
 
 const index = () => {
   return (
     <Switch>
-      <Route exact path="/" component={Home} />
-      <Route exact path="/dashboard" component={Dashboard} />
-      <Route exact path="/register" component={Register} />
+      <Switch>
+        <Route
+          path="/instructor"
+          render={(props) => <InstructorLayout {...props} />}
+        />
+        <Route
+          path="/student"
+          render={(props) => <StudentLayout {...props} />}
+        />
+        <Route
+          path="/dsInstructor"
+          render={(props) => <DsInstructorLayout {...props} />}
+        />
+        <Route
+          path="/drivingSchool"
+          render={(props) => <DrivingSchoolLayout {...props} />}
+        />
+        <Route
+          path="/carRental"
+          render={(props) => <CarRentalLayout {...props} />}
+        />
+        {/* default route */}
+        <Route exact path="/" component={Home} />
+        <Route exact path="/register/student" component={StudentRegister} />
+        <Route
+          exact
+          path="/register/instructor"
+          component={InstructorRegister}
+        />
+        <Route
+          exact
+          path="/register/drivingSchool"
+          component={DrivingSchoolRegister}
+        />
+        <Route exact path="/register/carRental" component={RentalCarRegister} />
+        <Route exact path="/register" component={StudentRegister} />
+        <Redirect from="/" to="/" />
+      </Switch>
     </Switch>
   );
 };
