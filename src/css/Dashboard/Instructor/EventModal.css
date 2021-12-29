@@ -1,0 +1,21 @@
+.Event_modal_title {
+  color: #000000 !important;
+  font-weight: 600 !important;
+  font-size: 25px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: left !important;
+}
+.modal {
+  background-color: #ffffff !important;
+  height: 755px !important;
+  width: 988px !important;
+  border-radius: 15px !important;
+}
+.tab-list {
+  color: #000000 !important;
+  display: grid;
+}
+.tab-list .css-17vx6qt-MuiTabs-indicator {
+  display: none !important;
+}
