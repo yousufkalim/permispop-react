@@ -1,0 +1,128 @@
+.main-div {
+  width: 100% !important;
+  background: #ffffff !important;
+}
+.calendar-head {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+}
+.date-box {
+  width: 250px !important;
+  height: 56px !important;
+  border: 2px solid #ecedf3 !important;
+  border-radius: 5px !important;
+  background: #ffffff !important;
+  margin: 1rem !important;
+  text-align: center !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+.arrow-back {
+  margin-right: 4px !important;
+  font-size: medium !important;
+}
+.calendar-icon {
+  margin: 10px !important;
+}
+.current-date {
+  font-weight: 600 !important;
+  color: #4c4c4c !important;
+}
+.arrow-forward {
+  margin-left: 4px !important;
+  font-size: medium !important;
+}
+.instructions-div {
+  display: flex !important;
+  justify-content: center !important;
+}
+.instructions {
+  height: 56px !important;
+  border-radius: 5px !important;
+  background: #ffffff !important;
+  margin: 1rem !important;
+  text-align: center !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  margin-left: 0% !important;
+}
+.colorBox-div {
+  height: 20px !important;
+  width: 20px !important;
+  margin-right: 0.8rem !important;
+  border-radius: 4px !important;
+}
+.add-button {
+  height: 56px !important;
+  width: 13% !important;
+  border-radius: 5px !important;
+  background: #149e7a !important;
+  margin: 1rem !important;
+  margin-left: 0 !important;
+}
+.add-icon {
+  color: #ffffff !important;
+}
+.btn-text {
+  color: #ffffff !important;
+  font-weight: 500 !important;
+  font-size: 15px !important;
+}
+.calendar {
+  height: 700px !important;
+}
+
+@media only screen and (max-width: 1440px) {
+  .date-box {
+    width: 210px !important;
+  }
+  .arrow-back {
+    margin-right: 3px !important;
+    font-size: medium !important;
+  }
+  .arrow-forward {
+    margin-left: 3px !important;
+
+    font-size: medium !important;
+  }
+  .current-date {
+    font-weight: 600 !important;
+    color: #4c4c4c !important;
+    font-size: medium !important;
+  }
+  .calendar-icon {
+    margin: 9px !important;
+    width: 25px !important;
+  }
+  .add-button {
+    width: 14% !important;
+  }
+  .instructions {
+    margin-left: 8px !important;
+  }
+  .instructions-div {
+    margin-left: 0 !important;
+  }
+  .colorBox-div {
+    height: 20px !important;
+    width: 24px !important;
+  }
+}
+
+@media only screen and (max-width: 1366px) {
+}
+
+@media only screen and (max-width: 992px) {
+}
+
+@media only screen and (max-width: 768px) {
+}
+
+@media only screen and (max-width: 600px) {
+}
+
+@media only screen and (max-width: 480px) {
+}

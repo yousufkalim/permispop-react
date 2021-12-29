@@ -21,7 +21,7 @@ import { FormControl } from "@mui/material";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import TextField from "@mui/material/TextField";
-
+import { useHistory } from "react-router-dom";
 import { Grid } from "@mui/material";
 
 export default function Header(props) {
@@ -37,7 +37,8 @@ export default function Header(props) {
     password: "",
     showPassword: false,
   });
-
+  const history = useHistory();
+  const handleLogin = () => history.push("/student/myProfille");
   const handleChange = (prop) => (event) => {
     setValues({ ...values, [prop]: event.target.value });
   };
@@ -191,6 +192,7 @@ export default function Header(props) {
                 buttonLableStyle="btn_main"
                 width="250px"
                 height="50px"
+                onClick={handleLogin}
               ></Button>
             </div>
             <Grid item className="Register_now">

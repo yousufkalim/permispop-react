@@ -9,12 +9,6 @@ import FilePicker from "../../Common/FilePicker";
 import Checkbox from "@mui/material/Checkbox";
 
 const Step1 = (props) => {
-  const [age, setAge] = React.useState("");
-
-  const handleChange = (event) => {
-    setAge(event.target.value);
-  };
-
   return (
     <Box
       component="form"
