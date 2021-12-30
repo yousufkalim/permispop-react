@@ -2,13 +2,11 @@ import React from "react";
 import { Calendar, momentLocalizer, Views } from "react-big-calendar";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import moment from "moment";
-import Events from "../../containers/Dashboard/Instructor/InsCalendar/Events";
 import { Button, Divider, IconButton, Typography } from "@mui/material";
 import { ReactComponent as InstCalendar } from "../../assets/DrawerIcons/Icon-Calendar.svg";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import AddIcon from "@mui/icons-material/Add";
-import { color } from "@mui/system";
 
 const localizer = momentLocalizer(moment);
 const eventsStyle = (event, start, end, isSelected) => {
@@ -34,7 +32,8 @@ const eventsStyle = (event, start, end, isSelected) => {
     style: style,
   };
 };
-const InsCalendar = () => {
+const CalendarComponent = (props) => {
+  console.log("props ==============> ", props);
   return (
     <div className="main-div">
       <div className="calendar-head">
@@ -99,13 +98,17 @@ const InsCalendar = () => {
       <div className="calendar">
         <Calendar
           localizer={localizer}
-          events={Events}
+          events={props.events}
           eventPropGetter={eventsStyle}
-          views={{ week: true, day: true }}
+          views={props.views}
+          defaultView={Views.WEEK}
+          onSelectEvent={props.onSelectEvent}
+          onSelectSlot={props.onSelectSlot}
+          selectable={true}
         />
       </div>
     </div>
   );
 };
 
-export default InsCalendar;
+export default CalendarComponent;
