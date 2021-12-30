@@ -11,16 +11,19 @@ import AddIcon from "@mui/icons-material/Add";
 const localizer = momentLocalizer(moment);
 const eventsStyle = (event, start, end, isSelected) => {
   var bgcolor = "";
+  // condition for setting color in divs in calendar head
   if (event.status === "available") {
     if (event.type === "auto") {
       bgcolor = "#79CEF7";
-    } else {
+    } else if (event.type === "manual") {
       bgcolor = "#FFB6C1";
+    } else {
+      console.log("Not auto Not manual");
     }
   } else if (event.status === "unavailable") {
     bgcolor = "#B0AEAE";
   } else if (event.status === "personal") {
-    bgcolor = "#FFB6C1";
+    bgcolor = "#9C6DD1";
   } else {
     bgcolor = "#2CA888";
   }
