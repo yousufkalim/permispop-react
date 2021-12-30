@@ -16,34 +16,24 @@ const MenuProps = {
   },
 };
 
-function getStyles(name, personName, theme) {
-  return {
-    fontWeight:
-      personName.indexOf(name) === -1
-        ? theme.typography.fontWeightRegular
-        : theme.typography.fontWeightMedium,
-  };
-}
-
 export default function MultipleSelectPlaceholder(props) {
-  const theme = useTheme();
-  let data = [];
+  // const theme = useTheme();
+  // let data = [];
   return (
     <div>
-      <FormControl sx={{ m: 1, width: 170, height: 80 }}>
+      <FormControl sx={{ m: 1, width: 100, height: 80 }}>
         <Select
+          sx={{
+            width: "200px !important",
+            borderRadius: "100px !important",
+            boxShadow: "0px 14px 59px rgb(115 55 0 / 15%)",
+          }}
           multiple
           displayEmpty
           onChange={props.onChange}
-          value={props.value}
-          input={<OutlinedInput />}
-          renderValue={(selected) => {
-            if (selected.length === 0) {
-              return <em>{props.label}</em>;
-            }
-
-            return selected.join(", ");
-          }}
+          value={props.value || []}
+          // input={<OutlinedInput />}
+          renderValue={(value) => (value.length > 0 ? value : "France")}
           MenuProps={MenuProps}
           inputProps={{ "aria-label": "Without label" }}
         >
@@ -70,7 +60,7 @@ export default function MultipleSelectPlaceholder(props) {
 /* Use of selectfield component
 <DropDown
 label="gender"  //Label of the field
-value={age}    //Selected value
+value={[]}    //Selected value
 onChange={handleChange}
 MenuItem={[
 { name: "name", value: "value" },
