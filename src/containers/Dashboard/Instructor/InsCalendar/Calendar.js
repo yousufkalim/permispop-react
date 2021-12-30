@@ -13,22 +13,52 @@ import TextField from "../../../../components/Common/TextField";
 import Button from "../../../../components/Common/Button";
 import Grid from "@mui/material/Grid";
 import { Typography } from "@mui/material";
-import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
+// import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
+import moment from "moment";
+import { toast } from "react-toastify";
 
 const Calendar = () => {
   const [open, setOpen] = React.useState(false);
-  const [eventDeleteModal, setEventDeleteModal] = React.useState(false);
-  const [value, setValue] = React.useState("Availability-page");
 
+  const [eventDeleteModal, setEventDeleteModal] = React.useState(false);
+  const [bookingModal, setBookingModal] = React.useState(false);
+
+  const [value, setValue] = React.useState("Availability-page");
+  // (moment(e.start).isBefore(currentDate)) ====> for checking time is not passed by comparing from current time
+  // (moment(e.start).isAfter(currentDate)) ====> for checking time is passed by comparing from current time
+
+  //Add availability , unavailability modal handles
+  const currentDate = moment();
   const handleOpen = (e) => {
-    setOpen(true);
-  };
-  const handleDeleteModal = (e) => {
-    setEventDeleteModal(true);
+    if (moment(e.start).isAfter(currentDate)) {
+      setOpen(true);
+    } else {
+      toast.error("can not select past time");
+    }
   };
   const handleClose = (e) => {
     setOpen(false);
   };
+
+  //handle Event click
+  const handleEventClick = (e) => {
+    console.log(e);
+
+    if (e.status === "booking") {
+      setBookingModal(true);
+    } else if (e.status === "available") {
+      if (moment(e.start).isAfter(currentDate)) {
+        setEventDeleteModal(true);
+      } else {
+        toast.error("can not select past event");
+      }
+    }
+  };
+
+  const handleBookingClose = (e) => {
+    setBookingModal(false);
+  };
+
   const handleDeleteClose = (e) => {
     setEventDeleteModal(false);
   };
@@ -38,10 +68,10 @@ const Calendar = () => {
   return (
     <>
       <CalendarComponent
-        view={{ month: true, week: true, day: true }}
+        view={{ week: true, day: true }}
         events={Events}
         onSelectSlot={handleOpen}
-        onSelectEvent={handleDeleteModal}
+        onSelectEvent={handleEventClick}
       />
       {/* Add availibility modal */}
 
@@ -52,124 +82,174 @@ const Calendar = () => {
         modalTitle="Add Event"
         modalTitleProps={{ align: "left" }}
         modalTitleclassName="Event_modal_title"
-        modalboxclassName="modal"
+        modalboxclassName="availability-modal"
       >
         <Divider />
 
         <TabContext value={value}>
           <TabList onChange={handleChange} className="tab-list">
-            <Tab label="Add Availability" value="Availability-page" />
-            <Tab label="Add Unavailability" value="Unavailability-page" />
-            <Tab label="Add Personal Event" value="PersonalEvent-page" />
-          </TabList>
+            <Tab
+              className="tab"
+              label="Add Availability"
+              value="Availability-page"
+            />
+            <Divider orientation="vertical" flexItem width="4px !important" />
+            <Tab
+              label="Add Unavailability"
+              value="Unavailability-page"
+              className="tab"
+            />
+            <Divider orientation="vertical" flexItem width="4px !important" />
 
-          <TabPanel value="Availability-page">
-            <form>
-              <Grid container spacing={1}>
-                <Grid xs={12} sm={12} md={6}>
-                  <DropDown
-                    label="Select Instructor"
-                    placeholder="Hamza"
-                  ></DropDown>
+            <Tab
+              className="tab"
+              label="Add Personal Event"
+              value="PersonalEvent-page"
+            />
+          </TabList>
+          {/* page 1 */}
+          <div className="modal-content">
+            <TabPanel value="Availability-page">
+              <form>
+                <Grid container spacing={3}>
+                  <Grid xs={12} sm={12} md={6}>
+                    <DropDown
+                      label="Select Instructor"
+                      placeholder="Hamza"
+                    ></DropDown>
+                  </Grid>
+                  <Grid xs={12} sm={12} md={6}>
+                    <DatePicker />
+                  </Grid>
+                  <Grid xs={12} sm={12} md={6}>
+                    <DropDown label="Start Hours" />
+                  </Grid>
+                  <Grid xs={12} sm={12} md={6}>
+                    <DropDown label="Start Minutes" />
+                  </Grid>
+                  <Grid xs={12} sm={12} md={6}>
+                    <DropDown label="End Hours" />
+                  </Grid>
+                  <Grid xs={12} sm={12} md={6}>
+                    <DropDown label="End Minutes" />
+                  </Grid>
+                  <Grid xs={12} sm={12} md={6}>
+                    <DropDown label="Select Vehicle" />
+                  </Grid>
+                  <Grid xs={12} sm={12} md={6}>
+                    <DropDown label="Meetup" placeholder="Meetup" />
+                  </Grid>
                 </Grid>
-                <Grid xs={12} sm={12} md={6}>
-                  <DatePicker placeholder="18-11-2019" />
-                </Grid>
-                <Grid xs={12} sm={12} md={6}>
-                  <DropDown label="Start Hours" placeholder="00" />
-                </Grid>
-                <Grid xs={12} sm={12} md={6}>
-                  <DropDown label="Start Minutes" placeholder="00" />
-                </Grid>
-                <Grid xs={12} sm={12} md={6}>
-                  <DropDown label="End Hours" placeholder="00" />
-                </Grid>
-                <Grid xs={12} sm={12} md={6}>
-                  <DropDown label="End Minutes" placeholder="00" />
-                </Grid>
-                <Grid xs={12} sm={12} md={6}>
-                  <DropDown
-                    label="Select Vehicle"
-                    placeholder="Select Vehicle"
+                {/* page 2 */}
+                <Grid align="right">
+                  <Button
+                    text="Cancel"
+                    onClick={handleClose}
+                    type="submit"
+                    variant="outlined"
+                    width="150px !important"
+                    textColor="#363557 !important"
+                    margin="10px !important"
+                  />
+                  <Button
+                    text="Confirm"
+                    type="submit"
+                    textColor="#FFFFFF !important"
+                    width="150px !important"
+                    color="#149E7A !important"
                   />
                 </Grid>
-                <Grid xs={12} sm={12} md={6}>
-                  <DropDown label="Meetup" placeholder="Meetup" />
+              </form>
+            </TabPanel>
+            {/* page 3 */}
+            <TabPanel value="Unavailability-page">
+              <form>
+                <Grid container spacing={3}>
+                  <Grid xs={12} sm={12} md={12} align="left">
+                    <DatePicker />
+                  </Grid>
+                  <Grid xs={12} sm={12} md={6}>
+                    <DropDown label="Start Hours" />
+                  </Grid>
+                  <Grid xs={12} sm={12} md={6}>
+                    <DropDown label="Start Minutes" />
+                  </Grid>
+                  <Grid xs={12} sm={12} md={6}>
+                    <DropDown label="End Hours" />
+                  </Grid>
+                  <Grid xs={12} sm={12} md={6}>
+                    <DropDown label="End Minutes" />
+                  </Grid>
+                  <Grid xs={12} sm={12} md={6}>
+                    <TextField label="Description" placeholder="Description" />
+                  </Grid>
                 </Grid>
-              </Grid>
-              <Button
-                type="submit"
-                textColor="#FFFFFF"
-                text="Cancel"
-                onClick={handleClose}
-              />
-              <Button type="submit" textColor="#FFFFFF" text="Confirm" />
-            </form>
-          </TabPanel>
 
-          <TabPanel value="Unavailability-page">
-            <form>
-              <Grid container spacing={1}>
-                <Grid xs={12} sm={12} md={6}>
-                  <DatePicker placeholder="18-11-2019" />
+                <Grid align="right">
+                  <Button
+                    text="Cancel"
+                    onClick={handleClose}
+                    type="submit"
+                    variant="outlined"
+                    width="150px !important"
+                    textColor="#363557 !important"
+                    margin="10px !important"
+                  />
+                  <Button
+                    text="Confirm"
+                    type="submit"
+                    textColor="#FFFFFF !important"
+                    width="150px !important"
+                    color="#149E7A !important"
+                  />
                 </Grid>
-                <Grid xs={12} sm={12} md={6}>
-                  <DropDown label="Start Hours" placeholder="00" />
-                </Grid>
-                <Grid xs={12} sm={12} md={6}>
-                  <DropDown label="Start Minutes" placeholder="00" />
-                </Grid>
-                <Grid xs={12} sm={12} md={6}>
-                  <DropDown label="End Hours" placeholder="00" />
-                </Grid>
-                <Grid xs={12} sm={12} md={6}>
-                  <DropDown label="End Minutes" placeholder="00" />
-                </Grid>
-              </Grid>
-              <Grid xs={12} sm={12} md={6}>
-                <TextField label="Description" placeholder="Description" />
-              </Grid>
-              <Button
-                type="submit"
-                textColor="#FFFFFF"
-                text="Cancel"
-                onClick={handleClose}
-              />
-              <Button type="submit" textColor="#FFFFFF" text="Confirm" />
-            </form>
-          </TabPanel>
+              </form>
+            </TabPanel>
 
-          <TabPanel value="PersonalEvent-page">
-            <form>
-              <Grid container spacing={1}>
-                <Grid xs={12} sm={12} md={6}>
-                  <DatePicker placeholder="18-11-2019" />
+            <TabPanel value="PersonalEvent-page">
+              <form>
+                <Grid container spacing={3}>
+                  <Grid xs={12} sm={12} md={12} align="left">
+                    <DatePicker />
+                  </Grid>
+                  <Grid xs={12} sm={12} md={6}>
+                    <DropDown label="Start Hours" />
+                  </Grid>
+                  <Grid xs={12} sm={12} md={6}>
+                    <DropDown label="Start Minutes" />
+                  </Grid>
+                  <Grid xs={12} sm={12} md={6}>
+                    <DropDown label="End Hours" />
+                  </Grid>
+                  <Grid xs={12} sm={12} md={6}>
+                    <DropDown label="End Minutes" />
+                  </Grid>
+                  <Grid xs={12} sm={12} md={12}>
+                    <TextField label="Description" placeholder="Description" />
+                  </Grid>
                 </Grid>
-                <Grid xs={12} sm={12} md={6}>
-                  <DropDown label="Start Hours" placeholder="00" />
+
+                <Grid align="right">
+                  <Button
+                    text="Cancel"
+                    onClick={handleClose}
+                    type="submit"
+                    variant="outlined"
+                    width="150px !important"
+                    textColor="#363557 !important"
+                    margin="10px !important"
+                  />
+                  <Button
+                    text="Confirm"
+                    type="submit"
+                    textColor="#FFFFFF !important"
+                    width="150px !important"
+                    color="#149E7A !important"
+                  />
                 </Grid>
-                <Grid xs={12} sm={12} md={6}>
-                  <DropDown label="Start Minutes" placeholder="00" />
-                </Grid>
-                <Grid xs={12} sm={12} md={6}>
-                  <DropDown label="End Hours" placeholder="00" />
-                </Grid>
-                <Grid xs={12} sm={12} md={6}>
-                  <DropDown label="End Minutes" placeholder="00" />
-                </Grid>
-              </Grid>
-              <Grid xs={12} sm={12} md={6}>
-                <TextField label="Description" placeholder="Description" />
-              </Grid>
-              <Button
-                type="submit"
-                textColor="#FFFFFF"
-                text="Cancel"
-                onClick={handleClose}
-              />
-              <Button type="submit" textColor="#FFFFFF" text="Confirm" />
-            </form>
-          </TabPanel>
+              </form>
+            </TabPanel>
+          </div>
         </TabContext>
       </BasicModal>
       {/* Delete availibility modal */}
@@ -185,17 +265,34 @@ const Calendar = () => {
           {/* <InfoOutlinedIcon style={{ fontSize: large }} /> */}
           Would like to delete your Availability?
         </Typography>
-        <Button text="No" onClick={handleDeleteClose} />
-        <Button text="Yes" onClick={handleDeleteClose} />
+        <Grid align="right">
+          <Button
+            text="No"
+            onClick={handleDeleteClose}
+            variant="outlined"
+            width="150px !important"
+            textColor="#363557 !important"
+            margin="10px !important"
+          />
+          <Button
+            text="Yes"
+            type="submit"
+            textColor="#FFFFFF !important"
+            width="150px !important"
+            color="#149E7A !important"
+          />
+        </Grid>
       </BasicModal>
       {/* View Booking modal */}
       <BasicModal
-        open={eventDeleteModal}
-        onClose={handleDeleteClose}
+        open={bookingModal}
+        onClose={handleBookingClose}
         closebtn={true}
         modalTitle="Booking"
         modalTitleProps={{ align: "left" }}
+        modalboxclassName="booking-modal"
       >
+        <Divider />
         <Grid>
           <TextField label="User Info" />
           <TextField label="Booking Date" />
@@ -204,8 +301,23 @@ const Calendar = () => {
           <TextField label="Vechicle" />
           <TextField label="Meetup" />
         </Grid>
-        <Button text="Close" onClick={handleDeleteClose} />
-        <Button text="Delete" onClick={handleDeleteClose} />
+        <Grid align="right">
+          <Button
+            text="Close"
+            onClick={handleBookingClose}
+            variant="outlined"
+            width="150px !important"
+            textColor="#363557 !important"
+            margin="10px !important"
+          />
+          <Button
+            text="Delete"
+            type="submit"
+            textColor="#FFFFFF !important"
+            width="150px !important"
+            color="#149E7A !important"
+          />
+        </Grid>
       </BasicModal>
     </>
   );
