@@ -118,6 +118,7 @@ export default function Header(props) {
                 <Grid sx={12} sm={12} md={12}>
                   <FormControl>
                     <TextField
+                      className="Loginmodal"
                       id="outlined-basic"
                       placeholder="Enter email"
                       variant="outlined"
@@ -135,7 +136,8 @@ export default function Header(props) {
                 <Grid sx={12} sm={12} md={12}>
                   <FormControl>
                     <OutlinedInput
-                      // id="outlined-adornment-password"
+                      className="Loginmodal"
+                      id="outlined-adornment-password"
                       type={values.showPassword ? "text" : "password"}
                       value={values.password}
                       placeholder="Password"

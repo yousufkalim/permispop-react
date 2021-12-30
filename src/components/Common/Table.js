@@ -42,6 +42,17 @@ export default function DataTable(props) {
                 {props.columns
                   ? props.columns.map((column) => (
                       <TableCell
+                        sx={{
+                          fontFamily: "Inter !important",
+                          fontStyle: "normal",
+                          fontWeight: 500,
+                          fontSize: "18px !important",
+                          lineHeight: "22px !important",
+
+                          letterSpacing: "-0.03em",
+
+                          color: "#424851",
+                        }}
                         key={column.id}
                         align={column.align}
                         style={{ minWidth: column.minWidth }}
@@ -72,6 +83,17 @@ export default function DataTable(props) {
                                 {column.id !== "options" &&
                                 column.id !== "actions" ? (
                                   <TableCell
+                                    sx={{
+                                      fontFamily: "Inter !important",
+                                      fontStyle: "normal",
+                                      fontWeight: 400,
+                                      fontSize: "15px !important",
+                                      lineHeight: "50px !important",
+
+                                      letterSpacing: "-0.03em",
+
+                                      color: "#81878E",
+                                    }}
                                     key={column.id}
                                     align={column.align}
                                   >
@@ -82,7 +104,13 @@ export default function DataTable(props) {
                                 ) : column.id == "actions" ? (
                                   <TableCell align="right">
                                     <p
-                                      style={{ color: "#149E7A" }}
+                                      style={{
+                                        color: "#149E7A",
+                                        background: "#E8FEED",
+                                        paddingTop: "15px",
+                                        paddingBottom: "15px",
+                                        borderRadius: "12px",
+                                      }}
                                       align="center"
                                     >
                                       Completed
@@ -110,13 +138,14 @@ export default function DataTable(props) {
             m: 2,
           }}
         >
-          <Grid item xs={5} md={9}>
+          <Grid item xs={5} md={10}>
             <Pagination count={10} color="secondary" shape="rounded" />
           </Grid>
-          <Grid item xs={7} md={3}>
+          <Grid item xs={7} md={2}>
             <ButtonComponent
-              variant="outlined"
-              text={props.text || "Create Request"}
+              // variant="outlined"
+              text="Create Request"
+              color="#149E7A !important"
               startIcon={<AddIcon />}
             >
               {props.text}

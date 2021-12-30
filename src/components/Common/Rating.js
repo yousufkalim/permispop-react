@@ -12,7 +12,7 @@ export default function HoverRating(props) {
       justifyContent: props.justifyContent || "center",
     },
     icon: {
-      opacity: props.opacity || "0.55",
+      opacity: props.opacity || "0.55 !important",
       fontFamily: props.fontFamily || "inter",
       fontSize: "inherit",
     },
@@ -38,8 +38,9 @@ export default function HoverRating(props) {
     <Box
       sx={{
         display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
+        alignItems: "left",
+        justifyContent: "left",
+        marginTop: "20px",
       }}
       className={classes.rating}
     >

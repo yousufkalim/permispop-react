@@ -61,7 +61,7 @@ function ResponsiveDrawer(props) {
     mainBox: {
       flexGrow: 1,
       backgroundColor: "#fbfbfb",
-      height: "100vh",
+      height: "100%",
       padding: "3rem",
       marginTop: "30px",
       width: { xmd: `calc(100% - ${drawerWidth}px)` },
