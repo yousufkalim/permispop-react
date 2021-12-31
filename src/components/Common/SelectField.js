@@ -26,7 +26,7 @@ export default function MultipleSelectPlaceholder(props) {
           sx={{
             width: "200px !important",
             borderRadius: "100px !important",
-            boxShadow: "0px 14px 59px rgb(115 55 0 / 15%)",
+            boxShadow: "0px 14px 29px rgb(100 30 0 / 10%)",
           }}
           multiple
           displayEmpty
