@@ -6,11 +6,11 @@ import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
-import ButtonComponent from "./Button";
 import Pagination from "@mui/material/Pagination";
-import AddIcon from "@mui/icons-material/Add";
-import { Grid } from "@mui/material";
+
 import MoreVertIcon from "@mui/icons-material/MoreVert";
+import Button from "../../components/Common/Button";
+
 export default function DataTable(props) {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
@@ -81,6 +81,8 @@ export default function DataTable(props) {
                             return (
                               <>
                                 {column.id !== "options" &&
+                                column.id !== "action" &&
+                                column.id !== "Vaction" &&
                                 column.id !== "actions" ? (
                                   <TableCell
                                     sx={{
@@ -92,8 +94,13 @@ export default function DataTable(props) {
 
                                       letterSpacing: "-0.03em",
 
-                                      color: "#81878E",
+                                      color:
+                                        column.id === "status" ||
+                                        column.id === "gearbox"
+                                          ? "#FFA333"
+                                          : "#81878E",
                                     }}
+                                    color={row.color}
                                     key={column.id}
                                     align={column.align}
                                   >
@@ -101,7 +108,7 @@ export default function DataTable(props) {
                                       ? column.format(value)
                                       : value}
                                   </TableCell>
-                                ) : column.id == "actions" ? (
+                                ) : column.id === "actions" ? (
                                   <TableCell align="right">
                                     <p
                                       style={{
@@ -115,6 +122,50 @@ export default function DataTable(props) {
                                     >
                                       Completed
                                     </p>
+                                  </TableCell>
+                                ) : column.id === "action" ? (
+                                  <TableCell align="center">
+                                    <Button
+                                      type="submit"
+                                      text="Detach"
+                                      color="#149E7A !important"
+                                      width="60% !important"
+                                      margin="0px 0px 10px 0px !important"
+                                      height="50px !important"
+                                    ></Button>
+                                    <Button
+                                      type="submit"
+                                      text="Details"
+                                      color="#149E7A !important"
+                                      width="60% !important"
+                                      margin="0px 0px 10px 0px !important"
+                                      height="50px !important"
+                                    ></Button>
+                                    <Button
+                                      type="submit"
+                                      text="Add Meetup Point"
+                                      color="#149E7A !important"
+                                      width="60% !important"
+                                      height="50px !important"
+                                    ></Button>
+                                  </TableCell>
+                                ) : column.id === "Vaction" ? (
+                                  <TableCell align="center">
+                                    <Button
+                                      type="submit"
+                                      text="Edit"
+                                      width="100% !important"
+                                      margin="0px 0px 10px 0px !important"
+                                      height="50px !important"
+                                    ></Button>
+                                    <Button
+                                      type="submit"
+                                      text="Delete"
+                                      color="#149E7A !important"
+                                      width="100% !important"
+                                      margin="0px 0px 10px 0px !important"
+                                      height="50px !important"
+                                    ></Button>
                                   </TableCell>
                                 ) : (
                                   <TableCell align="center">
@@ -131,28 +182,18 @@ export default function DataTable(props) {
             </TableBody>
           </Table>
         </TableContainer>
-        <Grid
-          container
-          spacing={2}
-          sx={{
-            m: 2,
-          }}
-        >
-          <Grid item xs={5} md={10}>
-            <Pagination count={10} color="secondary" shape="rounded" />
-          </Grid>
-          <Grid item xs={7} md={2}>
-            <ButtonComponent
-              // variant="outlined"
-              text="Create Request"
-              color="#149E7A !important"
-              startIcon={<AddIcon />}
-            >
-              {props.text}
-            </ButtonComponent>
-          </Grid>
-        </Grid>
       </Paper>
+      <Pagination
+        count={10}
+        color="secondary"
+        shape="rounded"
+        sx={{
+          marginTop: "20px",
+          display: "flex",
+          justifyContent: "center",
+          alignContent: "center",
+        }}
+      />
     </div>
   );
 }
