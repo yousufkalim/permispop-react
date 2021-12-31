@@ -18,7 +18,7 @@ import AssignmentTurnedInOutlinedIcon from "@mui/icons-material/AssignmentTurned
 //test component
 import Test from "../containers/Dashboard/index.js";
 import InsCalendar from "../containers/Dashboard/Instructor/InsCalendar/Calendar";
-import DsInsCalendar from "../containers/Dashboard/DsInstructor/Calendar";
+import DsInsCalendar from "../containers/Dashboard/DSInstructor/Calendar";
 import DsCalendar from "../containers/Dashboard/DrivingSchool/Calendar";
 import CrCalendar from "../containers/Dashboard/CarRental/Calendar";
 // routes
