@@ -1,16 +1,18 @@
 .Event_modal_title {
   color: #000000 !important;
   font-weight: 600 !important;
-  font-size: 22px !important;
+  font-size: 28px !important;
   display: flex !important;
   justify-content: flex-start !important;
   align-items: center !important;
+  margin-bottom: 10px !important;
 }
 .availability-modal {
   background-color: #ffffff !important;
-  height: 685px !important;
+  height: 640px !important;
   width: 888px !important;
   border-radius: 15px !important;
+  overflow: hidden !important;
 }
 .tab-list {
 }
@@ -36,7 +38,39 @@
   justify-content: flex-end !important;
 }
 .booking-modal {
-  width: 30% !important;
-  height: 710px !important;
+  width: 840px !important;
+  height: 555px !important;
   border-radius: 15px !important;
+  overflow: hidden !important;
+  margin-bottom: 24px !important;
+}
+.booking-modal-title {
+  color: #000000 !important;
+  font-weight: 600 !important;
+  font-size: 28px !important;
+}
+.booking-content {
+  margin: 26px !important;
+  margin-top: 4rem !important;
+}
+.booking-btn-div {
+  margin-top: 3rem !important;
+}
+.delete-availability {
+  height: 350px !important;
+  width: 600px !important;
+  border-radius: 15px !important;
+  overflow: hidden !important;
+}
+.delete-availability-text {
+  font-size: 20px !important;
+  margin-top: 30px !important;
+  font-weight: 450 !important;
+}
+.info-icon {
+  font-size: 3rem !important;
+  color: #faad14 !important;
+}
+.delete-availability-btn-div {
+  margin-top: 100px !important;
 }
