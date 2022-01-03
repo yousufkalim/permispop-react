@@ -13,7 +13,7 @@ import TextField from "../../../../components/Common/TextField";
 import Button from "../../../../components/Common/Button";
 import Grid from "@mui/material/Grid";
 import { Typography } from "@mui/material";
-// import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
+import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import moment from "moment";
 import { toast } from "react-toastify";
 
@@ -79,12 +79,11 @@ const Calendar = () => {
         open={open}
         closebtn={true}
         onClose={handleClose}
-        modalTitle="Add Event"
+        modalMainTitle="Add Event"
         modalTitleProps={{ align: "left" }}
-        modalTitleclassName="Event_modal_title"
         modalboxclassName="availability-modal"
       >
-        <Divider />
+        <Divider width="100% !important" />
 
         <TabContext value={value}>
           <TabList onChange={handleChange} className="tab-list">
@@ -147,7 +146,7 @@ const Calendar = () => {
                     onClick={handleClose}
                     type="submit"
                     variant="outlined"
-                    width="150px !important"
+                    width="110px !important"
                     textColor="#363557 !important"
                     margin="10px !important"
                   />
@@ -155,7 +154,7 @@ const Calendar = () => {
                     text="Confirm"
                     type="submit"
                     textColor="#FFFFFF !important"
-                    width="150px !important"
+                    width="110px !important"
                     color="#149E7A !important"
                   />
                 </Grid>
@@ -185,13 +184,13 @@ const Calendar = () => {
                   </Grid>
                 </Grid>
 
-                <Grid align="right">
+                <Grid align="right" style={{ marginTop: "15px" }}>
                   <Button
                     text="Cancel"
                     onClick={handleClose}
                     type="submit"
                     variant="outlined"
-                    width="150px !important"
+                    width="110px !important"
                     textColor="#363557 !important"
                     margin="10px !important"
                   />
@@ -199,7 +198,7 @@ const Calendar = () => {
                     text="Confirm"
                     type="submit"
                     textColor="#FFFFFF !important"
-                    width="150px !important"
+                    width="110px !important"
                     color="#149E7A !important"
                   />
                 </Grid>
@@ -235,7 +234,7 @@ const Calendar = () => {
                     onClick={handleClose}
                     type="submit"
                     variant="outlined"
-                    width="150px !important"
+                    width="110px !important"
                     textColor="#363557 !important"
                     margin="10px !important"
                   />
@@ -243,7 +242,7 @@ const Calendar = () => {
                     text="Confirm"
                     type="submit"
                     textColor="#FFFFFF !important"
-                    width="150px !important"
+                    width="110px !important"
                     color="#149E7A !important"
                   />
                 </Grid>
@@ -257,20 +256,20 @@ const Calendar = () => {
         open={eventDeleteModal}
         onClose={handleDeleteClose}
         closebtn={true}
-        modalTitle="Delete Availability"
-        modalTitleProps={{ align: "left" }}
+        modalMainTitle="Delete Availability"
+        modalboxclassName="delete-availability"
       >
         <Divider />
-        <Typography variant="h4" gutterBottom>
-          {/* <InfoOutlinedIcon style={{ fontSize: large }} /> */}
-          Would like to delete your Availability?
+        <Typography gutterBottom className="delete-availability-text">
+          <InfoOutlinedIcon className="info-icon" />
+          Would like to delete your availability?
         </Typography>
-        <Grid align="right">
+        <Grid align="right" className="delete-availability-btn-div">
           <Button
             text="No"
             onClick={handleDeleteClose}
             variant="outlined"
-            width="150px !important"
+            width="110px !important"
             textColor="#363557 !important"
             margin="10px !important"
           />
@@ -278,7 +277,7 @@ const Calendar = () => {
             text="Yes"
             type="submit"
             textColor="#FFFFFF !important"
-            width="150px !important"
+            width="110px !important"
             color="#149E7A !important"
           />
         </Grid>
@@ -288,36 +287,50 @@ const Calendar = () => {
         open={bookingModal}
         onClose={handleBookingClose}
         closebtn={true}
-        modalTitle="Booking"
-        modalTitleProps={{ align: "left" }}
+        modalMainTitle="Booking"
         modalboxclassName="booking-modal"
       >
-        <Divider />
-        <Grid>
-          <TextField label="User Info" />
-          <TextField label="Booking Date" />
-          <TextField label="Booking Time" />
-          <TextField label="Duration" />
-          <TextField label="Vechicle" />
-          <TextField label="Meetup" />
-        </Grid>
-        <Grid align="right">
-          <Button
-            text="Close"
-            onClick={handleBookingClose}
-            variant="outlined"
-            width="150px !important"
-            textColor="#363557 !important"
-            margin="10px !important"
-          />
-          <Button
-            text="Delete"
-            type="submit"
-            textColor="#FFFFFF !important"
-            width="150px !important"
-            color="#149E7A !important"
-          />
-        </Grid>
+        <div className="booking-content">
+          <Grid container spacing={3}>
+            <Grid xs={12} sm={12} md={6}>
+              <TextField label="User Info" height="10px" />
+            </Grid>
+            <Grid xs={12} sm={12} md={6}>
+              <TextField label="Booking Date" />
+            </Grid>
+            <Grid xs={12} sm={12} md={6}>
+              <TextField label="Booking Time" />
+            </Grid>
+            <Grid xs={12} sm={12} md={6}>
+              <TextField label="Duration" />
+            </Grid>
+            <Grid xs={12} sm={12} md={6}>
+              <TextField label="Vechicle" />
+            </Grid>
+            <Grid xs={12} sm={12} md={6}>
+              <TextField label="Meetup" />
+            </Grid>
+          </Grid>
+          <div className="booking-btn-div">
+            <Grid align="right">
+              <Button
+                text="Close"
+                onClick={handleBookingClose}
+                variant="outlined"
+                width="110px !important"
+                textColor="#363557 !important"
+                margin="10px !important"
+              />
+              <Button
+                text="Delete"
+                type="submit"
+                textColor="#FFFFFF !important"
+                width="110px !important"
+                color="#149E7A !important"
+              />
+            </Grid>
+          </div>
+        </div>
       </BasicModal>
     </>
   );
