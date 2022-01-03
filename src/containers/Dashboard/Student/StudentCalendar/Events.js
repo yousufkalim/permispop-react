@@ -1,0 +1,111 @@
+export default [
+  {
+    title: "Task No. 01",
+    start: new Date(2021, 11, 30, 5, 0, 0),
+    end: new Date(2021, 11, 30, 7, 0, 0),
+    status: "available",
+    type: "auto",
+  },
+  {
+    title: "Task No. 02",
+    start: new Date(2021, 11, 7),
+    end: new Date(2021, 11, 10),
+    status: "unavailable",
+  },
+
+  {
+    title: "Task No. 03",
+    start: new Date(2021, 11, 13, 0, 0, 0),
+    end: new Date(2021, 11, 20, 0, 0, 0),
+    status: "available",
+    type: "manual",
+  },
+
+  {
+    title: "Task04",
+    start: new Date(2021, 11, 30, 1, 0, 0),
+    end: new Date(2021, 11, 30, 4, 0, 0),
+    status: "personal",
+  },
+
+  {
+    title: "Task No. 05",
+    start: new Date(2021, 11, 9, 0, 0, 0),
+    end: new Date(2021, 11, 9, 0, 0, 0),
+    status: "booking",
+  },
+  {
+    title: "Task No. 06",
+    start: new Date(2021, 11, 11),
+    end: new Date(2021, 11, 13),
+    desc: "Big conference for important people",
+    status: "available",
+    type: "auto",
+  },
+  {
+    title: "Task No. 07",
+    start: new Date(2021, 11, 11, 10, 30, 0, 0),
+    end: new Date(2021, 11, 11, 11, 30, 0, 0),
+    desc: "Pre-meeting meeting, to prepare for the meeting",
+    status: "booking",
+  },
+  {
+    title: "Task No. 08",
+    start: new Date(2021, 11, 11, 11, 0, 0, 0),
+    end: new Date(2021, 11, 11, 13, 0, 0, 0),
+    desc: "Power lunch",
+    status: "available",
+    type: "manual",
+  },
+  {
+    title: "Task No. 09",
+    start: new Date(2021, 11, 11, 14, 0, 0, 0),
+    end: new Date(2021, 11, 11, 15, 0, 0, 0),
+    status: "unavailable",
+  },
+  {
+    title: "Task No. 10",
+    start: new Date(2021, 11, 11, 17, 0, 0, 0),
+    end: new Date(2021, 11, 11, 17, 30, 0, 0),
+    desc: "Most important meal of the day",
+    status: "booking",
+  },
+  {
+    title: "Task No. 11",
+    start: new Date(2021, 11, 11, 20, 0, 0, 0),
+    end: new Date(2021, 11, 11, 21, 0, 0, 0),
+    status: "personal",
+  },
+  {
+    title: "Task No. 11",
+    start: new Date(2021, 11, 13, 7, 0, 0),
+    end: new Date(2021, 11, 13, 10, 30, 0),
+    status: "available",
+    type: "auto",
+  },
+  {
+    title: "Task No. 13",
+    start: new Date(2021, 11, 13, 7, 0, 0),
+    end: new Date(2021, 11, 13, 10, 30, 0),
+    status: "booking",
+  },
+  {
+    title: "Task No. 14",
+    start: new Date(2021, 11, 13, 7, 0, 0),
+    end: new Date(2021, 11, 13, 10, 30, 0),
+    status: "unavailable",
+  },
+  {
+    title: "Task No. 15",
+    start: new Date(2021, 11, 30, 22, 30, 0),
+    end: new Date(2021, 11, 30, 23, 0, 0),
+    status: "available",
+    type: "manual",
+  },
+  {
+    title: "Task No. 16",
+    start: new Date(2021, 11, 30, 19, 30, 0),
+    end: new Date(2021, 11, 30, 21, 0, 0),
+    status: "booking",
+  },
+];
