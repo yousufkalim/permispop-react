@@ -9,18 +9,21 @@ import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import AddIcon from "@mui/icons-material/Add";
 
 const localizer = momentLocalizer(moment);
-const eventsStyle = (event, start, end, isSelected) => {
+const eventsStyle = (event) => {
   var bgcolor = "";
+  // condition for setting color in divs in calendar head
   if (event.status === "available") {
     if (event.type === "auto") {
       bgcolor = "#79CEF7";
-    } else {
+    } else if (event.type === "manual") {
       bgcolor = "#FFB6C1";
+    } else {
+      console.log("Not auto Not manual");
     }
   } else if (event.status === "unavailable") {
     bgcolor = "#B0AEAE";
   } else if (event.status === "personal") {
-    bgcolor = "#FFB6C1";
+    bgcolor = "#9C6DD1";
   } else {
     bgcolor = "#2CA888";
   }
@@ -33,7 +36,11 @@ const eventsStyle = (event, start, end, isSelected) => {
   };
 };
 const CalendarComponent = (props) => {
-  console.log("props ==============> ", props);
+  console.log(
+    "🚀 ~ file: Calendar.js ~ line 39 ~ CalendarComponent ~ props",
+    props
+  );
+
   return (
     <div className="main-div">
       <div className="calendar-head">
@@ -59,35 +66,40 @@ const CalendarComponent = (props) => {
               className="colorBox-div"
               style={{ backgroundColor: "#79CEF7" }}
             ></div>
-            <Typography>Availability Auto</Typography>
+            {/* styling of calendar toolbar text */}
+            <Typography className="instruction-text">
+              Availability Auto
+            </Typography>
           </div>
           <div className="instructions">
             <div
               className="colorBox-div"
               style={{ backgroundColor: "#FFB6C1" }}
             ></div>
-            <Typography>Availablity Manual</Typography>
+            <Typography className="instruction-text">
+              Availablity Manual
+            </Typography>
           </div>
           <div className="instructions">
             <div
               className="colorBox-div"
               style={{ backgroundColor: "#B0AEAE" }}
             ></div>
-            <Typography>Unavailability</Typography>
+            <Typography className="instruction-text">Unavailability</Typography>
           </div>
           <div className="instructions">
             <div
               className="colorBox-div"
               style={{ backgroundColor: "#9C6DD1" }}
             ></div>
-            <Typography>Personal</Typography>
+            <Typography className="instruction-text">Personal</Typography>
           </div>
           <div className="instructions">
             <div
               className="colorBox-div"
               style={{ backgroundColor: "#149E7A" }}
             ></div>
-            <Typography>Booking</Typography>
+            <Typography className="instruction-text">Booking</Typography>
           </div>
         </div>
         <Button className="add-button">
@@ -100,7 +112,7 @@ const CalendarComponent = (props) => {
           localizer={localizer}
           events={props.events}
           eventPropGetter={eventsStyle}
-          views={props.views}
+          views={props.views || { week: true, day: true }}
           defaultView={Views.WEEK}
           onSelectEvent={props.onSelectEvent}
           onSelectSlot={props.onSelectSlot}

@@ -15,12 +15,14 @@ import QuizOutlinedIcon from "@mui/icons-material/QuizOutlined";
 import GroupOutlinedIcon from "@mui/icons-material/GroupOutlined";
 import AssignmentTurnedInOutlinedIcon from "@mui/icons-material/AssignmentTurnedInOutlined";
 // components
-//test component
+//test component temporary
 import Test from "../containers/Dashboard/index.js";
+//Calendar component of all roles
+import StudentCalendar from "../containers/Dashboard/Student/StudentCalendar/Calendar";
 import InsCalendar from "../containers/Dashboard/Instructor/InsCalendar/Calendar";
-import DsInsCalendar from "../containers/Dashboard/DsInstructor/Calendar";
-import DsCalendar from "../containers/Dashboard/DrivingSchool/Calendar";
-import CrCalendar from "../containers/Dashboard/CarRental/Calendar";
+import DsInsCalendar from "../containers/Dashboard/DsInstructor/DsInstructorCalendar/Calendar";
+import DsCalendar from "../containers/Dashboard/DrivingSchool/DsCalendar/Calendar";
+import CRCalendar from "../containers/Dashboard/CarRental/CarRentalCalendar/Calendar";
 // routes
 
 // Student Routes
@@ -57,7 +59,7 @@ var StudentRoutes = [
     path: "/booking",
     name: "Booking",
     icon: <Booking className="drawer-icons" />,
-    component: Test,
+    component: StudentCalendar,
     layout: "/student",
   },
   {
@@ -337,7 +339,7 @@ var CarRentalRoutes = [
     path: "/mycalendar",
     name: "My Calendar",
     icon: <Calendar className="drawer-icons" />,
-    component: CrCalendar,
+    component: CRCalendar,
     layout: "/carRental",
   },
 

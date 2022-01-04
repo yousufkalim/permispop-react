@@ -8,19 +8,19 @@ import { makeStyles } from "@mui/styles";
 export default function DropDown(props) {
   const useStyles = makeStyles((theme) => ({
     formControl: {
-      width: props.formWidth || "100%",
+      width: props.formWidth || "100% !important",
       "@media (max-width:600px)": {
-        width: "100%",
+        width: "100% !important",
       },
     },
     inputLabels: {
-      fontFamily: "Inter",
-      fontStyle: "normal",
-      fontWeight: "400",
-      fontSize: "24px",
-      lineHeight: "151.02%",
-      color: "#363557",
-      "&  .MuiInputLabel-formControl": { textAlign: "center" },
+      fontFamily: "Inter !important",
+      fontStyle: "normal !important",
+      fontWeight: "400 !important",
+      fontSize: "24px !important",
+      lineHeight: "200.02% !important",
+      color: "#363557 !important",
+      "&  .MuiInputLabel-formControl": { textAlign: "center !important" },
 
       "@media (max-width:992px)": {
         fontSize: "20px",
@@ -31,14 +31,14 @@ export default function DropDown(props) {
       },
     },
     input: {
-      height: "70px",
-      borderBottom: "none",
-      fontFamily: "Inter",
-      fontStyle: "normal",
-      fontSize: "18px",
-      lineHeight: "151.02%",
-      color: "#B9B7CC",
-      fontWeight: "300",
+      height: "70px !important",
+      borderBottom: "none !important",
+      fontFamily: "Inter !important",
+      fontStyle: "normal !important",
+      fontSize: "18px !important",
+      lineHeight: "151.02% !important",
+      color: "#B9B7CC !important",
+      fontWeight: "300 !important",
 
       "@media (max-width:992px)": {
         fontSize: "16px",
