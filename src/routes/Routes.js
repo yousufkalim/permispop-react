@@ -20,7 +20,7 @@ import Test from "../containers/Dashboard/index.js";
 //Calendar component of all roles
 import StudentCalendar from "../containers/Dashboard/Student/StudentCalendar/Calendar";
 import InsCalendar from "../containers/Dashboard/Instructor/InsCalendar/Calendar";
-import DsInsCalendar from "../containers/Dashboard/DsInstructor/DsInstructorCalendar/Calendar";
+import DsInsCalendar from "../containers/Dashboard/DSInstructor/DsInstructorCalendar/Calendar";
 import DsCalendar from "../containers/Dashboard/DrivingSchool/DsCalendar/Calendar";
 import CRCalendar from "../containers/Dashboard/CarRental/CarRentalCalendar/Calendar";
 // routes
