@@ -104,10 +104,8 @@ export default [
   },
   {
     title: "Task No. 16",
-    start: new Date(2022, 0, 3, 19, 30, 0),
-    end: new Date(2022, 0, 3, 21, 0, 0),
-    // status: "booking",
-    status: "available",
-    type: "manual",
+    start: new Date(2022, 0, 4, 19, 30, 0),
+    end: new Date(2022, 0, 4, 21, 0, 0),
+    status: "booking",
   },
 ];
