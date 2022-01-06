@@ -19,6 +19,10 @@
   max-height: 90% !important;
   min-height: 30% !important;
 }
+.Main-title {
+  font-weight: 600 !important;
+  font-size: 30px !important;
+}
 .close {
   display: flex !important;
   margin-left: auto !important;
@@ -27,6 +31,7 @@
   background-color: white !important;
   cursor: pointer !important;
 }
+
 .title {
   color: rgb(85, 80, 80) !important;
   padding-top: 0.3rem !important;

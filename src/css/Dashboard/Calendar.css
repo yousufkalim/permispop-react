@@ -1,6 +1,7 @@
 .main-div {
   width: 100% !important;
   background: #ffffff !important;
+  position: sticky !important;
 }
 .calendar-head {
   display: flex !important;
@@ -8,7 +9,7 @@
   align-items: center !important;
 }
 .date-box {
-  width: 250px !important;
+  width: 230px !important;
   height: 56px !important;
   border: 2px solid #ecedf3 !important;
   border-radius: 5px !important;
@@ -25,6 +26,7 @@
 }
 .calendar-icon {
   margin: 10px !important;
+  width: 1.5rem !important;
 }
 .current-date {
   font-weight: 600 !important;
@@ -49,6 +51,9 @@
   justify-content: center !important;
   margin-left: 0% !important;
 }
+.instruction-text {
+  font-size: 14px !important;
+}
 .colorBox-div {
   height: 20px !important;
   width: 20px !important;
@@ -56,7 +61,7 @@
   border-radius: 4px !important;
 }
 .add-button {
-  height: 56px !important;
+  height: 50px !important;
   width: 13% !important;
   border-radius: 5px !important;
   background: #149e7a !important;
@@ -68,11 +73,12 @@
 }
 .btn-text {
   color: #ffffff !important;
-  font-weight: 500 !important;
-  font-size: 15px !important;
+  font-weight: 600 !important;
+  font-size: 13px !important;
 }
 .calendar {
   height: 700px !important;
+  width: 100% !important;
 }
 
 @media only screen and (max-width: 1440px) {

@@ -19,18 +19,30 @@ export default function BasicModal(props) {
             className={[props.modalboxclassName, "box"].join(" ")}
             {...props.modalboxProps}
           >
-            {props.closebtn ? (
-              <IconButton
-                className={props.closebtnclassName || "close"}
-                color="inherit"
-                edge="start"
-                aria-expanded={props.open ? "true" : undefined}
-                onClick={props.onClose}
-                {...props.closebtnProps}
-              >
-                <Modalclosebtn style={{ width: "22px" }} />
-              </IconButton>
-            ) : null}
+            <div style={{ display: "flex", marginBottom: 15 }}>
+              {/* added a main title typography */}
+              {props.modalMainTitle ? (
+                <Typography
+                  className={props.modalMainTitleclassName || "Main-title"}
+                  variant={props.variant || "h6"}
+                  {...props.modalMainTitleProps}
+                >
+                  {props.modalMainTitle}
+                </Typography>
+              ) : null}
+              {props.closebtn ? (
+                <IconButton
+                  className={props.closebtnclassName || "close"}
+                  color="inherit"
+                  edge="start"
+                  aria-expanded={props.open ? "true" : undefined}
+                  onClick={props.onClose}
+                  {...props.closebtnProps}
+                >
+                  <Modalclosebtn style={{ width: "22px" }} />
+                </IconButton>
+              ) : null}
+            </div>
 
             {props.modalTitle ? (
               <Typography
@@ -61,6 +73,8 @@ export default function BasicModal(props) {
       closebtn                                  // to use the close button
       closebtnclassName                         // to use any customized css class for close button
       closebtnProps={{}}                        // to pass any built-in props for close Button
+      modalMainTitle="Main Title"               // to pass the main Title
+      modalMainTitleclassName="Main-Title"      // to use Customized CSS
       modalTitle="Login to your account"        // to enter the title text
       modalTitleclassName='login_modal_title'   // to use any customized css class for title
       modalTitleProps={{align:"left"}}          // to pass any built-in props for title Typography
