@@ -1,21 +1,76 @@
 .Event_modal_title {
   color: #000000 !important;
   font-weight: 600 !important;
-  font-size: 25px !important;
+  font-size: 28px !important;
   display: flex !important;
+  justify-content: flex-start !important;
   align-items: center !important;
-  justify-content: left !important;
+  margin-bottom: 10px !important;
 }
-.modal {
+.availability-modal {
   background-color: #ffffff !important;
-  height: 755px !important;
-  width: 988px !important;
+  height: 640px !important;
+  width: 888px !important;
   border-radius: 15px !important;
+  overflow: hidden !important;
 }
 .tab-list {
-  color: #000000 !important;
-  display: grid;
+}
+.tab {
+  font-weight: 700 !important;
+  color: #8f9b96 !important;
 }
 .tab-list .css-17vx6qt-MuiTabs-indicator {
   display: none !important;
+}
+.tab-list .css-cul8ks-MuiButtonBase-root-MuiTab-root.Mui-selected {
+  color: #149e7a !important;
+}
+.modal-content {
+  margin: 10px !important;
+  /* width: 90% !important; */
+  height: 75% !important ;
+}
+.btn-div {
+  width: 100% !important;
+  display: flex !important;
+  align-items: flex-end !important;
+  justify-content: flex-end !important;
+}
+.booking-modal {
+  width: 840px !important;
+  height: 555px !important;
+  border-radius: 15px !important;
+  overflow: hidden !important;
+  margin-bottom: 24px !important;
+}
+.booking-modal-title {
+  color: #000000 !important;
+  font-weight: 600 !important;
+  font-size: 28px !important;
+}
+.booking-content {
+  margin: 26px !important;
+  margin-top: 4rem !important;
+}
+.booking-btn-div {
+  margin-top: 3rem !important;
+}
+.delete-availability {
+  height: 350px !important;
+  width: 600px !important;
+  border-radius: 15px !important;
+  overflow: hidden !important;
+}
+.delete-availability-text {
+  font-size: 20px !important;
+  margin-top: 30px !important;
+  font-weight: 450 !important;
+}
+.info-icon {
+  font-size: 3rem !important;
+  color: #faad14 !important;
+}
+.delete-availability-btn-div {
+  margin-top: 100px !important;
 }
