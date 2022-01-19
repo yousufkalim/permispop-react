@@ -20,9 +20,9 @@ import Test from "../containers/Dashboard/index.js";
 //Calendar component of all roles
 import StudentCalendar from "../containers/Dashboard/Student/StudentCalendar/Calendar";
 import InsCalendar from "../containers/Dashboard/Instructor/InsCalendar/Calendar";
-import DsInsCalendar from "../containers/Dashboard/DSInstructor/DsInstructorCalendar/Calendar";
-import DsCalendar from "../containers/Dashboard/DrivingSchool/DsCalendar/Calendar";
-import CRCalendar from "../containers/Dashboard/CarRental/CarRentalCalendar/Calendar";
+import DsInsCalendar from "../containers/Dashboard/DSInstructor/Calendar";
+import DsCalendar from "../containers/Dashboard/DrivingSchool/Calendar";
+import CrCalendar from "../containers/Dashboard/CarRental/Calendar";
 // routes
 
 // Student Routes
