@@ -1,0 +1,16 @@
+.main-div {
+  /* font-family: sans-serif !important;
+  text-align: center !important;*/
+  width: 100% !important;
+  height: 100% !important;
+}
+
+.markercluster-map {
+  /* margin: 5px !important; */
+  /* width: 100% !important; */
+  height: 82vh !important;
+  overflow: hidden !important;
+}
+/* .button-div {
+  margin-bottom: 10px !important;
+} */

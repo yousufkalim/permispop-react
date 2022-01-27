@@ -16,7 +16,7 @@ export default function UseFormControl(props) {
     inputLabels: {
       fontFamily: "Inter !important",
       fontStyle: "normal !important",
-      fontWeight: "400 !important",
+      fontWeight: "550 !important",
       fontSize: "24px !important",
       lineHeight: "151.02 !important%",
       color: "#363557 !important",
@@ -37,7 +37,7 @@ export default function UseFormControl(props) {
       fontStyle: "normal !important",
       fontSize: "18px !important",
       lineHeight: "151.02% !important",
-      color: "#B9B7CC !important",
+      color: "black !important",
       fontWeight: "300 !important",
 
       "@media (max-width:992px)": {

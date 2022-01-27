@@ -14,16 +14,32 @@ import { ReactComponent as Calendar } from "../assets/DrawerIcons/Icon-Calendar.
 import QuizOutlinedIcon from "@mui/icons-material/QuizOutlined";
 import GroupOutlinedIcon from "@mui/icons-material/GroupOutlined";
 import AssignmentTurnedInOutlinedIcon from "@mui/icons-material/AssignmentTurnedInOutlined";
-// components
 //test component temporary
 import Test from "../containers/Dashboard/index.js";
-//Calendar component of all roles
+//student components routes
+import StudentProfile from "../containers/Dashboard/Student/Profile";
+import StudentPendingRequest from "../containers/Dashboard/Student/PendingRequest";
+import StudentHistory from "../containers/Dashboard/Student/History";
+import Map from "../containers/Dashboard/Student/StudentMap/Maps";
 import StudentCalendar from "../containers/Dashboard/Student/StudentCalendar/Calendar";
+//instructor components routes
+import InsProfile from "../containers/Dashboard/Instructor/profile";
+import InsPendingRequest from "../containers/Dashboard/Instructor/PendingRequest";
+import InsHistory from "../containers/Dashboard/Instructor/History";
 import InsCalendar from "../containers/Dashboard/Instructor/InsCalendar/Calendar";
-import DsInsCalendar from "../containers/Dashboard/DSInstructor/DsInstructorCalendar/Calendar";
+//driving school instructor components routes
+import DsInsProfile from "../containers/Dashboard/DsInstructor/profile";
+import DsInsPendingRequest from "../containers/Dashboard/DsInstructor/PendingRequest";
+import DsInsHistory from "../containers/Dashboard/DsInstructor/History";
+import DsInsCalendar from "../containers/Dashboard/DsInstructor/DsInstructorCalendar/Calendar";
+// driving school components routes
+import DsProfile from "../containers/Dashboard/DrivingSchool/profile";
+import DsPendingRequest from "../containers/Dashboard/DrivingSchool/PendingRequest";
+import DsHistory from "../containers/Dashboard/DrivingSchool/History";
 import DsCalendar from "../containers/Dashboard/DrivingSchool/DsCalendar/Calendar";
+// CarRental components routes
+
 import CRCalendar from "../containers/Dashboard/CarRental/CarRentalCalendar/Calendar";
-// routes
 
 // Student Routes
 var StudentRoutes = [
@@ -31,7 +47,7 @@ var StudentRoutes = [
     path: "/myProfille",
     name: "My Profile",
     icon: <MyProfile className="drawer-icons" />,
-    component: Test,
+    component: StudentProfile,
     layout: "/student",
   },
   {
@@ -45,14 +61,14 @@ var StudentRoutes = [
     path: "/pendingRequest",
     name: "Pending Request",
     icon: <PendingReq className="drawer-icons" />,
-    component: Test,
+    component: StudentPendingRequest,
     layout: "/student",
   },
   {
     path: "/history",
     name: "History",
     icon: <History className="drawer-icons" />,
-    component: Test,
+    component: StudentHistory,
     layout: "/student",
   },
   {
@@ -73,7 +89,7 @@ var StudentRoutes = [
     path: "/instructureOnMap",
     name: "Instructure On Map",
     icon: <InsOnMap className="drawer-icons" />,
-    component: Test,
+    component: Map,
     layout: "/student",
   },
   {
@@ -104,7 +120,7 @@ var InstructorRoutes = [
     path: "/myprofile",
     name: "My Profile",
     icon: <MyProfile className="drawer-icons" />,
-    component: Test,
+    component: InsProfile,
     layout: "/instructor",
   },
   {
@@ -125,14 +141,14 @@ var InstructorRoutes = [
     path: "/pendingRequest",
     name: "Pending Request",
     icon: <PendingReq className="drawer-icons" />,
-    component: Test,
+    component: InsPendingRequest,
     layout: "/instructor",
   },
   {
     path: "/history",
     name: "History",
     icon: <History className="drawer-icons" />,
-    component: Test,
+    component: InsHistory,
     layout: "/instructor",
   },
   {
@@ -171,7 +187,7 @@ var DsInstructorRoutes = [
     path: "/myprofile",
     name: "My Profile",
     icon: <MyProfile className="drawer-icons" />,
-    component: Test,
+    component: DsInsProfile,
     layout: "/DsInstructor",
   },
   {
@@ -192,14 +208,14 @@ var DsInstructorRoutes = [
     path: "/pendingRequest",
     name: "Pending Request",
     icon: <PendingReq className="drawer-icons" />,
-    component: Test,
+    component: DsInsPendingRequest,
     layout: "/DsInstructor",
   },
   {
     path: "/history",
     name: "History",
     icon: <History className="drawer-icons" />,
-    component: Test,
+    component: DsInsHistory,
     layout: "/DsInstructor",
   },
   {
@@ -237,7 +253,7 @@ var DrivingSchoolRoutes = [
     path: "/myprofile",
     name: "My Profile",
     icon: <MyProfile className="drawer-icons" />,
-    component: Test,
+    component: DsProfile,
     layout: "/DrivingSchool",
   },
   {
@@ -258,14 +274,14 @@ var DrivingSchoolRoutes = [
     path: "/pendingRequest",
     name: "Pending Request",
     icon: <PendingReq className="drawer-icons" />,
-    component: Test,
+    component: DsPendingRequest,
     layout: "/DrivingSchool",
   },
   {
     path: "/history",
     name: "History",
     icon: <History className="drawer-icons" />,
-    component: Test,
+    component: DsHistory,
     layout: "/DrivingSchool",
   },
   {

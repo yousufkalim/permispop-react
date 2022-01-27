@@ -36,11 +36,6 @@ const eventsStyle = (event) => {
   };
 };
 const CalendarComponent = (props) => {
-  console.log(
-    "🚀 ~ file: Calendar.js ~ line 39 ~ CalendarComponent ~ props",
-    props
-  );
-
   return (
     <div className="main-div">
       <div className="calendar-head">
