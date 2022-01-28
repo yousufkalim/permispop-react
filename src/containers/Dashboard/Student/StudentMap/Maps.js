@@ -1,10 +1,27 @@
-import React from "react";
+import React, { useState } from "react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import MarkerClusterGroup from "react-leaflet-markercluster";
 import Button from "../../../../components/Common/Button";
 import L from "leaflet";
+import BasicModal from "../../../../components/Common/BasicModal";
+import RemoveRedEyeIcon from "@mui/icons-material/RemoveRedEye";
+import { IconButton } from "@mui/material";
+import ChatIcon from "@mui/icons-material/Chat";
+import { useHistory } from "react-router-dom";
+import Project from "../../../../assets/images/form.svg";
+import Rating from "../../../../assets/images/path2006.svg";
+import Image from "../../../../assets/DumyImg/DumyImg.png";
 
-const Maps = () => {
+const Maps = (props) => {
+  const [ProfileModal, setProfileModal] = useState(false);
+  const handleProfileModal = () => {
+    setProfileModal(true);
+  };
+  const handleProfileModalClose = () => {
+    setProfileModal(false);
+  };
+  const history = useHistory();
+  const handleChatClick = () => history.push("/student/chat");
   const User = [
     {
       UserName: "Haza",
@@ -44,36 +61,38 @@ const Maps = () => {
   ];
   var greenIcon = new L.Icon({
     iconUrl:
-      "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-green.png",
-    iconSize: [25, 41],
+      "https://yt3.ggpht.com/ytc/AKedOLTituQqBQSvZshTI9-FbvzNeCcbwgqG6-xgzHRa=s900-c-k-c0x00ffffff-no-rj",
+    iconSize: [50, 70],
     iconAnchor: [12, 41],
     popupAnchor: [1, -34],
   });
   var redIcon = new L.Icon({
     iconUrl:
       "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png",
-    iconSize: [25, 41],
+    iconSize: [50, 70],
     iconAnchor: [12, 41],
     popupAnchor: [1, -34],
   });
   var blackIcon = new L.Icon({
     iconUrl:
       "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-black.png",
-    iconSize: [25, 41],
+    iconSize: [50, 70],
     iconAnchor: [12, 41],
     popupAnchor: [1, -34],
   });
   var yellowIcon = new L.Icon({
     iconUrl:
       "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-yellow.png",
-    iconSize: [25, 41],
+    iconSize: [50, 70],
+
     iconAnchor: [12, 41],
     popupAnchor: [1, -34],
   });
   var greyIcon = new L.Icon({
     iconUrl:
       "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-grey.png",
-    iconSize: [25, 41],
+    iconSize: [50, 70],
+
     iconAnchor: [12, 41],
     popupAnchor: [1, -34],
   });
@@ -119,9 +138,16 @@ const Maps = () => {
         center={[46.73574154405467, 3.1627068900508446]}
         zoom={14}
         maxZoom={19}
+        attributionControl={true}
+        zoomControl={true}
+        doubleClickZoom={true}
+        scrollWheelZoom={true}
+        dragging={true}
+        animate={true}
+        easeLinearity={0.5}
       >
         <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-        <MarkerClusterGroup>
+        <MarkerClusterGroup showCoverageOnHover={true}>
           {/* {User.map((items) => {
             <Marker
               position={[items.position]}
@@ -131,34 +157,118 @@ const Maps = () => {
           <Marker
             position={[46.735888607092335, 3.1871579070975016]}
             icon={greenIcon}
-          />
-
+          >
+            <Popup>
+              <h2>Your Position</h2>
+            </Popup>
+          </Marker>
           <Marker
             position={[46.73351349048445, 3.1831560514361077]}
             icon={greyIcon}
-          />
+          >
+            <Popup>
+              <h3>Instructor</h3>
+              <RemoveRedEyeIcon onClick={handleProfileModal} />
+              <ChatIcon onClick={handleChatClick} />
+            </Popup>
+          </Marker>
           <Marker
             position={[46.73541065085842, 3.1757209680205016]}
             icon={yellowIcon}
-          />
+          >
+            <Popup>
+              <h2>Haza</h2>
+              <IconButton onClick={handleProfileModal}>
+                <RemoveRedEyeIcon />
+              </IconButton>
+            </Popup>
+          </Marker>
           <Marker
             position={[46.73574154405467, 3.1627068900508446]}
             icon={blackIcon}
-          />
+          >
+            <Popup>
+              <h2>Haza</h2>
+              <IconButton onClick={handleProfileModal}>
+                <RemoveRedEyeIcon />
+              </IconButton>
+            </Popup>
+          </Marker>
           <Marker
             position={[46.729557181582194, 3.1536946677339754]}
             icon={redIcon}
-          />
+          >
+            <Popup>
+              <h2>Car Rental Agent</h2>
+              <IconButton onClick={handleProfileModal}>
+                <RemoveRedEyeIcon />
+              </IconButton>
+            </Popup>
+          </Marker>
           <Marker
             position={[46.72203337042487, 3.14315804349606]}
             icon={redIcon}
-          />
+          >
+            <Popup>
+              <h2>Driving School Instructure</h2>
+              <IconButton onClick={handleProfileModal}>
+                <RemoveRedEyeIcon />
+              </IconButton>
+            </Popup>
+          </Marker>
           <Marker
             position={[46.69676756440226, 3.0275876224016773]}
             icon={blackIcon}
-          />
+          >
+            <Popup>
+              <p>Driving School</p>
+              <IconButton onClick={handleProfileModal}>
+                <RemoveRedEyeIcon />
+              </IconButton>
+            </Popup>
+          </Marker>
         </MarkerClusterGroup>
       </MapContainer>
+      <BasicModal
+        open={ProfileModal}
+        onClose={handleProfileModalClose}
+        modalboxclassName="detail_modal"
+      >
+        <div>
+          <div className="profile_img_div">
+            <img src={Image} alt="" className="profile_img" />
+          </div>
+          <p className="bold_text">James Anderson</p>
+          <p>Instructor</p>
+          <div className="icons">
+            <div className="icons_div">
+              <div className="icon_style_div">
+                <img src={Project} />
+              </div>
+              <div>
+                <p className="icons_text1">334</p>
+                <p className="icons_text2">Projects</p>
+              </div>
+            </div>
+            <div className="icons_div">
+              <div className="icon_style_div">
+                <img src={Rating} />
+              </div>
+              <div>
+                <p className="icons_text1">4.4</p>
+                <p className="icons_text2">Ratings</p>
+              </div>
+            </div>
+          </div>
+          <Button
+            text="Book Now"
+            width="70% !important"
+            textColor="#f4f4f4 !important"
+            margin="10px"
+            borderRadius="20px !important"
+          />
+        </div>
+      </BasicModal>
     </div>
   );
 };
