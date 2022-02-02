@@ -22,6 +22,8 @@ const Maps = (props) => {
   };
   const history = useHistory();
   const handleChatClick = () => history.push("/student/chat");
+  const handleBooking = () => history.push("/student/booking");
+
   const User = [
     {
       UserName: "Haza",
@@ -60,39 +62,34 @@ const Maps = (props) => {
     },
   ];
   var greenIcon = new L.Icon({
-    iconUrl:
-      "https://yt3.ggpht.com/ytc/AKedOLTituQqBQSvZshTI9-FbvzNeCcbwgqG6-xgzHRa=s900-c-k-c0x00ffffff-no-rj",
-    iconSize: [50, 70],
+    iconUrl: "https://www.nbrc.com.au/images/avatar-placeholder.png",
+
+    iconSize: [60, 65],
     iconAnchor: [12, 41],
     popupAnchor: [1, -34],
   });
   var redIcon = new L.Icon({
-    iconUrl:
-      "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-red.png",
-    iconSize: [50, 70],
+    iconUrl: "https://www.nbrc.com.au/images/avatar-placeholder.png",
+    iconSize: [60, 65],
     iconAnchor: [12, 41],
     popupAnchor: [1, -34],
   });
   var blackIcon = new L.Icon({
-    iconUrl:
-      "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-black.png",
-    iconSize: [50, 70],
+    iconUrl: "https://www.nbrc.com.au/images/avatar-placeholder.png",
+
+    iconSize: [60, 65],
     iconAnchor: [12, 41],
     popupAnchor: [1, -34],
   });
   var yellowIcon = new L.Icon({
-    iconUrl:
-      "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-yellow.png",
-    iconSize: [50, 70],
-
+    iconUrl: "https://www.nbrc.com.au/images/avatar-placeholder.png",
+    iconSize: [60, 65],
     iconAnchor: [12, 41],
     popupAnchor: [1, -34],
   });
   var greyIcon = new L.Icon({
-    iconUrl:
-      "https://raw.githubusercontent.com/pointhi/leaflet-color-markers/master/img/marker-icon-2x-grey.png",
-    iconSize: [50, 70],
-
+    iconUrl: "https://www.nbrc.com.au/images/avatar-placeholder.png",
+    iconSize: [60, 65],
     iconAnchor: [12, 41],
     popupAnchor: [1, -34],
   });
@@ -159,7 +156,7 @@ const Maps = (props) => {
             icon={greenIcon}
           >
             <Popup>
-              <h2>Your Position</h2>
+              <p className="pop_text">Your Position</p>
             </Popup>
           </Marker>
           <Marker
@@ -167,9 +164,25 @@ const Maps = (props) => {
             icon={greyIcon}
           >
             <Popup>
-              <h3>Instructor</h3>
-              <RemoveRedEyeIcon onClick={handleProfileModal} />
-              <ChatIcon onClick={handleChatClick} />
+              <p className="pop_text">Instructor</p>
+              <Button
+                text="Book Now"
+                variant="outlined"
+                width="120px !important"
+                textColor="#FFFFFF !important"
+                color="#149E7A !important"
+                margin="10px !important"
+                onClick={handleBooking}
+              />
+              <IconButton>
+                <RemoveRedEyeIcon
+                  onClick={handleProfileModal}
+                  className="icons"
+                />
+              </IconButton>
+              <IconButton>
+                <ChatIcon onClick={handleChatClick} className="icons" />
+              </IconButton>
             </Popup>
           </Marker>
           <Marker
@@ -177,9 +190,24 @@ const Maps = (props) => {
             icon={yellowIcon}
           >
             <Popup>
-              <h2>Haza</h2>
-              <IconButton onClick={handleProfileModal}>
-                <RemoveRedEyeIcon />
+              <p className="pop_text">Driving School</p>
+              <Button
+                text="Book Now"
+                variant="outlined"
+                width="120px !important"
+                textColor="#FFFFFF !important"
+                color="#149E7A !important"
+                margin="10px !important"
+                onClick={handleBooking}
+              />
+              <IconButton>
+                <RemoveRedEyeIcon
+                  onClick={handleProfileModal}
+                  className="icons"
+                />
+              </IconButton>
+              <IconButton>
+                <ChatIcon onClick={handleChatClick} className="icons" />
               </IconButton>
             </Popup>
           </Marker>
@@ -188,9 +216,24 @@ const Maps = (props) => {
             icon={blackIcon}
           >
             <Popup>
-              <h2>Haza</h2>
-              <IconButton onClick={handleProfileModal}>
-                <RemoveRedEyeIcon />
+              <p className="pop_text">Instructor</p>
+              <Button
+                text="Book Now"
+                variant="outlined"
+                width="120px !important"
+                textColor="#FFFFFF !important"
+                color="#149E7A !important"
+                margin="10px !important"
+                onClick={handleBooking}
+              />
+              <IconButton>
+                <RemoveRedEyeIcon
+                  onClick={handleProfileModal}
+                  className="icons"
+                />
+              </IconButton>
+              <IconButton>
+                <ChatIcon onClick={handleChatClick} className="icons" />
               </IconButton>
             </Popup>
           </Marker>
@@ -199,9 +242,24 @@ const Maps = (props) => {
             icon={redIcon}
           >
             <Popup>
-              <h2>Car Rental Agent</h2>
-              <IconButton onClick={handleProfileModal}>
-                <RemoveRedEyeIcon />
+              <p className="pop_text">Car Rental Agent</p>
+              <Button
+                text="Book Now"
+                variant="outlined"
+                width="120px !important"
+                textColor="#FFFFFF !important"
+                color="#149E7A !important"
+                margin="10px !important"
+                onClick={handleBooking}
+              />
+              <IconButton>
+                <RemoveRedEyeIcon
+                  onClick={handleProfileModal}
+                  className="icons"
+                />
+              </IconButton>
+              <IconButton>
+                <ChatIcon onClick={handleChatClick} className="icons" />
               </IconButton>
             </Popup>
           </Marker>
@@ -210,9 +268,24 @@ const Maps = (props) => {
             icon={redIcon}
           >
             <Popup>
-              <h2>Driving School Instructure</h2>
-              <IconButton onClick={handleProfileModal}>
-                <RemoveRedEyeIcon />
+              <p className="pop_text">Driving School Instructure</p>
+              <Button
+                text="Book Now"
+                variant="outlined"
+                width="120px !important"
+                textColor="#FFFFFF !important"
+                color="#149E7A !important"
+                margin="10px !important"
+                onClick={handleBooking}
+              />
+              <IconButton>
+                <RemoveRedEyeIcon
+                  onClick={handleProfileModal}
+                  className="icons"
+                />
+              </IconButton>
+              <IconButton>
+                <ChatIcon onClick={handleChatClick} className="icons" />
               </IconButton>
             </Popup>
           </Marker>
@@ -221,9 +294,24 @@ const Maps = (props) => {
             icon={blackIcon}
           >
             <Popup>
-              <p>Driving School</p>
-              <IconButton onClick={handleProfileModal}>
-                <RemoveRedEyeIcon />
+              <p className="pop_text">Driving School</p>
+              <Button
+                text="Book Now"
+                variant="outlined"
+                width="120px !important"
+                textColor="#FFFFFF !important"
+                color="#149E7A !important"
+                margin="10px !important"
+                onClick={handleBooking}
+              />
+              <IconButton>
+                <RemoveRedEyeIcon
+                  onClick={handleProfileModal}
+                  className="icons"
+                />
+              </IconButton>
+              <IconButton>
+                <ChatIcon onClick={handleChatClick} className="icons" />
               </IconButton>
             </Popup>
           </Marker>

@@ -59,3 +59,16 @@
 .icons_text2 {
   font-size: 0.8rem;
 }
+.icons {
+  cursor: pointer;
+}
+.pop_text {
+  font-size: 18px;
+  font-weight: 550;
+  text-align: center;
+}
+/* .pop {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+} */
