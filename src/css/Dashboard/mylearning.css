@@ -1,0 +1,42 @@
+.Mylearning_title {
+  font-family: Inter !important;
+  font-style: normal !important;
+  font-weight: 500 !important;
+  font-size: 28px !important;
+  margin-top: 30px !important;
+  color: #2b3135;
+}
+.Mylearning_buttons {
+  margin-top: 20px !important;
+}
+.Mylearning_heading {
+  font-family: Inter !important;
+  font-style: normal !important;
+  font-weight: 500 !important;
+  font-size: 18px !important;
+
+  color: #2b3135;
+}
+.Learning_table {
+  height: 400px !important;
+  width: 90% !important;
+  margin: 20px !important;
+  font-family: inter !important;
+  font-size: 18px !important;
+  /* margin-left: 60px !important; */
+}
+.Headingsdiv {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.08) !important;
+}
+.Heading_data {
+  padding-bottom: 10px !important;
+}
+@media only screen and (max-width: 768px) {
+  .Buttonsec {
+    margin-bottom: 20px !important;
+    width: 50% !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-content: center !important;
+  }
+}
