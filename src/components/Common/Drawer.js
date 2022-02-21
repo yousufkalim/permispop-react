@@ -60,10 +60,11 @@ function ResponsiveDrawer(props) {
     // main content box
     mainBox: {
       flexGrow: 1,
-      backgroundColor: "#fbfbfb",
-      height: "100%",
-      padding: "3rem",
-      marginTop: "30px",
+      overflow: "hidden !important",
+      backgroundColor: "#fbfbfb !important",
+      height: "100% ",
+      padding: "3rem !important",
+      marginTop: "30px !important",
       width: { xmd: `calc(100% - ${drawerWidth}px)` },
       "@media (max-width:992px)": {
         width: { xmd: `calc(100% - ${drawerWidth - 40}px)` },

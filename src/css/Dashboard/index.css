@@ -1,11 +1,11 @@
 @import url("./drawer.css");
 @import url("./Profile.css");
-
+@import url("./Calendar.css");
+@import url("./Instructor/EventModal.css");
+@import url("./Student/maps.css");
+@import url("./Feedbackmodal.css");
 /* defaluts */
 
 /* .css-1ntjvo5-MuiPaper-root-MuiAppBar-root {
   box-shadow: unset !important;
 } */
-@import url("./Calendar.css");
-@import url("./Instructor/EventModal.css");
-@import url("./Feedbackmodal.css");
