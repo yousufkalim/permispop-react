@@ -10,8 +10,8 @@ import TableContainer from "@mui/material/TableContainer";
 
 import Paper from "@mui/material/Paper";
 import { pink } from "@mui/material/colors";
-import Checkbox from "@mui/material/Checkbox";
-import { width } from "@mui/system";
+import Radio from "@mui/material/Radio";
+import { color } from "@mui/system";
 
 const label = { inputProps: { "aria-label": "Checkbox demo" } };
 function createData(wording, comments) {
@@ -37,8 +37,22 @@ const rows = [
 ];
 
 function Mylearning() {
+  const [step, setStep] = React.useState(1);
+  const [selectedValue, setSelectedValue] = React.useState("a");
+
+  const handleChange = (event) => {
+    setSelectedValue(event.target.value);
+  };
+
+  const controlProps = (item) => ({
+    checked: selectedValue === item,
+    onChange: handleChange,
+    value: item,
+    name: "color-radio-button-demo",
+    inputProps: { "aria-label": item },
+  });
   return (
-    <>
+    <div style={{ padding: "0% 5% 5% 5%" }}>
       <Typography className="Mylearning_title"> My Learning</Typography>
       <Divider
         width="100%"
@@ -48,42 +62,50 @@ function Mylearning() {
       <Grid container spacing={1} className="Mylearning_buttons">
         <Grid sx={6} sm={6} md={3} className="Buttonsec">
           <Button
-            text="I - Master"
-            color="#149E7A !important"
+            text="I - Practice"
+            color={step === 1 ? "#149E7A !important" : ""}
+            variant="outlined"
             margin="0px 10px 0px 0px !important"
-            textColor="#fff"
+            textColor={step === 1 ? "#fff !important" : "#333"}
             borderRadius="30px !important"
             width="80% !important"
+            onClick={(e) => setStep(1)}
           ></Button>
         </Grid>
         <Grid sx={6} sm={6} md={3} className="Buttonsec">
           <Button
             text="II - Apprehend"
+            color={step === 2 ? "#149E7A !important" : ""}
             variant="outlined"
             margin="0px 10px 0px 0px !important"
-            textColor=" #2B3135"
+            textColor={step === 2 ? "#fff !important" : "#333"}
             borderRadius="30px !important"
             width="80% !important"
+            onClick={(e) => setStep(2)}
           ></Button>
         </Grid>
         <Grid sx={6} sm={6} md={3} className="Buttonsec">
           <Button
             text="III - Driving"
+            color={step === 3 ? "#149E7A !important" : ""}
             variant="outlined"
             margin="0px 10px 0px 0px !important"
-            textColor=" #2B3135"
+            textColor={step === 3 ? "#fff !important" : "#333"}
             borderRadius="30px !important"
             width="80% !important"
+            onClick={(e) => setStep(3)}
           ></Button>
         </Grid>
         <Grid sx={6} sm={6} md={3} className="Buttonsec">
           <Button
-            text="IV - Practice"
+            text="IV - Master"
+            color={step === 4 ? "#149E7A !important" : ""}
             variant="outlined"
+            textColor={step === 4 ? "#fff !important" : "#333"}
             margin="0px 10px 0px 0px !important"
-            textColor=" #2B3135"
             borderRadius="30px !important"
             width="80% !important"
+            onClick={(e) => setStep(4)}
           ></Button>
         </Grid>
         <Divider
@@ -92,75 +114,284 @@ function Mylearning() {
           margin="1% 0px 1% 0px !important"
         />
       </Grid>
-      <Typography className="Mylearning_heading">
-        Master the handling of the vehicle in light or no traffic
-      </Typography>
-      <TableContainer
-        component={Paper}
-        sx={{ marginTop: "20px", width: "95%" }}
-      >
-        <Table size="large" className="Learning_table">
-          <tr className="Headingsdiv">
-            <th className="Heading_data" align="center">
-              Accquired
-            </th>
-            <th className="Heading_data" align="center">
-              Wording
-            </th>
-            <th className="Heading_data" align="center">
-              Comments
-            </th>
-          </tr>
-
-          <TableBody>
-            {rows.map((row) => (
-              <tr key={row.name}>
-                <td align="center">
-                  <Checkbox
-                    {...label}
-                    defaultChecked
-                    sx={{
-                      color: pink[800],
-
-                      "&.Mui-checked": {
-                        color: pink[600],
-                      },
-                    }}
-                  />
-                  <Checkbox
-                    {...label}
-                    defaultChecked
-                    sx={{
-                      color: "#FFA333",
-
-                      "&.Mui-checked": {
-                        color: "#FFA333",
-                      },
-                    }}
-                  />
-
-                  <Checkbox
-                    {...label}
-                    defaultChecked
-                    sx={{
-                      color: "#149E7A",
-
-                      "&.Mui-checked": {
-                        color: "#149E7A",
-                      },
-                    }}
-                  />
-                </td>
-                <td align="center">{row.wording}</td>
-                <td align="center">
-                  <ForumIcon style={{ fill: "#149E7A" }}></ForumIcon>
-                </td>
+      {step === 1 ? (
+        <>
+          <Typography className="Mylearning_heading">
+            Practice the handling of the vehicle in light or no traffic
+          </Typography>
+          <TableContainer
+            component={Paper}
+            sx={{ marginTop: "20px", width: "95%" }}
+          >
+            <Table size="large" className="Learning_table">
+              <tr className="Headingsdiv">
+                <th className="Heading_data" align="center">
+                  Accquired
+                </th>
+                <th className="Heading_data" align="center">
+                  Wording
+                </th>
+                <th className="Heading_data" align="center">
+                  Comments
+                </th>
               </tr>
-            ))}
-          </TableBody>
-        </Table>
-      </TableContainer>
-    </>
+              <TableBody>
+                {rows.map((row) => (
+                  <tr key={row.name}>
+                    <td align="center">
+                      <Radio
+                        {...controlProps("a")}
+                        defaultChecked
+                        sx={{
+                          color: pink[800],
+
+                          "&.Mui-checked": {
+                            color: pink[600],
+                          },
+                        }}
+                      />
+                      <Radio
+                        {...controlProps("b")}
+                        defaultChecked
+                        sx={{
+                          color: "#FFA333",
+
+                          "&.Mui-checked": {
+                            color: "#FFA333",
+                          },
+                        }}
+                      />
+                      <Radio
+                        {...controlProps("c")}
+                        defaultChecked
+                        sx={{
+                          color: "#149E7A",
+
+                          "&.Mui-checked": {
+                            color: "#149E7A",
+                          },
+                        }}
+                      />
+                    </td>
+                    <td align="center">{row.wording}</td>
+                    <td align="center">
+                      <ForumIcon style={{ fill: "#149E7A" }}></ForumIcon>
+                    </td>
+                  </tr>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </>
+      ) : step === 2 ? (
+        <>
+          <Typography className="Mylearning_heading">
+            Apprehend the handling of the vehicle in light or no traffic
+          </Typography>
+          <TableContainer
+            component={Paper}
+            sx={{ marginTop: "20px", width: "95%" }}
+          >
+            <Table size="large" className="Learning_table">
+              <tr className="Headingsdiv">
+                <th className="Heading_data" align="center">
+                  Accquired
+                </th>
+                <th className="Heading_data" align="center">
+                  Wording
+                </th>
+                <th className="Heading_data" align="center">
+                  Comments
+                </th>
+              </tr>
+              <TableBody>
+                {rows.map((row) => (
+                  <tr key={row.name}>
+                    <td align="center">
+                      <Radio
+                        {...controlProps("a")}
+                        defaultChecked
+                        sx={{
+                          color: pink[800],
+
+                          "&.Mui-checked": {
+                            color: pink[600],
+                          },
+                        }}
+                      />
+                      <Radio
+                        {...controlProps("b")}
+                        defaultChecked
+                        sx={{
+                          color: "#FFA333",
+
+                          "&.Mui-checked": {
+                            color: "#FFA333",
+                          },
+                        }}
+                      />
+                      <Radio
+                        {...controlProps("c")}
+                        defaultChecked
+                        sx={{
+                          color: "#149E7A",
+
+                          "&.Mui-checked": {
+                            color: "#149E7A",
+                          },
+                        }}
+                      />
+                    </td>
+                    <td align="center">{row.wording}</td>
+                    <td align="center">
+                      <ForumIcon style={{ fill: "#149E7A" }}></ForumIcon>
+                    </td>
+                  </tr>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </>
+      ) : step === 3 ? (
+        <>
+          <Typography className="Mylearning_heading">
+            Drive the handling of the vehicle in light or no traffic
+          </Typography>
+          <TableContainer
+            component={Paper}
+            sx={{ marginTop: "20px", width: "95%" }}
+          >
+            <Table size="large" className="Learning_table">
+              <tr className="Headingsdiv">
+                <th className="Heading_data" align="center">
+                  Accquired
+                </th>
+                <th className="Heading_data" align="center">
+                  Wording
+                </th>
+                <th className="Heading_data" align="center">
+                  Comments
+                </th>
+              </tr>
+              <TableBody>
+                {rows.map((row) => (
+                  <tr key={row.name}>
+                    <td align="center">
+                      <Radio
+                        {...controlProps("a")}
+                        defaultChecked
+                        sx={{
+                          color: pink[800],
+
+                          "&.Mui-checked": {
+                            color: pink[600],
+                          },
+                        }}
+                      />
+                      <Radio
+                        {...controlProps("b")}
+                        defaultChecked
+                        sx={{
+                          color: "#FFA333",
+
+                          "&.Mui-checked": {
+                            color: "#FFA333",
+                          },
+                        }}
+                      />
+                      <Radio
+                        {...controlProps("c")}
+                        defaultChecked
+                        sx={{
+                          color: "#149E7A",
+
+                          "&.Mui-checked": {
+                            color: "#149E7A",
+                          },
+                        }}
+                      />
+                    </td>
+                    <td align="center">{row.wording}</td>
+                    <td align="center">
+                      <ForumIcon style={{ fill: "#149E7A" }}></ForumIcon>
+                    </td>
+                  </tr>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </>
+      ) : step === 4 ? (
+        <>
+          <Typography className="Mylearning_heading">
+            Master the handling of the vehicle in light or no traffic
+          </Typography>
+          <TableContainer
+            component={Paper}
+            sx={{ marginTop: "20px", width: "95%" }}
+          >
+            <Table size="large" className="Learning_table">
+              <tr className="Headingsdiv">
+                <th className="Heading_data" align="center">
+                  Accquired
+                </th>
+                <th className="Heading_data" align="center">
+                  Wording
+                </th>
+                <th className="Heading_data" align="center">
+                  Comments
+                </th>
+              </tr>
+              <TableBody>
+                {rows.map((row) => (
+                  <tr key={row.name}>
+                    <td align="center">
+                      <Radio
+                        {...controlProps("a")}
+                        defaultChecked
+                        sx={{
+                          color: pink[800],
+
+                          "&.Mui-checked": {
+                            color: pink[600],
+                          },
+                        }}
+                      />
+                      <Radio
+                        {...controlProps("b")}
+                        sx={{
+                          color: "#FFA333",
+
+                          "&.Mui-checked": {
+                            color: "#FFA333",
+                          },
+                        }}
+                      />
+                      <Radio
+                        {...controlProps("c")}
+                        sx={{
+                          color: "#149E7A",
+
+                          "&.Mui-checked": {
+                            color: "#149E7A",
+                          },
+                        }}
+                      />
+                    </td>
+                    <td align="center">{row.wording}</td>
+                    <td align="center">
+                      <ForumIcon style={{ fill: "#149E7A" }}></ForumIcon>
+                    </td>
+                  </tr>
+                ))}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </>
+      ) : (
+        ""
+      )}
+    </div>
   );
 }
 
