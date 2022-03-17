@@ -95,6 +95,7 @@ export default function Header(props) {
           type="submit"
           text="Login"
           buttonLableStyle="btn_main"
+          width="50%"
           onClick={handleLoginOpen}
         ></Button>
         <BasicModal
@@ -192,7 +193,7 @@ export default function Header(props) {
                 type="submit"
                 text="Login"
                 buttonLableStyle="btn_main"
-                width="250px"
+                padding="0 30% 0 30% !important"
                 height="50px"
                 onClick={handleLogin}
               ></Button>
