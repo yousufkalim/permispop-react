@@ -64,7 +64,7 @@ export default function ButtonComponent(props) {
       type={props.type || "button"}
       variant={props.variant || "contained"}
       component={props.component || "button"}
-      fullWidth={props.fullWidth === false ? false : true}
+      fullWidth={props.fullWidth === true ? true : false}
       className={[classes.button, props.className].join(" ")}
       style={props.style}
       classes={{ label: classes.label }}
