@@ -1,12 +1,8 @@
 .Login_text_field {
   display: flex;
   flex-direction: column;
-  padding: 10px !important;
-  margin: 15px !important;
-
-  margin-left: 30px !important;
-  margin-bottom: 5px !important;
-  font-family: Inter !important;
+  align-items: baseline;
+  width: 100%;
 }
 .login_modal_title {
   color: #2f363d !important;
@@ -18,9 +14,9 @@
 .Loginmodal {
   margin-top: 10px !important;
   margin-bottom: 10px !important;
-  margin-left: 25px !important;
   border-radius: 100px !important;
-  width: 400px !important;
+  /* width: 400px !important; */
+  width: 22vw !important;
   box-shadow: 0px 14px 59px rgb(115 55 0 / 15%) !important;
 }
 /* .MuiOutlinedInput-root {
@@ -53,7 +49,9 @@
   justify-content: center;
 }
 .LoginModalButton {
-  margin-top: 20px;
+  width: 50%;
+  display: inline-block;
+  /* margin: 0 25% !important; */
 }
 .Register_now {
   display: flex;
@@ -75,22 +73,37 @@ svg {
 
 @media only screen and (max-width: 1440px) {
   .Loginmodal {
-    width: 330px !important;
-    margin-left: 0px !important;
   }
 }
 
 @media only screen and (max-width: 1366px) {
   .Loginmodal {
-    width: 300px !important;
+    margin-left: 2% !important;
   }
 }
 @media only screen and (max-width: 992px) {
   .Loginmodal {
-    width: 200px !important;
+    width: 40vw !important;
   }
   .account {
     display: flex;
     flex-direction: column-reverse;
+  }
+}
+
+@media only screen and (max-width: 768px) {
+  .Loginmodal {
+    width: 36vw !important;
+  }
+}
+@media only screen and (max-width: 600px) {
+  .Loginmodal {
+    width: 47vw !important;
+  }
+}
+
+@media only screen and (max-width: 420px) {
+  .Loginmodal {
+    width: 70vw !important;
   }
 }
