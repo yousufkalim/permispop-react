@@ -54,9 +54,9 @@ const ProfileDetails = (props) => {
             variant="outlined"
             margin="0px 10px 0px 0px !important"
             borderRadius="10px"
+            width="95% !important"
             textColor="#149e7a"
             color="white"
-            width="90% !important"
             aria-expanded={open ? "true" : undefined}
             onClick={handleClick}
           ></Button>
@@ -74,13 +74,19 @@ const ProfileDetails = (props) => {
             <MenuItem onClick={handleClose}>Language 3</MenuItem>
           </Menu>
         </Grid>
-        <Grid xs={12} sm={12} md={2} className="ProfileButtonGrid">
+        <Grid
+          xs={12}
+          sm={12}
+          md={2}
+          className="ProfileButtonGrid"
+          sx={{ marginRight: "1%" }}
+        >
           <Button
             startIcon={<Editprofile />}
             className="ProfileButton"
             text="Edit Profile"
-            width="90% !important"
             borderRadius="10px"
+            width="100% !important"
             color="#149e7a  !important"
             sx={{ padding: "0 !important" }}
             onClick={(e) => seteditProfile(!editProfile)}
@@ -93,8 +99,8 @@ const ProfileDetails = (props) => {
               <Button
                 text="Request Profile Update"
                 variant="outlined"
-                width="90% !important"
                 borderRadius="10px"
+                width="95% !important"
                 textColor="#149e7a  !important"
                 color="white !important"
                 className="LanguageButton"
@@ -104,7 +110,7 @@ const ProfileDetails = (props) => {
               <Button
                 text="Change Password"
                 variant="outlined"
-                width="90% !important"
+                width="95% !important"
                 color="white !important"
                 borderRadius="10px"
                 textColor="#149e7a"
