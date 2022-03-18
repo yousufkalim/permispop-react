@@ -41,6 +41,8 @@ import DsProfile from "../containers/Dashboard/DrivingSchool/profile";
 import DsPendingRequest from "../containers/Dashboard/DrivingSchool/PendingRequest";
 import DsHistory from "../containers/Dashboard/DrivingSchool/History";
 import DsCalendar from "../containers/Dashboard/DrivingSchool/DsCalendar/Calendar";
+import DsInstructor from "../containers/Dashboard/DrivingSchool/Instructor";
+import DsVehicles from "../containers/Dashboard/DrivingSchool/Vehicles";
 // CarRental components routes
 import CRCalendar from "../containers/Dashboard/CarRental/CarRentalCalendar/Calendar";
 import CRProfile from "../containers/Dashboard/CarRental/Profile";
@@ -301,14 +303,14 @@ var DrivingSchoolRoutes = [
     path: "/instructor",
     name: "Instructor",
     icon: <GroupOutlinedIcon className="drawer-icons" />,
-    component: Test,
+    component: DsInstructor,
     layout: "/DrivingSchool",
   },
   {
     path: "/vehicles",
     name: "Vehicles",
     icon: <Car className="drawer-icons" />,
-    component: Test,
+    component: DsVehicles,
     layout: "/DrivingSchool",
   },
   {
