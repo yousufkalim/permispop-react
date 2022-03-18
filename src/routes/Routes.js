@@ -27,19 +27,23 @@ import InsProfile from "../containers/Dashboard/Instructor/profile";
 import InsPendingRequest from "../containers/Dashboard/Instructor/PendingRequest";
 import InsHistory from "../containers/Dashboard/Instructor/History";
 import InsCalendar from "../containers/Dashboard/Instructor/InsCalendar/Calendar";
+import InsInsuranceDetails from "../containers/Dashboard/Instructor/InsuranceDetails";
+import InsFaq from "../containers/Dashboard/Instructor/Faq";
 //driving school instructor components routes
-import DsInsProfile from "../containers/Dashboard/DsInstructor/profile";
-import DsInsPendingRequest from "../containers/Dashboard/DsInstructor/PendingRequest";
-import DsInsHistory from "../containers/Dashboard/DsInstructor/History";
-import DsInsCalendar from "../containers/Dashboard/DsInstructor/DsInstructorCalendar/Calendar";
+import DsInsProfile from "../containers/Dashboard/DSInstructor/profile";
+import DsInsPendingRequest from "../containers/Dashboard/DSInstructor/PendingRequest";
+import DsInsHistory from "../containers/Dashboard/DSInstructor/History";
+import DsInsCalendar from "../containers/Dashboard/DSInstructor/DsInstructorCalendar/Calendar";
 // driving school components routes
 import DsProfile from "../containers/Dashboard/DrivingSchool/profile";
 import DsPendingRequest from "../containers/Dashboard/DrivingSchool/PendingRequest";
 import DsHistory from "../containers/Dashboard/DrivingSchool/History";
 import DsCalendar from "../containers/Dashboard/DrivingSchool/DsCalendar/Calendar";
+import DsInsuranceDetails from "../containers/Dashboard/DrivingSchool/InsuranceDetails";
 // CarRental components routes
 
 import CRCalendar from "../containers/Dashboard/CarRental/CarRentalCalendar/Calendar";
+import CRInsuranceDetails from "../containers/Dashboard/CarRental/InsuranceDetails";
 
 // Student Routes
 var StudentRoutes = [
@@ -127,7 +131,7 @@ var InstructorRoutes = [
     path: "/insuranceDetails",
     name: "Insurance Details",
     icon: <AssignmentTurnedInOutlinedIcon className="drawer-icons" />,
-    component: Test,
+    component: InsInsuranceDetails,
     layout: "/instructor",
   },
   {
@@ -176,7 +180,7 @@ var InstructorRoutes = [
     path: "/faq's",
     name: "FAQ'S",
     icon: <QuizOutlinedIcon className="drawer-icons" />,
-    component: Test,
+    component: InsFaq,
     layout: "/instructor",
   },
 ];
@@ -260,7 +264,7 @@ var DrivingSchoolRoutes = [
     path: "/insuranceDetails",
     name: "Insurance Details",
     icon: <AssignmentTurnedInOutlinedIcon className="drawer-icons" />,
-    component: Test,
+    component: DsInsuranceDetails,
     layout: "/DrivingSchool",
   },
   {
@@ -327,7 +331,7 @@ var CarRentalRoutes = [
     path: "/insuranceDetails",
     name: "Insurance Details",
     icon: <AssignmentTurnedInOutlinedIcon className="drawer-icons" />,
-    component: Test,
+    component: CRInsuranceDetails,
     layout: "/carRental",
   },
   {
