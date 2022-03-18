@@ -63,7 +63,7 @@ function Mylearning() {
         <Grid sx={6} sm={6} md={3} className="Buttonsec">
           <Button
             text="I - Practice"
-            color={step === 1 ? "#149E7A !important" : ""}
+            color={step === 1 ? "#149E7A !important" : "white !important"}
             variant="outlined"
             margin="0px 10px 0px 0px !important"
             textColor={step === 1 ? "#fff !important" : "#333"}
@@ -75,7 +75,7 @@ function Mylearning() {
         <Grid sx={6} sm={6} md={3} className="Buttonsec">
           <Button
             text="II - Apprehend"
-            color={step === 2 ? "#149E7A !important" : ""}
+            color={step === 2 ? "#149E7A !important" : "white !important"}
             variant="outlined"
             margin="0px 10px 0px 0px !important"
             textColor={step === 2 ? "#fff !important" : "#333"}
@@ -87,7 +87,7 @@ function Mylearning() {
         <Grid sx={6} sm={6} md={3} className="Buttonsec">
           <Button
             text="III - Driving"
-            color={step === 3 ? "#149E7A !important" : ""}
+            color={step === 3 ? "#149E7A !important" : "white !important"}
             variant="outlined"
             margin="0px 10px 0px 0px !important"
             textColor={step === 3 ? "#fff !important" : "#333"}
@@ -99,7 +99,7 @@ function Mylearning() {
         <Grid sx={6} sm={6} md={3} className="Buttonsec">
           <Button
             text="IV - Master"
-            color={step === 4 ? "#149E7A !important" : ""}
+            color={step === 4 ? "#149E7A !important" : "white !important"}
             variant="outlined"
             textColor={step === 4 ? "#fff !important" : "#333"}
             margin="0px 10px 0px 0px !important"
