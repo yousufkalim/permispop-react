@@ -8,7 +8,7 @@ import { makeStyles } from "@mui/styles";
 export default function DropDown(props) {
   const useStyles = makeStyles((theme) => ({
     formControl: {
-      width: props.formWidth || "100%",
+      width: props.formWidth || "100% !important",
       "@media (max-width:600px)": {
         width: "100% ",
       },
