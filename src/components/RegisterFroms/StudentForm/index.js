@@ -129,8 +129,11 @@ const StudentForm = (props) => {
               ></TextField>
             </Grid>
           </Grid>
-
-          <Divider width="100%" borderColor="#D5E4E8" />
+          <Divider
+            width="100%"
+            borderColor="#D5E4E8"
+            sx={{ margin: "6% 0px 6% 0px" }}
+          />
 
           <Grid container spacing={4} alignItems="flex-end">
             <Grid item xs={12} sm={12} md={4}>
