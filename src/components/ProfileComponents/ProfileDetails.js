@@ -81,7 +81,7 @@ const ProfileDetails = (props) => {
             text="Edit Profile"
             width="90% !important"
             borderRadius="10px"
-            color="#149e7a"
+            color="#149e7a  !important"
             sx={{ padding: "0 !important" }}
             onClick={(e) => seteditProfile(!editProfile)}
           ></Button>
@@ -95,8 +95,8 @@ const ProfileDetails = (props) => {
                 variant="outlined"
                 width="90% !important"
                 borderRadius="10px"
-                textColor="#149e7a"
-                color="white"
+                textColor="#149e7a  !important"
+                color="white !important"
                 className="LanguageButton"
               ></Button>
             </Grid>
@@ -105,7 +105,7 @@ const ProfileDetails = (props) => {
                 text="Change Password"
                 variant="outlined"
                 width="90% !important"
-                color="white"
+                color="white !important"
                 borderRadius="10px"
                 textColor="#149e7a"
               ></Button>
