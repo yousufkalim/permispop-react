@@ -7,8 +7,26 @@ import DropDown from "../../Common/DropDown";
 import Divider from "../../Common/Divider";
 import FilePicker from "../../Common/FilePicker";
 import Checkbox from "@mui/material/Checkbox";
+import API from "../../../api/index";
 
-const Step1 = (props) => {
+const Step2 = (props) => {
+  const [step2, setStep2] = React.useState({
+    TradeName: "",
+    CompanyName: "",
+    Address: "",
+    RcProImg: "",
+    SiretNumber: "",
+    City: "",
+    Email: "",
+    Email2: "",
+    Phone: "",
+    Phone2: "",
+    Password: "",
+    Password2: "",
+    Language: "",
+    OtherPlateform: false,
+    CPF: "",
+  });
   return (
     <Box
       component="form"
@@ -71,4 +89,4 @@ const Step1 = (props) => {
     </Box>
   );
 };
-export default Step1;
+export default Step2;
