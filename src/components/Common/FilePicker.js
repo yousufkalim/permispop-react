@@ -4,7 +4,8 @@ import Button from "@mui/material/Button";
 import { makeStyles } from "@mui/styles";
 
 export default function FilePicker(props) {
-  const [value, setValue] = React.useState("");
+  // const [value, setValue] = React.useState("");
+  const { setFrontImage } = props;
 
   const useStyles = makeStyles((theme) => ({
     container: {
@@ -86,10 +87,10 @@ export default function FilePicker(props) {
   }));
   const classes = useStyles();
 
-  const handleChange = (e) => {
-    console.log(e.target.files[0].name);
-    setValue(e.target.files[0].name);
-  };
+  // const handleChange = (e) => {
+  //   console.log(e.target.files[0].name);
+  //   setValue(e.target.files[0].name);
+  // };
 
   return (
     <div>
@@ -103,7 +104,7 @@ export default function FilePicker(props) {
             accept="image/*"
             id={`contained-button-file` + props.label}
             type="file"
-            onChange={(e) => handleChange(e)}
+            onChange={props.onChange}
           />
           <Button
             variant="contained"
@@ -115,7 +116,7 @@ export default function FilePicker(props) {
             </Typography>
           </Button>
           <Typography noWrap variant="body1" className={classes.label}>
-            {value ? value : "No file choosen."}
+            {props.value ? props.value : "No file choosen."}
           </Typography>
         </div>
       </label>
