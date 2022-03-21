@@ -6,7 +6,6 @@ import Typography from "@mui/material/Typography";
 import { Historycolumns } from "../../../utils/tableHeads";
 import { pendingRequestsrows } from "../../../utils/tablerows";
 import MultipleSelectPlaceholder from "../../../components/Common/SelectField";
-import MobileDateRangePicker from "../../../components/Common/RangePicker";
 
 import Divider from "../../../components/Common/Divider";
 

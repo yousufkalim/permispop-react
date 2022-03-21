@@ -6,7 +6,6 @@ import Typography from "@mui/material/Typography";
 import { PendingRequestcolumns } from "../../../utils/tableHeads";
 import { pendingRequestsrows } from "../../../utils/tablerows";
 import MultipleSelectPlaceholder from "../../../components/Common/SelectField";
-import MobileDateRangePicker from "../../../components/Common/RangePicker";
 
 import Divider from "../../../components/Common/Divider";
 
@@ -25,7 +24,6 @@ const index = () => {
               fontSize: "24px",
               lineHight: "34px",
               /* identical to box height */
-
               color: "#2A3235",
             }}
           >
@@ -47,7 +45,6 @@ const index = () => {
             value={["Start Date"]}
           ></MultipleSelectPlaceholder>
         </Grid>
-
         <Grid xs={3} sm={3} md={2}>
           <MultipleSelectPlaceholder
             value={["End Date"]}
