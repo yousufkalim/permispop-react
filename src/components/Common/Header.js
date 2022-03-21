@@ -23,22 +23,60 @@ import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import TextField from "@mui/material/TextField";
 import { useHistory } from "react-router-dom";
 import { Grid } from "@mui/material";
+import API from "../../api/index";
+import jwt_decode from "jwt-decode";
+import { Base64 } from "js-base64";
 
 export default function Header(props) {
+  const [Loginopen, setLoginOpen] = React.useState(false);
+
+  const [email, setEmail] = React.useState("");
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
     setAnchorEl(event.currentTarget);
   };
-  const handleClose = () => {
-    setAnchorEl(null);
-  };
+  const history = useHistory();
+  const [role, setRole] = React.useState("");
   const [values, setValues] = React.useState({
     password: "",
     showPassword: false,
   });
-  const history = useHistory();
-  const handleLogin = () => history.push("/student/myProfille");
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleLoginOpen = () => setLoginOpen(true);
+  const handleLoginClose = () => setLoginOpen(false);
+
+  const handleLogin = async () => {
+    const response = await API("post", "Personal/Login", {
+      Email: email,
+      Password: values.password,
+    });
+    localStorage.setItem("token", response.data.data);
+
+    if (response.data.data) {
+      var decoded = jwt_decode(response.data.data);
+      let userdata = JSON.parse(Base64.decode(decoded.userData));
+      setRole(userdata.role);
+
+      if (userdata.role === "DSInstructor") {
+        history.push("/DsInstructor/myprofile");
+      } else if (userdata.role === "CarRentalAgent") {
+        history.push("/CarRental/myprofile");
+      } else if (userdata.role === "Instructor") {
+        history.push("/Instructor/myprofile");
+      } else if (userdata.role === "Student") {
+        history.push("student/myProfille");
+      } else if (userdata.role === "DrivingSchool") {
+        history.push("/DrivingSchool/myprofile");
+      } else {
+        console.log("Something went wrong");
+      }
+    }
+    window.location.reload(false);
+  };
   const handleChange = (prop) => (event) => {
     setValues({ ...values, [prop]: event.target.value });
   };
@@ -53,9 +91,7 @@ export default function Header(props) {
   const handleMouseDownPassword = (event) => {
     event.preventDefault();
   };
-  const [Loginopen, setLoginOpen] = React.useState(false);
-  const handleLoginOpen = () => setLoginOpen(true);
-  const handleLoginClose = () => setLoginOpen(false);
+
   return (
     <div className="main-list">
       <div className="flex_rowAlign_center">
@@ -130,6 +166,8 @@ export default function Header(props) {
                           </InputAdornment>
                         ),
                       }}
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
                     />
                   </FormControl>
                 </Grid>
