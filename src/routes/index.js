@@ -15,46 +15,72 @@ import RentalCarRegister from "../containers/RegisterPage/RentalCar";
 import InstructorRegister from "../containers/RegisterPage/Instructor";
 import DrivingSchoolRegister from "../containers/RegisterPage/DrivingSchool";
 
-const index = () => {
+const index = (props) => {
   return (
     <Switch>
       <Switch>
-        <Route
-          path="/instructor"
-          render={(props) => <InstructorLayout {...props} />}
-        />
-        <Route
-          path="/student"
-          render={(props) => <StudentLayout {...props} />}
-        />
-        <Route
-          path="/dsInstructor"
-          render={(props) => <DsInstructorLayout {...props} />}
-        />
-        <Route
-          path="/drivingSchool"
-          render={(props) => <DrivingSchoolLayout {...props} />}
-        />
-        <Route
-          path="/carRental"
-          render={(props) => <CarRentalLayout {...props} />}
-        />
+        {props.role ? (
+          <>
+            {console.log("a")}
+            <Route
+              path="/instructor"
+              render={(props) => <InstructorLayout {...props} />}
+            />
+            <Route
+              path="/student"
+              render={(props) => <StudentLayout {...props} />}
+            />
+            <Route
+              path="/dsInstructor"
+              render={(props) => <DsInstructorLayout {...props} />}
+            />
+            <Route
+              path="/drivingSchool"
+              render={(props) => <DrivingSchoolLayout {...props} />}
+            />
+            <Route
+              path="/carRental"
+              render={(props) => <CarRentalLayout {...props} />}
+            />
+            {props.role === "DSInstructor" ? (
+              <Redirect from="/" to="/dsInstructor/myprofile" />
+            ) : props.role === "Student" ? (
+              <Redirect from="/" to="/student/myProfille" />
+            ) : props.role === "CarRentalAgent" ? (
+              <Redirect from="/" to="/CarRental/myprofile" />
+            ) : props.role === "DrivingSchool" ? (
+              <Redirect from="/" to="/DrivingSchool/myprofile" />
+            ) : props.role === "Instructor" ? (
+              <Redirect from="/" to="/instructor/myprofile" />
+            ) : (
+              <Redirect from="/" to="/" />
+            )}
+          </>
+        ) : (
+          <>
+            <Route exact path="/" component={Home} />
+            <Route exact path="/register/student" component={StudentRegister} />
+            <Route
+              exact
+              path="/register/instructor"
+              component={InstructorRegister}
+            />
+            <Route
+              exact
+              path="/register/drivingSchool"
+              component={DrivingSchoolRegister}
+            />
+            <Route
+              exact
+              path="/register/carRental"
+              component={RentalCarRegister}
+            />
+            <Route exact path="/register" component={StudentRegister} />
+            {/* <Redirect from="/" to="/" /> */}
+          </>
+        )}
+
         {/* default route */}
-        <Route exact path="/" component={Home} />
-        <Route exact path="/register/student" component={StudentRegister} />
-        <Route
-          exact
-          path="/register/instructor"
-          component={InstructorRegister}
-        />
-        <Route
-          exact
-          path="/register/drivingSchool"
-          component={DrivingSchoolRegister}
-        />
-        <Route exact path="/register/carRental" component={RentalCarRegister} />
-        <Route exact path="/register" component={StudentRegister} />
-        <Redirect from="/" to="/" />
       </Switch>
     </Switch>
   );

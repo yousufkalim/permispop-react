@@ -20,6 +20,7 @@ import flag_02 from "../../assets/DrawerIcons/flag_02.svg";
 import { makeStyles } from "@mui/styles";
 import { NavLink } from "react-router-dom";
 import BasicAvatar from "../Common/BasicAvatar";
+import { Redirect } from "react-router-dom";
 
 const drawerWidth = 300;
 
@@ -78,7 +79,6 @@ function ResponsiveDrawer(props) {
   }));
   const classes = useStyles();
 
-  const { window } = props;
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
   const handleDrawerToggle = () => {
@@ -115,8 +115,11 @@ function ResponsiveDrawer(props) {
     </div>
   );
 
-  const container =
-    window !== undefined ? () => window().document.body : undefined;
+  const HandleLogout = () => {
+    window.location.reload();
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+  };
 
   return (
     <Box className="main-box">
@@ -138,10 +141,8 @@ function ResponsiveDrawer(props) {
             PERMISPOP.
           </Typography>
           <Box className="Avatar-appbar">
-            <IconButton sx={{ paddingTop: "15px" }}>
-              <NavLink to="/">
-                <PowerSettingsNewIcon className="power-icon" />
-              </NavLink>
+            <IconButton onClick={HandleLogout} sx={{ paddingTop: "15px" }}>
+              <PowerSettingsNewIcon className="power-icon" />
             </IconButton>
             <Divider orientation="vertical" flexItem className="divider" />
 
@@ -174,7 +175,6 @@ function ResponsiveDrawer(props) {
       >
         {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
         <Drawer
-          container={container}
           variant="temporary"
           open={mobileOpen}
           onClose={handleDrawerToggle}
