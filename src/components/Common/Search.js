@@ -40,7 +40,6 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   "& .MuiInputBase-input": {
     padding: theme.spacing(1, 1, 1, 0),
     paddingLeft: "10%",
-    width: "100%",
     height: "40px",
     color: "#9A9EA7",
     "@media (max-width:1440px)": {

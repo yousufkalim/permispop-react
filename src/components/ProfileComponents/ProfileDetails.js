@@ -47,15 +47,16 @@ const ProfileDetails = (props) => {
         }}
       />
       <Grid container className="ButtonSection">
-        <Grid xs={12} sm={12} md={2}>
+        <Grid xs={12} sm={12} md={2} className="ProfileButtonGrid">
           <Button
             className="LanguageButton"
             text="Languages"
             variant="outlined"
             margin="0px 10px 0px 0px !important"
+            borderRadius="10px"
+            width="95% !important"
             textColor="#149e7a"
-            borderColor="#149e7a !important"
-            width="90% !important"
+            color="white"
             aria-expanded={open ? "true" : undefined}
             onClick={handleClick}
           ></Button>
@@ -73,33 +74,45 @@ const ProfileDetails = (props) => {
             <MenuItem onClick={handleClose}>Language 3</MenuItem>
           </Menu>
         </Grid>
-        <Grid xs={12} sm={12} md={2}>
+        <Grid
+          xs={12}
+          sm={12}
+          md={2}
+          className="ProfileButtonGrid"
+          sx={{ marginRight: "1%" }}
+        >
           <Button
             startIcon={<Editprofile />}
             className="ProfileButton"
             text="Edit Profile"
-            width="90% !important"
-            color="#149e7a !important"
+            borderRadius="10px"
+            width="100% !important"
+            color="#149e7a  !important"
+            sx={{ padding: "0 !important" }}
             onClick={(e) => seteditProfile(!editProfile)}
           ></Button>
         </Grid>
         {editProfile ? (
           <>
             <Vector className="VectorIcon"></Vector>
-            <Grid xs={12} sm={12} md={3}>
+            <Grid xs={12} sm={6} md={3}>
               <Button
                 text="Request Profile Update"
                 variant="outlined"
-                width="90% !important"
-                textColor="#149e7a"
+                borderRadius="10px"
+                width="95% !important"
+                textColor="#149e7a  !important"
+                color="white !important"
                 className="LanguageButton"
               ></Button>
             </Grid>
-            <Grid xs={12} sm={12} md={3}>
+            <Grid xs={12} sm={6} md={3}>
               <Button
                 text="Change Password"
                 variant="outlined"
-                width="90% !important"
+                width="95% !important"
+                color="white !important"
+                borderRadius="10px"
                 textColor="#149e7a"
               ></Button>
             </Grid>{" "}

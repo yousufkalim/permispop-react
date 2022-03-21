@@ -8,8 +8,6 @@ export default function HoverRating(props) {
   const useStyles = makeStyles((theme) => ({
     rating: {
       display: props.display || "flex",
-      alignItems: props.alignItems || "center",
-      justifyContent: props.justifyContent || "center",
     },
     icon: {
       opacity: props.opacity || "0.55 !important",

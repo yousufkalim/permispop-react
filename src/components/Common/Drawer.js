@@ -64,7 +64,7 @@ function ResponsiveDrawer(props) {
       overflow: "hidden !important",
       backgroundColor: "#fbfbfb !important",
       height: "100% ",
-      padding: "3rem !important",
+      padding: "3rem 0 !important",
       marginTop: "30px !important",
       width: { xmd: `calc(100% - ${drawerWidth}px)` },
       "@media (max-width:992px)": {
@@ -141,7 +141,7 @@ function ResponsiveDrawer(props) {
             PERMISPOP.
           </Typography>
           <Box className="Avatar-appbar">
-            <IconButton onClick={HandleLogout}>
+            <IconButton onClick={HandleLogout} sx={{ paddingTop: "15px" }}>
               <PowerSettingsNewIcon className="power-icon" />
             </IconButton>
             <Divider orientation="vertical" flexItem className="divider" />

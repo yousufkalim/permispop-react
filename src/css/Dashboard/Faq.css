@@ -1,0 +1,140 @@
+.topTitle{
+    margin-top: 2rem;
+    
+}
+.TitleH{
+    color: #2A3235 !important;
+}
+.TitleP{
+    color: #7C8E95 !important;
+}
+
+.leftdivs {
+    background-color: white;
+    margin: 0px 15px 10px 5px;
+    padding: 10px 5px 10px 20px;
+    height: fit-content;
+}
+.LeftH {
+    color: #2A3235 !important;
+    font-size: 1.1rem !important;
+    font-weight: 500 !important;
+}
+.LeftP {
+    color: #7C8E95 !important;
+    padding-top: 5px;
+}
+.SliderH {
+    color: #2A3235 !important;
+    font-weight: 600 !important;
+}
+.SliderFade {
+    color: #B4BABC !important;
+    font-weight: 600 !important;
+}
+
+.rightdivs {
+    display: flex;
+    justify-content: space-between;
+    background-color: #149e7a;
+    margin: 0px 15px 20px 5px;
+    padding: 10px 5px 30px 20px;
+    max-height: 4.9rem;
+    overflow: hidden;
+    color: rgb(228, 227, 227);
+}
+.RightH{
+ 
+    font-size: 1rem !important;
+    font-weight: 700 !important;
+    color: #FAFAFA !important;
+}
+.RightP {
+    font-size: 1rem !important;
+    color: #8DCFBE;
+}
+.rightR {
+    padding: 5%;
+    font-size: 1rem !important;
+    font-weight: 700 !important;
+}
+
+.slidertop{
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+}
+.slidertop h5{
+    font-size: 1rem;
+}
+
+.slider{
+    width: 80% !important;
+    margin-top: -23px;
+    color: #FAAA49 !important;
+}
+.MuiSlider-rail {
+    color: #F2F2F2 !important;
+}
+.sliderdiv{
+    display: flex;
+    margin: 10px 0px 0px 0px;
+}
+
+.borderH {
+    padding-bottom: 2%;
+    margin-left: 5%;
+    width: 10%;
+    text-align: center;
+    border-bottom: 4px solid rgb(235, 185, 94);
+
+}
+.HR {
+    color: rgb(189, 188, 188);
+}
+.radioBtn {
+    margin: 5px 15px 10px 10px;
+
+}
+.MuiFormControlLabel-label {
+    font-weight: 550 !important; 
+    font-size: large !important; 
+}
+@media only screen and (max-width: 1440px) {
+    .RightP {
+        font-size: .9rem !important;
+    }
+}
+@media only screen and (max-width: 1366px) {
+    .RightP {
+        font-size: .8rem !important;
+    }
+    .RightH{
+ 
+        font-size: .9rem !important;
+     
+    }
+    .rightR {
+     
+        font-size: .9rem !important;
+        
+    }
+    .LeftH {
+        font-size: .9rem !important;
+    }
+    .LeftP {
+        font-size: .8rem !important;
+    }
+    .SliderH {
+        font-size: .9rem !important;
+    }
+    .SliderFade {
+        font-size: .9rem !important;
+    }
+  }
+
+@media only screen and (max-width: 992px) {
+    .rightR h4 {
+         font-size: 1rem;  
+    }
+  }
