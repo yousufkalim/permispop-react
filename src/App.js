@@ -1,9 +1,10 @@
 // Init
-import React from "react";
+import React, { useEffect } from "react";
 import { ToastContainer, Flip } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
-
+import jwt_decode from "jwt-decode";
+import { Base64 } from "js-base64";
 // Files
 import Index from "./routes/index";
 import "./css/index.css";
@@ -51,20 +52,33 @@ theme.shadows[25] = "0px 3px 6px rgba(0, 0, 0, 0.16)";
 
 // Component
 function App() {
+  const [role, setRole] = React.useState("");
+  const [loading, setLoading] = React.useState(true);
+  useEffect(() => {
+    const LocaleToken = localStorage.getItem("token");
+
+    if (LocaleToken) {
+      var decoded = jwt_decode(LocaleToken);
+      let userdata = JSON.parse(Base64.decode(decoded.userData));
+      localStorage.setItem("user", JSON.stringify(userdata));
+      setRole(userdata.role);
+    }
+    setLoading(false);
+  }, [role]);
   return (
     <ThemeProvider theme={theme}>
-      <div className="App">
-        {/* toastify Container for Notification */}
-        <ToastContainer
-          position="bottom-right"
-          autoClose={3000}
-          hideProgressBar={true}
-          transition={Flip}
-        />
-
-        {/* Routes */}
-        <Index />
-      </div>
+      {!loading && (
+        <div className="App">
+          {/* toastify Container for Notification */}
+          <ToastContainer
+            position="bottom-right"
+            autoClose={3000}
+            hideProgressBar={true}
+            transition={Flip}
+          />
+          <Index role={role} />
+        </div>
+      )}
     </ThemeProvider>
   );
 }
