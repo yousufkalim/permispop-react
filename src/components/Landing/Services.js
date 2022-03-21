@@ -70,7 +70,7 @@ const Services = () => {
             </Typography>
           </div>
         </div>
-        <Divider />
+        <Divider sx={{ margin: "6% 0px 6% 0px" }} />
         {/*Code Card*/}
         <div className="code_card_container">
           <div className="code_card_main">
@@ -99,7 +99,7 @@ const Services = () => {
             buttonLableStyle="highway_btn_label"
           ></Button>
         </div>
-        <Divider />
+        <Divider sx={{ margin: "6% 0px 6% 0px" }} />
       </div>
     </div>
   );

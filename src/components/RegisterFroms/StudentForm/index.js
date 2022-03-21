@@ -10,9 +10,7 @@ import DoneIcon from "@mui/icons-material/Done";
 import Checkbox from "@mui/material/Checkbox";
 
 const StudentForm = (props) => {
-  // const handleChange = (e) => {
-  //   console.log("hello", e.target.value);
-  // };
+  const [checked, setisChecked] = React.useState(false);
 
   return (
     <div className="student_form_main_container">
@@ -131,8 +129,11 @@ const StudentForm = (props) => {
               ></TextField>
             </Grid>
           </Grid>
-
-          <Divider width="100%" borderColor="#D5E4E8" />
+          <Divider
+            width="100%"
+            borderColor="#D5E4E8"
+            sx={{ margin: "6% 0px 6% 0px" }}
+          />
 
           <Grid container spacing={4} alignItems="flex-end">
             <Grid item xs={12} sm={12} md={4}>
@@ -153,7 +154,10 @@ const StudentForm = (props) => {
           </Grid>
           <div className="termsConditionsCheckboxContainer">
             <div className="termsConditionsCheckbox">
-              <Checkbox defaultChecked className="checkbox" />
+              <Checkbox
+                className="checkbox"
+                onClick={(e) => setisChecked(!checked)}
+              />
               <Typography
                 variant="body1"
                 className="termsConditionsCheckboxTitle"
@@ -161,15 +165,33 @@ const StudentForm = (props) => {
                 Click me if you had
               </Typography>
             </div>
-            <div className="termsConditionsCheckbox">
-              <Checkbox defaultChecked className="checkbox" />
-              <Typography
-                variant="body1"
-                className="termsConditionsCheckboxTitle"
-              >
-                Terms & Conditions Applied
-              </Typography>
-            </div>
+          </div>
+          {checked ? (
+            <Grid container spacing={2}>
+              <Grid item xs={12} sm={12} md={4} sx={{ marginRight: "1%" }}>
+                <FilePicker
+                  title="Upload Highway code image file"
+                  label="back"
+                />
+              </Grid>
+              <Grid item xs={12} sm={12} md={4}>
+                <TextField
+                  label="Date"
+                  placeholder="English, French"
+                ></TextField>
+              </Grid>
+            </Grid>
+          ) : (
+            ""
+          )}
+          <div className="termsConditionsCheckbox">
+            <Checkbox defaultChecked className="checkbox" />
+            <Typography
+              variant="body1"
+              className="termsConditionsCheckboxTitle"
+            >
+              Terms & Conditions Applied
+            </Typography>
           </div>
           <Grid
             xs={12}

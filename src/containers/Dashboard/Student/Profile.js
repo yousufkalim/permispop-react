@@ -20,111 +20,117 @@ const Profile = () => {
             role={"Student"}
             ranking={"Rankings"}
           ></ProfileDetails>
-          <Grid className="ProfileDetails">
-            <Typography className="Abouttitlle">About</Typography>
-            <Divider className="ProfileDivider"></Divider>
-          </Grid>
-          <Typography className="AboutHeading">Contact Information</Typography>
+          <div>
+            <Grid className="ProfileDetails">
+              <Typography className="Abouttitlle">About</Typography>
+              <Divider className="ProfileDivider"></Divider>
+            </Grid>
+            <Typography className="AboutHeading">
+              Contact Information
+            </Typography>
 
-          <Grid container spacing={1} className="formdata">
-            <Grid sx={12} sm={12} md={2} className="Information">
-              First Name:
+            <Grid container spacing={1} className="formdata">
+              <Grid sx={12} sm={12} md={2} className="Information">
+                First Name:
+              </Grid>
+              <Grid sx={12} sm={12} md={2} className="RoleInformation">
+                Student
+              </Grid>
             </Grid>
-            <Grid sx={12} sm={12} md={2} className="RoleInformation">
-              Student
+            <Grid container spacing={1} className="formdata">
+              <Grid sx={12} sm={12} md={2} className="Information">
+                Surname:
+              </Grid>
+              <Grid sx={12} sm={12} md={2} className="RoleInformation">
+                One
+              </Grid>
             </Grid>
-          </Grid>
-          <Grid container spacing={1} className="formdata">
-            <Grid sx={12} sm={12} md={2} className="Information">
-              Surname:
+            <Grid container spacing={1} className="formdata">
+              <Grid sx={12} sm={12} md={2} className="Information">
+                Gender:
+              </Grid>
+              <Grid sx={12} sm={12} md={2} className="RoleInformation">
+                Male
+              </Grid>
             </Grid>
-            <Grid sx={12} sm={12} md={2} className="RoleInformation">
-              One
+            <Grid container spacing={1} className="formdata">
+              <Grid sx={12} sm={12} md={2} className="Information">
+                Date of birth:
+              </Grid>
+              <Grid sx={12} sm={12} md={2} className="RoleInformation">
+                16/11/2021
+              </Grid>
             </Grid>
-          </Grid>
-          <Grid container spacing={1} className="formdata">
-            <Grid sx={12} sm={12} md={2} className="Information">
-              Gender:
+            <Grid container spacing={1} className="formdata">
+              <Grid sx={12} sm={12} md={2} className="Information">
+                Place of birth:
+              </Grid>
+              <Grid sx={12} sm={12} md={2} className="RoleInformation">
+                5s
+              </Grid>
             </Grid>
-            <Grid sx={12} sm={12} md={2} className="RoleInformation">
-              Male
+            <Grid container spacing={1} className="formdata">
+              <Grid sx={12} sm={12} md={2} className="Information">
+                Address:
+              </Grid>
+              <Grid sx={12} sm={12} md={2} className="RoleInformation">
+                A Definer
+              </Grid>
             </Grid>
-          </Grid>
-          <Grid container spacing={1} className="formdata">
-            <Grid sx={12} sm={12} md={2} className="Information">
-              Date of birth:
+            <Grid container spacing={1} className="formdata">
+              <Grid sx={12} sm={12} md={2} className="Information">
+                Complement:
+              </Grid>
+              <Grid sx={12} sm={12} md={2} className="RoleInformation">
+                Area
+              </Grid>
             </Grid>
-            <Grid sx={12} sm={12} md={2} className="RoleInformation">
-              16/11/2021
+            <Grid container spacing={1} className="formdata">
+              <Grid sx={12} sm={12} md={2} className="Information">
+                Postal Code:
+              </Grid>
+              <Grid sx={12} sm={12} md={2} className="RoleInformation">
+                712333
+              </Grid>
             </Grid>
-          </Grid>
-          <Grid container spacing={1} className="formdata">
-            <Grid sx={12} sm={12} md={2} className="Information">
-              Place of birth:
+            <Grid container spacing={1} className="formdata">
+              <Grid sx={12} sm={12} md={2} className="Information">
+                City:
+              </Grid>
+              <Grid sx={12} sm={12} md={2} className="RoleInformation">
+                Saint-clients
+              </Grid>
             </Grid>
-            <Grid sx={12} sm={12} md={2} className="RoleInformation">
-              5s
-            </Grid>
-          </Grid>
-          <Grid container spacing={1} className="formdata">
-            <Grid sx={12} sm={12} md={2} className="Information">
-              Address:
-            </Grid>
-            <Grid sx={12} sm={12} md={2} className="RoleInformation">
-              A Definer
-            </Grid>
-          </Grid>
-          <Grid container spacing={1} className="formdata">
-            <Grid sx={12} sm={12} md={2} className="Information">
-              Complement:
-            </Grid>
-            <Grid sx={12} sm={12} md={2} className="RoleInformation">
-              Area
-            </Grid>
-          </Grid>
-          <Grid container spacing={1} className="formdata">
-            <Grid sx={12} sm={12} md={2} className="Information">
-              Postal Code:
-            </Grid>
-            <Grid sx={12} sm={12} md={2} className="RoleInformation">
-              712333
-            </Grid>
-          </Grid>
-          <Grid container spacing={1} className="formdata">
-            <Grid sx={12} sm={12} md={2} className="Information">
-              City:
-            </Grid>
-            <Grid sx={12} sm={12} md={2} className="RoleInformation">
-              Saint-clients
-            </Grid>
-          </Grid>
-          <Divider className="ProfileDivider" />
+            <Divider className="ProfileDivider" />
 
-          <Typography className="AboutHeading">Contact Information</Typography>
-          <Grid container spacing={1} className="formdata">
-            <Grid sx={12} sm={12} md={2} className="Information">
-              NESPHF:
+            <Typography className="AboutHeading">
+              Contact Information
+            </Typography>
+            <Grid container spacing={1} className="formdata">
+              <Grid sx={12} sm={12} md={2} className="Information">
+                NESPHF:
+              </Grid>
+              <Grid sx={12} sm={12} md={2} className="RoleInformation">
+                N/A
+              </Grid>
             </Grid>
-            <Grid sx={12} sm={12} md={2} className="RoleInformation">
-              N/A
+            <Grid container spacing={1} className="formdata">
+              <Grid sx={12} sm={12} md={2} className="Information">
+                Number of hours:
+              </Grid>
+              <Grid sx={12} sm={12} md={2} className="RoleInformation">
+                12
+              </Grid>
             </Grid>
-          </Grid>
-          <Grid container spacing={1} className="formdata">
-            <Grid sx={12} sm={12} md={2} className="Information">
-              Number of hours:
+            <Grid container spacing={1} className="formdata">
+              <Grid sx={12} sm={12} md={2} className="Information">
+                Highway Code Date:
+              </Grid>
+              <Grid sx={12} sm={12} md={2} className="RoleInformation">
+                N/A
+              </Grid>
             </Grid>
-            <Grid sx={12} sm={12} md={2} className="RoleInformation">
-              12
-            </Grid>
-          </Grid>
-          <Grid container spacing={1} className="formdata">
-            <Grid sx={12} sm={12} md={2} className="Information">
-              Highway Code Date:
-            </Grid>
-            <Grid sx={12} sm={12} md={2} className="RoleInformation">
-              N/A
-            </Grid>
-          </Grid>
+          </div>
         </Grid>
       </Grid>
     </React.Fragment>

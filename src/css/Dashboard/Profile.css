@@ -56,16 +56,26 @@
 .ProfileDivider {
   margin-top: 30px !important;
 }
-@media only screen and (max-width: 768px) {
-  .maindiv {
-    margin-left: 0px !important;
-    padding-right: 50px !important;
+@media only screen and (max-width: 1300px) {
+  .formdata {
+    margin-right: 0px !important;
+    flex-direction: column !important;
+    /* width: 100vw !important;
+    margin-left: 30% !important; */
   }
+  .RoleInformation {
+    margin-left: 5% !important;
+  }
+}
+@media only screen and (max-width: 768px) {
   .profileButton {
     margin-bottom: 20px !important;
   }
   .formdata {
     margin-right: 0px !important;
+    flex-direction: column !important;
+    width: 100vw !important;
+    margin-left: 30% !important;
   }
   .Information {
     display: flex;
@@ -76,6 +86,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    margin-left: 5% !important;
   }
   .AboutHeading {
     display: flex;
@@ -86,5 +97,12 @@
     display: flex;
     justify-content: center;
     align-items: center;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .formdata {
+    flex-direction: column !important;
+    margin-left: 0px !important;
   }
 }

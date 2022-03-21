@@ -78,7 +78,9 @@ export default function ActionAreaCard(props) {
     },
     subheading: {
       width: "70%",
-      fontSize: props.subheadingFontSize ? props.subheadingFontSize : "26px",
+      fontSize: props.subheadingFontSize
+        ? props.subheadingFontSize
+        : "26px !important",
       color: "#6A6D76",
       fontWeight: "400",
       fontFamily: "Inter",

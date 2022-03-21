@@ -25,8 +25,8 @@ export default function FilePicker(props) {
     title: {
       fontFamily: "Inter",
       fontStyle: "normal",
-      fontWeight: "400",
-      fontSize: "18px",
+      fontWeight: "500 !important",
+      fontSize: "18px !important",
       lineHeight: "151.02%",
       color: "#363557",
       marginBottom: "16px",
@@ -47,14 +47,14 @@ export default function FilePicker(props) {
     button: {
       height: "48px",
       width: "38%",
-      color: "#6C7593",
-      backgroundColor: "white",
+      color: "#6C7593 !important",
+      backgroundColor: "white !important",
       boxShadow: "0px 4px 4px rgba(0, 14, 47, 0.06)",
       borderRadius: "10px",
       margin: props.margin || "",
       padding: props.padding || "",
       "&:hover": {
-        color: "#fff",
+        color: "black",
 
         backgroundColor: props.color || theme.palette.primary.main,
       },

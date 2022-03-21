@@ -41,7 +41,7 @@ const Hero = () => {
               <PlayCircleFilledWhiteOutlinedIcon sx={{ color: "#43DAB1" }} />
             }
             type="submit"
-            color="white"
+            color="white !important"
             textColor="#252831"
             text="Play Video"
             customWidth1="36%"
