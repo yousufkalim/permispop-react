@@ -8,7 +8,7 @@ import Divider from "../../Common/Divider";
 import FilePicker from "../../Common/FilePicker";
 import DoneIcon from "@mui/icons-material/Done";
 import Checkbox from "@mui/material/Checkbox";
-
+import Datepicker from "../../Common/DatePicker";
 const StudentForm = (props) => {
   const [checked, setisChecked] = React.useState(false);
 
@@ -54,10 +54,10 @@ const StudentForm = (props) => {
               ></TextField>
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
-              <TextField
+              <Datepicker
                 label="Date of birth"
                 placeholder="19-10-1992 "
-              ></TextField>
+              ></Datepicker>
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
               <TextField
