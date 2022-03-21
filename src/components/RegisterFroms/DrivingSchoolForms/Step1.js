@@ -6,8 +6,26 @@ import TextField from "../../Common/TextField";
 import DropDown from "../../Common/DropDown";
 import Divider from "../../Common/Divider";
 import Checkbox from "@mui/material/Checkbox";
+import API from "../../../api/index";
 
 const Step1 = (props) => {
+  const [step1, setStep1] = React.useState({
+    Number: "",
+    IssuingAurh: "",
+    Approvaldate: "",
+    Complement: "",
+    Zip: "",
+    City: "",
+    Email: "",
+    Email2: "",
+    Phone: "",
+    Phone2: "",
+    Password: "",
+    Password2: "",
+    Language: "",
+    OtherPlateform: false,
+    CPF: "",
+  });
   return (
     <Box
       component="form"

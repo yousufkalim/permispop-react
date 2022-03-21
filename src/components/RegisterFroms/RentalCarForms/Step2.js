@@ -3,11 +3,19 @@ import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import TextField from "../../Common/TextField";
-
+import API from "../../../api/index";
 import Divider from "../../Common/Divider";
 import FilePicker from "../../Common/FilePicker";
 
-const Step1 = (props) => {
+const Step2 = (props) => {
+  const [step2, setStep2] = React.useState({
+    Siret: "",
+    Kbls: "",
+    CompanyInsurer: "",
+    CompanyPoliceNumber: "",
+    InsuranceDateExp: "",
+    RcPro: "",
+  });
   return (
     <Box
       component="form"
@@ -49,14 +57,11 @@ const Step1 = (props) => {
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
-          <FilePicker
-            title="Upload your driving license front side"
-            label="LicenseFront"
-          />
+          <FilePicker title="Upload your RC Pro" label="LicenseFront" />
         </Grid>
       </Grid>
       <Divider width="100%" borderColor="#D5E4E8" margin="2% 0px 2% 0px" />
     </Box>
   );
 };
-export default Step1;
+export default Step2;

@@ -24,43 +24,43 @@ const Maps = (props) => {
   const handleChatClick = () => history.push("/student/chat");
   const handleBooking = () => history.push("/student/booking");
 
-  const User = [
-    {
-      UserName: "Haza",
-      role: "Driving School",
-      age: "24",
-      VehicleType: "Manual",
-      position: "46.735888607092335, 3.1871579070975016",
-    },
-    {
-      UserName: "Lucid",
-      role: "Driving School Instructor",
-      age: "24",
-      VehicleType: "Auto",
-      position: "46.73351349048445, 3.1831560514361077",
-    },
-    {
-      UserName: "Mr.X",
-      role: "Instructor",
-      age: "24",
-      VehicleType: "Unavailable",
-      position: "46.73351349048445, 3.1831560514361077",
-    },
-    {
-      UserName: "Mannan",
-      role: "Car rental",
-      age: "24",
-      VehicleType: "Personal",
-      position: "46.73351349048445, 3.1831560514361077",
-    },
-    {
-      UserName: "User",
-      role: "Student",
-      age: "24",
-      VehicleType: "Booking",
-      position: "46.73351349048445, 3.1831560514361077",
-    },
-  ];
+  // const User = [
+  //   {
+  //     UserName: "Haza",
+  //     role: "Driving School",
+  //     age: "24",
+  //     VehicleType: "Manual",
+  //     position: "46.735888607092335, 3.1871579070975016",
+  //   },
+  //   {
+  //     UserName: "Lucid",
+  //     role: "Driving School Instructor",
+  //     age: "24",
+  //     VehicleType: "Auto",
+  //     position: "46.73351349048445, 3.1831560514361077",
+  //   },
+  //   {
+  //     UserName: "Mr.X",
+  //     role: "Instructor",
+  //     age: "24",
+  //     VehicleType: "Unavailable",
+  //     position: "46.73351349048445, 3.1831560514361077",
+  //   },
+  //   {
+  //     UserName: "Mannan",
+  //     role: "Car rental",
+  //     age: "24",
+  //     VehicleType: "Personal",
+  //     position: "46.73351349048445, 3.1831560514361077",
+  //   },
+  //   {
+  //     UserName: "User",
+  //     role: "Student",
+  //     age: "24",
+  //     VehicleType: "Booking",
+  //     position: "46.73351349048445, 3.1831560514361077",
+  //   },
+  // ];
   var greenIcon = new L.Icon({
     iconUrl: "https://www.nbrc.com.au/images/avatar-placeholder.png",
 
@@ -331,7 +331,7 @@ const Maps = (props) => {
           <div className="icons">
             <div className="icons_div">
               <div className="icon_style_div">
-                <img src={Project} />
+                <img src={Project} alt="" />
               </div>
               <div>
                 <p className="icons_text1">334</p>
@@ -340,7 +340,7 @@ const Maps = (props) => {
             </div>
             <div className="icons_div">
               <div className="icon_style_div">
-                <img src={Rating} />
+                <img src={Rating} alt="" />
               </div>
               <div>
                 <p className="icons_text1">4.4</p>

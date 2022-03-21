@@ -6,10 +6,90 @@ import TextField from "../../Common/TextField";
 import Button from "../../Common/Button";
 import Divider from "../../Common/Divider";
 import FilePicker from "../../Common/FilePicker";
+import DatePicker from "../../Common/DatePicker";
 import DoneIcon from "@mui/icons-material/Done";
 import Checkbox from "@mui/material/Checkbox";
+import DropDown from "../../Common/DropDown";
 
+import API from "../../../api/index";
 const StudentForm = (props) => {
+  const [firstname, setFirstname] = React.useState("");
+  const [surname, setSurname] = React.useState("");
+  const [address, setaddress] = React.useState("");
+  const [dob, setDob] = React.useState("");
+  const [pob, setPob] = React.useState("");
+  const [zip, setZip] = React.useState("");
+  const [gender, setGender] = React.useState("");
+  const [email, setEmail] = React.useState("");
+  const [email2, setemail2] = React.useState("");
+  const [phone, setPhone] = React.useState("");
+  const [phone2, setPhone2] = React.useState("");
+  const [city, setCity] = React.useState("");
+  const [complement, setComplement] = React.useState("");
+  const [password, setPassword] = React.useState("");
+  const [confirmPassword, setConfirmPassword] = React.useState("");
+  const [noh, setNoh] = React.useState("");
+  const [neph, setNeph] = React.useState("");
+  const [language, setLanguage] = React.useState("");
+  const [frontImage, setFrontImage] = React.useState("");
+  const [backImage, setBackImage] = React.useState("");
+  const [profileImage, setProfileImage] = React.useState("");
+  const [HighWayCodeImg, setHighWayCodeImg] = React.useState();
+  const [checked, setisChecked] = React.useState(false);
+  const [lat, setLat] = React.useState("");
+  const [lng, setLng] = React.useState("");
+
+  const handleChange = async (e) => {
+    console.log(e.target.files[0]);
+
+    const formdata = new FormData();
+
+    if (e.targer.name) formdata.append(`file`, e.target.files[0]);
+    // let res = await api("post", "/uploadImage", formdata);
+    const response = await API("post", "Personal/UploadProfileImage", formdata);
+    if (response) {
+      console.log("res", response);
+    }
+  };
+  const handleLanguage = async () => {
+    const response = await API(
+      "get",
+      "https://parseapi.back4app.com/classes/Continentscountriescities_Language"
+    );
+  };
+  const handleAddress = async (e) => {
+    const response = await API(
+      "get",
+      `https://api-adresse.data.gouv.fr/search/?q=${e.target.value}`
+    );
+    console.log("response", response);
+  };
+  function handleSelecetedTags(items) {
+    console.log(items);
+  }
+
+  const handleSubmit = async () => {
+    const response = await API("post", "Personal", {
+      RegistrationDate: "",
+      firstName: firstname,
+      surName: surname,
+      dob: dob,
+      placeOfBirth: pob,
+      gender: gender,
+      ContactEmail: email,
+      email: email,
+      secondEmail: email2,
+      phone: phone,
+      secondPhone: phone2,
+      complement: complement,
+      password: password,
+      noOfHrsWanted: noh,
+      neph: neph,
+      role: "Student",
+      highWayCodeDate: "",
+      id: "",
+    });
+  };
   const [checked, setisChecked] = React.useState(false);
 
   return (
@@ -40,92 +120,178 @@ const StudentForm = (props) => {
             marginTop: "70px",
           }}
         >
+          {/* {console.log("fname", fname)} */}
           <Grid container spacing={4}>
             <Grid item xs={12} sm={12} md={4}>
-              <TextField label="First Name" placeholder="John"></TextField>
+              <TextField
+                label="First Name"
+                name="firstname"
+                type="text"
+                value={firstname}
+                onChange={(e) => setFirstname(e.target.value)}
+              />
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
-              <TextField label="Surname" placeholder="Smith"></TextField>
+              <TextField
+                label="Surname"
+                name="surname"
+                type="text"
+                value={surname}
+                onChange={(e) => setSurname(e.target.value)}
+              ></TextField>
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
               <TextField
                 label="Address"
-                placeholder="102 Street, building 02, NY"
+                name="address"
+                type="text"
+                value={address}
+                onChange={handleAddress}
               ></TextField>
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
-              <TextField
+              <DatePicker
                 label="Date of birth"
-                placeholder="19-10-1992 "
-              ></TextField>
+                name="dob"
+                value={dob}
+                onChange={(e) => setDob(e.target.value)}
+              ></DatePicker>
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
               <TextField
                 label="Place of birth"
-                placeholder="France"
+                name="pob"
+                type="text"
+                value={pob}
+                onChange={(e) => setPob(e.target.value)}
               ></TextField>
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
-              <TextField label="Zip Code" placeholder="712333"></TextField>
+              <TextField
+                label="Zip Code"
+                name="zip"
+                type="number"
+                value={zip}
+                onChange={(e) => setZip(e.target.value)}
+              ></TextField>
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
-              <TextField label="Gender" placeholder="Male"></TextField>
+              <DropDown
+                label="Gender"
+                name="gender"
+                value={gender}
+                onChange={(e) => setGender(e.target.value)}
+                MenuItem={[
+                  { name: "Male", value: "Male" },
+                  { name: "Female", value: "Female" },
+                  { name: "others", value: "others" },
+                ]}
+              ></DropDown>
+              {/* <TextField
+                label="Gender"
+                name="gender"
+                type="text"
+                value={gender}
+                onChange={(e) => setGender(e.target.value)}
+              ></TextField> */}
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
               <TextField
                 label="Email"
-                placeholder="arslan.alikh@gmail.com"
+                name="email"
+                type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
               ></TextField>
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
               <TextField
                 label="Second Email"
-                placeholder="smart_coolkyo@yahoo.com"
+                name="email2"
+                type="email"
+                value={email2}
+                onChange={(e) => setemail2(e.target.value)}
               ></TextField>
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
               <TextField
                 label="Phone"
-                placeholder="+33 123 4567890"
+                type="text"
+                name="phone"
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
               ></TextField>
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
               <TextField
                 label="Second Phone"
-                placeholder="+33 123 4567890"
+                type="text"
+                name="phone2"
+                value={phone2}
+                onChange={(e) => setPhone2(e.target.value)}
               ></TextField>
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
-              <TextField label="City" placeholder="New york"></TextField>
+              <TextField
+                label="City"
+                name="city"
+                type="text"
+                value={city}
+                onChange={(e) => setCity(e.target.value)}
+              ></TextField>
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
-              <TextField label="Complement" placeholder="Student"></TextField>
+              <TextField
+                label="Complement"
+                type="text"
+                name="coplement"
+                value={complement}
+                onChange={(e) => setComplement(e.target.value)}
+              ></TextField>
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
               <TextField
                 label="Password"
-                placeholder="**************"
+                type="password"
+                name="password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
               ></TextField>
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
               <TextField
                 label="Confirm Password"
-                placeholder="**************"
+                type="password"
+                name="confirmpassword"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
               ></TextField>
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
-              <TextField label="Number of hours" placeholder="44"></TextField>
+              <TextField
+                label="Number of hours"
+                type="number"
+                name="noh"
+                value={noh}
+                onChange={(e) => setNoh(e.target.value)}
+              ></TextField>
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
               <TextField
                 label="NEPH Number"
-                placeholder="532-3321-111"
+                name="neph"
+                type="text"
+                value={neph}
+                onChange={(e) => setNeph(e.target.value)}
               ></TextField>
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
               <TextField
                 label="Spoken Languages"
-                placeholder="English, French"
+                name="language"
+                type="text"
+                value={language}
+                onChange={(e) => setLanguage(e.target.value)}
               ></TextField>
             </Grid>
           </Grid>
@@ -140,20 +306,37 @@ const StudentForm = (props) => {
               <FilePicker
                 title="Upload front of your ID Card/Passport"
                 label="front"
+                name="frontIdPhoto"
+                type="file"
+                value={frontImage}
+                onChange={handleChange}
+                setFrontImage={setFrontImage}
               />
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
               <FilePicker
                 title="Upload back of your ID Card/Passport"
                 label="back"
+                name="backIdPhoto"
+                type="file"
+                value={backImage}
+                onChange={handleChange}
               />
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
-              <FilePicker title="Upload your profile picture" label="profile" />
+              <FilePicker
+                title="Upload your profile picture"
+                label="profile"
+                name="photo"
+                type="file"
+                value={profileImage}
+                onChange={handleChange}
+              />
             </Grid>
           </Grid>
           <div className="termsConditionsCheckboxContainer">
             <div className="termsConditionsCheckbox">
+              <Checkbox className="checkbox" />
               <Checkbox
                 className="checkbox"
                 onClick={(e) => setisChecked(!checked)}
@@ -210,6 +393,7 @@ const StudentForm = (props) => {
               customWidth1="100%"
               height="48px"
               height2="48px"
+              onClick={handleSubmit}
             ></Button>
           </Grid>
         </Box>

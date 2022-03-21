@@ -3,12 +3,23 @@ import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import TextField from "../../Common/TextField";
-
 import Divider from "../../Common/Divider";
 import FilePicker from "../../Common/FilePicker";
 import Checkbox from "@mui/material/Checkbox";
+import API from "../../../api/index";
 
 const Step1 = (props) => {
+  const [step4, setStep4] = React.useState({
+    Firstname: "",
+    Surnaem: "",
+    Dob: "",
+    Pob: "",
+    Address: "",
+    Gender: "",
+    Complement: "",
+    ip: "",
+    City: "",
+  });
   return (
     <Box
       component="form"

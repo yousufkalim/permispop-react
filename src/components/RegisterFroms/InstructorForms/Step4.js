@@ -6,8 +6,40 @@ import TextField from "../../Common/TextField";
 import Divider from "../../Common/Divider";
 import FilePicker from "../../Common/FilePicker";
 import DropDown from "../../Common/DropDown";
+import API from "../../../api/index";
 
-const Step1 = (props) => {
+const Step4 = (props) => {
+  const [step4, setStep4] = React.useState({
+    FirstRegistration: "",
+    Brand: "",
+    Model: "",
+    NumPlate: "",
+    Color: "",
+    Energy: "",
+    Gearbox: "",
+    Insurer: "",
+    PoliceNum: "",
+    StartDate: "",
+    DateTechControl: "",
+    TechEndDate: "",
+    Photo: "",
+    RegCertificate: "",
+    GreenCard: "",
+    Ct: "",
+  });
+
+  const handleChange = async (e) => {
+    console.log(e.target.files[0]);
+
+    const formdata = new FormData();
+
+    if (e.targer.name) formdata.append(`file`, e.target.files[0]);
+    // let res = await api("post", "/uploadImage", formdata);
+    const response = await API("post", "Personal/UploadProfileImage", formdata);
+    if (response) {
+      console.log("res", response);
+    }
+  };
   return (
     <Box
       component="form"
@@ -22,29 +54,43 @@ const Step1 = (props) => {
         <Grid item xs={12} sm={12} md={4}>
           <TextField
             label="Date of 1st Registration"
+            name="regDate"
             placeholder="John"
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
-          <DropDown label="Brand" placeholder="Smith"></DropDown>
+          <DropDown label="Brand" name="" placeholder="Smith"></DropDown>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <DropDown
             label="Model"
+            name="model"
             placeholder="102 Street, building 02, NY"
           ></DropDown>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
-          <TextField label="Number Plate" placeholder="19-10-1992 "></TextField>
+          <TextField
+            label="Number Plate"
+            name="numPlate"
+            placeholder="19-10-1992 "
+          ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
-          <TextField label="Color" placeholder="Red"></TextField>
+          <TextField label="Color" name="color" placeholder="Red"></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
-          <TextField label="Energy" placeholder="712333"></TextField>
+          <TextField
+            label="Energy"
+            name="energy"
+            placeholder="712333"
+          ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
-          <DropDown label="GearBox" placeholder="Auto"></DropDown>
+          <DropDown
+            label="GearBox"
+            name="gearbox"
+            placeholder="Auto"
+          ></DropDown>
         </Grid>
       </Grid>
       <Divider width="100%" borderColor="#D5E4E8" margin="3% 0px 2% 0px" />
@@ -52,19 +98,32 @@ const Step1 = (props) => {
       <Divider width="100%" borderColor="#D5E4E8" margin="2% 0px 3% 0px" />
       <Grid container spacing={4}>
         <Grid item xs={12} sm={12} md={4}>
-          <TextField label="Insurer" placeholder="Male"></TextField>
+          <TextField
+            label="Insurer"
+            name="insurer"
+            placeholder="Male"
+          ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <TextField
             label="Police Number"
+            name="policeNum"
             placeholder="arslan.alikh@gmail.com"
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
-          <TextField label="Start Date" placeholder="19-10-2021"></TextField>
+          <TextField
+            label="Start Date"
+            name="startdate"
+            placeholder="19-10-2021"
+          ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
-          <TextField label="End Date" placeholder="19-10-2021"></TextField>
+          <TextField
+            label="End Date"
+            name="enddate"
+            placeholder="19-10-2021"
+          ></TextField>
         </Grid>
       </Grid>
       <Divider width="100%" borderColor="#D5E4E8" margin="3% 0px 2% 0px" />
@@ -74,32 +133,46 @@ const Step1 = (props) => {
         <Grid item xs={12} sm={12} md={4}>
           <TextField
             label="Date of Technical Control"
+            name="techControlDate"
             placeholder="19-10-2021"
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
-          <TextField label="End Date" placeholder="19-10-2021"></TextField>
+          <TextField
+            label="End Date"
+            name="techEndDate"
+            placeholder="19-10-2021"
+          ></TextField>
         </Grid>
       </Grid>
       <Divider width="100%" borderColor="#D5E4E8" margin="3% 0px 3% 0px" />
       <Grid container spacing={4} alignItems="flex-end">
         <Grid item xs={12} sm={12} md={4}>
-          <FilePicker title="Upload Image" label="uploadImg" />
+          <FilePicker title="Upload Image" name="photo" label="uploadImg" />
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <FilePicker
             title="Upload Vehicle Registration Certificate"
             label="Regcertificate"
+            name="regCertificate"
           />
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
-          <FilePicker title="Upload Scanned Green Card" label="GreenCard" />
+          <FilePicker
+            title="Upload Scanned Green Card"
+            name="greencard"
+            label="GreenCard"
+          />
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
-          <FilePicker title="Scan and Upload your CT" label="UploadCT" />
+          <FilePicker
+            title="Scan and Upload your CT"
+            name="ct"
+            label="UploadCT"
+          />
         </Grid>
       </Grid>
     </Box>
   );
 };
-export default Step1;
+export default Step4;

@@ -6,8 +6,30 @@ import TextField from "../../Common/TextField";
 import DropDown from "../../Common/DropDown";
 import Divider from "../../Common/Divider";
 import FilePicker from "../../Common/FilePicker";
+import API from "../../../api/index";
 
 const Step1 = (props) => {
+  const [step, setStep1] = React.useState({
+    FirstName: "",
+    SurName: "",
+    Dob: "",
+    Pob: "",
+    Address: "",
+    Gender: "",
+    Complement: "",
+    Zip: "",
+    City: "",
+    Email: "",
+    Email2: "",
+    Phone: "",
+    Phone2: "",
+    Password: "",
+    ConfirmPassword: "",
+    TimeOnPlatform: "",
+    ProfileImg: "",
+    FrontSideimg: "",
+    BackSideimg: "",
+  });
   return (
     <Box
       component="form"
@@ -20,59 +42,98 @@ const Step1 = (props) => {
     >
       <Grid container spacing={4}>
         <Grid item xs={12} sm={12} md={4}>
-          <TextField label="First Name" placeholder="John"></TextField>
+          <TextField
+            label="First Name"
+            name="firstname"
+            placeholder="John"
+          ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
-          <TextField label="Surname" placeholder="John"></TextField>
+          <TextField
+            label="Surname"
+            name="surname"
+            placeholder="John"
+          ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <TextField
             label="Date of Birth"
+            name="dob"
             placeholder="102 Street, building 02, NY"
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
-          <TextField label="Place of Birth" placeholder="John"></TextField>
+          <TextField
+            label="Place of Birth"
+            name="pob"
+            placeholder="John"
+          ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
-          <TextField label="Address" placeholder="John"></TextField>
+          <TextField
+            label="Address"
+            name="address"
+            placeholder="John"
+          ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
-          <DropDown label="Gender"></DropDown>
+          <DropDown label="Gender" name="gender"></DropDown>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
-          <TextField label="Complement" placeholder="John"></TextField>
+          <TextField
+            label="Complement"
+            name="complement"
+            placeholder="John"
+          ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
-          <TextField label="Zip Code" placeholder="John"></TextField>
+          <TextField label="Zip Code" name="zip" placeholder="John"></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <TextField
             label="City"
+            name="city"
             placeholder="102 Street, building 02, NY"
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
-          <TextField label="Email" placeholder="John"></TextField>
+          <TextField label="Email" name="email" placeholder="John"></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
-          <TextField label="Phone" placeholder="John"></TextField>
+          <TextField label="Phone" name="phone" placeholder="John"></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
-          <TextField label="Password" placeholder="******"></TextField>
+          <TextField
+            label="Password"
+            name="password"
+            placeholder="******"
+          ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
-          <TextField label="Second Email" placeholder="John"></TextField>
+          <TextField
+            label="Second Email"
+            name="email2"
+            placeholder="John"
+          ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
-          <TextField label="Second Phone" placeholder="John"></TextField>
+          <TextField
+            label="Second Phone"
+            name="phone2"
+            placeholder="John"
+          ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
-          <TextField label="Confirm Password" placeholder="******"></TextField>
+          <TextField
+            label="Confirm Password"
+            name="confirmpassword"
+            placeholder="******"
+          ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <TextField
             label="How much time you will give to students of our platforms?"
+            name="timeonplatform"
             placeholder="John"
           ></TextField>
         </Grid>
@@ -82,13 +143,22 @@ const Step1 = (props) => {
           <Grid item xs={12} sm={12} md={4}>
             <FilePicker
               title="Upload your authorization front side"
+              name="forntside"
               label="AuthFrontSide"
             />
           </Grid>
           <Grid item xs={12} sm={12} md={4}>
             <FilePicker
               title="Upload your authorization back side"
-              label="AuthFrontSide"
+              name="backside"
+              label="AuthBackSide"
+            />
+          </Grid>
+          <Grid item xs={12} sm={12} md={4}>
+            <FilePicker
+              title="Upload your Profile Picture"
+              name="profileimg"
+              label="ProfileImg"
             />
           </Grid>
         </Grid>

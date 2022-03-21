@@ -69,8 +69,9 @@ export default function UseFormControl(props) {
       </InputLabel>
       <Input
         className={classes.input}
+        type={props.type}
         value={props.value}
-        onChange={props.handleChange}
+        onChange={props.onChange}
         placeholder={props.placeholder || ""}
         {...props.inputProps}
       />
