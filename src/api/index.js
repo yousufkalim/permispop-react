@@ -5,6 +5,14 @@ import { toast } from "react-toastify";
 const api = async (method = "get", uri, body) => {
   // API Call
   const url = process.env.REACT_APP_BASE_URL + uri;
+  const token = localStorage.getItem("token");
+  if (token) {
+    axios.defaults.headers = {
+      Authorization: `Bearer ${token}`,
+    };
+  }
+  axios.defaults.withCredentials = true;
+ 
   return new Promise((resolve, reject) => {
     axios[method](url, body)
       .then((res) => resolve(res))
