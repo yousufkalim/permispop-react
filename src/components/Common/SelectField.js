@@ -29,6 +29,7 @@ export default function MultipleSelectPlaceholder(props) {
           displayEmpty
           onChange={props.onChange}
           value={props.value || []}
+          defaultValue={0}
           // input={<OutlinedInput />}
           renderValue={(value) => (value.length > 0 ? value : "Enter value")}
           MenuProps={MenuProps}
