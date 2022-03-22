@@ -8,12 +8,13 @@ import Divider from "../../Common/Divider";
 import FilePicker from "../../Common/FilePicker";
 import Checkbox from "@mui/material/Checkbox";
 import API from "../../../api/index";
+import DatePicker from "../../Common/DatePicker";
 
 const Step2 = (props) => {
   const [step2, setStep2] = React.useState({
-    TradeName: "",
-    CompanyName: "",
-    Address: "",
+    Number: "",
+    IssuingAurh: "",
+    Approvaldate: "",
     RcProImg: "",
     SiretNumber: "",
     City: "",
@@ -39,19 +40,19 @@ const Step2 = (props) => {
     >
       <Grid container spacing={4}>
         <Grid item xs={12} sm={12} md={4}>
-          <TextField label="Tradename" placeholder="John"></TextField>
-        </Grid>
-        <Grid item xs={12} sm={12} md={4}>
-          <DropDown label="Company Name" placeholder="Smith"></DropDown>
+          <TextField label="Number" placeholder="000000"></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <TextField
-            label="Address"
-            placeholder="102 Street, building 02, NY"
+            label="Issuing Authority"
+            placeholder="xxxxxxxxxx"
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
-          <FilePicker title="Upload your RC Pro" label="YourRCpro" />
+          <DatePicker label="Date of Approval" name="approvalDate"></DatePicker>
+        </Grid>
+        <Grid item xs={12} sm={12} md={4}>
+          <FilePicker title="Upload your Certificate" label="YourCertificate" />
         </Grid>
       </Grid>
       <Divider width="100%" borderColor="#D5E4E8" margin="2% 0px 2% 0px" />
@@ -61,18 +62,26 @@ const Step2 = (props) => {
         <div className="DrivingSchool">
           <Grid item xs={12} sm={12} md={12}>
             <div className="DrivingSchool1">
-              <TextField label="SIRET Number" placeholder="John"></TextField>
+              <TextField
+                label="SIRET Number"
+                name="siret"
+                placeholder="000000"
+              ></TextField>
             </div>
           </Grid>
           <Grid item xs={12} sm={12} md={12}>
             <div className="DrivingSchool2">
-              <FilePicker title="Upload your RC Pro" label="YourRC" />
+              <FilePicker
+                title="Upload your Kbls"
+                name="kbls"
+                label="Yourkbls"
+              />
             </div>
           </Grid>
         </div>
       </Grid>
       <Divider width="100%" borderColor="#D5E4E8" margin="2% 0px 2% 0px" />
-      <div className="termsConditionsCheckboxContainer">
+      {/* <div className="termsConditionsCheckboxContainer">
         <div className="termsConditionsCheckbox">
           <Checkbox defaultChecked className="checkbox" />
           <Typography variant="body1" className="termsConditionsCheckboxTitle">
@@ -85,7 +94,7 @@ const Step2 = (props) => {
             I accept CPF financement
           </Typography>
         </div>
-      </div>
+      </div> */}
     </Box>
   );
 };

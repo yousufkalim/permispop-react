@@ -157,9 +157,9 @@ const DrivingSchool = () => {
             ) : activeStep === 3 ? (
               <>Insurance Company</>
             ) : activeStep === 4 ? (
-              <>Insurance Company</>
+              <>Manager Identity</>
             ) : activeStep === 5 ? (
-              <>Approval</>
+              <>Vehicles</>
             ) : activeStep === 6 ? (
               <>Identity Of Instructor</>
             ) : (

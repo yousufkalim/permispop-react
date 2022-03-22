@@ -7,6 +7,7 @@ import DropDown from "../../Common/DropDown";
 import Divider from "../../Common/Divider";
 import FilePicker from "../../Common/FilePicker";
 import API from "../../../api/index";
+import DatePicker from "../../Common/DatePicker";
 
 const Step3 = (props) => {
   const [step3, setStep3] = React.useState({
@@ -27,16 +28,13 @@ const Step3 = (props) => {
     >
       <Grid container spacing={4}>
         <Grid item xs={12} sm={12} md={4}>
-          <TextField label="Tradename" placeholder="John"></TextField>
+          <TextField label="Insurer" placeholder="John"></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
-          <DropDown label="Company Name" placeholder="Smith"></DropDown>
+          <DropDown label="Police Number" placeholder="Smith"></DropDown>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
-          <TextField
-            label="Address"
-            placeholder="102 Street, building 02, NY"
-          ></TextField>
+          <DatePicker label="Expiration date of your Insurance"></DatePicker>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <FilePicker title="Upload your RC Pro" label="YourRCpro" />
