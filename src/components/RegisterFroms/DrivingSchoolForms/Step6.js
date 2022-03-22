@@ -36,8 +36,11 @@ const Step1 = (props) => {
             placeholder="smith"
           ></TextField>
         </Grid>
-        <Grid item xs={12} sm={12} md={4}>
-          <DatePicker label="Date of Birth" name="dob"></DatePicker>
+        <Grid item xs={12} sm={12} md={4} sx={{ marginTop: "9px" }}>
+          <DatePicker label="Date of Birth" name="dob" padding="20px 0 0 0px !important"
+            width="100% !important">
+          </DatePicker>
+          <div className="borderbottom"></div>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <TextField
@@ -127,11 +130,17 @@ const Step1 = (props) => {
             placeholder="XXXXX_XXX"
           ></TextField>
         </Grid>
-        <Grid item xs={12} sm={12} md={4}>
-          <DatePicker label="Date of Obtaining" name="obtainDate"></DatePicker>
+        <Grid item xs={12} sm={12} md={4} sx={{ marginTop: "9px" }}>
+          <DatePicker label="Date of Obtaining" name="obtainDate" padding="20px 0 0 0px !important"
+            width="100% !important">
+          </DatePicker>
+          <div className="borderbottom"></div>
         </Grid>
-        <Grid item xs={12} sm={12} md={4}>
-          <DatePicker label="End Date" name="endDate"></DatePicker>
+        <Grid item xs={12} sm={12} md={4} sx={{ marginTop: "9px" }}>
+          <DatePicker label="End Date" name="endDate" padding="20px 0 0 0px !important"
+            width="100% !important">
+          </DatePicker>
+          <div className="borderbottom"></div>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <FilePicker
@@ -152,14 +161,20 @@ const Step1 = (props) => {
       <Typography className="Heading1">Authorization to Exercise</Typography>
       <Divider width="100%" borderColor="#D5E4E8" margin="2% 0px 2% 0px" />
       <Grid container spacing={4}>
-        <Grid item xs={12} sm={12} md={4}>
+        <Grid item xs={12} sm={12} md={4} sx={{ marginTop: "9px" }}>
           <DatePicker
             label="Date of the authorization to exercise"
             name="authdateExercise"
-          ></DatePicker>
+            padding="20px 0 0 0px !important"
+            width="100% !important">
+          </DatePicker>
+          <div className="borderbottom"></div>
         </Grid>
-        <Grid item xs={12} sm={12} md={4}>
-          <DatePicker label="Expiration date" name="expDate"></DatePicker>
+        <Grid item xs={12} sm={12} md={4} sx={{ marginTop: "9px" }}>
+          <DatePicker label="Expiration date" name="expDate" padding="20px 0 0 0px !important"
+            width="100% !important">
+          </DatePicker>
+          <div className="borderbottom"></div>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <TextField
