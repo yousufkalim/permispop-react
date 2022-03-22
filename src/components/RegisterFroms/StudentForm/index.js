@@ -125,6 +125,7 @@ const StudentForm = (props) => {
                 label="First Name"
                 name="firstname"
                 type="text"
+                placeholder="John"
                 value={firstname}
                 onChange={(e) => setFirstname(e.target.value)}
               />
@@ -133,6 +134,7 @@ const StudentForm = (props) => {
               <TextField
                 label="Surname"
                 name="surname"
+                placeholder="Smith"
                 type="text"
                 value={surname}
                 onChange={(e) => setSurname(e.target.value)}
@@ -142,24 +144,30 @@ const StudentForm = (props) => {
               <TextField
                 label="Address"
                 name="address"
+                placeholder="102 Street, building 02, NY"
                 type="text"
                 value={address}
                 onChange={handleAddress}
               ></TextField>
             </Grid>
-            <Grid item xs={12} sm={12} md={4}>
+            <Grid item xs={12} sm={12} md={4} sx={{marginTop:"9px"}}>
               <DatePicker
                 label="Date of birth"
                 name="dob"
-                value={dob}
+                // value={dob}
+                placeholder="19-10-1992 "
                 onChange={(e) => setDob(e.target.value)}
-              ></DatePicker>
+                padding="20px 0 0 0px !important"
+            width="100% !important">
+          </DatePicker>
+          <div className="borderbottom"></div>
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
               <TextField
                 label="Place of birth"
                 name="pob"
                 type="text"
+                placeholder="France"
                 value={pob}
                 onChange={(e) => setPob(e.target.value)}
               ></TextField>
@@ -168,6 +176,7 @@ const StudentForm = (props) => {
               <TextField
                 label="Zip Code"
                 name="zip"
+                placeholder="712333"
                 type="number"
                 value={zip}
                 onChange={(e) => setZip(e.target.value)}
@@ -176,6 +185,7 @@ const StudentForm = (props) => {
             <Grid item xs={12} sm={12} md={4}>
               <DropDown
                 label="Gender"
+                placeholder="Male"
                 name="gender"
                 value={gender}
                 onChange={(e) => setGender(e.target.value)}
@@ -198,6 +208,7 @@ const StudentForm = (props) => {
                 label="Email"
                 name="email"
                 type="email"
+                placeholder="arslan.alikh@gmail.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               ></TextField>
@@ -207,6 +218,7 @@ const StudentForm = (props) => {
                 label="Second Email"
                 name="email2"
                 type="email"
+                placeholder="smart_coolkyo@yahoo.com"
                 value={email2}
                 onChange={(e) => setemail2(e.target.value)}
               ></TextField>
@@ -215,6 +227,7 @@ const StudentForm = (props) => {
               <TextField
                 label="Phone"
                 type="text"
+                placeholder="+33 123 4567890"
                 name="phone"
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
@@ -224,6 +237,7 @@ const StudentForm = (props) => {
               <TextField
                 label="Second Phone"
                 type="text"
+                placeholder="+33 123 4567890"
                 name="phone2"
                 value={phone2}
                 onChange={(e) => setPhone2(e.target.value)}
@@ -234,6 +248,7 @@ const StudentForm = (props) => {
                 label="City"
                 name="city"
                 type="text"
+                placeholder="New york"
                 value={city}
                 onChange={(e) => setCity(e.target.value)}
               ></TextField>
@@ -242,6 +257,7 @@ const StudentForm = (props) => {
               <TextField
                 label="Complement"
                 type="text"
+                placeholder="Student"
                 name="coplement"
                 value={complement}
                 onChange={(e) => setComplement(e.target.value)}
@@ -252,6 +268,7 @@ const StudentForm = (props) => {
                 label="Password"
                 type="password"
                 name="password"
+                placeholder="**************"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               ></TextField>
@@ -261,6 +278,7 @@ const StudentForm = (props) => {
                 label="Confirm Password"
                 type="password"
                 name="confirmpassword"
+                placeholder="**************"
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
               ></TextField>
@@ -269,6 +287,7 @@ const StudentForm = (props) => {
               <TextField
                 label="Number of hours"
                 type="number"
+                placeholder="44"
                 name="noh"
                 value={noh}
                 onChange={(e) => setNoh(e.target.value)}
@@ -278,6 +297,7 @@ const StudentForm = (props) => {
               <TextField
                 label="NEPH Number"
                 name="neph"
+                placeholder="532-3321-111"
                 type="text"
                 value={neph}
                 onChange={(e) => setNeph(e.target.value)}
@@ -289,7 +309,7 @@ const StudentForm = (props) => {
                 variant="standard"
                 id="tags"
                 name="tags"
-                placeholder="add Tags"
+                placeholder="English, French"
                 text="Spoken Languages"
               ></MultiSelect>
             </Grid>
@@ -335,7 +355,6 @@ const StudentForm = (props) => {
           </Grid>
           <div className="termsConditionsCheckboxContainer">
             <div className="termsConditionsCheckbox">
-              <Checkbox className="checkbox" />
               <Checkbox
                 className="checkbox"
                 onClick={(e) => setisChecked(!checked)}
@@ -347,26 +366,7 @@ const StudentForm = (props) => {
                 Click me if you had
               </Typography>
             </div>
-          </div>
-          {checked ? (
-            <Grid container spacing={2}>
-              <Grid item xs={12} sm={12} md={4} sx={{ marginRight: "1%" }}>
-                <FilePicker
-                  title="Upload Highway code image file"
-                  label="back"
-                />
-              </Grid>
-              <Grid item xs={12} sm={12} md={4}>
-                <TextField
-                  label="Date"
-                  placeholder="English, French"
-                ></TextField>
-              </Grid>
-            </Grid>
-          ) : (
-            ""
-          )}
-          <div className="termsConditionsCheckbox">
+            <div className="termsConditionsCheckbox">
             <Checkbox defaultChecked className="checkbox" />
             <Typography
               variant="body1"
@@ -375,6 +375,45 @@ const StudentForm = (props) => {
               Terms & Conditions Applied
             </Typography>
           </div>
+          </div>
+          {checked ? (
+            <Grid container spacing={2}>
+              <Grid item xs={12} sm={12} md={4} sx={{marginTop:"9px"}}>
+              <DatePicker
+                label="Date"
+                name="dat"
+                // value={dob}
+                onChange={(e) => setDob(e.target.value)}
+                padding="20px 0 0 0px !important"
+            width="100% !important">
+          </DatePicker>
+          <div className="borderbottom"></div>
+          {/* replaced  */}
+                {/* <TextField
+                  label="Date"
+                  placeholder="English, French"
+                ></TextField> */}
+              </Grid>
+              <Grid item xs={12} sm={12} md={4} sx={{ marginLeft: "1%" }}>
+                <FilePicker
+                  title="Upload Highway code image file"
+                  label="back"
+                />
+              </Grid>
+            </Grid>
+          ) : (
+            ""
+          )}
+          {/* Moved in the upper div */}
+          {/* <div className="termsConditionsCheckbox">
+            <Checkbox defaultChecked className="checkbox" />
+            <Typography
+              variant="body1"
+              className="termsConditionsCheckboxTitle"
+            >
+              Terms & Conditions Applied
+            </Typography>
+          </div> */}
           <Grid
             xs={12}
             container
