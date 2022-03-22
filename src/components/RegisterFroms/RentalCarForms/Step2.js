@@ -6,8 +6,10 @@ import TextField from "../../Common/TextField";
 import API from "../../../api/index";
 import Divider from "../../Common/Divider";
 import FilePicker from "../../Common/FilePicker";
+import DatePicker from "../../Common/DatePicker";
 
 const Step2 = (props) => {
+  const [ExpirationDate , setExpirationDate] = React.useState(new Date())
   const [step2, setStep2] = React.useState({
     Siret: "",
     Kbls: "",
@@ -16,6 +18,9 @@ const Step2 = (props) => {
     InsuranceDateExp: "",
     RcPro: "",
   });
+  const handleExpirationDateChange = (newvalue) => {
+    setExpirationDate(newvalue);
+  }
   return (
     <Box
       component="form"
@@ -30,7 +35,7 @@ const Step2 = (props) => {
         <div className="DrivingSchool">
           <Grid item xs={12} sm={12} md={12}>
             <div className="DrivingSchool1">
-              <TextField label="SIRET Number" placeholder="John"></TextField>
+              <TextField label="SIRET Number" placeholder="Must be 14 Digits"></TextField>
             </div>
           </Grid>
           <Grid item xs={12} sm={12} md={12}>
@@ -48,13 +53,21 @@ const Step2 = (props) => {
           <TextField label="Insurer" placeholder="John"></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
-          <TextField label="Police Nunber" placeholder="John"></TextField>
+          <TextField label="Police Nunber" placeholder="Numeric"></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
-          <TextField
+          <DatePicker
+          label="Expiration date of your insurance"
+          value={ExpirationDate}
+          onChange={handleExpirationDateChange}
+          />
+
+          
+          {/* replaced  */}
+          {/* <TextField
             label="Expiration date of your insurance"
             placeholder="John"
-          ></TextField>
+          ></TextField> */}
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <FilePicker title="Upload your RC Pro" label="LicenseFront" />
