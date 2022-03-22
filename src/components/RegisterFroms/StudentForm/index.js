@@ -9,9 +9,8 @@ import FilePicker from "../../Common/FilePicker";
 import DatePicker from "../../Common/DatePicker";
 import DoneIcon from "@mui/icons-material/Done";
 import Checkbox from "@mui/material/Checkbox";
-import Datepicker from "../../Common/DatePicker";
 import DropDown from "../../Common/DropDown";
-
+import MultiSelect from "../../Common/MultiSelect";
 import API from "../../../api/index";
 const StudentForm = (props) => {
   const [firstname, setFirstname] = React.useState("");
@@ -111,8 +110,7 @@ const StudentForm = (props) => {
         </div>
         <Box
           component="form"
-          noValidate
-          // onSubmit={handleSubmit}
+          onSubmit={handleSubmit}
           sx={{
             mt: 3,
             marginLeft: "10%",
@@ -286,13 +284,14 @@ const StudentForm = (props) => {
               ></TextField>
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
-              <TextField
-                label="Spoken Languages"
-                name="language"
-                type="text"
-                value={language}
-                onChange={(e) => setLanguage(e.target.value)}
-              ></TextField>
+              <MultiSelect
+                selectedTags={handleSelecetedTags}
+                variant="standard"
+                id="tags"
+                name="tags"
+                placeholder="add Tags"
+                text="Spoken Languages"
+              ></MultiSelect>
             </Grid>
           </Grid>
           <Divider
