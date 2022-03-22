@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
@@ -6,6 +6,8 @@ import TextField from "../../Common/TextField";
 import Divider from "../../Common/Divider";
 import FilePicker from "../../Common/FilePicker";
 import DropDown from "../../Common/DropDown";
+import Datepicker from "../../Common/DatePicker";
+
 import API from "../../../api/index";
 
 const Step4 = (props) => {
@@ -39,6 +41,26 @@ const Step4 = (props) => {
     if (response) {
       console.log("res", response);
     }
+  };
+  const [Startvalue, setStartValue] = useState(new Date());
+  const handleStartdate = (newValue) => {
+    setStartValue(newValue);
+  };
+  const [Endvalue, setEndValue] = useState(new Date());
+  const handleEnddate = (newValue) => {
+    setEndValue(newValue);
+  };
+
+  const [technicalcontrol, setTechnicalcontrol] = useState(new Date());
+  const handleTechnicalcontrol = (newValue) => {
+    setTechnicalcontrol(newValue);
+  };
+
+  const [technicalcontrolendvalue, setTechnicalcontrolendvalue] = useState(
+    new Date()
+  );
+  const handleTechnicalcontrolendvalue = (newValue) => {
+    setTechnicalcontrolendvalue(newValue);
   };
   return (
     <Box
@@ -111,19 +133,29 @@ const Step4 = (props) => {
             placeholder="arslan.alikh@gmail.com"
           ></TextField>
         </Grid>
-        <Grid item xs={12} sm={12} md={4}>
-          <TextField
+        <Grid item xs={12} sm={12} md={4} sx={{ marginTop: "9px" }}>
+          <Datepicker
             label="Start Date"
             name="startdate"
             placeholder="19-10-2021"
-          ></TextField>
+            padding="20px 0 0 0px !important"
+            width="100% !important"
+            value={Startvalue}
+            onChange={handleStartdate}
+          ></Datepicker>
+          <div className="borderbottom"></div>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
-          <TextField
+          <Datepicker
             label="End Date"
             name="enddate"
             placeholder="19-10-2021"
-          ></TextField>
+            padding="20px 0 0 0px !important"
+            width="100% !important"
+            value={Endvalue}
+            onChange={handleEnddate}
+          ></Datepicker>
+          <div className="borderbottom"></div>
         </Grid>
       </Grid>
       <Divider width="100%" borderColor="#D5E4E8" margin="3% 0px 2% 0px" />
@@ -131,18 +163,28 @@ const Step4 = (props) => {
       <Divider width="100%" borderColor="#D5E4E8" margin="2% 0px 3% 0px" />
       <Grid container spacing={4}>
         <Grid item xs={12} sm={12} md={4}>
-          <TextField
+          <Datepicker
             label="Date of Technical Control"
             name="techControlDate"
             placeholder="19-10-2021"
-          ></TextField>
+            padding="20px 0 0 0px !important"
+            width="100% !important"
+            value={technicalcontrol}
+            onChange={handleTechnicalcontrol}
+          ></Datepicker>
+          <div className="borderbottom"></div>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
-          <TextField
+          <Datepicker
             label="End Date"
             name="techEndDate"
             placeholder="19-10-2021"
-          ></TextField>
+            padding="20px 0 0 0px !important"
+            width="100% !important"
+            value={technicalcontrolendvalue}
+            onChange={handleTechnicalcontrolendvalue}
+          ></Datepicker>
+          <div className="borderbottom"></div>
         </Grid>
       </Grid>
       <Divider width="100%" borderColor="#D5E4E8" margin="3% 0px 3% 0px" />

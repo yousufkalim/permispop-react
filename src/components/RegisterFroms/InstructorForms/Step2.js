@@ -1,11 +1,10 @@
-import React from "react";
-import Typography from "@mui/material/Typography";
+import React, { useState } from "react";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import TextField from "../../Common/TextField";
 import Divider from "../../Common/Divider";
 import FilePicker from "../../Common/FilePicker";
-import Checkbox from "@mui/material/Checkbox";
+import Datepicker from "../../Common/DatePicker";
 import API from "../../../api/index";
 
 const Step2 = (props) => {
@@ -36,6 +35,22 @@ const Step2 = (props) => {
       console.log("res", response);
     }
   };
+  const [validitydate, setValiditydate] = useState(new Date());
+  const handleValiditydate = (newValue) => {
+    setValiditydate(newValue);
+  };
+  const [authorizationdate, setAuthorizationdate] = useState(new Date());
+  const handleAuthorizationdate = (newValue) => {
+    setAuthorizationdate(newValue);
+  };
+  const [obtainingdate, setObtainingdate] = useState(new Date());
+  const handleObtainingDate = (newValue) => {
+    setObtainingdate(newValue);
+  };
+  const [expirationdate, setExpirationdate] = useState(new Date());
+  const handleExpirationdate = (newValue) => {
+    setExpirationdate(newValue);
+  };
   return (
     <Box
       component="form"
@@ -65,38 +80,54 @@ const Step2 = (props) => {
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <TextField
-            label="Dates of Obtaining"
-            name="obtainingdate"
-            placeholder="19-10-1992"
-          ></TextField>
-        </Grid>
-        <Grid item xs={12} sm={12} md={4}>
-          <TextField
-            label="Validity Date"
-            name="validitydate"
-            placeholder="19-10-1992"
-          ></TextField>
-        </Grid>
-        <Grid item xs={12} sm={12} md={4}>
-          <TextField
-            label="Date of authorization to excersice"
-            name="authorizationDate"
-            placeholder="19-10-1992"
-          ></TextField>
-        </Grid>
-        <Grid item xs={12} sm={12} md={4}>
-          <TextField
             label="Issuing Authority"
             name="issuingAuthority"
             placeholder="712333"
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
-          <TextField
+          <Datepicker
+            label="Validity Date"
+            name="validityDate"
+            padding="20px 0 0 0px !important"
+            width="100% !important"
+            value={validitydate}
+            onChange={handleValiditydate}
+          ></Datepicker>
+          <div className="borderbottom"></div>
+        </Grid>
+        <Grid item xs={12} sm={12} md={4}>
+          <Datepicker
+            label="Date of authorization to excersice"
+            name="authorizationdate"
+            padding="20px 0 0 0px !important"
+            width="100% !important"
+            value={authorizationdate}
+            onChange={handleAuthorizationdate}
+          ></Datepicker>
+          <div className="borderbottom"></div>
+        </Grid>
+        <Grid item xs={12} sm={12} md={4}>
+          <Datepicker
+            label="Dates of Obtaining"
+            name="obtainingdate"
+            padding="20px 0 0 0px !important"
+            width="100% !important"
+            value={obtainingdate}
+            onChange={handleObtainingDate}
+          ></Datepicker>
+          <div className="borderbottom"></div>
+        </Grid>
+        <Grid item xs={12} sm={12} md={4} sx={{ marginTop: "9px" }}>
+          <Datepicker
             label="Expiration Date"
-            name="expirationDate"
-            placeholder="19-10-1992"
-          ></TextField>
+            name="expirationdate"
+            padding="20px 0 0 0px !important"
+            width="100% !important"
+            value={expirationdate}
+            onChange={handleExpirationdate}
+          ></Datepicker>
+          <div className="borderbottom"></div>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <TextField

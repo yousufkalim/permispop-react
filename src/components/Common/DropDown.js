@@ -57,7 +57,7 @@ export default function DropDown(props) {
   return (
     <div>
       <FormControl
-        sx={{ m: 1, minWidth: 120 }}
+        sx={{ m: 1, minWidth: 120, paddingTop: "1px !important" }}
         className={classes.formControl}
         error={props.error ? true : false}
         variant={props.variant || "standard"}
@@ -65,6 +65,12 @@ export default function DropDown(props) {
       >
         <InputLabel
           id="demo-simple-select-standard-label"
+          sx={{
+            fontSize: "24px",
+            fontStyle: "normal !important",
+            fontWeight: "550 !important",
+            color: "#363557 !important",
+          }}
           shrink={true}
           className={[classes.inputLabels, props.inputLabelStyle].join(" ")}
           {...props.inputLabelProps}
@@ -76,6 +82,7 @@ export default function DropDown(props) {
           id="demo-simple-select-standard"
           onChange={props.onChange}
           value={props.value}
+          defaultValue={0}
           // renderValue={(value) => (props.value ? props.value : "France")}
         >
           {props.MenuItem ? (

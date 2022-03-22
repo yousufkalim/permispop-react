@@ -71,7 +71,27 @@
   flex-direction: row;
   margin-top: 50px !important;
 }
-
+.css-kq5jak-MuiFormLabel-root-MuiInputLabel-root {
+  font-size: 24px !important;
+  font-style: normal !important;
+  font-weight: 550 !important;
+  color: #363557 !important;
+  margin-left: -15px !important;
+}
+/* .css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input {
+  padding: 16px 0 0 -2% !important;
+} */
+.css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input {
+  padding: 16.5px 0 16.5px 0px !important;
+}
+.borderbottom {
+  height: 2% !important;
+  width: 100% !important;
+  background: #ebf3f5 !important;
+}
+.borderBottom:focus {
+  background: green !important;
+}
 @media only screen and (max-width: 1440px) {
   .Heading1 {
     font-size: 18px !important;

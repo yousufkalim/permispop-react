@@ -35,7 +35,7 @@ const useStyles = makeStyles((theme) => ({
     fontFamily: "Inter !important",
     fontStyle: "normal !important",
     fontWeight: "550 !important",
-    fontSize: "24px !important",
+    fontSize: "50px !important",
     lineHeight: "151.02 !important%",
     color: "#363557 !important",
     "&  .MuiInputLabel-formControl": { textAlign: "center !important" },
@@ -116,18 +116,22 @@ export default function MultiSelect({ ...props }) {
         {({ getInputProps }) => {
           const { onBlur, onChange, onFocus, ...inputProps } = getInputProps({
             onKeyDown: handleKeyDown,
-            placeholder,
           });
           return (
             <div>
               <InputLabel
-                className={[classes.inputLabels, props.inputLabelStyle].join()}
+                sx={{
+                  fontSize: "24px",
+                  fontStyle: "normal !important",
+                  fontWeight: "550 !important",
+                  color: "#363557 !important",
+                }}
                 shrink={true}
-                {...props.inputLabelProps}
               >
-                {props.label}
+                {props.text}
               </InputLabel>
               <TextField
+                sx={{ width: "100% !important", paddingTop: "20px" }}
                 InputProps={{
                   startAdornment: selectedItem.map((item) => (
                     <Chip

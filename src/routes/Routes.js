@@ -28,13 +28,15 @@ import InsProfile from "../containers/Dashboard/Instructor/profile";
 import InsPendingRequest from "../containers/Dashboard/Instructor/PendingRequest";
 import InsHistory from "../containers/Dashboard/Instructor/History";
 import InsCalendar from "../containers/Dashboard/Instructor/InsCalendar/Calendar";
+import InsInsuranceDetails from "../containers/Dashboard/Instructor/InsuranceDetails";
+import InsFaq from "../containers/Dashboard/Instructor/Faq";
 import InsVehicles from "../containers/Dashboard/Instructor/Vehicles";
 //driving school instructor components routes
-import DsInsProfile from "../containers/Dashboard/DsInstructor/profile";
-import DsInsPendingRequest from "../containers/Dashboard/DsInstructor/PendingRequest";
-import DsInsHistory from "../containers/Dashboard/DsInstructor/History";
-import DsInsCalendar from "../containers/Dashboard/DsInstructor/DsInstructorCalendar/Calendar";
-import DSInsVehicles from "../containers/Dashboard/DsInstructor/Vehicles";
+import DsInsProfile from "../containers/Dashboard/DSInstructor/Profile";
+import DsInsPendingRequest from "../containers/Dashboard/DSInstructor/PendingRequest";
+import DsInsHistory from "../containers/Dashboard/DSInstructor/History";
+import DsInsCalendar from "../containers/Dashboard/DSInstructor/DsInstructorCalendar/Calendar";
+import DsInsVehicles from "../containers/Dashboard/Instructor/Vehicles";
 import InsInsuranceDetails from "../containers/Dashboard/Instructor/InsuranceDetails";
 import InsFaq from "../containers/Dashboard/Instructor/Faq";
 
@@ -242,7 +244,7 @@ var DsInstructorRoutes = [
     path: "/vehicles",
     name: "Vehicles",
     icon: <Car className="drawer-icons" />,
-    component: DSInsVehicles,
+    component: DsInsVehicles,
     layout: "/DsInstructor",
   },
   {
