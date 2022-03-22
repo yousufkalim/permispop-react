@@ -33,8 +33,11 @@ const Step3 = (props) => {
         <Grid item xs={12} sm={12} md={4}>
           <DropDown label="Police Number" placeholder="Smith"></DropDown>
         </Grid>
-        <Grid item xs={12} sm={12} md={4}>
-          <DatePicker label="Expiration date of your Insurance"></DatePicker>
+        <Grid item xs={12} sm={12} md={4} sx={{ marginTop: "9px" }}>
+          <DatePicker label="Expiration date of your Insurance" padding="20px 0 0 0px !important"
+            width="100% !important">
+          </DatePicker>
+          <div className="borderbottom"></div>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <FilePicker title="Upload your RC Pro" label="YourRCpro" />
