@@ -32,7 +32,7 @@ import InsInsuranceDetails from "../containers/Dashboard/Instructor/InsuranceDet
 import InsFaq from "../containers/Dashboard/Instructor/Faq";
 import InsVehicles from "../containers/Dashboard/Instructor/Vehicles";
 //driving school instructor components routes
-import DsInsProfile from "../containers/Dashboard/DSInstructor/Profile";
+import DsInsProfile from "../containers/Dashboard/DSInstructor/profile";
 import DsInsPendingRequest from "../containers/Dashboard/DSInstructor/PendingRequest";
 import DsInsHistory from "../containers/Dashboard/DSInstructor/History";
 import DsInsCalendar from "../containers/Dashboard/DSInstructor/DsInstructorCalendar/Calendar";
