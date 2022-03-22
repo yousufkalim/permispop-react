@@ -36,7 +36,7 @@ import DsInsProfile from "../containers/Dashboard/DSInstructor/Profile";
 import DsInsPendingRequest from "../containers/Dashboard/DSInstructor/PendingRequest";
 import DsInsHistory from "../containers/Dashboard/DSInstructor/History";
 import DsInsCalendar from "../containers/Dashboard/DSInstructor/DsInstructorCalendar/Calendar";
-// import InsVehicles from "../containers/Dashboard/Instructor/Vehicles";
+import DsInsVehicles from "../containers/Dashboard/Instructor/Vehicles";
 // import InsInsuranceDetails from "../containers/Dashboard/Instructor/InsuranceDetails";
 // import InsFaq from "../containers/Dashboard/Instructor/Faq";
 
