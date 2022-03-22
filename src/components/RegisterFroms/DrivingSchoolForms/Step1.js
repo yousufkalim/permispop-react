@@ -135,6 +135,13 @@ const Step1 = (props) => {
             Are you working on other platform?
           </Typography>
         </div>
+        <div className="termsConditionsCheckbox">
+        <Checkbox className="checkbox" name="check2" />
+        <Typography variant="body1" className="termsConditionsCheckboxTitle">
+          I accept CPF financement
+        </Typography>
+      </div>
+      </div>
         {checked ? (
           <Grid container spacing={2}>
             <Grid item xs={12} sm={12} md={5} sx={{ marginRight: "1%" }}>
@@ -155,13 +162,12 @@ const Step1 = (props) => {
         ) : (
           ""
         )}
-      </div>
-      <div className="termsConditionsCheckbox">
+      {/* <div className="termsConditionsCheckbox">
         <Checkbox className="checkbox" name="check2" />
         <Typography variant="body1" className="termsConditionsCheckboxTitle">
           I accept CPF financement
         </Typography>
-      </div>
+      </div> */}
     </Box>
   );
 };
