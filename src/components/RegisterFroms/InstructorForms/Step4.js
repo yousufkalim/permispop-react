@@ -11,24 +11,24 @@ import Datepicker from "../../Common/DatePicker";
 import API from "../../../api/index";
 
 const Step4 = (props) => {
-  const [step4, setStep4] = React.useState({
-    FirstRegistration: "",
-    Brand: "",
-    Model: "",
-    NumPlate: "",
-    Color: "",
-    Energy: "",
-    Gearbox: "",
-    Insurer: "",
-    PoliceNum: "",
-    StartDate: "",
-    DateTechControl: "",
-    TechEndDate: "",
-    Photo: "",
-    RegCertificate: "",
-    GreenCard: "",
-    Ct: "",
-  });
+  // const [step4, setStep4] = React.useState({
+  //   FirstRegistration: "",
+  //   Brand: "",
+  //   Model: "",
+  //   NumPlate: "",
+  //   Color: "",
+  //   Energy: "",
+  //   Gearbox: "",
+  //   Insurer: "",
+  //   PoliceNum: "",
+  //   StartDate: "",
+  //   DateTechControl: "",
+  //   TechEndDate: "",
+  //   Photo: "",
+  //   RegCertificate: "",
+  //   GreenCard: "",
+  //   Ct: "",
+  // });
 
   const handleChange = async (e) => {
     console.log(e.target.files[0]);

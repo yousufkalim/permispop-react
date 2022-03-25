@@ -82,15 +82,20 @@
 
 .css-1t8l2tu-MuiInputBase-input-MuiOutlinedInput-input {
   padding: 16.5px 0 16.5px 0px !important;
-  
 }
 .borderbottom {
-  height: 2% !important;
+  height: 1% !important;
   width: 100% !important;
   background: #ebf3f5 !important;
 }
 .borderBottom:focus {
   background: green !important;
+}
+.makeStyles-chip-77 {
+  margin: -39px 2px 0px 0 !important;
+}
+.makeStyles-chip-130 {
+  margin: -39px 2px 0px 0 !important;
 }
 @media only screen and (max-width: 1440px) {
   .Heading1 {
