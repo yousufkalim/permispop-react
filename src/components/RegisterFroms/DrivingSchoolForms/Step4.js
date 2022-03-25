@@ -11,17 +11,6 @@ import DatePicker from "../../Common/DatePicker";
 import DropDown from "../../Common/DropDown";
 
 const Step1 = (props) => {
-  const [step4, setStep4] = React.useState({
-    Firstname: "",
-    Surnaem: "",
-    Dob: "",
-    Pob: "",
-    Address: "",
-    Gender: "",
-    Complement: "",
-    ip: "",
-    City: "",
-  });
   return (
     <Box
       component="form"
