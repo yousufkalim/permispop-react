@@ -54,8 +54,8 @@ const Step2 = (props) => {
         <Grid item xs={12} sm={12} md={4} sx={{ marginTop: "9px" }}>
           <DatePicker
             label="Expiration date of your insurance"
-            value={ExpirationDate}
-            onChange={handleExpirationDateChange}
+            // value={ExpirationDate}
+            // onChange={handleExpirationDateChange}
             padding="20px 0 0 0px !important"
             width="100% !important"
           />

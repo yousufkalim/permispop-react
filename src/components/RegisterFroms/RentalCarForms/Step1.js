@@ -10,6 +10,7 @@ import API from "../../../api/index";
 import DatePicker from "../../Common/DatePicker";
 
 const Step1 = (props) => {
+ 
   return (
     <Box
       component="form"
@@ -40,8 +41,8 @@ const Step1 = (props) => {
         <Grid item xs={12} sm={12} md={4} sx={{ marginTop: "9px" }}>
           <DatePicker
             label="Date of Birth"
-            value={DoB}
-            onChange={handleDoBChange}
+            // value={DoB}
+            // onChange={handleDoBChange}
             padding="20px 0 0 0px !important"
             width="100% !important"
           />

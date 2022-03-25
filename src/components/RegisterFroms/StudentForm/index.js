@@ -41,6 +41,10 @@ const StudentForm = (props) => {
   const [lat, setLat] = React.useState(41.960096);
   const [lng, setLng] = React.useState(8.772206);
   const [date, setDate] = React.useState(new Date());
+  
+  function handleSelecetedTags(items) {
+    console.log(items);
+  }
 
   const handleDob = (newValue) => {
     setDob(newValue);
