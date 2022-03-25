@@ -92,6 +92,77 @@ function ColorlibStepIcon(props) {
 }
 
 const Instructor = () => {
+  const [step1, setStep1] = React.useState({
+    firstname: "saad",
+    surname: "",
+    address: "",
+    dob: "",
+    pob: "",
+    zip: "",
+    gender: "",
+    email: "",
+    email2: "",
+    phone: "",
+    phone2: "",
+    city: "",
+    complement: "",
+    password: "",
+    confirmPassword: "",
+    noh: "",
+    neph: "",
+    language: "",
+    frontImg: "",
+    backImag: "",
+    profileImg: "",
+    otherPlatform: false,
+    lat: "",
+    lng: "",
+  });
+  const [step2, setStep2] = React.useState({
+    licenceNo: "",
+    doOb: "",
+    validitiyDate: "",
+    DateAuthorization: "",
+    issuingAuthority: "",
+    ExpirationDate: "",
+    AuthorizationNumber: "",
+    siretNo: "",
+    licensefront: "",
+    licenseback: "",
+    kbls: "",
+    Authorizationfront: "",
+    Authorizationback: "",
+  });
+  const [step3, setStep3] = React.useState({
+    companyInsurer: "",
+    companyPoliceNum: "",
+    insuranceExpDate: "",
+    companyRC: "",
+    vehicleInsurer: "",
+    vehiclePoliceNum: "",
+    vehicleDoOb: "",
+    ExpDateinsurance: "",
+    RcPro: "",
+  });
+  const [step4, setStep4] = React.useState({
+    FirstRegistration: "",
+    Brand: "",
+    Model: "",
+    NumPlate: "",
+    Color: "",
+    Energy: "",
+    Gearbox: "",
+    Insurer: "",
+    PoliceNum: "",
+    StartDate: "",
+    DateTechControl: "",
+    TechEndDate: "",
+    Photo: "",
+    RegCertificate: "",
+    GreenCard: "",
+    Ct: "",
+  });
+
   const steps = ["Identity", "Details", "Insurance", "Vehicle", "Done"];
 
   const [activeStep, setActiveStep] = React.useState(1);
@@ -200,13 +271,13 @@ const Instructor = () => {
                 <React.Fragment>
                   <Typography sx={{ mt: 2, mb: 1 }}>
                     {activeStep === 1 ? (
-                      <Step1 />
+                      <Step1 state={step1} setState={setStep1} />
                     ) : activeStep === 2 ? (
-                      <Step2 />
+                      <Step2 state={step2} setState={setStep2} />
                     ) : activeStep === 3 ? (
-                      <Step3 />
+                      <Step3 state={step3} setState={setStep3} />
                     ) : activeStep === 4 ? (
-                      <Step4 />
+                      <Step4 state={step4} setState={setStep4} />
                     ) : (
                       ""
                     )}

@@ -8,21 +8,6 @@ import Datepicker from "../../Common/DatePicker";
 import API from "../../../api/index";
 
 const Step2 = (props) => {
-  const [step2, setStep2] = React.useState({
-    licenceNo: "",
-    doOb: "",
-    validitiyDate: "",
-    DateAuthorization: "",
-    issuingAuthority: "",
-    ExpirationDate: "",
-    AuthorizationNumber: "",
-    siretNo: "",
-    licensefront: "",
-    licenseback: "",
-    kbls: "",
-    Authorizationfront: "",
-    Authorizationback: "",
-  });
   const handleChange = async (e) => {
     console.log(e.target.files[0]);
 

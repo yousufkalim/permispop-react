@@ -10,17 +10,6 @@ import Datepicker from "../../Common/DatePicker";
 import API from "../../../api/index";
 
 const Step1 = (props) => {
-  const [step3, setStep3] = React.useState({
-    companyInsurer: "",
-    companyPoliceNum: "",
-    insuranceExpDate: "",
-    companyRC: "",
-    vehicleInsurer: "",
-    vehiclePoliceNum: "",
-    vehicleDoOb: "",
-    ExpDateinsurance: "",
-    RcPro: "",
-  });
   const handleChange = async (e) => {
     console.log(e.target.files[0]);
 

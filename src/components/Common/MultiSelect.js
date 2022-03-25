@@ -11,6 +11,7 @@ const useStyles = makeStyles((theme) => ({
   chip: {
     margin: theme.spacing(0.5, 0.25),
   },
+
   input: {
     height: "70px !important",
     borderBottom: "none !important",
@@ -132,6 +133,7 @@ export default function MultiSelect({ ...props }) {
               </InputLabel>
               <TextField
                 sx={{ width: "100% !important", paddingTop: "20px" }}
+                placeholder="Spoken languages"
                 InputProps={{
                   startAdornment: selectedItem.map((item) => (
                     <Chip

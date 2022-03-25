@@ -13,38 +13,25 @@ import MultiSelect from "../../Common/MultiSelect";
 import API from "../../../api/index";
 
 const Step1 = (props) => {
-  const [step1, setStep1] = React.useState({
-    firstname: "",
-    surname: "",
-    address: "",
-    dob: "",
-    pob: "",
-    zip: "",
-    gender: "",
-    email: "",
-    email2: "",
-    phone: "",
-    phone2: "",
-    city: "",
-    complement: "",
-    password: "",
-    confirmPassword: "",
-    noh: "",
-    neph: "",
-    language: "",
-    frontImg: "",
-    backImag: "",
-    profileImg: "",
-    otherPlatform: false,
-    lat: "",
-    lng: "",
-  });
+  // const fun = {
+  //   state,
+  //   setState,
+  // };
+  // const _setState = (key, value) => {
+  //   const obj = {};
+  //   obj[key] = value;
+  //   setState({
+  //     ...state,
+  //     ...obj,
+  //   });
+  // };
+
   const handleChange = async (e) => {
     console.log(e.target.files[0]);
 
     const formdata = new FormData();
 
-    if (e.targer.name) formdata.append(`file`, e.target.files[0]);
+    if (e.target.name) formdata.append(`file`, e.target.files[0]);
     // let res = await api("post", "/uploadImage", formdata);
     const response = await API("post", "Personal/UploadProfileImage", formdata);
     if (response) {
@@ -54,15 +41,16 @@ const Step1 = (props) => {
   function handleSelecetedTags(items) {
     console.log(items);
   }
-  const [dob, setDob] = useState(new Date());
+  const [dob, setDob] = useState();
   const handleDob = (newValue) => {
     setDob(newValue);
   };
+  const [checked, setisChecked] = React.useState(false);
   return (
     <Box
       component="form"
       noValidate
-      // onSubmit={handleSubmit}
+      onSubmit={handleChange}
       sx={{
         mt: 3,
         marginTop: "70px",
@@ -253,12 +241,38 @@ const Step1 = (props) => {
       </Grid>
       <div className="termsConditionsCheckboxContainer">
         <div className="termsConditionsCheckbox">
-          <Checkbox name="otherPlatform" className="checkbox" />
+          <Checkbox
+            name="otherPlatform"
+            className="checkbox"
+            onClick={(e) => setisChecked(!checked)}
+          />
           <Typography variant="body1" className="termsConditionsCheckboxTitle">
             Are you working on other platform?
           </Typography>
         </div>
       </div>
+      {checked ? (
+        <Grid container spacing={2}>
+          <Grid item xs={12} sm={12} md={4}>
+            <TextField
+              label="Which plateforms"
+              type="plateforms"
+              name="plateforms"
+              placeholder="Seperated by"
+            ></TextField>
+          </Grid>
+          <Grid item xs={12} sm={12} md={6}>
+            <TextField
+              label="How much time will you give to the students of our platform?(hr/month)"
+              name="Time"
+              placeholder="How much time?"
+              type="text"
+            ></TextField>
+          </Grid>
+        </Grid>
+      ) : (
+        ""
+      )}
     </Box>
   );
 };
