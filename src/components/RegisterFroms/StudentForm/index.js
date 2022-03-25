@@ -12,19 +12,20 @@ import Checkbox from "@mui/material/Checkbox";
 import DropDown from "../../Common/DropDown";
 import MultiSelect from "../../Common/MultiSelect";
 import API from "../../../api/index";
+
 const StudentForm = (props) => {
   const [firstname, setFirstname] = React.useState("");
   const [surname, setSurname] = React.useState("");
-  const [address, setaddress] = React.useState("");
-  const [dob, setDob] = React.useState("");
+  const [address, setaddress] = React.useState("À Renasca ");
+  const [dob, setDob] = React.useState(new Date());
   const [pob, setPob] = React.useState("");
-  const [zip, setZip] = React.useState("");
+  const [zip, setZip] = React.useState("20090");
   const [gender, setGender] = React.useState("");
   const [email, setEmail] = React.useState("");
   const [email2, setemail2] = React.useState("");
   const [phone, setPhone] = React.useState("");
   const [phone2, setPhone2] = React.useState("");
-  const [city, setCity] = React.useState("");
+  const [city, setCity] = React.useState("Ajaccio");
   const [complement, setComplement] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [confirmPassword, setConfirmPassword] = React.useState("");
@@ -35,40 +36,61 @@ const StudentForm = (props) => {
   const [backImage, setBackImage] = React.useState("");
   const [profileImage, setProfileImage] = React.useState("");
   const [HighWayCodeImg, setHighWayCodeImg] = React.useState();
-  const [lat, setLat] = React.useState("");
-  const [lng, setLng] = React.useState("");
-
-  const handleChange = async (e) => {
-    console.log(e.target.files[0]);
-
-    const formdata = new FormData();
-
-    if (e.targer.name) formdata.append(`file`, e.target.files[0]);
-    // let res = await api("post", "/uploadImage", formdata);
-    const response = await API("post", "Personal/UploadProfileImage", formdata);
-    if (response) {
-      console.log("res", response);
-    }
-  };
-  const handleLanguage = async () => {
-    const response = await API(
-      "get",
-      "https://parseapi.back4app.com/classes/Continentscountriescities_Language"
-    );
-  };
-  const handleAddress = async (e) => {
-    const response = await API(
-      "get",
-      `https://api-adresse.data.gouv.fr/search/?q=${e.target.value}`
-    );
-    console.log("response", response);
-  };
+  const [checkbox1, setCheckbox1] = React.useState(false);
+  const [checkbox2, setCheckbox2] = React.useState(false);
+  const [lat, setLat] = React.useState(41.960096);
+  const [lng, setLng] = React.useState(8.772206);
+  const [date, setDate] = React.useState(new Date());
+  
   function handleSelecetedTags(items) {
     console.log(items);
   }
 
+  const handleDob = (newValue) => {
+    setDob(newValue);
+  };
+  const handleDate = (newValue) => {
+    setDate(newValue);
+  };
+  const handleFileChange = async (e) => {
+    const formdata = new FormData();
+
+    formdata.append("file", e.target.files[0]);
+
+    await API("post", "Personal/UploadProfileImage", formdata).then((res) => {
+      console.log("res", e.target.name);
+      if (e.target.name === "frontImage") {
+        setFrontImage(res.data.message);
+      } else if (e.target.name === "backIdPhoto") {
+        setBackImage(res.data.message);
+      } else if (e.target.name === "photo") {
+        setProfileImage(res.data.message);
+      } else if (e.target.name === "highwayCodeImg") {
+        setHighWayCodeImg(res.data.message);
+      }
+    });
+  };
+  // const handleLanguage = async () => {
+  //   const response = await API(
+  //     "get",
+  //     "https://parseapi.back4app.com/classes/Continentscountriescities_Language"
+  //   );
+  //   console.log("response", response);
+  // };
+  // const handleAddress = async (e) => {
+  //   const response = await API(
+  //     "get",
+  //     `http://api-adresse.data.gouv.fr/search/?q=${e.target.value}`
+  //   );
+  //   console.log("response", response);
+  // };
+
+  const handleChange = (e) => {
+    console.log(e.target.name, e.target.value);
+  };
+
   const handleSubmit = async () => {
-    const response = await API("post", "Personal", {
+    await API("post", "Personal", {
       RegistrationDate: "",
       firstName: firstname,
       surName: surname,
@@ -87,9 +109,22 @@ const StudentForm = (props) => {
       role: "Student",
       highWayCodeDate: "",
       id: "",
+      frontIdPhoto: frontImage,
+      backIdPhoto: backImage,
+      photo: profileImage,
+      highWayCodeImage: HighWayCodeImg,
+      address: address,
+      zip: zip,
+      city: city,
+      lat: lat,
+      long: lng,
+    }).then(async (res) => {
+      await API("post", "Profile", {});
+
+      console.log("res", res.data.data);
     });
   };
-  const [checked, setisChecked] = React.useState(false);
+  // const [checked, setisChecked] = React.useState(false);
 
   return (
     <div className="student_form_main_container">
@@ -110,7 +145,7 @@ const StudentForm = (props) => {
         </div>
         <Box
           component="form"
-          onSubmit={handleSubmit}
+          noValidate
           sx={{
             mt: 3,
             marginLeft: "10%",
@@ -118,7 +153,6 @@ const StudentForm = (props) => {
             marginTop: "70px",
           }}
         >
-          {/* {console.log("fname", fname)} */}
           <Grid container spacing={4}>
             <Grid item xs={12} sm={12} md={4}>
               <TextField
@@ -127,7 +161,7 @@ const StudentForm = (props) => {
                 type="text"
                 placeholder="John"
                 value={firstname}
-                onChange={(e) => setFirstname(e.target.value)}
+                onChange={(e) => handleChange(e)}
               />
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
@@ -147,10 +181,10 @@ const StudentForm = (props) => {
                 placeholder="102 Street, building 02, NY"
                 type="text"
                 value={address}
-                onChange={handleAddress}
+                // onChange={handleAddress}
               ></TextField>
             </Grid>
-            <Grid item xs={12} sm={12} md={4} sx={{marginTop:"9px"}}>
+            <Grid item xs={12} sm={12} md={4} sx={{ marginTop: "9px" }}>
               <DatePicker
                 label="Date of birth"
                 name="dob"
@@ -158,9 +192,9 @@ const StudentForm = (props) => {
                 placeholder="19-10-1992 "
                 onChange={(e) => setDob(e.target.value)}
                 padding="20px 0 0 0px !important"
-            width="100% !important">
-          </DatePicker>
-          <div className="borderbottom"></div>
+                width="100% !important"
+              ></DatePicker>
+              <div className="borderbottom"></div>
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
               <TextField
@@ -325,11 +359,11 @@ const StudentForm = (props) => {
               <FilePicker
                 title="Upload front of your ID Card/Passport"
                 label="front"
-                name="frontIdPhoto"
+                name="frontImage"
                 type="file"
                 value={frontImage}
-                onChange={handleChange}
-                setFrontImage={setFrontImage}
+                onChange={handleFileChange}
+                // setFrontImage={setFrontImage}
               />
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
@@ -339,7 +373,7 @@ const StudentForm = (props) => {
                 name="backIdPhoto"
                 type="file"
                 value={backImage}
-                onChange={handleChange}
+                onChange={handleFileChange}
               />
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
@@ -349,7 +383,7 @@ const StudentForm = (props) => {
                 name="photo"
                 type="file"
                 value={profileImage}
-                onChange={handleChange}
+                onChange={handleFileChange}
               />
             </Grid>
           </Grid>
@@ -357,7 +391,7 @@ const StudentForm = (props) => {
             <div className="termsConditionsCheckbox">
               <Checkbox
                 className="checkbox"
-                onClick={(e) => setisChecked(!checked)}
+                onClick={(e) => setCheckbox1(!checkbox1)}
               />
               <Typography
                 variant="body1"
@@ -367,28 +401,28 @@ const StudentForm = (props) => {
               </Typography>
             </div>
             <div className="termsConditionsCheckbox">
-            <Checkbox defaultChecked className="checkbox" />
-            <Typography
-              variant="body1"
-              className="termsConditionsCheckboxTitle"
-            >
-              Terms & Conditions Applied
-            </Typography>
+              <Checkbox defaultChecked className="checkbox" />
+              <Typography
+                variant="body1"
+                className="termsConditionsCheckboxTitle"
+              >
+                Terms & Conditions Applied
+              </Typography>
+            </div>
           </div>
-          </div>
-          {checked ? (
+          {checkbox1 ? (
             <Grid container spacing={2}>
-              <Grid item xs={12} sm={12} md={4} sx={{marginTop:"9px"}}>
-              <DatePicker
-                label="Date"
-                name="dat"
-                // value={dob}
-                onChange={(e) => setDob(e.target.value)}
-                padding="20px 0 0 0px !important"
-            width="100% !important">
-          </DatePicker>
-          <div className="borderbottom"></div>
-          {/* replaced  */}
+              <Grid item xs={12} sm={12} md={4} sx={{ marginTop: "9px" }}>
+                <DatePicker
+                  label="Date"
+                  name="dat"
+                  // value={dob}
+                  onChange={(e) => setDob(e.target.value)}
+                  padding="20px 0 0 0px !important"
+                  width="100% !important"
+                ></DatePicker>
+                <div className="borderbottom"></div>
+                {/* replaced  */}
                 {/* <TextField
                   label="Date"
                   placeholder="English, French"
@@ -397,23 +431,18 @@ const StudentForm = (props) => {
               <Grid item xs={12} sm={12} md={4} sx={{ marginLeft: "1%" }}>
                 <FilePicker
                   title="Upload Highway code image file"
-                  label="back"
+                  label="high"
+                  name="highwayCodeImg"
+                  type="file"
+                  value={HighWayCodeImg}
+                  onChange={handleFileChange}
                 />
               </Grid>
             </Grid>
           ) : (
             ""
           )}
-          {/* Moved in the upper div */}
-          {/* <div className="termsConditionsCheckbox">
-            <Checkbox defaultChecked className="checkbox" />
-            <Typography
-              variant="body1"
-              className="termsConditionsCheckboxTitle"
-            >
-              Terms & Conditions Applied
-            </Typography>
-          </div> */}
+
           <Grid
             xs={12}
             container
@@ -423,7 +452,6 @@ const StudentForm = (props) => {
           >
             <Button
               endIcon={<DoneIcon sx={{ color: "#fff" }} />}
-              type="submit"
               text="Register"
               buttonLableStyle="btn_main"
               style={{ marginTop: "24px" }}

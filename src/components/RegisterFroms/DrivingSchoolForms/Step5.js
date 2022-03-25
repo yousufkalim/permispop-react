@@ -9,7 +9,7 @@ import FilePicker from "../../Common/FilePicker";
 import Checkbox from "@mui/material/Checkbox";
 import DatePicker from "../../Common/DatePicker";
 
-const Step1 = (props) => {
+const Step5 = (props) => {
   return (
     <Box
       component="form"
@@ -155,4 +155,4 @@ const Step1 = (props) => {
     </Box>
   );
 };
-export default Step1;
+export default Step5;

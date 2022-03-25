@@ -9,18 +9,6 @@ import FilePicker from "../../Common/FilePicker";
 import DatePicker from "../../Common/DatePicker";
 
 const Step2 = (props) => {
-  const [ExpirationDate , setExpirationDate] = React.useState(new Date())
-  const [step2, setStep2] = React.useState({
-    Siret: "",
-    Kbls: "",
-    CompanyInsurer: "",
-    CompanyPoliceNumber: "",
-    InsuranceDateExp: "",
-    RcPro: "",
-  });
-  const handleExpirationDateChange = (newvalue) => {
-    setExpirationDate(newvalue);
-  }
   return (
     <Box
       component="form"
@@ -35,7 +23,11 @@ const Step2 = (props) => {
         <div className="DrivingSchool">
           <Grid item xs={12} sm={12} md={12}>
             <div className="DrivingSchool1">
-              <TextField label="SIRET Number" type="text" placeholder="Must be 14 Digits"></TextField>
+              <TextField
+                label="SIRET Number"
+                type="text"
+                placeholder="Must be 14 Digits"
+              ></TextField>
             </div>
           </Grid>
           <Grid item xs={12} sm={12} md={12}>
@@ -53,19 +45,22 @@ const Step2 = (props) => {
           <TextField label="Insurer" type="text" placeholder="John"></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
-          <TextField label="Police Nunber" type="text" placeholder="Numeric"></TextField>
+          <TextField
+            label="Police Nunber"
+            type="text"
+            placeholder="Numeric"
+          ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4} sx={{ marginTop: "9px" }}>
           <DatePicker
-          label="Expiration date of your insurance"
-          value={ExpirationDate}
-          onChange={handleExpirationDateChange}
-          padding="20px 0 0 0px !important"
+            label="Expiration date of your insurance"
+            // value={ExpirationDate}
+            // onChange={handleExpirationDateChange}
+            padding="20px 0 0 0px !important"
             width="100% !important"
           />
           <div className="borderbottom"></div>
 
-          
           {/* replaced  */}
           {/* <TextField
             label="Expiration date of your insurance"

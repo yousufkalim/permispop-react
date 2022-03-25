@@ -10,31 +10,7 @@ import API from "../../../api/index";
 import DatePicker from "../../Common/DatePicker";
 
 const Step1 = (props) => {
-  const [DoB, setDoB] = React.useState(new Date())
-  const [step, setStep1] = React.useState({
-    FirstName: "",
-    SurName: "",
-    Dob: "",
-    Pob: "",
-    Address: "",
-    Gender: "",
-    Complement: "",
-    Zip: "",
-    City: "",
-    Email: "",
-    Email2: "",
-    Phone: "",
-    Phone2: "",
-    Password: "",
-    ConfirmPassword: "",
-    TimeOnPlatform: "",
-    ProfileImg: "",
-    FrontSideimg: "",
-    BackSideimg: "",
-  });
-  const handleDoBChange = (newvalue) => {
-    setDoB(newvalue);
-  }
+ 
   return (
     <Box
       component="form"
@@ -62,12 +38,11 @@ const Step1 = (props) => {
             placeholder="Cena"
           ></TextField>
         </Grid>
-        <Grid item xs={12} sm={12} md={4} sx={{marginTop:"9px"}}>
+        <Grid item xs={12} sm={12} md={4} sx={{ marginTop: "9px" }}>
           <DatePicker
             label="Date of Birth"
-            
-            value={DoB}
-            onChange={handleDoBChange}
+            // value={DoB}
+            // onChange={handleDoBChange}
             padding="20px 0 0 0px !important"
             width="100% !important"
           />
@@ -97,24 +72,32 @@ const Step1 = (props) => {
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
-          <DropDown label="Gender" name="gender" placeholder="ali"
-          MenuItem={[
-            { name: "Male", value: "Male" },
-            { name: "Female", value: "Female" },
-            { name: "others", value: "Others" },
-          ]} >
-          </DropDown>
+          <DropDown
+            label="Gender"
+            name="gender"
+            placeholder="ali"
+            MenuItem={[
+              { name: "Male", value: "Male" },
+              { name: "Female", value: "Female" },
+              { name: "others", value: "Others" },
+            ]}
+          ></DropDown>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <TextField
             label="Complement"
             name="complement"
             type="text"
-           placeholder="TextField"
+            placeholder="TextField"
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
-          <TextField label="Zip Code" name="zip" type="number" placeholder="00000"></TextField>
+          <TextField
+            label="Zip Code"
+            name="zip"
+            type="number"
+            placeholder="00000"
+          ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <TextField
@@ -125,10 +108,20 @@ const Step1 = (props) => {
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
-          <TextField label="Email" name="email" type="email" placeholder="abc@xyz.com"></TextField>
+          <TextField
+            label="Email"
+            name="email"
+            type="email"
+            placeholder="abc@xyz.com"
+          ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
-          <TextField label="Phone" name="phone" type="text" placeholder="1234567890"></TextField>
+          <TextField
+            label="Phone"
+            name="phone"
+            type="text"
+            placeholder="1234567890"
+          ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <TextField
@@ -163,7 +156,6 @@ const Step1 = (props) => {
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
-            
           <TextField
             label="How much time you will give to students of our platforms?"
             name="timeonplatform"

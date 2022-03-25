@@ -10,12 +10,6 @@ import API from "../../../api/index";
 import DatePicker from "../../Common/DatePicker";
 
 const Step3 = (props) => {
-  const [step3, setStep3] = React.useState({
-    Tradename: "",
-    Companyname: "",
-    Address: "",
-    RcPro: "",
-  });
   return (
     <Box
       component="form"

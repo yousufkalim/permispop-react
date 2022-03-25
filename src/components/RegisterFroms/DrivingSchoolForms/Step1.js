@@ -8,26 +8,9 @@ import Divider from "../../Common/Divider";
 import Checkbox from "@mui/material/Checkbox";
 import API from "../../../api/index";
 
-
 const Step1 = (props) => {
   const [checked, setChecked] = React.useState(false);
-  const [step1, setStep1] = React.useState({
-    TradeName: "",
-    CompanyName: "",
-    Address: "",
-    Complement: "",
-    Zip: "",
-    City: "",
-    Email: "",
-    Email2: "",
-    Phone: "",
-    Phone2: "",
-    Password: "",
-    Password2: "",
-    Language: "",
-    OtherPlateform: false,
-    CPF: "",
-  });
+
   return (
     <Box
       component="form"
@@ -42,61 +25,105 @@ const Step1 = (props) => {
         <Grid item xs={12} sm={12} md={4}>
           <TextField
             label="Tradename"
-            name="tradename"
+            name="TradeName"
             placeholder="John"
+            value={props.step1.TradeName}
+            onChange={(e) => {
+              props.onChange(e.target.name, e.target.value);
+            }}
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <TextField
             label="Company Name"
-            name="companyname"
+            name="CompanyName"
             placeholder="Smith.PVT"
+            value={props.step1.CompanyName}
+            onChange={(e) => {
+              props.onChange(e.target.name, e.target.value);
+            }}
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <TextField
             label="Address"
-            name="address"
+            name="Address"
             placeholder="Address"
+            value={props.step1.CompanyName}
+            onChange={(e) => {
+              props.onChange(e.target.name, e.target.value);
+            }}
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <TextField
             label="Complement"
-            name="complement"
+            name="Complement"
             placeholder="Text"
+            value={props.step1.CompanyName}
+            onChange={(e) => {
+              props.onChange(e.target.name, e.target.value);
+            }}
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <TextField
             label="Zip Code"
-            name="zip"
+            value={props.step1.CompanyName}
+            onChange={(e) => {
+              props.onChange(e.target.name, e.target.value);
+            }}
+            name="Zip"
             placeholder="00000"
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
-          <TextField label="City" name="city" placeholder="City"></TextField>
+          <TextField
+            label="City"
+            name="City"
+            placeholder="City"
+            value={props.step1.CompanyName}
+            onChange={(e) => {
+              props.onChange(e.target.name, e.target.value);
+            }}
+          ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
-          <TextField label="Email" name="email" placeholder="Email"></TextField>
+          <TextField
+            label="Email"
+            name="Email"
+            placeholder="Email"
+            value={props.step1.CompanyName}
+            onChange={(e) => {
+              props.onChange(e.target.name, e.target.value);
+            }}
+          ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <TextField
             label="Second Email"
-            name="email2"
+            name="Email2"
             placeholder="smart_coolkyo@yahoo.com"
+            value={props.step1.CompanyName}
+            onChange={(e) => {
+              props.onChange(e.target.name, e.target.value);
+            }}
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <TextField
             label="Phone"
-            name="phone"
+            name="Phone"
             placeholder="0000000000000"
+            value={props.step1.CompanyName}
+            onChange={(e) => {
+              props.onChange(e.target.name, e.target.value);
+            }}
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <TextField
-            name="phone2"
+            name="Phone2"
             label="Second Phone"
             placeholder="00000000000000"
           ></TextField>
@@ -104,21 +131,21 @@ const Step1 = (props) => {
         <Grid item xs={12} sm={12} md={4}>
           <TextField
             label="Password"
-            name="password"
+            name="Password"
             placeholder="**************"
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <TextField
             label="Confirm Password"
-            name="confirmpassword"
+            name="Password2"
             placeholder="**************"
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <TextField
             label="Spoken Language"
-            name="language"
+            name="Language"
             placeholder="Red"
           ></TextField>
         </Grid>
@@ -128,25 +155,18 @@ const Step1 = (props) => {
         <div className="termsConditionsCheckbox">
           <Checkbox
             onClick={(e) => setChecked(!checked)}
-            name="check1"
+            name="OtherPlateform"
             className="checkbox"
           />
           <Typography variant="body1" className="termsConditionsCheckboxTitle">
             Are you working on other platform?
           </Typography>
         </div>
-        <div className="termsConditionsCheckbox">
-        <Checkbox className="checkbox" name="check2" />
-        <Typography variant="body1" className="termsConditionsCheckboxTitle">
-          I accept CPF financement
-        </Typography>
-      </div>
-      </div>
         {checked ? (
           <Grid container spacing={2}>
             <Grid item xs={12} sm={12} md={5} sx={{ marginRight: "1%" }}>
               <TextField
-                name="platform"
+                name="Platform"
                 label="Which platform(s)?"
                 placeholder="Platform name"
               ></TextField>
@@ -155,19 +175,20 @@ const Step1 = (props) => {
               <TextField
                 label="How much time will you give to the students of our platform?(hr/month)"
                 placeholder="No. of hours"
-                name="hours"
+                name="Hours"
               ></TextField>
             </Grid>
           </Grid>
         ) : (
           ""
         )}
-      {/* <div className="termsConditionsCheckbox">
-        <Checkbox className="checkbox" name="check2" />
+      </div>
+      <div className="termsConditionsCheckbox">
+        <Checkbox className="checkbox" name="CPF" />
         <Typography variant="body1" className="termsConditionsCheckboxTitle">
           I accept CPF financement
         </Typography>
-      </div> */}
+      </div>
     </Box>
   );
 };
