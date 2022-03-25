@@ -4,8 +4,18 @@ import InputLabel from "@mui/material/InputLabel";
 import DateAdapter from "@mui/lab/AdapterMoment";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import DatePicker from "@mui/lab/DatePicker";
+import { makeStyles } from "@mui/styles";
 
 export default function BasicDatePicker(props) {
+  const useStyles = makeStyles((theme) => ({
+    TextField: {
+      padding: props.padding,
+      width: props.width,
+    },
+
+    helper: {},
+  }));
+  const classes = useStyles();
   return (
     <LocalizationProvider dateAdapter={DateAdapter}>
       <div>
@@ -21,11 +31,11 @@ export default function BasicDatePicker(props) {
           renderInput={(params) => (
             <TextField
               {...params}
+              className={classes.TextField}
               sx={{
                 background: "#fff",
                 borderRadius: "30px",
                 fontStyle: "initial",
-                width: "85% !important",
                 boxShadow: "",
               }}
             />

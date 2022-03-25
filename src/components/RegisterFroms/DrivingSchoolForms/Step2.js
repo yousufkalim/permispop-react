@@ -31,8 +31,14 @@ const Step2 = (props) => {
             placeholder="xxxxxxxxxx"
           ></TextField>
         </Grid>
-        <Grid item xs={12} sm={12} md={4}>
-          <DatePicker label="Date of Approval" name="approvalDate"></DatePicker>
+        <Grid item xs={12} sm={12} md={4} sx={{ marginTop: "9px" }}>
+          <DatePicker 
+            label="Date of Approval" 
+            name="approvalDate" 
+            padding="20px 0 0 0px !important"
+            width="100% !important">
+          </DatePicker>
+          <div className="borderbottom"></div>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <FilePicker title="Upload your Certificate" label="YourCertificate" />

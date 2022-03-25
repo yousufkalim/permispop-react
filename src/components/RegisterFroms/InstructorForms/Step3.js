@@ -1,24 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import TextField from "../../Common/TextField";
 import Divider from "../../Common/Divider";
 import FilePicker from "../../Common/FilePicker";
+import Datepicker from "../../Common/DatePicker";
+
 import API from "../../../api/index";
 
 const Step1 = (props) => {
-  const [step3, setStep3] = React.useState({
-    companyInsurer: "",
-    companyPoliceNum: "",
-    insuranceExpDate: "",
-    companyRC: "",
-    vehicleInsurer: "",
-    vehiclePoliceNum: "",
-    vehicleDoOb: "",
-    ExpDateinsurance: "",
-    RcPro: "",
-  });
   const handleChange = async (e) => {
     console.log(e.target.files[0]);
 
@@ -30,6 +21,21 @@ const Step1 = (props) => {
     if (response) {
       console.log("res", response);
     }
+  };
+  const [obtainingdate, setObtainingdate] = useState(new Date());
+  const handleObtainingDate = (newValue) => {
+    setObtainingdate(newValue);
+  };
+  const [expirationdate, setExpirationdate] = useState(new Date());
+  const handleExpirationdate = (newValue) => {
+    setExpirationdate(newValue);
+  };
+
+  const [companyexpirationdate, setCompanyexpirationdate] = useState(
+    new Date()
+  );
+  const handleCompanyExpirationdate = (newValue) => {
+    setCompanyexpirationdate(newValue);
   };
   return (
     <Box
@@ -58,12 +64,17 @@ const Step1 = (props) => {
             placeholder="Smith"
           ></TextField>
         </Grid>
-        <Grid item xs={12} sm={12} md={4}>
-          <TextField
+        <Grid item xs={12} sm={12} md={4} sx={{ marginTop: "9px" }}>
+          <Datepicker
             label="Expiration date of your insurance"
             name="insuranceExpDate"
             placeholder="19-10-1992 "
-          ></TextField>
+            padding="20px 0 0 0px !important"
+            width="100% !important"
+            value={companyexpirationdate}
+            onChange={handleCompanyExpirationdate}
+          ></Datepicker>
+          <div className="borderbottom"></div>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <FilePicker
@@ -91,21 +102,31 @@ const Step1 = (props) => {
             placeholder="Smith"
           ></TextField>
         </Grid>
-        <Grid item xs={12} sm={12} md={4}>
-          <TextField
+        <Grid item xs={12} sm={12} md={4} sx={{ marginTop: "9px" }}>
+          <Datepicker
             label="Dates of Obtaining"
             name="vehicleDoOb"
             placeholder="102 Street, building 02, NY"
-          ></TextField>
+            padding="20px 0 0 0px !important"
+            width="100% !important"
+            value={obtainingdate}
+            onChange={handleObtainingDate}
+          ></Datepicker>
+          <div className="borderbottom"></div>
         </Grid>
       </Grid>
       <Grid container spacing={4} mt={2} className="InsuranceSection">
         <Grid item xs={12} sm={12} md={4}>
-          <TextField
+          <Datepicker
             label="Expiration date of your insurance"
             placeholder="19-10-1992 "
+            padding="20px 0 0 0px !important"
+            width="100% !important"
             name="ExpDateinsurance"
-          ></TextField>
+            value={expirationdate}
+            onChange={handleExpirationdate}
+          ></Datepicker>
+          <div className="borderbottom"></div>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <FilePicker

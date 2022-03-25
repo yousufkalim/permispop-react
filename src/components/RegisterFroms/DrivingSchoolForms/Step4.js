@@ -36,8 +36,11 @@ const Step1 = (props) => {
             placeholder="Smith"
           ></TextField>
         </Grid>
-        <Grid item xs={12} sm={12} md={4}>
-          <DatePicker label="Date of Birth" name="dob"></DatePicker>
+        <Grid item xs={12} sm={12} md={4} sx={{ marginTop: "9px" }}>
+          <DatePicker label="Date of Birth" name="dob" padding="20px 0 0 0px !important"
+            width="100% !important">
+          </DatePicker>
+          <div className="borderbottom"></div>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <TextField
