@@ -66,13 +66,16 @@ const Step3 = (props) => {
         <Divider width="100%" borderColor="#D5E4E8" margin="2% 0px 2% 0px" />
         <Typography className="Heading1">Insurance Company</Typography>
         <Divider width="100%" borderColor="#D5E4E8" margin="2% 0px 2% 0px" />
-        <Grid item xs={12} sm={12} md={4}>
+        <Grid item xs={12} sm={12} md={4} sx={{ marginTop: "9px" }}>
           <DatePicker 
           label="Date of the 1st Registration"
           value={FirstRegDate}
           onChange={handleFirstRegDateChange}
-
+          padding="20px 0 0 0px !important"
+            width="100% !important"
           />
+          <div className="borderbottom"></div>
+        
           {/* Replaced  */}
           {/* <TextField
             label="Date of the 1st Registration"
@@ -143,10 +146,10 @@ const Step3 = (props) => {
             ]}></DropDown>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
-          <TextField label="Number Plate" placeholder="Numeric"></TextField>
+          <TextField label="Number Plate" type="text" placeholder="Numeric"></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
-          <TextField label="Color" placeholder="Select Color"></TextField>
+          <TextField label="Color" type="text" placeholder="Select Color"></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <DropDown label="Gearbox"
@@ -186,22 +189,28 @@ const Step3 = (props) => {
       <Divider width="100%" borderColor="#D5E4E8" margin="2% 0px 2% 0px" />
       <Grid container spacing={4}>
         <Grid item xs={12} sm={12} md={4}>
-          <TextField label="Insurer" placeholder="John"></TextField>
+          <TextField label="Insurer" type="text" placeholder="John"></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
-          <TextField label="Police Nunber" placeholder="Numeric"></TextField>
+          <TextField label="Police Nunber" type="text" placeholder="Numeric"></TextField>
         </Grid>
-        <Grid item xs={12} sm={12} md={4}>
+        <Grid item xs={12} sm={12} md={4} sx={{ marginTop: "9px" }}>
           <DatePicker label="Start Date" 
             value={StartDate}
             onChange={handleStartDateChange}
-          ></DatePicker>
+            padding="20px 0 0 0px !important"
+            width="100% !important"
+          />
+          <div className="borderbottom"></div>
         </Grid>
-        <Grid item xs={12} sm={12} md={4}>
+        <Grid item xs={12} sm={12} md={4} sx={{ marginTop: "9px" }}>
           <DatePicker label="End Date"
             value={EndDate}
             onChange={handleEndDateChange}
-            ></DatePicker>
+            padding="20px 0 0 0px !important"
+            width="100% !important"
+          />
+          <div className="borderbottom"></div>
         </Grid>
       </Grid>
       <div className="VehicleInsurance">
@@ -215,18 +224,24 @@ const Step3 = (props) => {
       <Typography className="Heading1">Technical Control</Typography>
       <Divider width="100%" borderColor="#D5E4E8" margin="2% 0px 2% 0px" />
       <Grid container spacing={4}>
-        <Grid item xs={12} sm={12} md={4}>
+        <Grid item xs={12} sm={12} md={4} sx={{ marginTop: "9px" }}>
           <DatePicker
             label="Date of Technical Control"
             value={TechnicalControl}
             onChange={handleTechnicalControl}
-          ></DatePicker>
+            padding="20px 0 0 0px !important"
+            width="100% !important"
+          />
+          <div className="borderbottom"></div>
         </Grid>
-        <Grid item xs={12} sm={12} md={4}>
+        <Grid item xs={12} sm={12} md={4} sx={{ marginTop: "9px" }}>
           <DatePicker label="End Date" 
             value={TechnicalControlEndDate}
             onChange={handleTechnicalControlEndDate}
-          ></DatePicker>
+            padding="20px 0 0 0px !important"
+            width="100% !important"
+          />
+          <div className="borderbottom"></div>
         </Grid>
       </Grid>
       <div className="VehicleInsurance">
