@@ -49,34 +49,36 @@ export default function Header(props) {
   const handleLoginOpen = () => setLoginOpen(true);
   const handleLoginClose = () => setLoginOpen(false);
 
-  const handleLogin = async () => {
-    const response = await API("post", "Personal/Login", {
-      Email: email,
-      Password: values.password,
-    });
-    localStorage.setItem("token", response.data.data);
+let data = {
+  Email: email,
+  Password: values.password,
+};
 
-    if (response.data.data) {
-      var decoded = jwt_decode(response.data.data);
-      let userdata = JSON.parse(Base64.decode(decoded.userData));
-      setRole(userdata.role);
+const handleLogin = async () => {
+  const response = await API("post", "Personal/Login", JSON.stringify(data));
+  localStorage.setItem("token", response.data.data);
 
-      if (userdata.role === "DSInstructor") {
-        history.push("/DsInstructor/myprofile");
-      } else if (userdata.role === "CarRentalAgent") {
-        history.push("/CarRental/myprofile");
-      } else if (userdata.role === "Instructor") {
-        history.push("/Instructor/myprofile");
-      } else if (userdata.role === "Student") {
-        history.push("student/myProfille");
-      } else if (userdata.role === "DrivingSchool") {
-        history.push("/DrivingSchool/myprofile");
-      } else {
-        console.log("Something went wrong");
-      }
+  if (response.data.data) {
+    var decoded = jwt_decode(response.data.data);
+    let userdata = JSON.parse(Base64.decode(decoded.userData));
+    setRole(userdata.role);
+
+    if (userdata.role === "DSInstructor") {
+      history.push("/DsInstructor/myprofile");
+    } else if (userdata.role === "CarRentalAgent") {
+      history.push("/CarRental/myprofile");
+    } else if (userdata.role === "Instructor") {
+      history.push("/Instructor/myprofile");
+    } else if (userdata.role === "Student") {
+      history.push("student/myProfille");
+    } else if (userdata.role === "DrivingSchool") {
+      history.push("/DrivingSchool/myprofile");
+    } else {
+      console.log("Something went wrong");
     }
-    window.location.reload(false);
-  };
+  }
+  window.location.reload(false);
+};
   const handleChange = (prop) => (event) => {
     setValues({ ...values, [prop]: event.target.value });
   };
