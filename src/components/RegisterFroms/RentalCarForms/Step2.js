@@ -8,14 +8,6 @@ import Divider from "../../Common/Divider";
 import FilePicker from "../../Common/FilePicker";
 
 const Step2 = (props) => {
-  const [step2, setStep2] = React.useState({
-    Siret: "",
-    Kbls: "",
-    CompanyInsurer: "",
-    CompanyPoliceNumber: "",
-    InsuranceDateExp: "",
-    RcPro: "",
-  });
   return (
     <Box
       component="form"

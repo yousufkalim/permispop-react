@@ -9,25 +9,6 @@ import FilePicker from "../../Common/FilePicker";
 import API from "../../../api/index";
 
 const Step3 = (props) => {
-  const [step3, setStep3] = React.useState({
-    FristRegDate: "",
-    Brand: "",
-    Model: "",
-    NumberPlate: "",
-    Color: "",
-    GearBox: "",
-    Energy: "",
-    VehicleImg: "",
-    VehicleRegImg: "",
-    VehicleInsurer: "",
-    PoliceNumber: "",
-    StartDate: "",
-    EndDate: "",
-    GreenCard: "",
-    TechControlDate: "",
-    TechEndDate: "",
-    CtImg: "",
-  });
   return (
     <Box
       component="form"

@@ -9,27 +9,6 @@ import FilePicker from "../../Common/FilePicker";
 import API from "../../../api/index";
 
 const Step1 = (props) => {
-  const [step, setStep1] = React.useState({
-    FirstName: "",
-    SurName: "",
-    Dob: "",
-    Pob: "",
-    Address: "",
-    Gender: "",
-    Complement: "",
-    Zip: "",
-    City: "",
-    Email: "",
-    Email2: "",
-    Phone: "",
-    Phone2: "",
-    Password: "",
-    ConfirmPassword: "",
-    TimeOnPlatform: "",
-    ProfileImg: "",
-    FrontSideimg: "",
-    BackSideimg: "",
-  });
   return (
     <Box
       component="form"
@@ -45,6 +24,7 @@ const Step1 = (props) => {
           <TextField
             label="First Name"
             name="firstname"
+            type="text"
             placeholder="John"
           ></TextField>
         </Grid>
@@ -52,7 +32,8 @@ const Step1 = (props) => {
           <TextField
             label="Surname"
             name="surname"
-            placeholder="John"
+            type="text"
+            placeholder="Smith"
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
