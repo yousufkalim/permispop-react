@@ -91,6 +91,54 @@ function ColorlibStepIcon(props) {
 
 const RentalCar = () => {
   const steps = ["Identity", "Details", "Vehicle", "Done"];
+  const [step1, setStep1] = React.useState({
+    FirstName: "",
+    SurName: "",
+    Dob: "",
+    Pob: "",
+    Address: "",
+    Gender: "",
+    Complement: "",
+    Zip: "",
+    City: "",
+    Email: "",
+    Email2: "",
+    Phone: "",
+    Phone2: "",
+    Password: "",
+    ConfirmPassword: "",
+    TimeOnPlatform: "",
+    ProfileImg: "",
+    FrontSideimg: "",
+    BackSideimg: "",
+  });
+  const [step2, setStep2] = React.useState({
+    Siret: "",
+    Kbls: "",
+    CompanyInsurer: "",
+    CompanyPoliceNumber: "",
+    InsuranceDateExp: "",
+    RcPro: "",
+  });
+  const [step3, setStep3] = React.useState({
+    FristRegDate: "",
+    Brand: "",
+    Model: "",
+    NumberPlate: "",
+    Color: "",
+    GearBox: "",
+    Energy: "",
+    VehicleImg: "",
+    VehicleRegImg: "",
+    VehicleInsurer: "",
+    PoliceNumber: "",
+    StartDate: "",
+    EndDate: "",
+    GreenCard: "",
+    TechControlDate: "",
+    TechEndDate: "",
+    CtImg: "",
+  });
   const [activeStep, setActiveStep] = React.useState(1);
 
   const handleNext = () => {
