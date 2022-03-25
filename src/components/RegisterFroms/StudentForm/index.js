@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
@@ -12,6 +12,133 @@ import Checkbox from "@mui/material/Checkbox";
 import DropDown from "../../Common/DropDown";
 import MultiSelect from "../../Common/MultiSelect";
 import API from "../../../api/index";
+import validate from "validate.js";
+
+const schema = {
+  firstname: {
+    presence: { allowEmpty: false, message: "is required" },
+    length: {
+      maximum: 32,
+      minimum: 3,
+    },
+  },
+  surname: {
+    presence: { allowEmpty: false, message: "is required" },
+    length: {
+      maximum: 32,
+      minimum: 3,
+    },
+  },
+
+  address: {
+    presence: { allowEmpty: false, message: "is required" },
+    length: {
+      maximum: 33,
+      minimum: 4,
+    },
+  },
+  dob: {
+    presence: { allowEmpty: false, message: "is required" },
+    // length: {
+    //   minimum: 3,
+    // },
+  },
+  pob: {
+    presence: { allowEmpty: false, message: "is required" },
+    length: {
+      maximum: 33,
+      minimum: 4,
+    },
+  },
+  city: {
+    presence: { allowEmpty: false, message: "is required" },
+    length: {
+      maximum: 33,
+      minimum: 4,
+    },
+  },
+  zip: {
+    presence: { allowEmpty: false, message: "is required" },
+    length: {
+      minimum: 5,
+    },
+  },
+  gender: {
+    presence: { allowEmpty: false, message: "is required" },
+    // length: {
+    //   maximum: 2,
+    //   minimum: 4,
+    // },
+  },
+  email: {
+    presence: { allowEmpty: false, message: "is required" },
+    length: {
+      maximum: 20,
+    },
+  },
+  phone: {
+    presence: { allowEmpty: false, message: "is required" },
+    length: {
+      maximum: 10,
+      minimum: 10,
+    },
+  },
+  email2: {
+    presence: { allowEmpty: false, message: "is required" },
+    length: {
+      maximum: 20,
+    },
+  },
+  phone2: {
+    presence: { allowEmpty: true, message: "is required" },
+    length: {
+      minimum: 10,
+      maximum: 10,
+    },
+  },
+  complement: {
+    presence: { allowEmpty: true, message: "is required" },
+    length: {
+      minimum: 3,
+      maximum: 15,
+    },
+  },
+  password: {
+    presence: { allowEmpty: false, message: "is required" },
+    length: {
+      maximum: 15,
+      minimum: 8,
+    },
+  },
+  confirmPassword: {
+    presence: { allowEmpty: false, message: "is required" },
+    length: {
+      maximum: 15,
+      minimum: 8,
+    },
+  },
+  noh: {
+    presence: { allowEmpty: true, message: "is required" },
+    length: {
+      maximum: 7,
+      minimum: 1,
+    },
+  },
+  neph: {
+    presence: { allowEmpty: true, message: "is required" },
+    length: {
+      maximum: 12,
+      minimum: 12,
+    },
+  },
+  language: {
+    presence: { allowEmpty: false, message: "is required" },
+    length: {
+      maximum: 4,
+      minimum: 15,
+    },
+  },
+};
 
 const StudentForm = (props) => {
   const [firstname, setFirstname] = React.useState("");
@@ -41,7 +168,22 @@ const StudentForm = (props) => {
   const [lat, setLat] = React.useState(41.960096);
   const [lng, setLng] = React.useState(8.772206);
   const [date, setDate] = React.useState(new Date());
-  
+  const [formState, setFormState] = useState({
+    isValid: false,
+    errors: {},
+    touched: {},
+    values: {},
+    age: {},
+  });
+  useEffect(() => {
+    const errors = validate(formState.values, schema);
+
+    setFormState((formState) => ({
+      ...formState,
+      isValid: errors ? false : true,
+      errors: errors || {},
+    }));
+  }, [formState.values]);
   function handleSelecetedTags(items) {
     console.log(items);
   }
@@ -125,6 +267,26 @@ const StudentForm = (props) => {
     });
   };
   // const [checked, setisChecked] = React.useState(false);
+  const handleError = (event) => {
+    event.persist();
+    //will set the form state
+    setFormState((formState) => ({
+      ...formState,
+      values: {
+        ...formState.values,
+        [event.target.name]:
+          event.target.type === "checkbox"
+            ? event.target.checked
+            : event.target.value,
+      },
+      touched: {
+        ...formState.touched,
+        [event.target.name]: true,
+      },
+    }));
+  };
+  const hasError = (field) =>
+    formState.touched[field] && formState.errors[field] ? true : false;
 
   return (
     <div className="student_form_main_container">
@@ -156,22 +318,36 @@ const StudentForm = (props) => {
           <Grid container spacing={4}>
             <Grid item xs={12} sm={12} md={4}>
               <TextField
+                error={hasError("firstname")}
+                ErrorMsg={
+                  hasError("firstname") ? formState.errors.firstname[0] : null
+                }
                 label="First Name"
                 name="firstname"
                 type="text"
                 placeholder="John"
                 value={firstname}
-                onChange={(e) => handleChange(e)}
+                onChange={(e) => {
+                  setFirstname(e.target.value);
+                  handleError(e);
+                }}
               />
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
               <TextField
+                error={hasError("surname")}
+                ErrorMsg={
+                  hasError("surname") ? formState.errors.surname[0] : null
+                }
                 label="Surname"
                 name="surname"
                 placeholder="Smith"
                 type="text"
                 value={surname}
-                onChange={(e) => setSurname(e.target.value)}
+                onChange={(e) => {
+                  setSurname(e.target.value);
+                  handleError(e);
+                }}
               ></TextField>
             </Grid>
             <Grid item xs={12} sm={12} md={4}>

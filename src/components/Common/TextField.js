@@ -78,7 +78,7 @@ export default function UseFormControl(props) {
       />
       {props.error && (
         <FormHelperText className={classes.helper} {...props.helperProps}>
-          {props.error}
+          {props.ErrorMsg}
         </FormHelperText>
       )}
     </FormControl>
