@@ -94,6 +94,99 @@ function ColorlibStepIcon(props) {
 }
 
 const DrivingSchool = () => {
+  const [step1, setStep1] = React.useState({
+    TradeName: "",
+    CompanyName: "",
+    Address: "",
+    Complement: "",
+    Zip: "",
+    City: "",
+    Email: "",
+    Email2: "",
+    Phone: "",
+    Phone2: "",
+    Password: "",
+    Password2: "",
+    Language: "",
+    OtherPlateform: false,
+    Platform: "",
+    Hours: "",
+    CPF: false,
+  });
+  const [step2, setStep2] = React.useState({
+    Number: "",
+    IssuingAurh: "",
+    Approvaldate: "",
+    RcProImg: "",
+    SiretNumber: "",
+    City: "",
+    Email: "",
+    Email2: "",
+    Phone: "",
+    Phone2: "",
+    Password: "",
+    Password2: "",
+    Language: "",
+    OtherPlateform: false,
+    CPF: "",
+  });
+  const [step3, setStep3] = React.useState({
+    Tradename: "",
+    Companyname: "",
+    Address: "",
+    RcPro: "",
+  });
+  const [step4, setStep4] = React.useState({
+    Firstname: "",
+    Surname: "",
+    Dob: "",
+    Pob: "",
+    Address: "",
+    Gender: "",
+    Complement: "",
+    ip: "",
+    City: "",
+  });
+  const [step5, setStep5] = React.useState({
+    RegistrationDate: "",
+    Brand: "",
+    Model: "",
+    NumberPlate: "",
+    GearBox: "",
+    Color: "",
+    Energy: "",
+    CarImage: "",
+    CertificateFrontImage: "",
+    CertificateBackImage: "",
+    Insurer: "",
+    PoliceNumber: "",
+    StartDate: "",
+    EndDate: "",
+    GreenCard: "",
+    TechControlDate: "",
+    TechEndDate: "",
+    CT: "",
+  });
+  const [step6, setStep6] = React.useState({
+    Firstname: "",
+    Surname: "",
+    Dob: "",
+    Pob: "",
+    Gender: "",
+    Address: "",
+    Complment: "",
+    ZipCode: "",
+    City: "",
+    Email: "",
+    Email2: "",
+    Phone: "",
+    Phone2: "",
+    Password: "",
+    ConfirmPassword: "",
+    UploadImage: "",
+    DriverLicenseNumber: "",
+  });
+
   const steps = [
     "Identity",
     "Details",
@@ -116,6 +209,24 @@ const DrivingSchool = () => {
 
   const handleReset = () => {
     setActiveStep(1);
+  };
+  const handleStep1 = (name, value) => {
+    setStep1({ ...step1, [name]: value });
+  };
+  const handleStep2 = (name, value) => {
+    setStep2({ ...step2, [name]: value });
+  };
+  const handleStep3 = (name, value) => {
+    setStep3({ ...step3, [name]: value });
+  };
+  const handleStep4 = (name, value) => {
+    setStep4({ ...step4, [name]: value });
+  };
+  const handleStep5 = (name, value) => {
+    setStep5({ ...step5, [name]: value });
+  };
+  const handleStep6 = (name, value) => {
+    setStep6({ ...step6, [name]: value });
   };
 
   return (
@@ -215,17 +326,41 @@ const DrivingSchool = () => {
                 <React.Fragment>
                   <Typography sx={{ mt: 2, mb: 1 }}>
                     {activeStep === 1 ? (
-                      <Step1 />
+                      <Step1
+                        step1={step1}
+                        setStep1={setStep1}
+                        onChange={handleStep1}
+                      />
                     ) : activeStep === 2 ? (
-                      <Step2 />
+                      <Step2
+                        step2={step1}
+                        setStep1={setStep1}
+                        onChange={handleStep2}
+                      />
                     ) : activeStep === 3 ? (
-                      <Step3 />
+                      <Step3
+                        step1={step1}
+                        setStep1={setStep1}
+                        onChange={handleStep3}
+                      />
                     ) : activeStep === 4 ? (
-                      <Step4 />
+                      <Step4
+                        step1={step1}
+                        setStep1={setStep1}
+                        onChange={handleStep4}
+                      />
                     ) : activeStep === 5 ? (
-                      <Step5 />
+                      <Step5
+                        step1={step1}
+                        setStep1={setStep1}
+                        onChange={handleStep5}
+                      />
                     ) : activeStep === 6 ? (
-                      <Step6 />
+                      <Step6
+                        step1={step1}
+                        setStep1={setStep1}
+                        onChange={handleStep6}
+                      />
                     ) : (
                       ""
                     )}
