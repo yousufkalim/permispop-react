@@ -73,14 +73,10 @@ export default function UseFormControl(props) {
         type={props.type}
         value={props.value}
         onChange={props.onChange}
-        onKeyPress={props.onKeyPress}
-        onMouseUp={props.onMouseUp}
-        onKeyUp={props.onKeyUp}
-        onBlur={props.onBlur}
+        disabled={props.disabled}
         placeholder={props.placeholder || ""}
         {...props.inputProps}
       />
-      {console.log("test", props.error)}
       {props.error && (
         <FormHelperText {...props.helperProps}>{props.ErrorMsg}</FormHelperText>
       )}
