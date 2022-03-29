@@ -10,14 +10,10 @@ import DatePicker from "../../Common/DatePicker";
 import DoneIcon from "@mui/icons-material/Done";
 import Checkbox from "@mui/material/Checkbox";
 import DropDown from "../../Common/DropDown";
-import MultiSelect from "../../Common/MultiSelect";
 import API from "../../../api/index";
-import validate from "validate.js";
 import axios from "axios";
 import AutoComplete from "../../Common/Autocomplete";
 import LanguageAutoComplete from "../../Common/LanguageAutoComplete";
-
-
 
 const StudentForm = (props) => {
   const [firstname, setFirstname] = React.useState("");
@@ -31,7 +27,7 @@ const StudentForm = (props) => {
   const [email2, setemail2] = React.useState("");
   const [phone, setPhone] = React.useState("");
   const [phone2, setPhone2] = React.useState("");
-  const [city, setCity] = React.useState("Ajaccio");
+  const [city, setCity] = React.useState("");
   const [complement, setComplement] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [confirmPassword, setConfirmPassword] = React.useState("");
@@ -49,6 +45,38 @@ const StudentForm = (props) => {
   const [date, setDate] = React.useState(new Date());
   const [addresses, setAddresses] = useState([]);
   const [languages, setLanguages] = useState([]);
+  // const [studentinfo, setStudentinfo] = useState({
+  //   firstname: "",
+  //   surname: "",
+  //   address: "",
+  //   dob: new Date(),
+  //   pob: "",
+  //   zip: "",
+  //   gender: "",
+  //   email: "",
+  //   email2: "",
+  //   phone: "",
+  //   phone2: "",
+  //   city: "",
+  //   complement: "",
+  //   password: "",
+  //   confirmPassword: "",
+  //   noh: "",
+  //   neph: "",
+  //   language: "",
+  //   frontImage: "",
+  //   backImage: "",
+  //   profileImage: "",
+  //   HighWayCodeImg: "",
+  //   checkbox1: false,
+  //   checkbox2: false,
+  //   lat: "",
+  //   lng: "",
+  //   date: new Date(),
+  //   addresses: "",
+  //   languages: "",
+  //   studentinfo: "",
+  // });
 
   useEffect(() => {
     handleLanguage();
@@ -90,7 +118,6 @@ const StudentForm = (props) => {
     await axios(config)
       .then((res) => {
         let languageToSet = [];
-
         res.data.results.map((item) => {
           languageToSet.push({
             name: item.name,
@@ -103,8 +130,12 @@ const StudentForm = (props) => {
       });
   };
 
-  const handleChange = (e) => {
-    console.log(e.target.name, e.target.value);
+  const handleSelectAddress = (e) => {
+    setAddress(e.label);
+    setZip(e.PostalCode);
+    setCity(e.city);
+    setLat(e.lat);
+    setLng(e.lng);
   };
 
   const handleSubmit = async () => {
@@ -125,7 +156,7 @@ const StudentForm = (props) => {
       noOfHrsWanted: noh,
       neph: neph,
       role: "Student",
-      highWayCodeDate: "",
+      highWayCodeDate: date,
       id: "",
       frontIdPhoto: frontImage,
       backIdPhoto: backImage,
@@ -137,9 +168,24 @@ const StudentForm = (props) => {
       lat: lat,
       long: lng,
     }).then(async (res) => {
-      await API("post", "Profile", {});
+      let personalInfoId = [];
 
-      console.log("res", res.data.data);
+      await API("post", "Profile", {
+        businessInfoId: "",
+        drivingLisenceInfoId: "",
+        drivingSchoolApprovalInfoId: "",
+        drivingSchoolIdentityInfoId: "",
+        drivingSchoolManagerInfoId: "",
+        exersiceAuthorizationInfoId: "",
+        id: "",
+        insuranceCompanyInfoId: "",
+        lat: lat,
+        long: lng,
+        personalInfoId: "6242d58dcb99491ea8f9966d",
+        role: "student",
+        status: "Active",
+      });
+      console.log("responce", res.data.data);
     });
   };
 
@@ -149,7 +195,7 @@ const StudentForm = (props) => {
       url: `https://api-adresse.data.gouv.fr/search/?q=${e.target.value}&type=housenumber&autocomplete=1`,
     };
     await axios(config)
-      .then(function (res) {
+      .then((res) => {
         let addressToSet = [];
         res.data.features.map((item) => {
           addressToSet.push({
@@ -229,28 +275,8 @@ const StudentForm = (props) => {
                 onChangeAddress={(e) => {
                   handleAddress(e);
                 }}
+                onAddressSelect={(e) => handleSelectAddress(e)}
               />
-
-              {/* <Select
-                multiple
-                name="name"
-                value={address}
-                onChange={(e) => handleAddress(e)}
-                label="HAMZA"
-                input={<TextField variant="outlined" margin="dense" select />}
-              ></Select> */}
-              {/* <TextField
-                error={hasError("address")}
-                ErrorMsg={
-                  hasError("address") ? formState.errors.address[0] : null
-                }
-                label="Address"
-                name="address"
-                placeholder="102 Street, building 02, NY"
-                type="text"
-                value={address}
-                onChange={(e) => handleAddress(e)}
-              ></TextField> */}
             </Grid>
             <Grid item xs={12} sm={12} md={4} sx={{ marginTop: "9px" }}>
               <DatePicker
@@ -283,7 +309,7 @@ const StudentForm = (props) => {
                 label="Zip Code"
                 name="zip"
                 placeholder="712333"
-                type="number"
+                disabled={true}
                 value={zip}
                 onChange={(e) => setZip(e.target.value)}
               ></TextField>
@@ -326,7 +352,7 @@ const StudentForm = (props) => {
               <TextField
                 label="Phone"
                 type="text"
-                placeholder="+33 123 4567890"
+                placeholder="XX-XXXXXX-XX"
                 name="phone"
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
@@ -336,7 +362,7 @@ const StudentForm = (props) => {
               <TextField
                 label="Second Phone"
                 type="text"
-                placeholder="+33 123 4567890"
+                placeholder="XX-XXXXXX-XX"
                 name="phone2"
                 value={phone2}
                 onChange={(e) => setPhone2(e.target.value)}
@@ -346,7 +372,7 @@ const StudentForm = (props) => {
               <TextField
                 label="City"
                 name="city"
-                type="text"
+                disabled={true}
                 placeholder="New york"
                 value={city}
                 onChange={(e) => setCity(e.target.value)}
