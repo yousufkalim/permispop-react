@@ -1,5 +1,4 @@
-import React from "react";
-
+import React, { useState, useEffect } from "react";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import TextField from "../../Common/TextField";
@@ -8,9 +7,192 @@ import Divider from "../../Common/Divider";
 import FilePicker from "../../Common/FilePicker";
 import API from "../../../api/index";
 import DatePicker from "../../Common/DatePicker";
+import validate from "validate.js";
 
-const Step1 = (props) => {
- 
+// import TextField from "@mui/material/TextField";
+
+const Step1 = ({ step1, setStep1, onChange, step1error, setStep1Error }) => {
+  const [Dob, setDob] = useState();
+  const [Gender, setGender] = useState();
+
+  const handleDob = (newValue) => {
+    setDob(newValue);
+  };
+
+  const schema = {
+    FirstName: {
+      presence: { allowEmpty: false, message: "is required" },
+      length: {
+        maximum: 32,
+        minimum: 3,
+      },
+    },
+    SurName: {
+      presence: { allowEmpty: false, message: "is required" },
+      length: {
+        maximum: 32,
+        minimum: 3,
+      },
+    },
+    Dob: {
+      presence: { allowEmpty: false, message: "is required" },
+      // length: {
+      //   minimum: 3,
+      // },
+    },
+    Pob: {
+      presence: { allowEmpty: false, message: "is required" },
+      length: {
+        maximum: 33,
+        minimum: 4,
+      },
+    },
+    address: {
+      presence: { allowEmpty: false, message: "is required" },
+    },
+    Gender: {
+      presence: { allowEmpty: false, message: "is required" },
+      // length: {
+      //   maximum: 2,
+      //   minimum: 4,
+      // },
+    },
+    Complement: {
+      presence: { allowEmpty: true, message: "is required" },
+      length: {
+        minimum: 3,
+        maximum: 15,
+      },
+    },
+    City: {
+      presence: { allowEmpty: false, message: "is required" },
+      length: {
+        maximum: 33,
+        minimum: 4,
+      },
+    },
+    Zip: {
+      presence: { allowEmpty: false, message: "is required" },
+      length: {
+        minimum: 5,
+        maximum: 5,
+      },
+    },
+    Email: {
+      email: true,
+    },
+    Phone: {
+      presence: { allowEmpty: false, message: "is required" },
+      length: {
+        maximum: 10,
+        minimum: 10,
+      },
+    },
+    Email2: {
+      presence: { allowEmpty: true, message: "is required" },
+      email: true,
+    },
+    Phone2: {
+      presence: { allowEmpty: true, message: "is required" },
+      length: {
+        minimum: 10,
+        maximum: 10,
+      },
+    },
+
+    Password: {
+      presence: { allowEmpty: false, message: "is required" },
+      length: {
+        minimum: 8,
+      },
+    },
+    ConfirmPassword: {
+      presence: { allowEmpty: false, message: "is required" },
+      length: {
+        minimum: 8,
+      },
+    },
+    TimeOnPlatform: {
+      presence: { allowEmpty: true, message: "is required" },
+      length: {
+        maximum: 7,
+        minimum: 1,
+      },
+    },
+    FrontSideimg: {
+      presence: { allowEmpty: false, message: "is required" },
+    },
+    BackSideimg: {
+      presence: { allowEmpty: false, message: "is required" },
+    },
+    ProfileImg: {
+      presence: { allowEmpty: false, message: "is required" },
+    },
+  };
+
+  const handleDateofBirth = (newvalue) => {
+    setStep1Error((step1error) => ({
+      ...step1error,
+      values: {
+        ...step1error.values,
+        ["Dob"]: newvalue,
+      },
+      touched: {
+        ...step1error.touched,
+        ["Dob"]: true,
+      },
+    }));
+    setDob(newvalue);
+    setStep1({ ...step1, ["Dob"]: newvalue });
+  };
+
+  const handleGender = (newvalue) => {
+    setStep1Error((step1error) => ({
+      ...step1error,
+      values: {
+        ...step1error.values,
+        ["Gender"]: newvalue,
+      },
+      touched: {
+        ...step1error.touched,
+        ["Gender"]: true,
+      },
+    }));
+    setGender(newvalue);
+    setStep1({ ...step1, ["Gender"]: newvalue });
+  };
+
+  useEffect(() => {
+    const errors = validate(step1error.values, schema);
+
+    setStep1Error((step1error) => ({
+      ...step1error,
+      isValid: errors ? false : true,
+      errors: errors || {},
+    }));
+  }, [step1error.values]);
+
+  const handleError = (event) => {
+    event.persist();
+    //will set the form state
+    setStep1Error((step1error) => ({
+      ...step1error,
+      values: {
+        ...step1error.values,
+        [event.target.name]:
+          event.target.type === "checkbox"
+            ? event.target.checked
+            : event.target.value,
+      },
+      touched: {
+        ...step1error.touched,
+        [event.target.name]: true,
+      },
+    }));
+  };
+  const hasError = (field) =>
+    step1error.touched[field] && step1error.errors[field] ? true : false;
+
   return (
     <Box
       component="form"
@@ -21,28 +203,48 @@ const Step1 = (props) => {
         marginTop: "70px",
       }}
     >
+      {console.log("props", step1)}
+
       <Grid container spacing={4}>
         <Grid item xs={12} sm={12} md={4}>
           <TextField
+            variant="standard"
+            error={hasError("FirstName")}
+            ErrorMsg={
+              hasError("FirstName") ? step1error.errors.FirstName[0] : null
+            }
             label="First Name"
-            name="firstname"
+            name="FirstName"
             type="text"
             placeholder="John"
+            onChange={(e) => {
+              setStep1({ ...step1, [e.target.name]: e.target.value });
+              handleError(e);
+            }}
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <TextField
+            error={hasError("SurName")}
+            ErrorMsg={hasError("SurName") ? step1error.errors.SurName[0] : null}
             label="Surname"
-            name="surname"
+            name="SurName"
             type="text"
             placeholder="Cena"
+            onChange={(e) => {
+              setStep1({ ...step1, [e.target.name]: e.target.value });
+              handleError(e);
+            }}
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4} sx={{ marginTop: "9px" }}>
           <DatePicker
+            error={hasError("Dob")}
+            ErrorMsg={hasError("Dob") ? step1error.errors.Dob[0] : null}
             label="Date of Birth"
-            // value={DoB}
-            // onChange={handleDoBChange}
+            value={Dob}
+            onChange={handleDateofBirth}
+            name="Dob"
             padding="20px 0 0 0px !important"
             width="100% !important"
           />
@@ -57,110 +259,201 @@ const Step1 = (props) => {
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <TextField
+            error={hasError("Pob")}
+            ErrorMsg={hasError("Pob") ? step1error.errors.Pob[0] : null}
             label="Place of Birth"
             type="text"
-            name="pob"
+            name="Pob"
             placeholder="City, Country"
+            onChange={(e) => {
+              setStep1({ ...step1, [e.target.name]: e.target.value });
+              handleError(e);
+            }}
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <TextField
+            error={hasError("address")}
+            ErrorMsg={hasError("address") ? step1error.errors.address[0] : null}
             label="Address"
             name="address"
             type="text"
             placeholder="102 Street, building 02, NY"
+            onChange={(e) => {
+              setStep1({ ...step1, [e.target.name]: e.target.value });
+              handleError(e);
+            }}
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <DropDown
+            error={hasError("Gender")}
+            ErrorMsg={hasError("Gender") ? step1error.errors.Gender[0] : null}
             label="Gender"
-            name="gender"
+            name="Gender"
             placeholder="ali"
             MenuItem={[
               { name: "Male", value: "Male" },
               { name: "Female", value: "Female" },
               { name: "others", value: "Others" },
             ]}
+            value={step1.Gender}
+            onChange={handleGender}
           ></DropDown>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <TextField
+            error={hasError("Complement")}
+            ErrorMsg={
+              hasError("Complement") ? step1error.errors.Complement[0] : null
+            }
             label="Complement"
-            name="complement"
+            name="Complement"
             type="text"
             placeholder="TextField"
+            onChange={(e) => {
+              setStep1({ ...step1, [e.target.name]: e.target.value });
+              handleError(e);
+            }}
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <TextField
-            label="Zip Code"
-            name="zip"
-            type="number"
-            placeholder="00000"
-          ></TextField>
-        </Grid>
-        <Grid item xs={12} sm={12} md={4}>
-          <TextField
+            error={hasError("City")}
+            ErrorMsg={hasError("City") ? step1error.errors.City[0] : null}
             label="City"
-            name="city"
+            name="City"
             type="text"
             placeholder="Enter City"
+            onChange={(e) => {
+              setStep1({ ...step1, [e.target.name]: e.target.value });
+              handleError(e);
+            }}
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <TextField
+            error={hasError("Zip")}
+            ErrorMsg={hasError("Zip") ? step1error.errors.Zip[0] : null}
+            label="Zip Code"
+            name="Zip"
+            type="number"
+            placeholder="00000"
+            onChange={(e) => {
+              setStep1({ ...step1, [e.target.name]: e.target.value });
+              handleError(e);
+            }}
+          ></TextField>
+        </Grid>
+
+        <Grid item xs={12} sm={12} md={4}>
+          <TextField
+            error={hasError("Email")}
+            ErrorMsg={hasError("Email") ? step1error.errors.Email[0] : null}
             label="Email"
-            name="email"
+            name="Email"
             type="email"
             placeholder="abc@xyz.com"
+            onChange={(e) => {
+              setStep1({ ...step1, [e.target.name]: e.target.value });
+              handleError(e);
+            }}
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <TextField
-            label="Phone"
-            name="phone"
-            type="text"
-            placeholder="1234567890"
-          ></TextField>
-        </Grid>
-        <Grid item xs={12} sm={12} md={4}>
-          <TextField
-            label="Password"
-            name="password"
-            type="password"
-            placeholder="******"
-          ></TextField>
-        </Grid>
-        <Grid item xs={12} sm={12} md={4}>
-          <TextField
+            error={hasError("Email2")}
+            ErrorMsg={hasError("Email2") ? step1error.errors.Email2[0] : null}
             label="Second Email"
-            name="email2"
+            name="Email2"
             type="email"
             placeholder="abc@xyz.com"
+            onChange={(e) => {
+              setStep1({ ...step1, [e.target.name]: e.target.value });
+              handleError(e);
+            }}
           ></TextField>
         </Grid>
+
         <Grid item xs={12} sm={12} md={4}>
           <TextField
-            label="Second Phone"
-            name="phone2"
+            error={hasError("Phone")}
+            ErrorMsg={hasError("Phone") ? step1error.errors.Phone[0] : null}
+            label="Phone"
+            name="Phone"
             type="text"
             placeholder="1234567890"
+            onChange={(e) => {
+              setStep1({ ...step1, [e.target.name]: e.target.value });
+              handleError(e);
+            }}
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <TextField
-            label="Confirm Password"
-            name="confirmpassword"
+            error={hasError("Phone2")}
+            ErrorMsg={hasError("Phone2") ? step1error.errors.Phone2[0] : null}
+            label="Second Phone"
+            name="Phone2"
+            type="text"
+            placeholder="1234567890"
+            onChange={(e) => {
+              setStep1({ ...step1, [e.target.name]: e.target.value });
+              handleError(e);
+            }}
+          ></TextField>
+        </Grid>
+        <Grid item xs={12} sm={12} md={4}>
+          <TextField
+            error={hasError("Password")}
+            ErrorMsg={
+              hasError("Password") ? step1error.errors.Password[0] : null
+            }
+            label="Password"
+            name="Password"
             type="password"
             placeholder="******"
+            onChange={(e) => {
+              setStep1({ ...step1, [e.target.name]: e.target.value });
+              handleError(e);
+            }}
+          ></TextField>
+        </Grid>
+
+        <Grid item xs={12} sm={12} md={4}>
+          <TextField
+            error={hasError("ConfirmPassword")}
+            ErrorMsg={
+              hasError("ConfirmPassword")
+                ? step1error.errors.ConfirmPassword[0]
+                : null
+            }
+            label="Confirm Password"
+            name="ConfirmPassword"
+            type="password"
+            placeholder="******"
+            onChange={(e) => {
+              setStep1({ ...step1, [e.target.name]: e.target.value });
+              handleError(e);
+            }}
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <TextField
+            error={hasError("TimeOnPlatform")}
+            ErrorMsg={
+              hasError("TimeOnPlatform")
+                ? step1error.errors.TimeOnPlatform[0]
+                : null
+            }
             label="How much time you will give to students of our platforms?"
-            name="timeonplatform"
+            name="TimeOnPlatform"
             type="number"
             placeholder="1"
+            onChange={(e) => {
+              setStep1({ ...step1, [e.target.name]: e.target.value });
+              handleError(e);
+            }}
           ></TextField>
         </Grid>
       </Grid>
@@ -168,23 +461,54 @@ const Step1 = (props) => {
         <Grid container spacing={4}>
           <Grid item xs={12} sm={12} md={4}>
             <FilePicker
+              error={hasError("FrontSideimg")}
+              ErrorMsg={
+                hasError("FrontSideimg")
+                  ? step1error.errors.FrontSideimg[0]
+                  : null
+              }
               title="Upload your authorization front side"
-              name="forntside"
+              name="FrontSideimg"
               label="AuthFrontSide"
+              value={step1.FrontSideimg}
+              onChange={(e) => {
+                setStep1({ ...step1, [e.target.name]: e.target.value });
+                handleError(e);
+              }}
             />
           </Grid>
           <Grid item xs={12} sm={12} md={4}>
             <FilePicker
+              error={hasError("BackSideimg")}
+              ErrorMsg={
+                hasError("BackSideimg")
+                  ? step1error.errors.BackSideimg[0]
+                  : null
+              }
               title="Upload your authorization back side"
-              name="backside"
+              name="BackSideimg"
               label="AuthBackSide"
+              value={step1.BackSideimg}
+              onChange={(e) => {
+                setStep1({ ...step1, [e.target.name]: e.target.value });
+                handleError(e);
+              }}
             />
           </Grid>
           <Grid item xs={12} sm={12} md={4}>
             <FilePicker
+              error={hasError("ProfileImg")}
+              ErrorMsg={
+                hasError("ProfileImg") ? step1error.errors.ProfileImg[0] : null
+              }
               title="Upload your Profile Picture"
-              name="profileimg"
+              name="ProfileImg"
               label="ProfileImg"
+              value={step1.ProfileImg}
+              onChange={(e) => {
+                setStep1({ ...step1, [e.target.name]: e.target.value });
+                handleError(e);
+              }}
             />
           </Grid>
         </Grid>

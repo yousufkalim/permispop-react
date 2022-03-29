@@ -5,6 +5,7 @@ import DateAdapter from "@mui/lab/AdapterMoment";
 import LocalizationProvider from "@mui/lab/LocalizationProvider";
 import DatePicker from "@mui/lab/DatePicker";
 import { makeStyles } from "@mui/styles";
+import FormHelperText from "@mui/material/FormHelperText";
 
 export default function BasicDatePicker(props) {
   const useStyles = makeStyles((theme) => ({
@@ -21,6 +22,7 @@ export default function BasicDatePicker(props) {
       <div>
         <DatePicker
           label={props.label}
+          shrink={false}
           value={props.value}
           disabled={props.disabled === true ? true : false}
           maxDate={props.maxDate}
@@ -38,7 +40,18 @@ export default function BasicDatePicker(props) {
                 fontStyle: "initial",
                 boxShadow: "",
               }}
-            />
+              error={props.error ? true : false}
+            >
+              {console.log("errrrrrrr", props.error)}
+              {props.error && (
+                <FormHelperText
+                  className={classes.helper}
+                  {...props.helperProps}
+                >
+                  {props.ErrorMsg}
+                </FormHelperText>
+              )}
+            </TextField>
           )}
           {...props.datePickerProps}
         />
