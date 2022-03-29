@@ -1,0 +1,16 @@
+.DisputeGrid{
+    display: flex;
+    justify-content: center;
+    background-color: #fff;
+    margin: 0px 90px 0px 20px;
+    padding: 35px;
+}
+.DisputeTextGrid{
+   color: #CCD1D0 !important;
+   font-size: 18px !important;
+   font-weight: 500 !important;
+   
+}
+.DisputeGrid img {
+    width: 10rem;
+}
