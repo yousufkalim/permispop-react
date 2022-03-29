@@ -1,7 +1,7 @@
 .insurancediv {
   /* display: flex !important; */
   justify-content: space-between;
- 
+  padding-left: 28px;
   background-color: rgb(252, 250, 250);
 }
 .insurancetypo {
@@ -13,11 +13,13 @@
   text-align: center !important;
  padding-top:  10px !important;
  margin-top: 40px !important;
+ margin-right: 45px !important;
 }
 
 
 .vehicleGrid {
   margin: 10px;
+
   background-color: white;
   height: fit-content;
   padding-bottom: 15px;
