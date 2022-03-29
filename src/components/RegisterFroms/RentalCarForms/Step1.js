@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { Controller, useFormContext } from "react-hook-form";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import TextField from "../../Common/TextField";
@@ -9,18 +8,17 @@ import FilePicker from "../../Common/FilePicker";
 import API from "../../../api/index";
 import DatePicker from "../../Common/DatePicker";
 import validate from "validate.js";
-import FormControl from "@mui/material/FormControl";
-import FormHelperText from "@mui/material/FormHelperText";
-import Input from "@mui/material/Input";
-import InputLabel from "@mui/material/InputLabel";
-import { makeStyles } from "@mui/styles";
+
 // import TextField from "@mui/material/TextField";
 
 const Step1 = ({ step1, setStep1, onChange, step1error, setStep1Error }) => {
   const [Dob, setDob] = useState();
+  const [Gender, setGender] = useState();
+
   const handleDob = (newValue) => {
     setDob(newValue);
   };
+
   const schema = {
     FirstName: {
       presence: { allowEmpty: false, message: "is required" },
@@ -36,7 +34,7 @@ const Step1 = ({ step1, setStep1, onChange, step1error, setStep1Error }) => {
         minimum: 3,
       },
     },
-    dob: {
+    Dob: {
       presence: { allowEmpty: false, message: "is required" },
       // length: {
       //   minimum: 3,
@@ -81,7 +79,7 @@ const Step1 = ({ step1, setStep1, onChange, step1error, setStep1Error }) => {
       },
     },
     Email: {
-      presence: { allowEmpty: false, message: "is required" },
+      email: true,
     },
     Phone: {
       presence: { allowEmpty: false, message: "is required" },
@@ -92,6 +90,7 @@ const Step1 = ({ step1, setStep1, onChange, step1error, setStep1Error }) => {
     },
     Email2: {
       presence: { allowEmpty: true, message: "is required" },
+      email: true,
     },
     Phone2: {
       presence: { allowEmpty: true, message: "is required" },
@@ -129,6 +128,38 @@ const Step1 = ({ step1, setStep1, onChange, step1error, setStep1Error }) => {
     ProfileImg: {
       presence: { allowEmpty: false, message: "is required" },
     },
+  };
+
+  const handleDateofBirth = (newvalue) => {
+    setStep1Error((step1error) => ({
+      ...step1error,
+      values: {
+        ...step1error.values,
+        ["Dob"]: newvalue,
+      },
+      touched: {
+        ...step1error.touched,
+        ["Dob"]: true,
+      },
+    }));
+    setDob(newvalue);
+    setStep1({ ...step1, ["Dob"]: newvalue });
+  };
+
+  const handleGender = (newvalue) => {
+    setStep1Error((step1error) => ({
+      ...step1error,
+      values: {
+        ...step1error.values,
+        ["Gender"]: newvalue,
+      },
+      touched: {
+        ...step1error.touched,
+        ["Gender"]: true,
+      },
+    }));
+    setGender(newvalue);
+    setStep1({ ...step1, ["Gender"]: newvalue });
   };
 
   useEffect(() => {
@@ -208,9 +239,11 @@ const Step1 = ({ step1, setStep1, onChange, step1error, setStep1Error }) => {
         </Grid>
         <Grid item xs={12} sm={12} md={4} sx={{ marginTop: "9px" }}>
           <DatePicker
+            error={hasError("Dob")}
+            ErrorMsg={hasError("Dob") ? step1error.errors.Dob[0] : null}
             label="Date of Birth"
             value={Dob}
-            onChange={handleDob}
+            onChange={handleDateofBirth}
             name="Dob"
             padding="20px 0 0 0px !important"
             width="100% !important"
@@ -255,7 +288,7 @@ const Step1 = ({ step1, setStep1, onChange, step1error, setStep1Error }) => {
         <Grid item xs={12} sm={12} md={4}>
           <DropDown
             error={hasError("Gender")}
-            ErrorMsg={hasError("Gender") ? step1error.errors.SurName[0] : null}
+            ErrorMsg={hasError("Gender") ? step1error.errors.Gender[0] : null}
             label="Gender"
             name="Gender"
             placeholder="ali"
@@ -264,10 +297,8 @@ const Step1 = ({ step1, setStep1, onChange, step1error, setStep1Error }) => {
               { name: "Female", value: "Female" },
               { name: "others", value: "Others" },
             ]}
-            onChange={(e) => {
-              setStep1({ ...step1, [e.target.name]: e.target.value });
-              handleError(e);
-            }}
+            value={step1.Gender}
+            onChange={handleGender}
           ></DropDown>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
