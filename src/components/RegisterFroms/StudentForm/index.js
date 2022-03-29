@@ -17,131 +17,7 @@ import axios from "axios";
 import AutoComplete from "../../Common/Autocomplete";
 import LanguageAutoComplete from "../../Common/LanguageAutoComplete";
 
-const schema = {
-  firstname: {
-    presence: { allowEmpty: false, message: "is required" },
-    length: {
-      maximum: 32,
-      minimum: 3,
-    },
-  },
-  surname: {
-    presence: { allowEmpty: false, message: "is required" },
-    length: {
-      maximum: 32,
-      minimum: 3,
-    },
-  },
 
-  address: {
-    presence: { allowEmpty: false, message: "is required" },
-    length: {
-      maximum: 33,
-      minimum: 4,
-    },
-  },
-  dob: {
-    presence: { allowEmpty: false, message: "is required" },
-    // length: {
-    //   minimum: 3,
-    // },
-  },
-  pob: {
-    presence: { allowEmpty: false, message: "is required" },
-    length: {
-      maximum: 33,
-      minimum: 4,
-    },
-  },
-  city: {
-    presence: { allowEmpty: false, message: "is required" },
-    length: {
-      maximum: 33,
-      minimum: 4,
-    },
-  },
-  zip: {
-    presence: { allowEmpty: false, message: "is required" },
-    length: {
-      minimum: 5,
-    },
-  },
-  gender: {
-    presence: { allowEmpty: false, message: "is required" },
-    // length: {
-    //   maximum: 2,
-    //   minimum: 4,
-    // },
-  },
-  email: {
-    presence: { allowEmpty: false, message: "is required" },
-    length: {
-      maximum: 20,
-    },
-  },
-  phone: {
-    presence: { allowEmpty: false, message: "is required" },
-    length: {
-      maximum: 10,
-      minimum: 10,
-    },
-  },
-  email2: {
-    presence: { allowEmpty: false, message: "is required" },
-    length: {
-      maximum: 20,
-    },
-  },
-  phone2: {
-    presence: { allowEmpty: true, message: "is required" },
-    length: {
-      minimum: 10,
-      maximum: 10,
-    },
-  },
-  complement: {
-    presence: { allowEmpty: true, message: "is required" },
-    length: {
-      minimum: 3,
-      maximum: 15,
-    },
-  },
-  password: {
-    presence: { allowEmpty: false, message: "is required" },
-    length: {
-      maximum: 15,
-      minimum: 8,
-    },
-  },
-  confirmpassword: {
-    presence: { allowEmpty: false, message: "is required" },
-    length: {
-      maximum: 15,
-      minimum: 8,
-    },
-  },
-  noh: {
-    presence: { allowEmpty: true, message: "is required" },
-    length: {
-      maximum: 7,
-      minimum: 1,
-    },
-  },
-  neph: {
-    presence: { allowEmpty: true, message: "is required" },
-    length: {
-      maximum: 12,
-      minimum: 12,
-    },
-  },
-  language: {
-    presence: { allowEmpty: false, message: "is required" },
-    length: {
-      maximum: 4,
-      minimum: 15,
-    },
-  },
-};
 
 const StudentForm = (props) => {
   const [firstname, setFirstname] = React.useState("");
@@ -173,27 +49,10 @@ const StudentForm = (props) => {
   const [date, setDate] = React.useState(new Date());
   const [addresses, setAddresses] = useState([]);
   const [languages, setLanguages] = useState([]);
-  const [formState, setFormState] = useState({
-    isValid: false,
-    errors: {},
-    touched: {},
-    values: {},
-    age: {},
-  });
-
-  useEffect(() => {
-    const errors = validate(formState.values, schema);
-
-    setFormState((formState) => ({
-      ...formState,
-      isValid: errors ? false : true,
-      errors: errors || {},
-    }));
-  }, [formState.values]);
 
   useEffect(() => {
     handleLanguage();
-  });
+  }, []);
 
   const handleDob = (newValue) => {
     setDob(newValue);
@@ -234,7 +93,7 @@ const StudentForm = (props) => {
 
         res.data.results.map((item) => {
           languageToSet.push({
-            label: item.name,
+            name: item.name,
           });
         });
         setLanguages(languageToSet);
@@ -283,27 +142,6 @@ const StudentForm = (props) => {
       console.log("res", res.data.data);
     });
   };
-  // const [checked, setisChecked] = React.useState(false);
-  const handleError = (event) => {
-    event.persist();
-    //will set the form state
-    setFormState((formState) => ({
-      ...formState,
-      values: {
-        ...formState.values,
-        [event.target.name]:
-          event.target.type === "checkbox"
-            ? event.target.checked
-            : event.target.value,
-      },
-      touched: {
-        ...formState.touched,
-        [event.target.name]: true,
-      },
-    }));
-  };
-  const hasError = (field) =>
-    formState.touched[field] && formState.errors[field] ? true : false;
 
   const handleAddress = async (e) => {
     var config = {
@@ -313,10 +151,7 @@ const StudentForm = (props) => {
     await axios(config)
       .then(function (res) {
         let addressToSet = [];
-
         res.data.features.map((item) => {
-          console.log("item", item);
-
           addressToSet.push({
             label: item.properties.label,
             city: item.properties.city,
@@ -362,10 +197,6 @@ const StudentForm = (props) => {
           <Grid container spacing={4}>
             <Grid item xs={12} sm={12} md={4}>
               <TextField
-                error={hasError("firstname")}
-                ErrorMsg={
-                  hasError("firstname") ? formState.errors.firstname[0] : null
-                }
                 label="First Name"
                 name="firstname"
                 type="text"
@@ -373,16 +204,11 @@ const StudentForm = (props) => {
                 value={firstname}
                 onChange={(e) => {
                   setFirstname(e.target.value);
-                  handleError(e);
                 }}
               />
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
               <TextField
-                error={hasError("surname")}
-                ErrorMsg={
-                  hasError("surname") ? formState.errors.surname[0] : null
-                }
                 label="Surname"
                 name="surname"
                 placeholder="Smith"
@@ -390,7 +216,6 @@ const StudentForm = (props) => {
                 value={surname}
                 onChange={(e) => {
                   setSurname(e.target.value);
-                  handleError(e);
                 }}
               ></TextField>
             </Grid>
@@ -429,15 +254,12 @@ const StudentForm = (props) => {
             </Grid>
             <Grid item xs={12} sm={12} md={4} sx={{ marginTop: "9px" }}>
               <DatePicker
-                error={hasError("dob")}
-                ErrorMsg={hasError("dob") ? formState.errors.dob[0] : null}
                 label="Date of birth"
                 name="dob"
                 value={dob}
                 placeholder="19-10-1992"
                 onChange={(e) => {
                   setDob(e.target.value);
-                  handleError(e);
                 }}
                 padding="20px 0 0 0px !important"
                 width="100% !important"
@@ -446,8 +268,6 @@ const StudentForm = (props) => {
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
               <TextField
-                error={hasError("pob")}
-                ErrorMsg={hasError("pob") ? formState.errors.pob[0] : null}
                 label="Place of birth"
                 name="pob"
                 type="text"
@@ -460,8 +280,6 @@ const StudentForm = (props) => {
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
               <TextField
-                error={hasError("zip")}
-                ErrorMsg={hasError("zip") ? formState.errors.zip[0] : null}
                 label="Zip Code"
                 name="zip"
                 placeholder="712333"
@@ -472,10 +290,6 @@ const StudentForm = (props) => {
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
               <DropDown
-                error={hasError("gender")}
-                ErrorMsg={
-                  hasError("gender") ? formState.errors.gender[0] : null
-                }
                 label="Gender"
                 placeholder="Male"
                 name="gender"
@@ -490,8 +304,6 @@ const StudentForm = (props) => {
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
               <TextField
-                error={hasError("email")}
-                ErrorMsg={hasError("email") ? formState.errors.email[0] : null}
                 label="Email"
                 name="email"
                 type="email"
@@ -502,10 +314,6 @@ const StudentForm = (props) => {
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
               <TextField
-                error={hasError("email2")}
-                ErrorMsg={
-                  hasError("email2") ? formState.errors.email2[0] : null
-                }
                 label="Second Email"
                 name="email2"
                 type="email"
@@ -516,8 +324,6 @@ const StudentForm = (props) => {
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
               <TextField
-                error={hasError("phone")}
-                ErrorMsg={hasError("phone") ? formState.errors.phone[0] : null}
                 label="Phone"
                 type="text"
                 placeholder="+33 123 4567890"
@@ -528,10 +334,6 @@ const StudentForm = (props) => {
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
               <TextField
-                error={hasError("phone2")}
-                ErrorMsg={
-                  hasError("phone2") ? formState.errors.phone2[0] : null
-                }
                 label="Second Phone"
                 type="text"
                 placeholder="+33 123 4567890"
@@ -542,8 +344,6 @@ const StudentForm = (props) => {
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
               <TextField
-                error={hasError("city")}
-                ErrorMsg={hasError("city") ? formState.errors.city[0] : null}
                 label="City"
                 name="city"
                 type="text"
@@ -554,10 +354,6 @@ const StudentForm = (props) => {
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
               <TextField
-                error={hasError("complement")}
-                ErrorMsg={
-                  hasError("complement") ? formState.errors.complement[0] : null
-                }
                 label="Complement"
                 type="text"
                 placeholder="Student"
@@ -568,10 +364,6 @@ const StudentForm = (props) => {
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
               <TextField
-                error={hasError("password")}
-                ErrorMsg={
-                  hasError("password") ? formState.errors.password[0] : null
-                }
                 label="Password"
                 type="password"
                 name="password"
@@ -582,12 +374,6 @@ const StudentForm = (props) => {
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
               <TextField
-                error={hasError("confirmpassword")}
-                ErrorMsg={
-                  hasError("confirmpassword")
-                    ? formState.errors.confirmpassword[0]
-                    : null
-                }
                 label="Confirm Password"
                 type="password"
                 name="confirmpassword"
@@ -598,8 +384,6 @@ const StudentForm = (props) => {
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
               <TextField
-                error={hasError("noh")}
-                ErrorMsg={hasError("noh") ? formState.errors.noh[0] : null}
                 label="Number of hours"
                 type="number"
                 placeholder="44"
@@ -610,8 +394,6 @@ const StudentForm = (props) => {
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
               <TextField
-                error={hasError("neph")}
-                ErrorMsg={hasError("neph") ? formState.errors.neph[0] : null}
                 label="NEPH Number"
                 name="neph"
                 placeholder="532-3321-111"
@@ -650,10 +432,6 @@ const StudentForm = (props) => {
           <Grid container spacing={4} alignItems="flex-end">
             <Grid item xs={12} sm={12} md={4}>
               <FilePicker
-                error={hasError("address")}
-                ErrorMsg={
-                  hasError("address") ? formState.errors.address[0] : null
-                }
                 title="Upload front of your ID Card/Passport"
                 label="front"
                 name="frontImage"
@@ -665,10 +443,6 @@ const StudentForm = (props) => {
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
               <FilePicker
-                error={hasError("address")}
-                ErrorMsg={
-                  hasError("address") ? formState.errors.address[0] : null
-                }
                 title="Upload back of your ID Card/Passport"
                 label="back"
                 name="backIdPhoto"
@@ -679,10 +453,6 @@ const StudentForm = (props) => {
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
               <FilePicker
-                error={hasError("address")}
-                ErrorMsg={
-                  hasError("address") ? formState.errors.address[0] : null
-                }
                 title="Upload your profile picture"
                 label="profile"
                 name="photo"
@@ -719,10 +489,6 @@ const StudentForm = (props) => {
             <Grid container spacing={2}>
               <Grid item xs={12} sm={12} md={4} sx={{ marginTop: "9px" }}>
                 <DatePicker
-                  error={hasError("address")}
-                  ErrorMsg={
-                    hasError("address") ? formState.errors.address[0] : null
-                  }
                   label="Date"
                   name="dat"
                   // value={dob}
@@ -739,10 +505,6 @@ const StudentForm = (props) => {
               </Grid>
               <Grid item xs={12} sm={12} md={4} sx={{ marginLeft: "1%" }}>
                 <FilePicker
-                  error={hasError("address")}
-                  ErrorMsg={
-                    hasError("address") ? formState.errors.address[0] : null
-                  }
                   title="Upload Highway code image file"
                   label="high"
                   name="highwayCodeImg"
