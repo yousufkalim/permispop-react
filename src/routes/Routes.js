@@ -23,6 +23,9 @@ import StudentHistory from "../containers/Dashboard/Student/History";
 import Map from "../containers/Dashboard/Student/StudentMap/Maps";
 import StudentCalendar from "../containers/Dashboard/Student/StudentCalendar/Calendar";
 import StudentLearning from "../containers/Dashboard/Student/MyLearning";
+import StudentDispute from "../containers/Dashboard/Student/Dispute";
+import StudentMyProcedure from "../containers/Dashboard/Student/MyProcedure";
+import StudentChat from "../containers/Dashboard/Student/Chat";
 //instructor components routes
 import InsProfile from "../containers/Dashboard/Instructor/profile";
 import InsPendingRequest from "../containers/Dashboard/Instructor/PendingRequest";
@@ -31,12 +34,19 @@ import InsCalendar from "../containers/Dashboard/Instructor/InsCalendar/Calendar
 import InsInsuranceDetails from "../containers/Dashboard/Instructor/InsuranceDetails";
 import InsFaq from "../containers/Dashboard/Instructor/Faq";
 import InsVehicles from "../containers/Dashboard/Instructor/Vehicles";
+import InsDispute from "../containers/Dashboard/Student/Dispute";
+import InsChat from "../containers/Dashboard/Instructor/Chat";
+
 //driving school instructor components routes
 import DsInsProfile from "../containers/Dashboard/DSInstructor/profile";
 import DsInsPendingRequest from "../containers/Dashboard/DSInstructor/PendingRequest";
 import DsInsHistory from "../containers/Dashboard/DSInstructor/History";
 import DsInsCalendar from "../containers/Dashboard/DSInstructor/DsInstructorCalendar/Calendar";
 import DsInsVehicles from "../containers/Dashboard/Instructor/Vehicles";
+import DsInsDispute from "../containers/Dashboard/Student/Dispute";
+import DsInsChat from "../containers/Dashboard/DSInstructor/Chat";
+
+
 // import InsInsuranceDetails from "../containers/Dashboard/Instructor/InsuranceDetails";
 // import InsFaq from "../containers/Dashboard/Instructor/Faq";
 
@@ -48,6 +58,10 @@ import DsCalendar from "../containers/Dashboard/DrivingSchool/DsCalendar/Calenda
 import DsInstructor from "../containers/Dashboard/DrivingSchool/Instructor";
 import DsVehicles from "../containers/Dashboard/DrivingSchool/Vehicles";
 import DsInsuranceDetails from "../containers/Dashboard/DrivingSchool/InsuranceDetails";
+import DsDispute from "../containers/Dashboard/Student/Dispute";
+import DsChat from "../containers/Dashboard/DrivingSchool/Chat";
+
+
 // CarRental components routes
 import CRCalendar from "../containers/Dashboard/CarRental/CarRentalCalendar/Calendar";
 import CRProfile from "../containers/Dashboard/CarRental/Profile";
@@ -55,6 +69,9 @@ import CRPendingRequest from "../containers/Dashboard/CarRental/PendingRequest";
 import CRHistory from "../containers/Dashboard/CarRental/History";
 import CRVehicles from "../containers/Dashboard/CarRental/Vehicles";
 import CRInsuranceDetails from "../containers/Dashboard/CarRental/InsuranceDetails";
+import CRDispute from "../containers/Dashboard/Student/Dispute";
+import CRChat from "../containers/Dashboard/CarRental/Chat";
+
 
 // Student Routes
 var StudentRoutes = [
@@ -69,7 +86,7 @@ var StudentRoutes = [
     path: "/chat",
     name: "Chat",
     icon: <Chat className="drawer-icons" />,
-    component: Test,
+    component: StudentChat,
     layout: "/student",
   },
   {
@@ -111,14 +128,14 @@ var StudentRoutes = [
     path: "/MyProcedure",
     name: "My Procedure",
     icon: <MyProcedure className="drawer-icons" />,
-    component: Test,
+    component: StudentMyProcedure,
     layout: "/student",
   },
   {
     path: "/dispute",
     name: "Dispute",
     icon: <Dispute className="drawer-icons" />,
-    component: Test,
+    component: StudentDispute,
     layout: "/student",
   },
   {
@@ -149,7 +166,7 @@ var InstructorRoutes = [
     path: "/chat",
     name: "Chat",
     icon: <Chat className="drawer-icons" />,
-    component: Test,
+    component: InsChat,
     layout: "/instructor",
   },
   {
@@ -184,7 +201,7 @@ var InstructorRoutes = [
     path: "/disputes",
     name: "Disputes",
     icon: <Dispute className="drawer-icons" />,
-    component: Test,
+    component: InsDispute,
     layout: "/instructor",
   },
   {
@@ -216,7 +233,7 @@ var DsInstructorRoutes = [
     path: "/chat",
     name: "Chat",
     icon: <Chat className="drawer-icons" />,
-    component: Test,
+    component: DsInsChat,
     layout: "/DsInstructor",
   },
   {
@@ -251,7 +268,7 @@ var DsInstructorRoutes = [
     path: "/disputes",
     name: "Disputes",
     icon: <Dispute className="drawer-icons" />,
-    component: Test,
+    component: DsInsDispute,
     layout: "/DsInstructor",
   },
   {
@@ -282,7 +299,7 @@ var DrivingSchoolRoutes = [
     path: "/chat",
     name: "Chat",
     icon: <Chat className="drawer-icons" />,
-    component: Test,
+    component: DsChat,
     layout: "/DrivingSchool",
   },
   {
@@ -324,7 +341,7 @@ var DrivingSchoolRoutes = [
     path: "/disputes",
     name: "Disputes",
     icon: <Dispute className="drawer-icons" />,
-    component: Test,
+    component: DsDispute,
     layout: "/DrivingSchool",
   },
 ];
@@ -349,7 +366,7 @@ var CarRentalRoutes = [
     path: "/chat",
     name: "Chat",
     icon: <Chat className="drawer-icons" />,
-    component: Test,
+    component: CRChat,
     layout: "/carRental",
   },
   {
@@ -385,7 +402,7 @@ var CarRentalRoutes = [
     path: "/disputes",
     name: "Disputes",
     icon: <Dispute className="drawer-icons" />,
-    component: Test,
+    component: CRDispute,
     layout: "/carRental",
   },
 ];

@@ -25,11 +25,32 @@
   font-size: 18px !important;
   /* margin-left: 60px !important; */
 }
+.MyProcedureWording {
+  font-size: 17px;
+}
 .Headingsdiv {
   border-bottom: 1px solid rgba(0, 0, 0, 0.08) !important;
 }
 .Heading_data {
   padding-bottom: 10px !important;
+}
+.css-7fwo5-MuiButtonBase-root-MuiRadio-root {
+  padding: 3px !important;
+}
+.css-1p5ebvc-MuiButtonBase-root-MuiRadio-root {
+  padding: 3px !important;
+}
+.css-7ib7d7-MuiButtonBase-root-MuiRadio-root {
+  padding: 3px !important;
+}
+@media only screen and (max-width: 1503px) {
+  .MyProcedureWording {
+    font-size: 15px;
+    padding: 0px 2px 0px 5px;
+  }
+}
+@media only screen and (max-width: 1374px) {
+  
 }
 @media only screen and (max-width: 768px) {
   .Buttonsec {
