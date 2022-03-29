@@ -42,7 +42,6 @@ export default function BasicDatePicker(props) {
               }}
               error={props.error ? true : false}
             >
-              {console.log("errrrrrrr", props.error)}
               {props.error && (
                 <FormHelperText
                   className={classes.helper}
