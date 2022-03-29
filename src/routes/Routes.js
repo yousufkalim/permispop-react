@@ -38,7 +38,7 @@ import InsDispute from "../containers/Dashboard/Student/Dispute";
 import InsChat from "../containers/Dashboard/Instructor/Chat";
 
 //driving school instructor components routes
-import DsInsProfile from "../containers/Dashboard/DSInstructor/Profile";
+import DsInsProfile from "../containers/Dashboard/DSInstructor/profile";
 import DsInsPendingRequest from "../containers/Dashboard/DSInstructor/PendingRequest";
 import DsInsHistory from "../containers/Dashboard/DSInstructor/History";
 import DsInsCalendar from "../containers/Dashboard/DSInstructor/DsInstructorCalendar/Calendar";
