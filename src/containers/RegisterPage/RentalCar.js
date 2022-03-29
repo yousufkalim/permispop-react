@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Button from "../../components/Common/Button";
 import RegisterHeader from "../../components/RegisterFroms/registerHeader";
 import Footer from "../../components/Landing/Footer";
@@ -94,10 +94,10 @@ const RentalCar = () => {
   const [step1, setStep1] = React.useState({
     FirstName: "",
     SurName: "",
-    Dob: "",
+    Dob: "12/4/2000",
     Pob: "",
-    Address: "",
-    Gender: "",
+    Address: "asds",
+    Gender: "ma",
     Complement: "",
     Zip: "",
     City: "",
@@ -111,6 +111,13 @@ const RentalCar = () => {
     ProfileImg: "",
     FrontSideimg: "",
     BackSideimg: "",
+  });
+  const [step1error, setStep1Error] = useState({
+    isValid: false,
+    errors: {},
+    touched: {},
+    values: {},
+    age: {},
   });
   const [step2, setStep2] = React.useState({
     Siret: "",
@@ -139,7 +146,7 @@ const RentalCar = () => {
     TechEndDate: "",
     CtImg: "",
   });
-  const [activeStep, setActiveStep] = React.useState(1);
+  const [activeStep, setActiveStep] = React.useState(3);
 
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -152,6 +159,16 @@ const RentalCar = () => {
   const handleReset = () => {
     setActiveStep(1);
   };
+  const handleStep1 = (name, value) => {
+    setStep1({ ...step1, [name]: value });
+  };
+  const handleStep2 = (name, value) => {
+    setStep2({ ...step2, [name]: value });
+  };
+  const handleStep3 = (name, value) => {
+    setStep3({ ...step3, [name]: value });
+  };
+
   return (
     <React.Fragment>
       <RegisterHeader
@@ -242,11 +259,25 @@ const RentalCar = () => {
                 <React.Fragment>
                   <Typography sx={{ mt: 2, mb: 1 }}>
                     {activeStep === 1 ? (
-                      <Step1 />
+                      <Step1
+                        step1={step1}
+                        setStep1={setStep1}
+                        onChange={handleStep1}
+                        step1error={step1error}
+                        setStep1Error={setStep1Error}
+                      />
                     ) : activeStep === 2 ? (
-                      <Step2 />
+                      <Step2
+                        step2={step2}
+                        setStep2={setStep2}
+                        onChange={handleStep2}
+                      />
                     ) : activeStep === 3 ? (
-                      <Step3 />
+                      <Step3
+                        step3={step3}
+                        setStep3={setStep3}
+                        onChange={handleStep3}
+                      />
                     ) : (
                       ""
                     )}
@@ -281,6 +312,7 @@ const RentalCar = () => {
                       height="48px"
                       height2="48px"
                       onClick={handleNext}
+                      disabled={step1error.isValid ? false : true}
                     ></Button>
                   </Box>
                 </React.Fragment>
