@@ -77,12 +77,14 @@ export default function ComboBox(props) {
         }}
         getOptionLabel={(option) => option.label}
         options={props.options}
+        onChange={(event, value) => props.onAddressSelect(value)}
         renderInput={(params) => (
           <TextField
             {...params}
             type="text"
             placeholder={props.placeholder}
             variant="standard"
+            // onClick={props.onClick}
             sx={{
               width: "100% !important",
               height: "72px !important",

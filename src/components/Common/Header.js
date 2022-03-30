@@ -55,7 +55,7 @@ let data = {
 };
 
 const handleLogin = async () => {
-  const response = await API("post", "Personal/Login", JSON.stringify(data));
+  const response = await API("post", "Personal/Login", data);
   localStorage.setItem("token", response.data.data);
 
   if (response.data.data) {
