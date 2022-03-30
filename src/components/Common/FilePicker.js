@@ -97,6 +97,7 @@ export default function FilePicker(props) {
             id={`contained-button-file` + props.label}
             name={props.name}
             type="file"
+            disabled={props.disabled}
             onChange={props.onChange}
           />
           <Button

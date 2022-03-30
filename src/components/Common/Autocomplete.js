@@ -76,6 +76,7 @@ export default function ComboBox(props) {
           height: "72px !important",
         }}
         getOptionLabel={(option) => option.label}
+        disabled={props.disabled}
         options={props.options}
         onChange={(event, value) => props.onAddressSelect(value)}
         renderInput={(params) => (
