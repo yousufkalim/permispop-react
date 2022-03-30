@@ -6,6 +6,8 @@ import TextField from "../../Common/TextField";
 import Button from "../../Common/Button";
 import Divider from "../../Common/Divider";
 import FilePicker from "../../Common/FilePicker";
+
+
 import DatePicker from "../../Common/DatePicker";
 import DoneIcon from "@mui/icons-material/Done";
 import Checkbox from "@mui/material/Checkbox";
@@ -14,6 +16,8 @@ import API from "../../../api/index";
 import axios from "axios";
 import AutoComplete from "../../Common/Autocomplete";
 import LanguageAutoComplete from "../../Common/LanguageAutoComplete";
+import { toast } from "react-toastify";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 const StudentForm = (props) => {
   const [firstname, setFirstname] = React.useState("");
@@ -33,7 +37,7 @@ const StudentForm = (props) => {
   const [confirmPassword, setConfirmPassword] = React.useState("");
   const [noh, setNoh] = React.useState("");
   const [neph, setNeph] = React.useState("");
-  const [language, setLanguage] = React.useState("");
+  const [language, setLanguage] = React.useState([]);
   const [frontImage, setFrontImage] = React.useState("");
   const [backImage, setBackImage] = React.useState("");
   const [profileImage, setProfileImage] = React.useState("");
@@ -45,43 +49,9 @@ const StudentForm = (props) => {
   const [date, setDate] = React.useState(new Date());
   const [addresses, setAddresses] = useState([]);
   const [languages, setLanguages] = useState([]);
-  // const [studentinfo, setStudentinfo] = useState({
-  //   firstname: "",
-  //   surname: "",
-  //   address: "",
-  //   dob: new Date(),
-  //   pob: "",
-  //   zip: "",
-  //   gender: "",
-  //   email: "",
-  //   email2: "",
-  //   phone: "",
-  //   phone2: "",
-  //   city: "",
-  //   complement: "",
-  //   password: "",
-  //   confirmPassword: "",
-  //   noh: "",
-  //   neph: "",
-  //   language: "",
-  //   frontImage: "",
-  //   backImage: "",
-  //   profileImage: "",
-  //   HighWayCodeImg: "",
-  //   checkbox1: false,
-  //   checkbox2: false,
-  //   lat: "",
-  //   lng: "",
-  //   date: new Date(),
-  //   addresses: "",
-  //   languages: "",
-  //   studentinfo: "",
-  // });
+  const [disable, setDisable] = useState(false);
 
-  useEffect(() => {
-    handleLanguage();
-  }, []);
-
+  let history = useHistory();
   const handleDob = (newValue) => {
     setDob(newValue);
   };
@@ -129,7 +99,9 @@ const StudentForm = (props) => {
         console.log(error);
       });
   };
-
+  useEffect(() => {
+    handleLanguage();
+  }, []);
   const handleSelectAddress = (e) => {
     setAddress(e.label);
     setZip(e.PostalCode);
@@ -139,6 +111,7 @@ const StudentForm = (props) => {
   };
 
   const handleSubmit = async () => {
+    setDisable(true);
     await API("post", "Personal", {
       RegistrationDate: "",
       firstName: firstname,
@@ -167,26 +140,34 @@ const StudentForm = (props) => {
       city: city,
       lat: lat,
       long: lng,
-    }).then(async (res) => {
-      let personalInfoId = [];
-
-      await API("post", "Profile", {
-        businessInfoId: "",
-        drivingLisenceInfoId: "",
-        drivingSchoolApprovalInfoId: "",
-        drivingSchoolIdentityInfoId: "",
-        drivingSchoolManagerInfoId: "",
-        exersiceAuthorizationInfoId: "",
-        id: "",
-        insuranceCompanyInfoId: "",
-        lat: lat,
-        long: lng,
-        personalInfoId: "6242d58dcb99491ea8f9966d",
-        role: "student",
-        status: "Active",
+    })
+      .then(async (res) => {
+        let personalInfoId = res.data.data.id;
+        await API("post", "Profile", {
+          businessInfoId: "",
+          drivingLisenceInfoId: "",
+          drivingSchoolApprovalInfoId: "",
+          drivingSchoolIdentityInfoId: "",
+          drivingSchoolManagerInfoId: "",
+          exersiceAuthorizationInfoId: "",
+          id: "",
+          insuranceCompanyInfoId: "",
+          lat: lat,
+          long: lng,
+          personalInfoId: personalInfoId,
+          role: "student",
+          status: "Active",
+        });
+      })
+      .then(() => {
+        history.push("/");
+        toast.success("Student Registered Successfully");
+      })
+      .catch((error) => {
+        console.log(error);
+        toast.error("Not Registered....Somethong went wrong");
+        setDisable(false);
       });
-      console.log("responce", res.data.data);
-    });
   };
 
   const handleAddress = async (e) => {
@@ -247,6 +228,7 @@ const StudentForm = (props) => {
                 name="firstname"
                 type="text"
                 placeholder="John"
+                disabled={disable}
                 value={firstname}
                 onChange={(e) => {
                   setFirstname(e.target.value);
@@ -257,6 +239,7 @@ const StudentForm = (props) => {
               <TextField
                 label="Surname"
                 name="surname"
+                disabled={disable}
                 placeholder="Smith"
                 type="text"
                 value={surname}
@@ -268,6 +251,7 @@ const StudentForm = (props) => {
             <Grid item xs={12} sm={12} md={4}>
               <AutoComplete
                 name="address"
+                disabled={disable}
                 label="Address"
                 value={address}
                 options={addresses}
@@ -281,6 +265,7 @@ const StudentForm = (props) => {
             <Grid item xs={12} sm={12} md={4} sx={{ marginTop: "9px" }}>
               <DatePicker
                 label="Date of birth"
+                disabled={disable}
                 name="dob"
                 value={dob}
                 placeholder="19-10-1992"
@@ -296,6 +281,7 @@ const StudentForm = (props) => {
               <TextField
                 label="Place of birth"
                 name="pob"
+                disabled={disable}
                 type="text"
                 placeholder="France"
                 value={pob}
@@ -318,6 +304,7 @@ const StudentForm = (props) => {
               <DropDown
                 label="Gender"
                 placeholder="Male"
+                disabled={disable}
                 name="gender"
                 value={gender}
                 onChange={(e) => setGender(e.target.value)}
@@ -332,6 +319,7 @@ const StudentForm = (props) => {
               <TextField
                 label="Email"
                 name="email"
+                disabled={disable}
                 type="email"
                 placeholder="arslan.alikh@gmail.com"
                 value={email}
@@ -342,6 +330,7 @@ const StudentForm = (props) => {
               <TextField
                 label="Second Email"
                 name="email2"
+                disabled={disable}
                 type="email"
                 placeholder="smart_coolkyo@yahoo.com"
                 value={email2}
@@ -351,6 +340,7 @@ const StudentForm = (props) => {
             <Grid item xs={12} sm={12} md={4}>
               <TextField
                 label="Phone"
+                disabled={disable}
                 type="text"
                 placeholder="XX-XXXXXX-XX"
                 name="phone"
@@ -363,6 +353,7 @@ const StudentForm = (props) => {
                 label="Second Phone"
                 type="text"
                 placeholder="XX-XXXXXX-XX"
+                disabled={disable}
                 name="phone2"
                 value={phone2}
                 onChange={(e) => setPhone2(e.target.value)}
@@ -382,6 +373,7 @@ const StudentForm = (props) => {
               <TextField
                 label="Complement"
                 type="text"
+                disabled={disable}
                 placeholder="Student"
                 name="complement"
                 value={complement}
@@ -391,6 +383,7 @@ const StudentForm = (props) => {
             <Grid item xs={12} sm={12} md={4}>
               <TextField
                 label="Password"
+                disabled={disable}
                 type="password"
                 name="password"
                 placeholder="**************"
@@ -401,6 +394,7 @@ const StudentForm = (props) => {
             <Grid item xs={12} sm={12} md={4}>
               <TextField
                 label="Confirm Password"
+                disabled={disable}
                 type="password"
                 name="confirmpassword"
                 placeholder="**************"
@@ -412,6 +406,7 @@ const StudentForm = (props) => {
               <TextField
                 label="Number of hours"
                 type="number"
+                disabled={disable}
                 placeholder="44"
                 name="noh"
                 value={noh}
@@ -422,6 +417,7 @@ const StudentForm = (props) => {
               <TextField
                 label="NEPH Number"
                 name="neph"
+                disabled={disable}
                 placeholder="532-3321-111"
                 type="text"
                 value={neph}
@@ -431,22 +427,13 @@ const StudentForm = (props) => {
             <Grid item xs={12} sm={12} md={4}>
               <LanguageAutoComplete
                 name="language"
+                disabled={disable}
                 label="Spoken Language"
                 value={language}
                 options={languages}
                 placeholder="Language"
-                onChangeLanguage={(e) => {
-                  handleLanguage(e);
-                }}
+                setVal={setLanguage}
               />
-              {/* <MultiSelect
-                selectedTags={handleSelecetedTags}
-                variant="standard"
-                id="tags"
-                name="tags"
-                placeholder="English, French"
-                text="Spoken Languages"
-              ></MultiSelect> */}
             </Grid>
           </Grid>
           <Divider
@@ -460,6 +447,7 @@ const StudentForm = (props) => {
               <FilePicker
                 title="Upload front of your ID Card/Passport"
                 label="front"
+                disabled={disable}
                 name="frontImage"
                 type="file"
                 value={frontImage}
@@ -470,6 +458,7 @@ const StudentForm = (props) => {
             <Grid item xs={12} sm={12} md={4}>
               <FilePicker
                 title="Upload back of your ID Card/Passport"
+                disabled={disable}
                 label="back"
                 name="backIdPhoto"
                 type="file"
@@ -480,6 +469,7 @@ const StudentForm = (props) => {
             <Grid item xs={12} sm={12} md={4}>
               <FilePicker
                 title="Upload your profile picture"
+                disabled={disable}
                 label="profile"
                 name="photo"
                 type="file"
@@ -491,6 +481,7 @@ const StudentForm = (props) => {
           <div className="termsConditionsCheckboxContainer">
             <div className="termsConditionsCheckbox">
               <Checkbox
+                disabled={disable}
                 className="checkbox"
                 onClick={(e) => setCheckbox1(!checkbox1)}
               />
@@ -516,6 +507,7 @@ const StudentForm = (props) => {
               <Grid item xs={12} sm={12} md={4} sx={{ marginTop: "9px" }}>
                 <DatePicker
                   label="Date"
+                  disabled={disable}
                   name="dat"
                   // value={dob}
                   onChange={(e) => setDob(e.target.value)}
@@ -532,6 +524,7 @@ const StudentForm = (props) => {
               <Grid item xs={12} sm={12} md={4} sx={{ marginLeft: "1%" }}>
                 <FilePicker
                   title="Upload Highway code image file"
+                  disabled={disable}
                   label="high"
                   name="highwayCodeImg"
                   type="file"
@@ -556,6 +549,7 @@ const StudentForm = (props) => {
               text="Register"
               buttonLableStyle="btn_main"
               style={{ marginTop: "24px" }}
+              disabled={disable}
               width="10%"
               customWidth1="100%"
               height="48px"
