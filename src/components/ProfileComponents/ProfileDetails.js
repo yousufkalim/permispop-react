@@ -9,10 +9,16 @@ import { ReactComponent as Editprofile } from "../../assets/images/editprofile.s
 
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
+import { toast } from "react-toastify";
+
+import API from "../../api";
 
 const ProfileDetails = (props) => {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [editProfile, seteditProfile] = React.useState(false);
+  const [openmodal, setOpenModal] = React.useState(false);
+
+  const handleOpenmodaL = () => setOpenModal(true);
 
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -21,6 +27,7 @@ const ProfileDetails = (props) => {
   const handleClose = () => {
     setAnchorEl(null);
   };
+
   return (
     <Grid contianer spacing={2} className="ProfileDetails">
       <div className="uppersection">
@@ -35,7 +42,7 @@ const ProfileDetails = (props) => {
         name="rating-feedback"
         size="large"
         readOnly={true}
-        value="3.5"
+        value={props.ratings}
         showLabel={true}
         precision="0.5"
         fontWeight="900"
@@ -69,9 +76,13 @@ const ProfileDetails = (props) => {
               "aria-labelledby": "basic-button",
             }}
           >
-            <MenuItem onClick={handleClose}>Language 1</MenuItem>
-            <MenuItem onClick={handleClose}>Language 2</MenuItem>
-            <MenuItem onClick={handleClose}>Language 3</MenuItem>
+            {props.languages.length > 0 ? (
+              props.languages.map((language) => {
+                return <MenuItem onClick={handleClose}> {language}</MenuItem>;
+              })
+            ) : (
+              <MenuItem disabled={true}>No Language/s selected</MenuItem>
+            )}
           </Menu>
         </Grid>
         <Grid
@@ -114,6 +125,7 @@ const ProfileDetails = (props) => {
                 color="white !important"
                 borderRadius="10px"
                 textColor="#149e7a"
+                onClick={(e) => props.openPasswordModal(true)}
               ></Button>
             </Grid>{" "}
           </>
