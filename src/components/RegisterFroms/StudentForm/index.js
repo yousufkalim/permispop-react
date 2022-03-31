@@ -136,6 +136,7 @@ const StudentForm = (props) => {
       photo: profileImage,
       highWayCodeImage: HighWayCodeImg,
       address: address,
+      SpokenLanguage: language,
       zip: zip,
       city: city,
       lat: lat,
@@ -452,7 +453,6 @@ const StudentForm = (props) => {
                 type="file"
                 value={frontImage}
                 onChange={handleFileChange}
-                // setFrontImage={setFrontImage}
               />
             </Grid>
             <Grid item xs={12} sm={12} md={4}>

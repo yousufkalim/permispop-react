@@ -6,37 +6,23 @@ import TextField from "../../Common/TextField";
 import Divider from "../../Common/Divider";
 import FilePicker from "../../Common/FilePicker";
 import Datepicker from "../../Common/DatePicker";
-
 import API from "../../../api/index";
 
 const Step1 = (props) => {
-  const handleChange = async (e) => {
-    console.log(e.target.files[0]);
-
+  const handleFileChange = async (e) => {
     const formdata = new FormData();
-
-    if (e.targer.name) formdata.append(`file`, e.target.files[0]);
-    // let res = await api("post", "/uploadImage", formdata);
-    const response = await API("post", "Personal/UploadProfileImage", formdata);
-    if (response) {
-      console.log("res", response);
-    }
-  };
-  const [obtainingdate, setObtainingdate] = useState(new Date());
-  const handleObtainingDate = (newValue) => {
-    setObtainingdate(newValue);
-  };
-  const [expirationdate, setExpirationdate] = useState(new Date());
-  const handleExpirationdate = (newValue) => {
-    setExpirationdate(newValue);
+    formdata.append("file", e.target.files[0]);
+    await API("post", "Personal/UploadProfileImage", formdata).then((res) => {
+      if (e.target.name === "FrontImg") {
+        props.step1.FrontImg(res.data.message);
+      } else if (e.target.name === "BackImg") {
+        props.step1.BackImg(res.data.message);
+      } else if (e.target.name === "ProfileImg") {
+        props.step1.ProfileImg(res.data.message);
+      }
+    });
   };
 
-  const [companyexpirationdate, setCompanyexpirationdate] = useState(
-    new Date()
-  );
-  const handleCompanyExpirationdate = (newValue) => {
-    setCompanyexpirationdate(newValue);
-  };
   return (
     <Box
       component="form"
@@ -55,6 +41,10 @@ const Step1 = (props) => {
             label="Insurer"
             name="companyInsurer"
             placeholder="John"
+            value={props.step3.companyInsurer}
+            onChange={(e) => {
+              props.onChange(e.target.name, e.target.value);
+            }}
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
@@ -62,6 +52,10 @@ const Step1 = (props) => {
             label="Police Number"
             name="companyPoliceNum"
             placeholder="Smith"
+            value={props.step3.companyPoliceNum}
+            onChange={(e) => {
+              props.onChange(e.target.name, e.target.value);
+            }}
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4} sx={{ marginTop: "9px" }}>
@@ -71,16 +65,20 @@ const Step1 = (props) => {
             placeholder="19-10-1992 "
             padding="20px 0 0 0px !important"
             width="100% !important"
-            value={companyexpirationdate}
-            onChange={handleCompanyExpirationdate}
+            value={props.step3.insuranceExpDate}
+            onChange={(e) => {
+              props.onChange(e.target.name, e.target.value);
+            }}
           ></Datepicker>
           <div className="borderbottom"></div>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <FilePicker
-            title="Upload your RC Pro"
+            title="Upload Insurance Company your RC Pro"
             name="companyRC"
             label="Rcpro"
+            value={props.step3.companyRC}
+            onChange={handleFileChange}
           />
         </Grid>
       </Grid>
@@ -93,6 +91,10 @@ const Step1 = (props) => {
             label="Insurer"
             name="vehicleInsurer"
             placeholder="John"
+            value={props.step3.vehicleInsurer}
+            onChange={(e) => {
+              props.onChange(e.target.name, e.target.value);
+            }}
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
@@ -100,6 +102,10 @@ const Step1 = (props) => {
             label="Police Number"
             name="vehiclePoliceNum"
             placeholder="Smith"
+            value={props.step3.vehiclePoliceNum}
+            onChange={(e) => {
+              props.onChange(e.target.name, e.target.value);
+            }}
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4} sx={{ marginTop: "9px" }}>
@@ -109,8 +115,10 @@ const Step1 = (props) => {
             placeholder="102 Street, building 02, NY"
             padding="20px 0 0 0px !important"
             width="100% !important"
-            value={obtainingdate}
-            onChange={handleObtainingDate}
+            value={props.step3.vehicleDoOb}
+            onChange={(e) => {
+              props.onChange(e.target.name, e.target.value);
+            }}
           ></Datepicker>
           <div className="borderbottom"></div>
         </Grid>
@@ -123,16 +131,20 @@ const Step1 = (props) => {
             padding="20px 0 0 0px !important"
             width="100% !important"
             name="ExpDateinsurance"
-            value={expirationdate}
-            onChange={handleExpirationdate}
+            value={props.step3.ExpDateinsurance}
+            onChange={(e) => {
+              props.onChange(e.target.name, e.target.value);
+            }}
           ></Datepicker>
           <div className="borderbottom"></div>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <FilePicker
-            title="Upload your RC Pro"
+            title="Upload your Vehicle Insurance RC Pro"
             name="RcPro"
             label="UploadRc"
+            value={props.step3.RcPro}
+            onChange={handleFileChange}
           />
         </Grid>
       </Grid>
