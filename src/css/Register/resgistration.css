@@ -2,7 +2,7 @@
   font-family: Inter !important;
   font-style: normal !important;
   font-weight: 600 !important;
-  font-size: 25px !important;
+  font-size: 24px !important;
   line-height: 151.02%;
   /* or 48px */
 
@@ -51,6 +51,7 @@
   display: flex;
   flex-direction: column;
   margin-left: 32px;
+  margin-top: 32px;
   width: 32.1% !important;
 }
 .DrivingSchool1 {
@@ -97,15 +98,19 @@
 .makeStyles-chip-130 {
   margin: -39px 2px 0px 0 !important;
 }
+.css-1rmv767-MuiInputBase-root-MuiInput-root:before {
+  border-bottom: 1px solid #e5e5e5 !important;
+  opacity: 0.5 !important;
+}
 @media only screen and (max-width: 1440px) {
   .Heading1 {
-    font-size: 18px !important;
+    font-size: 24px !important;
   }
 }
 
 @media only screen and (max-width: 1366px) {
   .Heading1 {
-    font-size: 18px !important;
+    font-size: 24px !important;
   }
   .VehicleSection {
     display: flex !important;
@@ -115,7 +120,7 @@
 
 @media only screen and (max-width: 992px) {
   .Heading1 {
-    font-size: 16px !important;
+    font-size: 22px !important;
   }
   .css-kq5jak-MuiFormLabel-root-MuiInputLabel-root {
     font-size: 20px !important;
@@ -124,16 +129,24 @@
 
 @media only screen and (max-width: 768px) {
   .Heading1 {
-    font-size: 14px !important;
+    font-size: 22px !important;
+  }
+  .DrivingSchool {
+    width: 100% !important;
   }
 }
 
 @media only screen and (max-width: 600px) {
   .Heading1 {
-    font-size: 14px !important;
+    font-size: 20px !important;
     flex-direction: column !important;
     justify-content: center !important;
     align-items: center !important;
+    text-align: center !important;
+    width: 100% !important;
+  }
+  .CarRentalH{
+    margin-left: 3rem !important;
   }
   .DrivingSchool {
     width: 100% !important;
@@ -141,6 +154,7 @@
   .HeadingContent {
     display: flex !important;
     justify-content: center !important;
+    align-items: center;
   }
   .css-kq5jak-MuiFormLabel-root-MuiInputLabel-root {
     width: 200% !important;
@@ -155,7 +169,7 @@
 
 @media only screen and (max-width: 480px) {
   .Heading1 {
-    font-size: 14px !important;
+    font-size: 18px !important;
     flex-direction: column !important;
     justify-content: center !important;
     align-items: center !important;

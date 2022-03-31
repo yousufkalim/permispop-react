@@ -176,7 +176,7 @@ const Step3 = ({ step3, setStep3, onChange }) => {
       <Grid container spacing={4}>
         {console.log("step3", formState)}
         <Divider width="100%" borderColor="#D5E4E8" margin="2% 0px 2% 0px" />
-        <Typography className="Heading1">Insurance Company</Typography>
+        <Typography className="Heading1 CarRentalH">Insurance Company</Typography>
         <Divider width="100%" borderColor="#D5E4E8" margin="2% 0px 2% 0px" />
         <Grid item xs={12} sm={12} md={4} sx={{ marginTop: "9px" }}>
           <DatePicker
