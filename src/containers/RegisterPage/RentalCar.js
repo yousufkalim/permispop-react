@@ -14,6 +14,10 @@ import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import Step1 from "../../components/RegisterFroms/RentalCarForms/Step1";
 import Step2 from "../../components/RegisterFroms/RentalCarForms/Step2";
 import Step3 from "../../components/RegisterFroms/RentalCarForms/Step3";
+import API from "../../api";
+import { toast } from "react-toastify";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+
 const ColorlibConnector = withStyles({
   alternativeLabel: {
     top: 23,
@@ -90,17 +94,15 @@ function ColorlibStepIcon(props) {
 }
 
 const RentalCar = () => {
+  let history = useHistory();
   const steps = ["Identity", "Details", "Vehicle", "Done"];
   const [step1, setStep1] = React.useState({
     FirstName: "",
     SurName: "",
-    Dob: "12/4/2000",
+    Dob: "",
     Pob: "",
-    Address: "asds",
-    Gender: "ma",
+    Gender: "",
     Complement: "",
-    Zip: "",
-    City: "",
     Email: "",
     Email2: "",
     Phone: "",
@@ -111,14 +113,15 @@ const RentalCar = () => {
     ProfileImg: "",
     FrontSideimg: "",
     BackSideimg: "",
+    Address: {
+      Label: "",
+      Zip: "",
+      City: "",
+      Lat: "",
+      Lng: "",
+    },
   });
-  const [step1error, setStep1Error] = useState({
-    isValid: false,
-    errors: {},
-    touched: {},
-    values: {},
-    age: {},
-  });
+
   const [step2, setStep2] = React.useState({
     Siret: "",
     Kbls: "",
@@ -146,7 +149,7 @@ const RentalCar = () => {
     TechEndDate: "",
     CtImg: "",
   });
-  const [activeStep, setActiveStep] = React.useState(3);
+  const [activeStep, setActiveStep] = React.useState(1);
 
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -169,6 +172,127 @@ const RentalCar = () => {
     setStep3({ ...step3, [name]: value });
   };
 
+  const handleSubmit = async () => {
+    await API("post", "Personal", {
+      FirstName: step1.FirstName,
+      SurName: step1.SurName,
+      DOB: step1.Dob,
+      PlaceOfBirth: step1.Pob,
+      Gender: step1.Gender,
+      FrontIDPhoto: step1.FrontSideimg,
+      BackIDPhoto: step1.BackSideimg,
+      Address: step1.Address.Label,
+      Complement: step1.Complement,
+      ZIP: step1.Address.Zip,
+      City: step1.Address.City,
+      Photo: step1.ProfileImg,
+      Password: step1.Password,
+      NoOfHrsWanted: step1.TimeOnPlatform,
+      Email: step1.Email,
+      Phone: step1.Phone,
+      SecondEmail: step1.Email2,
+      SecondPhone: step1.Phone2,
+      Lat: step1.Address.Lat,
+      Long: step1.Address.Lng,
+      Role: "Car Rental",
+    })
+      .then(async (personalRes) => {
+        console.log("test", personalRes);
+        await API("post", "VehicleInsurance", {
+          Insurer: step3.VehicleInsurer,
+          PoliceNumber: step3.PoliceNumber,
+          StartDate: step3.StartDate,
+          EndDate: step3.EndDate,
+          GreenCardImagePath: step3.GreenCard,
+        })
+          .then(async (VehicleInsuranceRes) => {
+            await API("post", "TechnicalControl", {
+              DateofTechnicalControl: step3.TechControlDate,
+              startDateOfTech: step3.TechControlDate,
+              endDateOfTechControl: step3.TechEndDate,
+              TechnicalControlImagePath: step3.CtImg,
+            })
+              .then(async (TechnicalControlRes) => {
+                await API("post", "VehicleDetail", {
+                  DateOfFirstRegistration: step3.TechControlDate,
+                  Brand: step3.TechControlDate,
+                  Model: step3.TechEndDate,
+                  Color: step3.CtImg,
+                  Energy: step3.Energy,
+                  GearBox: step3.GearBox,
+                  NumberPlate: step3.NumberPlate,
+                  VehicleRegistrationCertificatePhotoImagePath:
+                    step3.VehicleRegImg,
+                  VehicleePhotosImagePath: step3.VehicleImg,
+                  VehichleInsuranceInfoId: VehicleInsuranceRes.data.data.id,
+                  TechnicalControlInfoID: TechnicalControlRes.data.data.id,
+                })
+                  .then(async (VehicleDetailRes) => {
+                    await API("post", "Business", {
+                      Insurer: step2.CompanyInsurer,
+                      PoliceNumber: step2.CompanyPoliceNumber,
+                      StartDate: step2.InsuranceDateExp,
+                      EndDate: step2.InsuranceDateExp,
+                      GreenCardImagePath: step2.RcPro,
+                    })
+                      .then(async (BusinessRes) => {
+                        await API("post", "InsuranceCompany", {
+                          Insurer: step2.CompanyInsurer,
+                          PoliceNumber: step2.CompanyPoliceNumber,
+                          StartDate: step2.InsuranceDateExp,
+                          EndDate: step2.InsuranceDateExp,
+                          GreenCardImagePath: step2.RcPro,
+                        }).then(async (InsuranceCompanyRes) => {
+                          await API("post", "Profile", {
+                            role: "CarRentalAgent",
+                            PersonalInfoId: personalRes.data.data.id,
+                            VehicleDetailInfoId: VehicleDetailRes.data.data.id,
+                            VehicleInsuranceInfoId:
+                              VehicleInsuranceRes.data.data.id,
+                            TechnicalControlInfoId:
+                              TechnicalControlRes.data.data.id,
+                            BusinessInfoId: BusinessRes.data.data.id,
+                            InsuranceCompanyInfoId:
+                              InsuranceCompanyRes.data.data.id,
+                          }).then(async (Profileres) => {
+                            await API("post", "InstructorMeetupPoints", {
+                              PersonalInfoId: personalRes.data.data.id,
+                              MeetUp: step1.Address.Label,
+                              ZIP: step1.Address.Zip,
+                              City: step1.Address.City,
+                              Lat: step1.Address.Lat,
+                              Long: step1.Address.Lng,
+                            }).then((e) => {
+                              history.push("/");
+                              toast.success(
+                                "Rental Car Registered Successfully"
+                              );
+                            });
+                          });
+                        });
+                      })
+                      .catch((error) => {
+                        console.log("Business Error", error);
+                      });
+
+                    console.log("personalResres", personalRes.data.data);
+                  })
+                  .catch((error) => {
+                    console.log("Vehicle Detail Error", error);
+                  });
+              })
+              .catch((error) => {
+                console.log("Technical Control Error", error);
+              });
+          })
+          .catch((error) => {
+            console.log("Vehicale insurance Error", error);
+          });
+      })
+      .catch((error) => {
+        console.log("Personal Response", error);
+      });
+  };
   return (
     <React.Fragment>
       <RegisterHeader
@@ -263,8 +387,6 @@ const RentalCar = () => {
                         step1={step1}
                         setStep1={setStep1}
                         onChange={handleStep1}
-                        step1error={step1error}
-                        setStep1Error={setStep1Error}
                       />
                     ) : activeStep === 2 ? (
                       <Step2
@@ -311,8 +433,11 @@ const RentalCar = () => {
                       customWidth1="100%"
                       height="48px"
                       height2="48px"
-                      onClick={handleNext}
-                      disabled={step1error.isValid ? false : true}
+                      onClick={
+                        activeStep === steps.length - 1
+                          ? handleSubmit
+                          : handleNext
+                      }
                     ></Button>
                   </Box>
                 </React.Fragment>
