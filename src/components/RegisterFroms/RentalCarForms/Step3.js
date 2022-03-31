@@ -8,121 +8,10 @@ import Divider from "../../Common/Divider";
 import FilePicker from "../../Common/FilePicker";
 import API from "../../../api/index";
 import DatePicker from "../../Common/DatePicker";
-import { Select } from "@mui/material";
-import validate from "validate.js";
+
+import moment from "moment";
 
 const Step3 = ({ step3, setStep3, onChange }) => {
-  const schema = {
-    FristRegDate: {
-      presence: { allowEmpty: false, message: "is required" },
-    },
-    Brand: {
-      presence: { allowEmpty: false, message: "is required" },
-      length: {
-        maximum: 14,
-        minimum: 2,
-      },
-    },
-    Model: {
-      presence: { allowEmpty: false, message: "is required" },
-      length: {
-        maximum: 20,
-        minimum: 3,
-      },
-    },
-    NumberPlate: {
-      presence: { allowEmpty: false, message: "is required" },
-    },
-    Color: {
-      presence: { allowEmpty: false, message: "is required" },
-      length: {
-        maximum: 20,
-        minimum: 3,
-      },
-    },
-
-    GearBox: {
-      presence: { allowEmpty: false, message: "is required" },
-    },
-    Energy: {
-      presence: { allowEmpty: false, message: "is required" },
-    },
-    VehicleImg: {
-      presence: { allowEmpty: false, message: "is required" },
-    },
-    VehicleRegImg: {
-      presence: { allowEmpty: false, message: "is required" },
-    },
-    VehicleInsurer: {
-      presence: { allowEmpty: false, message: "is required" },
-      length: {
-        maximum: 20,
-        minimum: 3,
-      },
-    },
-    PoliceNumber: {
-      presence: { allowEmpty: false, message: "is required" },
-    },
-    StartDate: {
-      presence: { allowEmpty: false, message: "is required" },
-    },
-
-    EndDate: {
-      presence: { allowEmpty: false, message: "is required" },
-    },
-    GreenCard: {
-      presence: { allowEmpty: false, message: "is required" },
-    },
-    TechControlDate: {
-      presence: { allowEmpty: false, message: "is required" },
-    },
-    TechEndDate: {
-      presence: { allowEmpty: false, message: "is required" },
-    },
-    CtImg: {
-      presence: { allowEmpty: false, message: "is required" },
-    },
-  };
-  const [formState, setFormState] = useState({
-    isValid: false,
-    errors: {},
-    touched: {},
-    values: {},
-    age: {},
-  });
-  useEffect(() => {
-    const errors = validate(formState.values, schema);
-
-    setFormState((formState) => ({
-      ...formState,
-      isValid: errors ? false : true,
-      errors: errors || {},
-    }));
-  }, [formState.values]);
-
-  const handleError = (event) => {
-    event.persist();
-    //will set the form state
-    setFormState((formState) => ({
-      ...formState,
-      values: {
-        ...formState.values,
-        [event.target.name]:
-          event.target.type === "checkbox"
-            ? event.target.checked
-            : event.target.value,
-      },
-      touched: {
-        ...formState.touched,
-        [event.target.name]: true,
-      },
-    }));
-  };
-  const hasError = (field) => {
-    console.log("field", field);
-    return formState.touched[field] && formState.errors[field] ? true : false;
-  };
-
   const [FirstRegDate, setFirstRegDate] = React.useState(new Date());
   const [StartDate, setStartDate] = React.useState(new Date());
   const [EndDate, setEndDate] = React.useState(new Date());
@@ -131,37 +20,22 @@ const Step3 = ({ step3, setStep3, onChange }) => {
     new Date()
   );
 
-  const [FirstRegdate, setFirstRegdatedate] = React.useState(new Date());
+  const handleFileChange = async (e) => {
+    const formdata = new FormData();
 
-  const handleFirstRegDateChange = (newvalue) => {
-    if (newvalue === null) {
-      setFormState((formState) => ({
-        ...formState,
-        values: {
-          ...formState.values,
-          ["FristRegDate"]: "",
-        },
-        touched: {
-          ...formState.touched,
-          ["FristRegDate"]: true,
-        },
-      }));
-    } else {
-      setFirstRegDate(newvalue);
-      setStep3({ ...step3, ["FristRegDate"]: newvalue });
-    }
-  };
-  const handleStartDateChange = (newvalue) => {
-    setStartDate(newvalue);
-  };
-  const handleEndDateChange = (newvalue) => {
-    setEndDate(newvalue);
-  };
-  const handleTechnicalControl = (newvalue) => {
-    setTechnicalControl(newvalue);
-  };
-  const handleTechnicalControlEndDate = (newvalue) => {
-    setTechnicalControlEndDate(newvalue);
+    formdata.append("file", e.target.files[0]);
+
+    await API("post", "Personal/UploadProfileImage", formdata).then((res) => {
+      if (e.target.name === "VehicleImg") {
+        onChange("VehicleImg", res.data.message);
+      } else if (e.target.name === "VehicleRegImg") {
+        onChange("VehicleRegImg", res.data.message);
+      } else if (e.target.name === "GreenCard") {
+        onChange("GreenCard", res.data.message);
+      } else if (e.target.name === "CtImg") {
+        onChange("CtImg", res.data.message);
+      }
+    });
   };
   return (
     <Box
@@ -174,20 +48,18 @@ const Step3 = ({ step3, setStep3, onChange }) => {
       }}
     >
       <Grid container spacing={4}>
-        {console.log("step3", formState)}
+        {console.log("step3", step3)}
         <Divider width="100%" borderColor="#D5E4E8" margin="2% 0px 2% 0px" />
-        <Typography className="Heading1">Insurance Company</Typography>
+        <Typography className="Heading1">Vehicle Details</Typography>
         <Divider width="100%" borderColor="#D5E4E8" margin="2% 0px 2% 0px" />
         <Grid item xs={12} sm={12} md={4} sx={{ marginTop: "9px" }}>
           <DatePicker
-            error={hasError("FristRegDate")}
-            ErrorMsg={
-              hasError("FristRegDate") ? formState.errors.FristRegDate[0] : null
-            }
             label="Date of the 1st Registration"
-            value={FirstRegDate}
+            value={step3.FristRegDate}
             name="FristRegDate"
-            onChange={handleFirstRegDateChange}
+            onChange={(e) => {
+              onChange("FristRegDate", moment(e).format("YYYY-MM-DDThh:mm:ss"));
+            }}
             padding="20px 0 0 0px !important"
             width="100% !important"
           />
@@ -201,14 +73,12 @@ const Step3 = ({ step3, setStep3, onChange }) => {
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <DropDown
-            error={hasError("Brand")}
-            ErrorMsg={hasError("Brand") ? formState.errors.Brand[0] : null}
             label="Brand"
             placeholder="Select Option"
             name="Brand"
+            value={step3.Brand}
             onChange={(e) => {
-              setStep3({ ...step3, [e.target.name]: e.target.value });
-              handleError(e);
+              onChange("Brand", e.target.value);
             }}
             MenuItem={[
               { name: "Select Brand", value: "Select Brand" },
@@ -256,11 +126,10 @@ const Step3 = ({ step3, setStep3, onChange }) => {
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <DropDown
-            error={hasError("Model")}
-            ErrorMsg={hasError("Model") ? formState.errors.Model[0] : null}
             label="Model"
             placeholder="Selcet Modal"
             name="Model"
+            value={step3.Model}
             MenuItem={[
               { name: "Select Model", value: "Select Model" },
               {
@@ -288,64 +157,52 @@ const Step3 = ({ step3, setStep3, onChange }) => {
               },
             ]}
             onChange={(e) => {
-              setStep3({ ...step3, [e.target.name]: e.target.value });
-              handleError(e);
+              onChange("Model", e.target.value);
             }}
           ></DropDown>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <TextField
-            error={hasError("NumberPlate")}
-            ErrorMsg={
-              hasError("NumberPlate") ? formState.errors.NumberPlate[0] : null
-            }
             label="Number Plate"
             type="text"
             name="NumberPlate"
             placeholder="Numeric"
             onChange={(e) => {
               setStep3({ ...step3, [e.target.name]: e.target.value });
-              handleError(e);
             }}
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <TextField
-            error={hasError("Color")}
-            ErrorMsg={hasError("Color") ? formState.errors.Color[0] : null}
             label="Color"
             name="Color"
             type="text"
             placeholder="Select Color"
             onChange={(e) => {
               setStep3({ ...step3, [e.target.name]: e.target.value });
-              handleError(e);
             }}
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <DropDown
-            error={hasError("GearBox")}
-            ErrorMsg={hasError("GearBox") ? formState.errors.GearBox[0] : null}
             label="Gearbox"
             name="GearBox"
+            value={step3.GearBox}
             MenuItem={[
               { name: "Auto", value: "Auto" },
               { name: "Manual", value: "Manual" },
             ]}
             onChange={(e) => {
-              setStep3({ ...step3, [e.target.name]: e.target.value });
-              handleError(e);
+              onChange("GearBox", e.target.value);
             }}
           ></DropDown>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <DropDown
-            error={hasError("Energy")}
-            ErrorMsg={hasError("Energy") ? formState.errors.Energy[0] : null}
             label="Energy"
             placeholder="Select"
             name="Energy"
+            value={step3.Energy}
             MenuItem={[
               { name: "Diesel", value: "Diesel" },
               { name: "Petrol", value: "Petrol" },
@@ -355,8 +212,7 @@ const Step3 = ({ step3, setStep3, onChange }) => {
               { name: "Others", value: "Others" },
             ]}
             onChange={(e) => {
-              setStep3({ ...step3, [e.target.name]: e.target.value });
-              handleError(e);
+              onChange("Energy", e.target.value);
             }}
           ></DropDown>
         </Grid>
@@ -365,34 +221,20 @@ const Step3 = ({ step3, setStep3, onChange }) => {
         <Grid container spacing={4}>
           <Grid item xs={12} sm={12} md={4}>
             <FilePicker
-              error={hasError("VehicleImg")}
-              ErrorMsg={
-                hasError("VehicleImg") ? formState.errors.VehicleImg[0] : null
-              }
               title="Upload your Image"
               label="YourImg"
               name="VehicleImg"
-              onChange={(e) => {
-                setStep3({ ...step3, [e.target.name]: e.target.value });
-                handleError(e);
-              }}
+              value={step3.VehicleImg}
+              onChange={handleFileChange}
             />
           </Grid>
           <Grid item xs={12} sm={12} md={4}>
             <FilePicker
-              error={hasError("VehicleRegImg")}
-              ErrorMsg={
-                hasError("VehicleRegImg")
-                  ? formState.errors.VehicleRegImg[0]
-                  : null
-              }
               title="Upload Vehicle Registration Certificate"
               label="RegCertificate"
               name="VehicleRegImg"
-              onChange={(e) => {
-                setStep3({ ...step3, [e.target.name]: e.target.value });
-                handleError(e);
-              }}
+              value={step3.VehicleRegImg}
+              onChange={handleFileChange}
             />
           </Grid>
         </Grid>
@@ -403,46 +245,36 @@ const Step3 = ({ step3, setStep3, onChange }) => {
       <Grid container spacing={4}>
         <Grid item xs={12} sm={12} md={4}>
           <TextField
-            error={hasError("VehicleInsurer")}
-            ErrorMsg={
-              hasError("VehicleInsurer")
-                ? formState.errors.VehicleInsurer[0]
-                : null
-            }
             label="Insurer"
             type="text"
             placeholder="John"
             name="VehicleInsurer"
             onChange={(e) => {
               setStep3({ ...step3, [e.target.name]: e.target.value });
-              handleError(e);
             }}
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <TextField
-            error={hasError("PoliceNumber")}
-            ErrorMsg={
-              hasError("PoliceNumber") ? formState.errors.PoliceNumber[0] : null
-            }
             label="Police Nunber"
             type="text"
             name="PoliceNumber"
             placeholder="Numeric"
             onChange={(e) => {
               setStep3({ ...step3, [e.target.name]: e.target.value });
-              handleError(e);
             }}
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4} sx={{ marginTop: "9px" }}>
           <DatePicker
             label="Start Date"
-            value={StartDate}
+            value={step3.StartDate}
             name="StartDate"
-            onChange={handleStartDateChange}
             padding="20px 0 0 0px !important"
             width="100% !important"
+            onChange={(e) => {
+              onChange("StartDate", moment(e).format("YYYY-MM-DDThh:mm:ss"));
+            }}
           />
           <div className="borderbottom"></div>
         </Grid>
@@ -450,10 +282,12 @@ const Step3 = ({ step3, setStep3, onChange }) => {
           <DatePicker
             label="End Date"
             name="EndDate"
-            value={EndDate}
-            onChange={handleEndDateChange}
+            value={step3.EndDate}
             padding="20px 0 0 0px !important"
             width="100% !important"
+            onChange={(e) => {
+              onChange("EndDate", moment(e).format("YYYY-MM-DDThh:mm:ss"));
+            }}
           />
           <div className="borderbottom"></div>
         </Grid>
@@ -462,17 +296,11 @@ const Step3 = ({ step3, setStep3, onChange }) => {
         <Grid container spacing={4}>
           <Grid item xs={12} sm={12} md={4}>
             <FilePicker
-              error={hasError("GreenCard")}
-              ErrorMsg={
-                hasError("GreenCard") ? formState.errors.GreenCard[0] : null
-              }
               title="Upload Scanned Green Card"
               label="GreenCard"
               name="GreenCard"
-              onChange={(e) => {
-                setStep3({ ...step3, [e.target.name]: e.target.value });
-                handleError(e);
-              }}
+              value={step3.GreenCard}
+              onChange={handleFileChange}
             />
           </Grid>
         </Grid>
@@ -484,22 +312,29 @@ const Step3 = ({ step3, setStep3, onChange }) => {
         <Grid item xs={12} sm={12} md={4} sx={{ marginTop: "9px" }}>
           <DatePicker
             label="Date of Technical Control"
-            value={TechnicalControl}
+            value={step3.TechControlDate}
             name="TechControlDate"
-            onChange={handleTechnicalControl}
             padding="20px 0 0 0px !important"
             width="100% !important"
+            onChange={(e) => {
+              onChange(
+                "TechControlDate",
+                moment(e).format("YYYY-MM-DDThh:mm:ss")
+              );
+            }}
           />
           <div className="borderbottom"></div>
         </Grid>
         <Grid item xs={12} sm={12} md={4} sx={{ marginTop: "9px" }}>
           <DatePicker
             label="End Date"
-            value={TechnicalControlEndDate}
+            value={step3.TechEndDate}
             name="TechEndDate"
-            onChange={handleTechnicalControlEndDate}
             padding="20px 0 0 0px !important"
             width="100% !important"
+            onChange={(e) => {
+              onChange("TechEndDate", moment(e).format("YYYY-MM-DDThh:mm:ss"));
+            }}
           />
           <div className="borderbottom"></div>
         </Grid>
@@ -508,15 +343,11 @@ const Step3 = ({ step3, setStep3, onChange }) => {
         <Grid container spacing={4}>
           <Grid item xs={12} sm={12} md={4}>
             <FilePicker
-              error={hasError("CtImg")}
-              ErrorMsg={hasError("CtImg") ? formState.errors.CtImg[0] : null}
               title="Scan and upload your CT"
               label="YourCt"
               name="CtImg"
-              onChange={(e) => {
-                setStep3({ ...step3, [e.target.name]: e.target.value });
-                handleError(e);
-              }}
+              value={step3.CtImg}
+              onChange={handleFileChange}
             />
           </Grid>
         </Grid>
