@@ -6,35 +6,24 @@ import Divider from "../../Common/Divider";
 import FilePicker from "../../Common/FilePicker";
 import Datepicker from "../../Common/DatePicker";
 import API from "../../../api/index";
+import Checkbox from "@mui/material/Checkbox";
+import { Typography } from "@mui/material";
 
 const Step2 = (props) => {
-  const handleChange = async (e) => {
-    console.log(e.target.files[0]);
-
+  const handleFileChange = async (e) => {
     const formdata = new FormData();
-
-    if (e.targer.name) formdata.append(`file`, e.target.files[0]);
-    // let res = await api("post", "/uploadImage", formdata);
-    const response = await API("post", "Personal/UploadProfileImage", formdata);
-    if (response) {
-      console.log("res", response);
-    }
-  };
-  const [validitydate, setValiditydate] = useState(new Date());
-  const handleValiditydate = (newValue) => {
-    setValiditydate(newValue);
-  };
-  const [authorizationdate, setAuthorizationdate] = useState(new Date());
-  const handleAuthorizationdate = (newValue) => {
-    setAuthorizationdate(newValue);
-  };
-  const [obtainingdate, setObtainingdate] = useState(new Date());
-  const handleObtainingDate = (newValue) => {
-    setObtainingdate(newValue);
-  };
-  const [expirationdate, setExpirationdate] = useState(new Date());
-  const handleExpirationdate = (newValue) => {
-    setExpirationdate(newValue);
+    formdata.append("file", e.target.files[0]);
+    await API("post", "Personal/UploadProfileImage", formdata).then((res) => {
+      if (e.target.name === "Authorizationfront") {
+        props.step1.Authorizationfront(res.data.message);
+      } else if (e.target.name === "Authorizationback") {
+        props.step1.Authorizationback(res.data.message);
+      } else if (e.target.name === "licensefront") {
+        props.step1.licensefront(res.data.message);
+      } else if (e.target.name === "licenseback") {
+        props.step1.licenseback(res.data.message);
+      }
+    });
   };
   return (
     <Box
@@ -50,17 +39,25 @@ const Step2 = (props) => {
         <Grid item xs={12} sm={12} md={4}>
           <TextField
             label="Driving License Number"
-            name="drivingLicenseNo"
+            name="licenceNo"
             type="text"
             placeholder="000000000"
+            value={props.step2.licenceNo}
+            onChange={(e) => {
+              props.onChange(e.target.name, e.target.value);
+            }}
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <TextField
             label="Place of Delivery"
-            name="deliveryplace"
+            name="deliveryPlace"
             type="text"
             placeholder="France"
+            value={props.step2.deliveryPlace}
+            onChange={(e) => {
+              props.onChange(e.target.name, e.target.value);
+            }}
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
@@ -68,27 +65,35 @@ const Step2 = (props) => {
             label="Issuing Authority"
             name="issuingAuthority"
             placeholder="712333"
+            value={props.step2.issuingAuthority}
+            onChange={(e) => {
+              props.onChange(e.target.name, e.target.value);
+            }}
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <Datepicker
             label="Validity Date"
-            name="validityDate"
+            name="validitiyDate"
             padding="20px 0 0 0px !important"
             width="100% !important"
-            value={validitydate}
-            onChange={handleValiditydate}
+            value={props.step2.validitiyDate}
+            onChange={(e) => {
+              props.onChange(e.target.name, e.target.value);
+            }}
           ></Datepicker>
           <div className="borderbottom"></div>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <Datepicker
             label="Date of authorization to excersice"
-            name="authorizationdate"
+            name="DateAuthorization"
             padding="20px 0 0 0px !important"
             width="100% !important"
-            value={authorizationdate}
-            onChange={handleAuthorizationdate}
+            value={props.step2.DateAuthorization}
+            onChange={(e) => {
+              props.onChange(e.target.name, e.target.value);
+            }}
           ></Datepicker>
           <div className="borderbottom"></div>
         </Grid>
@@ -98,36 +103,48 @@ const Step2 = (props) => {
             name="obtainingdate"
             padding="20px 0 0 0px !important"
             width="100% !important"
-            value={obtainingdate}
-            onChange={handleObtainingDate}
+            value={props.step2.obtainingdate}
+            onChange={(e) => {
+              props.onChange(e.target.name, e.target.value);
+            }}
           ></Datepicker>
           <div className="borderbottom"></div>
         </Grid>
         <Grid item xs={12} sm={12} md={4} sx={{ marginTop: "9px" }}>
           <Datepicker
             label="Expiration Date"
-            name="expirationdate"
+            name="ExpirationDate"
             padding="20px 0 0 0px !important"
             width="100% !important"
-            value={expirationdate}
-            onChange={handleExpirationdate}
+            value={props.step2.ExpirationDate}
+            onChange={(e) => {
+              props.onChange(e.target.name, e.target.value);
+            }}
           ></Datepicker>
           <div className="borderbottom"></div>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <TextField
             label="Authorization Number"
-            name="authorizationNumber"
+            name="AuthorizationNumber"
             type="text"
             placeholder="000000000"
+            value={props.step2.AuthorizationNumber}
+            onChange={(e) => {
+              props.onChange(e.target.name, e.target.value);
+            }}
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <TextField
             label="SIRET Number"
-            name="siretNumber"
+            name="siretNo"
             type="text"
             placeholder="000000000"
+            value={props.step2.siretNo}
+            onChange={(e) => {
+              props.onChange(e.target.name, e.target.value);
+            }}
           ></TextField>
         </Grid>
       </Grid>
@@ -141,6 +158,8 @@ const Step2 = (props) => {
             label="drivingLicenseFront"
             type="file"
             name="licensefront"
+            value={props.step2.licensefront}
+            onChange={handleFileChange}
           />
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
@@ -149,6 +168,8 @@ const Step2 = (props) => {
             label="drivingLicenseBack"
             type="file"
             name="licenseback"
+            value={props.step2.licenseback}
+            onChange={handleFileChange}
           />
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
@@ -157,6 +178,8 @@ const Step2 = (props) => {
             label="KBL"
             name="kbls"
             type="file"
+            value={props.step2.kbls}
+            onChange={handleFileChange}
           />
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
@@ -165,6 +188,8 @@ const Step2 = (props) => {
             label="authFront"
             name="Authorizationfront"
             type="file"
+            value={props.step2.Authorizationfront}
+            onChange={handleFileChange}
           />
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
@@ -173,6 +198,8 @@ const Step2 = (props) => {
             label="authBack"
             name="Authorizationback"
             type="file"
+            value={props.step2.Authorizationback}
+            onChange={handleFileChange}
           />
         </Grid>
       </Grid>
