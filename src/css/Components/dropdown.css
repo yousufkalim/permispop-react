@@ -1,0 +1,45 @@
+.formControl {
+    width: 100% !important;
+  }
+
+  .inputLabelsDD {
+    font-family: Inter !important;
+    font-style: normal !important;
+    font-weight: 400 !important;
+    font-size: 24px !important;
+    line-height: 200.02%;
+    color: #363557 !important;
+  }
+  .input {
+    height: 70px !important;
+    border-bottom: none !important;
+    font-family: Inter !important;
+    font-style: normal !important;
+    font-size: 18px !important;
+    line-height: 151.02% !important;
+    color: #B9B7CC !important;
+    font-weight: 300 !important;
+  }
+
+  
+  @media (max-width:992px) {
+    .MuiInputLabel-formControl {
+        font-size: 20px !important;
+    }
+    .input{
+        font-size: 16px;
+    }
+   }
+   @media (max-width:600px) {
+    .MuiInputLabel-formControl {
+        width: 200% !important;
+        text-align: center !important;
+   }
+   .input{
+    font-size: 16px;
+}
+.MuiInput-input{
+    text-align: center !important;
+}
+
+   }
