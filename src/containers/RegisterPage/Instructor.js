@@ -15,6 +15,8 @@ import Typography from "@mui/material/Typography";
 import { makeStyles, withStyles } from "@mui/styles";
 import StepConnector from "@mui/material/StepConnector";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+import API from "../../api/index";
+import moment from "moment";
 
 const ColorlibConnector = withStyles({
   alternativeLabel: {
@@ -92,39 +94,44 @@ function ColorlibStepIcon(props) {
 }
 
 const Instructor = () => {
+  const [activeStep, setActiveStep] = React.useState(1);
+
   const [step1, setStep1] = React.useState({
-    firstname: "saad",
-    surname: "",
-    address: "",
-    dob: "",
-    pob: "",
-    zip: "",
-    gender: "",
-    email: "",
-    email2: "",
-    phone: "",
-    phone2: "",
-    city: "",
-    complement: "",
-    password: "",
-    confirmPassword: "",
-    noh: "",
-    neph: "",
-    language: "",
-    frontImg: "",
-    backImag: "",
-    profileImg: "",
-    otherPlatform: false,
-    lat: "",
-    lng: "",
+    Firstname: "",
+    Surname: "",
+    Address: {
+      Label: "",
+      Zip: "",
+      City: "",
+      Lat: "",
+      Lng: "",
+    },
+    Dob: new Date(),
+    Pob: "",
+    Gender: "",
+    Email: "",
+    Email2: "",
+    Phone: "",
+    Phone2: "",
+    Complement: "",
+    Password: "",
+    ConfirmPassword: "",
+    Noh: "",
+    Neph: "",
+    Language: "",
+    FrontImg: "",
+    BackImg: "",
+    ProfileImg: "",
   });
+
   const [step2, setStep2] = React.useState({
+    obtainingdate: new Date(),
+    validitiyDate: new Date(),
+    DateAuthorization: new Date(),
+    ExpirationDate: new Date(),
     licenceNo: "",
-    doOb: "",
-    validitiyDate: "",
-    DateAuthorization: "",
+    deliveryPlace: "",
     issuingAuthority: "",
-    ExpirationDate: "",
     AuthorizationNumber: "",
     siretNo: "",
     licensefront: "",
@@ -136,16 +143,16 @@ const Instructor = () => {
   const [step3, setStep3] = React.useState({
     companyInsurer: "",
     companyPoliceNum: "",
-    insuranceExpDate: "",
+    insuranceExpDate: new Date(),
     companyRC: "",
     vehicleInsurer: "",
     vehiclePoliceNum: "",
-    vehicleDoOb: "",
-    ExpDateinsurance: "",
+    vehicleDoOb: new Date(),
+    ExpDateinsurance: new Date(),
     RcPro: "",
   });
   const [step4, setStep4] = React.useState({
-    FirstRegistration: "",
+    FirstRegistration: new Date(),
     Brand: "",
     Model: "",
     NumPlate: "",
@@ -154,31 +161,209 @@ const Instructor = () => {
     Gearbox: "",
     Insurer: "",
     PoliceNum: "",
-    StartDate: "",
-    DateTechControl: "",
-    TechEndDate: "",
+    InsurerStartDate: new Date(),
+    InsurerEndtDate: new Date(),
+    TechStartDate: new Date(),
+    TechEndDate: new Date(),
     Photo: "",
-    RegCertificate: "",
+    RegCertificatefront: "",
+    RegCertificateback: "",
     GreenCard: "",
     Ct: "",
   });
 
   const steps = ["Identity", "Details", "Insurance", "Vehicle", "Done"];
 
-  const [activeStep, setActiveStep] = React.useState(1);
-
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
   };
-
   const handleBack = () => {
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
-
   const handleReset = () => {
     setActiveStep(1);
   };
-
+  const handleStep1 = (name, value) => {
+    setStep1({ ...step1, [name]: value });
+  };
+  const handleStep2 = (name, value) => {
+    setStep2({ ...step2, [name]: value });
+  };
+  const handleStep3 = (name, value) => {
+    setStep3({ ...step3, [name]: value });
+  };
+  const handleStep4 = (name, value) => {
+    setStep4({ ...step4, [name]: value });
+  };
+  const handleSubmit = async (e) => {
+    await API("post", "Personal", {
+      RegistrationDate: moment().format("DD/MM/YYYY"),
+      firstName: step1.Firstname,
+      surName: step1.Surname,
+      dob: step1.Dob,
+      placeOfBirth: step1.Pob,
+      gender: step1.Gender,
+      ContactEmail: step1.Email,
+      email: step1.Email,
+      secondEmail: step1.Email2,
+      phone: step1.Phone,
+      secondPhone: step1.Phone2,
+      complement: step1.Complement,
+      password: step1.Password,
+      noOfHrsWanted: step1.Noh,
+      neph: step1.Neph,
+      role: "Instructor",
+      highWayCodeDate: step1.date,
+      frontIdPhoto: step1.FrontImg,
+      backIdPhoto: step1.BackImg,
+      photo: step1.ProfileImg,
+      SpokenLanguage: step1.Language,
+      highWayCodeImage: step1.HighWayCodeImg,
+      address: step1.Address.Label,
+      zip: step1.Address.Zip,
+      city: step1.Address.City,
+      lat: step1.Address.Lat,
+      long: step1.Address.Lat,
+    })
+      .then(async (PersonalResponce) => {
+        console.log(
+          "🚀 ~ file: Instructor.js ~ line 229 ~ .then ~ PersonalResponce",
+          PersonalResponce
+        );
+        await API("post", "TechnicalControl", {
+          dateofTechnicalControl: step4.TechStartDate,
+          endData: new Date(),
+          endDateOfTechControl: step4.TechEndDate,
+          startDateOfTech: new Date(),
+          technicalControlImagePath: step4.Ct,
+        }).then(async (TechnicalControlResponce) => {
+          console.log(
+            "🚀 ~ file: Instructor.js ~ line 236 ~ .then ~ TechnicalControlResponce",
+            TechnicalControlResponce
+          );
+          await API("post", "VehicleInsurance", {
+            endDate: step3.ExpDateinsurance,
+            greenCardImagePath: step3.RcPro,
+            insurer: step3.vehicleInsurer,
+            policeNumber: step3.vehiclePoliceNum,
+            startDate: step3.vehicleDoOb,
+          }).then(async (VehicleInsuranceResponce) => {
+            console.log(
+              "🚀 ~ file: Instructor.js ~ line 243 ~ .then ~ VehicleInsuranceResponce",
+              VehicleInsuranceResponce
+            );
+            await API("post", "VehicleDetail", {
+              dateOfFirstRegistration: step4.FirstRegistration,
+              brand: step4.Brand,
+              model: step4.Model,
+              numberPlate: step4.NumPlate,
+              color: step4.Color,
+              energy: step4.Energy,
+              gearBox: step4.Gearbox,
+              folder: "",
+              technicalControlInfoID: "",
+              vehichleInsuranceInfoId: "",
+              vehicleRegistrationCertificatePhotoImagePath:
+                step4.RegCertificate,
+              vehicleRegistrationCertificatePhotoImagePathBack:
+                step4.RegCertificateback,
+              vehicleePhotosImagePath: step4.Photo,
+            }).then(async (VehicleDetailResponce) => {
+              console.log(
+                "🚀 ~ file: Instructor.js ~ line 260 ~ .then ~ VehicleDetailResponce",
+                VehicleDetailResponce
+              );
+              await API("post", "DrivingLisence", {
+                already_have_license: false,
+                deliveryPlace: step2.deliveryPlace,
+                drivingLisenceImagePath: step2.licensefront,
+                drivingLisenceImagePathBack: step2.licenseback,
+                licenses_for: "qwerty",
+                licenses_type: "qwerty",
+                lisenceNumber: step2.licenceNo,
+                obtainingDate: step2.obtainingdate,
+                otherLicense: "",
+                validityDate: step2.validitiyDate,
+              }).then(async (DrivingLisenceResponce) => {
+                console.log(
+                  "🚀 ~ file: Instructor.js ~ line 272 ~ .then ~ DrivingLisenceResponce",
+                  DrivingLisenceResponce
+                );
+                await API("post", "ExersiceAuthorization", {
+                  authorizationDate: step2.DateAuthorization,
+                  authorizationImagePath: step2.Authorizationfront,
+                  authorizationImagePathBack: step2.Authorizationback,
+                  authorizationNumber: step2.AuthorizationNumber,
+                  expirationDate: step2.ExpirationDate,
+                  issuingAuthority: step2.issuingAuthority,
+                }).then(async (ExersiceAuthorizationResponce) => {
+                  console.log(
+                    "🚀 ~ file: Instructor.js ~ line 280 ~ .then ~ ExersiceAuthorizationResponce",
+                    ExersiceAuthorizationResponce
+                  );
+                  await API("post", "Business", {
+                    siratImagePath: step2.kbls,
+                    siretNumber: step2.siretNo,
+                  }).then(async (BusinessResponce) => {
+                    console.log(
+                      "🚀 ~ file: Instructor.js ~ line 285 ~ .then ~ BusinessResponce",
+                      BusinessResponce
+                    );
+                    await API("post", "InsuranceCompany", {
+                      endDate: step3.insuranceExpDate,
+                      insuranceImagePath: step3.companyRC,
+                      insurer: step3.companyInsurer,
+                      policeNumber: step3.companyPoliceNum,
+                      startDate: new Date(),
+                    }).then(async (InsuranceCompanyResponce) => {
+                      console.log(
+                        "🚀 ~ file: Instructor.js ~ line 293 ~ .then ~ InsuranceCompanyResponce",
+                        InsuranceCompanyResponce
+                      );
+                      await API("post", "Profile", {
+                        businessInfoId: "",
+                        drivingLisenceInfoId: "",
+                        drivingSchoolApprovalInfoId: "",
+                        drivingSchoolIdentityInfoId: "",
+                        drivingSchoolInsuranceInfoId: "",
+                        drivingSchoolManagerInfoId: "",
+                        drivingSchoolVehiclesInfoId: "",
+                        exersiceAuthorizationInfoId: "",
+                        insuranceCompanyInfoId: "",
+                        lat: step1.Address.Lat,
+                        long: step1.Address.Lng,
+                        personalInfoId: "",
+                        role: "Instructor",
+                        status: "Active",
+                        technicalControlInfoId: "",
+                        vehicleDetailInfoId: "",
+                        vehicleInsuranceInfoid: "",
+                      }).then(async (ProfileResponce) => {
+                        console.log(
+                          "🚀 ~ file: Instructor.js ~ line 313 ~ .then ~ ProfileResponce",
+                          ProfileResponce
+                        );
+                        await API("post", "InstructorMeetupPoints", {
+                          ZipCode: step1.Address.Zip,
+                          city: step1.Address.City,
+                          instructorId: "",
+                          lat: step1.Address.Lat,
+                          long: step1.Address.Lng,
+                          meetup: step1.Address.Label,
+                        });
+                      });
+                    });
+                  });
+                });
+              });
+            });
+          });
+        });
+      })
+      .catch((error) => {
+        console.log(" ERROR -------------->", error);
+      });
+  };
   return (
     <React.Fragment>
       <RegisterHeader
@@ -271,13 +456,29 @@ const Instructor = () => {
                 <React.Fragment>
                   <Typography sx={{ mt: 2, mb: 1 }}>
                     {activeStep === 1 ? (
-                      <Step1 state={step1} setState={setStep1} />
+                      <Step1
+                        step1={step1}
+                        setStep1={setStep1}
+                        onChange={handleStep1}
+                      />
                     ) : activeStep === 2 ? (
-                      <Step2 state={step2} setState={setStep2} />
+                      <Step2
+                        step2={step2}
+                        setStep2={setStep2}
+                        onChange={handleStep2}
+                      />
                     ) : activeStep === 3 ? (
-                      <Step3 state={step3} setState={setStep3} />
+                      <Step3
+                        step3={step3}
+                        setStep3={setStep3}
+                        onChange={handleStep3}
+                      />
                     ) : activeStep === 4 ? (
-                      <Step4 state={step4} setState={setStep4} />
+                      <Step4
+                        step4={step4}
+                        setStep4={setStep4}
+                        onChange={handleStep4}
+                      />
                     ) : (
                       ""
                     )}
@@ -311,7 +512,11 @@ const Instructor = () => {
                       customWidth1="100%"
                       height="48px"
                       height2="48px"
-                      onClick={handleNext}
+                      onClick={
+                        activeStep === steps.length - 1
+                          ? handleSubmit
+                          : handleNext
+                      }
                     ></Button>
                   </Box>
                 </React.Fragment>

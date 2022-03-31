@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
@@ -9,48 +8,66 @@ import Divider from "../../Common/Divider";
 import FilePicker from "../../Common/FilePicker";
 import Checkbox from "@mui/material/Checkbox";
 import Datepicker from "../../Common/DatePicker";
-import MultiSelect from "../../Common/MultiSelect";
+import LanguageAutoComplete from "../../Common/LanguageAutoComplete";
+import axios from "axios";
+import AutoComplete from "../../Common/Autocomplete";
 import API from "../../../api/index";
 
 const Step1 = (props) => {
-  // const fun = {
-  //   state,
-  //   setState,
-  // };
-  // const _setState = (key, value) => {
-  //   const obj = {};
-  //   obj[key] = value;
-  //   setState({
-  //     ...state,
-  //     ...obj,
-  //   });
-  // };
+  const [checked, setisChecked] = useState(false);
+  const [addresses, setAddresses] = useState([]);
 
-  const handleChange = async (e) => {
-    console.log(e.target.files[0]);
+  const handleSelectAddress = (e) => {
+    props.onChange("Address", {
+      Label: e.label,
+      Zip: e.PostalCode,
+      City: e.city,
+      Lat: e.lat,
+      Lng: e.lng,
+    });
+  };
+  const handleAddress = async (e) => {
+    var config = {
+      method: "get",
+      url: `https://api-adresse.data.gouv.fr/search/?q=${e.target.value}&type=housenumber&autocomplete=1`,
+    };
+    await axios(config)
+      .then((res) => {
+        let addressToSet = [];
+        res.data.features.map((item) => {
+          addressToSet.push({
+            label: item.properties.label,
+            city: item.properties.city,
+            PostalCode: item.properties.postcode,
+            lat: item.properties.x,
+            lng: item.properties.y,
+          });
+        });
+        setAddresses(addressToSet);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
 
+  const handleFileChange = async (e) => {
     const formdata = new FormData();
-
-    if (e.target.name) formdata.append(`file`, e.target.files[0]);
-    // let res = await api("post", "/uploadImage", formdata);
-    const response = await API("post", "Personal/UploadProfileImage", formdata);
-    if (response) {
-      console.log("res", response);
-    }
+    formdata.append("file", e.target.files[0]);
+    await API("post", "Personal/UploadProfileImage", formdata).then((res) => {
+      if (e.target.name === "FrontImg") {
+        props.step1.FrontImg(res.data.message);
+      } else if (e.target.name === "BackImg") {
+        props.step1.BackImg(res.data.message);
+      } else if (e.target.name === "ProfileImg") {
+        props.step1.ProfileImg(res.data.message);
+      }
+    });
   };
-  function handleSelecetedTags(items) {
-    console.log(items);
-  }
-  const [dob, setDob] = useState();
-  const handleDob = (newValue) => {
-    setDob(newValue);
-  };
-  const [checked, setisChecked] = React.useState(false);
   return (
     <Box
       component="form"
       noValidate
-      onSubmit={handleChange}
+      // onSubmit={handleChange}
       sx={{
         mt: 3,
         marginTop: "70px",
@@ -60,33 +77,48 @@ const Step1 = (props) => {
         <Grid item xs={12} sm={12} md={4}>
           <TextField
             label="First Name"
-            name="firstname"
+            name="Firstname"
             type="text"
             placeholder="First name"
+            value={props.step1.Firstname}
+            onChange={(e) => {
+              props.onChange(e.target.name, e.target.value);
+            }}
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <TextField
             label="Surname"
-            name="surname"
+            name="Surname"
             placeholder="Surname"
             type="text"
+            value={props.step1.Surname}
+            onChange={(e) => {
+              props.onChange(e.target.name, e.target.value);
+            }}
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
-          <DropDown
+          <AutoComplete
+            name="Address"
             label="Address"
-            name="address"
+            value={props.step1.Address.Label}
+            options={addresses}
             placeholder="Address"
-            type="text"
-          ></DropDown>
+            onChangeAddress={(e) => {
+              handleAddress(e);
+            }}
+            onAddressSelect={(e) => handleSelectAddress(e)}
+          />
         </Grid>
         <Grid item xs={12} sm={12} md={4} sx={{ marginTop: "9px" }}>
           <Datepicker
             label="Date of birth"
-            name="dob"
-            value={dob}
-            onChange={handleDob}
+            name="Dob"
+            value={props.step1.Dob}
+            onChange={(e) => {
+              props.onChange(e.target.name, e.target.value);
+            }}
             padding="20px 0 0 0px !important"
             width="100% !important"
           ></Datepicker>
@@ -95,23 +127,31 @@ const Step1 = (props) => {
         <Grid item xs={12} sm={12} md={4}>
           <TextField
             label="Place of birth"
-            name="pob"
+            name="Pob"
             placeholder="Place of birth"
             type="text"
+            value={props.step1.Pob}
+            onChange={(e) => {
+              props.onChange(e.target.name, e.target.value);
+            }}
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <TextField
             label="Zip Code"
-            name="zip"
+            name="Zip"
             placeholder="Zip code"
-            type="number"
+            disabled={true}
+            value={props.step1.Address.Zip}
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <DropDown
             label="Gender"
-            name="gender"
+            placeholder="Male"
+            name="Gender"
+            value={props.step1.Gender}
+            onChange={(e) => props.onChange(e.target.name, e.target.value)}
             MenuItem={[
               { name: "Male", value: "Male" },
               { name: "Female", value: "Female" },
@@ -122,17 +162,25 @@ const Step1 = (props) => {
         <Grid item xs={12} sm={12} md={4}>
           <TextField
             label="Email"
-            name="email"
+            name="Email"
             placeholder="Email"
             type="email"
+            value={props.step1.Email}
+            onChange={(e) => {
+              props.onChange(e.target.name, e.target.value);
+            }}
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <TextField
             label="Second Email"
-            name="email2"
+            name="Email2"
             type="email"
             placeholder="Second email"
+            value={props.step1.Email2}
+            onChange={(e) => {
+              props.onChange(e.target.name, e.target.value);
+            }}
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
@@ -140,7 +188,11 @@ const Step1 = (props) => {
             label="Phone"
             type="text"
             placeholder="Phone"
-            name="phone"
+            name="Phone"
+            value={props.step1.Phone}
+            onChange={(e) => {
+              props.onChange(e.target.name, e.target.value);
+            }}
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
@@ -148,66 +200,91 @@ const Step1 = (props) => {
             label="Second Phone"
             type="text"
             placeholder="Second phone"
-            name="phone2"
+            name="Phone2"
+            value={props.step1.Phone2}
+            onChange={(e) => {
+              props.onChange(e.target.name, e.target.value);
+            }}
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <TextField
             label="City"
-            name="city"
+            name="City"
             placeholder="City"
-            type="text"
+            disabled={true}
+            value={props.step1.Address.City}
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <TextField
             label="Complement"
             type="text"
-            name="coplement"
+            name="Coplement"
             placeholder="Complement"
+            value={props.step1.Coplement}
+            onChange={(e) => {
+              props.onChange(e.target.name, e.target.value);
+            }}
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <TextField
             label="Password"
             type="password"
-            name="password"
+            name="Password"
             placeholder="Password"
+            value={props.step1.Password}
+            onChange={(e) => {
+              props.onChange(e.target.name, e.target.value);
+            }}
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <TextField
             label="Confirm Password"
             type="password"
-            name="confirmpassword"
+            name="ConfirmPassword"
             placeholder="Confirm password"
+            value={props.step1.ConfirmPassword}
+            onChange={(e) => {
+              props.onChange(e.target.name, e.target.value);
+            }}
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <TextField
             label="Number of hours"
             type="number"
-            name="noh"
+            name="Noh"
             placeholder="Number of hours"
+            value={props.step1.Noh}
+            onChange={(e) => {
+              props.onChange(e.target.name, e.target.value);
+            }}
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <TextField
             label="NEPH Number"
-            name="neph"
+            name="Neph"
             placeholder="NEPH number"
             type="text"
+            value={props.step1.Neph}
+            onChange={(e) => {
+              props.onChange(e.target.name, e.target.value);
+            }}
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
-          <MultiSelect
-            selectedTags={handleSelecetedTags}
-            variant="standard"
-            id="tags"
-            name="tags"
-            placeholder="add Tags"
-            text="Spoken Languages"
-          ></MultiSelect>
+          {/* <LanguageAutoComplete
+            name="language"
+            label="Spoken Language"
+            value={props.step1.language}
+            options={props.step1.languages}
+            placeholder="Language"
+            setVal={props.step1.language}
+          /> */}
         </Grid>
       </Grid>
 
@@ -218,24 +295,30 @@ const Step1 = (props) => {
           <FilePicker
             title="Upload front of your ID Card/Passport"
             label="front"
-            name="frontIdPhoto"
+            name="FrontImg"
             type="file"
+            value={props.step1.FrontImg}
+            onChange={handleFileChange}
           />
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <FilePicker
             title="Upload back of your ID Card/Passport"
             label="back"
-            name="backIdPhoto"
+            name="BackImg"
             type="file"
+            value={props.step1.BackImag}
+            onChange={handleFileChange}
           />
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <FilePicker
             title="Upload your profile picture"
             label="profile"
-            name="photo"
+            name="ProfileImg"
             type="file"
+            value={props.step1.ProfileImg}
+            onChange={handleFileChange}
           />
         </Grid>
       </Grid>
@@ -259,6 +342,10 @@ const Step1 = (props) => {
               type="plateforms"
               name="plateforms"
               placeholder="Seperated by"
+              value={props.step1.Firstname}
+              onChange={(e) => {
+                props.onChange(e.target.name, e.target.value);
+              }}
             ></TextField>
           </Grid>
           <Grid item xs={12} sm={12} md={6}>
@@ -267,6 +354,10 @@ const Step1 = (props) => {
               name="Time"
               placeholder="How much time?"
               type="text"
+              value={props.step1.Firstname}
+              onChange={(e) => {
+                props.onChange(e.target.name, e.target.value);
+              }}
             ></TextField>
           </Grid>
         </Grid>
