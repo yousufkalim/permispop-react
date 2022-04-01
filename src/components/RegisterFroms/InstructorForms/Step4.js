@@ -13,9 +13,10 @@ import MakesExc from "../../../assets/makesModels/MakesExc.xml";
 import Models from "../../../assets/makesModels/Models.xml";
 
 const Step4 = (props) => {
+  var XMLParser = require("react-xml-parser");
   const [allMakes, setAllMakes] = useState([]);
-  const [allMakes, setAllMakes] = useState([]);
-  const [allMakes, setAllMakes] = useState([]);
+  const [ExcludingMakes, setAExcludingMakes] = useState([]);
+  const [AllModels, setAllModels] = useState([]);
 
   const handleFileChange = async (e) => {
     const formdata = new FormData();
