@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
@@ -16,6 +16,7 @@ import API from "../../../api/index";
 const Step1 = (props) => {
   const [checked, setisChecked] = useState(false);
   const [addresses, setAddresses] = useState([]);
+  const [languages, setLanguages] = useState([]);
 
   const handleSelectAddress = (e) => {
     props.onChange("Address", {
@@ -49,7 +50,6 @@ const Step1 = (props) => {
         console.log(error);
       });
   };
-
   const handleFileChange = async (e) => {
     const formdata = new FormData();
     formdata.append("file", e.target.files[0]);
@@ -63,6 +63,32 @@ const Step1 = (props) => {
       }
     });
   };
+  const handleLanguage = async (e) => {
+    var config = {
+      method: "get",
+      url: `https://parseapi.back4app.com/classes/Language?limit=300&keys=name`,
+      headers: {
+        "X-Parse-Application-Id": "mxsebv4KoWIGkRntXwyzg6c6DhKWQuit8Ry9sHja", // This is the fake app's application id
+        "X-Parse-Master-Key": "TpO0j3lG2PmEVMXlKYQACoOXKQrL3lwM0HwR9dbH", // This is the fake app's readonly master key
+      },
+    };
+    await axios(config)
+      .then((res) => {
+        let languageToSet = [];
+        res.data.results.map((item) => {
+          languageToSet.push({
+            name: item.name,
+          });
+        });
+        setLanguages(languageToSet);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
+  useEffect(() => {
+    handleLanguage();
+  }, []);
   return (
     <Box
       component="form"
@@ -277,14 +303,14 @@ const Step1 = (props) => {
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
-          {/* <LanguageAutoComplete
-            name="language"
+          <LanguageAutoComplete
+            name="Language"
             label="Spoken Language"
-            value={props.step1.language}
-            options={props.step1.languages}
+            value={props.step1.Language}
+            options={languages}
             placeholder="Language"
-            setVal={props.step1.language}
-          /> */}
+            setVal={props.onChange}
+          />
         </Grid>
       </Grid>
 
