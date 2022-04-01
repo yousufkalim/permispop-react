@@ -46,7 +46,6 @@ const StudentForm = (props) => {
     languages: [],
     Address: { zip: "", label: "", city: "", lat: "", lng: "" },
   });
-  console.log("STUDENT------------>", student);
   const handleStudent = (name, value) => {
     setStudent({ ...student, [name]: value });
   };
