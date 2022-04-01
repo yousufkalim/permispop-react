@@ -76,7 +76,7 @@ const index = (props) => {
               component={RentalCarRegister}
             />
             <Route exact path="/register" component={StudentRegister} />
-            {/* <Redirect from="/" to="/" /> */}
+            <Redirect from="/" to="/" />
           </>
         )}
 
