@@ -116,7 +116,7 @@ function ResponsiveDrawer(props) {
   );
 
   const HandleLogout = () => {
-    window.location.reload();
+    window.location.reload(false);
     localStorage.removeItem("token");
     localStorage.removeItem("user");
   };
