@@ -3,7 +3,6 @@ import axios from "axios";
 import { toast } from "react-toastify";
 
 const api = async (method = "get", uri, body) => {
-  // console.log("test", method, uri, body);
   // API Call
   const url = process.env.REACT_APP_BASE_URL + uri;
 
