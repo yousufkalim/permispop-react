@@ -118,7 +118,7 @@ const Instructor = () => {
     ConfirmPassword: "",
     Noh: "",
     Neph: "",
-    Language: "",
+    Language: [],
     FrontImg: "",
     BackImg: "",
     ProfileImg: "",
@@ -226,10 +226,6 @@ const Instructor = () => {
       long: step1.Address.Lat,
     })
       .then(async (PersonalResponce) => {
-        console.log(
-          "🚀 ~ file: Instructor.js ~ line 229 ~ .then ~ PersonalResponce",
-          PersonalResponce
-        );
         await API("post", "TechnicalControl", {
           dateofTechnicalControl: step4.TechStartDate,
           endData: new Date(),
@@ -237,10 +233,6 @@ const Instructor = () => {
           startDateOfTech: new Date(),
           technicalControlImagePath: step4.Ct,
         }).then(async (TechnicalControlResponce) => {
-          console.log(
-            "🚀 ~ file: Instructor.js ~ line 236 ~ .then ~ TechnicalControlResponce",
-            TechnicalControlResponce
-          );
           await API("post", "VehicleInsurance", {
             endDate: step3.ExpDateinsurance,
             greenCardImagePath: step3.RcPro,
@@ -248,10 +240,6 @@ const Instructor = () => {
             policeNumber: step3.vehiclePoliceNum,
             startDate: step3.vehicleDoOb,
           }).then(async (VehicleInsuranceResponce) => {
-            console.log(
-              "🚀 ~ file: Instructor.js ~ line 243 ~ .then ~ VehicleInsuranceResponce",
-              VehicleInsuranceResponce
-            );
             await API("post", "VehicleDetail", {
               dateOfFirstRegistration: step4.FirstRegistration,
               brand: step4.Brand,
@@ -260,19 +248,15 @@ const Instructor = () => {
               color: step4.Color,
               energy: step4.Energy,
               gearBox: step4.Gearbox,
-              folder: "",
-              technicalControlInfoID: "",
-              vehichleInsuranceInfoId: "",
+
+              technicalControlInfoID: TechnicalControlResponce.data.data.id,
+              vehichleInsuranceInfoId: VehicleInsuranceResponce.data.data.id,
               vehicleRegistrationCertificatePhotoImagePath:
                 step4.RegCertificate,
               vehicleRegistrationCertificatePhotoImagePathBack:
                 step4.RegCertificateback,
               vehicleePhotosImagePath: step4.Photo,
             }).then(async (VehicleDetailResponce) => {
-              console.log(
-                "🚀 ~ file: Instructor.js ~ line 260 ~ .then ~ VehicleDetailResponce",
-                VehicleDetailResponce
-              );
               await API("post", "DrivingLisence", {
                 already_have_license: false,
                 deliveryPlace: step2.deliveryPlace,
@@ -285,10 +269,6 @@ const Instructor = () => {
                 otherLicense: "",
                 validityDate: step2.validitiyDate,
               }).then(async (DrivingLisenceResponce) => {
-                console.log(
-                  "🚀 ~ file: Instructor.js ~ line 272 ~ .then ~ DrivingLisenceResponce",
-                  DrivingLisenceResponce
-                );
                 await API("post", "ExersiceAuthorization", {
                   authorizationDate: step2.DateAuthorization,
                   authorizationImagePath: step2.Authorizationfront,
@@ -297,18 +277,10 @@ const Instructor = () => {
                   expirationDate: step2.ExpirationDate,
                   issuingAuthority: step2.issuingAuthority,
                 }).then(async (ExersiceAuthorizationResponce) => {
-                  console.log(
-                    "🚀 ~ file: Instructor.js ~ line 280 ~ .then ~ ExersiceAuthorizationResponce",
-                    ExersiceAuthorizationResponce
-                  );
                   await API("post", "Business", {
                     siratImagePath: step2.kbls,
                     siretNumber: step2.siretNo,
                   }).then(async (BusinessResponce) => {
-                    console.log(
-                      "🚀 ~ file: Instructor.js ~ line 285 ~ .then ~ BusinessResponce",
-                      BusinessResponce
-                    );
                     await API("post", "InsuranceCompany", {
                       endDate: step3.insuranceExpDate,
                       insuranceImagePath: step3.companyRC,
@@ -316,37 +288,30 @@ const Instructor = () => {
                       policeNumber: step3.companyPoliceNum,
                       startDate: new Date(),
                     }).then(async (InsuranceCompanyResponce) => {
-                      console.log(
-                        "🚀 ~ file: Instructor.js ~ line 293 ~ .then ~ InsuranceCompanyResponce",
-                        InsuranceCompanyResponce
-                      );
                       await API("post", "Profile", {
-                        businessInfoId: "",
-                        drivingLisenceInfoId: "",
-                        drivingSchoolApprovalInfoId: "",
-                        drivingSchoolIdentityInfoId: "",
-                        drivingSchoolInsuranceInfoId: "",
-                        drivingSchoolManagerInfoId: "",
-                        drivingSchoolVehiclesInfoId: "",
-                        exersiceAuthorizationInfoId: "",
-                        insuranceCompanyInfoId: "",
+                        businessInfoId: BusinessResponce.data.data.id,
+                        drivingLisenceInfoId:
+                          DrivingLisenceResponce.data.data.id,
+                        exersiceAuthorizationInfoId:
+                          ExersiceAuthorizationResponce.data.data.id,
+                        insuranceCompanyInfoId:
+                          InsuranceCompanyResponce.data.data.id,
                         lat: step1.Address.Lat,
                         long: step1.Address.Lng,
-                        personalInfoId: "",
+                        personalInfoId: PersonalResponce.data.data.id,
                         role: "Instructor",
                         status: "Active",
-                        technicalControlInfoId: "",
-                        vehicleDetailInfoId: "",
-                        vehicleInsuranceInfoid: "",
+                        technicalControlInfoId:
+                          TechnicalControlResponce.data.data.id,
+                        vehicleDetailInfoId:
+                          VehicleInsuranceResponce.data.data.id,
+                        vehicleInsuranceInfoid:
+                          VehicleInsuranceResponce.data.data.id,
                       }).then(async (ProfileResponce) => {
-                        console.log(
-                          "🚀 ~ file: Instructor.js ~ line 313 ~ .then ~ ProfileResponce",
-                          ProfileResponce
-                        );
                         await API("post", "InstructorMeetupPoints", {
                           ZipCode: step1.Address.Zip,
                           city: step1.Address.City,
-                          instructorId: "",
+                          instructorId: PersonalResponce.data.data.id,
                           lat: step1.Address.Lat,
                           long: step1.Address.Lng,
                           meetup: step1.Address.Label,

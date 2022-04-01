@@ -13,6 +13,11 @@ import MakesExc from "../../../assets/makesModels/MakesExc.xml";
 import Models from "../../../assets/makesModels/Models.xml";
 
 const Step4 = (props) => {
+  var XMLParser = require("react-xml-parser");
+  const [allMakes, setAllMakes] = useState([]);
+  const [ExcludingMakes, setAExcludingMakes] = useState([]);
+  const [AllModels, setAllModels] = useState([]);
+
   const handleFileChange = async (e) => {
     const formdata = new FormData();
     formdata.append("file", e.target.files[0]);
@@ -27,6 +32,84 @@ const Step4 = (props) => {
         props.step1.Ct(res.data.message);
       }
     });
+  };
+  const getAllMakes = () => {
+    fetch(Makes)
+      .then((res) => res.text())
+      .then((data) => {
+        var xml = new XMLParser().parseFromString(data);
+        const response = xml.children;
+        let allArr = [];
+        response.map((item) => {
+          const id = item.children[0].value;
+          const name = item.children[1].value;
+          const url = item.children[2].value;
+          allArr.push({
+            id: id,
+            name: name,
+            url: url,
+          });
+        });
+        this.getExcludingMakes(allArr);
+        // console.log(“final array “, allArr);
+      })
+      .catch((err) => console.log(err));
+  };
+  const getExcludingMakes = (allMakes) => {
+    fetch(MakesExc)
+      .then((res) => res.text())
+      .then((data) => {
+        var xml = new XMLParser().parseFromString(data);
+        const response = xml.children;
+        let excArr = [];
+        response.map((item) => {
+          const id = item.children[0].value;
+          const name = item.children[1].value;
+          const url = item.children[2].value;
+          excArr.push({
+            id: id,
+            name: name,
+            url: url,
+          });
+        });
+        let result = allMakes.filter(
+          (o1) => !excArr.some((o2) => o1.id === o2.id)
+        );
+        // console.log(“filtered array “, filteredArray);
+        this.setState({ makes: result });
+      })
+      .catch((err) => console.log(err));
+  };
+  const getAllModels = () => {
+    fetch(Models)
+      .then((res) => res.text())
+      .then((data) => {
+        var xml = new XMLParser().parseFromString(data);
+        const response = xml.children;
+        let allArr = [];
+        response.map((childs) => {
+          childs.children.map((item) => {
+            const modelId = item.children[0].value;
+            const modelName = item.children[1].value;
+            const year = item.children[2].value;
+            const makesId = item.children[3].value;
+            const makesName = item.children[4].value;
+            allArr.push({
+              modelId,
+              modelName,
+              year,
+              makesId,
+              makesName,
+            });
+          });
+        });
+        console.log("final Model array", allArr);
+        this.setState({ allModels: allArr, loading: false });
+      })
+      .catch((err) => {
+        console.log(err);
+        this.setState({ loading: false });
+      });
   };
   return (
     <Box
@@ -111,9 +194,8 @@ const Step4 = (props) => {
           <DropDown
             label="GearBox"
             name="Gearbox"
-            value={props.step4.Gearbox}
             onChange={(e) => {
-              props.onChange(e.target.name, e.target.value);
+              props.onChange("Gearbox", e.target.value);
             }}
             MenuItem={[
               { name: "Manual", value: "Manual" },
