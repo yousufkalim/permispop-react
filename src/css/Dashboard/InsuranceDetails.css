@@ -7,15 +7,14 @@
 .insurancetypo {
   font-size: larger;
 }
-.insuranceBtn{
+.insuranceBtn {
   background-color: #149e7a !important;
   height: 30px !important;
   text-align: center !important;
- padding-top:  10px !important;
- margin-top: 40px !important;
- margin-right: 45px !important;
+  padding-top: 10px !important;
+  margin-top: 40px !important;
+  margin-right: 45px !important;
 }
-
 
 .vehicleGrid {
   margin: 10px;
@@ -23,52 +22,51 @@
   background-color: white;
   height: fit-content;
   padding-bottom: 15px;
-  box-shadow: .1px .1px 10px 0.1px rgb(236, 236, 236);
+  box-shadow: 0.1px 0.1px 10px 0.1px rgb(236, 236, 236);
 }
 
-.GridTitle{
-  color: #2A3235 !important;
+.GridTitle {
+  color: #2a3235 !important;
   font-weight: 500 !important;
 }
 
-.textdiv{
+.textdiv {
   display: flex;
   flex-flow: column !important;
 
   /* background-color: yellow !important; */
 }
-.textdiv label{
-  color: #2A3235;
+.textdiv label {
+  color: #2a3235;
   font-weight: 600;
-  margin: 0px 25px 0px 25px ;
-  padding-top: 25px;    
-  
+  margin: 0px 25px 0px 25px;
+  padding-top: 25px;
 }
-.textdiv input{   
+.textdiv input {
   background-color: rgb(243, 242, 242);
   border: none;
   height: 40px;
   font-size: 18px;
-  color: rgb(238, 235, 235) !important;
+  color: gray !important;
   padding-left: 5%;
-  margin: 0px 25px 0px 25px ;
+  margin: 0px 25px 0px 25px;
 }
 ::placeholder {
-  color: #A8AFB3;
+  color: #a8afb3;
 }
 @media only screen and (max-width: 736px) {
-  .insuranceBtn{
-   margin: 10px !important;
+  .insuranceBtn {
+    margin: 10px !important;
   }
 }
 @media only screen and (max-width: 600px) {
-  .insuranceBtn{
-   margin-top: 40px !important;
+  .insuranceBtn {
+    margin-top: 40px !important;
   }
 }
 @media only screen and (max-width: 457px) {
-  .insuranceBtn{
-   margin: 10px !important;
+  .insuranceBtn {
+    margin: 10px !important;
   }
 }
 

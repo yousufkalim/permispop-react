@@ -32,6 +32,7 @@ const Profile = (props) => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [user, setUser] = useState();
   const [ratings, setRatings] = useState("");
+
   const [openmodal, setOpenModal] = useState(false);
   const [disabled, setDisabled] = useState(false);
 
@@ -51,15 +52,6 @@ const Profile = (props) => {
 
   const changePassword = async () => {
     setDisabled(true);
-    console.log(
-      "test",
-      newPassword,
-      confirmPassword,
-      oldPassword,
-      newPassword != "",
-      confirmPassword != "",
-      oldPassword != ""
-    );
     if (newPassword != "" && confirmPassword != "" && oldPassword != "") {
       if (newPassword === confirmPassword) {
         await API(
