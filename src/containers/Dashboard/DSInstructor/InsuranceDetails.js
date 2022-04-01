@@ -7,7 +7,6 @@ import API from "../../../api";
 import { async } from "validate.js";
 
 const InsuranceDetails = () => {
-  const [Values, setValues] = useState();
   const [businesstore, setBusinesStore] = useState({});
   const [vehicledetail, setVehicleDetail] = useState({});
   const [technicalcontrol, setTechnicalControl] = useState({});
@@ -93,7 +92,7 @@ const InsuranceDetails = () => {
             <input
               className="placeH"
               placeholder="Sirel Number"
-              value={businesstore.siretNumber}
+              value={businesstore.siretNumber ? businesstore.siretNumber : ""}
             />
           </Grid>
         </Grid>
@@ -113,14 +112,22 @@ const InsuranceDetails = () => {
               <label>Start Date</label>
               <input
                 placeholder="05/05/2012"
-                value={technicalcontrol.startDateOfTech}
+                value={
+                  technicalcontrol.startDateOfTech
+                    ? technicalcontrol.startDateOfTech
+                    : ""
+                }
               />
             </Grid>
             <Grid item md={12} className="textdiv">
               <label>End Date</label>
               <input
                 placeholder="05/05/2012"
-                value={technicalcontrol.endDateOfTechControl}
+                value={
+                  technicalcontrol.endDateOfTechControl
+                    ? technicalcontrol.endDateOfTechControl
+                    : ""
+                }
               />
             </Grid>
           </Grid>
@@ -141,24 +148,40 @@ const InsuranceDetails = () => {
             <input
               className="placeH"
               placeholder="05/07/2021"
-              value={vehicledetail.dateOfFirstRegistration}
+              value={
+                vehicledetail.dateOfFirstRegistration
+                  ? vehicledetail.dateOfFirstRegistration
+                  : ""
+              }
             />
           </Grid>
           <Grid item xs={12} md={12} className="textdiv">
             <label>Brand</label>
-            <input placeholder="BMW" value={vehicledetail.brand} />
+            <input
+              placeholder="BMW"
+              value={vehicledetail.brand ? vehicledetail.brand : ""}
+            />
           </Grid>
           <Grid item xs={12} md={12} className="textdiv">
             <label>Colour</label>
-            <input placeholder="Red" value={vehicledetail.color} />
+            <input
+              placeholder="Red"
+              value={vehicledetail.color ? vehicledetail.color : ""}
+            />
           </Grid>
           <Grid item xs={12} md={12} className="textdiv">
             <label>Model</label>
-            <input placeholder="X6 M Competition" value={vehicledetail.model} />
+            <input
+              placeholder="X6 M Competition"
+              value={vehicledetail.model ? vehicledetail.model : ""}
+            />
           </Grid>
           <Grid item xs={12} md={12} className="textdiv">
             <label>Gearbox</label>
-            <input placeholder="Manual" value={vehicledetail.gearBox} />
+            <input
+              placeholder="Manual"
+              value={vehicledetail.gearBox ? vehicledetail.gearBox : ""}
+            />
           </Grid>
         </Grid>
 
@@ -174,22 +197,37 @@ const InsuranceDetails = () => {
           <Divider />
           <Grid item md={12} className="textdiv">
             <label>Insurer</label>
-            <input placeholder="Honda" value={vehicleInsurance.insurer} />
+            <input
+              placeholder="Honda"
+              value={vehicleInsurance.insurer ? vehicleInsurance.insurer : ""}
+            />
           </Grid>
           <Grid item md={12} className="textdiv">
             <label>Police Number</label>
-            <input placeholder="15" value={vehicleInsurance.policeNumber} />
+            <input
+              placeholder="15"
+              value={
+                vehicleInsurance.policeNumber
+                  ? vehicleInsurance.policeNumber
+                  : ""
+              }
+            />
           </Grid>
           <Grid item md={12} className="textdiv">
             <label>Start Date</label>
             <input
               placeholder="05/02/2021"
-              value={vehicleInsurance.startDate}
+              value={
+                vehicleInsurance.startDate ? vehicleInsurance.startDate : ""
+              }
             />
           </Grid>
           <Grid item md={12} className="textdiv">
             <label>End Date</label>
-            <input placeholder="05/05/2012" value={vehicleInsurance.endDate} />
+            <input
+              placeholder="05/05/2012"
+              value={vehicleInsurance.endDate ? vehicleInsurance.endDate : ""}
+            />
           </Grid>
         </Grid>
       </Grid>
