@@ -76,7 +76,7 @@ const ProfileDetails = (props) => {
               "aria-labelledby": "basic-button",
             }}
           >
-            {props.languages.length > 0 ? (
+            {props.languages && props.languages.length > 0 ? (
               props.languages.map((language) => {
                 return <MenuItem onClick={handleClose}> {language}</MenuItem>;
               })
