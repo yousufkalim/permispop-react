@@ -139,7 +139,7 @@ const Step4 = (props) => {
         <Grid item xs={12} sm={12} md={4}>
           <DropDown
             label="Brand"
-            placeholder="Smith"
+            placeholder="Select Option"
             value={props.step4.Brand}
             onChange={(e) => getExcludingMakes(e)}
             MenuItem={allMakes}
@@ -149,7 +149,7 @@ const Step4 = (props) => {
           <DropDown
             label="Model"
             name="Model"
-            placeholder="102 Street, building 02, NY"
+            placeholder="Select Option"
             value={props.step4.Model}
             onChange={(e) => {
               props.onChange("Model", e.target.value);
