@@ -82,7 +82,7 @@ const InsuranceDetails = () => {
     );
   };
   return (
-    <React.Fragment>
+    <>
       <Grid container spacing={1} className="insurancediv">
         <Typography
           fontWeight={600}
@@ -368,7 +368,7 @@ const InsuranceDetails = () => {
           </Grid>
         </Grid>
       </Grid>
-    </React.Fragment>
+    </>
   );
 };
 
