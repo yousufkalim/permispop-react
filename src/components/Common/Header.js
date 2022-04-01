@@ -26,6 +26,7 @@ import { Grid } from "@mui/material";
 import API from "../../api/index";
 import jwt_decode from "jwt-decode";
 import { Base64 } from "js-base64";
+import { toast } from "react-toastify";
 
 export default function Header(props) {
   const [Loginopen, setLoginOpen] = React.useState(false);
@@ -49,36 +50,44 @@ export default function Header(props) {
   const handleLoginOpen = () => setLoginOpen(true);
   const handleLoginClose = () => setLoginOpen(false);
 
-let data = {
-  Email: email,
-  Password: values.password,
-};
+  let data = {
+    Email: email,
+    Password: values.password,
+  };
 
-const handleLogin = async () => {
-  const response = await API("post", "Personal/Login", data);
-  localStorage.setItem("token", response.data.data);
+  const handleLogin = async () => {
+    const response = await API("post", "Personal/Login", data)
+      .then(async (response) => {
+        if (response.data.data !== null) {
+          localStorage.setItem("token", response.data.data);
+          if (response.data.data) {
+            var decoded = jwt_decode(response.data.data);
+            let userdata = JSON.parse(Base64.decode(decoded.userData));
+            setRole(userdata.role);
 
-  if (response.data.data) {
-    var decoded = jwt_decode(response.data.data);
-    let userdata = JSON.parse(Base64.decode(decoded.userData));
-    setRole(userdata.role);
-
-    if (userdata.role === "DSInstructor") {
-      history.push("/DsInstructor/myprofile");
-    } else if (userdata.role === "CarRentalAgent") {
-      history.push("/CarRental/myprofile");
-    } else if (userdata.role === "Instructor") {
-      history.push("/Instructor/myprofile");
-    } else if (userdata.role === "Student") {
-      history.push("student/myProfille");
-    } else if (userdata.role === "DrivingSchool") {
-      history.push("/DrivingSchool/myprofile");
-    } else {
-      console.log("Something went wrong");
-    }
-  }
-  window.location.reload(false);
-};
+            if (userdata.role === "DSInstructor") {
+              history.push("/DsInstructor/myprofile");
+            } else if (userdata.role === "CarRentalAgent") {
+              history.push("/CarRental/myprofile");
+            } else if (userdata.role === "Instructor") {
+              history.push("/Instructor/myprofile");
+            } else if (userdata.role === "Student") {
+              history.push("student/myProfille");
+            } else if (userdata.role === "DrivingSchool") {
+              history.push("/DrivingSchool/myprofile");
+            }
+          }
+          window.location.reload(false);
+        } else {
+          // localStorage.removeItem("token");
+          toast.error("Email or Password is not correct");
+        }
+      })
+      .catch((error) => {
+        console.log("------->", error);
+        toast.error("Something Went Wrong");
+      });
+  };
   const handleChange = (prop) => (event) => {
     setValues({ ...values, [prop]: event.target.value });
   };
