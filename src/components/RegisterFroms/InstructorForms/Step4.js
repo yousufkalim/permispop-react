@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
@@ -11,12 +11,18 @@ import API from "../../../api/index";
 import Makes from "../../../assets/makesModels/Makes.xml";
 import MakesExc from "../../../assets/makesModels/MakesExc.xml";
 import Models from "../../../assets/makesModels/Models.xml";
+import axios from "axios";
 
 const Step4 = (props) => {
   var XMLParser = require("react-xml-parser");
   const [allMakes, setAllMakes] = useState([]);
-  const [ExcludingMakes, setAExcludingMakes] = useState([]);
-  const [AllModels, setAllModels] = useState([]);
+  const [excludingMakes, setExcludingMakes] = useState([]);
+  const [allModels, setAllModels] = useState([]);
+
+  useEffect(() => {
+    getAllMakes();
+    getAllModels();
+  }, []);
 
   const handleFileChange = async (e) => {
     const formdata = new FormData();
@@ -33,84 +39,79 @@ const Step4 = (props) => {
       }
     });
   };
+
   const getAllMakes = () => {
-    fetch(Makes)
-      .then((res) => res.text())
-      .then((data) => {
-        var xml = new XMLParser().parseFromString(data);
-        const response = xml.children;
+    axios
+      .get(Makes, {
+        "Content-Type": "application/xml; charset=utf-8",
+      })
+      .then((response) => {
+        var xml = new XMLParser().parseFromString(response.data);
+
+        const data = xml.children;
         let allArr = [];
-        response.map((item) => {
-          const id = item.children[0].value;
-          const name = item.children[1].value;
+
+        data.map((item) => {
+          const Id = item.children[0].value;
+          const value = item.children[1].value;
           const url = item.children[2].value;
           allArr.push({
-            id: id,
-            name: name,
+            name: value,
+            value: value,
             url: url,
           });
         });
-        this.getExcludingMakes(allArr);
-        // console.log(“final array “, allArr);
+        setAllMakes(allArr);
       })
-      .catch((err) => console.log(err));
+      .catch(function (error) {
+        console.log(error);
+      });
   };
-  const getExcludingMakes = (allMakes) => {
-    fetch(MakesExc)
-      .then((res) => res.text())
-      .then((data) => {
-        var xml = new XMLParser().parseFromString(data);
-        const response = xml.children;
-        let excArr = [];
-        response.map((item) => {
-          const id = item.children[0].value;
-          const name = item.children[1].value;
-          const url = item.children[2].value;
-          excArr.push({
-            id: id,
-            name: name,
-            url: url,
-          });
-        });
-        let result = allMakes.filter(
-          (o1) => !excArr.some((o2) => o1.id === o2.id)
-        );
-        // console.log(“filtered array “, filteredArray);
-        this.setState({ makes: result });
-      })
-      .catch((err) => console.log(err));
-  };
+
   const getAllModels = () => {
-    fetch(Models)
-      .then((res) => res.text())
-      .then((data) => {
-        var xml = new XMLParser().parseFromString(data);
-        const response = xml.children;
+    axios
+      .get(Models, {
+        "Content-Type": "application/xml; charset=utf-8",
+      })
+      .then((response) => {
+        var xml = new XMLParser().parseFromString(response.data);
+
+        const data = xml.children;
         let allArr = [];
-        response.map((childs) => {
+
+        data.map((childs) => {
           childs.children.map((item) => {
-            const modelId = item.children[0].value;
-            const modelName = item.children[1].value;
+            const value = item.children[1].value;
+            const name = item.children[1].value;
             const year = item.children[2].value;
             const makesId = item.children[3].value;
             const makesName = item.children[4].value;
             allArr.push({
-              modelId,
-              modelName,
+              value,
+              name,
               year,
               makesId,
               makesName,
             });
           });
         });
-        console.log("final Model array", allArr);
-        this.setState({ allModels: allArr, loading: false });
+        setAllModels({ allModels: allArr, loading: false });
       })
-      .catch((err) => {
-        console.log(err);
-        this.setState({ loading: false });
+      .catch(function (error) {
+        console.log(error);
       });
   };
+
+  const getExcludingMakes = (e) => {
+    props.onChange("Brand", e.target.value);
+    let result = allModels.allModels.filter((modal) => {
+      if (modal.makesName === e.target.value) {
+        return modal;
+      }
+    });
+    setExcludingMakes(result);
+  };
+
   return (
     <Box
       component="form"
@@ -138,12 +139,10 @@ const Step4 = (props) => {
         <Grid item xs={12} sm={12} md={4}>
           <DropDown
             label="Brand"
-            name="Brand"
             placeholder="Smith"
             value={props.step4.Brand}
-            onChange={(e) => {
-              props.onChange(e.target.name, e.target.value);
-            }}
+            onChange={(e) => getExcludingMakes(e)}
+            MenuItem={allMakes}
           ></DropDown>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
@@ -153,8 +152,9 @@ const Step4 = (props) => {
             placeholder="102 Street, building 02, NY"
             value={props.step4.Model}
             onChange={(e) => {
-              props.onChange(e.target.name, e.target.value);
+              props.onChange("Model", e.target.value);
             }}
+            MenuItem={excludingMakes}
           ></DropDown>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>

@@ -17,7 +17,8 @@ import StepConnector from "@mui/material/StepConnector";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import API from "../../api/index";
 import moment from "moment";
-
+import { toast } from "react-toastify";
+import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 const ColorlibConnector = withStyles({
   alternativeLabel: {
     top: 23,
@@ -94,6 +95,8 @@ function ColorlibStepIcon(props) {
 }
 
 const Instructor = () => {
+  let history = useHistory();
+
   const [activeStep, setActiveStep] = React.useState(1);
 
   const [step1, setStep1] = React.useState({
@@ -171,6 +174,7 @@ const Instructor = () => {
     GreenCard: "",
     Ct: "",
   });
+  console.log("step4-------->", step4);
 
   const steps = ["Identity", "Details", "Insurance", "Vehicle", "Done"];
 
@@ -262,8 +266,8 @@ const Instructor = () => {
                 deliveryPlace: step2.deliveryPlace,
                 drivingLisenceImagePath: step2.licensefront,
                 drivingLisenceImagePathBack: step2.licenseback,
-                licenses_for: "qwerty",
-                licenses_type: "qwerty",
+                licenses_for: "",
+                licenses_type: "",
                 lisenceNumber: step2.licenceNo,
                 obtainingDate: step2.obtainingdate,
                 otherLicense: "",
@@ -325,8 +329,13 @@ const Instructor = () => {
           });
         });
       })
+      .then(() => {
+        history.push("/");
+        toast.success("Instructor Registered Successfully");
+      })
       .catch((error) => {
         console.log(" ERROR -------------->", error);
+        toast.error("Not Registered....Somethong went wrong");
       });
   };
   return (
