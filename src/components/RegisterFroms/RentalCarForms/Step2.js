@@ -39,8 +39,6 @@ const Step2 = ({ step2, setStep2, onChange }) => {
         marginTop: "70px",
       }}
     >
-      {console.log("step2", step2)}
-
       <Grid container spacing={4}>
         <div className="DrivingSchool">
           <Grid item xs={12} sm={12} md={12}>

@@ -48,7 +48,6 @@ const Step3 = ({ step3, setStep3, onChange }) => {
       }}
     >
       <Grid container spacing={4}>
-        {console.log("step3", step3)}
         <Divider width="100%" borderColor="#D5E4E8" margin="2% 0px 2% 0px" />
         <Typography className="Heading1">Vehicle Details</Typography>
         <Divider width="100%" borderColor="#D5E4E8" margin="2% 0px 2% 0px" />

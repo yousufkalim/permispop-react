@@ -52,15 +52,6 @@ const Profile = (props) => {
 
   const changePassword = async () => {
     setDisabled(true);
-    console.log(
-      "test",
-      newPassword,
-      confirmPassword,
-      oldPassword,
-      newPassword != "",
-      confirmPassword != "",
-      oldPassword != ""
-    );
     if (newPassword != "" && confirmPassword != "" && oldPassword != "") {
       if (newPassword === confirmPassword) {
         await API(

@@ -53,22 +53,12 @@ const Profile = () => {
       "get",
       `InstructorMeetupPoints/GetMeetUpPoints?id=${userData.id}`
     ).then((res) => {
-      console.log("mee", res.data.data.meetUp);
-
       setInstructorMeetupPointInfos(res.data.data);
     });
   };
   const changePassword = async () => {
     setDisabled(true);
-    console.log(
-      "test",
-      newPassword,
-      confirmPassword,
-      oldPassword,
-      newPassword != "",
-      confirmPassword != "",
-      oldPassword != ""
-    );
+
     if (newPassword != "" && confirmPassword != "" && oldPassword != "") {
       if (newPassword === confirmPassword) {
         await API(
