@@ -40,8 +40,6 @@ const Step1 = ({ step1, setStep1, onChange }) => {
         let addressToSet = [];
 
         res.data.features.map((item) => {
-          console.log("item", item);
-
           addressToSet.push({
             label: item.properties.label,
             city: item.properties.city,
@@ -82,8 +80,6 @@ const Step1 = ({ step1, setStep1, onChange }) => {
         marginTop: "70px",
       }}
     >
-      {console.log("props", step1)}
-
       <Grid container spacing={4}>
         <Grid item xs={12} sm={12} md={4}>
           <TextField

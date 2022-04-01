@@ -197,7 +197,6 @@ const RentalCar = () => {
       Role: "Car Rental",
     })
       .then(async (personalRes) => {
-        console.log("test", personalRes);
         await API("post", "VehicleInsurance", {
           Insurer: step3.VehicleInsurer,
           PoliceNumber: step3.PoliceNumber,
