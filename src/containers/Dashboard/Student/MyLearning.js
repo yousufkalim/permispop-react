@@ -173,7 +173,7 @@ function Mylearning() {
                         }}
                       />
                     </td>
-                    <td align="center">{row.wording}</td>
+                    <td align="center" className="MyProcedureWording">{row.wording}</td>
                     <td align="center">
                       <ForumIcon style={{ fill: "#149E7A" }}></ForumIcon>
                     </td>

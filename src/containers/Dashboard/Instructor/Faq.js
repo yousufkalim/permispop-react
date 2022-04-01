@@ -9,21 +9,21 @@ const Faq = () => {
     return(
         <React.Fragment>
 
-            <Typography fontWeight={600} fontSize={25} paddingTop={5}>       
+            <Typography fontWeight={600} fontSize={25} paddingTop={5} marginLeft={6}>       
               FAQ
             </Typography>
             <Divider/> 
             <div className="topTitle">
-                <Typography className="TitleH" fontWeight={500} fontSize={20}>
+                <Typography className="TitleH" fontWeight={500} fontSize={20} marginLeft={6}>
                 test data for hags jjksm ls,l,ls lll j heading
                 </Typography>
-                <Typography className="TitleP">
+                <Typography className="TitleP" marginLeft={6}>
                 test data for headingtest data for heading data for heading
                 </Typography>
             </div>
            
-            <Grid container spacing={1} marginTop={5}>
-                <Grid item xs={12} sm={12} md={12} lg={7}> 
+            <Grid container spacing={1} marginTop={5} sx={{marginLeft:"30px"}}>
+                <Grid item xs={11} sm={11} md={11} lg={6.5}> 
                 <div className="leftdivs">
                     <Typography className="LeftH">1- test data for heading</Typography>
                     <Typography className="LeftP">test data for headingtest data for heading</Typography>
@@ -89,7 +89,7 @@ const Faq = () => {
              
 
                 </Grid>
-                <Grid item xs={12} sm={12} md={12} lg={5}>
+                <Grid item xs={11} sm={11} md={11} lg={4.5} sx={{marginRight:"10px"}}>
                 <div className="rightdivs">
                 <div >
                 <Typography className="RightH">CFE (5)</Typography>

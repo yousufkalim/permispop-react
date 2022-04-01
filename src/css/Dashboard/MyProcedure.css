@@ -1,0 +1,56 @@
+.ProceduresList {
+    display: flex;
+    justify-content: space-between;
+    background-color: #fff;
+    margin: 0px 90px 0px 20px;
+    padding: 20px;
+  
+}
+.ProcedureGrid{
+    font-size: 22px !important;
+    color: #2A3235 !important;
+    font-weight: 600 !important;
+    
+}
+.MyProcedureHeading {
+    font-size: 28px !important;
+}
+@media only screen and (max-width: 1440px) {
+    .ProcedureGrid{
+        font-size: 20px !important;   
+    }
+    .MyProcedureHeading {
+        font-size: 24px !important;
+    }
+
+  }
+  @media only screen and (max-width: 1366px) {
+    /* .ProcedureGrid{
+        font-size: 18px !important;   
+    } */
+    .MyProcedureHeading {
+        font-size: 22px !important;
+    }
+  }
+  @media only screen and (max-width: 992px) {
+    .MyProcedureHeading {
+        font-size: 19px !important;
+    }
+  }
+  @media only screen and (max-width: 768px) {
+    .ProcedureGrid{
+        font-size: 18px !important;   
+    }
+}
+
+/* .procedureBtn{
+    font-size: 22px !important;
+    border-radius: 10px !important;
+
+} */
+/* .MuiButton-contained {
+    border-radius: 10px !important;
+}
+.css-18je8zh-MuiTouchRipple-root{
+    background-color: #FFA333 !important;
+} */

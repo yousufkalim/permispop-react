@@ -8,19 +8,20 @@ const InsuranceDetails = () => {
   return (
     <React.Fragment>
       <Grid container spacing={1} className="insurancediv">
-        <Typography fontWeight={600} fontSize={25} paddingTop={5}>       
+        <Typography fontWeight={600} fontSize={25} paddingTop={5} marginLeft={4}>       
             Insurance Details
        </Typography> 
        <Button
           className="insuranceBtn"                  
           text="Update Profile"
+          
        ></Button>  
       </Grid>
       <Divider/>
 
-      <Grid container  paddingTop={3}>
+      <Grid container  paddingTop={3} sx={{margin:"30px"}}>
 
-      <Grid xs={12} md={12} lg={5.6} className="vehicleGrid">
+      <Grid xs={10.5} md={11} lg={5.6} className="vehicleGrid" >
             <Typography className="GridTitle"  paddingTop={2} paddingLeft={3} fontSize={20}> 
               Insurance Company 
             </Typography>
@@ -43,7 +44,7 @@ const InsuranceDetails = () => {
             </Grid>
           </Grid>
      
-          <Grid xs={12} md={12} lg={5.6} className="vehicleGrid">
+          <Grid xs={10.5} md={11} lg={5.6} className="vehicleGrid">
             <Typography className="GridTitle"  paddingTop={2} paddingLeft={3} fontSize={20}> 
               Driving License
             </Typography>
@@ -68,7 +69,7 @@ const InsuranceDetails = () => {
             
               
 
-          <Grid xs={12} md={12} lg={5.6} className="vehicleGrid">
+          <Grid xs={10.5} md={11} lg={5.6} className="vehicleGrid">
           <Typography className="GridTitle" paddingTop={2}  paddingLeft={3} fontSize={20}>
               Vehicle Detail
             </Typography>
@@ -86,7 +87,7 @@ const InsuranceDetails = () => {
           
 
 
-          <Grid xs={12} md={12} lg={5.6} className="vehicleGrid">
+          <Grid xs={10.5} md={11} lg={5.6} className="vehicleGrid">
             <Typography className="GridTitle" paddingTop={2} paddingLeft={3} fontSize={20}>
               Vehicle Detail
             </Typography>
@@ -101,7 +102,7 @@ const InsuranceDetails = () => {
            
             
           </Grid>
-          <Grid xs={12} md={12} lg={5.6} className="vehicleGrid">
+          <Grid xs={10.5} md={11} lg={5.6} className="vehicleGrid">
             <Typography className="GridTitle" paddingTop={2} paddingLeft={3} fontSize={20}>
               Vehicle Insurance
             </Typography>
@@ -116,7 +117,7 @@ const InsuranceDetails = () => {
            
             
           </Grid>
-          <Grid xs={12} md={12} lg={5.6} className="vehicleGrid">
+          <Grid xs={10.5} md={11} lg={5.6} className="vehicleGrid">
             <Typography className="GridTitle" paddingTop={2} paddingLeft={3} fontSize={20}>
               Technical Control
             </Typography>
@@ -132,7 +133,7 @@ const InsuranceDetails = () => {
             
           </Grid>
 
-          <Grid xs={12} md={12} lg={5.6} className="vehicleGrid">
+          <Grid xs={10.5} md={11} lg={5.6} className="vehicleGrid">
             <Typography className="GridTitle" paddingTop={2} paddingLeft={3} fontSize={20}>
               Exercise Authorization
             </Typography>
@@ -152,7 +153,7 @@ const InsuranceDetails = () => {
             
           </Grid>
           
-          <Grid xs={12} md={12} lg={5.6} className="vehicleGrid">
+          <Grid xs={10.5} md={11} lg={5.6} className="vehicleGrid">
             <Typography className="GridTitle" paddingTop={2} paddingLeft={3} fontSize={20}>
               Business Store
             </Typography>
