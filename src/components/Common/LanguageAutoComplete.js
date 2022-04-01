@@ -94,7 +94,8 @@ return (
       disabled={props.disabled}
       renderTags={() => {}}
       value={props.value}
-      onChange={(e, newValue) => props.setVal(newValue)}
+      // onChange={(e, newValue) => props.setVal(newValue)}
+      onChange={(e, newValue) => props.setVal(props.name, newValue)}
       renderInput={(params) => (
         <TextField
           {...params}
