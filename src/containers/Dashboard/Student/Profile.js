@@ -32,6 +32,7 @@ const Profile = (props) => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [user, setUser] = useState();
   const [ratings, setRatings] = useState("");
+
   const [openmodal, setOpenModal] = useState(false);
   const [disabled, setDisabled] = useState(false);
 
