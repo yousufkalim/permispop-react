@@ -6,8 +6,6 @@ import TextField from "../../Common/TextField";
 import Button from "../../Common/Button";
 import Divider from "../../Common/Divider";
 import FilePicker from "../../Common/FilePicker";
-
-
 import DatePicker from "../../Common/DatePicker";
 import DoneIcon from "@mui/icons-material/Done";
 import Checkbox from "@mui/material/Checkbox";
@@ -20,59 +18,54 @@ import { toast } from "react-toastify";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 
 const StudentForm = (props) => {
-  const [firstname, setFirstname] = React.useState("");
-  const [surname, setSurname] = React.useState("");
-  const [address, setAddress] = React.useState("");
-  const [dob, setDob] = React.useState(new Date());
-  const [pob, setPob] = React.useState("");
-  const [zip, setZip] = React.useState("");
-  const [gender, setGender] = React.useState("");
-  const [email, setEmail] = React.useState("");
-  const [email2, setemail2] = React.useState("");
-  const [phone, setPhone] = React.useState("");
-  const [phone2, setPhone2] = React.useState("");
-  const [city, setCity] = React.useState("");
-  const [complement, setComplement] = React.useState("");
-  const [password, setPassword] = React.useState("");
-  const [confirmPassword, setConfirmPassword] = React.useState("");
-  const [noh, setNoh] = React.useState("");
-  const [neph, setNeph] = React.useState("");
-  const [language, setLanguage] = React.useState([]);
-  const [frontImage, setFrontImage] = React.useState("");
-  const [backImage, setBackImage] = React.useState("");
-  const [profileImage, setProfileImage] = React.useState("");
-  const [HighWayCodeImg, setHighWayCodeImg] = React.useState();
   const [checkbox1, setCheckbox1] = React.useState(false);
-  const [checkbox2, setCheckbox2] = React.useState(false);
-  const [lat, setLat] = React.useState();
-  const [lng, setLng] = React.useState();
-  const [date, setDate] = React.useState(new Date());
-  const [addresses, setAddresses] = useState([]);
-  const [languages, setLanguages] = useState([]);
-  const [disable, setDisable] = useState(false);
 
+  const [disable, setDisable] = useState(false);
+  const [student, setStudent] = React.useState({
+    firstname: "",
+    surname: "",
+    dob: new Date(),
+    pob: "",
+    gender: "",
+    email: "",
+    email2: "",
+    phone: "",
+    phone2: "",
+    complement: "",
+    password: "",
+    noh: "",
+    neph: "",
+    language: [],
+    frontImage: "",
+    backImage: "",
+    profileImage: "",
+    highwayCodeImg: "",
+    checkbox2: false,
+    date: new Date(),
+    addresses: [],
+    languages: [],
+    Address: { zip: "", label: "", city: "", lat: "", lng: "" },
+  });
+  console.log("STUDENT------------>", student);
+  const handleStudent = (name, value) => {
+    setStudent({ ...student, [name]: value });
+  };
   let history = useHistory();
-  const handleDob = (newValue) => {
-    setDob(newValue);
-  };
-  const handleDate = (newValue) => {
-    setDate(newValue);
-  };
+
   const handleFileChange = async (e) => {
     const formdata = new FormData();
 
     formdata.append("file", e.target.files[0]);
 
     await API("post", "Personal/UploadProfileImage", formdata).then((res) => {
-      console.log("res", e.target.name);
       if (e.target.name === "frontImage") {
-        setFrontImage(res.data.message);
-      } else if (e.target.name === "backIdPhoto") {
-        setBackImage(res.data.message);
-      } else if (e.target.name === "photo") {
-        setProfileImage(res.data.message);
+        handleStudent("frontImage", res.data.message);
+      } else if (e.target.name === "backImage") {
+        handleStudent("backImage", res.data.message);
+      } else if (e.target.name === "profileImage") {
+        handleStudent("profileImage", res.data.message);
       } else if (e.target.name === "highwayCodeImg") {
-        setHighWayCodeImg(res.data.message);
+        handleStudent("highwayCodeImg", res.data.message);
       }
     });
   };
@@ -93,7 +86,7 @@ const StudentForm = (props) => {
             name: item.name,
           });
         });
-        setLanguages(languageToSet);
+        setStudent({ ...student, languages: languageToSet });
       })
       .catch(function (error) {
         console.log(error);
@@ -103,44 +96,46 @@ const StudentForm = (props) => {
     handleLanguage();
   }, []);
   const handleSelectAddress = (e) => {
-    setAddress(e.label);
-    setZip(e.PostalCode);
-    setCity(e.city);
-    setLat(e.lat);
-    setLng(e.lng);
+    handleStudent("Address", {
+      label: e.label,
+      zip: e.PostalCode,
+      city: e.city,
+      lat: e.lat,
+      lng: e.lng,
+    });
   };
 
   const handleSubmit = async () => {
     setDisable(true);
     await API("post", "Personal", {
-      RegistrationDate: "",
-      firstName: firstname,
-      surName: surname,
-      dob: dob,
-      placeOfBirth: pob,
-      gender: gender,
-      ContactEmail: email,
-      email: email,
-      secondEmail: email2,
-      phone: phone,
-      secondPhone: phone2,
-      complement: complement,
-      password: password,
-      noOfHrsWanted: noh,
-      neph: neph,
+      RegistrationDate: new Date(),
+      firstName: student.firstname,
+      surName: student.surname,
+      dob: student.dob,
+      placeOfBirth: student.pob,
+      gender: student.gender,
+      ContactEmail: student.email,
+      email: student.email,
+      secondEmail: student.email2,
+      phone: student.phone,
+      secondPhone: student.phone2,
+      complement: student.complement,
+      password: student.password,
+      noOfHrsWanted: student.noh,
+      neph: student.neph,
       role: "Student",
-      highWayCodeDate: date,
+      highWayCodeDate: student.date,
       id: "",
-      frontIdPhoto: frontImage,
-      backIdPhoto: backImage,
-      photo: profileImage,
-      highWayCodeImage: HighWayCodeImg,
-      address: address,
-      SpokenLanguage: language,
-      zip: zip,
-      city: city,
-      lat: lat,
-      long: lng,
+      frontIdPhoto: student.frontImage,
+      backIdPhoto: student.backImage,
+      photo: student.profileImage,
+      highWayCodeImage: student.highwayCodeImg,
+      SpokenLanguage: student.language,
+      address: student.Address.label,
+      zip: student.Address.zip,
+      city: student.Address.city,
+      lat: student.Address.lat,
+      long: student.Address.lng,
     })
       .then(async (res) => {
         let personalInfoId = res.data.data.id;
@@ -153,8 +148,8 @@ const StudentForm = (props) => {
           exersiceAuthorizationInfoId: "",
           id: "",
           insuranceCompanyInfoId: "",
-          lat: lat,
-          long: lng,
+          lat: student.Address.lat,
+          long: student.Address.lng,
           personalInfoId: personalInfoId,
           role: "student",
           status: "Active",
@@ -188,7 +183,7 @@ const StudentForm = (props) => {
             lng: item.properties.y,
           });
         });
-        setAddresses(addressToSet);
+        setStudent({ ...student, addresses: addressToSet });
       })
       .catch(function (error) {
         console.log(error);
@@ -230,9 +225,9 @@ const StudentForm = (props) => {
                 type="text"
                 placeholder="John"
                 disabled={disable}
-                value={firstname}
+                value={student.firstname}
                 onChange={(e) => {
-                  setFirstname(e.target.value);
+                  handleStudent(e.target.name, e.target.value);
                 }}
               />
             </Grid>
@@ -243,9 +238,9 @@ const StudentForm = (props) => {
                 disabled={disable}
                 placeholder="Smith"
                 type="text"
-                value={surname}
+                value={student.surname}
                 onChange={(e) => {
-                  setSurname(e.target.value);
+                  handleStudent(e.target.name, e.target.value);
                 }}
               ></TextField>
             </Grid>
@@ -254,8 +249,8 @@ const StudentForm = (props) => {
                 name="address"
                 disabled={disable}
                 label="Address"
-                value={address}
-                options={addresses}
+                value={student.Address.label}
+                options={student.addresses}
                 placeholder="Address"
                 onChangeAddress={(e) => {
                   handleAddress(e);
@@ -268,10 +263,10 @@ const StudentForm = (props) => {
                 label="Date of birth"
                 disabled={disable}
                 name="dob"
-                value={dob}
+                value={student.dob}
                 placeholder="19-10-1992"
                 onChange={(e) => {
-                  setDob(e.target.value);
+                  handleStudent(e.target.name, e.target.value);
                 }}
                 padding="20px 0 0 0px !important"
                 width="100% !important"
@@ -285,9 +280,9 @@ const StudentForm = (props) => {
                 disabled={disable}
                 type="text"
                 placeholder="France"
-                value={pob}
+                value={student.pob}
                 onChange={(e) => {
-                  setPob(e.target.value);
+                  handleStudent(e.target.name, e.target.value);
                 }}
               ></TextField>
             </Grid>
@@ -297,8 +292,7 @@ const StudentForm = (props) => {
                 name="zip"
                 placeholder="712333"
                 disabled={true}
-                value={zip}
-                onChange={(e) => setZip(e.target.value)}
+                value={student.Address.zip}
               ></TextField>
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
@@ -307,8 +301,8 @@ const StudentForm = (props) => {
                 placeholder="Male"
                 disabled={disable}
                 name="gender"
-                value={gender}
-                onChange={(e) => setGender(e.target.value)}
+                value={student.gender}
+                onChange={(e) => handleStudent("gender", e.target.value)}
                 MenuItem={[
                   { name: "Male", value: "Male" },
                   { name: "Female", value: "Female" },
@@ -323,8 +317,10 @@ const StudentForm = (props) => {
                 disabled={disable}
                 type="email"
                 placeholder="arslan.alikh@gmail.com"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                value={student.email}
+                onChange={(e) => {
+                  handleStudent(e.target.name, e.target.value);
+                }}
               ></TextField>
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
@@ -334,8 +330,10 @@ const StudentForm = (props) => {
                 disabled={disable}
                 type="email"
                 placeholder="smart_coolkyo@yahoo.com"
-                value={email2}
-                onChange={(e) => setemail2(e.target.value)}
+                value={student.email2}
+                onChange={(e) => {
+                  handleStudent(e.target.name, e.target.value);
+                }}
               ></TextField>
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
@@ -345,8 +343,10 @@ const StudentForm = (props) => {
                 type="text"
                 placeholder="XX-XXXXXX-XX"
                 name="phone"
-                value={phone}
-                onChange={(e) => setPhone(e.target.value)}
+                value={student.phone}
+                onChange={(e) => {
+                  handleStudent(e.target.name, e.target.value);
+                }}
               ></TextField>
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
@@ -356,8 +356,10 @@ const StudentForm = (props) => {
                 placeholder="XX-XXXXXX-XX"
                 disabled={disable}
                 name="phone2"
-                value={phone2}
-                onChange={(e) => setPhone2(e.target.value)}
+                value={student.phone2}
+                onChange={(e) => {
+                  handleStudent(e.target.name, e.target.value);
+                }}
               ></TextField>
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
@@ -366,8 +368,7 @@ const StudentForm = (props) => {
                 name="city"
                 disabled={true}
                 placeholder="New york"
-                value={city}
-                onChange={(e) => setCity(e.target.value)}
+                value={student.Address.city}
               ></TextField>
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
@@ -377,8 +378,10 @@ const StudentForm = (props) => {
                 disabled={disable}
                 placeholder="Student"
                 name="complement"
-                value={complement}
-                onChange={(e) => setComplement(e.target.value)}
+                value={student.complement}
+                onChange={(e) => {
+                  handleStudent(e.target.name, e.target.value);
+                }}
               ></TextField>
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
@@ -388,8 +391,10 @@ const StudentForm = (props) => {
                 type="password"
                 name="password"
                 placeholder="**************"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                value={student.password}
+                onChange={(e) => {
+                  handleStudent(e.target.name, e.target.value);
+                }}
               ></TextField>
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
@@ -399,8 +404,10 @@ const StudentForm = (props) => {
                 type="password"
                 name="confirmpassword"
                 placeholder="**************"
-                value={confirmPassword}
-                onChange={(e) => setConfirmPassword(e.target.value)}
+                value={student.confirmPassword}
+                onChange={(e) => {
+                  handleStudent(e.target.name, e.target.value);
+                }}
               ></TextField>
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
@@ -410,8 +417,10 @@ const StudentForm = (props) => {
                 disabled={disable}
                 placeholder="44"
                 name="noh"
-                value={noh}
-                onChange={(e) => setNoh(e.target.value)}
+                value={student.noh}
+                onChange={(e) => {
+                  handleStudent(e.target.name, e.target.value);
+                }}
               ></TextField>
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
@@ -421,8 +430,10 @@ const StudentForm = (props) => {
                 disabled={disable}
                 placeholder="532-3321-111"
                 type="text"
-                value={neph}
-                onChange={(e) => setNeph(e.target.value)}
+                value={student.neph}
+                onChange={(e) => {
+                  handleStudent(e.target.name, e.target.value);
+                }}
               ></TextField>
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
@@ -430,10 +441,10 @@ const StudentForm = (props) => {
                 name="language"
                 disabled={disable}
                 label="Spoken Language"
-                value={language}
-                options={languages}
+                value={student.language}
+                options={student.languages}
                 placeholder="Language"
-                setVal={setLanguage}
+                setVal={handleStudent}
               />
             </Grid>
           </Grid>
@@ -447,11 +458,11 @@ const StudentForm = (props) => {
             <Grid item xs={12} sm={12} md={4}>
               <FilePicker
                 title="Upload front of your ID Card/Passport"
-                label="front"
+                label="frontImage"
                 disabled={disable}
                 name="frontImage"
                 type="file"
-                value={frontImage}
+                value={student.frontImage}
                 onChange={handleFileChange}
               />
             </Grid>
@@ -459,10 +470,10 @@ const StudentForm = (props) => {
               <FilePicker
                 title="Upload back of your ID Card/Passport"
                 disabled={disable}
-                label="back"
-                name="backIdPhoto"
+                label="backImage"
+                name="backImage"
                 type="file"
-                value={backImage}
+                value={student.backImage}
                 onChange={handleFileChange}
               />
             </Grid>
@@ -470,10 +481,10 @@ const StudentForm = (props) => {
               <FilePicker
                 title="Upload your profile picture"
                 disabled={disable}
-                label="profile"
-                name="photo"
+                label="profileImage"
+                name="profileImage"
                 type="file"
-                value={profileImage}
+                value={student.profileImage}
                 onChange={handleFileChange}
               />
             </Grid>
@@ -508,27 +519,24 @@ const StudentForm = (props) => {
                 <DatePicker
                   label="Date"
                   disabled={disable}
-                  name="dat"
-                  // value={dob}
-                  onChange={(e) => setDob(e.target.value)}
+                  name="date"
+                  value={student.dob}
+                  onChange={(e) => {
+                    handleStudent(e.target.name, e.target.value);
+                  }}
                   padding="20px 0 0 0px !important"
                   width="100% !important"
                 ></DatePicker>
                 <div className="borderbottom"></div>
-                {/* replaced  */}
-                {/* <TextField
-                  label="Date"
-                  placeholder="English, French"
-                ></TextField> */}
               </Grid>
               <Grid item xs={12} sm={12} md={4} sx={{ marginLeft: "1%" }}>
                 <FilePicker
                   title="Upload Highway code image file"
                   disabled={disable}
-                  label="high"
+                  label="highwayCodeImg"
                   name="highwayCodeImg"
                   type="file"
-                  value={HighWayCodeImg}
+                  value={student.highwayCodeImg}
                   onChange={handleFileChange}
                 />
               </Grid>
