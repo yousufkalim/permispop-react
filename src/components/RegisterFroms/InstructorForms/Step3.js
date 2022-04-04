@@ -7,20 +7,23 @@ import Divider from "../../Common/Divider";
 import FilePicker from "../../Common/FilePicker";
 import Datepicker from "../../Common/DatePicker";
 import API from "../../../api/index";
+import { toast } from "react-toastify";
+import moment from "moment";
 
 const Step1 = (props) => {
   const handleFileChange = async (e) => {
     const formdata = new FormData();
     formdata.append("file", e.target.files[0]);
-    await API("post", "Personal/UploadProfileImage", formdata).then((res) => {
-      if (e.target.name === "FrontImg") {
-        props.step1.FrontImg(res.data.message);
-      } else if (e.target.name === "BackImg") {
-        props.step1.BackImg(res.data.message);
-      } else if (e.target.name === "ProfileImg") {
-        props.step1.ProfileImg(res.data.message);
-      }
-    });
+    await API("post", "Personal/UploadProfileImage", formdata)
+      .then((res) => {
+        if (e.target.name === "companyRC") {
+          props.onChange("companyRC", res.data.message);
+        }
+      })
+      .catch((error) => {
+        console.log("UploadProfileImageResponce------>", error);
+        toast.error("Image not Uploaded");
+      });
   };
 
   return (
@@ -67,7 +70,10 @@ const Step1 = (props) => {
             width="100% !important"
             value={props.step3.insuranceExpDate}
             onChange={(e) => {
-              props.onChange(e.target.name, e.target.value);
+              props.onChange(
+                "insuranceExpDate",
+                moment(e).format("YYYY-MM-DDThh:mm:ss")
+              );
             }}
           ></Datepicker>
           <div className="borderbottom"></div>
@@ -76,16 +82,16 @@ const Step1 = (props) => {
           <FilePicker
             title="Upload Insurance Company your RC Pro"
             name="companyRC"
-            label="Rcpro"
+            label="companyRC"
             value={props.step3.companyRC}
             onChange={handleFileChange}
           />
         </Grid>
       </Grid>
-      <Divider width="100%" borderColor="#D5E4E8" margin="3% 0px 2% 0px" />
-      <Typography className="Heading1">Vehicle Insurance</Typography>
+      {/* <Divider width="100%" borderColor="#D5E4E8" margin="3% 0px 2% 0px" />
+      <Typography className="Heading1">Vehicle Insurance</Typography> */}
       <Divider width="100%" borderColor="#D5E4E8" margin="2% 0px 3% 0px" />
-      <Grid container spacing={4}>
+      {/* <Grid container spacing={4}>
         <Grid item xs={12} sm={12} md={4}>
           <TextField
             label="Insurer"
@@ -117,23 +123,29 @@ const Step1 = (props) => {
             width="100% !important"
             value={props.step3.vehicleDoOb}
             onChange={(e) => {
-              props.onChange(e.target.name, e.target.value);
+              props.onChange(
+                "vehicleDoOb",
+                moment(e).format("YYYY-MM-DDThh:mm:ss")
+              );
             }}
           ></Datepicker>
           <div className="borderbottom"></div>
         </Grid>
-      </Grid>
-      <Grid container spacing={4} mt={2} className="InsuranceSection">
+      </Grid> */}
+      {/* <Grid container spacing={4} mt={2} className="InsuranceSection">
         <Grid item xs={12} sm={12} md={4}>
           <Datepicker
             label="Expiration date of your insurance"
-            placeholder="19-10-1992 "
+            placeholder="xx-xx-xxxx"
             padding="20px 0 0 0px !important"
             width="100% !important"
             name="ExpDateinsurance"
             value={props.step3.ExpDateinsurance}
             onChange={(e) => {
-              props.onChange(e.target.name, e.target.value);
+              props.onChange(
+                "ExpDateinsurance",
+                moment(e).format("YYYY-MM-DDThh:mm:ss")
+              );
             }}
           ></Datepicker>
           <div className="borderbottom"></div>
@@ -147,7 +159,7 @@ const Step1 = (props) => {
             onChange={handleFileChange}
           />
         </Grid>
-      </Grid>
+      </Grid> */}
     </Box>
   );
 };

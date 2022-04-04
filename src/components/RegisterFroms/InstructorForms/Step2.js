@@ -8,20 +8,22 @@ import Datepicker from "../../Common/DatePicker";
 import API from "../../../api/index";
 import Checkbox from "@mui/material/Checkbox";
 import { Typography } from "@mui/material";
-
+import moment from "moment";
 const Step2 = (props) => {
   const handleFileChange = async (e) => {
     const formdata = new FormData();
     formdata.append("file", e.target.files[0]);
     await API("post", "Personal/UploadProfileImage", formdata).then((res) => {
       if (e.target.name === "Authorizationfront") {
-        props.step1.Authorizationfront(res.data.message);
+        props.onChange("Authorizationfront", res.data.message);
       } else if (e.target.name === "Authorizationback") {
-        props.step1.Authorizationback(res.data.message);
+        props.onChange("Authorizationback", res.data.message);
       } else if (e.target.name === "licensefront") {
-        props.step1.licensefront(res.data.message);
+        props.onChange("licensefront", res.data.message);
       } else if (e.target.name === "licenseback") {
-        props.step1.licenseback(res.data.message);
+        props.onChange("licenseback", res.data.message);
+      } else if (e.target.name === "kbls") {
+        props.onChange("kbls", res.data.message);
       }
     });
   };
@@ -79,7 +81,10 @@ const Step2 = (props) => {
             width="100% !important"
             value={props.step2.validitiyDate}
             onChange={(e) => {
-              props.onChange(e.target.name, e.target.value);
+              props.onChange(
+                "validitiyDate",
+                moment(e).format("YYYY-MM-DDThh:mm:ss")
+              );
             }}
           ></Datepicker>
           <div className="borderbottom"></div>
@@ -92,7 +97,10 @@ const Step2 = (props) => {
             width="100% !important"
             value={props.step2.DateAuthorization}
             onChange={(e) => {
-              props.onChange(e.target.name, e.target.value);
+              props.onChange(
+                "DateAuthorization",
+                moment(e).format("YYYY-MM-DDThh:mm:ss")
+              );
             }}
           ></Datepicker>
           <div className="borderbottom"></div>
@@ -105,7 +113,10 @@ const Step2 = (props) => {
             width="100% !important"
             value={props.step2.obtainingdate}
             onChange={(e) => {
-              props.onChange(e.target.name, e.target.value);
+              props.onChange(
+                "obtainingdate",
+                moment(e).format("YYYY-MM-DDThh:mm:ss")
+              );
             }}
           ></Datepicker>
           <div className="borderbottom"></div>
@@ -118,7 +129,10 @@ const Step2 = (props) => {
             width="100% !important"
             value={props.step2.ExpirationDate}
             onChange={(e) => {
-              props.onChange(e.target.name, e.target.value);
+              props.onChange(
+                "ExpirationDate",
+                moment(e).format("YYYY-MM-DDThh:mm:ss")
+              );
             }}
           ></Datepicker>
           <div className="borderbottom"></div>
@@ -155,7 +169,7 @@ const Step2 = (props) => {
         <Grid item xs={12} sm={12} md={4}>
           <FilePicker
             title="Upload your Driving License Front Side"
-            label="drivingLicenseFront"
+            label="licensefront"
             type="file"
             name="licensefront"
             value={props.step2.licensefront}
@@ -165,7 +179,7 @@ const Step2 = (props) => {
         <Grid item xs={12} sm={12} md={4}>
           <FilePicker
             title="Upload your Driving License Back Side"
-            label="drivingLicenseBack"
+            label="licenseback"
             type="file"
             name="licenseback"
             value={props.step2.licenseback}
@@ -175,7 +189,7 @@ const Step2 = (props) => {
         <Grid item xs={12} sm={12} md={4}>
           <FilePicker
             title="Upload your KBLS"
-            label="KBL"
+            label="kbls"
             name="kbls"
             type="file"
             value={props.step2.kbls}
@@ -185,7 +199,7 @@ const Step2 = (props) => {
         <Grid item xs={12} sm={12} md={4}>
           <FilePicker
             title="Upload your Authorization Front Side"
-            label="authFront"
+            label="Authorizationfront"
             name="Authorizationfront"
             type="file"
             value={props.step2.Authorizationfront}
@@ -195,7 +209,7 @@ const Step2 = (props) => {
         <Grid item xs={12} sm={12} md={4}>
           <FilePicker
             title="Upload your Authorization Back Side"
-            label="authBack"
+            label="Authorizationback"
             name="Authorizationback"
             type="file"
             value={props.step2.Authorizationback}
