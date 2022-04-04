@@ -18,9 +18,6 @@ const Step1 = ({ step1, setStep1, onChange }) => {
   const [Gender, setGender] = useState();
   const [addresses, setAddresses] = useState([]);
 
-  const handlegener = (newValue) => {
-    setGender(newValue);
-  };
   const handleSelectAddress = (e) => {
     onChange("Address", {
       Label: e.label,
@@ -181,9 +178,9 @@ const Step1 = ({ step1, setStep1, onChange }) => {
             disabled={true}
             type="text"
             placeholder="Enter City"
-            onChange={(e) => {
-              setStep1({ ...step1, [e.target.name]: e.target.value });
-            }}
+            // onChange={(e) => {
+            //   setStep1({ ...step1, [e.target.name]: e.target.value });
+            // }}
             value={step1.Address.City}
           ></TextField>
         </Grid>

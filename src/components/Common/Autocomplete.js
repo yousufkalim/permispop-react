@@ -85,7 +85,6 @@ export default function ComboBox(props) {
             type="text"
             placeholder={props.placeholder}
             variant="standard"
-            // onClick={props.onClick}
             sx={{
               width: "100% !important",
               height: "72px !important",
@@ -99,6 +98,7 @@ export default function ComboBox(props) {
               ...params.inputProps,
               className: classes.textfield,
               Autocomplete: "#####autoComplete",
+              value: props.value,
             }}
           />
         )}

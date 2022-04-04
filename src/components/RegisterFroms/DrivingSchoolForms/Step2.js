@@ -9,8 +9,21 @@ import FilePicker from "../../Common/FilePicker";
 import Checkbox from "@mui/material/Checkbox";
 import API from "../../../api/index";
 import DatePicker from "../../Common/DatePicker";
+import moment from "moment";
 
-const Step2 = (props) => {
+const Step2 = ({ step2, setStep2, onChange }) => {
+  const handleFileChange = async (e) => {
+    const formdata = new FormData();
+    formdata.append("file", e.target.files[0]);
+    await API("post", "Personal/UploadProfileImage", formdata).then((res) => {
+      if (e.target.name === "RcProImg") {
+        onChange("RcProImg", res.data.message);
+      } else if (e.target.name === "KBIS") {
+        onChange("KBIS", res.data.message);
+      }
+    });
+  };
+
   return (
     <Box
       component="form"
@@ -23,25 +36,48 @@ const Step2 = (props) => {
     >
       <Grid container spacing={4}>
         <Grid item xs={12} sm={12} md={4}>
-          <TextField label="Number" placeholder="000000"></TextField>
+          <TextField
+            label="Number"
+            name="Number"
+            placeholder="000000"
+            value={step2.Number}
+            onChange={(e) => {
+              onChange(e.target.name, e.target.value);
+            }}
+          ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <TextField
             label="Issuing Authority"
             placeholder="xxxxxxxxxx"
+            name="IssuingAurh"
+            value={step2.IssuingAurh}
+            onChange={(e) => {
+              onChange(e.target.name, e.target.value);
+            }}
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4} sx={{ marginTop: "9px" }}>
-          <DatePicker 
-            label="Date of Approval" 
-            name="approvalDate" 
+          <DatePicker
+            label="Date of Approval"
+            name="approvalDate"
             padding="20px 0 0 0px !important"
-            width="100% !important">
-          </DatePicker>
+            width="100% !important"
+            onChange={(e) => {
+              onChange("Approvaldate", new Date(e));
+            }}
+          ></DatePicker>
           <div className="borderbottom"></div>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
-          <FilePicker title="Upload your Certificate" label="YourCertificate" />
+          <FilePicker
+            title="Upload your Certificate"
+            label="YourCertificate"
+            name="RcProImg"
+            type="file"
+            value={step2.RcProImg}
+            onChange={handleFileChange}
+          />
         </Grid>
       </Grid>
       <Divider width="100%" borderColor="#D5E4E8" margin="2% 0px 2% 0px" />
@@ -55,6 +91,11 @@ const Step2 = (props) => {
                 label="SIRET Number"
                 name="siret"
                 placeholder="000000"
+                name="SiretNumber"
+                value={step2.SiretNumber}
+                onChange={(e) => {
+                  onChange(e.target.name, e.target.value);
+                }}
               ></TextField>
             </div>
           </Grid>
@@ -62,8 +103,11 @@ const Step2 = (props) => {
             <div className="DrivingSchool2">
               <FilePicker
                 title="Upload your Kbls"
-                name="kbls"
+                name="KBIS"
                 label="Yourkbls"
+                type="file"
+                value={step2.KBIS}
+                onChange={handleFileChange}
               />
             </div>
           </Grid>

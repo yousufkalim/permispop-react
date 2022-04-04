@@ -1,15 +1,97 @@
-import React from "react";
-import Typography from "@mui/material/Typography";
-import Grid from "@mui/material/Grid";
+import React, { useState, useEffect } from "react";
+import axios from "axios";
+import moment from "moment";
 import Box from "@mui/material/Box";
+import Grid from "@mui/material/Grid";
+import Checkbox from "@mui/material/Checkbox";
+import Typography from "@mui/material/Typography";
 import TextField from "../../Common/TextField";
 import DropDown from "../../Common/DropDown";
 import Divider from "../../Common/Divider";
-import Checkbox from "@mui/material/Checkbox";
 import API from "../../../api/index";
+import AutoComplete from "../../Common/Autocomplete";
+import LanguageAutoComplete from "../../Common/LanguageAutoComplete";
 
-const Step1 = (props) => {
-  const [checked, setChecked] = React.useState(false);
+const Step1 = ({ step1, setStep1, onChange }) => {
+  const [addresses, setAddresses] = useState([]);
+  const [languages, setLanguages] = useState([]);
+
+  useEffect(() => {
+    handleLanguage();
+  }, []);
+
+  const handleSelectAddress = (e) => {
+    if (e) {
+      onChange("Address", {
+        Label: e.label,
+        Zip: e.PostalCode,
+        City: e.city,
+        Lat: e.lat,
+        Lng: e.lng,
+      });
+    } else {
+      onChange("Address", {
+        Label: "",
+        Zip: "",
+        City: "",
+        Lat: "",
+        Lng: "",
+      });
+    }
+  };
+
+  const handleAddress = async (e) => {
+    if (e.target.value === "") {
+      setAddresses([]);
+    } else {
+      onChange("Address", { ...step1.Address, Label: e.target.value });
+      var config = {
+        method: "get",
+        url: `https://api-adresse.data.gouv.fr/search/?q=${e.target.value}&type=housenumber&autocomplete=1`,
+      };
+      await axios(config)
+        .then(function (res) {
+          let addressToSet = [];
+          res.data.features.map((item) => {
+            addressToSet.push({
+              label: item.properties.label,
+              city: item.properties.city,
+              PostalCode: item.properties.postcode,
+              lat: item.properties.x,
+              lng: item.properties.y,
+            });
+          });
+          setAddresses(addressToSet);
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    }
+  };
+
+  const handleLanguage = async (e) => {
+    var config = {
+      method: "get",
+      url: `https://parseapi.back4app.com/classes/Language?limit=300&keys=name`,
+      headers: {
+        "X-Parse-Application-Id": "mxsebv4KoWIGkRntXwyzg6c6DhKWQuit8Ry9sHja", // This is the fake app's application id
+        "X-Parse-Master-Key": "TpO0j3lG2PmEVMXlKYQACoOXKQrL3lwM0HwR9dbH", // This is the fake app's readonly master key
+      },
+    };
+    await axios(config)
+      .then((res) => {
+        let languageToSet = [];
+        res.data.results.map((item) => {
+          languageToSet.push({
+            name: item.name,
+          });
+        });
+        setLanguages(languageToSet);
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+  };
 
   return (
     <Box
@@ -27,9 +109,9 @@ const Step1 = (props) => {
             label="Tradename"
             name="TradeName"
             placeholder="John"
-            value={props.step1.TradeName}
+            value={step1.TradeName}
             onChange={(e) => {
-              props.onChange(e.target.name, e.target.value);
+              onChange(e.target.name, e.target.value);
             }}
           ></TextField>
         </Grid>
@@ -38,64 +120,71 @@ const Step1 = (props) => {
             label="Company Name"
             name="CompanyName"
             placeholder="Smith.PVT"
-            value={props.step1.CompanyName}
+            value={step1.CompanyName}
             onChange={(e) => {
-              props.onChange(e.target.name, e.target.value);
+              onChange(e.target.name, e.target.value);
             }}
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
-          <TextField
+          <AutoComplete
+            name="address"
             label="Address"
-            name="Address"
+            value={step1.Address.Label ? step1.Address.Label : ""}
+            options={addresses}
             placeholder="Address"
-            value={props.step1.CompanyName}
-            onChange={(e) => {
-              props.onChange(e.target.name, e.target.value);
+            onChangeAddress={(e) => {
+              handleAddress(e);
             }}
-          ></TextField>
+            onAddressSelect={(e) => handleSelectAddress(e)}
+          />
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <TextField
             label="Complement"
             name="Complement"
             placeholder="Text"
-            value={props.step1.CompanyName}
+            value={step1.Complement}
             onChange={(e) => {
-              props.onChange(e.target.name, e.target.value);
+              onChange(e.target.name, e.target.value);
             }}
-          ></TextField>
-        </Grid>
-        <Grid item xs={12} sm={12} md={4}>
-          <TextField
-            label="Zip Code"
-            value={props.step1.CompanyName}
-            onChange={(e) => {
-              props.onChange(e.target.name, e.target.value);
-            }}
-            name="Zip"
-            placeholder="00000"
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <TextField
             label="City"
             name="City"
-            placeholder="City"
-            value={props.step1.CompanyName}
-            onChange={(e) => {
-              props.onChange(e.target.name, e.target.value);
-            }}
+            disabled={true}
+            type="text"
+            placeholder="Enter City"
+            // onChange={(e) => {
+            //   setStep1({ ...step1, [e.target.name]: e.target.value });
+            // }}
+            value={step1.Address.City}
+          ></TextField>
+        </Grid>
+        <Grid item xs={12} sm={12} md={4}>
+          <TextField
+            label="Zip Code"
+            name="Zip"
+            type="number"
+            disabled={true}
+            value={step1.Address.Zip}
+            placeholder="00000"
+            // onChange={(e) => {
+            //   setStep1({ ...step1, [e.target.name]: e.target.value });
+            // }}
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <TextField
             label="Email"
             name="Email"
+            type="email"
             placeholder="Email"
-            value={props.step1.CompanyName}
+            value={step1.Email}
             onChange={(e) => {
-              props.onChange(e.target.name, e.target.value);
+              onChange(e.target.name, e.target.value);
             }}
           ></TextField>
         </Grid>
@@ -104,9 +193,9 @@ const Step1 = (props) => {
             label="Second Email"
             name="Email2"
             placeholder="smart_coolkyo@yahoo.com"
-            value={props.step1.CompanyName}
+            value={step1.Email2}
             onChange={(e) => {
-              props.onChange(e.target.name, e.target.value);
+              onChange(e.target.name, e.target.value);
             }}
           ></TextField>
         </Grid>
@@ -115,9 +204,9 @@ const Step1 = (props) => {
             label="Phone"
             name="Phone"
             placeholder="0000000000000"
-            value={props.step1.CompanyName}
+            value={step1.Phone}
             onChange={(e) => {
-              props.onChange(e.target.name, e.target.value);
+              onChange(e.target.name, e.target.value);
             }}
           ></TextField>
         </Grid>
@@ -126,49 +215,76 @@ const Step1 = (props) => {
             name="Phone2"
             label="Second Phone"
             placeholder="00000000000000"
+            value={step1.Phone2}
+            onChange={(e) => {
+              onChange(e.target.name, e.target.value);
+            }}
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <TextField
             label="Password"
             name="Password"
+            type="password"
             placeholder="**************"
+            value={step1.Password}
+            onChange={(e) => {
+              onChange(e.target.name, e.target.value);
+            }}
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <TextField
             label="Confirm Password"
             name="Password2"
+            type="password"
             placeholder="**************"
+            value={step1.Password2}
+            onChange={(e) => {
+              onChange(e.target.name, e.target.value);
+            }}
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
-          <TextField
-            label="Spoken Language"
+          <LanguageAutoComplete
             name="Language"
-            placeholder="Red"
-          ></TextField>
+            label="Spoken Language"
+            value={step1.Language}
+            options={languages}
+            placeholder="Language"
+            setVal={onChange}
+          />
         </Grid>
       </Grid>
       <Divider width="100%" borderColor="#D5E4E8" margin="2% 0px 2% 0px" />
       <div className="termsConditionsCheckboxContainer">
         <div className="termsConditionsCheckbox">
           <Checkbox
-            onClick={(e) => setChecked(!checked)}
+            onClick={(e) => {
+              setStep1({
+                ...step1,
+                ["OtherPlateform"]: e.target.checked,
+              });
+            }}
             name="OtherPlateform"
             className="checkbox"
+            checked={step1.OtherPlateform}
           />
           <Typography variant="body1" className="termsConditionsCheckboxTitle">
             Are you working on other platform?
           </Typography>
         </div>
-        {checked ? (
+        {step1.OtherPlateform ? (
           <Grid container spacing={2}>
             <Grid item xs={12} sm={12} md={5} sx={{ marginRight: "1%" }}>
               <TextField
                 name="Platform"
                 label="Which platform(s)?"
                 placeholder="Platform name"
+                value={step1.Platform}
+                onChange={(e) => {
+                  onChange(e.target.name, e.target.value);
+                }}
               ></TextField>
             </Grid>
             <Grid item xs={12} sm={12} md={5}>
@@ -176,6 +292,10 @@ const Step1 = (props) => {
                 label="How much time will you give to the students of our platform?(hr/month)"
                 placeholder="No. of hours"
                 name="Hours"
+                value={step1.Hours}
+                onChange={(e) => {
+                  onChange(e.target.name, e.target.value);
+                }}
               ></TextField>
             </Grid>
           </Grid>
@@ -184,7 +304,17 @@ const Step1 = (props) => {
         )}
       </div>
       <div className="termsConditionsCheckbox">
-        <Checkbox className="checkbox" name="CPF" />
+        <Checkbox
+          className="checkbox"
+          name="CPF"
+          onClick={(e) => {
+            setStep1({
+              ...step1,
+              ["CPF"]: e.target.checked,
+            });
+          }}
+          checked={step1.CPF}
+        />
         <Typography variant="body1" className="termsConditionsCheckboxTitle">
           I accept CPF financement
         </Typography>
