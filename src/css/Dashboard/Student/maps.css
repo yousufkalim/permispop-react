@@ -11,9 +11,18 @@
   height: 79vh;
   overflow: hidden !important;
 }
-/* .button-div {
+.dropdown-div {
   margin-bottom: 10px !important;
-} */
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-start;
+}
+.dropdown {
+  border: 2px solid #C7C7C7;
+  font-size: 15px;
+  color: black;
+  background-color: white;
+}
 .detail_modal {
   width: 28% !important;
   height: 60%;
