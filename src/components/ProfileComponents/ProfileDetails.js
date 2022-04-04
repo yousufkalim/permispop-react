@@ -115,6 +115,7 @@ const ProfileDetails = (props) => {
                 textColor="#149e7a  !important"
                 color="white !important"
                 className="LanguageButton"
+                onClick={(e) => props.openProfileUpdate(true)}
               ></Button>
             </Grid>
             <Grid xs={12} sm={6} md={3}>
