@@ -76,6 +76,7 @@ export default function UseFormControl(props) {
         disabled={props.disabled}
         placeholder={props.placeholder || ""}
         {...props.inputProps}
+        autoComplete="########TextFields"
       />
       {props.error && (
         <FormHelperText {...props.helperProps}>{props.ErrorMsg}</FormHelperText>

@@ -9,14 +9,13 @@ import DropDown from "../../Common/DropDown";
 import Datepicker from "../../Common/DatePicker";
 import API from "../../../api/index";
 import Makes from "../../../assets/makesModels/Makes.xml";
-import MakesExc from "../../../assets/makesModels/MakesExc.xml";
 import Models from "../../../assets/makesModels/Models.xml";
 import axios from "axios";
 import { toast } from "react-toastify";
 import moment from "moment";
+var XMLParser = require("react-xml-parser");
 
 const Step4 = (props) => {
-  var XMLParser = require("react-xml-parser");
   const [allMakes, setAllMakes] = useState([]);
   const [excludingMakes, setExcludingMakes] = useState([]);
   const [allModels, setAllModels] = useState([]);
