@@ -97,6 +97,7 @@ const Services = () => {
             customWidth1="100%"
             customWidth2="100%"
             buttonLableStyle="highway_btn_label"
+            onClick={() => window.open("https://popcode.online/password")}
           ></Button>
         </div>
         <Divider sx={{ margin: "6% 0px 6% 0px" }} />
