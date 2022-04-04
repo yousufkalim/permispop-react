@@ -10,7 +10,10 @@ import Modal from "@mui/material/Modal";
 import Backdrop from "@mui/material/Backdrop";
 import TextField from "../../../components/Common/TextField";
 import Button from "../../../components/Common/Button";
-
+import MenuItem from "@mui/material/MenuItem";
+import FormControl from "@mui/material/FormControl";
+import Select from "@mui/material/Select";
+import TextareaAutosize from "@mui/material/TextareaAutosize";
 import API from "../../../api";
 import { toast } from "react-toastify";
 
@@ -35,7 +38,15 @@ const Profile = (props) => {
 
   const [openmodal, setOpenModal] = useState(false);
   const [disabled, setDisabled] = useState(false);
+  const [openupdateprofilemodal, setOpenUpdateProfileModal] = useState(false);
 
+  const [description, setDescription] = useState("");
+  const [updatefield, SetUpdateField] = useState("");
+  const [item, setItem] = React.useState("");
+
+  const handleChange = (event) => {
+    setItem(event.target.value);
+  };
   useEffect(() => {
     const userData = JSON.parse(localStorage.getItem("user"));
     setUser(userData);
@@ -75,6 +86,23 @@ const Profile = (props) => {
       setDisabled(false);
     }
   };
+  const updateProfile = async () => {
+    if (description != "") {
+      await API("post", `Profile/updateByAdminRequest`, {
+        Description: description,
+        UpdateField: updatefield,
+        User: user.id,
+      }).then((res) => {
+        toast.success("Request is created for profile update");
+        setDescription("");
+        SetUpdateField("");
+        setOpenUpdateProfileModal(false);
+      });
+    } else {
+      toast.error("Description cannot be empty");
+      setDisabled(false);
+    }
+  };
   return (
     <React.Fragment>
       <Grid container spacing={1} className="maindiv">
@@ -92,6 +120,7 @@ const Profile = (props) => {
             ranking={"Rankings"}
             // value={user? user.}
             openPasswordModal={setOpenModal}
+            openProfileUpdate={setOpenUpdateProfileModal}
             languages={
               user ? (user.spokenLanguage ? user.spokenLanguage : []) : []
             }
@@ -262,6 +291,96 @@ const Profile = (props) => {
                   color="#149e7a"
                   borderRadius="10px"
                   onClick={changePassword}
+                  disabled={disabled}
+                ></Button>
+              </div>
+            </Box>
+          </Modal>
+        </>
+        <>
+          <Modal
+            aria-labelledby="spring-modal-title"
+            aria-describedby="spring-modal-description"
+            open={openupdateprofilemodal}
+            onClose={() => setOpenUpdateProfileModal(false)}
+            closeAfterTransition
+            BackdropComponent={Backdrop}
+            BackdropProps={{
+              timeout: 500,
+            }}
+          >
+            <Box sx={style}>
+              <Typography sx={{ color: "#110000" }}>
+                Profile Update Request
+              </Typography>
+              <FormControl variant="" sx={{ ml: "-3%" }} className="MobileView">
+                <Select
+                  labelId="demo-simple-select-standard-label"
+                  id="demo-simple-select-standard"
+                  //   value={item}
+                  defaultValue={0}
+                  onChange={handleChange}
+                  sx={{
+                    width: "500px",
+                    fontSize: "18px",
+                    color: "#110000",
+                  }}
+                >
+                  <MenuItem
+                    value={0}
+                    disabled
+                    sx={{ paddingTop: "0px !important" }}
+                  >
+                    Select the options
+                  </MenuItem>
+                  <MenuItem
+                    value="FirstName"
+                    name=" FirstName"
+                    onChange={(e) => SetUpdateField(e.target.value)}
+                  >
+                    First Name
+                  </MenuItem>
+                  <MenuItem
+                    value="Surname"
+                    name="Surname"
+                    onChange={(e) => SetUpdateField(e.target.value)}
+                  >
+                    Surname
+                  </MenuItem>
+                  <MenuItem
+                    value="Dateofbirth"
+                    name="Dateofbirth"
+                    onChange={(e) => SetUpdateField(e.target.value)}
+                  >
+                    Date of birth
+                  </MenuItem>
+                  <MenuItem
+                    value="Meetuppoints"
+                    name="Meetuppoints"
+                    onChange={(e) => SetUpdateField(e.target.value)}
+                  >
+                    Meetup points
+                  </MenuItem>
+                </Select>
+              </FormControl>
+              <Typography sx={{ color: "#110000", marginBottom: "3px" }}>
+                Reason-Information to update
+              </Typography>
+              <TextareaAutosize
+                aria-label="minimum height"
+                minRows={5}
+                placeholder="Minimum 3 rows"
+                name="description"
+                onChange={(e) => setDescription(e.target.name)}
+                style={{ width: "100%", borderRadius: "5px" }}
+              />
+              <div style={{ marginTop: "2%" }}>
+                <Button
+                  text="Update Profile"
+                  width="95% !important"
+                  color="#149e7a"
+                  borderRadius="10px"
+                  onClick={updateProfile}
                   disabled={disabled}
                 ></Button>
               </div>
