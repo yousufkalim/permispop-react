@@ -125,6 +125,8 @@ const Instructor = () => {
     FrontImg: "",
     BackImg: "",
     ProfileImg: "",
+    OtherPlateform: "",
+    GiveTime: "",
   });
 
   const [step2, setStep2] = React.useState({
@@ -148,11 +150,6 @@ const Instructor = () => {
     companyPoliceNum: "",
     insuranceExpDate: new Date(),
     companyRC: "",
-    vehicleInsurer: "",
-    vehiclePoliceNum: "",
-    vehicleDoOb: new Date(),
-    ExpDateinsurance: new Date(),
-    RcPro: "",
   });
   const [step4, setStep4] = React.useState({
     FirstRegistration: new Date(),
@@ -164,18 +161,16 @@ const Instructor = () => {
     Gearbox: "",
     Insurer: "",
     PoliceNum: "",
-    InsurerStartDate: new Date(),
-    InsurerEndtDate: new Date(),
+    VehicleInsurerStartDate: new Date(),
+    VehicleInsurerEndDate: new Date(),
     TechStartDate: new Date(),
     TechEndDate: new Date(),
-    Photo: "",
+    PhotoPath: "",
     RegCertificatefront: "",
     RegCertificateback: "",
-    GreenCard: "",
-    Ct: "",
+    GreenCardImgPath: "",
+    ControlTechImgPath: "",
   });
-  console.log("step4-------->", step4);
-
   const steps = ["Identity", "Details", "Insurance", "Vehicle", "Done"];
 
   const handleNext = () => {
@@ -200,6 +195,9 @@ const Instructor = () => {
     setStep4({ ...step4, [name]: value });
   };
   const handleSubmit = async (e) => {
+    let languageArray = step1.Language.map((lang) => {
+      return lang.name;
+    });
     await API("post", "Personal", {
       RegistrationDate: moment().format("DD/MM/YYYY"),
       firstName: step1.Firstname,
@@ -221,7 +219,7 @@ const Instructor = () => {
       frontIdPhoto: step1.FrontImg,
       backIdPhoto: step1.BackImg,
       photo: step1.ProfileImg,
-      SpokenLanguage: step1.Language,
+      SpokenLanguage: languageArray,
       highWayCodeImage: step1.HighWayCodeImg,
       address: step1.Address.Label,
       zip: step1.Address.Zip,
@@ -231,111 +229,167 @@ const Instructor = () => {
     })
       .then(async (PersonalResponce) => {
         await API("post", "TechnicalControl", {
-          dateofTechnicalControl: step4.TechStartDate,
+          dateofTechnicalControl: new Date(),
           endData: new Date(),
           endDateOfTechControl: step4.TechEndDate,
-          startDateOfTech: new Date(),
-          technicalControlImagePath: step4.Ct,
-        }).then(async (TechnicalControlResponce) => {
-          await API("post", "VehicleInsurance", {
-            endDate: step3.ExpDateinsurance,
-            greenCardImagePath: step3.RcPro,
-            insurer: step3.vehicleInsurer,
-            policeNumber: step3.vehiclePoliceNum,
-            startDate: step3.vehicleDoOb,
-          }).then(async (VehicleInsuranceResponce) => {
-            await API("post", "VehicleDetail", {
-              dateOfFirstRegistration: step4.FirstRegistration,
-              brand: step4.Brand,
-              model: step4.Model,
-              numberPlate: step4.NumPlate,
-              color: step4.Color,
-              energy: step4.Energy,
-              gearBox: step4.Gearbox,
-
-              technicalControlInfoID: TechnicalControlResponce.data.data.id,
-              vehichleInsuranceInfoId: VehicleInsuranceResponce.data.data.id,
-              vehicleRegistrationCertificatePhotoImagePath:
-                step4.RegCertificate,
-              vehicleRegistrationCertificatePhotoImagePathBack:
-                step4.RegCertificateback,
-              vehicleePhotosImagePath: step4.Photo,
-            }).then(async (VehicleDetailResponce) => {
-              await API("post", "DrivingLisence", {
-                already_have_license: false,
-                deliveryPlace: step2.deliveryPlace,
-                drivingLisenceImagePath: step2.licensefront,
-                drivingLisenceImagePathBack: step2.licenseback,
-                licenses_for: "",
-                licenses_type: "",
-                lisenceNumber: step2.licenceNo,
-                obtainingDate: step2.obtainingdate,
-                otherLicense: "",
-                validityDate: step2.validitiyDate,
-              }).then(async (DrivingLisenceResponce) => {
-                await API("post", "ExersiceAuthorization", {
-                  authorizationDate: step2.DateAuthorization,
-                  authorizationImagePath: step2.Authorizationfront,
-                  authorizationImagePathBack: step2.Authorizationback,
-                  authorizationNumber: step2.AuthorizationNumber,
-                  expirationDate: step2.ExpirationDate,
-                  issuingAuthority: step2.issuingAuthority,
-                }).then(async (ExersiceAuthorizationResponce) => {
-                  await API("post", "Business", {
-                    siratImagePath: step2.kbls,
-                    siretNumber: step2.siretNo,
-                  }).then(async (BusinessResponce) => {
-                    await API("post", "InsuranceCompany", {
-                      endDate: step3.insuranceExpDate,
-                      insuranceImagePath: step3.companyRC,
-                      insurer: step3.companyInsurer,
-                      policeNumber: step3.companyPoliceNum,
-                      startDate: new Date(),
-                    }).then(async (InsuranceCompanyResponce) => {
-                      await API("post", "Profile", {
-                        businessInfoId: BusinessResponce.data.data.id,
-                        drivingLisenceInfoId:
-                          DrivingLisenceResponce.data.data.id,
-                        exersiceAuthorizationInfoId:
-                          ExersiceAuthorizationResponce.data.data.id,
-                        insuranceCompanyInfoId:
-                          InsuranceCompanyResponce.data.data.id,
-                        lat: step1.Address.Lat,
-                        long: step1.Address.Lng,
-                        personalInfoId: PersonalResponce.data.data.id,
-                        role: "Instructor",
-                        status: "Active",
-                        technicalControlInfoId:
-                          TechnicalControlResponce.data.data.id,
-                        vehicleDetailInfoId:
-                          VehicleInsuranceResponce.data.data.id,
-                        vehicleInsuranceInfoid:
-                          VehicleInsuranceResponce.data.data.id,
-                      }).then(async (ProfileResponce) => {
-                        await API("post", "InstructorMeetupPoints", {
-                          ZipCode: step1.Address.Zip,
-                          city: step1.Address.City,
-                          instructorId: PersonalResponce.data.data.id,
-                          lat: step1.Address.Lat,
-                          long: step1.Address.Lng,
-                          meetup: step1.Address.Label,
-                        });
+          startDateOfTech: step4.TechStartDate,
+          technicalControlImagePath: step4.ControlTechImgPath,
+        })
+          .then(async (TechnicalControlResponce) => {
+            await API("post", "VehicleInsurance", {
+              insurer: step4.Insurer,
+              policeNumber: step4.PoliceNum,
+              startDate: step4.VehicleInsurerStartDate,
+              endDate: step4.VehicleInsurerEndDate,
+              greenCardImagePath: step4.GreenCardImgPath,
+            })
+              .then(async (VehicleInsuranceResponce) => {
+                await API("post", "VehicleDetail", {
+                  dateOfFirstRegistration: step4.FirstRegistration,
+                  brand: step4.Brand,
+                  model: step4.Model,
+                  numberPlate: step4.NumPlate,
+                  color: step4.Color,
+                  energy: step4.Energy,
+                  gearBox: step4.Gearbox,
+                  vehicleePhotosImagePath: step4.ControlTechImgPath,
+                  vehicleRegistrationCertificatePhotoImagePathBack:
+                    step4.RegCertificateback,
+                  vehicleRegistrationCertificatePhotoImagePath:
+                    step4.RegCertificatefront,
+                  vehichleInsuranceInfoId:
+                    VehicleInsuranceResponce.data.data.id,
+                  technicalControlInfoID: TechnicalControlResponce.data.data.id,
+                })
+                  .then(async (VehicleDetailResponce) => {
+                    await API("post", "DrivingLisence", {
+                      obtainingDate: step2.obtainingdate,
+                      validityDate: step2.validitiyDate,
+                      already_have_license: false,
+                      deliveryPlace: step2.deliveryPlace,
+                      drivingLisenceImagePath: step2.licensefront,
+                      drivingLisenceImagePathBack: step2.licenseback,
+                      licenses_for: "",
+                      licenses_type: "",
+                      lisenceNumber: step2.licenceNo,
+                      otherLicense: "",
+                    })
+                      .then(async (DrivingLisenceResponce) => {
+                        await API("post", "ExersiceAuthorization", {
+                          authorizationDate: step2.DateAuthorization,
+                          authorizationImagePath: step2.Authorizationfront,
+                          authorizationImagePathBack: step2.Authorizationback,
+                          authorizationNumber: step2.AuthorizationNumber,
+                          expirationDate: step2.ExpirationDate,
+                          issuingAuthority: step2.issuingAuthority,
+                        })
+                          .then(async (ExersiceAuthorizationResponce) => {
+                            await API("post", "Business", {
+                              siratImagePath: step2.kbls,
+                              siretNumber: step2.siretNo,
+                            })
+                              .then(async (BusinessResponce) => {
+                                await API("post", "InsuranceCompany", {
+                                  endDate: step3.insuranceExpDate,
+                                  insuranceImagePath: step3.companyRC,
+                                  insurer: step3.companyInsurer,
+                                  policeNumber: step3.companyPoliceNum,
+                                  startDate: new Date(),
+                                })
+                                  .then(async (InsuranceCompanyResponce) => {
+                                    await API("post", "Profile", {
+                                      businessInfoId:
+                                        BusinessResponce.data.data.id,
+                                      drivingLisenceInfoId:
+                                        DrivingLisenceResponce.data.data.id,
+                                      exersiceAuthorizationInfoId:
+                                        ExersiceAuthorizationResponce.data.data
+                                          .id,
+                                      insuranceCompanyInfoId:
+                                        InsuranceCompanyResponce.data.data.id,
+                                      lat: step1.Address.Lat,
+                                      long: step1.Address.Lng,
+                                      personalInfoId:
+                                        PersonalResponce.data.data.id,
+                                      role: "Instructor",
+                                      status: "Active",
+                                      technicalControlInfoId:
+                                        TechnicalControlResponce.data.data.id,
+                                      vehicleDetailInfoId:
+                                        VehicleDetailResponce.data.data.id,
+                                      vehicleInsuranceInfoid:
+                                        VehicleInsuranceResponce.data.data.id,
+                                    }).then(async (ProfileResponce) => {
+                                      await API(
+                                        "post",
+                                        "InstructorMeetupPoints",
+                                        {
+                                          ZipCode: step1.Address.Zip,
+                                          city: step1.Address.City,
+                                          instructorId:
+                                            PersonalResponce.data.data.id,
+                                          lat: step1.Address.Lat,
+                                          long: step1.Address.Lng,
+                                          meetup: step1.Address.Label,
+                                        }
+                                      ).then(() => {
+                                        history.push("/");
+                                        toast.success(
+                                          "Instructor Registered Successfully"
+                                        );
+                                      });
+                                    });
+                                  })
+                                  .catch((error) => {
+                                    toast.error(
+                                      "Not Registered....Error Occured",
+                                      error
+                                    );
+                                    console.log(
+                                      "InsuranceCompanyResponce",
+                                      error
+                                    );
+                                  });
+                              })
+                              .catch((error) => {
+                                toast.error(
+                                  "Not Registered....Error Occured",
+                                  error
+                                );
+                                console.log("BusinessResponce", error);
+                              });
+                          })
+                          .catch((error) => {
+                            toast.error(
+                              "Not Registered....Error Occured",
+                              error
+                            );
+                            console.log("ExersiceAuthorizationResponce", error);
+                          });
+                      })
+                      .catch((error) => {
+                        toast.error("Not Registered....Error Occured", error);
+                        console.log("DrivingLisenceResponce", error);
                       });
-                    });
+                  })
+                  .catch((error) => {
+                    toast.error("Not Registered....Error Occured", error);
+                    console.log("VehicleDetailResponce", error);
                   });
-                });
+              })
+              .catch((error) => {
+                toast.error("Not Registered....Error Occured", error);
+                console.log("VehicleInsuranceResponce", error);
               });
-            });
+          })
+          .catch((error) => {
+            console.log("TechnicalControlResponce", error);
+            toast.error("Not Registered....Error Occured", error);
           });
-        });
-      })
-      .then(() => {
-        history.push("/");
-        toast.success("Instructor Registered Successfully");
       })
       .catch((error) => {
-        console.log(" ERROR -------------->", error);
-        toast.error("Not Registered....Somethong went wrong");
+        console.log("PersonalResponce", error);
+        toast.error("Not Registered....Error Occured", error);
       });
   };
   return (
@@ -502,6 +556,6 @@ const Instructor = () => {
       <Footer />
     </React.Fragment>
   );
-};
+};;
 
 export default Instructor;
