@@ -57,6 +57,10 @@ input:-webkit-autofill:active {
   transition: background-color 5000s ease-in-out 0s;
 }
 
+.leaflet-div-icon{
+  border-radius: 50px;
+}
+
 /* MEDIA QUERIES*/
 
 @media only screen and (max-width: 1440px) {
