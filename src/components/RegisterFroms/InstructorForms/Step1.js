@@ -12,6 +12,7 @@ import LanguageAutoComplete from "../../Common/LanguageAutoComplete";
 import axios from "axios";
 import AutoComplete from "../../Common/Autocomplete";
 import API from "../../../api/index";
+import moment from "moment";
 
 const Step1 = (props) => {
   const [checked, setisChecked] = useState(false);
@@ -55,11 +56,11 @@ const Step1 = (props) => {
     formdata.append("file", e.target.files[0]);
     await API("post", "Personal/UploadProfileImage", formdata).then((res) => {
       if (e.target.name === "FrontImg") {
-        props.step1.FrontImg(res.data.message);
+        props.onChange("FrontImg", res.data.message);
       } else if (e.target.name === "BackImg") {
-        props.step1.BackImg(res.data.message);
+        props.onChange("BackImg", res.data.message);
       } else if (e.target.name === "ProfileImg") {
-        props.step1.ProfileImg(res.data.message);
+        props.onChange("ProfileImg", res.data.message);
       }
     });
   };
@@ -143,7 +144,7 @@ const Step1 = (props) => {
             name="Dob"
             value={props.step1.Dob}
             onChange={(e) => {
-              props.onChange(e.target.name, e.target.value);
+              props.onChange("Dob", moment(e).format("YYYY-MM-DDThh:mm:ss"));
             }}
             padding="20px 0 0 0px !important"
             width="100% !important"
@@ -246,9 +247,9 @@ const Step1 = (props) => {
           <TextField
             label="Complement"
             type="text"
-            name="Coplement"
+            name="Complement"
             placeholder="Complement"
-            value={props.step1.Coplement}
+            value={props.step1.Complement}
             onChange={(e) => {
               props.onChange(e.target.name, e.target.value);
             }}
@@ -307,7 +308,7 @@ const Step1 = (props) => {
             name="Language"
             label="Spoken Language"
             value={props.step1.Language}
-            options={languages}
+            options={languages ? languages : []}
             placeholder="Language"
             setVal={props.onChange}
           />
@@ -320,7 +321,7 @@ const Step1 = (props) => {
         <Grid item xs={12} sm={12} md={4}>
           <FilePicker
             title="Upload front of your ID Card/Passport"
-            label="front"
+            label="FrontImg"
             name="FrontImg"
             type="file"
             value={props.step1.FrontImg}
@@ -330,17 +331,17 @@ const Step1 = (props) => {
         <Grid item xs={12} sm={12} md={4}>
           <FilePicker
             title="Upload back of your ID Card/Passport"
-            label="back"
+            label="BackImg"
             name="BackImg"
             type="file"
-            value={props.step1.BackImag}
+            value={props.step1.BackImg}
             onChange={handleFileChange}
           />
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <FilePicker
             title="Upload your profile picture"
-            label="profile"
+            label="ProfileImg"
             name="ProfileImg"
             type="file"
             value={props.step1.ProfileImg}
@@ -365,10 +366,9 @@ const Step1 = (props) => {
           <Grid item xs={12} sm={12} md={4}>
             <TextField
               label="Which plateforms"
-              type="plateforms"
-              name="plateforms"
-              placeholder="Seperated by"
-              value={props.step1.Firstname}
+              name="OtherPlateform"
+              placeholder="Platform name"
+              value={props.step1.OtherPlateform}
               onChange={(e) => {
                 props.onChange(e.target.name, e.target.value);
               }}
@@ -377,10 +377,9 @@ const Step1 = (props) => {
           <Grid item xs={12} sm={12} md={6}>
             <TextField
               label="How much time will you give to the students of our platform?(hr/month)"
-              name="Time"
+              name="GiveTime"
               placeholder="How much time?"
-              type="text"
-              value={props.step1.Firstname}
+              value={props.step1.GiveTime}
               onChange={(e) => {
                 props.onChange(e.target.name, e.target.value);
               }}

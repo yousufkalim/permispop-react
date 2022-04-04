@@ -106,6 +106,11 @@ const StudentForm = (props) => {
 
   const handleSubmit = async () => {
     setDisable(true);
+
+    let languageArray = student.language.map((lang) => {
+      return lang.name;
+    });
+
     await API("post", "Personal", {
       RegistrationDate: new Date(),
       firstName: student.firstname,
@@ -129,7 +134,7 @@ const StudentForm = (props) => {
       backIdPhoto: student.backImage,
       photo: student.profileImage,
       highWayCodeImage: student.highwayCodeImg,
-      SpokenLanguage: student.language,
+      SpokenLanguage: languageArray,
       address: student.Address.label,
       zip: student.Address.zip,
       city: student.Address.city,
@@ -441,7 +446,7 @@ const StudentForm = (props) => {
                 disabled={disable}
                 label="Spoken Language"
                 value={student.language}
-                options={student.languages}
+                options={student.languages ? student.languages : []}
                 placeholder="Language"
                 setVal={handleStudent}
               />

@@ -12,6 +12,8 @@ import Makes from "../../../assets/makesModels/Makes.xml";
 import MakesExc from "../../../assets/makesModels/MakesExc.xml";
 import Models from "../../../assets/makesModels/Models.xml";
 import axios from "axios";
+import { toast } from "react-toastify";
+import moment from "moment";
 
 const Step4 = (props) => {
   var XMLParser = require("react-xml-parser");
@@ -27,17 +29,36 @@ const Step4 = (props) => {
   const handleFileChange = async (e) => {
     const formdata = new FormData();
     formdata.append("file", e.target.files[0]);
-    await API("post", "Personal/UploadProfileImage", formdata).then((res) => {
-      if (e.target.name === "Photo") {
-        props.step1.Photo(res.data.message);
-      } else if (e.target.name === "RegCertificate") {
-        props.step1.RegCertificate(res.data.message);
-      } else if (e.target.name === "RegCertificateback") {
-        props.step1.RegCertificateback(res.data.message);
-      } else if (e.target.name === "Ct") {
-        props.step1.Ct(res.data.message);
-      }
-    });
+    await API("post", "Personal/UploadProfileImage", formdata)
+      .then((UploadProfileImageResponce) => {
+        if (e.target.name === "PhotoPath") {
+          props.onChange("PhotoPath", UploadProfileImageResponce.data.message);
+        } else if (e.target.name === "RegCertificatefront") {
+          props.onChange(
+            "RegCertificatefront",
+            UploadProfileImageResponce.data.message
+          );
+        } else if (e.target.name === "RegCertificateback") {
+          props.onChange(
+            "RegCertificateback",
+            UploadProfileImageResponce.data.message
+          );
+        } else if (e.target.name === "ControlTechImgPath") {
+          props.onChange(
+            "ControlTechImgPath",
+            UploadProfileImageResponce.data.message
+          );
+        } else if (e.target.name === "GreenCardImgPath") {
+          props.onChange(
+            "GreenCardImgPath",
+            UploadProfileImageResponce.data.message
+          );
+        }
+      })
+      .catch((error) => {
+        console.log("UploadProfileImageResponce------>", error);
+        toast.error("Image not Uploaded");
+      });
   };
 
   const getAllMakes = () => {
@@ -132,7 +153,10 @@ const Step4 = (props) => {
             width="100% !important"
             value={props.step4.FirstRegistration}
             onChange={(e) => {
-              props.onChange(e.target.name, e.target.value);
+              props.onChange(
+                "FirstRegistration",
+                moment(e).format("YYYY-MM-DDThh:mm:ss")
+              );
             }}
           ></Datepicker>
         </Grid>
@@ -160,8 +184,8 @@ const Step4 = (props) => {
         <Grid item xs={12} sm={12} md={4}>
           <TextField
             label="Number Plate"
-            name="numPlate"
-            placeholder="19-10-1992"
+            name="NumPlate"
+            placeholder="Numebr Plate"
             value={props.step4.NumPlate}
             onChange={(e) => {
               props.onChange(e.target.name, e.target.value);
@@ -207,12 +231,11 @@ const Step4 = (props) => {
       <Divider width="100%" borderColor="#D5E4E8" margin="3% 0px 2% 0px" />
       <Typography className="Heading1">Vehicle Insurance</Typography>
       <Divider width="100%" borderColor="#D5E4E8" margin="2% 0px 3% 0px" />
-      {/* <Grid container spacing={4}>
+      <Grid container spacing={4}>
         <Grid item xs={12} sm={12} md={4}>
           <TextField
             label="Insurer"
             name="Insurer"
-            placeholder="Male"
             value={props.step4.Insurer}
             onChange={(e) => {
               props.onChange(e.target.name, e.target.value);
@@ -223,7 +246,6 @@ const Step4 = (props) => {
           <TextField
             label="Police Number"
             name="PoliceNum"
-            placeholder=""
             value={props.step4.PoliceNum}
             onChange={(e) => {
               props.onChange(e.target.name, e.target.value);
@@ -233,13 +255,15 @@ const Step4 = (props) => {
         <Grid item xs={12} sm={12} md={4} sx={{ marginTop: "9px" }}>
           <Datepicker
             label="Start Date"
-            name="InsurerStartDate"
-            placeholder="19-10-2021"
+            name="VehicleInsurerStartDate"
             padding="20px 0 0 0px !important"
             width="100% !important"
-            value={props.step4.InsurerStartDate}
+            value={props.step4.VehicleInsurerStartDate}
             onChange={(e) => {
-              props.onChange(e.target.name, e.target.value);
+              props.onChange(
+                "VehicleInsurerStartDate",
+                moment(e).format("YYYY-MM-DDThh:mm:ss")
+              );
             }}
           ></Datepicker>
           <div className="borderbottom"></div>
@@ -247,18 +271,21 @@ const Step4 = (props) => {
         <Grid item xs={12} sm={12} md={4}>
           <Datepicker
             label="End Date"
-            name="InsurerEndtDate"
+            name="VehicleInsurerEndDate"
             placeholder="19-10-2021"
             padding="20px 0 0 0px !important"
             width="100% !important"
-            value={props.step4.InsurerEndtDate}
+            value={props.step4.VehicleInsurerEndDate}
             onChange={(e) => {
-              props.onChange(e.target.name, e.target.value);
+              props.onChange(
+                "VehicleInsurerEndDate",
+                moment(e).format("YYYY-MM-DDThh:mm:ss")
+              );
             }}
           ></Datepicker>
           <div className="borderbottom"></div>
         </Grid>
-      </Grid> */}
+      </Grid>
       <Divider width="100%" borderColor="#D5E4E8" margin="3% 0px 2% 0px" />
       <Typography className="Heading1">Technical Control</Typography>
       <Divider width="100%" borderColor="#D5E4E8" margin="2% 0px 3% 0px" />
@@ -267,12 +294,14 @@ const Step4 = (props) => {
           <Datepicker
             label="Date of Technical Control"
             name="TechStartDate"
-            placeholder="19-10-2021"
             padding="20px 0 0 0px !important"
             width="100% !important"
             value={props.step4.TechStartDate}
             onChange={(e) => {
-              props.onChange(e.target.name, e.target.value);
+              props.onChange(
+                "TechStartDate",
+                moment(e).format("YYYY-MM-DDThh:mm:ss")
+              );
             }}
           ></Datepicker>
           <div className="borderbottom"></div>
@@ -281,12 +310,14 @@ const Step4 = (props) => {
           <Datepicker
             label="End Date"
             name="TechEndDate"
-            placeholder="19-10-2021"
             padding="20px 0 0 0px !important"
             width="100% !important"
             value={props.step4.TechEndDate}
             onChange={(e) => {
-              props.onChange(e.target.name, e.target.value);
+              props.onChange(
+                "TechEndDate",
+                moment(e).format("YYYY-MM-DDThh:mm:ss")
+              );
             }}
           ></Datepicker>
           <div className="borderbottom"></div>
@@ -297,18 +328,18 @@ const Step4 = (props) => {
         <Grid item xs={12} sm={12} md={4}>
           <FilePicker
             title="Upload Image"
-            name="Photo"
-            label="uploadImg"
-            value={props.step4.Photo}
+            name="PhotoPath"
+            label="PhotoPath"
+            value={props.step4.PhotoPath}
             onChange={handleFileChange}
           />
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <FilePicker
             title="Upload Vehicle Registration Certificate Front"
-            label="Regcertificate"
-            name="RegCertificate"
-            value={props.step4.RegCertificate}
+            label="RegCertificatefront"
+            name="RegCertificatefront"
+            value={props.step4.RegCertificatefront}
             onChange={handleFileChange}
           />
         </Grid>
@@ -322,20 +353,20 @@ const Step4 = (props) => {
           />
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
-          {/* <FilePicker
+          <FilePicker
             title="Upload Scanned Green Card"
-            name="GreenCard"
-            label="GreenCard"
-            value={props.step4.GreenCard}
+            name="GreenCardImgPath"
+            label="GreenCardImgPath"
+            value={props.step4.GreenCardImgPath}
             onChange={handleFileChange}
-          /> */}
+          />
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <FilePicker
             title="Scan and Upload your CT"
-            name="Ct"
-            label="UploadCT"
-            value={props.step4.Ct}
+            name="ControlTechImgPath"
+            label="ControlTechImgPath"
+            value={props.step4.ControlTechImgPath}
             onChange={handleFileChange}
           />
         </Grid>
