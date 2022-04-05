@@ -98,6 +98,7 @@ const Instructor = () => {
   let history = useHistory();
 
   const [activeStep, setActiveStep] = React.useState(1);
+  const [vehicles, setVehicles] = React.useState([]);
 
   const [step1, setStep1] = React.useState({
     Firstname: "",
@@ -227,168 +228,162 @@ const Instructor = () => {
       lat: step1.Address.Lat,
       long: step1.Address.Lat,
     })
-      .then(async (PersonalResponce) => {
-        await API("post", "TechnicalControl", {
-          dateofTechnicalControl: new Date(),
-          endData: new Date(),
-          endDateOfTechControl: step4.TechEndDate,
-          startDateOfTech: step4.TechStartDate,
-          technicalControlImagePath: step4.ControlTechImgPath,
+      .then(async (PersonalResponse) => {
+        await API("post", "DrivingLisence", {
+          obtainingDate: step2.obtainingdate,
+          validityDate: step2.validitiyDate,
+          already_have_license: false,
+          deliveryPlace: step2.deliveryPlace,
+          drivingLisenceImagePath: step2.licensefront,
+          drivingLisenceImagePathBack: step2.licenseback,
+          licenses_for: "",
+          licenses_type: "",
+          lisenceNumber: step2.licenceNo,
+          otherLicense: "",
         })
-          .then(async (TechnicalControlResponce) => {
-            await API("post", "VehicleInsurance", {
-              insurer: step4.Insurer,
-              policeNumber: step4.PoliceNum,
-              startDate: step4.VehicleInsurerStartDate,
-              endDate: step4.VehicleInsurerEndDate,
-              greenCardImagePath: step4.GreenCardImgPath,
+          .then(async (DrivingLisenceResponse) => {
+            await API("post", "ExersiceAuthorization", {
+              authorizationDate: step2.DateAuthorization,
+              authorizationImagePath: step2.Authorizationfront,
+              authorizationImagePathBack: step2.Authorizationback,
+              authorizationNumber: step2.AuthorizationNumber,
+              expirationDate: step2.ExpirationDate,
+              issuingAuthority: step2.issuingAuthority,
             })
-              .then(async (VehicleInsuranceResponce) => {
-                await API("post", "VehicleDetail", {
-                  dateOfFirstRegistration: step4.FirstRegistration,
-                  brand: step4.Brand,
-                  model: step4.Model,
-                  numberPlate: step4.NumPlate,
-                  color: step4.Color,
-                  energy: step4.Energy,
-                  gearBox: step4.Gearbox,
-                  vehicleePhotosImagePath: step4.ControlTechImgPath,
-                  vehicleRegistrationCertificatePhotoImagePathBack:
-                    step4.RegCertificateback,
-                  vehicleRegistrationCertificatePhotoImagePath:
-                    step4.RegCertificatefront,
-                  vehichleInsuranceInfoId:
-                    VehicleInsuranceResponce.data.data.id,
-                  technicalControlInfoID: TechnicalControlResponce.data.data.id,
+              .then(async (ExersiceAuthorizationResponse) => {
+                await API("post", "Business", {
+                  siratImagePath: step2.kbls,
+                  siretNumber: step2.siretNo,
                 })
-                  .then(async (VehicleDetailResponce) => {
-                    await API("post", "DrivingLisence", {
-                      obtainingDate: step2.obtainingdate,
-                      validityDate: step2.validitiyDate,
-                      already_have_license: false,
-                      deliveryPlace: step2.deliveryPlace,
-                      drivingLisenceImagePath: step2.licensefront,
-                      drivingLisenceImagePathBack: step2.licenseback,
-                      licenses_for: "",
-                      licenses_type: "",
-                      lisenceNumber: step2.licenceNo,
-                      otherLicense: "",
+                  .then(async (BusinessResponse) => {
+                    await API("post", "InsuranceCompany", {
+                      endDate: step3.insuranceExpDate,
+                      insuranceImagePath: step3.companyRC,
+                      insurer: step3.companyInsurer,
+                      policeNumber: step3.companyPoliceNum,
+                      startDate: new Date(),
                     })
-                      .then(async (DrivingLisenceResponce) => {
-                        await API("post", "ExersiceAuthorization", {
-                          authorizationDate: step2.DateAuthorization,
-                          authorizationImagePath: step2.Authorizationfront,
-                          authorizationImagePathBack: step2.Authorizationback,
-                          authorizationNumber: step2.AuthorizationNumber,
-                          expirationDate: step2.ExpirationDate,
-                          issuingAuthority: step2.issuingAuthority,
-                        })
-                          .then(async (ExersiceAuthorizationResponce) => {
-                            await API("post", "Business", {
-                              siratImagePath: step2.kbls,
-                              siretNumber: step2.siretNo,
-                            })
-                              .then(async (BusinessResponce) => {
-                                await API("post", "InsuranceCompany", {
-                                  endDate: step3.insuranceExpDate,
-                                  insuranceImagePath: step3.companyRC,
-                                  insurer: step3.companyInsurer,
-                                  policeNumber: step3.companyPoliceNum,
-                                  startDate: new Date(),
-                                })
-                                  .then(async (InsuranceCompanyResponce) => {
-                                    await API("post", "Profile", {
-                                      businessInfoId:
-                                        BusinessResponce.data.data.id,
-                                      drivingLisenceInfoId:
-                                        DrivingLisenceResponce.data.data.id,
-                                      exersiceAuthorizationInfoId:
-                                        ExersiceAuthorizationResponce.data.data
-                                          .id,
-                                      insuranceCompanyInfoId:
-                                        InsuranceCompanyResponce.data.data.id,
-                                      lat: step1.Address.Lat,
-                                      long: step1.Address.Lng,
-                                      personalInfoId:
-                                        PersonalResponce.data.data.id,
-                                      role: "Instructor",
-                                      status: "Active",
-                                      technicalControlInfoId:
-                                        TechnicalControlResponce.data.data.id,
-                                      vehicleDetailInfoId:
-                                        VehicleDetailResponce.data.data.id,
-                                      vehicleInsuranceInfoid:
-                                        VehicleInsuranceResponce.data.data.id,
-                                    }).then(async (ProfileResponce) => {
-                                      await API(
-                                        "post",
-                                        "InstructorMeetupPoints",
-                                        {
-                                          ZipCode: step1.Address.Zip,
-                                          city: step1.Address.City,
-                                          instructorId:
-                                            PersonalResponce.data.data.id,
-                                          lat: step1.Address.Lat,
-                                          long: step1.Address.Lng,
-                                          meetup: step1.Address.Label,
-                                        }
-                                      ).then(() => {
-                                        history.push("/");
-                                        toast.success(
-                                          "Instructor Registered Successfully"
-                                        );
-                                      });
-                                    });
-                                  })
-                                  .catch((error) => {
-                                    toast.error(
-                                      "Not Registered....Error Occured",
-                                      error
-                                    );
-                                    console.log(
-                                      "InsuranceCompanyResponce",
-                                      error
-                                    );
-                                  });
-                              })
-                              .catch((error) => {
-                                toast.error(
-                                  "Not Registered....Error Occured",
-                                  error
-                                );
-                                console.log("BusinessResponce", error);
+                      .then(async (InsuranceCompanyResponse) => {
+                        let finalVehicles = {};
+
+                        let vehiclesRes = [];
+                        vehicles.map(async (vehicle) => {
+                          let VehicleInsurancePromise = API(
+                            "post",
+                            "VehicleInsurance",
+                            {
+                              insurer: vehicle.Insurer,
+                              policeNumber: vehicle.PoliceNum,
+                              startDate: vehicle.VehicleInsurerStartDate,
+                              endDate: vehicle.VehicleInsurerEndDate,
+                              greenCardImagePath: vehicle.GreenCardImgPath,
+                            }
+                          );
+
+                          let TechnicalControlPromise = API(
+                            "post",
+                            "TechnicalControl",
+                            {
+                              dateofTechnicalControl: new Date(),
+                              endData: new Date(),
+                              endDateOfTechControl: vehicle.TechEndDate,
+                              startDateOfTech: vehicle.TechStartDate,
+                              technicalControlImagePath:
+                                vehicle.ControlTechImgPath,
+                            }
+                          );
+
+                          vehiclesRes.push(
+                            Promise.all([
+                              VehicleInsurancePromise,
+                              TechnicalControlPromise,
+                            ]).then((e) => {
+                              return API("post", "VehicleDetail", {
+                                dateOfFirstRegistration:
+                                  vehicle.FirstRegistration,
+                                brand: vehicle.Brand,
+                                model: vehicle.Model,
+                                numberPlate: vehicle.NumPlate,
+                                color: vehicle.Color,
+                                energy: vehicle.Energy,
+                                gearBox: vehicle.Gearbox,
+                                vehicleePhotosImagePath:
+                                  vehicle.ControlTechImgPath,
+                                vehicleRegistrationCertificatePhotoImagePathBack:
+                                  vehicle.RegCertificateback,
+                                vehicleRegistrationCertificatePhotoImagePath:
+                                  vehicle.RegCertificatefront,
+                                vehichleInsuranceInfoId: e[0].data.data.id,
+                                technicalControlInfoID: e[1].data.data.id,
                               });
-                          })
-                          .catch((error) => {
-                            toast.error(
-                              "Not Registered....Error Occured",
-                              error
-                            );
-                            console.log("ExersiceAuthorizationResponce", error);
+                            })
+                          );
+                        });
+
+                        Promise.all(vehiclesRes).then(async (vehicles) => {
+                          vehicles.map((v, index) => {
+                            finalVehicles = {
+                              ...finalVehicles,
+                              ["Vehicle" + (index + 1)]: v.data.data.id,
+                            };
                           });
+                          await API("post", "Profile", {
+                            businessInfoId: BusinessResponse.data.data.id,
+                            drivingLisenceInfoId:
+                              DrivingLisenceResponse.data.data.id,
+                            exersiceAuthorizationInfoId:
+                              ExersiceAuthorizationResponse.data.data.id,
+                            insuranceCompanyInfoId:
+                              InsuranceCompanyResponse.data.data.id,
+                            lat: step1.Address.Lat,
+                            long: step1.Address.Lng,
+                            personalInfoId: PersonalResponse.data.data.id,
+                            role: "Instructor",
+                            status: "Active",
+                            technicalControlInfoId:
+                              vehicles[0].data.data.technicalControlInfoID,
+                            vehicleDetailInfoId: JSON.stringify(finalVehicles),
+                            vehicleInsuranceInfoid:
+                              vehicles[0].data.data.vehichleInsuranceInfoId,
+                          }).then(async (ProfileResponse) => {
+                            await API("post", "InstructorMeetupPoints", {
+                              ZipCode: step1.Address.Zip,
+                              city: step1.Address.City,
+                              instructorId: PersonalResponse.data.data.id,
+                              lat: step1.Address.Lat,
+                              long: step1.Address.Lng,
+                              meetup: step1.Address.Label,
+                            }).then(() => {
+                              history.push("/");
+                              toast.success(
+                                "Instructor Registered Successfully"
+                              );
+                            });
+                          });
+                        });
                       })
                       .catch((error) => {
                         toast.error("Not Registered....Error Occured", error);
-                        console.log("DrivingLisenceResponce", error);
+                        console.log("InsuranceCompanyResponse", error);
                       });
                   })
                   .catch((error) => {
                     toast.error("Not Registered....Error Occured", error);
-                    console.log("VehicleDetailResponce", error);
+                    console.log("BusinessResponse", error);
                   });
               })
               .catch((error) => {
                 toast.error("Not Registered....Error Occured", error);
-                console.log("VehicleInsuranceResponce", error);
+                console.log("ExersiceAuthorizationResponse", error);
               });
           })
           .catch((error) => {
-            console.log("TechnicalControlResponce", error);
             toast.error("Not Registered....Error Occured", error);
+            console.log("DrivingLisenceResponse", error);
           });
       })
       .catch((error) => {
-        console.log("PersonalResponce", error);
+        console.log("PersonalResponse", error);
         toast.error("Not Registered....Error Occured", error);
       });
   };
@@ -506,6 +501,8 @@ const Instructor = () => {
                         step4={step4}
                         setStep4={setStep4}
                         onChange={handleStep4}
+                        vehicles={vehicles}
+                        setVehicles={setVehicles}
                       />
                     ) : (
                       ""
@@ -556,6 +553,6 @@ const Instructor = () => {
       <Footer />
     </React.Fragment>
   );
-};;
+};
 
 export default Instructor;
