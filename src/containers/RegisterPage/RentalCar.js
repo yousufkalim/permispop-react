@@ -150,6 +150,7 @@ const RentalCar = () => {
     CtImg: "",
   });
   const [activeStep, setActiveStep] = React.useState(1);
+  const [vehicles, setVehicles] = React.useState([]);
 
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -197,96 +198,101 @@ const RentalCar = () => {
       Role: "Car Rental",
     })
       .then(async (personalRes) => {
-        await API("post", "VehicleInsurance", {
-          Insurer: step3.VehicleInsurer,
-          PoliceNumber: step3.PoliceNumber,
-          StartDate: step3.StartDate,
-          EndDate: step3.EndDate,
-          GreenCardImagePath: step3.GreenCard,
+        await API("post", "Business", {
+          Insurer: step2.CompanyInsurer,
+          PoliceNumber: step2.CompanyPoliceNumber,
+          StartDate: step2.InsuranceDateExp,
+          EndDate: step2.InsuranceDateExp,
+          GreenCardImagePath: step2.RcPro,
         })
-          .then(async (VehicleInsuranceRes) => {
-            await API("post", "TechnicalControl", {
-              DateofTechnicalControl: step3.TechControlDate,
-              startDateOfTech: step3.TechControlDate,
-              endDateOfTechControl: step3.TechEndDate,
-              TechnicalControlImagePath: step3.CtImg,
-            })
-              .then(async (TechnicalControlRes) => {
-                await API("post", "VehicleDetail", {
-                  DateOfFirstRegistration: step3.TechControlDate,
-                  Brand: step3.TechControlDate,
-                  Model: step3.TechEndDate,
-                  Color: step3.CtImg,
-                  Energy: step3.Energy,
-                  GearBox: step3.GearBox,
-                  NumberPlate: step3.NumberPlate,
-                  VehicleRegistrationCertificatePhotoImagePath:
-                    step3.VehicleRegImg,
-                  VehicleePhotosImagePath: step3.VehicleImg,
-                  VehichleInsuranceInfoId: VehicleInsuranceRes.data.data.id,
-                  TechnicalControlInfoID: TechnicalControlRes.data.data.id,
-                })
-                  .then(async (VehicleDetailRes) => {
-                    await API("post", "Business", {
-                      Insurer: step2.CompanyInsurer,
-                      PoliceNumber: step2.CompanyPoliceNumber,
-                      StartDate: step2.InsuranceDateExp,
-                      EndDate: step2.InsuranceDateExp,
-                      GreenCardImagePath: step2.RcPro,
-                    })
-                      .then(async (BusinessRes) => {
-                        await API("post", "InsuranceCompany", {
-                          Insurer: step2.CompanyInsurer,
-                          PoliceNumber: step2.CompanyPoliceNumber,
-                          StartDate: step2.InsuranceDateExp,
-                          EndDate: step2.InsuranceDateExp,
-                          GreenCardImagePath: step2.RcPro,
-                        }).then(async (InsuranceCompanyRes) => {
-                          await API("post", "Profile", {
-                            role: "CarRentalAgent",
-                            PersonalInfoId: personalRes.data.data.id,
-                            VehicleDetailInfoId: VehicleDetailRes.data.data.id,
-                            VehicleInsuranceInfoId:
-                              VehicleInsuranceRes.data.data.id,
-                            TechnicalControlInfoId:
-                              TechnicalControlRes.data.data.id,
-                            BusinessInfoId: BusinessRes.data.data.id,
-                            InsuranceCompanyInfoId:
-                              InsuranceCompanyRes.data.data.id,
-                          }).then(async (Profileres) => {
-                            await API("post", "InstructorMeetupPoints", {
-                              PersonalInfoId: personalRes.data.data.id,
-                              MeetUp: step1.Address.Label,
-                              ZIP: step1.Address.Zip,
-                              City: step1.Address.City,
-                              Lat: step1.Address.Lat,
-                              Long: step1.Address.Lng,
-                            }).then((e) => {
-                              history.push("/");
-                              toast.success(
-                                "Rental Car Registered Successfully"
-                              );
-                            });
-                          });
-                        });
-                      })
-                      .catch((error) => {
-                        console.log("Business Error", error);
-                      });
+          .then(async (BusinessRes) => {
+            await API("post", "InsuranceCompany", {
+              Insurer: step2.CompanyInsurer,
+              PoliceNumber: step2.CompanyPoliceNumber,
+              StartDate: step2.InsuranceDateExp,
+              EndDate: step2.InsuranceDateExp,
+              GreenCardImagePath: step2.RcPro,
+            }).then(async (InsuranceCompanyRes) => {
+              let finalVehicles = {};
 
-                    console.log("personalResres", personalRes.data.data);
+              let vehiclesRes = [];
+              vehicles.map(async (vehicle) => {
+                let VehicleInsurancePromise = API("post", "VehicleInsurance", {
+                  Insurer: vehicle.VehicleInsurer,
+                  PoliceNumber: vehicle.PoliceNumber,
+                  StartDate: vehicle.StartDate,
+                  EndDate: vehicle.EndDate,
+                  GreenCardImagePath: vehicle.GreenCard,
+                });
+
+                let TechnicalControlPromise = API("post", "TechnicalControl", {
+                  DateofTechnicalControl: vehicle.TechControlDate,
+                  startDateOfTech: vehicle.TechControlDate,
+                  endDateOfTechControl: vehicle.TechEndDate,
+                  TechnicalControlImagePath: vehicle.CtImg,
+                });
+
+                vehiclesRes.push(
+                  Promise.all([
+                    VehicleInsurancePromise,
+                    TechnicalControlPromise,
+                  ]).then((e) => {
+                    return API("post", "VehicleDetail", {
+                      DateOfFirstRegistration: vehicle.TechControlDate,
+                      Brand: vehicle.TechControlDate,
+                      Model: vehicle.TechEndDate,
+                      Color: vehicle.CtImg,
+                      Energy: vehicle.Energy,
+                      GearBox: vehicle.GearBox,
+                      NumberPlate: vehicle.NumberPlate,
+                      VehicleRegistrationCertificatePhotoImagePath:
+                        vehicle.VehicleRegImg,
+                      VehicleePhotosImagePath: vehicle.VehicleImg,
+                      vehichleInsuranceInfoId: e[0].data.data.id,
+                      technicalControlInfoID: e[1].data.data.id,
+                    });
                   })
-                  .catch((error) => {
-                    console.log("Vehicle Detail Error", error);
-                  });
-              })
-              .catch((error) => {
-                console.log("Technical Control Error", error);
+                );
               });
+
+              Promise.all(vehiclesRes).then(async (vehicles) => {
+                vehicles.map((v, index) => {
+                  finalVehicles = {
+                    ...finalVehicles,
+                    ["Vehicle" + (index + 1)]: v.data.data.id,
+                  };
+                });
+                await API("post", "Profile", {
+                  role: "CarRentalAgent",
+                  PersonalInfoId: personalRes.data.data.id,
+                  VehicleDetailInfoId: JSON.stringify(finalVehicles),
+                  VehicleInsuranceInfoId:
+                    vehicles[0].data.data.vehichleInsuranceInfoId,
+                  TechnicalControlInfoId:
+                    vehicles[0].data.data.technicalControlInfoID,
+                  BusinessInfoId: BusinessRes.data.data.id,
+                  InsuranceCompanyInfoId: InsuranceCompanyRes.data.data.id,
+                }).then(async (Profileres) => {
+                  await API("post", "InstructorMeetupPoints", {
+                    PersonalInfoId: personalRes.data.data.id,
+                    MeetUp: step1.Address.Label,
+                    ZIP: step1.Address.Zip,
+                    City: step1.Address.City,
+                    Lat: step1.Address.Lat,
+                    Long: step1.Address.Lng,
+                  }).then((e) => {
+                    history.push("/");
+                    toast.success("Rental Car Registered Successfully");
+                  });
+                });
+              });
+            });
           })
           .catch((error) => {
-            console.log("Vehicale insurance Error", error);
+            console.log("Business Error", error);
           });
+
+        console.log("personalResres", personalRes.data.data);
       })
       .catch((error) => {
         console.log("Personal Response", error);
@@ -398,6 +404,8 @@ const RentalCar = () => {
                         step3={step3}
                         setStep3={setStep3}
                         onChange={handleStep3}
+                        vehicles={vehicles}
+                        setVehicles={setVehicles}
                       />
                     ) : (
                       ""

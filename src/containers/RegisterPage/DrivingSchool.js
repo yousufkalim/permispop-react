@@ -480,7 +480,7 @@ const DrivingSchool = () => {
                           vehicles.map((v, index) => {
                             finalVehicles = {
                               ...finalVehicles,
-                              ["vehicle" + (index + 1)]: v.data.data.id,
+                              ["Vehicle" + (index + 1)]: v.data.data.id,
                             };
                           });
                         });

@@ -272,12 +272,7 @@ const Step5 = ({ step5, setStep5, onChange, vehicles, setVehicles }) => {
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box
-          component="form"
-          noValidate
-          // onSubmit={handleSubmit}
-          sx={style}
-        >
+        <Box component="form" noValidate sx={style}>
           <Typography className="Heading1">Vehicle Details</Typography>
           <Divider width="100%" borderColor="#D5E4E8" margin="2% 0px 2% 0px" />
           <Grid container spacing={4}>
