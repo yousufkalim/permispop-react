@@ -52,8 +52,8 @@ const Step4 = ({ step4, setStep4, onChange }) => {
               label: item.properties.label,
               city: item.properties.city,
               PostalCode: item.properties.postcode,
-              lat: item.properties.x,
-              lng: item.properties.y,
+              lat: item.geometry.coordinates[1],
+              lng: item.geometry.coordinates[0],
             });
           });
           setAddresses(addressToSet);
