@@ -177,7 +177,6 @@ const StudentForm = (props) => {
     };
     await axios(config)
       .then((res) => {
-        console.log("res", res.data);
         let addressToSet = [];
         res.data.features.map((item) => {
           addressToSet.push({
@@ -201,7 +200,6 @@ const StudentForm = (props) => {
         <div className="main_registerSub_container">
           <div className="second_registerSub_container">
             <div className="registerSub_title_container">
-              {console.log("student", student)}
               <Typography variant="h3" className="registerSub_title">
                 Student Identity
               </Typography>
