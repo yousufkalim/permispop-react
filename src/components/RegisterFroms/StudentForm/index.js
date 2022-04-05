@@ -16,6 +16,7 @@ import AutoComplete from "../../Common/Autocomplete";
 import LanguageAutoComplete from "../../Common/LanguageAutoComplete";
 import { toast } from "react-toastify";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
+import moment from "moment";
 
 const StudentForm = (props) => {
   const [checkbox1, setCheckbox1] = React.useState(false);
@@ -40,6 +41,7 @@ const StudentForm = (props) => {
     backImage: "",
     profileImage: "",
     highwayCodeImg: "",
+    highwayCodeDate: new Date(),
     checkbox2: false,
     date: new Date(),
     addresses: [],
@@ -128,7 +130,7 @@ const StudentForm = (props) => {
       noOfHrsWanted: student.noh,
       neph: student.neph,
       role: "Student",
-      highWayCodeDate: student.date,
+      highWayCodeDate: student.highwayCodeDate,
       id: "",
       frontIdPhoto: student.frontImage,
       backIdPhoto: student.backImage,
@@ -270,7 +272,7 @@ const StudentForm = (props) => {
                 value={student.dob}
                 placeholder="19-10-1992"
                 onChange={(e) => {
-                  handleStudent(e.target.name, e.target.value);
+                  handleStudent("dob", moment(e).format("YYYY-MM-DDThh:mm:ss"));
                 }}
                 padding="20px 0 0 0px !important"
                 width="100% !important"
@@ -523,10 +525,13 @@ const StudentForm = (props) => {
                 <DatePicker
                   label="Date"
                   disabled={disable}
-                  name="date"
-                  value={student.dob}
+                  name="highwayCodeDate"
+                  value={student.highwayCodeDate}
                   onChange={(e) => {
-                    handleStudent(e.target.name, e.target.value);
+                    handleStudent(
+                      "highwayCodeDate",
+                      moment(e).format("YYYY-MM-DDThh:mm:ss")
+                    );
                   }}
                   padding="20px 0 0 0px !important"
                   width="100% !important"
