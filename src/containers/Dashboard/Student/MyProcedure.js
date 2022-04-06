@@ -26,7 +26,7 @@ const Index = () => {
         <Grid container spacing={1} sx={{ marginTop: "30px" }}>
           <Grid xs={12} sm={12} md={4}>
             <Typography
-            className="MyProcedureHeading"
+              className="MyProcedureHeading"
               sx={{
                 marginTop: "20px",
                 paddingLeft: "80px",
@@ -40,79 +40,33 @@ const Index = () => {
                 color: "#2A3235",
               }}
             >
-              My Procedure 
+              My Procedure
             </Typography>
-          </Grid>
-          <Grid xs={12} sm={6} md={2}>
-            <MultipleSelectPlaceholder
-              value={["All"]}
-            ></MultipleSelectPlaceholder>
-          </Grid>
-          <Grid xs={12} sm={6} md={2}>
-            <MultipleSelectPlaceholder
-              value={["Filter by receiver"]}
-            ></MultipleSelectPlaceholder>
-          </Grid>
-          <Grid xs={12} sm={6} md={2}>
-            <DatePicker
-              label="Start Date"
-              value={Startvalue}
-              onChange={handleStartdate}
-            ></DatePicker>
-          </Grid>
-
-          <Grid xs={12} sm={6} md={2}>
-            <DatePicker
-              label="End Date"
-              // label={["date"]}
-              value={Endvalue}
-              onChange={handleEnddate}
-            ></DatePicker>
           </Grid>
         </Grid>
       </div>
 
-       <Divider width="100%" borderColor="#D5E4E8" margin="2% 0px 2% 0px" />
+      <Divider width="100%" borderColor="#D5E4E8" margin="2% 0px 2% 0px" />
 
-       <Grid container spacing={1} sx={{ margin: "30px"}}>
-              <Grid xs={12}>
-                  <div className="ProceduresList">
-                        <Typography className="ProcedureGrid">ANTS</Typography>
-                        <ButtonComponent
-                             buttonLableStyle="btn_main"
-                             className="procedureBtn"
-                             text="Edit"      
-                             width= "10%"            
-                        />
-                  </div>
-                  <Divider/>
-                  <div className="ProceduresList">
-                        <Typography className="ProcedureGrid">Mes demarches simplifees</Typography>
-                        <ButtonComponent
-                             buttonLableStyle="btn_main"
-                             className="procedureBtn"
-                             text="Edit"      
-                             width= "10%"            
-                        />
-                  </div>
-                  <Divider/>
-                  <div className="ProceduresList">
-                        <Typography className="ProcedureGrid">Reserver une date de code</Typography>
-                        <ButtonComponent
-                             className="procedureBtn"
-                             buttonLableStyle="btn_main"
-                             text="Edit"      
-                             width= "10%"            
-                        />
-                  </div>
-                
-              </Grid>
-              
-       </Grid>
-
-    
-
-      
+      <Grid container spacing={1} sx={{ margin: "30px" }}>
+        <Grid xs={12}>
+          <div className="ProceduresList">
+            <Typography className="ProcedureGrid">ANTS</Typography>
+          </div>
+          <Divider />
+          <div className="ProceduresList">
+            <Typography className="ProcedureGrid">
+              Mes demarches simplifees
+            </Typography>
+          </div>
+          <Divider />
+          <div className="ProceduresList">
+            <Typography className="ProcedureGrid">
+              Reserver une date de code
+            </Typography>
+          </div>
+        </Grid>
+      </Grid>
     </>
   );
 };

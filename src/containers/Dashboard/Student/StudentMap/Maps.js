@@ -16,8 +16,7 @@ import MenuItem from "@mui/material/MenuItem";
 const Maps = (props) => {
   const studentData = JSON.parse(localStorage.getItem("user"));
   const history = useHistory();
-  const [ProfileModal, setProfileModal] = useState(false);
-  const [data, setData] = useState({});
+  const [data, setData] = useState([]);
   const [instructorType, setInstructorType] = useState({
     Gearbox: "All",
     Gender: "All",
@@ -34,8 +33,46 @@ const Maps = (props) => {
       "get",
       `Profile/GetNearbyProfilesForMap?lat=${studentData.lat}&log=${studentData.long}&gearbox=${instructorType.Gearbox}&gender=${instructorType.Gender}&role=${instructorType.Role}`
     )
-      .then((GetNearbyProfilesForMapResponce) => {
-        setData(GetNearbyProfilesForMapResponce.data);
+      .then((GetNearbyProfilesForMapResponse) => {
+        let Profile = GetNearbyProfilesForMapResponse.data.map((item) => {
+          if (item.role === "CarRentalAgent" || item.role === "Instructor") {
+            return API(
+              "get",
+              `Bookings/GetBookingsByInstructor?id=${item.id}`
+            ).then((GetBookingsByInstructor) => {
+              let newProfile = item;
+              newProfile["BookingLength"] =
+                GetBookingsByInstructor.data.data.length;
+              return newProfile;
+            });
+          } else if (item.role === "DrivingSchool") {
+            return API(
+              "get",
+              `Bookings/GetBookingsByDrivingSchool?id=${item.id}`
+            ).then((GetBookingsByDrivingSchool) => {
+              let newProfile = item;
+              newProfile["BookingLength"] =
+                GetBookingsByDrivingSchool.data.data.length;
+              return newProfile;
+            });
+          }
+        });
+
+        Promise.all(Profile).then(async (e) => {
+          let newnewProfile = e.map((pro) => {
+            return API("get", `FeedBacks/GetAverageRating?id=${pro.id}`).then(
+              (GetAverageRatingResponse) => {
+                let newProfile = pro;
+
+                newProfile["Rating"] = GetAverageRatingResponse.data.data;
+                return newProfile;
+              }
+            );
+          });
+          Promise.all(newnewProfile).then((n) => {
+            setData(n);
+          });
+        });
       })
       .catch((error) => {
         console.log(error);
@@ -48,13 +85,13 @@ const Maps = (props) => {
   const handleChatClick = () => history.push("/student/chat");
   const handleBooking = () => history.push("/student/booking");
   const url = "https://www.nbrc.com.au/images/avatar-placeholder.png";
-  const profileImg = studentData.role === "Student" ? studentData.photo : url;
+  const profileImg = studentData.role ? studentData.photo : url;
 
   var greyIcon = new L.Icon({
     iconUrl: url,
     iconSize: [60, 65],
     iconAnchor: [12, 41],
-    popupAnchor: [1, -34],
+    popupAnchor: [16, -38],
   });
 
   return (
@@ -123,13 +160,13 @@ const Maps = (props) => {
               <MenuItem value="All" name="All">
                 All
               </MenuItem>
-              <MenuItem value="Driving School" name="Driving School">
+              <MenuItem value="DrivingSchool" name="Driving School">
                 Driving School
               </MenuItem>
               <MenuItem value="Instructor" name="Instructor">
                 Instructor
               </MenuItem>
-              <MenuItem value="Car Rental Agent" name="Car Rental Agent">
+              <MenuItem value="CarRentalAgent" name="Car Rental Agent">
                 Car Rental Agent
               </MenuItem>
             </Select>
@@ -185,7 +222,7 @@ const Maps = (props) => {
                               iconUrl: item.photo,
                               iconSize: [60, 65],
                               iconAnchor: [12, 41],
-                              popupAnchor: [1, -34],
+                              popupAnchor: [16, -38],
                               className: "leaflet-div-icon",
                             })
                         : item?.role === "CarRentalAgent"
@@ -195,7 +232,7 @@ const Maps = (props) => {
                               iconUrl: item.photo,
                               iconSize: [60, 65],
                               iconAnchor: [12, 41],
-                              popupAnchor: [1, -34],
+                              popupAnchor: [16, -38],
                               className: "leaflet-div-icon",
                             })
                         : item?.role === "DrivingSchool"
@@ -205,7 +242,7 @@ const Maps = (props) => {
                               iconUrl: item.photo,
                               iconSize: [60, 65],
                               iconAnchor: [12, 41],
-                              popupAnchor: [1, -34],
+                              popupAnchor: [16, -38],
                               className: "leaflet-div-icon",
                             })
                         : item?.role === "DrivingSchoolInstructor"
@@ -215,17 +252,23 @@ const Maps = (props) => {
                               iconUrl: item.photo,
                               iconSize: [60, 65],
                               iconAnchor: [12, 41],
-                              popupAnchor: [1, -34],
+                              popupAnchor: [16, -38],
                               className: "leaflet-div-icon",
                             })
                         : ""
                     }
                   >
                     <Popup>
-                      <div className="pop_up_div">
+                      <div>
                         <div className="profile_img_div">
                           <img
-                            src={item.photo !== null ? item.photo : Image}
+                            src={
+                              item?.photo
+                                ? item?.photo
+                                : item.photo === "null" || "undefined"
+                                ? Image
+                                : item.photo
+                            }
                             alt=""
                             className="profile_img"
                           />
@@ -244,9 +287,11 @@ const Maps = (props) => {
                             <div className="icon_style_div">
                               <img src={Project} alt="" />
                             </div>
-                            <div>
-                              <p className="icons_text1">334</p>
-                              <p className="icons_text2">Projects</p>
+                            <div className="popup_text">
+                              <p className="icons_text1">
+                                {item.BookingLength}
+                              </p>
+                              <p className="icons_text2">Bookings</p>
                             </div>
                           </div>
                           <div className="icons_div">
@@ -254,7 +299,9 @@ const Maps = (props) => {
                               <img src={Rating} alt="" />
                             </div>
                             <div>
-                              <p className="icons_text1">4.4</p>
+                              <p className="icons_text1">
+                                {item.Rating != "NaN" ? item.Rating : "N/A"}
+                              </p>
                               <p className="icons_text2">Ratings</p>
                             </div>
                           </div>
@@ -263,7 +310,7 @@ const Maps = (props) => {
                           <Button
                             text="Book Now"
                             borderRadius="5px"
-                            width="60% !important"
+                            width="50% !important"
                             textColor="#f4f4f4 !important"
                             className="popup_btn"
                             onClick={handleBooking}
@@ -271,7 +318,7 @@ const Maps = (props) => {
                           <Button
                             text="Chat"
                             borderRadius="5px"
-                            width="60% !important"
+                            width="50% !important"
                             margin="0 0 0 5px !important"
                             textColor="#f4f4f4 !important"
                             color="#149e7a  !important"

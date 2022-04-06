@@ -4,7 +4,9 @@
   width: 100% !important;
   height: 100% !important;
 }
-
+.leaflet-popup-content p {
+  margin: 0 !important;
+}
 .markercluster-map {
   /* margin: 5px !important; */
   /* width: 100% !important; */
@@ -28,6 +30,7 @@
   height: 60%;
 }
 .popup_button_div{
+  margin-top: 5%;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -52,16 +55,23 @@
   justify-content: center;
   align-items: center;
 }
+
+
 .profile_img {
+  position: relative;
+  width: 130px;
+  height: 130px;
+  overflow: hidden;
+  border-radius: 50%; 
   padding: 5px;
-  width: 50%;
   border: 4px solid #149e7a;
-  border-radius: 50%;
+
 }
 .icons {
+  margin-top: 5%;
   display: flex;
   justify-content: center;
-  align-items: center;
+  flex-direction: row;
 }
 .icons_div {
   margin: 15px;
@@ -74,6 +84,7 @@
   background-color: #f1ecec;
   padding: 4px;
   border-radius: 4px;
+  cursor: pointer;
 }
 .icons_text1 {
   font-size: 1rem;
@@ -82,9 +93,7 @@
 .icons_text2 {
   font-size: 0.8rem;
 }
-.icons {
-  cursor: pointer;
-}
+
 .pop_text {
   font-size: 18px;
   font-weight: 550;
@@ -93,6 +102,7 @@
 .popup_btn{
   height: 20% !important;
 }
+
 /* .pop {
   display: flex;
   justify-content: center;
