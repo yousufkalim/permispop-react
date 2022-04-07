@@ -60,7 +60,7 @@ export const Historycolumns = [
     align: "center",
   },
   {
-    id: "actions",
+    id: "historyActions",
     label: "Action",
     minWidth: 170,
     align: "center",
