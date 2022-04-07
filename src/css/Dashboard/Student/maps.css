@@ -42,7 +42,6 @@
   justify-content: center;
 }
 .filter_div{
-  background-color: blue;
   /* display: flex;
   align-items: flex-start;
   justify-content: flex-start; */
@@ -84,7 +83,9 @@
   background-color: #149e7a !important;
   color: white !important;
   height: 3.8rem;
-  width: 12.4rem;
+}
+.btn_filter{
+  width: 30%;
 }
 
 .icons {
@@ -147,19 +148,30 @@
 @media only screen and (max-width: 600px) {
   .filter_div{
     height: 225px;
-    
   }
-  .dropdown_div{
-    
+  .btn_filter{
+    width: 90%;
   }
-  .dropdown2{
-width: 100% !important;
-  }
-  .filter_btn{
-    margin : 0  0 0 3px !important;
-  }
+ 
 }
-
-@media only screen and (max-width: 480px) {
+@media only screen and (max-width: 505px) {
+  
+  
+}@media only screen and (max-width: 478px) {
+  
+  
+}@media only screen and (max-width: 437px) {
+  
+  
+}@media only screen and (max-width: 402px) {
+  
+  
+}@media only screen and (max-width: 366px) {
+  
+  
+}@media only screen and (max-width: 321px) {
+  
+}
+@media only screen and (max-width: 301px) {
   
 }

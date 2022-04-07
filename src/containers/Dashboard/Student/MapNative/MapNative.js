@@ -104,7 +104,7 @@ const MapNative = (props) => {
   return (
     <div className="main-div">
       <Grid container spacing={1} style={{ margin: "10px 0 10px 25px" }}>
-        <Grid xs={6} sm={5} style={{ margin: "3px" }}>
+        <Grid xs={5} sm={5} style={{ margin: "3px" }}>
           <Select
             name="Gearbox"
             value={
@@ -127,7 +127,7 @@ const MapNative = (props) => {
           </Select>
         </Grid>
 
-        <Grid xs={6} sm={5} style={{ margin: "3px" }}>
+        <Grid xs={5} sm={5} style={{ margin: "3px" }}>
           <Select
             name="Gender"
             value={
@@ -172,13 +172,16 @@ const MapNative = (props) => {
           </Select>
         </Grid>
         <Grid xs={5} sm={5} style={{ margin: "3px" }}>
-          <Button1
-            className="filter_btn"
-            onClick={ProfilesOnMap}
-            variant="contained"
-          >
-            Apply
-          </Button1>
+          <div className="btn_filter">
+            <Button1
+              className="filter_btn"
+              onClick={ProfilesOnMap}
+              variant="contained"
+              fullWidth
+            >
+              Apply
+            </Button1>
+          </div>
         </Grid>
       </Grid>
       <MapContainer
