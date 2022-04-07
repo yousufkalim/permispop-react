@@ -1,4 +1,6 @@
-import * as React from "react";
+import React, { useState, useEffect } from "react";
+import { useHistory } from "react-router-dom";
+
 import Paper from "@mui/material/Paper";
 import Table from "@mui/material/Table";
 import TableBody from "@mui/material/TableBody";
@@ -7,12 +9,18 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Pagination from "@mui/material/Pagination";
-
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import Button from "../../components/Common/Button";
+import MenuItem from "@mui/material/MenuItem";
+import IconButton from "@mui/material/IconButton";
+import Select from "@mui/material/Select";
+import FormControl from "@mui/material/FormControl";
 
 export default function DataTable(props) {
+  const history = useHistory();
+  const handleReBook = () => history.push("/student/booking");
   const [page, setPage] = React.useState(0);
+
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
 
   return (
@@ -63,7 +71,6 @@ export default function DataTable(props) {
                   : "No data found"}
               </TableRow>
             </TableHead>
-
             <TableBody>
               {props.data
                 ? props.data
@@ -83,6 +90,7 @@ export default function DataTable(props) {
                                 {column.id !== "options" &&
                                 column.id !== "action" &&
                                 column.id !== "Vaction" &&
+                                column.id !== "historyActions" &&
                                 column.id !== "actions" ? (
                                   <TableCell
                                     sx={{
@@ -110,18 +118,117 @@ export default function DataTable(props) {
                                   </TableCell>
                                 ) : column.id === "actions" ? (
                                   <TableCell align="right">
-                                    <p
-                                      style={{
-                                        color: "#149E7A",
-                                        background: "#E8FEED",
-                                        paddingTop: "15px",
-                                        paddingBottom: "15px",
-                                        borderRadius: "12px",
-                                      }}
-                                      align="center"
-                                    >
-                                      Completed
-                                    </p>
+                                    <FormControl>
+                                      <Select
+                                        labelId="demo-simple-select-standard-label"
+                                        id="demo-simple-select-standard"
+                                        value={row.status}
+                                        disabled={
+                                          row.status === "Dispute" ||
+                                          row.status === "Complete" ||
+                                          row.status === "Closed"
+                                            ? true
+                                            : false
+                                        }
+                                        defaultValue={0}
+                                        onChange={(e) => {
+                                          props.updateStatus(
+                                            row.id,
+                                            e.target.value
+                                          );
+                                        }}
+                                        sx={{
+                                          fontSize: "14px",
+                                          color: "#149E7A",
+                                          background: "#E8FEED",
+                                          display: "flex",
+                                          justifyContent: "center",
+                                          textAlign: "center",
+                                        }}
+                                      >
+                                        <MenuItem
+                                          name="In progress"
+                                          value="In progress"
+                                          disabled
+                                          sx={{
+                                            paddingTop: "0px !important",
+                                            display: "flex",
+                                            justifyContent: "center",
+                                          }}
+                                        >
+                                          In Progress
+                                        </MenuItem>
+
+                                        <MenuItem
+                                          value={
+                                            row.status === "In progress"
+                                              ? props.user.role === "Student"
+                                                ? "Closed"
+                                                : "Complete"
+                                              : row.status
+                                          }
+                                          name={
+                                            row.status === "In progress"
+                                              ? props.user.role === "Student"
+                                                ? "Closed"
+                                                : "Complete"
+                                              : row.status
+                                          }
+                                          sx={{
+                                            paddingTop: "0px !important",
+                                            display: "flex",
+                                            justifyContent: "center",
+                                          }}
+                                        >
+                                          {row.status === "In progress"
+                                            ? props.user.role === "Student"
+                                              ? "Closed"
+                                              : "Complete"
+                                            : row.status}
+                                        </MenuItem>
+
+                                        <MenuItem
+                                          value="Dispute"
+                                          name="Dispute"
+                                          sx={{
+                                            paddingTop: "0px !important",
+                                            display: "flex",
+                                            justifyContent: "center",
+                                          }}
+                                        >
+                                          Dispute
+                                        </MenuItem>
+                                      </Select>
+                                      {/* <Modal
+                                        // aria-labelledby="spring-modal-title"
+                                        // aria-describedby="spring-modal-description"
+                                        // closeAfterTransition
+                                        // BackdropComponent={Backdrop}
+                                        // BackdropProps={{
+                                        //   timeout: 500,
+                                        // }}
+                                        open={openDisputeModal}
+                                        onClose={() =>
+                                          setOpenDisputeModal(false)
+                                        }
+                                        component={
+                                          // <CreateDisputeModal userID={row.id} />
+                                          <p>xyz</p>
+                                        }
+                                      /> */}
+                                    </FormControl>
+                                  </TableCell>
+                                ) : column.id === "historyActions" ? (
+                                  <TableCell align="center">
+                                    <Button
+                                      type="submit"
+                                      text="Re-Book"
+                                      color="#149E7A !important"
+                                      width="100% !important"
+                                      margin="0px 0px 10px 0px !important"
+                                      height="50px !important"
+                                      onClick={handleReBook}
+                                    ></Button>
                                   </TableCell>
                                 ) : column.id === "action" ? (
                                   <TableCell align="center">
@@ -169,7 +276,15 @@ export default function DataTable(props) {
                                   </TableCell>
                                 ) : (
                                   <TableCell align="center">
-                                    <MoreVertIcon />
+                                    <IconButton>
+                                      <MoreVertIcon />
+                                    </IconButton>
+                                    <IconButton>
+                                      <MoreVertIcon />
+                                    </IconButton>
+                                    <IconButton>
+                                      <MoreVertIcon />
+                                    </IconButton>
                                   </TableCell>
                                 )}
                               </>
@@ -194,6 +309,7 @@ export default function DataTable(props) {
           alignContent: "center",
         }}
       />
+      <></>
     </div>
   );
 }

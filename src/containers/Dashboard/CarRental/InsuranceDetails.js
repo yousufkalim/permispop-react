@@ -139,6 +139,7 @@ const InsuranceDetails = () => {
               className="placeH"
               placeholder="EFU"
               value={companyinsurance.insurer ? companyinsurance.insurer : ""}
+              disabled
             />
           </Grid>
           <Grid item xs={12} md={12} className="textdiv">
@@ -150,6 +151,7 @@ const InsuranceDetails = () => {
                   ? companyinsurance.policeNumber
                   : ""
               }
+              disabled
             />
           </Grid>
           <Grid item xs={12} md={12} className="textdiv">
@@ -159,6 +161,7 @@ const InsuranceDetails = () => {
               value={
                 companyinsurance.startDate ? companyinsurance.startDate : ""
               }
+              disabled
             />
           </Grid>
           <Grid item xs={12} md={12} className="textdiv">
@@ -166,6 +169,7 @@ const InsuranceDetails = () => {
             <input
               placeholder="30/05/2021"
               value={companyinsurance.endDate ? companyinsurance.endDate : ""}
+              disabled
             />
           </Grid>
         </Grid>
@@ -190,6 +194,7 @@ const InsuranceDetails = () => {
                     ? technicalcontrol.startDateOfTech
                     : ""
                 }
+                disabled
               />
             </Grid>
             <Grid item md={12} className="textdiv">
@@ -201,6 +206,7 @@ const InsuranceDetails = () => {
                     ? technicalcontrol.endDateOfTechControl
                     : ""
                 }
+                disabled
               />
             </Grid>
           </Grid>
@@ -220,6 +226,7 @@ const InsuranceDetails = () => {
               <input
                 placeholder="xxxxxxxxxx"
                 value={businesstore.siretNumber ? businesstore.siretNumber : ""}
+                disabled
               />
             </Grid>
           </Grid>
@@ -245,6 +252,7 @@ const InsuranceDetails = () => {
                   ? vehicledetail.dateOfFirstRegistration
                   : ""
               }
+              disabled
             />
           </Grid>
           <Grid item xs={12} md={12} className="textdiv">
@@ -252,6 +260,7 @@ const InsuranceDetails = () => {
             <input
               placeholder="BMW"
               value={vehicledetail.brand ? vehicledetail.brand : ""}
+              disabled
             />
           </Grid>
           <Grid item xs={12} md={12} className="textdiv">
@@ -259,6 +268,7 @@ const InsuranceDetails = () => {
             <input
               placeholder="Red"
               value={vehicledetail.color ? vehicledetail.color : ""}
+              disabled
             />
           </Grid>
           <Grid item xs={12} md={12} className="textdiv">
@@ -266,6 +276,7 @@ const InsuranceDetails = () => {
             <input
               placeholder="X6 M Competition"
               value={vehicledetail.model ? vehicledetail.model : ""}
+              disabled
             />
           </Grid>
           <Grid item xs={12} md={12} className="textdiv">
@@ -273,6 +284,7 @@ const InsuranceDetails = () => {
             <input
               placeholder="Auto"
               value={vehicledetail.gearBox ? vehicledetail.gearBox : ""}
+              disabled
             />
           </Grid>
         </Grid>
@@ -292,6 +304,7 @@ const InsuranceDetails = () => {
             <input
               placeholder="Honda"
               value={vehicleInsurance.insurer ? vehicleInsurance.insurer : ""}
+              disabled
             />
           </Grid>
           <Grid item md={12} className="textdiv">
@@ -303,6 +316,7 @@ const InsuranceDetails = () => {
                   ? vehicleInsurance.policeNumber
                   : ""
               }
+              disabled
             />
           </Grid>
           <Grid item md={12} className="textdiv">
@@ -312,6 +326,7 @@ const InsuranceDetails = () => {
               value={
                 vehicleInsurance.startDate ? vehicleInsurance.startDate : ""
               }
+              disabled
             />
           </Grid>
           <Grid item md={12} className="textdiv">
@@ -319,6 +334,7 @@ const InsuranceDetails = () => {
             <input
               placeholder="05/05/2012"
               value={vehicleInsurance.endDate ? vehicleInsurance.endDate : ""}
+              disabled
             />
           </Grid>
         </Grid>

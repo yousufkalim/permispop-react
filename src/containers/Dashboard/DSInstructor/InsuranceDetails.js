@@ -60,7 +60,7 @@ const InsuranceDetails = () => {
 
           let vehicle1Id = JSON.parse(
             DSprofileRes.data.data.drivingSchoolVehiclesInfoId
-          ).vehicle1;
+          ).Vehicle1;
 
           await API(
             "get",
@@ -140,7 +140,7 @@ const InsuranceDetails = () => {
             <input
               className="placeH"
               placeholder="Sirel Number"
-              value={businesstore.siretNumber ? businesstore.siretNumber : ""}
+              value={businesstore.siretNumber}
             />
           </Grid>
         </Grid>

@@ -34,7 +34,7 @@ import InsCalendar from "../containers/Dashboard/Instructor/InsCalendar/Calendar
 import InsInsuranceDetails from "../containers/Dashboard/Instructor/InsuranceDetails";
 import InsFaq from "../containers/Dashboard/Instructor/Faq";
 import InsVehicles from "../containers/Dashboard/Instructor/Vehicles";
-import InsDispute from "../containers/Dashboard/Student/Dispute";
+import InsDispute from "../containers/Dashboard/Instructor/Dispute";
 import InsChat from "../containers/Dashboard/Instructor/Chat";
 
 //driving school instructor components routes
@@ -43,9 +43,9 @@ import DsInsPendingRequest from "../containers/Dashboard/DSInstructor/PendingReq
 import DsInsHistory from "../containers/Dashboard/DSInstructor/History";
 import DsInsCalendar from "../containers/Dashboard/DSInstructor/DsInstructorCalendar/Calendar";
 import DsInsVehicles from "../containers/Dashboard/Instructor/Vehicles";
-import DsInsDispute from "../containers/Dashboard/Student/Dispute";
+import DsInsDispute from "../containers/Dashboard/DSInstructor/Dispute";
 import DsInsChat from "../containers/Dashboard/DSInstructor/Chat";
-
+import DsInsInsuranceDetails from "../containers/Dashboard/DSInstructor/InsuranceDetails";
 
 // import InsInsuranceDetails from "../containers/Dashboard/Instructor/InsuranceDetails";
 // import InsFaq from "../containers/Dashboard/Instructor/Faq";
@@ -58,9 +58,8 @@ import DsCalendar from "../containers/Dashboard/DrivingSchool/DsCalendar/Calenda
 import DsInstructor from "../containers/Dashboard/DrivingSchool/Instructor";
 import DsVehicles from "../containers/Dashboard/DrivingSchool/Vehicles";
 import DsInsuranceDetails from "../containers/Dashboard/DrivingSchool/InsuranceDetails";
-import DsDispute from "../containers/Dashboard/Student/Dispute";
+import DsDispute from "../containers/Dashboard/DrivingSchool/Dispute";
 import DsChat from "../containers/Dashboard/DrivingSchool/Chat";
-
 
 // CarRental components routes
 import CRCalendar from "../containers/Dashboard/CarRental/CarRentalCalendar/Calendar";
@@ -69,9 +68,8 @@ import CRPendingRequest from "../containers/Dashboard/CarRental/PendingRequest";
 import CRHistory from "../containers/Dashboard/CarRental/History";
 import CRVehicles from "../containers/Dashboard/CarRental/Vehicles";
 import CRInsuranceDetails from "../containers/Dashboard/CarRental/InsuranceDetails";
-import CRDispute from "../containers/Dashboard/Student/Dispute";
+import CRDispute from "../containers/Dashboard/CarRental/Dispute";
 import CRChat from "../containers/Dashboard/CarRental/Chat";
-
 
 // Student Routes
 var StudentRoutes = [
@@ -226,7 +224,7 @@ var DsInstructorRoutes = [
     path: "/insuranceDetails",
     name: "Insurance Details",
     icon: <AssignmentTurnedInOutlinedIcon className="drawer-icons" />,
-    component: Test,
+    component: DsInsInsuranceDetails,
     layout: "/DsInstructor",
   },
   {
@@ -257,6 +255,7 @@ var DsInstructorRoutes = [
     component: DsInsCalendar,
     layout: "/DsInstructor",
   },
+
   {
     path: "/vehicles",
     name: "Vehicles",
@@ -264,6 +263,7 @@ var DsInstructorRoutes = [
     component: DsInsVehicles,
     layout: "/DsInstructor",
   },
+
   {
     path: "/disputes",
     name: "Disputes",
