@@ -41,6 +41,7 @@ const Step2 = (props) => {
         <Grid item xs={12} sm={12} md={4}>
           <TextField
             label="Driving License Number"
+            required={true}
             name="licenceNo"
             type="text"
             placeholder="000000000"
@@ -48,6 +49,8 @@ const Step2 = (props) => {
             onChange={(e) => {
               props.onChange(e.target.name, e.target.value);
             }}
+            error={props.step2Errors['licenceNo']?true:false}
+            ErrorMsg={props.step2Errors['licenceNo']}
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
@@ -55,91 +58,114 @@ const Step2 = (props) => {
             label="Place of Delivery"
             name="deliveryPlace"
             type="text"
+            required={true}
             placeholder="France"
             value={props.step2.deliveryPlace}
             onChange={(e) => {
               props.onChange(e.target.name, e.target.value);
             }}
+            error={props.step2Errors['deliveryPlace']?true:false}
+            ErrorMsg={props.step2Errors['deliveryPlace']}
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <TextField
             label="Issuing Authority"
             name="issuingAuthority"
+            required={true}
             placeholder="712333"
             value={props.step2.issuingAuthority}
             onChange={(e) => {
               props.onChange(e.target.name, e.target.value);
             }}
+            error={props.step2Errors['issuingAuthority']?true:false}
+            ErrorMsg={props.step2Errors['issuingAuthority']}
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <Datepicker
             label="Validity Date"
+            required={true}
             name="validitiyDate"
             padding="20px 0 0 0px !important"
             width="100% !important"
             value={props.step2.validitiyDate}
+            minDate={moment()}
             onChange={(e) => {
               props.onChange(
                 "validitiyDate",
                 moment(e).format("YYYY-MM-DDThh:mm:ss")
               );
             }}
+            error={props.step2Errors['validitiyDate']?true:false}
+            ErrorMsg={props.step2Errors['validitiyDate']}
           ></Datepicker>
           <div className="borderbottom"></div>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <Datepicker
             label="Date of authorization to excersice"
+            required={true}
             name="DateAuthorization"
             padding="20px 0 0 0px !important"
             width="100% !important"
             value={props.step2.DateAuthorization}
+            maxDate={moment()}
             onChange={(e) => {
               props.onChange(
                 "DateAuthorization",
                 moment(e).format("YYYY-MM-DDThh:mm:ss")
               );
             }}
+            error={props.step2Errors['DateAuthorization']?true:false}
+            ErrorMsg={props.step2Errors['DateAuthorization']}
           ></Datepicker>
           <div className="borderbottom"></div>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <Datepicker
             label="Dates of Obtaining"
+            required={true}
             name="obtainingdate"
             padding="20px 0 0 0px !important"
             width="100% !important"
             value={props.step2.obtainingdate}
+            maxDate={moment()}
             onChange={(e) => {
               props.onChange(
                 "obtainingdate",
                 moment(e).format("YYYY-MM-DDThh:mm:ss")
               );
             }}
+            error={props.step2Errors['obtainingdate']?true:false}
+            ErrorMsg={props.step2Errors['obtainingdate']}
           ></Datepicker>
           <div className="borderbottom"></div>
         </Grid>
         <Grid item xs={12} sm={12} md={4} sx={{ marginTop: "9px" }}>
           <Datepicker
+            required={true}
             label="Expiration Date"
             name="ExpirationDate"
             padding="20px 0 0 0px !important"
             width="100% !important"
             value={props.step2.ExpirationDate}
+            minDate={moment()}
             onChange={(e) => {
               props.onChange(
                 "ExpirationDate",
                 moment(e).format("YYYY-MM-DDThh:mm:ss")
               );
             }}
+            error={props.step2Errors['ExpirationDate']?true:false}
+            ErrorMsg={props.step2Errors['ExpirationDate']}
           ></Datepicker>
           <div className="borderbottom"></div>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <TextField
             label="Authorization Number"
+            required={true}
             name="AuthorizationNumber"
             type="text"
             placeholder="000000000"
@@ -147,10 +173,13 @@ const Step2 = (props) => {
             onChange={(e) => {
               props.onChange(e.target.name, e.target.value);
             }}
+            error={props.step2Errors['AuthorizationNumber']?true:false}
+            ErrorMsg={props.step2Errors['AuthorizationNumber']}
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <TextField
+            required={true}
             label="SIRET Number"
             name="siretNo"
             type="text"
@@ -159,6 +188,8 @@ const Step2 = (props) => {
             onChange={(e) => {
               props.onChange(e.target.name, e.target.value);
             }}
+            error={props.step2Errors['siretNo']?true:false}
+            ErrorMsg={props.step2Errors['siretNo']}
           ></TextField>
         </Grid>
       </Grid>
@@ -170,50 +201,65 @@ const Step2 = (props) => {
           <FilePicker
             title="Upload your Driving License Front Side"
             label="licensefront"
+            required={true}
             type="file"
             name="licensefront"
             value={props.step2.licensefront}
             onChange={handleFileChange}
+            error={props.step2Errors['licensefront']?true:false}
+            ErrorMsg={props.step2Errors['licensefront']}
           />
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <FilePicker
             title="Upload your Driving License Back Side"
+            required={true}
             label="licenseback"
             type="file"
             name="licenseback"
             value={props.step2.licenseback}
             onChange={handleFileChange}
+            error={props.step2Errors['licenseback']?true:false}
+            ErrorMsg={props.step2Errors['licenseback']}
           />
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <FilePicker
+            required={true}
             title="Upload your KBLS"
             label="kbls"
             name="kbls"
             type="file"
             value={props.step2.kbls}
             onChange={handleFileChange}
+            error={props.step2Errors['kbls']?true:false}
+            ErrorMsg={props.step2Errors['kbls']}
           />
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <FilePicker
             title="Upload your Authorization Front Side"
             label="Authorizationfront"
+            required={true}
             name="Authorizationfront"
             type="file"
             value={props.step2.Authorizationfront}
             onChange={handleFileChange}
+            error={props.step2Errors['Authorizationfront']?true:false}
+            ErrorMsg={props.step2Errors['Authorizationfront']}
           />
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <FilePicker
             title="Upload your Authorization Back Side"
+            required={true}
             label="Authorizationback"
             name="Authorizationback"
             type="file"
             value={props.step2.Authorizationback}
             onChange={handleFileChange}
+            error={props.step2Errors['Authorizationback']?true:false}
+            ErrorMsg={props.step2Errors['Authorizationback']}
           />
         </Grid>
       </Grid>

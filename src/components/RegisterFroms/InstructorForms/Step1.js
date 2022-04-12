@@ -15,11 +15,11 @@ import API from "../../../api/index";
 import moment from "moment";
 
 const Step1 = (props) => {
-  const [checked, setisChecked] = useState(false);
   const [addresses, setAddresses] = useState([]);
   const [languages, setLanguages] = useState([]);
 
   const handleSelectAddress = (e) => {
+    if (e) {
     props.onChange("Address", {
       Label: e.label,
       Zip: e.PostalCode,
@@ -27,8 +27,28 @@ const Step1 = (props) => {
       Lat: e.lat,
       Lng: e.lng,
     });
+  } else {
+    props.onChange("Address", {
+      Label: "",
+      Zip: "",
+      City: "",
+      Lat: "",
+      Lng: "",
+    });
+  }
   };
   const handleAddress = async (e) => {
+    if (e.target.value === "") {
+      props.onChange("Address", {
+        Label: "",
+        Zip: "",
+        City: "",
+        Lat: "",
+        Lng: "",
+      });
+      setAddresses([]);
+    } else {
+      props.onChange("Address", { ...props.step1.Address, Label: e.target.value });
     var config = {
       method: "get",
       url: `https://api-adresse.data.gouv.fr/search/?q=${e.target.value}&type=housenumber&autocomplete=1`,
@@ -50,6 +70,7 @@ const Step1 = (props) => {
       .catch(function (error) {
         console.log(error);
       });
+    }
   };
   const handleFileChange = async (e) => {
     const formdata = new FormData();
@@ -106,23 +127,30 @@ const Step1 = (props) => {
             label="First Name"
             name="Firstname"
             type="text"
+            required={true}
+
             placeholder="First name"
             value={props.step1.Firstname}
             onChange={(e) => {
               props.onChange(e.target.name, e.target.value);
             }}
+            error={props.step1Errors['Firstname']?true:false}
+            ErrorMsg={props.step1Errors['Firstname']}
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <TextField
             label="Surname"
             name="Surname"
+            required={true}
             placeholder="Surname"
             type="text"
             value={props.step1.Surname}
             onChange={(e) => {
               props.onChange(e.target.name, e.target.value);
             }}
+            error={props.step1Errors['Surname']?true:false}
+            ErrorMsg={props.step1Errors['Surname']}
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
@@ -132,9 +160,12 @@ const Step1 = (props) => {
             value={props.step1.Address.Label}
             options={addresses}
             placeholder="Address"
+            required={true}
             onChangeAddress={(e) => {
               handleAddress(e);
             }}
+            error={props.step1Errors['Address']?true:false}
+            ErrorMsg={props.step1Errors['Address']}
             onAddressSelect={(e) => handleSelectAddress(e)}
           />
         </Grid>
@@ -142,12 +173,18 @@ const Step1 = (props) => {
           <Datepicker
             label="Date of birth"
             name="Dob"
+            required={true}
             value={props.step1.Dob}
+            maxDate={moment()}
+            // openTo={'01' | '01' | '2000'}
+            // maxDate={moment("2000-01-01")}
             onChange={(e) => {
               props.onChange("Dob", moment(e).format("YYYY-MM-DDThh:mm:ss"));
             }}
             padding="20px 0 0 0px !important"
             width="100% !important"
+            error={props.step1Errors['Dob']?true:false}
+            ErrorMsg={props.step1Errors['Dob']}
           ></Datepicker>
           <div className="borderbottom"></div>
         </Grid>
@@ -155,21 +192,27 @@ const Step1 = (props) => {
           <TextField
             label="Place of birth"
             name="Pob"
+            required={true}
             placeholder="Place of birth"
             type="text"
             value={props.step1.Pob}
             onChange={(e) => {
               props.onChange(e.target.name, e.target.value);
             }}
+            error={props.step1Errors['Pob']?true:false}
+            ErrorMsg={props.step1Errors['Pob']}
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <TextField
             label="Zip Code"
+            required={true}
             name="Zip"
             placeholder="Zip code"
             disabled={true}
             value={props.step1.Address.Zip}
+            // error={props.step1Errors['Zip']?true:false}
+            // ErrorMsg={props.step1Errors['Zip']}
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
@@ -177,18 +220,22 @@ const Step1 = (props) => {
             label="Gender"
             placeholder="Male"
             name="Gender"
+            required={true}
             value={props.step1.Gender}
-            onChange={(e) => props.onChange(e.target.name, e.target.value)}
+            onChange={(e) => props.onChange("Gender", e.target.value)}
             MenuItem={[
               { name: "Male", value: "Male" },
               { name: "Female", value: "Female" },
               { name: "others", value: "others" },
             ]}
+            error={props.step1Errors['Gender']?true:false}
+            ErrorMsg={props.step1Errors['Gender']}
           ></DropDown>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <TextField
             label="Email"
+            required={true}
             name="Email"
             placeholder="Email"
             type="email"
@@ -196,6 +243,8 @@ const Step1 = (props) => {
             onChange={(e) => {
               props.onChange(e.target.name, e.target.value);
             }}
+            error={props.step1Errors['Email']?true:false}
+            ErrorMsg={props.step1Errors['Email']}
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
@@ -208,18 +257,23 @@ const Step1 = (props) => {
             onChange={(e) => {
               props.onChange(e.target.name, e.target.value);
             }}
+            // error={props.step1Errors['Email2']?true:false}
+            // ErrorMsg={props.step1Errors['Email2']}
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <TextField
             label="Phone"
-            type="text"
+            type="number"
+            required={true}
             placeholder="Phone"
             name="Phone"
             value={props.step1.Phone}
             onChange={(e) => {
               props.onChange(e.target.name, e.target.value);
             }}
+            error={props.step1Errors['Phone']?true:false}
+            ErrorMsg={props.step1Errors['Phone']}
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
@@ -232,15 +286,20 @@ const Step1 = (props) => {
             onChange={(e) => {
               props.onChange(e.target.name, e.target.value);
             }}
+            // error={props.step1Errors['Phone2']?true:false}
+            // ErrorMsg={props.step1Errors['Phone2']}
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <TextField
             label="City"
+            required={true}
             name="City"
             placeholder="City"
             disabled={true}
             value={props.step1.Address.City}
+            // error={props.step1Errors['City']?true:false}
+            // ErrorMsg={props.step1Errors['City']}
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
@@ -253,6 +312,8 @@ const Step1 = (props) => {
             onChange={(e) => {
               props.onChange(e.target.name, e.target.value);
             }}
+            // error={props.step1Errors['Complement']?true:false}
+            // ErrorMsg={props.step1Errors['Complement']}
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
@@ -260,28 +321,35 @@ const Step1 = (props) => {
             label="Password"
             type="password"
             name="Password"
+            required={true}
             placeholder="Password"
             value={props.step1.Password}
             onChange={(e) => {
               props.onChange(e.target.name, e.target.value);
             }}
+            error={props.step1Errors['Password']?true:false}
+            ErrorMsg={props.step1Errors['Password']}
           ></TextField>
         </Grid>
-        <Grid item xs={12} sm={12} md={4}>
+        <Grid item xs={12} sm={12} md={4}>  
           <TextField
             label="Confirm Password"
+            required={true}
             type="password"
             name="ConfirmPassword"
             placeholder="Confirm password"
             value={props.step1.ConfirmPassword}
             onChange={(e) => {
-              props.onChange(e.target.name, e.target.value);
+              props.onChange(e.target.name, e.target.value);  
             }}
+            error={props.step1Errors['ConfirmPassword']?true:false}
+            ErrorMsg={props.step1Errors['ConfirmPassword']}
           ></TextField>
         </Grid>
-        <Grid item xs={12} sm={12} md={4}>
+        {/* <Grid item xs={12} sm={12} md={4}>
           <TextField
             label="Number of hours"
+            required={true}
             type="number"
             name="Noh"
             placeholder="Number of hours"
@@ -289,11 +357,14 @@ const Step1 = (props) => {
             onChange={(e) => {
               props.onChange(e.target.name, e.target.value);
             }}
+            error={props.step1Errors['Noh']?true:false}
+            ErrorMsg={props.step1Errors['Noh']}
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <TextField
             label="NEPH Number"
+            required={true}
             name="Neph"
             placeholder="NEPH number"
             type="text"
@@ -301,8 +372,10 @@ const Step1 = (props) => {
             onChange={(e) => {
               props.onChange(e.target.name, e.target.value);
             }}
+            error={props.step1Errors['Neph']?true:false}
+            ErrorMsg={props.step1Errors['Neph']}
           ></TextField>
-        </Grid>
+        </Grid> */}
         <Grid item xs={12} sm={12} md={4}>
           <LanguageAutoComplete
             name="Language"
@@ -311,6 +384,8 @@ const Step1 = (props) => {
             options={languages ? languages : []}
             placeholder="Language"
             setVal={props.onChange}
+            // error={props.step1Errors['Language']?true:false}
+            // ErrorMsg={props.step1Errors['Language']}
           />
         </Grid>
       </Grid>
@@ -321,21 +396,27 @@ const Step1 = (props) => {
         <Grid item xs={12} sm={12} md={4}>
           <FilePicker
             title="Upload front of your ID Card/Passport"
+            required={true}
             label="FrontImg"
             name="FrontImg"
             type="file"
             value={props.step1.FrontImg}
             onChange={handleFileChange}
+            error={props.step1Errors['FrontImg']?true:false}
+            ErrorMsg={props.step1Errors['FrontImg']}
           />
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <FilePicker
             title="Upload back of your ID Card/Passport"
+            required={true}
             label="BackImg"
             name="BackImg"
             type="file"
             value={props.step1.BackImg}
             onChange={handleFileChange}
+            error={props.step1Errors['BackImg']?true:false}
+            ErrorMsg={props.step1Errors['BackImg']}
           />
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
@@ -346,6 +427,8 @@ const Step1 = (props) => {
             type="file"
             value={props.step1.ProfileImg}
             onChange={handleFileChange}
+            // error={props.step1Errors['ProfileImg']?true:false}
+            // ErrorMsg={props.step1Errors['ProfileImg']}
           />
         </Grid>
       </Grid>
@@ -354,14 +437,14 @@ const Step1 = (props) => {
           <Checkbox
             name="otherPlatform"
             className="checkbox"
-            onClick={(e) => setisChecked(!checked)}
+            onClick={(e) =>  props.onChange('checked', !props.step1.checked)}
           />
           <Typography variant="body1" className="termsConditionsCheckboxTitle">
             Are you working on other platform?
           </Typography>
         </div>
       </div>
-      {checked ? (
+      {props.step1.checked ? (
         <Grid container spacing={2}>
           <Grid item xs={12} sm={12} md={4}>
             <TextField
@@ -372,6 +455,8 @@ const Step1 = (props) => {
               onChange={(e) => {
                 props.onChange(e.target.name, e.target.value);
               }}
+            //   error={props.step1Errors['OtherPlateform']?true:false}
+            // ErrorMsg={props.step1Errors['OtherPlateform']}
             ></TextField>
           </Grid>
           <Grid item xs={12} sm={12} md={6}>
@@ -383,6 +468,8 @@ const Step1 = (props) => {
               onChange={(e) => {
                 props.onChange(e.target.name, e.target.value);
               }}
+            //   error={props.step1Errors['GiveTime']?true:false}
+            // ErrorMsg={props.step1Errors['GiveTime']}
             ></TextField>
           </Grid>
         </Grid>
