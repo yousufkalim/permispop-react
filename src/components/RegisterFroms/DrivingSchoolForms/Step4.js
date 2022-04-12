@@ -11,8 +11,10 @@ import DatePicker from "../../Common/DatePicker";
 import DropDown from "../../Common/DropDown";
 import AutoComplete from "../../Common/Autocomplete";
 import axios from "axios";
+import moment from "moment";
 
-const Step4 = ({ step4, setStep4, onChange }) => {
+
+const Step4 = ({ step4, setStep4, onChange, step4Errors}) => {
   const [addresses, setAddresses] = React.useState([]);
 
   const handleSelectAddress = (e) => {
@@ -37,6 +39,13 @@ const Step4 = ({ step4, setStep4, onChange }) => {
 
   const handleAddress = async (e) => {
     if (e.target.value === "") {
+      onChange("Address", {
+        Label: "",
+        Zip: "",
+        City: "",
+        Lat: "",
+        Lng: "",
+      });
       setAddresses([]);
     } else {
       onChange("Address", { ...step4.Address, Label: e.target.value });
@@ -87,63 +96,85 @@ const Step4 = ({ step4, setStep4, onChange }) => {
           <TextField
             label="First Name"
             name="Firstname"
+            required={true}
             placeholder="John"
             value={step4.Firstname}
             onChange={(e) => {
               onChange(e.target.name, e.target.value);
             }}
+            error={step4Errors['Firstname']?true:false}
+            ErrorMsg={step4Errors['Firstname']}
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <TextField
             label="Surname"
             name="Surname"
+            required={true}
             placeholder="Smith"
             value={step4.Surname}
             onChange={(e) => {
               onChange(e.target.name, e.target.value);
             }}
+            error={step4Errors['Surname']?true:false}
+            ErrorMsg={step4Errors['Surname']}
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4} sx={{ marginTop: "9px" }}>
           <DatePicker
             label="Date of Birth"
-            name="dob"
+            required={true}
+            name="Dob"
             padding="20px 0 0 0px !important"
             width="100% !important"
+            maxDate={moment()}
+            // onChange={(e) => {
+            //   onChange("Dob", new Date(e));
+            // }}
+            
             onChange={(e) => {
-              onChange("Dob", new Date(e));
+              onChange("Dob", moment(e).format("YYYY-MM-DDThh:mm:ss"));
             }}
+            value={step4.Dob}
+            error={step4Errors['Dob']?true:false}
+            ErrorMsg={step4Errors['Dob']}
           ></DatePicker>
           <div className="borderbottom"></div>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <TextField
             label="Place of Birth"
+            required={true}
             name="Pob"
             placeholder="France"
             value={step4.Pob}
             onChange={(e) => {
               onChange(e.target.name, e.target.value);
             }}
+            error={step4Errors['Pob']?true:false}
+            ErrorMsg={step4Errors['Pob']}
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <AutoComplete
-            name="address"
+            name="Address"
+            required={true}
             label="Address"
-            value={step4.Address.Label ? step4.Address.Label : ""}
+            value={step4.Address.Label}
             options={addresses}
             placeholder="Address"
             onChangeAddress={(e) => {
               handleAddress(e);
             }}
+            error={step4Errors['Address']?true:false}
+            ErrorMsg={step4Errors['Address']}
             onAddressSelect={(e) => handleSelectAddress(e)}
           />
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <DropDown
             label="Gender"
+            required={true}
             name="Gender"
             placeholder="Gender"
             MenuItem={[
@@ -154,6 +185,8 @@ const Step4 = ({ step4, setStep4, onChange }) => {
             onChange={(e) => {
               onChange("Gender", e.target.value);
             }}
+            error={step4Errors['Gender']?true:false}
+            ErrorMsg={step4Errors['Gender']}
           ></DropDown>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
@@ -165,10 +198,13 @@ const Step4 = ({ step4, setStep4, onChange }) => {
             onChange={(e) => {
               onChange(e.target.name, e.target.value);
             }}
+            // error={step4Errors['Complement']?true:false}
+            // ErrorMsg={step4Errors['Complement']}
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <TextField
+            required={true}
             label="Zip Code"
             name="Zip"
             placeholder="0000000"
@@ -179,6 +215,7 @@ const Step4 = ({ step4, setStep4, onChange }) => {
         <Grid item xs={12} sm={12} md={4}>
           <TextField
             label="City"
+            required={true}
             name="City"
             placeholder="102 Street, building 02, NY"
             value={step4.Address.City}
@@ -188,18 +225,29 @@ const Step4 = ({ step4, setStep4, onChange }) => {
         <Grid item xs={12} sm={12} md={4}>
           <FilePicker
             title="Upload your Image"
+            required={true}
             name="ProfileImg"
             label="ProfileImg"
             type="file"
             value={step4.ProfileImg}
             onChange={handleFileChange}
+            error={step4Errors['ProfileImg']?true:false}
+            ErrorMsg={step4Errors['ProfileImg']}
           />
         </Grid>
       </Grid>
       <Divider width="100%" borderColor="#D5E4E8" margin="2% 0px 2% 0px" />
       <div className="termsConditionsCheckboxContainer">
         <div className="termsConditionsCheckbox">
-          <Checkbox defaultChecked className="checkbox" />
+          <Checkbox 
+            defaultChecked 
+            className="checkbox" 
+            name="TermAndCondition"
+            value={step4.TermAndCondition} 
+            onClick={
+              ()=>setStep4({ ...step4, 'TermAndCondition': !step4.TermAndCondition })
+            }
+            />
           <Typography variant="body1" className="termsConditionsCheckboxTitle">
             Terms and Condition applied
           </Typography>

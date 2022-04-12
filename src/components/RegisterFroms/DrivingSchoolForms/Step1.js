@@ -12,7 +12,7 @@ import API from "../../../api/index";
 import AutoComplete from "../../Common/Autocomplete";
 import LanguageAutoComplete from "../../Common/LanguageAutoComplete";
 
-const Step1 = ({ step1, setStep1, onChange }) => {
+const Step1 = ({ step1, setStep1, onChange,step1Errors }) => {
   const [addresses, setAddresses] = useState([]);
   const [languages, setLanguages] = useState([]);
 
@@ -42,6 +42,13 @@ const Step1 = ({ step1, setStep1, onChange }) => {
 
   const handleAddress = async (e) => {
     if (e.target.value === "") {
+      onChange("Address", {
+        Label: "",
+        Zip: "",
+        City: "",
+        Lat: "",
+        Lng: "",
+      });
       setAddresses([]);
     } else {
       onChange("Address", { ...step1.Address, Label: e.target.value });
@@ -108,35 +115,44 @@ const Step1 = ({ step1, setStep1, onChange }) => {
           <TextField
             label="Tradename"
             name="TradeName"
-            placeholder="John"
+                required={true}
+                placeholder="John"
             value={step1.TradeName}
             onChange={(e) => {
               onChange(e.target.name, e.target.value);
             }}
+            error={step1Errors['TradeName']?true:false}
+            ErrorMsg={step1Errors['TradeName']}
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <TextField
             label="Company Name"
-            name="CompanyName"
+                required={true}
+                name="CompanyName"
             placeholder="Smith.PVT"
             value={step1.CompanyName}
             onChange={(e) => {
               onChange(e.target.name, e.target.value);
             }}
+            error={step1Errors['CompanyName']?true:false}
+            ErrorMsg={step1Errors['CompanyName']}
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <AutoComplete
-            name="address"
-            label="Address"
-            value={step1.Address.Label ? step1.Address.Label : ""}
+            name="Address"
+                required={true}
+                label="Address"
+            value={step1.Address.Label}
             options={addresses}
             placeholder="Address"
             onChangeAddress={(e) => {
               handleAddress(e);
             }}
             onAddressSelect={(e) => handleSelectAddress(e)}
+            error={step1Errors['Address']?true:false}
+            ErrorMsg={step1Errors['Address']}
           />
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
@@ -148,44 +164,56 @@ const Step1 = ({ step1, setStep1, onChange }) => {
             onChange={(e) => {
               onChange(e.target.name, e.target.value);
             }}
+            // error={step1Errors['Complement']?true:false}
+            // ErrorMsg={step1Errors['Complement']}
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <TextField
             label="City"
-            name="City"
+                required={true}
+                name="City"
             disabled={true}
             type="text"
             placeholder="Enter City"
-            // onChange={(e) => {
-            //   setStep1({ ...step1, [e.target.name]: e.target.value });
-            // }}
+            // error={step1Errors['City']?true:false}
+            // ErrorMsg={step1Errors['City']}
+            onChange={(e) => {
+              setStep1({ ...step1, [e.target.name]: e.target.value });
+            }}
             value={step1.Address.City}
+
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <TextField
-            label="Zip Code"
+                required={true}
+                label="Zip Code"
             name="Zip"
             type="number"
             disabled={true}
             value={step1.Address.Zip}
             placeholder="00000"
-            // onChange={(e) => {
-            //   setStep1({ ...step1, [e.target.name]: e.target.value });
-            // }}
+            // error={step1Errors['Zip']?true:false}
+            // ErrorMsg={step1Errors['Zip']}
+            onChange={(e) => {
+              setStep1({ ...step1, [e.target.name]: e.target.value });
+            }}
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <TextField
             label="Email"
             name="Email"
-            type="email"
+                required={true}
+                type="email"
             placeholder="Email"
             value={step1.Email}
             onChange={(e) => {
               onChange(e.target.name, e.target.value);
             }}
+            error={step1Errors['Email']?true:false}
+            ErrorMsg={step1Errors['Email']}
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
@@ -197,17 +225,22 @@ const Step1 = ({ step1, setStep1, onChange }) => {
             onChange={(e) => {
               onChange(e.target.name, e.target.value);
             }}
+            // error={step1Errors['Email2']?true:false}
+            // ErrorMsg={step1Errors['Email2']}
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <TextField
             label="Phone"
-            name="Phone"
+                required={true}
+                name="Phone"
             placeholder="0000000000000"
             value={step1.Phone}
             onChange={(e) => {
               onChange(e.target.name, e.target.value);
             }}
+            error={step1Errors['Phone']?true:false}
+            ErrorMsg={step1Errors['Phone']}
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
@@ -219,11 +252,14 @@ const Step1 = ({ step1, setStep1, onChange }) => {
             onChange={(e) => {
               onChange(e.target.name, e.target.value);
             }}
+            // error={step1Errors['Phone2']?true:false}
+            // ErrorMsg={step1Errors['Phone2']}
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <TextField
             label="Password"
+            required={true}
             name="Password"
             type="password"
             placeholder="**************"
@@ -231,18 +267,23 @@ const Step1 = ({ step1, setStep1, onChange }) => {
             onChange={(e) => {
               onChange(e.target.name, e.target.value);
             }}
+            error={step1Errors['Password']?true:false}
+            ErrorMsg={step1Errors['Password']}
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <TextField
             label="Confirm Password"
-            name="Password2"
+                required={true}
+                name="Password2"
             type="password"
             placeholder="**************"
             value={step1.Password2}
             onChange={(e) => {
               onChange(e.target.name, e.target.value);
             }}
+            error={step1Errors['Password2']?true:false}
+            ErrorMsg={step1Errors['Password2']}
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
@@ -250,25 +291,24 @@ const Step1 = ({ step1, setStep1, onChange }) => {
             name="Language"
             label="Spoken Language"
             value={step1.Language}
-            options={languages}
+            options={languages ? languages : []}
             placeholder="Language"
             setVal={onChange}
+            // error={step1Errors['Language']?true:false}
+            // ErrorMsg={step1Errors['Language']}
           />
         </Grid>
       </Grid>
-      <Divider width="100%" borderColor="#D5E4E8" margin="2% 0px 2% 0px" />
+      <Divider width="100%" borderColor="#D5E4E8" margin="7% 0px 2% 0px" />
       <div className="termsConditionsCheckboxContainer">
         <div className="termsConditionsCheckbox">
           <Checkbox
-            onClick={(e) => {
-              setStep1({
-                ...step1,
-                ["OtherPlateform"]: e.target.checked,
-              });
-            }}
+            onClick={(e) => {onChange('OtherPlateform', !step1.OtherPlateform)} }
             name="OtherPlateform"
             className="checkbox"
             checked={step1.OtherPlateform}
+            // error={step1Errors['OtherPlateform']?true:false}
+            // ErrorMsg={step1Errors['OtherPlateform']}
           />
           <Typography variant="body1" className="termsConditionsCheckboxTitle">
             Are you working on other platform?
@@ -285,6 +325,8 @@ const Step1 = ({ step1, setStep1, onChange }) => {
                 onChange={(e) => {
                   onChange(e.target.name, e.target.value);
                 }}
+                // error={step1Errors['Platform']?true:false}
+                // ErrorMsg={step1Errors['Platform']}
               ></TextField>
             </Grid>
             <Grid item xs={12} sm={12} md={5}>
@@ -296,6 +338,8 @@ const Step1 = ({ step1, setStep1, onChange }) => {
                 onChange={(e) => {
                   onChange(e.target.name, e.target.value);
                 }}
+                // error={step1Errors['Hours']?true:false}
+                // ErrorMsg={step1Errors['Hours']}
               ></TextField>
             </Grid>
           </Grid>
@@ -313,6 +357,8 @@ const Step1 = ({ step1, setStep1, onChange }) => {
               ["CPF"]: e.target.checked,
             });
           }}
+          // error={step1Errors['CPF']?true:false}
+          // ErrorMsg={step1Errors['CPF']}
           checked={step1.CPF}
         />
         <Typography variant="body1" className="termsConditionsCheckboxTitle">

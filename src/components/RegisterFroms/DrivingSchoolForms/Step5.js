@@ -44,7 +44,7 @@ const style = {
   borderRadius: "4px",
 };
 
-const Step5 = ({ step5, setStep5, onChange, vehicles, setVehicles }) => {
+const Step5 = ({ step5, setStep5, onChange, vehicles, setVehicles,step5Errors,setStep5Errors }) => {
   const [addVehicle, setAddVehicle] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
   const [editIndex, setEditIndex] = useState("");
@@ -95,6 +95,8 @@ const Step5 = ({ step5, setStep5, onChange, vehicles, setVehicles }) => {
       TechControlDate: new Date(),
       TechEndDate: new Date(),
       CTImg: "",
+      TechnicalControlCheck: "",
+      checked: false,
     });
     setIsEdit(false);
     setAddVehicle(true);
@@ -103,6 +105,7 @@ const Step5 = ({ step5, setStep5, onChange, vehicles, setVehicles }) => {
   const handleAdd = () => {
     setVehicles((prev) => [...prev, step5]);
     setAddVehicle(false);
+    setStep5Errors({})
   };
 
   const handleDeleteVehicle = (index) => {
@@ -279,52 +282,70 @@ const Step5 = ({ step5, setStep5, onChange, vehicles, setVehicles }) => {
             <Grid item xs={12} sm={12} md={4} sx={{ marginTop: "9px" }}>
               <DatePicker
                 label="Date of the 1st Registration"
-                name="regDate"
+            required={true}
+            name="RegistrationDate"
                 padding="20px 0 0 0px !important"
                 width="100% !important"
-                onChange={(e) => {
-                  onChange("RegistrationDate", new Date(e));
-                }}
                 value={step5.RegistrationDate}
+                maxDate={moment()}
+                onChange={(e) => {
+                  onChange(
+                    "RegistrationDate",
+                    moment(e).format("YYYY-MM-DDThh:mm:ss")
+                  );
+                }}
+                error={step5Errors['RegistrationDate']?true:false}
+                ErrorMsg={step5Errors['RegistrationDate']}
               ></DatePicker>
               <div className="borderbottom"></div>
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
               <DropDown
                 label="Brand"
+            required={true}
+            name="Brand"
                 placeholder="Select Option"
                 value={step5.Brand}
                 onChange={(e) => getExcludingMakes(e)}
                 MenuItem={allMakes}
+                error={step5Errors['Brand']?true:false}
+                ErrorMsg={step5Errors['Brand']}
               ></DropDown>
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
               <DropDown
                 label="Model"
-                name="Model"
+            required={true}
+            name="Model"
                 placeholder="Select Option"
                 value={step5.Model}
                 onChange={(e) => {
                   onChange("Model", e.target.value);
                 }}
+                error={step5Errors['Model']?true:false}
+                ErrorMsg={step5Errors['Model']}
                 MenuItem={excludingMakes}
               ></DropDown>
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
               <TextField
-                label="Number Plate"
+            required={true}
+            label="Number Plate"
                 name="NumberPlate"
                 placeholder="xx-xxx-xx"
                 value={step5.NumberPlate}
                 onChange={(e) => {
                   onChange(e.target.name, e.target.value);
                 }}
+                error={step5Errors['NumberPlate']?true:false}
+                ErrorMsg={step5Errors['NumberPlate']}
               ></TextField>
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
               <DropDown
                 label="Gearbox"
-                name="GearBox"
+            required={true}
+            name="GearBox"
                 MenuItem={[
                   { name: "Auto", value: "Auto" },
                   { name: "Manual", value: "Manual" },
@@ -332,25 +353,31 @@ const Step5 = ({ step5, setStep5, onChange, vehicles, setVehicles }) => {
                 onChange={(e) => {
                   onChange("GearBox", e.target.value);
                 }}
+                error={step5Errors['GearBox']?true:false}
+                ErrorMsg={step5Errors['GearBox']}
                 value={step5.GearBox}
               ></DropDown>
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
               <TextField
-                label="Color"
+            required={true}
+            label="Color"
                 name="Color"
                 placeholder="Red"
                 value={step5.Color}
                 onChange={(e) => {
                   onChange(e.target.name, e.target.value);
                 }}
+                error={step5Errors['Color']?true:false}
+                ErrorMsg={step5Errors['Color']}
               ></TextField>
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
               <DropDown
                 label="Energy"
                 placeholder="Select"
-                name="Energy"
+            required={true}
+            name="Energy"
                 value={step5.Energy}
                 MenuItem={[
                   { name: "Diesel", value: "Diesel" },
@@ -363,6 +390,8 @@ const Step5 = ({ step5, setStep5, onChange, vehicles, setVehicles }) => {
                 onChange={(e) => {
                   onChange("Energy", e.target.value);
                 }}
+                error={step5Errors['Energy']?true:false}
+                ErrorMsg={step5Errors['Energy']}
               ></DropDown>
             </Grid>
           </Grid>
@@ -375,28 +404,37 @@ const Step5 = ({ step5, setStep5, onChange, vehicles, setVehicles }) => {
               <Grid item xs={12} sm={12} md={4}>
                 <FilePicker
                   title="Upload your Image"
-                  label="CarImage"
+            required={true}
+            label="CarImage"
                   name="CarImage"
                   value={step5.CarImage}
                   onChange={handleFileChange}
+                  error={step5Errors['CarImage']?true:false}
+                  ErrorMsg={step5Errors['CarImage']}
                 />
               </Grid>
               <Grid item xs={12} sm={12} md={4}>
                 <FilePicker
                   title="Upload Vehicle Registration Certificate"
-                  label="CertificateFrontImage"
+            required={true}
+            label="CertificateFrontImage"
                   name="CertificateFrontImage"
                   value={step5.CertificateFrontImage}
                   onChange={handleFileChange}
+                  error={step5Errors['CertificateFrontImage']?true:false}
+                  ErrorMsg={step5Errors['CertificateFrontImage']}
                 />
               </Grid>
               <Grid item xs={12} sm={12} md={4}>
                 <FilePicker
                   title="Upload Vehicle Registration Certificate Back"
-                  label="CertificateBackImage"
+            required={true}
+            label="CertificateBackImage"
                   name="CertificateBackImage"
                   value={step5.CertificateBackImage}
                   onChange={handleFileChange}
+                  error={step5Errors['CertificateBackImage']?true:false}
+                  ErrorMsg={step5Errors['CertificateBackImage']}
                 />
               </Grid>
             </Grid>
@@ -408,38 +446,48 @@ const Step5 = ({ step5, setStep5, onChange, vehicles, setVehicles }) => {
             <Grid item xs={12} sm={12} md={4}>
               <TextField
                 label="Insurer"
-                name="Insurer"
+            required={true}
+            name="Insurer"
                 placeholder="John"
                 value={step5.Insurer}
                 onChange={(e) => {
                   onChange(e.target.name, e.target.value);
                 }}
+                error={step5Errors['Insurer']?true:false}
+                ErrorMsg={step5Errors['Insurer']}
               ></TextField>
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
               <TextField
                 label="Police Number"
-                name="PoliceNumber"
+            required={true}
+            name="PoliceNumber"
                 placeholder="xxx-xxx"
                 value={step5.PoliceNumber}
                 onChange={(e) => {
                   onChange(e.target.name, e.target.value);
                 }}
+                error={step5Errors['PoliceNumber']?true:false}
+                ErrorMsg={step5Errors['PoliceNumber']}
               ></TextField>
             </Grid>
             <Grid item xs={12} sm={12} md={4} sx={{ marginTop: "9px" }}>
               <DatePicker
                 label="Start Date"
-                padding="20px 0 0 0px !important"
+            required={true}
+            padding="20px 0 0 0px !important"
                 width="100% !important"
                 name="StartDate"
                 value={step5.StartDate}
+                maxDate={moment()}
                 onChange={(e) => {
                   onChange(
                     "StartDate",
                     moment(e).format("YYYY-MM-DDThh:mm:ss")
                   );
                 }}
+                error={step5Errors['StartDate']?true:false}
+                ErrorMsg={step5Errors['StartDate']}
               ></DatePicker>
               <div className="borderbottom"></div>
             </Grid>
@@ -447,12 +495,16 @@ const Step5 = ({ step5, setStep5, onChange, vehicles, setVehicles }) => {
               <DatePicker
                 label="End Date"
                 padding="20px 0 0 0px !important"
-                width="100% !important"
+            required={true}
+            width="100% !important"
                 name="EndDate"
                 value={step5.EndDate}
+                minDate={moment()}
                 onChange={(e) => {
                   onChange("EndDate", moment(e).format("YYYY-MM-DDThh:mm:ss"));
                 }}
+                error={step5Errors['EndDate']?true:false}
+                ErrorMsg={step5Errors['EndDate']}
               ></DatePicker>
               <div className="borderbottom"></div>
             </Grid>
@@ -461,16 +513,34 @@ const Step5 = ({ step5, setStep5, onChange, vehicles, setVehicles }) => {
             <Grid container spacing={4}>
               <Grid item xs={12} sm={12} md={4}>
                 <FilePicker
-                  title="Upload Scanned Green Card"
+            required={true}
+            title="Upload Scanned Green Card"
                   name="GreenCard"
                   label="GreenCard"
                   value={step5.GreenCard}
                   onChange={handleFileChange}
+                  error={step5Errors['GreenCard']?true:false}
+                  ErrorMsg={step5Errors['GreenCard']}
                 />
               </Grid>
             </Grid>
           </div>
-          <Divider width="100%" borderColor="#D5E4E8" margin="2% 0px 2% 0px" />
+
+          <div className="termsConditionsCheckboxContainer">
+        <div className="termsConditionsCheckbox">
+          <Checkbox
+            name="TechnicalControlCheck"
+            className="checkbox"
+            onClick={(e) =>  onChange('checked', !step5.checked)}
+          />
+          <Typography variant="body1" className="termsConditionsCheckboxTitle">
+            Are you working on other platform?
+          </Typography>
+        </div>
+      </div>
+      {step5.checked ? (
+        <div>
+                              <Divider width="100%" borderColor="#D5E4E8" margin="2% 0px 2% 0px" />
           <Typography className="Heading1">Technical Control</Typography>
           <Divider width="100%" borderColor="#D5E4E8" margin="2% 0px 2% 0px" />
           <Grid container spacing={4}>
@@ -480,6 +550,7 @@ const Step5 = ({ step5, setStep5, onChange, vehicles, setVehicles }) => {
                 padding="20px 0 0 0px !important"
                 width="100% !important"
                 name="TechControlDate"
+                maxDate={moment()}
                 value={step5.TechControlDate}
                 onChange={(e) => {
                   onChange(
@@ -487,6 +558,8 @@ const Step5 = ({ step5, setStep5, onChange, vehicles, setVehicles }) => {
                     moment(e).format("YYYY-MM-DDThh:mm:ss")
                   );
                 }}
+                error={step5Errors['TechControlDate']?true:false}
+                ErrorMsg={step5Errors['TechControlDate']}
               ></DatePicker>
               <div className="borderbottom"></div>
             </Grid>
@@ -496,6 +569,7 @@ const Step5 = ({ step5, setStep5, onChange, vehicles, setVehicles }) => {
                 padding="20px 0 0 0px !important"
                 width="100% !important"
                 name="TechEndDate"
+                minDate={moment()}
                 value={step5.TechEndDate}
                 onChange={(e) => {
                   onChange(
@@ -503,6 +577,8 @@ const Step5 = ({ step5, setStep5, onChange, vehicles, setVehicles }) => {
                     moment(e).format("YYYY-MM-DDThh:mm:ss")
                   );
                 }}
+                error={step5Errors['TechEndDate']?true:false}
+                ErrorMsg={step5Errors['TechEndDate']}
               ></DatePicker>
               <div className="borderbottom"></div>
             </Grid>
@@ -516,10 +592,16 @@ const Step5 = ({ step5, setStep5, onChange, vehicles, setVehicles }) => {
                   label="CTImg"
                   value={step5.CTImg}
                   onChange={handleFileChange}
+                  error={step5Errors['CTImg']?true:false}
+                  ErrorMsg={step5Errors['CTImg']}
                 />
               </Grid>
             </Grid>
           </div>
+      </div>
+      ) : (
+        ""
+      )}
           <div
             style={{
               display: "flex",
@@ -536,6 +618,33 @@ const Step5 = ({ step5, setStep5, onChange, vehicles, setVehicles }) => {
               height="48px"
               height2="48px"
               onClick={isEdit ? handleSaveEditVehicle : handleAdd}
+              disabled={
+                 step5Errors.RegistrationDate===null
+              && step5Errors.Brand===null 
+              // && step5Errors.Model===null 
+              // && step5Errors.NumberPlate===null 
+              // && step5Errors.GearBox===null 
+              // && step5Errors.Color===null 
+              // && step5Errors.Energy===null 
+              // && step5Errors.CarImage===null 
+              // && step5Errors.CertificateFrontImage===null 
+              // && step5Errors.CertificateBackImage===null 
+              // && step5Errors.Insurer===null 
+              // && step5Errors.PoliceNumber===null 
+              // && step5Errors.StartDate===null 
+              // && step5Errors.EndDate===null 
+              // && step5Errors.GreenCard===null 
+              
+              && step5.checked===false
+
+              || step5Errors.TechControlDate===null 
+              && step5Errors.TechEndDate===null 
+              && step5Errors.CTImg===null 
+              && step5Errors.RegistrationDate===null
+              && step5Errors.Brand===null 
+
+
+              ? false : true}
             ></Button>
           </div>
         </Box>
