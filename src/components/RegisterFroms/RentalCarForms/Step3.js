@@ -79,13 +79,15 @@ const Step3 = (props) => {
       PoliceNum: "",
       VehicleInsurerStartDate: new Date(),
       VehicleInsurerEndDate: new Date(),
-      TechStartDate: new Date(),
+      TechControlDate: new Date(),
       TechEndDate: new Date(),
       PhotoPath: "",
       RegCertificatefront: "",
       RegCertificateback: "",
       GreenCardImgPath: "",
-      ControlTechImgPath: "",
+      CtImg: "",
+      TechnicalControlCheck: "",
+      checked: false,
     });
     setIsEdit(false);
     setAddVehicle(true);
@@ -94,6 +96,7 @@ const Step3 = (props) => {
   const handleAdd = () => {
     props.setVehicles((prev) => [...prev, props.step3]);
     setAddVehicle(false);
+    props.setStep3Errors({})
   };
 
   const handleDeleteVehicle = (index) => {
@@ -298,8 +301,10 @@ const Step3 = (props) => {
             <Grid item xs={12} sm={12} md={4} sx={{ marginTop: "9px" }}>
               <DatePicker
                 label="Date of the 1st Registration"
+                required={true}
                 value={props.step3.FristRegDate}
                 name="FristRegDate"
+                maxDate={moment()}
                 onChange={(e) => {
                   props.onChange(
                     "FristRegDate",
@@ -308,21 +313,27 @@ const Step3 = (props) => {
                 }}
                 padding="20px 0 0 0px !important"
                 width="100% !important"
+                error={props.step3Errors['FristRegDate']?true:false}
+            ErrorMsg={props.step3Errors['FristRegDate']}
               />
               <div className="borderbottom"></div>
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
               <DropDown
                 label="Brand"
+                required={true}
                 placeholder="Select Option"
                 value={props.step3.Brand}
                 onChange={(e) => getExcludingMakes(e)}
                 MenuItem={allMakes}
+                error={props.step3Errors['Brand']?true:false}
+            ErrorMsg={props.step3Errors['Brand']}
               ></DropDown>
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
               <DropDown
                 label="Model"
+                required={true}
                 name="Model"
                 placeholder="Select Option"
                 value={props.step3.Model}
@@ -330,10 +341,13 @@ const Step3 = (props) => {
                   props.onChange("Model", e.target.value);
                 }}
                 MenuItem={excludingMakes}
+                error={props.step3Errors['Model']?true:false}
+                ErrorMsg={props.step3Errors['Model']}
               ></DropDown>
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
               <TextField
+                required={true}
                 label="Number Plate"
                 type="text"
                 name="NumberPlate"
@@ -341,21 +355,27 @@ const Step3 = (props) => {
                 onChange={(e) => {
                   props.onChange(e.target.name, e.target.value);
                 }}
+                error={props.step3Errors['NumberPlate']?true:false}
+                ErrorMsg={props.step3Errors['NumberPlate']}
               ></TextField>
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
               <TextField
                 label="Color"
+                required={true}
                 name="Color"
                 type="text"
                 placeholder="Select Color"
                 onChange={(e) => {
                   props.onChange(e.target.name, e.target.value);
                 }}
+                error={props.step3Errors['Color']?true:false}
+                ErrorMsg={props.step3Errors['Color']}
               ></TextField>
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
               <DropDown
+                required={true}
                 label="Gearbox"
                 name="GearBox"
                 value={props.step3.GearBox}
@@ -366,10 +386,13 @@ const Step3 = (props) => {
                 onChange={(e) => {
                   props.onChange("GearBox", e.target.value);
                 }}
+                error={props.step3Errors['GearBox']?true:false}
+                ErrorMsg={props.step3Errors['GearBox']}
               ></DropDown>
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
               <DropDown
+                required={true}
                 label="Energy"
                 placeholder="Select"
                 name="Energy"
@@ -385,6 +408,8 @@ const Step3 = (props) => {
                 onChange={(e) => {
                   props.onChange("Energy", e.target.value);
                 }}
+                error={props.step3Errors['Energy']?true:false}
+                ErrorMsg={props.step3Errors['Energy']}
               ></DropDown>
             </Grid>
           </Grid>
@@ -397,19 +422,25 @@ const Step3 = (props) => {
               <Grid item xs={12} sm={12} md={4}>
                 <FilePicker
                   title="Upload your Image"
-                  label="YourImg"
+                required={true}
+                label="YourImg"
                   name="VehicleImg"
                   value={props.step3.VehicleImg}
                   onChange={handleFileChange}
+                  error={props.step3Errors['VehicleImg']?true:false}
+                  ErrorMsg={props.step3Errors['VehicleImg']}
                 />
               </Grid>
               <Grid item xs={12} sm={12} md={4}>
                 <FilePicker
                   title="Upload Vehicle Registration Certificate"
                   label="RegCertificate"
-                  name="VehicleRegImg"
+                required={true}
+                name="VehicleRegImg"
                   value={props.step3.VehicleRegImg}
                   onChange={handleFileChange}
+                  error={props.step3Errors['VehicleRegImg']?true:false}
+                  ErrorMsg={props.step3Errors['VehicleRegImg']}
                 />
               </Grid>
             </Grid>
@@ -422,53 +453,67 @@ const Step3 = (props) => {
               <TextField
                 label="Insurer"
                 type="text"
+                required={true}
                 placeholder="John"
                 name="VehicleInsurer"
                 onChange={(e) => {
                   props.onChange(e.target.name, e.target.value);
                 }}
+                error={props.step3Errors['VehicleInsurer']?true:false}
+            ErrorMsg={props.step3Errors['VehicleInsurer']}
               ></TextField>
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
               <TextField
                 label="Police Nunber"
                 type="text"
+                required={true}
                 name="PoliceNumber"
                 placeholder="Numeric"
                 onChange={(e) => {
                   props.onChange(e.target.name, e.target.value);
                 }}
+                error={props.step3Errors['PoliceNumber']?true:false}
+                ErrorMsg={props.step3Errors['PoliceNumber']}
               ></TextField>
             </Grid>
             <Grid item xs={12} sm={12} md={4} sx={{ marginTop: "9px" }}>
               <DatePicker
                 label="Start Date"
                 value={props.step3.StartDate}
+                required={true}
                 name="StartDate"
                 padding="20px 0 0 0px !important"
                 width="100% !important"
+                maxDate={moment()}
                 onChange={(e) => {
                   props.onChange(
                     "StartDate",
                     moment(e).format("YYYY-MM-DDThh:mm:ss")
                   );
                 }}
+                error={props.step3Errors['StartDate']?true:false}
+                ErrorMsg={props.step3Errors['StartDate']}
               />
               <div className="borderbottom"></div>
             </Grid>
             <Grid item xs={12} sm={12} md={4} sx={{ marginTop: "9px" }}>
               <DatePicker
                 label="End Date"
+                required={true}
                 name="EndDate"
                 value={props.step3.EndDate}
                 padding="20px 0 0 0px !important"
                 width="100% !important"
+                minDate={moment()}
                 onChange={(e) => {
                   props.onChange(
                     "EndDate",
                     moment(e).format("YYYY-MM-DDThh:mm:ss")
                   );
                 }}
+                error={props.step3Errors['EndDate']?true:false}
+                ErrorMsg={props.step3Errors['EndDate']}
               />
               <div className="borderbottom"></div>
             </Grid>
@@ -478,15 +523,33 @@ const Step3 = (props) => {
               <Grid item xs={12} sm={12} md={4}>
                 <FilePicker
                   title="Upload Scanned Green Card"
-                  label="GreenCard"
+                required={true}
+                label="GreenCard"
                   name="GreenCard"
                   value={props.step3.GreenCard}
                   onChange={handleFileChange}
+                  error={props.step3Errors['GreenCard']?true:false}
+                  ErrorMsg={props.step3Errors['GreenCard']}
                 />
               </Grid>
             </Grid>
           </div>
-          <Divider width="100%" borderColor="#D5E4E8" margin="2% 0px 2% 0px" />
+          
+          <div className="termsConditionsCheckboxContainer">
+        <div className="termsConditionsCheckbox">
+          <Checkbox
+            name="TechnicalControlCheck"
+            className="checkbox"
+            onClick={(e) =>  props.onChange('checked', !props.step3.checked)}
+          />
+          <Typography variant="body1" className="termsConditionsCheckboxTitle">
+            Are you working on other platform?
+          </Typography>
+        </div>
+      </div>
+      {props.step3.checked ? (
+        <div>
+                    <Divider width="100%" borderColor="#D5E4E8" margin="2% 0px 2% 0px" />
           <Typography className="Heading1">Technical Control</Typography>
           <Divider width="100%" borderColor="#D5E4E8" margin="2% 0px 2% 0px" />
           <Grid container spacing={4}>
@@ -497,12 +560,15 @@ const Step3 = (props) => {
                 name="TechControlDate"
                 padding="20px 0 0 0px !important"
                 width="100% !important"
+                maxDate={moment()}
                 onChange={(e) => {
                   props.onChange(
                     "TechControlDate",
                     moment(e).format("YYYY-MM-DDThh:mm:ss")
                   );
                 }}
+                // error={props.step3Errors['TechControlDate']?true:false}
+                // ErrorMsg={props.step3Errors['TechControlDate']}
               />
               <div className="borderbottom"></div>
             </Grid>
@@ -513,12 +579,15 @@ const Step3 = (props) => {
                 name="TechEndDate"
                 padding="20px 0 0 0px !important"
                 width="100% !important"
+                minDate={moment()}
                 onChange={(e) => {
                   props.onChange(
                     "TechEndDate",
                     moment(e).format("YYYY-MM-DDThh:mm:ss")
                   );
                 }}
+                // error={props.step3Errors['TechEndDate']?true:false}
+                // ErrorMsg={props.step3Errors['TechEndDate']}
               />
               <div className="borderbottom"></div>
             </Grid>
@@ -532,10 +601,16 @@ const Step3 = (props) => {
                   name="CtImg"
                   value={props.step3.CtImg}
                   onChange={handleFileChange}
+            //                     error={props.step3Errors['CtImg']?true:false}
+            // ErrorMsg={props.step3Errors['CtImg']}
                 />
               </Grid>
             </Grid>
           </div>
+      </div>
+      ) : (
+        ""
+      )}
           <div
             style={{
               display: "flex",
@@ -552,6 +627,29 @@ const Step3 = (props) => {
               height="48px"
               height2="48px"
               onClick={isEdit ? handleSaveEditVehicle : handleAdd}
+              disabled={
+                           props.step3Errors.FristRegDate===null 
+                        // && props.step3Errors.Brand===null 
+                        // && props.step3Errors.Model===null 
+                        // && props.step3Errors.NumberPlate===null 
+                        // && props.step3Errors.Color===null 
+                        // && props.step3Errors.GearBox===null 
+                        // && props.step3Errors.Energy===null 
+                        // && props.step3Errors.VehicleImg===null 
+                        // && props.step3Errors.VehicleRegImg===null 
+                        // && props.step3Errors.VehicleInsurer===null 
+                        // && props.step3Errors.PoliceNumber===null 
+                        // && props.step3Errors.StartDate===null 
+                        // && props.step3Errors.EndDate===null 
+                        // && props.step3Errors.GreenCard===null 
+
+                        && props.step3.checked===false
+
+                        || props.step3Errors.TechControlDate===null 
+                        && props.step3Errors.TechEndDate===null 
+                        && props.step3Errors.CtImg===null 
+                        ? false : true }
+              
             ></Button>
           </div>
         </Box>
