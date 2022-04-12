@@ -21,6 +21,7 @@ export default function FilePicker(props) {
       display: "none",
     },
     title: {
+      display: "flex",
       fontFamily: "Inter",
       fontStyle: "normal",
       fontWeight: "500 !important",
@@ -88,6 +89,7 @@ export default function FilePicker(props) {
     <div>
       <Typography variant="h2" className={classes.title}>
         {props.title}
+        {props.required? <div style={{color:'red'}}> *</div>:''}
       </Typography>
       <label htmlFor={`contained-button-file` + props.label}>
         <div className={classes.container}>

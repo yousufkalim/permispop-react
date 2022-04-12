@@ -21,7 +21,7 @@ export default function BasicDatePicker(props) {
     <LocalizationProvider dateAdapter={DateAdapter}>
       <div>
         <DatePicker
-          label={props.label}
+          label={ props.required ? <div style={{display:'flex'}}>{props.label}<div style={{color:'red'}}>*</div></div>:props.label}
           shrink={false}
           value={props.value}
           disabled={props.disabled === true ? true : false}

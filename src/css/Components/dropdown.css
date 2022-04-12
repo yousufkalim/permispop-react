@@ -3,6 +3,7 @@
   }
 
   .inputLabelsDD {
+    display: flex !important;
     font-family: Inter !important;
     font-style: normal !important;
     font-weight: 400 !important;
