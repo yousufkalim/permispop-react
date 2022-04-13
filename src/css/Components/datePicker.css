@@ -3,6 +3,10 @@
   margin-top: 5px !important;
 }
 .MuiInputLabel-root {
-  color: rgba(0, 0, 0, 0.87) !important;
-  font-style: italic;
+  color: #363557 !important;
+  font-family: Inter !important;
+  font-weight: 550 !important;
+  font-size: 24px !important;
+  font-style: normal !important;
 }
+

@@ -21,6 +21,13 @@
 .css-fun9od-MuiFormLabel-root-MuiInputLabel-root{
   font-size: 24px !important;
 }
+.css-19ae12r::before{
+  border-bottom: 1px solid #e5e5e5 !important;
+}
+.css-1gkigd::before{
+  border-bottom: 1px solid #e5e5e5 !important;
+
+}
 
 
 .MuiInputLabel-formControl { 

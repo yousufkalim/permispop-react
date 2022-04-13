@@ -60,7 +60,11 @@ input:-webkit-autofill:active {
 .leaflet-div-icon{
   border-radius: 50px;
 }
+/* address */
 
+.css-1gkigd:hover:not(.Mui-disabled)::before{
+  border-bottom: 1px solid #e5e5e5 !important;
+}
 /* MEDIA QUERIES*/
 
 @media only screen and (max-width: 1440px) {
