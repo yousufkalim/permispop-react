@@ -157,18 +157,18 @@ const StudentForm = (props) => {
         });
         return errors;
       }),
-      // email2: Joi
-      // .label("Second Email")
-      // .error((errors) => {
-      //   errors.forEach((err) => {
-      //     switch (err.type) {
+      email2: Joi
+      .label("Second Email")
+      .error((errors) => {
+        errors.forEach((err) => {
+          switch (err.type) {
 
-      //       default:
-      //         break;
-      //     }
-      //   });
-      //   return errors;
-      // }),
+            default:
+              break;
+          }
+        });
+        return errors;
+      }),
       phone: Joi.string()
   
       .length(10)
@@ -186,17 +186,17 @@ const StudentForm = (props) => {
         });
         return errors;
       }),
-      // phone2: Joi
-      // .label("Phone2")
-      // .error((errors) => {
-      //   errors.forEach((err) => {
-      //     switch (err.type) {
-      //       default:
-      //         break;
-      //     }
-      //   });
-      //   return errors;
-      // }),
+      phone2: Joi
+      .label("Phone2")
+      .error((errors) => {
+        errors.forEach((err) => {
+          switch (err.type) {
+            default:
+              break;
+          }
+        });
+        return errors;
+      }),
       password: Joi.string()
   
       .min(8)
@@ -239,131 +239,123 @@ const StudentForm = (props) => {
       // .label("confirmpassword")
       // .valid(Joi.ref('password'))
 
-      // complement: Joi.string()
-      // .required()
-      // .label("Complement")
-      // .error((errors) => {
-      //   errors.forEach((err) => {
-      //     switch (err.type) {
-      //       case "string.empty":
-      //         err.message = `${err.context.label} Field can't be empty`;
-      //         break;
-      //     }
-      //   });
-      //   return errors;
-      // }),
+      complement: Joi.string()
+      .label("Complement")
+      .error((errors) => {
+        errors.forEach((err) => {
+          switch (err.type) {
+            case "string.empty":
+              err.message = `${err.context.label} Field can't be empty`;
+              break;
+          }
+        });
+        return errors;
+      }),
 
-      // noh: Joi.string()
-      // .required()
-      // .label("Number of Hours")
-      // .error((errors) => {
-      //   errors.forEach((err) => {
-      //     switch (err.type) {
-      //       case "string.empty":
-      //         err.message = `${err.context.label} Field can't be empty`;
-      //         break;
-      //     }
-      //   });
-      //   return errors;
-      // }),
-      // neph: Joi.string()
-      // .min(14)
-      // .max(14)
-      // .required()
-      // .label("NEPH Number") 
-      // .error((errors) => {
-      //   errors.forEach((err) => {
-      //     switch (err.type) {
-      //       case "string.empty":
-      //         err.message = `${err.context.label} Field can't be empty`;
-      //         break;
-      //       case "string.min":
-      //         err.message = `${err.context.label} Must be exactly  ${err.context.limit} Longs caractères!`;
-      //         break;
-      //       case "string.max":
-      //         err.message = `${err.context.label} too long ${err.context.limit} Longs caractères!`;
-      //         break;
-      //       default:
-      //         break;
-      //     }
-      //   });
-      //   return errors;
-      // }),
-      // frontImage: Joi.string()
-      // .required()
-      // .label("Front Image") 
-      // .error((errors) => {
-      //   errors.forEach((err) => {
-      //     switch (err.type) {
-      //       case "string.empty":
-      //         err.message = `${err.context.label} can't be empty`;
-      //         break;
-      //       default:
-      //         break;
-      //     }
-      //   });
-      //   return errors;
-      // }),
-      // backImage: Joi.string()
-      // .required()
-      // .label("backImage") 
-      // .error((errors) => {
-      //   errors.forEach((err) => {
-      //     switch (err.type) {
-      //       case "string.empty":
-      //         err.message = `${err.context.label} can't be empty`;
-      //         break;
-      //       default:
-      //         break;
-      //     }
-      //   });
-      //   return errors;
-      // }),
-      // profileImage: Joi.string()
-      // .required()
-      // .label("profile Image") 
-      // .error((errors) => {
-      //   errors.forEach((err) => {
-      //     switch (err.type) {
-      //       case "string.empty":
-      //         err.message = `${err.context.label} can't be empty`;
-      //         break;
-      //       default:
-      //         break;
-      //     }
-      //   });
-      //   return errors;
-      // }),
-      // highwayCodeImg: Joi.string()
-      // .required()
-      // .label("highwayCodeImg") 
-      // .error((errors) => {
-      //   errors.forEach((err) => {
-      //     switch (err.type) {
-      //       case "string.empty":
-      //         err.message = `${err.context.label} can't be empty`;
-      //         break;
-      //       default:
-      //         break;
-      //     }
-      //   });
-      //   return errors;
-      // }),
-      // date: Joi.string()
-      // .required()
-      // .label("Date") 
-      // .error((errors) => {
-      //   errors.forEach((err) => {
-      //     switch (err.type) {
-      //       case "string.empty":
-      //         err.message = `${err.context.label} can't be empty`;
-      //         break;
-      //       default:
-      //         break;
-      //     }
-      //   });
-      //   return errors;
-      // }),
+      noh: Joi.string()
+      .label("Number of Hours")
+      .error((errors) => {
+        errors.forEach((err) => {
+          switch (err.type) {
+            case "string.empty":
+              err.message = `${err.context.label} Field can't be empty`;
+              break;
+          }
+        });
+        return errors;
+      }),
+      neph: Joi.string()
+      .min(14)
+      .max(14)
+      .label("NEPH Number") 
+      .error((errors) => {
+        errors.forEach((err) => {
+          switch (err.type) {
+            case "string.empty":
+              err.message = `${err.context.label} Field can't be empty`;
+              break;
+            case "string.min":
+              err.message = `${err.context.label} Must be exactly  ${err.context.limit} Longs caractères!`;
+              break;
+            case "string.max":
+              err.message = `${err.context.label} too long ${err.context.limit} Longs caractères!`;
+              break;
+            default:
+              break;
+          }
+        });
+        return errors;
+      }),
+      frontImage: Joi.string()
+      .label("Front Image") 
+      .error((errors) => {
+        errors.forEach((err) => {
+          switch (err.type) {
+            case "string.empty":
+              err.message = `${err.context.label} can't be empty`;
+              break;
+            default:
+              break;
+          }
+        });
+        return errors;
+      }),
+      backImage: Joi.string()
+      .label("backImage") 
+      .error((errors) => {
+        errors.forEach((err) => {
+          switch (err.type) {
+            case "string.empty":
+              err.message = `${err.context.label} can't be empty`;
+              break;
+            default:
+              break;
+          }
+        });
+        return errors;
+      }),
+      profileImage: Joi.string()
+      .label("profile Image") 
+      .error((errors) => {
+        errors.forEach((err) => {
+          switch (err.type) {
+            case "string.empty":
+              err.message = `${err.context.label} can't be empty`;
+              break;
+            default:
+              break;
+          }
+        });
+        return errors;
+      }),
+      highwayCodeImg: Joi.string()
+      .label("highwayCodeImg") 
+      .error((errors) => {
+        errors.forEach((err) => {
+          switch (err.type) {
+            case "string.empty":
+              err.message = `${err.context.label} can't be empty`;
+              break;
+            default:
+              break;
+          }
+        });
+        return errors;
+      }),
+      date: Joi.string()
+      .label("Date") 
+      .error((errors) => {
+        errors.forEach((err) => {
+          switch (err.type) {
+            case "string.empty":
+              err.message = `${err.context.label} can't be empty`;
+              break;
+            default:
+              break;
+          }
+        });
+        return errors;
+      }),
       // checkbox2: Joi.string()
       // .label("checkbox2") 
       // .error((errors) => {
@@ -376,22 +368,21 @@ const StudentForm = (props) => {
       //   return errors;
       // }),
      
-      // language: Joi.array()
-      // .required()
-      // .min(1)
-      // .label("languages") 
-      // .error((errors) => {
-      //   errors.forEach((err) => {
-      //     switch (err.type) {
-      //       case "string.empty":
-      //         err.message = `${err.context.label} can't be empty`;
-      //         break;
-      //       default:
-      //         break;
-      //     }
-      //   });
-      //   return errors;
-      // }),
+      language: Joi.array()
+      .min(1)
+      .label("languages") 
+      .error((errors) => {
+        errors.forEach((err) => {
+          switch (err.type) {
+            case "string.empty":
+              err.message = `${err.context.label} can't be empty`;
+              break;
+            default:
+              break;
+          }
+        });
+        return errors;
+      }),
 
     
       
@@ -786,7 +777,7 @@ const StudentForm = (props) => {
                 label="Phone"
                 required={true}
                 disabled={disable}
-                type="text"
+                type="number"
                 placeholder="XX-XXXXXX-XX"
                 name="phone"
                 value={student.phone}
@@ -800,7 +791,7 @@ const StudentForm = (props) => {
             <Grid item xs={12} sm={12} md={4}>
               <TextField
                 label="Second Phone"
-                type="text"
+                type="number"
                 placeholder="XX-XXXXXX-XX"
                 disabled={disable}
                 name="phone2"
@@ -890,7 +881,7 @@ const StudentForm = (props) => {
                 name="neph"
                 disabled={disable}
                 placeholder="532-3321-111"
-                type="text"
+                type="number"
                 value={student.neph}
                 onChange={(e) => {
                   handleStudent(e.target.name, e.target.value);
