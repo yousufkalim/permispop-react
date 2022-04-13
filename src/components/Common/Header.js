@@ -106,7 +106,7 @@ export default function Header(props) {
   return (
     <div className="main-list">
       <div className="flex_rowAlign_center">
-        <a href="http://localhost:3000">
+        <a href={process.env.REACT_APP_FRONT_URL}>
           <img className="home-logo img-fluid w-75" src={Logo} alt="" />
         </a>
         <Typography variant="p" className="logo_title">
@@ -116,13 +116,13 @@ export default function Header(props) {
           <li>
             <ul>
               <li>
-                <a href="http://localhost:3000/#home"> Home </a>
+                <a href={process.env.REACT_APP_FRONT_URL}> Home </a>
               </li>
               <li>
-                <a href="http://localhost:3000/#services"> Services </a>
+                <a href={process.env.REACT_APP_FRONT_URL}> Services </a>
               </li>
               <li>
-                <a href="http://localhost:3000/#contactUs"> Contact Us </a>
+                <a href={process.env.REACT_APP_FRONT_URL}> Contact Us </a>
               </li>
             </ul>
           </li>
