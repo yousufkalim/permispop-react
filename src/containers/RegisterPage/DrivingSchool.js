@@ -184,19 +184,18 @@ const DrivingSchool = () => {
         });
         return errors;
       }),
-    // Complement: Joi.string()
-    //   .required()
-    //   .label("Complement")
-    //   .error((errors) => {
-    //     errors.forEach((err) => {
-    //       switch (err.type) {
-    //         case "string.empty":
-    //           err.message = `${err.context.label} Field can't be empty`;
-    //           break;
-    //       }
-    //     });
-    //     return errors;
-    //   }),
+    Complement: Joi.string()
+      .label("Complement")
+      .error((errors) => {
+        errors.forEach((err) => {
+          switch (err.type) {
+            case "string.empty":
+              err.message = `${err.context.label} Field can't be empty`;
+              break;
+          }
+        });
+        return errors;
+      }),
     Email: Joi.string()
       .email()
       .required()
@@ -217,21 +216,21 @@ const DrivingSchool = () => {
         });
         return errors;
       }),
-    // Email2: Joi.optional()
-    //   .label("Second Email")
-    //   .error((errors) => {
-    //     errors.forEach((err) => {
-    //       switch (err.type) {
-    //         case "string.email":
-    //           err.message = `${err.context.label} is Not Valid!`;
-    //           break;
+    Email2: Joi.optional()
+      .label("Second Email")
+      .error((errors) => {
+        errors.forEach((err) => {
+          switch (err.type) {
+            case "string.email":
+              err.message = `${err.context.label} is Not Valid!`;
+              break;
 
-    //         default:
-    //           break;
-    //       }
-    //     });
-    //     return errors;
-    //   }),
+            default:
+              break;
+          }
+        });
+        return errors;
+      }),
     Phone: Joi.string()
 
       .length(10)
@@ -249,12 +248,12 @@ const DrivingSchool = () => {
         });
         return errors;
       }),
-    // Phone2: Joi.label("Phone2")
-    //   .optional()
+    Phone2: Joi.label("Phone2")
+      .optional()
 
-    //   .error((errors) => {
-    //     return errors;
-    //   }),
+      .error((errors) => {
+        return errors;
+      }),
     Password: Joi.string()
 
       .min(8)
@@ -278,9 +277,6 @@ const DrivingSchool = () => {
       }),
 
     Password2: Joi.string()
-      .valid(Joi.ref("password"))
-      .min(8)
-      .required()
       .label("confirmpassword")
       .error((errors) => {
         errors.forEach((err) => {
@@ -297,60 +293,55 @@ const DrivingSchool = () => {
         });
         return errors;
       }),
-    // Language: Joi.array()
-    //   .required()
-    //   .min(1)
-    //   .label("Language")
-    //   .error((errors) => {
-    //     errors.forEach((err) => {
-    //       switch (err.type) {
-    //         case "string.empty":
-    //           err.message = `${err.context.label} Field can't be empty`;
-    //           break;
-    //       }
-    //     });
-    //     return errors;
-    //   }),
+    Language: Joi.array()
+      .label("Language")
+      .error((errors) => {
+        errors.forEach((err) => {
+          switch (err.type) {
+            case "string.empty":
+              err.message = `${err.context.label} Field can't be empty`;
+              break;
+          }
+        });
+        return errors;
+      }),
 
-    // Platform: Joi.string()
-    //   .required()
-    //   .label("Platform")
-    //   .error((errors) => {
-    //     errors.forEach((err) => {
-    //       switch (err.type) {
-    //         case "string.empty":
-    //           err.message = `${err.context.label} Field can't be empty`;
-    //           break;
-    //       }
-    //     });
-    //     return errors;
-    //   }),
-    // Hours: Joi.string()
-    //   .required()
-    //   .label("Hours")
-    //   .error((errors) => {
-    //     errors.forEach((err) => {
-    //       switch (err.type) {
-    //         case "string.empty":
-    //           err.message = `${err.context.label} Field can't be empty`;
-    //           break;
-    //       }
-    //     });
-    //     return errors;
-    //   }),
-    // CPF: Joi.string()
-    //   .required()
-    //   .label("CPF")
-    //   .error((errors) => {
-    //     errors.forEach((err) => {
-    //       switch (err.type) {
-    //         case "string.empty":
-    //           err.message = `${err.context.label} Field can't be empty`;
-    //           break;
-    //       }
-    //     });
-    //     return errors;
-    //   }),
+    Platform: Joi.string()
+      .label("Platform")
+      .error((errors) => {
+        errors.forEach((err) => {
+          switch (err.type) {
+            case "string.empty":
+              err.message = `${err.context.label} Field can't be empty`;
+              break;
+          }
+        });
+        return errors;
+      }),
+    Hours: Joi.string()
+      .label("Hours")
+      .error((errors) => {
+        errors.forEach((err) => {
+          switch (err.type) {
+            case "string.empty":
+              err.message = `${err.context.label} Field can't be empty`;
+              break;
+          }
+        });
+        return errors;
+      }),
+    CPF: Joi.string()
+      .label("CPF")
+      .error((errors) => {
+        errors.forEach((err) => {
+          switch (err.type) {
+            case "string.empty":
+              err.message = `${err.context.label} Field can't be empty`;
+              break;
+          }
+        });
+        return errors;
+      }),
   };
 
   const handleStep1 = (name, value) => {
@@ -444,23 +435,23 @@ const DrivingSchool = () => {
         });
         return errors;
       }),
-    // RcProImg: Joi.string()
-    //   .required()
-    //   .label("RcProImg")
-    //   .error((errors) => {
-    //     errors.forEach((err) => {
-    //       switch (err.type) {
-    //         case "string.empty":
-    //           err.message = `${err.context.label} Field can't be empty`;
-    //           break;
-    //         default:
-    //           break;
-    //       }
-    //     });
-    //     return errors;
-    //   }),
+    RcProImg: Joi.string()
+      .label("RcProImg")
+      .error((errors) => {
+        errors.forEach((err) => {
+          switch (err.type) {
+            case "string.empty":
+              err.message = `${err.context.label} Field can't be empty`;
+              break;
+            default:
+              break;
+          }
+        });
+        return errors;
+      }),
     SiretNumber: Joi.string()
       .min(14)
+      .max(14)
       .required()
       .label("Siret Number")
       .error((errors) => {
@@ -716,22 +707,21 @@ const DrivingSchool = () => {
         });
         return errors;
       }),
-    // Complement: Joi.string()
-    //   .required()
-    //   .label("Complement")
-    //   .error((errors) => {
-    //     errors.forEach((err) => {
-    //       switch (err.type) {
-    //         case "string.empty":
-    //           err.message = `${err.context.label} Should not be a Future Date `;
-    //           break;
+    Complement: Joi.string()
+      .label("Complement")
+      .error((errors) => {
+        errors.forEach((err) => {
+          switch (err.type) {
+            case "string.empty":
+              err.message = `${err.context.label} Should not be a Future Date `;
+              break;
 
-    //         default:
-    //           break;
-    //       }
-    //     });
-    //     return errors;
-    //   }),
+            default:
+              break;
+          }
+        });
+        return errors;
+      }),
     ProfileImg: Joi.string()
       .required()
       .label("ProfileImg")
@@ -1241,7 +1231,6 @@ const DrivingSchool = () => {
         return errors;
       }),
     Complement: Joi.string()
-      .required()
       .label("Complement")
       .error((errors) => {
         errors.forEach((err) => {
@@ -1352,7 +1341,6 @@ const DrivingSchool = () => {
         return errors;
       }),
     ProfileImg: Joi.string()
-      .required()
       .label("ProfileImg")
       .error((errors) => {
         errors.forEach((err) => {
@@ -1544,7 +1532,6 @@ const DrivingSchool = () => {
         return errors;
       }),
     TypeContract: Joi.string()
-      .required()
       .label("TypeContract")
       .error((errors) => {
         errors.forEach((err) => {
@@ -2065,15 +2052,15 @@ const DrivingSchool = () => {
                       }
                       disabled={
                         activeStep === 1 
-                          // && step1Errors.TradeName===null 
-                          // && step1Errors.CompanyName===null
-                          // && step1Errors.Email===null
-                          // && step1Errors.Phone===null
-                          // && step1Errors.Password===''
-                          // && step1Errors.Password2===''
-                          //  && step1Errors.Address === null
-                          // && step1.Address.City != ""
-                          //  && step1.Address.Zip != "" 
+                          && step1Errors.TradeName===null 
+                          && step1Errors.CompanyName===null
+                          && step1Errors.Email===null
+                          && step1Errors.Phone===null
+                          && step1Errors.Password===''
+                          && step1Errors.Password2===''
+                           && step1Errors.Address === null
+                          && step1.Address.City != ""
+                           && step1.Address.Zip != "" 
 
                         // && step1Errors.Language===null
                         // && step1Errors.CPF===null
@@ -2081,48 +2068,51 @@ const DrivingSchool = () => {
                         // && step1Errors.Email2===null
                         // && step1Errors.Phone2===null
 
-                        // && step1.OtherPlateform===false
+                        && step1.OtherPlateform===false
 
-                        // || step1Errors.Platform===null
-                        // && step1Errors.Hours===null
-                        // && step1Errors.TradeName===null
-                        // && step1Errors.CompanyName===null
+                        || step1Errors.Platform===null
+                        && step1Errors.Hours===null
+                        && step1Errors.TradeName===null 
+                        && step1Errors.CompanyName===null
+                        && step1Errors.Email===null
+                        && step1Errors.Phone===null
+                        && step1Errors.Password===''
+                        && step1Errors.Password2===''
+                         && step1Errors.Address === null
+                        && step1.Address.City != ""
+                         && step1.Address.Zip != "" 
+                        
+                        
                         // && step1Errors.Complement===null
-                        // && step1Errors.Email===null
                         // && step1Errors.Email2===null
-                        // && step1Errors.Phone===null
                         // && step1Errors.Phone2===null
-                        // && step1Errors.Password===null
-                        // && step1Errors.Address===null
                         // && step1Errors.Language===null
-
-                        // && step1Errors.Password2===null
-
                         // && step1Errors.CPF===null
+
 
                          || activeStep === 2
-                        // && step2Errors.Number===null
-                        // && step2Errors.IssuingAurh===null
-                        // && step2Errors.SiretNumber===null
-                        // && step2Errors.KBIS===null
-                        // && step2Errors.Approvaldate===null
+                        && step2Errors.Number===null
+                        && step2Errors.IssuingAurh===null
+                        && step2Errors.SiretNumber===null
+                        && step2Errors.KBIS===null
+                        && step2Errors.Approvaldate===null
 
-                        // && step2Errors.RcProImg===null
+                        && step2Errors.RcProImg===null
 
                         || activeStep === 3 
-                        // && step3Errors.insuranceCompany===null
-                        // && step3Errors.policeNumber===null
-                        // && step3Errors.RcPro===null
-                        // && step3Errors.dateInsurance===null
+                        && step3Errors.insuranceCompany===null
+                        && step3Errors.policeNumber===null
+                        && step3Errors.RcPro===null
+                        && step3Errors.dateInsurance===null
 
                         || activeStep === 4
-                          // && step4Errors.Firstname===null
-                          // && step4Errors.Surname===null
-                          // && step4Errors.Pob===null
-                          // && step4Errors.Gender===null
-                          // && step4Errors.ProfileImg===null
-                          // && step4Errors.Dob===null
-                          // && step4Errors.Address===null
+                          && step4Errors.Firstname===null
+                          && step4Errors.Surname===null
+                          && step4Errors.Pob===null
+                          && step4Errors.Gender===null
+                          && step4Errors.ProfileImg===null
+                          && step4Errors.Dob===null
+                          && step4Errors.Address===null
 
                           && step4.TermAndCondition === false 
 

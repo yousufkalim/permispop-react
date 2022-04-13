@@ -40,6 +40,7 @@ const Step2 = ({ step2, setStep2, onChange,step2Errors }) => {
             label="Number"
             required={true}
             name="Number"
+            type="number"
             placeholder="000000"
             value={step2.Number}
             onChange={(e) => {
@@ -109,6 +110,7 @@ const Step2 = ({ step2, setStep2, onChange,step2Errors }) => {
             required={true}
             placeholder="000000"
                 name="SiretNumber"
+                type="number"
                 value={step2.SiretNumber}
                 onChange={(e) => {
                   onChange(e.target.name, e.target.value);

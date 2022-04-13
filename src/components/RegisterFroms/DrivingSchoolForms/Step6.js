@@ -430,6 +430,7 @@ const Step6 = ({ step6, setStep6, onChange, instructors, setInstructors,step6Err
               <TextField
                 label="Second Email"
                 name="Email2"
+                type="email"
                 placeholder="smart_coolkyo@yahoo.com"
                 value={step6.Email2}
                 onChange={(e) => {
@@ -444,6 +445,7 @@ const Step6 = ({ step6, setStep6, onChange, instructors, setInstructors,step6Err
                 label="Phone"
                 name="Phone"
                 placeholder="0000000000000"
+                type="number"
             required={true}
             value={step6.Phone}
                 onChange={(e) => {
@@ -457,6 +459,7 @@ const Step6 = ({ step6, setStep6, onChange, instructors, setInstructors,step6Err
               <TextField
                 name="Phone2"
                 label="Second Phone"
+                type="number"
                 placeholder="00000000000000"
                 value={step6.Phone2}
                 onChange={(e) => {
@@ -743,25 +746,25 @@ const Step6 = ({ step6, setStep6, onChange, instructors, setInstructors,step6Err
               onClick={isEdit ? handleSaveEditInstructor : handleAdd}
               disabled={
                  step6Errors.Firstname===null 
-                        // && step6Errors.Surname===null 
-                        // && step6Errors.Pob===null 
-                        // && step6Errors.Gender===null 
-                        // && step6Errors.Email===null 
-                        // && step6Errors.Phone===null 
-                        // && step6Errors.Password===null 
-                        // && step6Errors.ConfirmPassword===null 
-                        // && step6Errors.DriverLicenseNumber===null 
-                        // && step6Errors.DriverLicenseFrontImg===null 
-                        // && step6Errors.DriverLicenseBackImg===null 
-                        // && step6Errors.ExcAuthNumber===null 
-                        // && step6Errors.ExcAuthIssueAuth===null 
-                        // && step6Errors.ExcAuthFrontImg===null 
-                        // && step6Errors.ExcAuthBackImg===null 
-                        // && step6Errors.Dob===null 
-                        // && step6Errors.DriverLicenseStartDate===null 
-                        // && step6Errors.DriverLicenseEndDate===null 
-                        // && step6Errors.ExcAuthStartDate===null 
-                        // && step6Errors.ExcAuthEndDate===null 
+                        && step6Errors.Surname===null 
+                        && step6Errors.Pob===null 
+                        && step6Errors.Gender===null 
+                        && step6Errors.Email===null 
+                        && step6Errors.Phone===null 
+                        && step6Errors.Password===null 
+                        && step6Errors.ConfirmPassword===null 
+                        && step6Errors.DriverLicenseNumber===null 
+                        && step6Errors.DriverLicenseFrontImg===null 
+                        && step6Errors.DriverLicenseBackImg===null 
+                        && step6Errors.ExcAuthNumber===null 
+                        && step6Errors.ExcAuthIssueAuth===null 
+                        && step6Errors.ExcAuthFrontImg===null 
+                        && step6Errors.ExcAuthBackImg===null 
+                        && step6Errors.Dob===null 
+                        && step6Errors.DriverLicenseStartDate===null 
+                        && step6Errors.DriverLicenseEndDate===null 
+                        && step6Errors.ExcAuthStartDate===null 
+                        && step6Errors.ExcAuthEndDate===null 
                         && step6Errors.Address===null 
                         && step6.Address.City != "" 
                         && step6.Address.Zip != ""

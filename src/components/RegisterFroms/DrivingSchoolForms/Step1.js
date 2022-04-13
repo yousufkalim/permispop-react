@@ -115,6 +115,7 @@ const Step1 = ({ step1, setStep1, onChange,step1Errors }) => {
           <TextField
             label="Tradename"
             name="TradeName"
+            type="text"
                 required={true}
                 placeholder="John"
             value={step1.TradeName}
@@ -131,6 +132,7 @@ const Step1 = ({ step1, setStep1, onChange,step1Errors }) => {
                 required={true}
                 name="CompanyName"
             placeholder="Smith.PVT"
+            type="text"
             value={step1.CompanyName}
             onChange={(e) => {
               onChange(e.target.name, e.target.value);
@@ -160,6 +162,7 @@ const Step1 = ({ step1, setStep1, onChange,step1Errors }) => {
             label="Complement"
             name="Complement"
             placeholder="Text"
+            type="text"
             value={step1.Complement}
             onChange={(e) => {
               onChange(e.target.name, e.target.value);
@@ -220,6 +223,7 @@ const Step1 = ({ step1, setStep1, onChange,step1Errors }) => {
           <TextField
             label="Second Email"
             name="Email2"
+            type="email"
             placeholder="smart_coolkyo@yahoo.com"
             value={step1.Email2}
             onChange={(e) => {
@@ -234,6 +238,7 @@ const Step1 = ({ step1, setStep1, onChange,step1Errors }) => {
             label="Phone"
                 required={true}
                 name="Phone"
+                type="number"
             placeholder="0000000000000"
             value={step1.Phone}
             onChange={(e) => {
@@ -247,6 +252,7 @@ const Step1 = ({ step1, setStep1, onChange,step1Errors }) => {
           <TextField
             name="Phone2"
             label="Second Phone"
+            type="number"
             placeholder="00000000000000"
             value={step1.Phone2}
             onChange={(e) => {
@@ -321,6 +327,7 @@ const Step1 = ({ step1, setStep1, onChange,step1Errors }) => {
                 name="Platform"
                 label="Which platform(s)?"
                 placeholder="Platform name"
+                type="text"
                 value={step1.Platform}
                 onChange={(e) => {
                   onChange(e.target.name, e.target.value);
@@ -334,6 +341,7 @@ const Step1 = ({ step1, setStep1, onChange,step1Errors }) => {
                 label="How much time will you give to the students of our platform?(hr/month)"
                 placeholder="No. of hours"
                 name="Hours"
+                type="text"
                 value={step1.Hours}
                 onChange={(e) => {
                   onChange(e.target.name, e.target.value);

@@ -534,7 +534,7 @@ const Step5 = ({ step5, setStep5, onChange, vehicles, setVehicles,step5Errors,se
             onClick={(e) =>  onChange('checked', !step5.checked)}
           />
           <Typography variant="body1" className="termsConditionsCheckboxTitle">
-            Are you working on other platform?
+          Technical Control Details if any?
           </Typography>
         </div>
       </div>
@@ -621,19 +621,19 @@ const Step5 = ({ step5, setStep5, onChange, vehicles, setVehicles,step5Errors,se
               disabled={
                  step5Errors.RegistrationDate===null
               && step5Errors.Brand===null 
-              // && step5Errors.Model===null 
-              // && step5Errors.NumberPlate===null 
-              // && step5Errors.GearBox===null 
-              // && step5Errors.Color===null 
-              // && step5Errors.Energy===null 
-              // && step5Errors.CarImage===null 
-              // && step5Errors.CertificateFrontImage===null 
-              // && step5Errors.CertificateBackImage===null 
-              // && step5Errors.Insurer===null 
-              // && step5Errors.PoliceNumber===null 
-              // && step5Errors.StartDate===null 
-              // && step5Errors.EndDate===null 
-              // && step5Errors.GreenCard===null 
+              && step5Errors.Model===null 
+              && step5Errors.NumberPlate===null 
+              && step5Errors.GearBox===null 
+              && step5Errors.Color===null 
+              && step5Errors.Energy===null 
+              && step5Errors.CarImage===null 
+              && step5Errors.CertificateFrontImage===null 
+              && step5Errors.CertificateBackImage===null 
+              && step5Errors.Insurer===null 
+              && step5Errors.PoliceNumber===null 
+              && step5Errors.StartDate===null 
+              && step5Errors.EndDate===null 
+              && step5Errors.GreenCard===null 
               
               && step5.checked===false
 
@@ -642,6 +642,19 @@ const Step5 = ({ step5, setStep5, onChange, vehicles, setVehicles,step5Errors,se
               && step5Errors.CTImg===null 
               && step5Errors.RegistrationDate===null
               && step5Errors.Brand===null 
+              && step5Errors.Model===null 
+              && step5Errors.NumberPlate===null 
+              && step5Errors.GearBox===null 
+              && step5Errors.Color===null 
+              && step5Errors.Energy===null 
+              && step5Errors.CarImage===null 
+              && step5Errors.CertificateFrontImage===null 
+              && step5Errors.CertificateBackImage===null 
+              && step5Errors.Insurer===null 
+              && step5Errors.PoliceNumber===null 
+              && step5Errors.StartDate===null 
+              && step5Errors.EndDate===null 
+              && step5Errors.GreenCard===null 
 
 
               ? false : true}
