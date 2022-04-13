@@ -582,7 +582,7 @@ const Step4 = (props) => {
             onClick={(e) =>  props.onChange('checked', !props.step4.checked)}
           />
           <Typography variant="body1" className="termsConditionsCheckboxTitle">
-            Are you working on other platform?
+          Technical Control if any?
           </Typography>
         </div>
       </div>
@@ -664,20 +664,20 @@ const Step4 = (props) => {
               onClick={isEdit ? handleSaveEditVehicle : handleAdd}
               disabled={
                 props.step4Errors.FirstRegistration ===null
-                // && props.step4Errors.Brand===null
-                // && props.step4Errors.Model===null
-                // && props.step4Errors.NumPlate===null
-                // && props.step4Errors.Color===null
-                // && props.step4Errors.Energy===null
-                // && props.step4Errors.Gearbox===null
-                // && props.step4Errors.Insurer===null
-                // && props.step4Errors.PoliceNum===null
-                // && props.step4Errors.VehicleInsurerStartDate===null
-                // && props.step4Errors.VehicleInsurerEndDate===null
-                // && props.step4Errors.PhotoPath===null
-                // && props.step4Errors.RegCertificatefront===null
-                // && props.step4Errors.RegCertificateback===null
-                // && props.step4Errors.GreenCardImgPath===null
+                && props.step4Errors.Brand===null
+                && props.step4Errors.Model===null
+                && props.step4Errors.NumPlate===null
+                && props.step4Errors.Color===null
+                && props.step4Errors.Energy===null
+                && props.step4Errors.Gearbox===null
+                && props.step4Errors.Insurer===null
+                && props.step4Errors.PoliceNum===null
+                && props.step4Errors.VehicleInsurerStartDate===null
+                && props.step4Errors.VehicleInsurerEndDate===null
+                && props.step4Errors.PhotoPath===null
+                && props.step4Errors.RegCertificatefront===null
+                && props.step4Errors.RegCertificateback===null
+                && props.step4Errors.GreenCardImgPath===null
 
 
 
@@ -687,20 +687,20 @@ const Step4 = (props) => {
                 && props.step4Errors.TechEndDate===null 
                 && props.step4Errors.ControlTechImgPath===null 
                 && props.step4Errors.FirstRegistration ===null
-                // && props.step4Errors.Brand===null
-                // && props.step4Errors.Model===null
-                // && props.step4Errors.NumPlate===null
-                // && props.step4Errors.Color===null
-                // && props.step4Errors.Energy===null
-                // && props.step4Errors.Gearbox===null
-                // && props.step4Errors.Insurer===null
-                // && props.step4Errors.PoliceNum===null
-                // && props.step4Errors.VehicleInsurerStartDate===null
-                // && props.step4Errors.VehicleInsurerEndDate===null
-                // && props.step4Errors.PhotoPath===null
-                // && props.step4Errors.RegCertificatefront===null
-                // && props.step4Errors.RegCertificateback===null
-                // && props.step4Errors.GreenCardImgPath===null
+                && props.step4Errors.Brand===null
+                && props.step4Errors.Model===null
+                && props.step4Errors.NumPlate===null
+                && props.step4Errors.Color===null
+                && props.step4Errors.Energy===null
+                && props.step4Errors.Gearbox===null
+                && props.step4Errors.Insurer===null
+                && props.step4Errors.PoliceNum===null
+                && props.step4Errors.VehicleInsurerStartDate===null
+                && props.step4Errors.VehicleInsurerEndDate===null
+                && props.step4Errors.PhotoPath===null
+                && props.step4Errors.RegCertificatefront===null
+                && props.step4Errors.RegCertificateback===null
+                && props.step4Errors.GreenCardImgPath===null
                 
                   ? 
                   false

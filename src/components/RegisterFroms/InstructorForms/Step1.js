@@ -279,7 +279,7 @@ const Step1 = (props) => {
         <Grid item xs={12} sm={12} md={4}>
           <TextField
             label="Second Phone"
-            type="text"
+            type="number"
             placeholder="Second phone"
             name="Phone2"
             value={props.step1.Phone2}

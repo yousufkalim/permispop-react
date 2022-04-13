@@ -43,7 +43,7 @@ const Step2 = (props) => {
             label="Driving License Number"
             required={true}
             name="licenceNo"
-            type="text"
+            type="number"
             placeholder="000000000"
             value={props.step2.licenceNo}
             onChange={(e) => {
@@ -182,7 +182,7 @@ const Step2 = (props) => {
             required={true}
             label="SIRET Number"
             name="siretNo"
-            type="text"
+            type="number"
             placeholder="000000000"
             value={props.step2.siretNo}
             onChange={(e) => {
