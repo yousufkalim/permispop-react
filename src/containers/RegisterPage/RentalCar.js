@@ -1205,20 +1205,20 @@ const RentalCar = () => {
                       }
                       disabled={ 
                         activeStep === 1
-                        // && step1Errors.Address===null 
-                        // && step1.Address.City != ""
-                        // && step1.Address.Zip != ""
-                        // && step1Errors.FirstName===null 
-                        // && step1Errors.SurName===null 
-                        // && step1Errors.Dob===null 
-                        // && step1Errors.Pob===null 
-                        // && step1Errors.Gender===null 
-                        // && step1Errors.Email===null 
-                        // && step1Errors.Phone===null 
-                        // && step1Errors.Password==='' 
-                        // && step1Errors.ConfirmPassword==='' 
-                        // && step1Errors.FrontSideimg===null 
-                        // && step1Errors.BackSideimg===null 
+                        && step1Errors.Address===null 
+                        && step1.Address.City != ""
+                        && step1.Address.Zip != ""
+                        && step1Errors.FirstName===null 
+                        && step1Errors.SurName===null 
+                        && step1Errors.Dob===null 
+                        && step1Errors.Pob===null 
+                        && step1Errors.Gender===null 
+                        && step1Errors.Email===null 
+                        && step1Errors.Phone===null 
+                        && step1Errors.Password==='' 
+                        && step1Errors.ConfirmPassword==='' 
+                        && step1Errors.FrontSideimg===null 
+                        && step1Errors.BackSideimg===null 
                         
                         // && step1Errors.ProfileImg===null 
                         // && step1Errors.Phone2===null 
@@ -1227,12 +1227,12 @@ const RentalCar = () => {
                         // && step1Errors.TimeOnPlatform===null 
 
                         || activeStep === 2
-                        // && step2Errors.Siret===null 
-                        // && step2Errors.Kbls===null 
-                        // && step2Errors.CompanyInsurer===null 
-                        // && step2Errors.CompanyPoliceNumber===null 
-                        // && step2Errors.InsuranceDateExp===null 
-                        // && step2Errors.RcPro===null 
+                        && step2Errors.Siret===null 
+                        && step2Errors.Kbls===null 
+                        && step2Errors.CompanyInsurer===null 
+                        && step2Errors.CompanyPoliceNumber===null 
+                        && step2Errors.InsuranceDateExp===null 
+                        && step2Errors.RcPro===null 
                      
                         || activeStep === 3
                         && vehicles.length > 0

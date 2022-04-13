@@ -543,7 +543,7 @@ const Step3 = (props) => {
             onClick={(e) =>  props.onChange('checked', !props.step3.checked)}
           />
           <Typography variant="body1" className="termsConditionsCheckboxTitle">
-            Are you working on other platform?
+          Technical Control if any?
           </Typography>
         </div>
       </div>
@@ -629,25 +629,39 @@ const Step3 = (props) => {
               onClick={isEdit ? handleSaveEditVehicle : handleAdd}
               disabled={
                            props.step3Errors.FristRegDate===null 
-                        // && props.step3Errors.Brand===null 
-                        // && props.step3Errors.Model===null 
-                        // && props.step3Errors.NumberPlate===null 
-                        // && props.step3Errors.Color===null 
-                        // && props.step3Errors.GearBox===null 
-                        // && props.step3Errors.Energy===null 
-                        // && props.step3Errors.VehicleImg===null 
-                        // && props.step3Errors.VehicleRegImg===null 
-                        // && props.step3Errors.VehicleInsurer===null 
-                        // && props.step3Errors.PoliceNumber===null 
-                        // && props.step3Errors.StartDate===null 
-                        // && props.step3Errors.EndDate===null 
-                        // && props.step3Errors.GreenCard===null 
+                        && props.step3Errors.Brand===null 
+                        && props.step3Errors.Model===null 
+                        && props.step3Errors.NumberPlate===null 
+                        && props.step3Errors.Color===null 
+                        && props.step3Errors.GearBox===null 
+                        && props.step3Errors.Energy===null 
+                        && props.step3Errors.VehicleImg===null 
+                        && props.step3Errors.VehicleRegImg===null 
+                        && props.step3Errors.VehicleInsurer===null 
+                        && props.step3Errors.PoliceNumber===null 
+                        && props.step3Errors.StartDate===null 
+                        && props.step3Errors.EndDate===null 
+                        && props.step3Errors.GreenCard===null 
 
                         && props.step3.checked===false
 
                         || props.step3Errors.TechControlDate===null 
                         && props.step3Errors.TechEndDate===null 
                         && props.step3Errors.CtImg===null 
+                        && props.step3Errors.FristRegDate===null 
+                        && props.step3Errors.Brand===null 
+                        && props.step3Errors.Model===null 
+                        && props.step3Errors.NumberPlate===null 
+                        && props.step3Errors.Color===null 
+                        && props.step3Errors.GearBox===null 
+                        && props.step3Errors.Energy===null 
+                        && props.step3Errors.VehicleImg===null 
+                        && props.step3Errors.VehicleRegImg===null 
+                        && props.step3Errors.VehicleInsurer===null 
+                        && props.step3Errors.PoliceNumber===null 
+                        && props.step3Errors.StartDate===null 
+                        && props.step3Errors.EndDate===null 
+                        && props.step3Errors.GreenCard===null 
                         ? false : true }
               
             ></Button>

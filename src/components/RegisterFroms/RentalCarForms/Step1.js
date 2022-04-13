@@ -284,7 +284,7 @@ const Step1 = ({ step1, setStep1, onChange, step1Errors }) => {
             label="Phone"
             required={true}
             name="Phone"
-            type="text"
+            type="number"
             placeholder="1234567890"
             onChange={(e) => {
               onChange(e.target.name, e.target.value);
@@ -298,7 +298,7 @@ const Step1 = ({ step1, setStep1, onChange, step1Errors }) => {
           <TextField
             label="Second Phone"
             name="Phone2"
-            type="text"
+            type="number"
             placeholder="1234567890"
             onChange={(e) => {
               onChange(e.target.name, e.target.value);
@@ -383,7 +383,6 @@ const Step1 = ({ step1, setStep1, onChange, step1Errors }) => {
           <Grid item xs={12} sm={12} md={4}>
             <FilePicker
               title="Upload your Profile Picture"
-            required={true}
             name="ProfileImg"
               label="ProfileImg"
               value={step1.ProfileImg}

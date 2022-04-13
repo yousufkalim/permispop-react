@@ -45,7 +45,7 @@ const Step2 = ({ step2, setStep2, onChange,step2Errors }) => {
             <div className="DrivingSchool1">
               <TextField
                 label="SIRET Number"
-                type="text"
+                type="number"
                 required={true}
                 name="Siret"
                 placeholder="Must be 14 Digits"
@@ -93,7 +93,7 @@ const Step2 = ({ step2, setStep2, onChange,step2Errors }) => {
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <TextField
-            label="Police Nunber"
+            label="Police Number"
             type="text"
             required={true}
             placeholder="Numeric"
