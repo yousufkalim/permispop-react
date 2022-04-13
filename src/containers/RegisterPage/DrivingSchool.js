@@ -2097,7 +2097,7 @@ const DrivingSchool = () => {
                         && step2Errors.KBIS===null
                         && step2Errors.Approvaldate===null
 
-                        && step2Errors.RcProImg===null
+                        // && step2Errors.RcProImg===null
 
                         || activeStep === 3 
                         && step3Errors.insuranceCompany===null
