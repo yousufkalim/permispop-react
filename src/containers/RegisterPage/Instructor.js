@@ -114,7 +114,7 @@ const Instructor = () => {
       Lat: "",
       Lng: "",
     },
-    Dob: new Date(),
+    Dob: new Date("01/01/2000"),
     Pob: "",
     Gender: "",
     Email: "",
