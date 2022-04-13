@@ -118,7 +118,6 @@ const Index = () => {
     let allVehicles = [];
     await API("get", `Profile/GetProfileByPersonalId?id=${userData.id}`).then(
       (InsprofileRes) => {
-        console.log("InsprofileRes", InsprofileRes.data.data);
         let vehicleId = JSON.parse(
           InsprofileRes.data.data.drivingSchoolVehiclesInfoId
         );
@@ -129,12 +128,10 @@ const Index = () => {
           );
         });
         Promise.all(allVehicles).then((res) => {
-          console.log("allVehicles", res);
           let vehicles = [];
           res.map((veh) => {
             vehicles.push(veh.data.data);
           });
-          console.log("res", vehicles);
           setVehicleData(vehicles);
         });
       }
@@ -232,7 +229,6 @@ const Index = () => {
       GreenCardImagePath: vehicleDet.GreenCard,
       id: selectedInsuranceId.id,
     }).then(async (vehicleinsRes) => {
-      console.log("vehicleinsRes", vehicleinsRes);
       await API("put", "TechnicalControl", {
         DateofTechnicalControl: vehicleDet.TechControlDate,
         startDateOfTech: vehicleDet.TechControlDate,
@@ -242,7 +238,6 @@ const Index = () => {
         TechnicalControlImagePath: vehicleDet.CtImg,
         id: selectedTechnicalId.id,
       }).then(async (Technicalres) => {
-        console.log("Technicalres", Technicalres);
         await API("put", "VehicleDetail", {
           DateOfFirstRegistration: vehicleDet.FristRegDate,
           Brand: vehicleDet.Brand,
@@ -323,12 +318,10 @@ const Index = () => {
           }
         });
 
-        console.log("allVehicles", allVehicles);
         await API(
           "get",
           `VehicleDetail/UpdateVehicleDetail/?id=${tempArray[index].id}`
         ).then(async (vehicleres) => {
-          console.log("InsprofileRes", InsprofileRes);
           await API("post", `Profile/UpdateProfile`, {
             banDate: InsprofileRes.data.data.banDate,
             banStatus: InsprofileRes.data.data.banDate,
