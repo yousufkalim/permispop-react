@@ -593,7 +593,7 @@ const DrivingSchool = () => {
   const [step4, setStep4] = React.useState({
     Firstname: "",
     Surname: "",
-    Dob: new Date(),
+    Dob: new Date("01/01/2000"),
     Pob: "",
     Address: {
       Label: "",
@@ -1099,7 +1099,7 @@ const DrivingSchool = () => {
   const [step6, setStep6] = React.useState({
     Firstname: "",
     Surname: "",
-    Dob: new Date(),
+    Dob: new Date("01/01/2000"),
     Pob: "",
     Gender: "",
     Address: {
