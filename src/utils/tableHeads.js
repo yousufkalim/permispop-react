@@ -101,7 +101,7 @@ export const Instructorcolumns = [
 
 export const Vehiclescolumns = [
   {
-    id: "dateofregistration",
+    id: "dateOfFirstRegistration",
     label: "Date of registration",
     align: "center",
     minWidth: 170,
@@ -122,13 +122,13 @@ export const Vehiclescolumns = [
     format: (value) => value.toLocaleString("en-US"),
   },
   {
-    id: "noplate",
+    id: "numberPlate",
     label: "Number Plate",
     minWidth: 170,
     align: "center",
   },
   {
-    id: "gearbox",
+    id: "gearBox",
     label: "Gearbox",
     minWidth: 170,
     align: "center",
@@ -137,6 +137,43 @@ export const Vehiclescolumns = [
   {
     id: "Vaction",
     label: "Actions",
+    minWidth: 170,
+    align: "center",
+    format: (value) => value.toLocaleString("en-US"),
+  },
+];
+
+export const DsVehiclescolumns = [
+  {
+    id: "dateOfFirstRegistration",
+    label: "Date of registration",
+    align: "center",
+    minWidth: 170,
+  },
+  { id: "brand", label: "Brand", align: "center", minWidth: 170 },
+  {
+    id: "model",
+    label: "Modal",
+    minWidth: 170,
+    align: "center",
+    format: (value) => value.toLocaleString("en-US"),
+  },
+  {
+    id: "color",
+    label: "Color",
+    minWidth: 170,
+    align: "center",
+    format: (value) => value.toLocaleString("en-US"),
+  },
+  {
+    id: "numberPlate",
+    label: "Number Plate",
+    minWidth: 170,
+    align: "center",
+  },
+  {
+    id: "gearBox",
+    label: "Gearbox",
     minWidth: 170,
     align: "center",
     format: (value) => value.toLocaleString("en-US"),
