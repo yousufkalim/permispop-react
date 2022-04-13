@@ -16,6 +16,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   inputLabels: {
+    display: "flex !important",
     fontFamily: "Inter !important",
     fontStyle: "normal !important",
     fontWeight: "550 !important",
@@ -66,7 +67,7 @@ const valHtml = props.value.map((option, index) => {
       label={label}
       deleteIcon={<RemoveIcon />}
       onDelete={() => {
-        props.setVal(props.value.filter((entry) => entry !== option));
+        props.setVal(props.name, props.value.filter((entry) => entry !== option));
       }}
     />
   );
@@ -85,6 +86,7 @@ return (
       shrink={true}
     >
       {props.label}
+      {props.required? <div style={{color:'red'}}> *</div>:''}
     </InputLabel>
     <Autocomplete
       multiple

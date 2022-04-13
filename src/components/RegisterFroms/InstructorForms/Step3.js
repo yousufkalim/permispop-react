@@ -41,6 +41,7 @@ const Step1 = (props) => {
       <Grid container spacing={4}>
         <Grid item xs={12} sm={12} md={4}>
           <TextField
+            required={true}
             label="Insurer"
             name="companyInsurer"
             placeholder="John"
@@ -48,33 +49,42 @@ const Step1 = (props) => {
             onChange={(e) => {
               props.onChange(e.target.name, e.target.value);
             }}
+            error={props.step3Errors['companyInsurer']?true:false}
+            ErrorMsg={props.step3Errors['companyInsurer']}
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <TextField
             label="Police Number"
             name="companyPoliceNum"
+            required={true}
             placeholder="Smith"
             value={props.step3.companyPoliceNum}
             onChange={(e) => {
               props.onChange(e.target.name, e.target.value);
             }}
+            error={props.step3Errors['companyPoliceNum']?true:false}
+            ErrorMsg={props.step3Errors['companyPoliceNum']}
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4} sx={{ marginTop: "9px" }}>
           <Datepicker
             label="Expiration date of your insurance"
+            required={true}
             name="insuranceExpDate"
             placeholder="19-10-1992 "
             padding="20px 0 0 0px !important"
             width="100% !important"
             value={props.step3.insuranceExpDate}
+            minDate={moment()}
             onChange={(e) => {
               props.onChange(
                 "insuranceExpDate",
                 moment(e).format("YYYY-MM-DDThh:mm:ss")
               );
             }}
+            error={props.step3Errors['insuranceExpDate']?true:false}
+            ErrorMsg={props.step3Errors['insuranceExpDate']}
           ></Datepicker>
           <div className="borderbottom"></div>
         </Grid>
@@ -82,9 +92,12 @@ const Step1 = (props) => {
           <FilePicker
             title="Upload Insurance Company your RC Pro"
             name="companyRC"
+            required={true}
             label="companyRC"
             value={props.step3.companyRC}
             onChange={handleFileChange}
+            error={props.step3Errors['companyRC']?true:false}
+            ErrorMsg={props.step3Errors['companyRC']}
           />
         </Grid>
       </Grid>
@@ -101,6 +114,8 @@ const Step1 = (props) => {
             onChange={(e) => {
               props.onChange(e.target.name, e.target.value);
             }}
+            error={props.step3Errors['vehicleInsurer']?true:false}
+            ErrorMsg={props.step3Errors['vehicleInsurer'] && props.step3Errors['vehicleInsurer']}
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
@@ -112,6 +127,8 @@ const Step1 = (props) => {
             onChange={(e) => {
               props.onChange(e.target.name, e.target.value);
             }}
+            error={props.step3Errors['vehiclePoliceNum']?true:false}
+            ErrorMsg={props.step3Errors['vehiclePoliceNum'] && props.step3Errors['vehiclePoliceNum']}
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4} sx={{ marginTop: "9px" }}>
@@ -128,6 +145,8 @@ const Step1 = (props) => {
                 moment(e).format("YYYY-MM-DDThh:mm:ss")
               );
             }}
+            error={props.step3Errors['vehicleDoOb']?true:false}
+            ErrorMsg={props.step3Errors['vehicleDoOb'] && props.step3Errors['vehicleDoOb']}
           ></Datepicker>
           <div className="borderbottom"></div>
         </Grid>
@@ -147,6 +166,8 @@ const Step1 = (props) => {
                 moment(e).format("YYYY-MM-DDThh:mm:ss")
               );
             }}
+            error={props.step3Errors['ExpDateinsurance']?true:false}
+            ErrorMsg={props.step3Errors['ExpDateinsurance'] && props.step3Errors['ExpDateinsurance']}
           ></Datepicker>
           <div className="borderbottom"></div>
         </Grid>
@@ -157,6 +178,8 @@ const Step1 = (props) => {
             label="UploadRc"
             value={props.step3.RcPro}
             onChange={handleFileChange}
+            error={props.step3Errors['RcPro']?true:false}
+            ErrorMsg={props.step3Errors['RcPro'] && props.step3Errors['RcPro']}
           />
         </Grid>
       </Grid> */}

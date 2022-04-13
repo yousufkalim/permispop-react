@@ -14,6 +14,7 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   inputLabels: {
+    display: "flex",
     fontFamily: "Inter !important",
     fontStyle: "normal !important",
     fontWeight: "550 !important",
@@ -69,6 +70,7 @@ export default function ComboBox(props) {
         shrink={true}
       >
         {props.label}
+        {props.required? <div style={{color:'red'}}> *</div>:''}
       </InputLabel>
       <Autocomplete
         sx={{

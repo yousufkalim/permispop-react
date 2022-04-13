@@ -76,6 +76,7 @@ export default function DropDown(props) {
           {...props.inputLabelProps}
         >
           {props.label}
+          {props.required? <div style={{color:'red'}}> *</div>:''}
         </InputLabel>
         <Select
           labelId="demo-simple-select-standard-label"

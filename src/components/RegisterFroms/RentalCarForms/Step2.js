@@ -9,7 +9,7 @@ import FilePicker from "../../Common/FilePicker";
 import DatePicker from "../../Common/DatePicker";
 import axios from "axios";
 import moment from "moment";
-const Step2 = ({ step2, setStep2, onChange }) => {
+const Step2 = ({ step2, setStep2, onChange,step2Errors }) => {
   const [InsuranceDateExp, setInsuranceDateExp] = useState();
 
   const handleExpirationDate = (newvalue) => {
@@ -45,12 +45,15 @@ const Step2 = ({ step2, setStep2, onChange }) => {
             <div className="DrivingSchool1">
               <TextField
                 label="SIRET Number"
-                type="text"
+                type="number"
+                required={true}
                 name="Siret"
                 placeholder="Must be 14 Digits"
                 onChange={(e) => {
-                  setStep2({ ...step2, [e.target.name]: e.target.value });
+                  onChange(e.target.name, e.target.value);
                 }}
+                error={step2Errors['Siret']?true:false}
+            ErrorMsg={step2Errors['Siret']}
               ></TextField>
             </div>
           </Grid>
@@ -59,9 +62,12 @@ const Step2 = ({ step2, setStep2, onChange }) => {
               <FilePicker
                 title="Upload your KBLS"
                 label="Kbls"
+                required={true}
                 name="Kbls"
                 value={step2.Kbls}
                 onChange={handleFileChange}
+                error={step2Errors['Kbls']?true:false}
+            ErrorMsg={step2Errors['Kbls']}
               />
             </div>
           </Grid>
@@ -75,22 +81,28 @@ const Step2 = ({ step2, setStep2, onChange }) => {
           <TextField
             label="Insurer"
             type="text"
+            required={true}
             placeholder="John"
             name="CompanyInsurer"
             onChange={(e) => {
-              setStep2({ ...step2, [e.target.name]: e.target.value });
+              onChange(e.target.name, e.target.value);
             }}
+            error={step2Errors['CompanyInsurer']?true:false}
+            ErrorMsg={step2Errors['CompanyInsurer']}
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <TextField
-            label="Police Nunber"
+            label="Police Number"
             type="text"
+            required={true}
             placeholder="Numeric"
             name="CompanyPoliceNumber"
             onChange={(e) => {
-              setStep2({ ...step2, [e.target.name]: e.target.value });
+              onChange(e.target.name, e.target.value);
             }}
+            error={step2Errors['CompanyPoliceNumber']?true:false}
+            ErrorMsg={step2Errors['CompanyPoliceNumber']}
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4} sx={{ marginTop: "9px" }}>
@@ -101,13 +113,17 @@ const Step2 = ({ step2, setStep2, onChange }) => {
             padding="20px 0 0 0px !important"
             width="100% !important"
             name="InsuranceDateExp"
+            required={true}
             value={step2.InsuranceDateExp}
+            minDate={moment()}
             onChange={(e) => {
               onChange(
                 "InsuranceDateExp",
                 moment(e).format("YYYY-MM-DDThh:mm:ss")
               );
             }}
+            error={step2Errors['InsuranceDateExp']?true:false}
+            ErrorMsg={step2Errors['InsuranceDateExp']}
           />
           <div className="borderbottom"></div>
 
@@ -121,9 +137,12 @@ const Step2 = ({ step2, setStep2, onChange }) => {
           <FilePicker
             title="Upload your RC Pro"
             name="RcPro"
+            required={true}
             label="LicenseFront"
             value={step2.RcPro}
             onChange={handleFileChange}
+            error={step2Errors['RcPro']?true:false}
+            ErrorMsg={step2Errors['RcPro']}
           />
         </Grid>
       </Grid>

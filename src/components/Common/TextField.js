@@ -65,7 +65,10 @@ export default function UseFormControl(props) {
         shrink={true}
         {...props.inputLabelProps}
       >
-        {props.label}
+      <>{props.label} </>  
+        
+        
+        {props.required? <div style={{color:'red'}}> *</div>:''}
       </InputLabel>
       <Input
         className="input"
