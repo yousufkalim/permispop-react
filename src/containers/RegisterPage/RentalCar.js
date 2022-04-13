@@ -992,10 +992,10 @@ const RentalCar = () => {
                     TechnicalControlPromise,
                   ]).then((e) => {
                     return API("post", "VehicleDetail", {
-                      DateOfFirstRegistration: vehicle.TechControlDate,
-                      Brand: vehicle.TechControlDate,
-                      Model: vehicle.TechEndDate,
-                      Color: vehicle.CtImg,
+                      DateOfFirstRegistration: vehicle.FristRegDate,
+                      Brand: vehicle.Brand,
+                      Model: vehicle.Model,
+                      Color: vehicle.Color,
                       Energy: vehicle.Energy,
                       GearBox: vehicle.GearBox,
                       NumberPlate: vehicle.NumberPlate,

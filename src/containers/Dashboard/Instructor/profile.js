@@ -101,7 +101,6 @@ const Profile = () => {
         UpdateField: updatefield,
         User: user.id,
       }).then((res) => {
-        toast.success("Request is created for profile update");
         setDescription("");
         SetUpdateField("");
         setOpenUpdateProfileModal(false);

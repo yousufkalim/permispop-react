@@ -75,7 +75,7 @@ export default function DataTable(props) {
               {props.data
                 ? props.data
                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                    .map((row) => {
+                    .map((row, index) => {
                       return (
                         <TableRow
                           hover
@@ -264,6 +264,7 @@ export default function DataTable(props) {
                                       width="100% !important"
                                       margin="0px 0px 10px 0px !important"
                                       height="50px !important"
+                                      onClick={(e) => props.open(index)}
                                     ></Button>
                                     <Button
                                       type="submit"
@@ -272,6 +273,9 @@ export default function DataTable(props) {
                                       width="100% !important"
                                       margin="0px 0px 10px 0px !important"
                                       height="50px !important"
+                                      onClick={(e) =>
+                                        props.handleDeleteVehicle(index)
+                                      }
                                     ></Button>
                                   </TableCell>
                                 ) : (

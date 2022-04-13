@@ -116,9 +116,9 @@ const Index = () => {
       openDisputeModal = setOpenDisputeModal(true);
     }
   };
+
   const createDispute = async (id) => {
     console.log("setSelectedUserData", user.role);
-
     const userID = JSON.parse(localStorage.getItem("user"));
     if (updatefield != "" && comment != "") {
       await API("post", `Dispute`, {
@@ -169,7 +169,7 @@ const Index = () => {
               Pending request
             </Typography>
           </Grid>
-          <Grid xs={3} sm={3} md={2}>
+          {/* <Grid xs={3} sm={3} md={2}>
             <MultipleSelectPlaceholder
               value={["All"]}
             ></MultipleSelectPlaceholder>
@@ -194,7 +194,7 @@ const Index = () => {
               value={Endvalue}
               onChange={handleEnddate}
             ></DatePicker>
-          </Grid>
+          </Grid> */}
         </Grid>
       </div>
       <Divider width="100%" borderColor="#D5E4E8" margin="2% 0px 2% 0px" />
@@ -202,6 +202,8 @@ const Index = () => {
         updateStatus={updateStatus}
         data={pendingRequestsrows}
         columns={PendingRequestcolumns}
+        SetUpdateField={SetUpdateField}
+        user={user}
       />
 
       <Modal

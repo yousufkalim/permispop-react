@@ -173,7 +173,7 @@ const Index = () => {
               Pending Request
             </Typography>
           </Grid>
-          <Grid xs={12} sm={6} md={2}>
+          {/* <Grid xs={12} sm={6} md={2}>
             <MultipleSelectPlaceholder
               value={["All"]}
             ></MultipleSelectPlaceholder>
@@ -197,7 +197,7 @@ const Index = () => {
               value={Endvalue}
               onChange={handleEnddate}
             ></DatePicker>
-          </Grid>
+          </Grid> */}
         </Grid>
       </div>
 

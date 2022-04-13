@@ -171,7 +171,7 @@ const Index = () => {
               Pending Request
             </Typography>
           </Grid>
-          <Grid xs={3} sm={3} md={2}>
+          {/* <Grid xs={3} sm={3} md={2}>
             <MultipleSelectPlaceholder
               value={["All"]}
             ></MultipleSelectPlaceholder>
@@ -196,7 +196,7 @@ const Index = () => {
               value={Endvalue}
               onChange={handleEnddate}
             ></DatePicker>
-          </Grid>
+          </Grid> */}
         </Grid>
       </div>
       <Divider width="100%" borderColor="#D5E4E8" margin="2% 0px 2% 0px" />
@@ -206,6 +206,7 @@ const Index = () => {
         data={pendingRequestsrows}
         columns={PendingRequestcolumns}
         SetUpdateField={SetUpdateField}
+        user={user}
       ></DataTable>
       <Modal
         aria-labelledby="spring-modal-title"
