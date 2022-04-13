@@ -33,7 +33,7 @@ const useStyles = makeStyles((theme) => ({
   },
   textfield: {
     height: "62px !important",
-    borderBottom: "none !important",
+    borderBottom: "1px solid #e5e5e5 !important",
     fontFamily: "Inter !important",
     fontStyle: "normal !important",
     fontSize: "18px !important",

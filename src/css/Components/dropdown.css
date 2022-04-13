@@ -21,6 +21,15 @@
     color: #B9B7CC !important;
     font-weight: 300 !important;
   }
+  .css-1cccqvr.css-1cccqvr.css-1cccqvr{
+    padding-top: 24px !important;
+  }
+  .css-1cccqvr.MuiSelect-select{
+    min-height: 2.4375em !important;
+  }
+  .css-1cccqvr:focus{
+    background-color: #fff !important;
+  }
 
   
   @media (max-width:992px) {
