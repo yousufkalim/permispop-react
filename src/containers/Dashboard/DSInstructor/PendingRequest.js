@@ -1,5 +1,5 @@
 // import { TableRow } from "@mui/material";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import DataTable from "../../../components/Common/Table";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
@@ -8,19 +8,146 @@ import { pendingRequestsrows } from "../../../utils/tablerows";
 import MultipleSelectPlaceholder from "../../../components/Common/SelectField";
 import DatePicker from "../../../components/Common/DatePicker";
 import MobileViewFilters from "../../../components/Common/MobileViewFilters";
-
 import Divider from "../../../components/Common/Divider";
+import Button from "../../../components/Common/Button";
+import FormControl from "@mui/material/FormControl";
+import Modal from "@mui/material/Modal";
+import Box from "@mui/material/Box";
+import TextareaAutosize from "@mui/material/TextareaAutosize";
+import Radio from "@mui/material/Radio";
+import RadioGroup from "@mui/material/RadioGroup";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import FormLabel from "@mui/material/FormLabel";
+import API from "../../../api";
+import { toast } from "react-toastify";
+
+function createData(bookingwith, date, startTime, duration, status, id) {
+  return { bookingwith, date, startTime, duration, status, id };
+}
 
 const Index = () => {
+  const style = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: 600,
+    bgcolor: "background.paper",
+    boxShadow: 24,
+    borderRadius: "10px",
+    p: 4,
+  };
+  const [pendingRequestsrows, setPendingRequestsrows] = useState([]);
   const [Startvalue, setStartValue] = useState(new Date());
+  const [updatefield, SetUpdateField] = useState("");
+  const [allBookingsWithUser, setAllBookingsWithUser] = useState([]);
+  const [selectedUserData, setSelectedUserData] = useState([]);
+  const [openDisputeModal, setOpenDisputeModal] = useState(false);
+  const [comment, setComment] = useState("");
+
   const handleStartdate = (newValue) => {
     setStartValue(newValue);
   };
-
   const [Endvalue, setEndValue] = useState(new Date());
+  const [user, setUser] = useState();
+
   const handleEnddate = (newValue) => {
     setEndValue(newValue);
   };
+  const [bookings, setBooking] = useState([]);
+
+  useEffect(() => {
+    const userData = JSON.parse(localStorage.getItem("user"));
+    getPendingRequestData(userData);
+    setUser(userData);
+  }, []);
+
+  const getPendingRequestData = async (userData) => {
+    let allBookings = [];
+    await API(
+      "get",
+      `Bookings/GetBookingsByIdForAllUsers_New?id=${userData.id}&role=${userData.role}&sortvalue=FirstName&sortorder=ascend&QuerySearch.firstName=&pageSize=10&pageNumber=1&startDate=&endDate=`
+    ).then(async (GetBookingres) => {
+      let studentRes = GetBookingres.data.data.map((booking) => {
+        if (userData.id === booking.instructionId) {
+          return API("get", `Personal/GetAllById/?id=${booking.studentId}`);
+        }
+      });
+      Promise.all(studentRes).then((res) => {
+        res.map((student) => {
+          GetBookingres.data.data.map((booking) => {
+            if (booking.studentId === student.data.data.id) {
+              booking["studentData"] = student.data.data;
+              allBookings.push(booking);
+            }
+          });
+        });
+        setAllBookingsWithUser(allBookings);
+        setPendingRequestsrows(
+          allBookings.map((booking) => {
+            return createData(
+              booking.studentData.firstName + " " + booking.studentData.surName,
+              booking.bookingDate,
+              booking.startTime,
+              booking.duration,
+              booking.status,
+              booking.id
+            );
+          })
+        );
+      });
+    });
+  };
+
+  const updateStatus = async (id, status) => {
+    allBookingsWithUser.map((booking) => {
+      if (id === booking.id) {
+        setSelectedUserData(booking.studentData);
+      }
+    });
+    if (status == "Complete" || status == "In progress") {
+      await API(
+        "get",
+        `Bookings/UpdateBookingsStatus?id=${id}&status=${status}`
+      ).then((res) => {
+        getPendingRequestData(user);
+        toast.success("Status is updated successful");
+      });
+    } else {
+      openDisputeModal = setOpenDisputeModal(true);
+    }
+  };
+  const createDispute = async (id) => {
+    console.log("setSelectedUserData", user.role);
+
+    const userID = JSON.parse(localStorage.getItem("user"));
+    if (updatefield != "" && comment != "") {
+      await API("post", `Dispute`, {
+        Dispute: updatefield,
+        comment: comment,
+        InstructorID: user.role === "Student" ? selectedUserData.id : user.id,
+        instructorName: user.firstName ? user.firstName : "",
+        DisputingFrom: user.role ? user.role : "",
+        feedBackDate: new Date(),
+        studentName: selectedUserData.firstName
+          ? selectedUserData.firstName
+          : "",
+        studentName: selectedUserData.firstName
+          ? selectedUserData.firstName
+          : "",
+        studentID: user.role === "Student" ? user.id : selectedUserData.id,
+      }).then((disputeres) => {
+        console.log("data", disputeres.data.data);
+        toast.success("Dispute is created sucessfully");
+        SetUpdateField("");
+        setComment("");
+        setOpenDisputeModal(false);
+      });
+    } else {
+      toast.error("Field cannot be empty");
+    }
+  };
+
   return (
     <>
       <MobileViewFilters title="Pending requests" />
@@ -75,9 +202,85 @@ const Index = () => {
       <Divider width="100%" borderColor="#D5E4E8" margin="2% 0px 2% 0px" />
 
       <DataTable
+        updateStatus={updateStatus}
         data={pendingRequestsrows}
         columns={PendingRequestcolumns}
+        SetUpdateField={SetUpdateField}
       ></DataTable>
+      <Modal
+        aria-labelledby="spring-modal-title"
+        aria-describedby="spring-modal-description"
+        open={openDisputeModal}
+        onClose={() => setOpenDisputeModal(false)}
+        closeAfterTransition
+        BackdropProps={{
+          timeout: 500,
+        }}
+      >
+        <Box sx={style}>
+          <FormControl>
+            <FormLabel
+              id="demo-radio-buttons-group-label"
+              sx={{ fontWeight: "550" }}
+            >
+              Give disputes
+            </FormLabel>
+            <RadioGroup>
+              <FormControlLabel
+                value="Latedelivery"
+                control={<Radio />}
+                label="Late delivery"
+                onChange={(e) => SetUpdateField(e.target.value)}
+              />
+              <FormControlLabel
+                value="Payment issue"
+                control={<Radio />}
+                label="Payment issue"
+                onChange={(e) => SetUpdateField(e.target.value)}
+              />
+              <FormControlLabel
+                value="Harrasment"
+                control={<Radio />}
+                label="Harrasment"
+                onChange={(e) => SetUpdateField(e.target.value)}
+              />
+              <FormControlLabel
+                value="AbusingLanguage"
+                control={<Radio />}
+                label="Abusing Language"
+                onChange={(e) => SetUpdateField(e.target.value)}
+              />
+            </RadioGroup>
+          </FormControl>
+          <Typography
+            sx={{
+              color: "#110000",
+              marginBottom: "3px",
+              marginTop: "5%",
+              fontWeight: "550",
+            }}
+          >
+            Comments
+          </Typography>
+          <TextareaAutosize
+            aria-label="minimum height"
+            minRows={5}
+            placeholder="Minimum 3 rows"
+            name="comment"
+            onChange={(e) => setComment(e.target.name)}
+            style={{ width: "100%", borderRadius: "5px" }}
+          />
+          <div style={{ marginTop: "2%" }}>
+            <Button
+              text="Update Profile"
+              width="95% !important"
+              color="#149e7a"
+              borderRadius="10px"
+              onClick={(e) => createDispute(e)}
+            ></Button>
+          </div>
+        </Box>
+      </Modal>
     </>
   );
 };

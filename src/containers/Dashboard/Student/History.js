@@ -1,5 +1,4 @@
-// import { TableRow } from "@mui/material";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import DataTable from "../../../components/Common/Table";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
@@ -9,17 +8,75 @@ import MultipleSelectPlaceholder from "../../../components/Common/SelectField";
 import DatePicker from "../../../components/Common/DatePicker";
 import MobileViewFilters from "../../../components/Common/MobileViewFilters";
 import Divider from "../../../components/Common/Divider";
+import API from "../../../api";
+import { toast } from "react-toastify";
 
+function createData(bookingwith, date, startTime, duration, status, id) {
+  return { bookingwith, date, startTime, duration, status, id };
+}
 const Index = () => {
   const [Startvalue, setStartValue] = useState(new Date());
+  const [Endvalue, setEndValue] = useState(new Date());
+  const [pendingRequestsrows, setPendingRequestsrows] = useState([]);
+  const [allBookingsWithUser, setAllBookingsWithUser] = useState([]);
+  const [user, setUser] = useState();
+  const [selectedUserData, setSelectedUserData] = useState([]);
+
   const handleStartdate = (newValue) => {
     setStartValue(newValue);
   };
-
-  const [Endvalue, setEndValue] = useState(new Date());
   const handleEnddate = (newValue) => {
     setEndValue(newValue);
   };
+
+  useEffect(() => {
+    const userData = JSON.parse(localStorage.getItem("user"));
+    getPendingRequestData(userData);
+    setUser(userData);
+  }, []);
+
+  const getPendingRequestData = async (userData) => {
+    let allBookings = [];
+    await API(
+      "get",
+      `Bookings/GetBookingsByIdForAllUsers_New?id=${userData.id}&role=${userData.role}&sortvalue=FirstName&sortorder=ascend&QuerySearch.firstName=&pageSize=10&pageNumber=1&startDate=&endDate=`
+    ).then(async (GetBookingres) => {
+      let studentRes = GetBookingres.data.data.map((booking) => {
+        if (userData.id === booking.instructionId) {
+          return API("get", `Personal/GetAllById/?id=${booking.studentId}`);
+        } else if (userData.id === booking.studentId) {
+          return API("get", `Personal/GetAllById/?id=${booking.instructionId}`);
+        }
+      });
+      Promise.all(studentRes).then((res) => {
+        res.map((student) => {
+          GetBookingres.data.data.map((booking) => {
+            if (booking.studentId === student.data.data.id) {
+              booking["studentData"] = student.data.data;
+              allBookings.push(booking);
+            } else if (booking.instructionId === student.data.data.id) {
+              booking["studentData"] = student.data.data;
+              allBookings.push(booking);
+            }
+          });
+        });
+        setAllBookingsWithUser(allBookings);
+        setPendingRequestsrows(
+          allBookings.map((booking) => {
+            return createData(
+              booking.studentData.firstName + " " + booking.studentData.surName,
+              booking.bookingDate,
+              booking.startTime,
+              booking.duration,
+              booking.status,
+              booking.id
+            );
+          })
+        );
+      });
+    });
+  };
+
   return (
     <>
       <MobileViewFilters title="History" />
@@ -77,6 +134,7 @@ const Index = () => {
       <DataTable
         data={pendingRequestsrows}
         columns={Historycolumns}
+        user={user}
       ></DataTable>
     </>
   );

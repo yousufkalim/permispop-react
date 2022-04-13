@@ -49,6 +49,7 @@ const StudentForm = (props) => {
     backImage: "",
     profileImage: "",
     highwayCodeImg: "",
+    highwayCodeDate: new Date(),
     checkbox2: false,
     date: new Date(),
     languages: [],
@@ -342,7 +343,7 @@ const StudentForm = (props) => {
         });
         return errors;
       }),
-      date: Joi.string()
+      highwayCodeDate: Joi.string()
       .label("Date") 
       .error((errors) => {
         errors.forEach((err) => {
@@ -522,7 +523,7 @@ const StudentForm = (props) => {
       noOfHrsWanted: student.noh,
       neph: student.neph,
       role: "Student",
-      highWayCodeDate: student.date,
+      highWayCodeDate: student.highwayCodeDate,
       id: "",
       frontIdPhoto: student.frontImage,
       backIdPhoto: student.backImage,
@@ -588,8 +589,8 @@ const StudentForm = (props) => {
             label: item.properties.label,
             city: item.properties.city,
             PostalCode: item.properties.postcode,
-            lat: item.properties.x,
-            lng: item.properties.y,
+            lat: item.geometry.coordinates[1],
+            lng: item.geometry.coordinates[0],
           });
         });
         setAddresses(addressToSet);
@@ -990,15 +991,19 @@ const StudentForm = (props) => {
                 <Datepicker
                   label="Date"
                   disabled={disable}
-                  name="date"
+                  name="highwayCodeDate"
+                  value={student.highwayCodeDate}
+                  onChange={(e) => {
+                    handleStudent(
+                      "highwayCodeDate",
+                      moment(e).format("YYYY-MM-DDThh:mm:ss")
+                    );
+                  }}
                   padding="20px 0 0 0px !important"
                   width="100% !important"
-                  value={student.date}handleStudent
-                  onChange={(e) => {
-                    handleStudent("date", moment(e).format("YYYY-MM-DDThh:mm:ss"));
-                  }}
-                //   error={studentErrors['date']?true:false}
-                // ErrorMsg={studentErrors['date']}
+                 
+                //   error={studentErrors['highwayCodeDate']?true:false}
+                // ErrorMsg={studentErrors['highwayCodeDate']}
                 ></Datepicker>
                 <div className="borderbottom"></div>
               </Grid>
@@ -1063,7 +1068,7 @@ const StudentForm = (props) => {
                
 
                 // && checkbox1===false
-                // || studentErrors.date===null
+                // || studentErrors.highwayCodeDate===null
                 // && studentErrors.highwayCodeImg===null
                 // && studentErrors.firstname===null 
                 // && studentErrors.surname===null 
