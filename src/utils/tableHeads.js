@@ -179,3 +179,28 @@ export const DsVehiclescolumns = [
     format: (value) => value.toLocaleString("en-US"),
   },
 ];
+
+export const FindInstructorcolumns = [
+  { id: "photo", label: "Picture", align: "center", minWidth: 100 },
+  { id: "name", label: "Instructor Name", align: "center", minWidth: 170 },
+  { id: "position", label: "Position", align: "center", minWidth: 170 },
+  { id: "role", label: "Role", align: "center", minWidth: 170 },
+  {
+    id: "reservations",
+    label: "Reservations",
+    minWidth: 170,
+    align: "center",
+  },
+  {
+    id: "profile",
+    label: "Profile",
+    minWidth: 170,
+    align: "center",
+  },
+  {
+    id: "cat",
+    label: "Cat",
+    minWidth: 170,
+    align: "center",
+  },
+];
