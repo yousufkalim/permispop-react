@@ -12,6 +12,7 @@ import LocationOnIcon from "@mui/icons-material/LocationOn";
 import Select from "@mui/material/Select";
 import FormControl from "@mui/material/FormControl";
 import MenuItem from "@mui/material/MenuItem";
+import { Grid } from "@mui/material";
 
 const Maps = (props) => {
   const studentData = JSON.parse(localStorage.getItem("user"));
@@ -96,17 +97,15 @@ const Maps = (props) => {
 
   return (
     <div className="main-div">
-      <div className="dropdown-div">
-        <div style={{ marginLeft: "2%" }}>
-          <FormControl className="MobileView">
+      <Grid container spacing={1}>
+        <Grid sx={4} sm={4} md={2} className="filter_div">
+          <FormControl>
             <label style={{ fontWeight: 500 }}>Gearbox</label>
             <Select
-              labelId="demo-simple-select-standard-label"
-              id="demo-simple-select-standard"
               name="Gearbox"
               value={instructorType.Gearbox}
               onChange={(e) => handleChange("Gearbox", e.target.value)}
-              className="dropdown"
+              className="dropdown1"
             >
               <MenuItem value="All" name="All">
                 All
@@ -119,17 +118,16 @@ const Maps = (props) => {
               </MenuItem>
             </Select>
           </FormControl>
-        </div>
-        <div style={{ marginLeft: "2%" }}>
-          <FormControl className="MobileView">
+        </Grid>
+
+        <Grid sx={4} sm={4} md={2} className="filter_div">
+          <FormControl>
             <label style={{ fontWeight: 500 }}>Gender</label>
             <Select
-              labelId="demo-simple-select-standard-label"
-              id="demo-simple-select-standard"
               name="Gender"
               value={instructorType.Gender}
               onChange={(e) => handleChange("Gender", e.target.value)}
-              className="dropdown"
+              className="dropdown1"
             >
               <MenuItem value="All" name="All">
                 All
@@ -145,17 +143,15 @@ const Maps = (props) => {
               </MenuItem>
             </Select>
           </FormControl>
-        </div>
-        <div style={{ marginLeft: "2%" }}>
-          <FormControl className="MobileView">
+        </Grid>
+        <Grid sx={4} sm={4} md={2} className="filter_div">
+          <FormControl>
             <label style={{ fontWeight: 500 }}>Role</label>
             <Select
-              labelId="demo-simple-select-standard-label"
-              id="demo-simple-select-standard"
               name="Role"
               value={instructorType.Role}
               onChange={(e) => handleChange("Role", e.target.value)}
-              className="dropdown"
+              className="dropdown2"
             >
               <MenuItem value="All" name="All">
                 All
@@ -171,20 +167,18 @@ const Maps = (props) => {
               </MenuItem>
             </Select>
           </FormControl>
-        </div>
-
-        <Button
-          className="ProfileButton"
-          text="Apply"
-          borderRadius="5px"
-          height="60px"
-          width="12% !important"
-          color="#149e7a  !important"
-          margin="0 0 2px 5% !important"
-          sx={{ padding: "0 !important" }}
-          onClick={ProfilesOnMap}
-        ></Button>
-      </div>
+        </Grid>
+        <Grid sx={4} sm={4} md={2} className="filter_div">
+          <Button
+            text="Apply"
+            color="#149e7a !important"
+            width="9rem !important"
+            className="filter_btn"
+            onClick={ProfilesOnMap}
+            borderRadius="10px !important"
+          ></Button>
+        </Grid>
+      </Grid>
       <MapContainer
         className="markercluster-map"
         center={[studentData.lat, studentData.long]}
