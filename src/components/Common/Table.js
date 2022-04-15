@@ -91,7 +91,13 @@ export default function DataTable(props) {
                                 column.id !== "action" &&
                                 column.id !== "Vaction" &&
                                 column.id !== "historyActions" &&
-                                column.id !== "actions" ? (
+                                column.id !== "actions" &&
+                                column.id !== "photo" &&
+                                column.id !== "name" &&
+                                column.id !== "position" &&
+                                column.id !== "reservations" &&
+                                column.id !== "profile" &&
+                                column.id !== "cat" ? (
                                   <TableCell
                                     sx={{
                                       fontFamily: "Inter !important",
@@ -277,6 +283,57 @@ export default function DataTable(props) {
                                         props.handleDeleteVehicle(index)
                                       }
                                     ></Button>
+                                  </TableCell>
+                                ) : column.id === "photo" ? (
+                                  <TableCell align="center">
+                                    <img
+                                      className="home-logo img-fluid w-75"
+                                      src={row.photo}
+                                      height={50}
+                                      width={50}
+                                      style={{ borderRadius: 100 }}
+                                    />
+                                  </TableCell>
+                                ) : column.id === "name" ? (
+                                  <TableCell align="center">
+                                    {row.firstName} {row.surName}
+                                  </TableCell>
+                                ) : column.id === "position" ? (
+                                  <TableCell align="center">
+                                    {row.address} {row.zip} {row.city}
+                                  </TableCell>
+                                ) : column.id === "reservations" ? (
+                                  <TableCell align="center">
+                                    <Button
+                                      text="Reservations"
+                                      color="#149E7A !important"
+                                      width="100% !important"
+                                      margin="0px 0px 10px 0px !important"
+                                      height="50px !important"
+                                      onClick={props.handleReservation}
+                                    />
+                                  </TableCell>
+                                ) : column.id === "profile" ? (
+                                  <TableCell align="center">
+                                    <Button
+                                      text="Profile"
+                                      color="#149E7A !important"
+                                      width="100% !important"
+                                      margin="0px 0px 10px 0px !important"
+                                      height="50px !important"
+                                      onClick={props.handleProfile}
+                                    />
+                                  </TableCell>
+                                ) : column.id === "cat" ? (
+                                  <TableCell align="center">
+                                    <Button
+                                      text="Cat"
+                                      color="#fda333 !important"
+                                      width="100% !important"
+                                      margin="0px 0px 10px 0px !important"
+                                      height="50px !important"
+                                      onClick={props.handleCat}
+                                    />
                                   </TableCell>
                                 ) : (
                                   <TableCell align="center">

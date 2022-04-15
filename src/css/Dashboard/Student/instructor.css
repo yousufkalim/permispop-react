@@ -1,0 +1,32 @@
+.filter-container{
+    margin-left: 2%;
+    width: 150px;
+}
+
+.instructor-dropdown{
+    width: 150px;
+}
+
+.instructor-dropdown-div {
+    margin-bottom: 10px !important;
+    display: grid;
+    grid-template-columns:repeat(7,minmax(0,1fr));
+  }
+
+@media only screen and (max-width: 1350px) {
+    .instructor-dropdown-div {
+        grid-template-columns:repeat(4,minmax(0,1fr));
+      }
+}
+
+@media only screen and (max-width: 900px) {
+    .instructor-dropdown-div {
+        grid-template-columns:repeat(3,minmax(0,1fr));
+      }
+}
+
+@media only screen and (max-width: 750px) {
+    .instructor-dropdown-div {
+        grid-template-columns:repeat(2,minmax(0,1fr));
+      }
+}
