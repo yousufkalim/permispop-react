@@ -2,6 +2,7 @@ import React from "react";
 import { styled } from "@mui/material/styles";
 import Badge from "@mui/material/Badge";
 import Avatar from "@mui/material/Avatar";
+import Studentprofile from "../../assets/images/Studentprofile.png";
 
 export default function BasicAvatars(props) {
   const StyledBadge = styled(Badge)(({ theme }) => ({
@@ -24,7 +25,7 @@ export default function BasicAvatars(props) {
           <Avatar
             className={props.avatarclassName || "avatar"}
             onClick={props.onClick}
-            src={props.src}
+            src={props.src || Studentprofile}
             {...props.avatarProps}
           />
         </StyledBadge>
@@ -32,6 +33,7 @@ export default function BasicAvatars(props) {
         <Avatar
           className={props.avatarclassName || "avatar"}
           onClick={props.onClick}
+          src={props.src || Studentprofile}
           {...props.avatarProps}
         />
       )}
