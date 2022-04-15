@@ -167,6 +167,11 @@ const Index = (props) => {
   const scrollToBottom = () => {
     messagesEndRef.current.scrollIntoView({ block: "end" });
   };
+  const handleKeypress = (e) => {
+    if (e.key === "Enter") {
+      onClick();
+    }
+  };
   return (
     <>
       <div>
@@ -371,6 +376,7 @@ const Index = (props) => {
                   onChange={(e) => {
                     setMessage(e.target.value);
                   }}
+                  onKeyPress={handleKeypress}
                 />
               </div>
               <div className="MessageRight" onClick={onClick}>

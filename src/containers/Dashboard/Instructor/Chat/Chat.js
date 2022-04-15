@@ -168,6 +168,11 @@ const Index = (props) => {
   const scrollToBottom = () => {
     messagesEndRef.current.scrollIntoView({ block: "end" });
   };
+  const handleKeypress = (e) => {
+    if (e.key === "Enter") {
+      onClick();
+    }
+  };
   return (
     <>
       <div>
@@ -369,6 +374,7 @@ const Index = (props) => {
                   placeholder="Type a message here"
                   className="ChatBoxTypingField"
                   value={message}
+                  onKeyPress={handleKeypress}
                   onChange={(e) => {
                     setMessage(e.target.value);
                   }}
