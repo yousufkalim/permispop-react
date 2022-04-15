@@ -21,6 +21,7 @@ import AddCircleIcon from "@mui/icons-material/AddCircle";
 import API from "../../../api";
 import { Typography, Grid, Box, Checkbox, Paper, Modal } from "@mui/material";
 import { async } from "validate.js";
+import Joi from "joi-browser";
 
 function createData(dateofregistration, brand, model, color, noplate, gearbox) {
   return { dateofregistration, brand, model, color, noplate, gearbox };
@@ -66,10 +67,18 @@ const Index = () => {
       TechControlDate: new Date(),
       TechEndDate: new Date(),
       CtImg: "",
+      checkbox1: false,
     });
     setIsEdit(false);
     setAddVehicle(true);
+    setVehicleErrors({});
+    
   };
+  const [checkbox1, setCheckbox1] = React.useState(false);
+  const [disable, setDisable] = useState(false);
+
+  const [vehicleErrors, setVehicleErrors] = useState({});
+
   const [vehicleDet, setVehicleDet] = React.useState({
     FristRegDate: new Date(),
     Brand: "",
@@ -89,6 +98,242 @@ const Index = () => {
     TechEndDate: new Date(),
     CtImg: "",
   });
+  const vehicleSchema = {
+    FristRegDate: Joi.string()
+      .required()
+      .label("FristRegDate")
+      .error((errors) => {
+        errors.forEach((err) => {
+          switch (err.type) {
+            case "string.empty":
+              err.message = `${err.context.label} Field can't be empty`;
+              break;
+          }
+        });
+        return errors;
+      }),
+      Brand: Joi.string()
+      .required()
+      .label("Brand")
+      .error((errors) => {
+        errors.forEach((err) => {
+          switch (err.type) {
+            case "string.empty":
+              err.message = `${err.context.label} Field can't be empty`;
+              break;
+          }
+        });
+        return errors;
+      }),
+      Model: Joi.string()
+      .required()
+      .label("Model")
+      .error((errors) => {
+        errors.forEach((err) => {
+          switch (err.type) {
+            case "string.empty":
+              err.message = `${err.context.label} Field can't be empty`;
+              break;
+          }
+        });
+        return errors;
+      }),
+    NumberPlate: Joi.string()
+      .required()
+      .label("NumberPlate")
+      .error((errors) => {
+        errors.forEach((err) => {
+          switch (err.type) {
+            case "string.empty":
+              err.message = `${err.context.label} Field can't be empty`;
+              break;
+          }
+        });
+        return errors;
+      }),
+    Color: Joi.string()
+      .required()
+      .label("Color")
+      .error((errors) => {
+        errors.forEach((err) => {
+          switch (err.type) {
+            case "string.empty":
+              err.message = `${err.context.label} Field can't be empty`;
+              break;
+          }
+        });
+        return errors;
+      }),
+    GearBox: Joi.string()
+      .required()
+      .label("GearBox")
+      .error((errors) => {
+        errors.forEach((err) => {
+          switch (err.type) {
+            case "string.empty":
+              err.message = `${err.context.label} Field can't be empty`;
+              break;
+          }
+        });
+        return errors;
+      }),
+    Energy: Joi.string()
+      .required()
+      .label("Energy")
+      .error((errors) => {
+        errors.forEach((err) => {
+          switch (err.type) {
+            case "string.empty":
+              err.message = `${err.context.label} Field can't be empty`;
+              break;
+          }
+        });
+        return errors;
+      }),
+    VehicleImg: Joi.string()
+      .required()
+      .label("VehicleImg")
+      .error((errors) => {
+        errors.forEach((err) => {
+          switch (err.type) {
+            case "string.empty":
+              err.message = `${err.context.label} Field can't be empty`;
+              break;
+          }
+        });
+        return errors;
+      }),
+    VehicleRegImg: Joi.string()
+      .required()
+      .label("VehicleRegImg")
+      .error((errors) => {
+        errors.forEach((err) => {
+          switch (err.type) {
+            case "string.empty":
+              err.message = `${err.context.label} Field can't be empty`;
+              break;
+          }
+        });
+        return errors;
+      }),
+    VehicleInsurer: Joi.string()
+      .required()
+      .label("VehicleInsurer")
+      .error((errors) => {
+        errors.forEach((err) => {
+          switch (err.type) {
+            case "string.empty":
+              err.message = `${err.context.label} Field can't be empty`;
+              break;
+          }
+        });
+        return errors;
+      }),
+    PoliceNumber: Joi.string()
+      .required()
+      .label("PoliceNumber")
+      .error((errors) => {
+        errors.forEach((err) => {
+          switch (err.type) {
+            case "string.empty":
+              err.message = `${err.context.label} Field can't be empty`;
+              break;
+          }
+        });
+        return errors;
+      }),
+    StartDate: Joi.string()
+      .required()
+      .label("StartDate")
+      .error((errors) => {
+        errors.forEach((err) => {
+          switch (err.type) {
+            case "string.empty":
+              err.message = `${err.context.label} Field can't be empty`;
+              break;
+          }
+        });
+        return errors;
+      }),
+    EndDate: Joi.string()
+      .required()
+      .label("EndDate")
+      .error((errors) => {
+        errors.forEach((err) => {
+          switch (err.type) {
+            case "string.empty":
+              err.message = `${err.context.label} Field can't be empty`;
+              break;
+          }
+        });
+        return errors;
+      }),
+    GreenCard: Joi.string()
+      .required()
+      .label("GreenCard")
+      .error((errors) => {
+        errors.forEach((err) => {
+          switch (err.type) {
+            case "string.empty":
+              err.message = `${err.context.label} Field can't be empty`;
+              break;
+          }
+        });
+        return errors;
+      }),
+    TechControlDate: Joi.string()
+      .required()
+      .label("TechControlDate")
+      .error((errors) => {
+        errors.forEach((err) => {
+          switch (err.type) {
+            case "string.empty":
+              err.message = `${err.context.label} Field can't be empty`;
+              break;
+          }
+        });
+        return errors;
+      }),
+    TechEndDate: Joi.string()
+      .required()
+      .label("TechEndDate")
+      .error((errors) => {
+        errors.forEach((err) => {
+          switch (err.type) {
+            case "string.empty":
+              err.message = `${err.context.label} Field can't be empty`;
+              break;
+          }
+        });
+        return errors;
+      }),
+    CtImg: Joi.string()
+      .required()
+      .label("CtImg")
+      .error((errors) => {
+        errors.forEach((err) => {
+          switch (err.type) {
+            case "string.empty":
+              err.message = `${err.context.label} Field can't be empty`;
+              break;
+          }
+        });
+        return errors;
+      }),
+  }
+  const onChange = (name, value) => {
+    const errorMessage = validateSuggest(name, value);
+    setVehicleErrors({...vehicleErrors,[name]:errorMessage});
+    setVehicleDet({ ...vehicleDet, [name]: value });
+  };
+  const validateSuggest = (name, value) => {
+    const obj = { [name]: value };
+    const schema = {
+      [name]: vehicleSchema[name],
+    };
+    const { error } = Joi.validate(obj, schema);
+    return error ? error.details[0].message : null;
+  };
   var XMLParser = require("react-xml-parser");
   const style = {
     position: "absolute",
@@ -134,9 +379,7 @@ const Index = () => {
       }
     );
   };
-  const onChange = (name, value) => {
-    setVehicleDet({ ...vehicleDet, [name]: value });
-  };
+
   const handleFileChange = async (e) => {
     const formdata = new FormData();
 
@@ -551,7 +794,7 @@ const Index = () => {
         aria-describedby="modal-modal-description"
       >
         <Box component="form" noValidate sx={style}>
-          <Grid container spacing={4}>
+        <Grid container spacing={4}>
             <Divider
               width="100%"
               borderColor="#D5E4E8"
@@ -569,7 +812,11 @@ const Index = () => {
               <DatePicker
                 label="Date of the 1st Registration"
                 value={vehicleDet.FristRegDate}
+                required={true}
                 name="FristRegDate"
+                maxDate={moment()}
+                error={vehicleErrors['FristRegDate']?true:false}
+                ErrorMsg={vehicleErrors['FristRegDate']}
                 onChange={(e) => {
                   onChange(
                     "FristRegDate",
@@ -584,21 +831,28 @@ const Index = () => {
             <Grid item xs={12} sm={12} md={4}>
               <DropDown
                 label="Brand"
+                name="Brand"
+                required={true}
                 placeholder="Select Option"
                 value={vehicleDet.Brand}
                 onChange={(e) => getExcludingMakes(e)}
                 MenuItem={allMakes}
+                error={vehicleErrors['Brand']?true:false}
+                ErrorMsg={vehicleErrors['Brand']}
               ></DropDown>
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
               <DropDown
                 label="Model"
                 name="Model"
+                required={true}
                 placeholder="Select Option"
                 value={vehicleDet.Model}
                 onChange={(e) => {
                   onChange("Model", e.target.value);
                 }}
+                error={vehicleErrors['Model']?true:false}
+                ErrorMsg={vehicleErrors['Model']}
                 MenuItem={excludingMakes}
               ></DropDown>
             </Grid>
@@ -606,29 +860,36 @@ const Index = () => {
               <TextField
                 label="Number Plate"
                 type="text"
+                required={true}
                 name="NumberPlate"
                 value={vehicleDet.NumberPlate}
                 placeholder="Numeric"
                 onChange={(e) => {
                   onChange(e.target.name, e.target.value);
                 }}
+                error={vehicleErrors['NumberPlate']?true:false}
+                ErrorMsg={vehicleErrors['NumberPlate']}
               ></TextField>
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
               <TextField
                 label="Color"
                 name="Color"
+                required={true}
                 value={vehicleDet.Color}
                 type="text"
                 placeholder="Select Color"
                 onChange={(e) => {
                   onChange(e.target.name, e.target.value);
                 }}
+                error={vehicleErrors['Color']?true:false}
+                ErrorMsg={vehicleErrors['Color']}
               ></TextField>
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
               <DropDown
                 label="Gearbox"
+                required={true}
                 name="GearBox"
                 value={vehicleDet.GearBox}
                 MenuItem={[
@@ -638,12 +899,15 @@ const Index = () => {
                 onChange={(e) => {
                   onChange("GearBox", e.target.value);
                 }}
+                error={vehicleErrors['GearBox']?true:false}
+                ErrorMsg={vehicleErrors['GearBox']}
               ></DropDown>
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
               <DropDown
                 label="Energy"
                 placeholder="Select"
+                required={true}
                 name="Energy"
                 value={vehicleDet.Energy}
                 MenuItem={[
@@ -657,6 +921,8 @@ const Index = () => {
                 onChange={(e) => {
                   onChange("Energy", e.target.value);
                 }}
+                error={vehicleErrors['Energy']?true:false}
+                ErrorMsg={vehicleErrors['Energy']}
               ></DropDown>
             </Grid>
           </Grid>
@@ -670,18 +936,24 @@ const Index = () => {
                 <FilePicker
                   title="Upload your Image"
                   label="YourImg"
+                  required={true}
                   name="VehicleImg"
                   value={vehicleDet.VehicleImg}
                   onChange={handleFileChange}
+                  error={vehicleErrors['VehicleImg']?true:false}
+                ErrorMsg={vehicleErrors['VehicleImg']}
                 />
               </Grid>
               <Grid item xs={12} sm={12} md={4}>
                 <FilePicker
                   title="Upload Vehicle Registration Certificate"
                   label="RegCertificate"
+                  required={true}
                   name="VehicleRegImg"
                   value={vehicleDet.VehicleRegImg}
                   onChange={handleFileChange}
+                  error={vehicleErrors['VehicleRegImg']?true:false}
+                ErrorMsg={vehicleErrors['VehicleRegImg']}
                 />
               </Grid>
             </Grid>
@@ -695,23 +967,29 @@ const Index = () => {
                 label="Insurer"
                 type="text"
                 placeholder="John"
+                required={true}
                 name="VehicleInsurer"
                 value={vehicleDet.VehicleInsurer}
                 onChange={(e) => {
                   onChange(e.target.name, e.target.value);
                 }}
+                error={vehicleErrors['VehicleInsurer']?true:false}
+                ErrorMsg={vehicleErrors['VehicleInsurer']}
               ></TextField>
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
               <TextField
                 label="Police Nunber"
                 type="text"
+                required={true}
                 name="PoliceNumber"
                 placeholder="Numeric"
                 value={vehicleDet.PoliceNumber}
                 onChange={(e) => {
                   onChange(e.target.name, e.target.value);
                 }}
+                error={vehicleErrors['PoliceNumber']?true:false}
+                ErrorMsg={vehicleErrors['PoliceNumber']}
               ></TextField>
             </Grid>
             <Grid item xs={12} sm={12} md={4} sx={{ marginTop: "9px" }}>
@@ -719,6 +997,8 @@ const Index = () => {
                 label="Start Date"
                 value={vehicleDet.StartDate}
                 name="StartDate"
+                required={true}
+                maxDate={moment()}
                 padding="20px 0 0 0px !important"
                 width="100% !important"
                 onChange={(e) => {
@@ -727,6 +1007,8 @@ const Index = () => {
                     moment(e).format("YYYY-MM-DDThh:mm:ss")
                   );
                 }}
+                error={vehicleErrors['StartDate']?true:false}
+                ErrorMsg={vehicleErrors['StartDate']}
               />
               <div className="borderbottom"></div>
             </Grid>
@@ -734,12 +1016,16 @@ const Index = () => {
               <DatePicker
                 label="End Date"
                 name="EndDate"
+                required={true}
+                minDate={moment()}
                 value={vehicleDet.EndDate}
                 padding="20px 0 0 0px !important"
                 width="100% !important"
                 onChange={(e) => {
                   onChange("EndDate", moment(e).format("YYYY-MM-DDThh:mm:ss"));
                 }}
+                error={vehicleErrors['EndDate']?true:false}
+                ErrorMsg={vehicleErrors['EndDate']}
               />
               <div className="borderbottom"></div>
             </Grid>
@@ -751,12 +1037,30 @@ const Index = () => {
                   title="Upload Scanned Green Card"
                   label="GreenCard"
                   name="GreenCard"
+                  required={true}
                   value={vehicleDet.GreenCard}
                   onChange={handleFileChange}
+                  error={vehicleErrors['GreenCard']?true:false}
+                ErrorMsg={vehicleErrors['GreenCard']}
                 />
               </Grid>
             </Grid>
           </div>
+          <div className="termsConditionsCheckbox">
+          <Checkbox
+                disabled={disable}
+                className="checkbox"
+                onClick={(e) => setCheckbox1(!checkbox1)}
+              />
+              <Typography
+                variant="body1"
+                className="termsConditionsCheckboxTitle"
+              >
+                Technical Control Details if any?
+              </Typography>
+            </div>
+            {checkbox1 ? (
+              <>
           <Divider width="100%" borderColor="#D5E4E8" margin="2% 0px 2% 0px" />
           <Typography className="Heading1">Technical Control</Typography>
           <Divider width="100%" borderColor="#D5E4E8" margin="2% 0px 2% 0px" />
@@ -765,6 +1069,7 @@ const Index = () => {
               <DatePicker
                 label="Date of Technical Control"
                 value={vehicleDet.TechControlDate}
+                maxDate={moment()}
                 name="TechControlDate"
                 padding="20px 0 0 0px !important"
                 width="100% !important"
@@ -774,6 +1079,8 @@ const Index = () => {
                     moment(e).format("YYYY-MM-DDThh:mm:ss")
                   );
                 }}
+                error={vehicleErrors['TechControlDate']?true:false}
+                ErrorMsg={vehicleErrors['TechControlDate']}
               />
               <div className="borderbottom"></div>
             </Grid>
@@ -782,6 +1089,7 @@ const Index = () => {
                 label="End Date"
                 value={vehicleDet.TechEndDate}
                 name="TechEndDate"
+                minDate={moment()}
                 padding="20px 0 0 0px !important"
                 width="100% !important"
                 onChange={(e) => {
@@ -790,6 +1098,8 @@ const Index = () => {
                     moment(e).format("YYYY-MM-DDThh:mm:ss")
                   );
                 }}
+                error={vehicleErrors['TechEndDate']?true:false}
+                ErrorMsg={vehicleErrors['TechEndDate']}
               />
               <div className="borderbottom"></div>
             </Grid>
@@ -803,10 +1113,16 @@ const Index = () => {
                   name="CtImg"
                   value={vehicleDet.CtImg}
                   onChange={handleFileChange}
+                  error={vehicleErrors['CtImg']?true:false}
+                ErrorMsg={vehicleErrors['CtImg']}
                 />
               </Grid>
             </Grid>
           </div>
+          </>
+           ) : (
+            ""
+          )}
           <div
             style={{
               display: "flex",
@@ -823,6 +1139,28 @@ const Index = () => {
               height="48px"
               height2="48px"
               onClick={isEdit ? handleSaveEditVehicle : handleAddVehicle}
+              disabled={
+                vehicleErrors.FristRegDate===null 
+                && vehicleErrors.Brand===null
+                && vehicleErrors.Model===null
+                && vehicleErrors.NumberPlate===null
+                && vehicleErrors.Color===null
+                && vehicleErrors.GearBox===null
+                && vehicleErrors.Energy===null
+                && vehicleErrors.VehicleImg===null
+                && vehicleErrors.VehicleRegImg===null
+                && vehicleErrors.VehicleInsurer===null
+                && vehicleErrors.PoliceNumber===null
+                && vehicleErrors.StartDate===null
+                && vehicleErrors.EndDate===null
+                && vehicleErrors.GreenCard===null
+
+                && checkbox1===false
+
+                || vehicleErrors.TechControlDate===null
+                && vehicleErrors.TechEndDate===null
+                && vehicleErrors.CtImg===null
+                ? false : true }
             ></Button>
           </div>
         </Box>

@@ -24,7 +24,7 @@ export default function FilePicker(props) {
       display: "flex",
       fontFamily: "Inter",
       fontStyle: "normal",
-      fontWeight: "500 !important",
+      fontWeight: "550 !important",
       fontSize: "18px !important",
       lineHeight: "151.02%",
       color: "#363557",
@@ -37,7 +37,7 @@ export default function FilePicker(props) {
         fontSize: "16px",
       },
       "@media (max-width:992px)": {
-        fontSize: "14px",
+        fontSize: "14px !important",
       },
       "@media (max-width:600px)": {
         textAlign: "center",
