@@ -1,354 +1,361 @@
 .ChatList {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
 }
-.ChatListVector{
-    display: flex;
-    justify-content: left;
-    align-items: center;
+.ChatListVector {
+  display: flex;
+  justify-content: left;
+  align-items: center;
 }
 .ChatListVector img {
-    padding: 0px 0px 3px 5px;
+  padding: 0px 0px 3px 5px;
 }
-.CreateChatBtn{
-    display: flex;
-    align-items: center;
-    background-color: #149E7A;
+.CreateChatBtn {
+  padding: 1px 4px;
+  margin-top: 5px;
+  cursor: pointer;
+  box-shadow: 1px 1px 10px 0.3px #758d87;
+}
+.AddIcon {
+  color: #ffffff !important;
+  margin-left: 5px;
+}
+.ChatButton {
+  color: #ffffff;
+  background-color: #149e7a;
+  border: none;
+  padding: 15px;
+  cursor: pointer;
+  border-radius: 10px;
+  font-size: 18px;
+}
+.clatListsearch {
+  background-color: white;
+  width: 100%;
+}
+.SearchDiv {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 96%;
+  background-color: #fff;
+  margin: 2px 10px 2px 15px;
+  padding: 15px 25px;
+  box-sizing: border-box;
+  box-shadow: 1px 1px 5px 1px #d5d6d8;
+  border-radius: 10px;
+}
+.ChatVector {
+  padding-left: 10px;
+  padding-bottom: 10px;
+  font-family: Inter !important;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  color: #9baaaf;
+}
+.ChatHeading {
+  margin-top: 20px;
+  padding-left: 10px;
+  font-family: Inter !important;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 30px;
+  color: #2a3235;
+}
+.SearchRight {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 25%;
+}
+.SearchText {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: left !important;
+  width: 67%;
+}
+.ListScroller {
+  height: 65vh !important;
+  overflow: auto;
+  padding-right: 10px;
+
+}
+.ChatboxScroller {
+  height: 45vh !important;
+  overflow: auto;
+  padding-right: 10px;
+}
+.NewMsgDiv {
+  width: 97%;
+  background-color: #ffffff;
+  margin: 20px 0 2px 18px;
+  padding: 10px 25px 20px 25px;
+  border-radius: 10px;
+  box-shadow: 1px 1px 5px 1px #d5d6d8;
+  cursor: pointer;
+
+}
+.NewMsgHeaderDiv {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 5px;
+}
+.NewMsgHeaderLeft {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.NewMsgTextDiv {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.NewMsgTextLeft {
+  width: 85%;
+}
+.NewMsgRight {
+  border: 1px solid #FFA333;
+  background-color: #FFA333;
+  border-radius: 50%;
+  width: 15px;
+  height: 15px;
+}
+.ChatBoxHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+.ChatBoxAvatar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.AvatarClass {
+  padding-top: 20px;
+}
+.css-d9o8qy-MuiTypography-root {
+  line-height: 1 !important;
+}
+.css-1wxbfwr-MuiGrid-root {
+  padding-top: 10px !important;
+}
+.ChatReceived {
+  display: flex;
+  justify-content: left;
+}
+.ReceivedText {
+  margin: 12px;
+}
+.ReceivedDots {
+  min-width: 70%;
+  display: flex;
+  align-items: flex-start;
+  justify-content: left;
+}
+.Dots {
+  margin-left: 20px !important;
+  font-size: 30px !important;
+  color: #8c8f94;
+  padding-bottom: 15px;
+}
+.SentText {
+  display: flex;
+  align-items: center;
+  justify-content: right;
+  margin-right: 10px;
+}
+.SentText img {
+  margin-left: 10px;
+}
+.SentTime {
+  display: flex;
+  align-items: center;
+  justify-content: right;
+  margin-right: 40px;
+}
+.TimeDivider {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}
+.DividerText {
+  text-align: center;
+  width: 20% !important;
+  border-color: #d5e4e8 !important;
+  font-size: 10px !important;
+}
+.MessageDivider {
+  margin: 30px 0px 2px 0px !important;
+}
+.MessageDiv {
+  display: flex;
+  align-items: center;
+  /* justify-content: space-between; */
+}
+.MessageRight {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.MessageText {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: left !important;
+  width: 85%;
+}
+.SearchBoxTypingField {
+  border: none !important;
+  font-size: 16px;
+  font-weight: 500;
+  font-family: Inter;
+  font-style: normal;
+  color: #2a3235;
+  padding: 10px;
+  width: 100%;
+}
+
+.SearchBoxTypingField:focus {
+    outline:none;
+}
+
+.SearchBoxTypingField::placeholder {
+  color: #777779 !important;
+}
+.css-i89z5e-MuiDivider-root {
+  margin-top: -15px !important;
+  margin-bottom: -15px !important;
+
+  border-color: #d5e4e8 !important;
+}
+
+.ChatBoxTypingField {
+  border: none;
+  font-size: 16px;
+  font-weight: 500;
+  font-family: Inter;
+  font-style: normal;
+  color: "#B7C1C4";
+  padding: 10px;
+  width: 80%;
+}
+.ChatBoxTypingField:focus{
+  outline:none;
+}
+.avatarBadgeclassName {
+  background-color: red !important;
+}
+.FabFlow {
+  display: flex;
+  flex-direction: column;
+}
+.FabIcons {
+  margin: 5px 0px !important;
+}
+
+@media only screen and (max-width: 1440px) {
+  .ChatButton {
+    font-size: 15px;
+  }
+}
+@media only screen and (max-width: 1366px) {
+  .CreateChatBtn {
+    padding: 1px 2px;
     width: fit-content;
-    padding: 1px 4px;
     margin-top: 5px;
     border-radius: 10px;
     cursor: pointer;
-    box-shadow: 1px 1px 10px .3px #758d87;;
-}
-.AddIcon{
+    box-shadow: #149e7a;
+  }
+  .AddIcon {
     color: #ffffff !important;
-    margin-left: 5px;
-}
-.ChatButton{
+    margin-left: 2px;
+  }
+  .ChatButton {
     color: #ffffff;
-    background-color: #149E7A;
+    background-color: #149e7a;
     border: none;
-    padding: 15px;
+    padding: 10px;
     cursor: pointer;
-    border-radius: 10px;
-    font-size: 18px;
-}
-.clatListsearch{
-    background-color: white;
-    width: 100%;
-}
-.SearchDiv{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    width: 97%;
-    background-color: #fff;
-    margin: 2px 10px 2px 15px;
-    padding: 15px 25px ;
-    box-sizing: border-box;
-    box-shadow: 1px 1px 5px 1px #d5d6d8;
-    border-radius: 10px;
-}
-
-.SearchRight{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 25%;
-    
-}
-.SearchText{
-    display: flex !important;
-    align-items: center !important;
-    justify-content: left !important;
-    width: 67%;
-
-}
-.ListScroller {
-    height: 65vh !important;
-    overflow: auto;
-    padding-right: 10px;
-}
-.ChatboxScroller{
-    height: 45vh !important;
-    overflow: auto;
-    padding-right: 10px;
-}
-.NewMsgDiv{
-    width: 97%;
-    background-color: #ffffff;
-    margin: 20px 10px 2px 15px;
-    padding: 10px 25px 20px 25px;
-    border-radius: 10px;
-
-   
-    
-}
-.NewMsgHeaderDiv{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 10px 5px;
-}
-.NewMsgHeaderLeft{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-.NewMsgTextDiv{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    
-}
-.NewMsgTextLeft{
-    width: 85%;
-}
-.NewMsgTextRight{
-    width: 10%;
-}
-.ChatBoxHeader {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 20px;
-}
-.ChatBoxAvatar{
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-.AvatarClass {
-    padding-top: 20px;
-    
-}
-.css-d9o8qy-MuiTypography-root {
-    line-height: 1 !important;
-}
-.css-1wxbfwr-MuiGrid-root {
-    padding-top: 10px !important;
-}
-.ChatReceived {
-    display: flex;
-    justify-content: left;
-}
-.ReceivedText {
-    margin: 20px ;
-}
-.ReceivedDots {
-    display: flex;
-    align-items: center;
-    justify-content: left;
-}
-.Dots{
-    margin-left: 20px !important;
-    font-size: 30px !important;
-    color: #8C8F94;
-    padding-bottom: 15px;
-}
-.SentText{
-    display: flex;
-    align-items: center;
-    justify-content: right;
-    margin-right: 10px;
-}
-.SentText img {
-    margin-left: 10px;
-}
-.SentTime{
-    display: flex;
-    align-items: center;
-    justify-content: right;
-    margin-right: 40px;
-}
-.TimeDivider{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 1rem;
-}
-.DividerText{
-    text-align: center ;
-    width: 20% !important; 
-    border-color:#D5E4E8 !important;
+    font-size: 12px;
+  }
+  .ChatHeading {
+    font-size: 25px !important;
+  }
+  .ChatListVector img {
+    padding: 0px 0px 10px 5px;
+  }
+  .ChatVector {
     font-size: 10px !important;
-}
-.MessageDivider{
-    margin: 30px 0px 2px 0px !important;
-}
-.MessageDiv {
-    display: flex;
-    align-items: center;
-    /* justify-content: space-between; */
-}
-.MessageRight{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-.MessageText{
-    display: flex !important;
-    align-items: center !important;
-    justify-content: left !important;
-    width: 85%;
-}
-.SearchBoxTypingField{
-    border: none;
-    font-size: 16px;
-    font-weight: 500;
-    font-family: Inter;
-    font-style:  normal;
-    color: #2A3235;
-    padding: 10px;
-    width: 100%;
-}
-.SearchBoxTypingField::placeholder{
-    color: #2A3235 !important;
-}
-.css-i89z5e-MuiDivider-root {
-    margin-top: -15px !important;
-    margin-bottom: -15px !important;
-    
-    border-color: #D5E4E8 !important;
-}
-
-.ChatBoxTypingField{
-    border: none;
-    font-size: 16px;
-    font-weight: 500;
-    font-family: Inter;
-    font-style:  normal;
-    color: "#B7C1C4";
-    padding: 10px;
-    width: 80%;
-}
-.avatarBadgeclassName{
-    background-color: red !important;
-}
-.FabFlow{
-    display: flex;
-    flex-direction: column;
-    
-}
-.FabIcons{
-    
-    margin: 5px 0px !important;
- 
-}
-
-
-@media only screen and (max-width: 1440px) {
-    .ChatButton{
-        
-        font-size: 15px;
-    }
-    
   }
-  @media only screen and (max-width: 1366px) {
-    .CreateChatBtn{
-        
-        padding: 1px 2px;
-        width: fit-content;
-        margin-top: 5px;
-        border-radius: 10px;
-        cursor: pointer;
-        box-shadow: #149E7A;
-    }
-    .AddIcon{
-        color: #ffffff !important;
-        margin-left: 2px;
-    }
-    .ChatButton{
-        color: #ffffff;
-        background-color: #149E7A;
-        border: none;
-        padding: 10px;
-        cursor: pointer;
-        font-size: 12px;
-    }
-    .ChatHeading{
-        font-size: 25px !important;
-    }
-    .ChatListVector img {
-        padding: 0px 0px 10px 5px;
-    }
-    .ChatVector{
-        font-size: 10px !important;
-    }
-
-
+}
+@media only screen and (max-width: 1019px) {
+  .GridRight {
+    margin-left: 30px !important;
   }
-  @media only screen and (max-width: 1019px) {
-    .GridRight{
-        margin-left: 30px !important;
-    }
-    .css-xezifa-MuiGrid-root{
-        max-width: 81% !important;
-    }
+  .css-xezifa-MuiGrid-root {
+    max-width: 81% !important;
+  }
 }
 
 @media only screen and (max-width: 600px) {
-    .CreateChatBtn{
-        
-        padding: 3px 2px;
-        width: fit-content;
-        margin-top: 5px;
-        border-radius: 10px;
-        cursor: pointer;
-    }
-    .AddIcon{
-        color: #ffffff !important;
-        margin-left: 2px;
-    }
-    .ChatButton{
-        
-        font-size: 16px;
-    }
-    .ChatHeading{
-        font-size: 32px !important;
-    }
-    .ChatListVector img {
-        padding: 0px 0px 10px 5px;
-    }
-    .ChatVector{
-        font-size: 18px !important;
-    }
-    .SearchDiv{
-        
-        margin: 2px 10px 2px 15px;
-        padding: 15px 20px ;
-       
-    }
-    
-    .SearchRight{
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-    .SearchText{
-        display: flex !important;
-        align-items: center !important;
-        justify-content: left !important;
-        
-    }
-    .SearchBar{
-        color: #99A4A8 !important;
-        font-size: 16px !important;
-    }
-    .MessageBar{
-        color: #99A4A8 !important;
-    }
-    .NewMsgDiv{
-        padding:20px;
-    }
-    .css-xezifa-MuiGrid-root{
-        max-width: 81% !important;
-    }
-    .SearchBoxTypingField::placeholder{
-        color: #99A4A8 !important;
-    }
-    
+  .CreateChatBtn {
+    padding: 3px 2px;
+    width: fit-content;
+    margin-top: 5px;
+    border-radius: 10px;
+    cursor: pointer;
   }
+  .AddIcon {
+    color: #ffffff !important;
+    margin-left: 2px;
+  }
+  .ChatButton {
+    font-size: 16px;
+  }
+  .ChatHeading {
+    font-size: 32px !important;
+  }
+  .ChatListVector img {
+    padding: 0px 0px 10px 5px;
+  }
+  .ChatVector {
+    font-size: 18px !important;
+  }
+  .SearchDiv {
+    margin: 2px 10px 2px 15px;
+    padding: 15px 20px;
+  }
+
+  .SearchRight {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .SearchText {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: left !important;
+  }
+  .SearchBar {
+    color: #99a4a8 !important;
+    font-size: 16px !important;
+  }
+  .MessageBar {
+    color: #99a4a8 !important;
+  }
+  .NewMsgDiv {
+    padding: 20px;
+  }
+  .css-xezifa-MuiGrid-root {
+    max-width: 81% !important;
+  }
+  .SearchBoxTypingField::placeholder {
+    color: #99a4a8 !important;
+  }
+}
