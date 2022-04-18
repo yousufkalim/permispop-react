@@ -1,0 +1,433 @@
+import React, { useState, useEffect } from "react";
+import CalendarComponent from "../../../components/Common/Calendar";
+import BasicModal from "../../../components/Common/BasicModal";
+import Divider from "../../../components/Common/Divider";
+import TextField from "../../../components/Common/TextField";
+import Button from "../../../components/Common/Button";
+import API from "../../../api/index";
+import Grid from "@mui/material/Grid";
+import moment from "moment";
+import { toast } from "react-toastify";
+import { Views } from "react-big-calendar";
+import DropDown from "../../../components/Common/DropDown";
+
+const Calendar = () => {
+  const currentDate = moment();
+  const [user, setUser] = useState();
+  const [selectedInstructor, setSelectedInstructor] = useState();
+  const [selectedAvailability, setSelectedAvailability] = useState();
+  const [update, setUpdate] = useState(false);
+  const [disabled, setdisabled] = useState(false);
+  const [bookings, setBookings] = React.useState([]);
+  const [selectedBooking, setSelectedBooking] = useState({});
+  const [bookingModal, setBookingModal] = React.useState(false);
+  const [AddBookingModal, setAddBookingModal] = React.useState(false);
+  const [duration, setDuration] = React.useState(1);
+  const [selectedHours, setSelectedHours] = React.useState(0);
+  const [hours, setHours] = React.useState(0);
+  const [selectedMins, setSelectedMins] = React.useState("00");
+
+  useEffect(() => {
+    const userData = JSON.parse(localStorage.getItem("user"));
+    const selectedInstructor = JSON.parse(
+      localStorage.getItem("selectedInstructor")
+    );
+    setUser(userData);
+    setSelectedInstructor(selectedInstructor);
+    getBookingData(userData, selectedInstructor);
+  }, [update]);
+
+  const getBookingData = async (userData, selectedInstructor) => {
+    let allEvents = [];
+
+    // API("get", `Bookings/GetBookingsByStudent?id=${userData.id}`).then(
+    //   async (res) => {
+    //     res.data.data.map((booking) => {
+    //       let date = moment(booking.bookingDate).format("YYYY-MM-DD");
+    //       date = date.split("-");
+    //       let start = booking.startTime.split(":");
+    //       let end = moment(booking.endTime).format("HH:mm");
+    //       end = end.split(":");
+    //       allEvents.push({
+    //         id: booking.id,
+    //         title: "Booking By " + booking.instructorQuestionFifth,
+    //         start: new Date(
+    //           date[0],
+    //           parseInt(date[1]) - 1,
+    //           date[2],
+    //           parseInt(start[0]),
+    //           start[1],
+    //           0
+    //         ),
+    //         end: new Date(
+    //           date[0],
+    //           parseInt(date[1]) - 1,
+    //           date[2],
+    //           parseInt(end[0]),
+    //           end[1],
+    //           0
+    //         ),
+    //         bookingTime:
+    //           booking.startTime +
+    //           " - " +
+    //           moment(booking.endTime).format("HH:mm"),
+    //         status: booking.status,
+    //         meetingPlace: booking.meetingPlace,
+    //         duration: booking.duration,
+    //         vehicleId: booking.vehicleId,
+    //       });
+    //     });
+
+    //   }
+    // );
+    await API(
+      "get",
+      `Availability/GetAvailabilitySetForInstructor/?id=${selectedInstructor.id}&stuid=${userData.id}&lat=${userData.lat}&lng=${userData.lng}&radius=30&distancematch=false`
+    ).then((InsAvailabilitiesRes) => {
+      let meetups = [];
+      let allVehicles = [];
+      let allAvailabilities = [];
+
+      InsAvailabilitiesRes.data.data.map((availability) => {
+        console.log("availability", availability.status);
+        let date = moment(availability.date).format("YYYY-MM-DD");
+        date = date.split("-");
+        let start = availability.startTime.split(":");
+        let end = availability.endTime.split(":");
+        let type = "";
+
+        if (availability.vehicleId.includes("Auto")) {
+          type = "Auto";
+        } else if (availability.vehicleId.includes("Manual")) {
+          type = "Manual";
+        }
+
+        let title = "";
+        if (availability.status === "Available") {
+          title = "Availability By " + availability.createdBy;
+        } else {
+          title = "Booking By " + availability.createdBy;
+        }
+
+        if (end[0] - 12 != start[0]) {
+          allEvents.push({
+            id: availability.id,
+            title: title,
+            start: new Date(
+              date[0],
+              parseInt(date[1]) - 1,
+              date[2],
+              parseInt(start[0]),
+              start[1],
+              0
+            ),
+            end: new Date(
+              date[0],
+              parseInt(date[1]) - 1,
+              date[2],
+              end[0],
+              end[1],
+              0
+            ),
+            startHour: start[0],
+            endHour: end[0],
+            status: availability.status,
+            type: type,
+            meetUp: availability.meetUp,
+            vehicle: availability.vehicleId,
+            instructorId: availability.instructorId,
+            createdBy: availability.createdBy,
+          });
+        }
+      });
+
+      setBookings(allEvents);
+    });
+  };
+
+  //Add booking modal handles
+  const handleOnSelectSlot = (e) => {
+    if (moment(e.start).isAfter(currentDate)) {
+      setAddBookingModal(true);
+    } else {
+      toast.error("Cannot Book after time");
+    }
+  };
+
+  const handleAddBookingClose = (e) => {
+    setAddBookingModal(false);
+  };
+
+  //handle Event click
+  const handleEventClick = (e) => {
+    console.log("e", e);
+    if (moment(e.start).isAfter(new Date())) {
+      if (e.status === "Available" || e.status === "available") {
+        let count = parseInt(e.endHour) - parseInt(e.startHour);
+        let array = [];
+        for (let j = 0; j < count; j++) {
+          array.push({
+            name: parseInt(e.startHour) + j,
+            value: parseInt(e.startHour) + j,
+          });
+        }
+        setSelectedHours(array[0].value);
+        setHours(array);
+        setSelectedAvailability(e);
+        setAddBookingModal(true);
+      } else {
+        setSelectedBooking(e);
+        setBookingModal(true);
+      }
+    } else {
+      toast.error("Can not select past event");
+    }
+  };
+
+  const handleBookingClose = (e) => {
+    setBookingModal(false);
+    setAddBookingModal(false);
+  };
+
+  const handleBookingDelete = async () => {
+    setdisabled(true);
+
+    let start = moment(selectedBooking.start).format("HH:mm");
+    let end = moment(selectedBooking.end).format("HH:mm");
+    start = start.split(":");
+    end = end.split(":");
+    start = parseInt(start[0]) + ":" + start[1];
+    end = parseInt(end[0]) + ":" + end[1];
+
+    await API(
+      "delete",
+      `Bookings/DeleteBookingById_Neww?id=${selectedBooking.id}&StartTime=${start}&Endtime=${end}&status=deleted`
+    )
+      .then((res) => {
+        setUpdate(!update);
+        handleBookingClose();
+        setdisabled(false);
+        toast.success("Booking Deleted successfully!");
+      })
+      .catch((err) => {
+        console.log("err", err);
+        setdisabled(false);
+      });
+  };
+
+  const handleAddBooking = async () => {
+    var endDate = moment(selectedAvailability.start).add(
+      parseInt(duration) + 5,
+      "hours"
+    );
+
+    await API("post", `Bookings`, {
+      VehicleId: selectedAvailability.vehicle,
+      bookingDate: moment(selectedAvailability.start).add(5, "hours"),
+      drivingSchoolId: "",
+      duration: duration,
+      endTime: endDate,
+      instructionId: selectedAvailability.instructorId,
+      instructorAbsence: "",
+      instructorComments: "",
+      instructorComplaintReson: "",
+      instructorDelay: "",
+      instructorQuestionFifth: selectedAvailability.createdBy,
+      meetingPlace: selectedAvailability.meetUp,
+      ratingByInstructor: "",
+      ratingByStudent: "",
+      startTime: moment(selectedAvailability.start).format("HH:mm"),
+      status: "In progress",
+      studentAbsence: "",
+      studentComplaintReson: "",
+      studentDelay: "",
+      studentId: user.id,
+    }).then((res) => {
+      setUpdate(!update);
+      toast.success("Booking Added successfully!");
+      handleBookingClose();
+    });
+  };
+
+  return (
+    <>
+      <CalendarComponent
+        view={{ week: true, day: true }}
+        events={bookings}
+        // onSelectSlot={handleOnSelectSlot}
+        onSelectEvent={handleEventClick}
+        min={new Date(0, 0, 0, 6, 0, 0)}
+        max={new Date(0, 0, 0, 22, 0, 0)}
+        // onNavigate={(e) => {
+        //   onNavigate(e, Views.WEEK);
+        // }}
+      />
+
+      {/* View Booking modal */}
+      <BasicModal
+        open={bookingModal}
+        onClose={handleBookingClose}
+        closebtn={true}
+        modalMainTitle="Booking"
+        modalboxclassName="booking-modal"
+      >
+        <div className="booking-content">
+          <Grid container spacing={3}>
+            <Grid xs={12} sm={12} md={6}>
+              <TextField
+                label="User Info"
+                height="10px"
+                value={selectedBooking.title}
+                disabled={true}
+              />
+            </Grid>
+            <Grid xs={12} sm={12} md={6}>
+              <TextField
+                label="Booking Date"
+                disabled={true}
+                value={moment(selectedBooking.start).format("DD-MM-YYYY")}
+              />
+            </Grid>
+            <Grid xs={12} sm={12} md={6}>
+              <TextField
+                label="Booking Time"
+                disabled={true}
+                value={
+                  selectedBooking.startHour + " - " + selectedBooking.endHour
+                }
+              />
+            </Grid>
+            <Grid xs={12} sm={12} md={6}>
+              <TextField
+                label="Duration"
+                disabled={true}
+                value={
+                  parseInt(selectedBooking.endHour) -
+                  parseInt(selectedBooking.startHour)
+                }
+              />
+            </Grid>
+            <Grid xs={12} sm={12} md={6}>
+              <TextField
+                label="Vechicle"
+                disabled={true}
+                value={selectedBooking.vehicle}
+              />
+            </Grid>
+            <Grid xs={12} sm={12} md={6}>
+              <TextField
+                label="Meetup"
+                disabled={true}
+                value={selectedBooking.meetUp}
+              />
+            </Grid>
+          </Grid>
+          <div className="booking-btn-div">
+            <Grid align="right">
+              <Button
+                text="Delete"
+                textColor="#FFFFFF !important"
+                width="110px !important"
+                color="#149E7A !important"
+                onClick={handleBookingDelete}
+                disabled={disabled}
+              />
+            </Grid>
+          </div>
+        </div>
+      </BasicModal>
+
+      {/* add booking modal */}
+      <BasicModal
+        open={AddBookingModal}
+        onClose={handleBookingClose}
+        closebtn={true}
+        modalMainTitle="Add Booking"
+        modalboxclassName="booking-modal"
+      >
+        <Divider width="100% !important" />
+
+        <div className="booking-content">
+          <Grid container spacing={3}>
+            <Grid xs={12} sm={12} md={6}>
+              <DropDown
+                label="Select Hours"
+                placeholder="Select Hours"
+                name="Select Hours"
+                value={selectedHours}
+                MenuItem={hours}
+                onChange={(e) => setSelectedHours(e.target.value)}
+              ></DropDown>
+            </Grid>
+            <Grid xs={12} sm={12} md={6}>
+              <DropDown
+                label="Select Minutes"
+                placeholder="Select Minutes"
+                name="Select Minutes"
+                value={selectedMins}
+                MenuItem={[
+                  { name: "00", value: "00" },
+                  { name: "30", value: "30" },
+                ]}
+                onChange={(e) => setSelectedMins(e.target.value)}
+              ></DropDown>
+            </Grid>
+            <Grid xs={12} sm={12} md={6}>
+              <TextField
+                label="Booking Date"
+                value={
+                  selectedAvailability &&
+                  moment(selectedAvailability.start).format("YYYY-MM-DD")
+                }
+                disabled={true}
+              />
+            </Grid>
+            <Grid xs={12} sm={12} md={6}>
+              <DropDown
+                label="Duration"
+                placeholder="Enter duration of booking"
+                name="Duration"
+                value={duration}
+                MenuItem={[
+                  { name: "1", value: "1" },
+                  { name: "2", value: "2" },
+                  { name: "3", value: "3" },
+                  { name: "4", value: "4" },
+                ]}
+                onChange={(e) => setDuration(e.target.value)}
+              ></DropDown>
+            </Grid>
+            <Grid xs={12} sm={12} md={6}>
+              <TextField
+                label="Vechicle"
+                value={selectedAvailability && selectedAvailability.vehicle}
+                disabled={true}
+              />
+            </Grid>
+            <Grid xs={12} sm={12} md={6}>
+              <TextField
+                label="Meetup"
+                value={selectedAvailability && selectedAvailability.meetUp}
+                disabled={true}
+              />
+            </Grid>
+          </Grid>
+          <div className="booking-btn-div">
+            <Grid align="right">
+              <Button
+                text="Add Booking"
+                type="submit"
+                textColor="#FFFFFF !important"
+                width="150px !important"
+                color="#149E7A !important"
+                onClick={(e) => handleAddBooking(e)}
+              />
+            </Grid>
+          </div>
+        </div>
+      </BasicModal>
+    </>
+  );
+};
+
+export default Calendar;

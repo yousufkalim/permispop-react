@@ -24,6 +24,7 @@ import StudentLearning from "../containers/Dashboard/Student/MyLearning";
 import StudentDispute from "../containers/Dashboard/Student/Dispute";
 import StudentMyProcedure from "../containers/Dashboard/Student/MyProcedure";
 import StudentChat from "../containers/Dashboard/Student/Chat/Chat";
+import UserBookingCalendar from "../containers/Dashboard/Student/UserBookingCalendar";
 import StudentFindIns from "../containers/Dashboard/Student/FindInstructor";
 
 //instructor components routes
@@ -141,6 +142,11 @@ var StudentRoutes = [
     name: "My Learning",
     icon: <MyLearing className="drawer-icons" />,
     component: StudentLearning,
+    layout: "/student",
+  },
+  {
+    path: "/InstructorBooking",
+    component: UserBookingCalendar,
     layout: "/student",
   },
 ];

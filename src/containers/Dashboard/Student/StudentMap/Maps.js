@@ -36,7 +36,11 @@ const Maps = (props) => {
     )
       .then((GetNearbyProfilesForMapResponse) => {
         let Profile = GetNearbyProfilesForMapResponse.data.map((item) => {
-          if (item.role === "CarRentalAgent" || item.role === "Instructor") {
+          if (
+            item.role === "CarRentalAgent" ||
+            item.role === "Instructor" ||
+            item.role === "DSInstructor"
+          ) {
             return API(
               "get",
               `Bookings/GetBookingsByInstructor?id=${item.id}`
@@ -61,14 +65,17 @@ const Maps = (props) => {
 
         Promise.all(Profile).then(async (e) => {
           let newnewProfile = e.map((pro) => {
-            return API("get", `FeedBacks/GetAverageRating?id=${pro.id}`).then(
-              (GetAverageRatingResponse) => {
-                let newProfile = pro;
+            if (pro === undefined) {
+            } else {
+              return API("get", `FeedBacks/GetAverageRating?id=${pro.id}`).then(
+                (GetAverageRatingResponse) => {
+                  let newProfile = pro;
 
-                newProfile["Rating"] = GetAverageRatingResponse.data.data;
-                return newProfile;
-              }
-            );
+                  newProfile["Rating"] = GetAverageRatingResponse.data.data;
+                  return newProfile;
+                }
+              );
+            }
           });
           Promise.all(newnewProfile).then((n) => {
             setData(n);
@@ -84,7 +91,10 @@ const Maps = (props) => {
   };
 
   const handleChatClick = () => history.push("/student/chat");
-  const handleBooking = () => history.push("/student/booking");
+  const handleBooking = (item) => {
+    localStorage.setItem("selectedInstructor", JSON.stringify(item));
+    history.push("/student/InstructorBooking");
+  };
   const url = "https://www.nbrc.com.au/images/avatar-placeholder.png";
   const profileImg = studentData.role ? studentData.photo : url;
 
@@ -307,7 +317,7 @@ const Maps = (props) => {
                             width="50% !important"
                             textColor="#f4f4f4 !important"
                             className="popup_btn"
-                            onClick={handleBooking}
+                            onClick={() => handleBooking(item)}
                           />
                           <Button
                             text="Chat"

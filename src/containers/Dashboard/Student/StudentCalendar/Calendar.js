@@ -1,28 +1,77 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import CalendarComponent from "../../../../components/Common/Calendar";
 import Events from "./Events";
 import BasicModal from "../../../../components/Common/BasicModal";
 import Divider from "../../../../components/Common/Divider";
 import TextField from "../../../../components/Common/TextField";
 import Button from "../../../../components/Common/Button";
+import API from "../../../../api/index";
 import Grid from "@mui/material/Grid";
 import moment from "moment";
 import { toast } from "react-toastify";
+import { Views } from "react-big-calendar";
 
 const Calendar = () => {
-  //   const [open, setOpen] = React.useState(false);
-
-  //   const [eventDeleteModal, setEventDeleteModal] = React.useState(false);
+  const currentDate = moment();
+  const [user, setUser] = useState();
+  const [update, setUpdate] = useState(false);
+  const [disabled, setdisabled] = useState(false);
+  const [bookings, setBookings] = React.useState([]);
+  const [selectedBooking, setSelectedBooking] = useState({});
   const [bookingModal, setBookingModal] = React.useState(false);
   const [AddBookingModal, setAddBookingModal] = React.useState(false);
 
-  //   const [value, setValue] = React.useState("Availability-page");
+  useEffect(() => {
+    const userData = JSON.parse(localStorage.getItem("user"));
+    setUser(userData);
+    getBookingData(userData);
+  }, [update]);
 
-  // (moment(e.start).isBefore(currentDate)) ====> for checking time is not passed by comparing from current time
-  // (moment(e.start).isAfter(currentDate)) ====> for checking time is passed by comparing from current time
+  const getBookingData = (userData) => {
+    API("get", `Bookings/GetBookingsByStudent?id=${userData.id}`).then(
+      (res) => {
+        let allBookings = [];
+        res.data.data.map((booking) => {
+          let date = moment(booking.bookingDate).format("YYYY-MM-DD");
+          date = date.split("-");
+          let start = booking.startTime.split(":");
+          let end = moment(booking.endTime).format("HH:mm");
+          end = end.split(":");
+          allBookings.push({
+            id: booking.id,
+            title: "Booking By " + booking.instructorQuestionFifth,
+            start: new Date(
+              date[0],
+              parseInt(date[1]) - 1,
+              date[2],
+              parseInt(start[0]) + 5,
+              start[1],
+              0
+            ),
+            end: new Date(
+              date[0],
+              parseInt(date[1]) - 1,
+              date[2],
+              end[0],
+              end[1],
+              0
+            ),
+            bookingTime:
+              booking.startTime +
+              " - " +
+              moment(booking.endTime).format("HH:mm"),
+            status: booking.status,
+            meetingPlace: booking.meetingPlace,
+            duration: booking.duration,
+            vehicleId: booking.vehicleId,
+          });
+        });
+        setBookings(allBookings);
+      }
+    );
+  };
 
   //Add booking modal handles
-  const currentDate = moment();
   const handleOnSelectSlot = (e) => {
     if (moment(e.start).isAfter(currentDate)) {
       setAddBookingModal(true);
@@ -30,30 +79,57 @@ const Calendar = () => {
       toast.error("Cannot Book after time");
     }
   };
+
   const handleAddBookingClose = (e) => {
     setAddBookingModal(false);
   };
   //handle Event click
   const handleEventClick = (e) => {
-    console.log(e);
-
-    if (e.status === "booking") {
-      setBookingModal(true);
-    } else {
-      toast.error("Can only select your bookings");
-    }
+    setSelectedBooking(e);
+    setBookingModal(true);
   };
+
   const handleBookingClose = (e) => {
     setBookingModal(false);
+  };
+
+  const handleBookingDelete = async () => {
+    setdisabled(true);
+
+    let start = moment(selectedBooking.start).format("HH:mm");
+    let end = moment(selectedBooking.end).format("HH:mm");
+    start = start.split(":");
+    end = end.split(":");
+    start = parseInt(start[0]) - 5 + ":" + start[1];
+    end = parseInt(end[0]) - 5 + ":" + end[1];
+
+    await API(
+      "delete",
+      `Bookings/DeleteBookingById_Neww?id=${selectedBooking.id}&StartTime=${start}&Endtime=${end}&status=deleted`
+    )
+      .then((res) => {
+        setUpdate(!update);
+        handleBookingClose();
+        setdisabled(false);
+      })
+      .catch((err) => {
+        console.log("err", err);
+        setdisabled(false);
+      });
   };
 
   return (
     <>
       <CalendarComponent
         view={{ week: true, day: true }}
-        events={Events}
-        onSelectSlot={handleOnSelectSlot}
+        events={bookings}
+        // onSelectSlot={handleOnSelectSlot}
         onSelectEvent={handleEventClick}
+        min={new Date(0, 0, 0, 6, 0, 0)}
+        max={new Date(0, 0, 0, 22, 0, 0)}
+        // onNavigate={(e) => {
+        //   onNavigate(e, Views.WEEK);
+        // }}
       />
 
       {/* View Booking modal */}
@@ -61,49 +137,64 @@ const Calendar = () => {
         open={bookingModal}
         onClose={handleBookingClose}
         closebtn={true}
-        modalMainTitle="Delete Booking"
+        modalMainTitle="Booking"
         modalboxclassName="booking-modal"
       >
-        <Divider width="100% !important" />
-
         <div className="booking-content">
           <Grid container spacing={3}>
             <Grid xs={12} sm={12} md={6}>
-              <TextField label="User Info" />
+              <TextField
+                label="User Info"
+                height="10px"
+                value={selectedBooking.title}
+                disabled={true}
+              />
             </Grid>
             <Grid xs={12} sm={12} md={6}>
-              <TextField label="Booking Date" />
+              <TextField
+                label="Booking Date"
+                disabled={true}
+                value={moment(selectedBooking.start).format("DD-MM-YYYY")}
+              />
             </Grid>
             <Grid xs={12} sm={12} md={6}>
-              <TextField label="Booking Time" />
+              <TextField
+                label="Booking Time"
+                disabled={true}
+                value={selectedBooking.bookingTime}
+              />
             </Grid>
             <Grid xs={12} sm={12} md={6}>
-              <TextField label="Duration" />
+              <TextField
+                label="Duration"
+                disabled={true}
+                value={selectedBooking.duration}
+              />
             </Grid>
             <Grid xs={12} sm={12} md={6}>
-              <TextField label="Vechicle" />
+              <TextField
+                label="Vechicle"
+                disabled={true}
+                value={selectedBooking.vehicleId}
+              />
             </Grid>
             <Grid xs={12} sm={12} md={6}>
-              <TextField label="Meetup" />
+              <TextField
+                label="Meetup"
+                disabled={true}
+                value={selectedBooking.meetingPlace}
+              />
             </Grid>
           </Grid>
           <div className="booking-btn-div">
             <Grid align="right">
               <Button
-                text="Close"
-                onClick={handleBookingClose}
-                variant="outlined"
-                width="110px !important"
-                textColor="#363557 !important"
-                margin="10px !important"
-                borderColor="black !important"
-              />
-              <Button
                 text="Delete"
-                type="submit"
                 textColor="#FFFFFF !important"
                 width="110px !important"
                 color="#149E7A !important"
+                onClick={handleBookingDelete}
+                disabled={disabled}
               />
             </Grid>
           </div>
@@ -111,7 +202,7 @@ const Calendar = () => {
       </BasicModal>
 
       {/* add booking modal */}
-      <BasicModal
+      {/* <BasicModal
         open={AddBookingModal}
         onClose={handleBookingClose}
         closebtn={true}
@@ -168,7 +259,7 @@ const Calendar = () => {
             </Grid>
           </div>
         </div>
-      </BasicModal>
+      </BasicModal> */}
     </>
   );
 };

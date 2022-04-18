@@ -928,7 +928,7 @@ const RentalCar = () => {
       SecondPhone: step1.Phone2,
       Lat: step1.Address.Lat,
       Long: step1.Address.Lng,
-      Role: "Car Rental",
+      Role: "CarRentalAgent",
     })
       .then(async (personalRes) => {
         await API("post", "Business", {
