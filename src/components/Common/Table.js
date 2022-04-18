@@ -15,6 +15,7 @@ import MenuItem from "@mui/material/MenuItem";
 import IconButton from "@mui/material/IconButton";
 import Select from "@mui/material/Select";
 import FormControl from "@mui/material/FormControl";
+import BasicModal from "../../components/Common/BasicModal";
 
 export default function DataTable(props) {
   const history = useHistory();
@@ -97,7 +98,7 @@ export default function DataTable(props) {
                                 column.id !== "position" &&
                                 column.id !== "reservations" &&
                                 column.id !== "profile" &&
-                                column.id !== "cat" ? (
+                                column.id !== "chat" ? (
                                   <TableCell
                                     sx={{
                                       fontFamily: "Inter !important",
@@ -219,7 +220,7 @@ export default function DataTable(props) {
                                         }
                                         component={
                                           // <CreateDisputeModal userID={row.id} />
-                                          <p>xyz</p>
+                                          <handleProfile>xyz</handleProfile>
                                         }
                                       /> */}
                                     </FormControl>
@@ -324,15 +325,15 @@ export default function DataTable(props) {
                                       onClick={props.handleProfile}
                                     />
                                   </TableCell>
-                                ) : column.id === "cat" ? (
+                                ) : column.id === "chat" ? (
                                   <TableCell align="center">
                                     <Button
-                                      text="Cat"
+                                      text="Chat"
                                       color="#fda333 !important"
                                       width="100% !important"
                                       margin="0px 0px 10px 0px !important"
                                       height="50px !important"
-                                      onClick={props.handleCat}
+                                      onClick={props.handleChat}
                                     />
                                   </TableCell>
                                 ) : (
@@ -370,7 +371,6 @@ export default function DataTable(props) {
           alignContent: "center",
         }}
       />
-      <></>
     </div>
   );
 }

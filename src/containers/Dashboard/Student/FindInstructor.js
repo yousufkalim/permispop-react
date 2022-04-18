@@ -1,6 +1,6 @@
 // init
 import React, { useEffect, useState } from "react";
-import Button from "../../components/Common/Button";
+import Button from "../../../components/Common/Button";
 import TextField from "@mui/material/TextField";
 import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
@@ -8,11 +8,16 @@ import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 import Select from "@mui/material/Select";
 import FormControl from "@mui/material/FormControl";
 import MenuItem from "@mui/material/MenuItem";
-import API from "../../api/index";
-import DataTable from "../../components/Common/Table";
-import { FindInstructorcolumns } from "../../utils/tableHeads";
+import API from "../../../api/index";
+import DataTable from "../../../components/Common/Table";
+import { FindInstructorcolumns } from "../../../utils/tableHeads";
 import { useHistory } from "react-router-dom";
-import "../../css/Dashboard/Student/instructor.css";
+import Project from "../../../assets/images/form.svg";
+import Rating from "../../../assets/images/path2006.svg";
+import BasicModal from "../../../components/Common/BasicModal";
+import moment from "moment";
+import Image from "../../../assets/DumyImg/DumyImg.png";
+import LocationOnIcon from "@mui/icons-material/LocationOn";
 
 // component
 const Index = () => {
@@ -28,7 +33,7 @@ const Index = () => {
     endDate: null,
   });
   const [instructors, setInstructors] = useState([]);
-
+  const [profileModal, setProfileModal] = useState(false);
   useEffect(() => {
     getInstructors();
   }, []);
@@ -38,25 +43,69 @@ const Index = () => {
   };
 
   const getInstructors = async () => {
-    console.log(filters.Gearbox, "filters.Gearbox");
-    let res = await API(
+    await API(
       "get",
       `Profile/GetNearbyProfiles_New/?lat=${user.lat}&log=${user.long}&radius=${filters.Radius}&gearbox=${filters.Gearbox}&gender=${filters.Gender}&role=${filters.Role}&startdate=${filters.startDate}&enddate=${filters.endDate}`
-    );
-    setInstructors(res.data);
+    )
+      .then((FindInstructorsResponse) => {
+        let Profile = FindInstructorsResponse.data.map((item) => {
+          if (item.role === "CarRentalAgent" || item.role === "Instructor") {
+            return API(
+              "get",
+              `Bookings/GetBookingsByInstructor?id=${item.id}`
+            ).then((GetBookingsByInstructor) => {
+              let newProfile = item;
+              newProfile["BookingLength"] =
+                GetBookingsByInstructor.data.data.length;
+              return newProfile;
+            });
+          } else if (item.role === "DrivingSchool") {
+            return API(
+              "get",
+              `Bookings/GetBookingsByDrivingSchool?id=${item.id}`
+            ).then((GetBookingsByDrivingSchool) => {
+              let newProfile = item;
+              newProfile["BookingLength"] =
+                GetBookingsByDrivingSchool.data.data.length;
+              return newProfile;
+            });
+          }
+        });
+
+        Promise.all(Profile).then(async (e) => {
+          let newnewProfile = e.map((pro) => {
+            return API("get", `FeedBacks/GetAverageRating?id=${pro.id}`).then(
+              (GetAverageRatingResponse) => {
+                let newProfile = pro;
+
+                newProfile["Rating"] = GetAverageRatingResponse.data.data;
+                return newProfile;
+              }
+            );
+          });
+          Promise.all(newnewProfile).then((n) => {
+            setInstructors(n);
+          });
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   const handleReservation = () => {
     history.push("/student/booking");
   };
 
-  const handleCat = () => {
+  const handleChat = () => {
     history.push("/student/chat");
   };
 
   const handleProfile = () => {
-    history.push("/student/myProfille");
+    console.log("In Profile");
+    setProfileModal(true);
   };
+  const handleClose = () => setProfileModal(false);
 
   // jsx
   return (
@@ -224,14 +273,93 @@ const Index = () => {
           onClick={getInstructors}
         />
       </div>
+
       <DataTable
         data={instructors}
         columns={FindInstructorcolumns}
         user={user}
         handleReservation={handleReservation}
-        handleCat={handleCat}
+        handleChat={handleChat}
         handleProfile={handleProfile}
       />
+      <BasicModal
+        open={profileModal}
+        onClose={handleClose}
+        modalboxclassName="profile_modal"
+      >
+        {instructors.map((item) => {
+          return (
+            <div>
+              <div className="profile_img_div">
+                <img
+                  src={
+                    item?.photo
+                      ? item?.photo
+                      : item.photo === "null" || "undefined"
+                      ? Image
+                      : item.photo
+                  }
+                  alt=""
+                  className="profile_img"
+                />
+              </div>
+              <div className="profile_text_div">
+                <p className="profile_text_left">
+                  {item.firstName} {item.surName}
+                </p>
+              </div>
+              <div className="profile_text_div">
+                <p className="profile_text_right">
+                  <LocationOnIcon style={{ marginRight: 5 }} />
+                  {item.address}
+                  {item.zip} {item.city}
+                </p>
+              </div>
+              <div className="profile_text_div">
+                <p className="profile_text_right">{item.contactEmail}</p>
+              </div>
+              <div className="profile_text_div">
+                <p className="profile_text_right">{item.gender}</p>
+              </div>
+
+              <div className="profile_text_div">
+                <p className="profile_text_right">
+                  {moment(item.dob).format("DD/MM/YYYY")}
+                </p>
+              </div>
+              <div className="profile_text_div">
+                <p className="profile_text_right">{item.placeOfBirth}</p>
+              </div>
+              <div className="profile_text_div">
+                <p className="profile_text_right">{item.complement} </p>
+              </div>
+
+              <div className="icons">
+                <div className="profile_icons_div">
+                  <div className="icon_style_div">
+                    <img src={Project} alt="" />
+                  </div>
+                  <div className="popup_text">
+                    <p className="icons_text1">{item.BookingLength}</p>
+                    <p className="icons_text2">Bookings</p>
+                  </div>
+                </div>
+                <div className="profile_icons_div">
+                  <div className="icon_style_div">
+                    <img src={Rating} alt="" />
+                  </div>
+                  <div>
+                    <p className="icons_text1">
+                      {item.Rating != "NaN" ? item.Rating : "N/A"}
+                    </p>
+                    <p className="icons_text2">Ratings</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          );
+        })}
+      </BasicModal>
     </div>
   );
 };

@@ -1,5 +1,17 @@
 {
   "projects": {
     "default": "permispop-demo"
+  },
+  "targets": {
+    "permispop-demo": {
+      "hosting": {
+        "dev": [
+          "permispop-demo"
+        ],
+        "prod": [
+          "permispop-prod"
+        ]
+      }
+    }
   }
 }

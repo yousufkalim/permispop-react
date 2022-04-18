@@ -20,7 +20,10 @@ import flag_02 from "../../assets/DrawerIcons/flag_02.svg";
 import { makeStyles } from "@mui/styles";
 import { NavLink } from "react-router-dom";
 import BasicAvatar from "../Common/BasicAvatar";
-import { Redirect } from "react-router-dom";
+import { useHistory } from "react-router-dom";
+
+const user = JSON.parse(localStorage.getItem("user"));
+
 
 const drawerWidth = 300;
 
@@ -78,6 +81,7 @@ function ResponsiveDrawer(props) {
     },
   }));
   const classes = useStyles();
+  const history = useHistory();
 
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
@@ -137,7 +141,12 @@ function ResponsiveDrawer(props) {
             <MenuIcon />
           </IconButton>
           <span>
-            <img className="dashboard-logo" src={Logo} alt="" />
+            <img
+              className="dashboard-logo"
+              src={Logo}
+              alt=""
+              onClick={() => history.push(`/${user.role}/myProfile`)}
+            />
           </span>
           <Typography variant="h7" component="div" className="logo-title">
             PERMISPOP.
