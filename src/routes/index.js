@@ -75,15 +75,15 @@ const Index = (props) => {
                 render={(props) => <CarRentalLayout {...props} />}
               />
               {props.role === "DSInstructor" ? (
-                <Redirect from="/" to="/dsInstructor/myprofile" />
+                <Redirect from="/" to="/dsInstructor/myProfile" />
               ) : props.role === "Student" ? (
-                <Redirect from="/" to="/student/myProfille" />
+                <Redirect from="/" to="/student/myProfile" />
               ) : props.role === "CarRentalAgent" ? (
-                <Redirect from="/" to="/CarRental/myprofile" />
+                <Redirect from="/" to="/CarRental/myProfile" />
               ) : props.role === "DrivingSchool" ? (
-                <Redirect from="/" to="/DrivingSchool/myprofile" />
+                <Redirect from="/" to="/DrivingSchool/myProfile" />
               ) : props.role === "Instructor" ? (
-                <Redirect from="/" to="/instructor/myprofile" />
+                <Redirect from="/" to="/instructor/myProfile" />
               ) : (
                 <Redirect from="/" to="/" />
               )}

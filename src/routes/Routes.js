@@ -14,8 +14,6 @@ import { ReactComponent as Calendar } from "../assets/DrawerIcons/Icon-Calendar.
 import QuizOutlinedIcon from "@mui/icons-material/QuizOutlined";
 import GroupOutlinedIcon from "@mui/icons-material/GroupOutlined";
 import AssignmentTurnedInOutlinedIcon from "@mui/icons-material/AssignmentTurnedInOutlined";
-//test component temporary
-import Test from "../containers/Dashboard/index.js";
 //student components routes
 import StudentProfile from "../containers/Dashboard/Student/Profile";
 import StudentPendingRequest from "../containers/Dashboard/Student/PendingRequest";
@@ -26,6 +24,8 @@ import StudentLearning from "../containers/Dashboard/Student/MyLearning";
 import StudentDispute from "../containers/Dashboard/Student/Dispute";
 import StudentMyProcedure from "../containers/Dashboard/Student/MyProcedure";
 import StudentChat from "../containers/Dashboard/Student/Chat/Chat";
+import StudentFindIns from "../containers/Dashboard/Student/FindInstructor";
+
 //instructor components routes
 import InsProfile from "../containers/Dashboard/Instructor/profile";
 import InsPendingRequest from "../containers/Dashboard/Instructor/PendingRequest";
@@ -74,7 +74,7 @@ import CRChat from "../containers/Dashboard/CarRental/Chat/Chat";
 // Student Routes
 var StudentRoutes = [
   {
-    path: "/myProfille",
+    path: "/myProfile",
     name: "My Profile",
     icon: <MyProfile className="drawer-icons" />,
     component: StudentProfile,
@@ -112,7 +112,7 @@ var StudentRoutes = [
     path: "/findInstructure",
     name: "Find Instructure",
     icon: <FindInstructure className="drawer-icons" />,
-    component: Test,
+    component: StudentFindIns,
     layout: "/student",
   },
   {
@@ -147,7 +147,7 @@ var StudentRoutes = [
 // Instructor Routes
 var InstructorRoutes = [
   {
-    path: "/myprofile",
+    path: "/myProfile",
     name: "My Profile",
     icon: <MyProfile className="drawer-icons" />,
     component: InsProfile,
@@ -214,7 +214,7 @@ var InstructorRoutes = [
 
 var DsInstructorRoutes = [
   {
-    path: "/myprofile",
+    path: "/myProfile",
     name: "My Profile",
     icon: <MyProfile className="drawer-icons" />,
     component: DsInsProfile,
@@ -275,14 +275,14 @@ var DsInstructorRoutes = [
     path: "/faq's",
     name: "FAQ'S",
     icon: <QuizOutlinedIcon className="drawer-icons" />,
-    component: Test,
+    // component: ,
     layout: "/DsInstructor",
   },
 ];
 // Driving School routes
 var DrivingSchoolRoutes = [
   {
-    path: "/myprofile",
+    path: "/myProfile",
     name: "My Profile",
     icon: <MyProfile className="drawer-icons" />,
     component: DsProfile,
@@ -349,7 +349,7 @@ var DrivingSchoolRoutes = [
 
 var CarRentalRoutes = [
   {
-    path: "/myprofile",
+    path: "/myProfile",
     name: "My Profile",
     icon: <MyProfile className="drawer-icons" />,
     component: CRProfile,

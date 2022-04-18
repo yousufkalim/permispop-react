@@ -34,7 +34,7 @@ const Index = (props) => {
   useEffect(() => {
     ChatList(user);
     const newConnection = new HubConnectionBuilder()
-      .withUrl("http://160.153.244.127:9093/chatHub")
+      .withUrl(`${process.env.REACT_APP_CHAT_URL}/chathub`)
       .withAutomaticReconnect()
       .build();
     setConnection(newConnection);

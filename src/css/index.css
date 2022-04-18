@@ -7,6 +7,8 @@
 @import url("./Dashboard/index.css");
 @import url("./Register/resgistration.css");
 @import url("./Dashboard/mylearning.css");
+@import url("./Dashboard/Student/instructor.css");
+
 /* Defaults */
 
 * {

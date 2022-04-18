@@ -198,8 +198,8 @@ export const FindInstructorcolumns = [
     align: "center",
   },
   {
-    id: "cat",
-    label: "Cat",
+    id: "chat",
+    label: "Chat",
     minWidth: 170,
     align: "center",
   },
