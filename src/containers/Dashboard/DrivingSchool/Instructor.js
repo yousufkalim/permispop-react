@@ -619,7 +619,6 @@ const Index = () => {
     let allInstructor = [];
     await API("get", `Profile/GetProfileByPersonalId?id=${userData.id}`).then(
       (Dsprofileres) => {
-        // console.log("Dsprofileres", Dsprofileres.data.data);
         let instructorId = JSON.parse(
           Dsprofileres.data.data.drivingSchoolInstructorInfoId
         );
@@ -628,10 +627,6 @@ const Index = () => {
         });
         Promise.all(allInstructor).then((res) => {
           let newInstructor = res.map(async (ins) => {
-            console.log(
-              "id",
-              `Profile/GetProfileByPersonalId?id=${ins.data.data.id}`
-            );
             if (ins.data.data != null) {
               return await API(
                 "get",
@@ -719,7 +714,6 @@ const Index = () => {
     }
   };
   const handleAddress = async (e) => {
-    console.log("e", e.target.value);
     if (e.target.value === "") {
       handleInstructorData("Address", {
         label: "",
@@ -846,7 +840,6 @@ const Index = () => {
 
     await API("get", `Profile/GetProfileByPersonalId?id=${user.id}`).then(
       async (dsInsres) => {
-        console.log("Dsprofileres", dsInsres.data.data);
         let instructorId = JSON.parse(
           dsInsres.data.data.drivingSchoolInstructorInfoId
         );
@@ -861,8 +854,6 @@ const Index = () => {
             };
           }
         });
-
-        console.log("value", allInstructor);
 
         await API("post", `Profile/UpdateProfile`, {
           banDate: dsInsres.data.data.banDate,
@@ -897,7 +888,6 @@ const Index = () => {
           drivingSchoolVehiclesInfoId:
             dsInsres.data.data.drivingSchoolVehiclesInfoId,
         }).then(async (profileres) => {
-          console.log("profileres", profileres);
           await API(
             "get",
             `Profile/GetProfileByPersonalId?id=${tempArray[index].id}`
@@ -974,7 +964,6 @@ const Index = () => {
                     drivingSchoolVehiclesInfoId:
                       dsInsres.data.data.drivingSchoolVehiclesInfoId,
                   }).then(async (res) => {
-                    console.log("res", res);
                     await API(
                       "get",
                       `Personal/GetAllById/?id=${tempArray[index].id}`
@@ -1041,7 +1030,6 @@ const Index = () => {
     const _tempArray = [...instructorData];
     await API("get", `Profile/GetProfileByPersonalId?id=${user.id}`).then(
       async (dsres) => {
-        console.log("Dsprofileres", dsres.data.data);
         let _instructorId = JSON.parse(
           dsres.data.data.drivingSchoolInstructorInfoId
         );
@@ -1056,7 +1044,6 @@ const Index = () => {
             };
           }
         });
-        console.log("value", _allInstructor);
 
         await API("post", `Profile/UpdateProfile`, {
           banDate: dsres.data.data.banDate,
@@ -1136,12 +1123,10 @@ const Index = () => {
               workWithOther: dsInspersonalres.data.data.workWithOther,
               zip: dsInspersonalres.data.data.zip,
             }).then(async (res) => {
-              console.log("res", res);
               await API(
                 "get",
                 `Profile/GetProfileByPersonalId?id=${_tempArray[index].id}`
               ).then(async (insprofileress) => {
-                console.log("insprofileress", insprofileress);
                 await API("post", `Profile/UpdateProfile`, {
                   banDate: insprofileress.data.data.banDate,
                   banStatus: insprofileress.data.data.banDate,
@@ -1179,7 +1164,6 @@ const Index = () => {
                   drivingSchoolVehiclesInfoId:
                     insprofileress.data.data.drivingSchoolVehiclesInfoId,
                 }).then((finalres) => {
-                  console.log("finalres", finalres.data.data);
                   toast.success("Instructor deleted successfully");
                   getInstructorData(user);
                 });
@@ -1209,11 +1193,8 @@ const Index = () => {
   };
 
   const handleAddInstructor = async () => {
-    console.log("user", user.id);
-
     await API("get", `Profile/GetProfileByPersonalId?id=${user.id}`).then(
       async (Dsprofile) => {
-        console.log("Dsprofile", Dsprofile.data.data);
         let allInstructor = {};
         await API("post", `Personal`, {
           firstName: instructorDetail.Firstname,
@@ -1237,7 +1218,6 @@ const Index = () => {
           long: instructorDetail.Address.Lat,
           Role: "DSInstructor",
         }).then(async (personalres) => {
-          console.log("personalres", personalres.data.data);
           await API("post", `DrivingLisence`, {
             drivingLisenceImagePath: instructorDetail.DriverLicenseFrontImg,
             drivingLisenceImagePathBack: instructorDetail.DriverLicenseBackImg,
@@ -1245,7 +1225,6 @@ const Index = () => {
             obtainingDate: instructorDetail.DriverLicenseStartDate,
             validityDate: instructorDetail.DriverLicenseEndDate,
           }).then(async (drivinglicenseres) => {
-            console.log("drivinglicenseres", drivinglicenseres.data.data);
             await API("post", `ExersiceAuthorization`, {
               authorizationDate: instructorDetail.ExcAuthStartDate,
               authorizationImagePath: instructorDetail.ExcAuthFrontImg,
@@ -1254,14 +1233,9 @@ const Index = () => {
               expirationDate: instructorDetail.ExcAuthEndDate,
               issuingAuthority: instructorDetail.ExcAuthIssueAuth,
             }).then(async (exersiceAuthorizationres) => {
-              console.log(
-                "exersiceAuthorizationres",
-                exersiceAuthorizationres.data.data
-              );
               await API("post", `Business`, {
                 siretNumber: "",
               }).then(async (Businessres) => {
-                console.log("Businessres", Businessres.data.data);
                 await API("post", `InstructorMeetupPoints`, {
                   ZipCode: instructorDetail.Address.Zip,
                   city: instructorDetail.Address.City,
@@ -1271,15 +1245,7 @@ const Index = () => {
                   long: instructorDetail.Address.Lng,
                   meetup: instructorDetail.Address.Label,
                 }).then(async (InstructorMeetupPointsres) => {
-                  console.log(
-                    "InstructorMeetupPointsres",
-                    InstructorMeetupPointsres.data.data
-                  );
                   allInstructor = JSON.parse(
-                    Dsprofile.data.data.drivingSchoolInstructorInfoId
-                  );
-                  console.log(
-                    " InsprofileRes.DrivingSchoolInstructorinfoId",
                     Dsprofile.data.data.drivingSchoolInstructorInfoId
                   );
                   allInstructor = {
@@ -1302,8 +1268,6 @@ const Index = () => {
                     isAdminBan: Dsprofile.data.data.isAdminBan,
                     isEmailSent: Dsprofile.data.data.isEmailSent,
                   }).then(async (DSIprofileRes) => {
-                    console.log("user", user.id);
-                    console.log("DSIprofileRes", DSIprofileRes);
                     await API("post", `Profile/UpdateProfile`, {
                       drivingLisenceInfoId: drivinglicenseres.data.data.id,
                       exersiceAuthorizationInfoId:
@@ -1346,7 +1310,6 @@ const Index = () => {
                         Dsprofile.data.data.vehicleInsuranceInfoId,
                       personalInfoId: user.id,
                     }).then((profileres) => {
-                      console.log("profileres.data", profileres.data.data);
                       toast.success("Instrcutor added successfully");
                       setAddInstructor(false);
                       setUpdate(!update);
