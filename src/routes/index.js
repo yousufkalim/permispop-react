@@ -75,15 +75,15 @@ const Index = (props) => {
                 render={(props) => <CarRentalLayout {...props} />}
               />
               {props.role === "DSInstructor" ? (
-                <Redirect from="/" to="/dsInstructor/myprofile" />
+                <Redirect from="/" to={window.location.pathname} />
               ) : props.role === "Student" ? (
-                <Redirect from="/" to="/student/myProfille" />
+                <Redirect from="/" to={window.location.pathname} />
               ) : props.role === "CarRentalAgent" ? (
-                <Redirect from="/" to="/CarRental/myprofile" />
+                <Redirect from="/" to={window.location.pathname} />
               ) : props.role === "DrivingSchool" ? (
-                <Redirect from="/" to="/DrivingSchool/myprofile" />
+                <Redirect from="/" to={window.location.pathname} />
               ) : props.role === "Instructor" ? (
-                <Redirect from="/" to="/instructor/myprofile" />
+                <Redirect from="/" to={window.location.pathname} />
               ) : (
                 <Redirect from="/" to="/" />
               )}
@@ -122,6 +122,3 @@ const Index = (props) => {
 };
 
 export default Index;
-
-
-// eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJIYW16YSIsImVtYWlsIjoiaGFtemFAZ21haWwuY29tIiwidXNlckRhdGEiOiJleUpwWkNJNklqWXhaREk1TkdJek5XSTFOemxpTWpRd05HUmtNbVE1TlNJc0ltUjFjR3hwWTJGMFpWOXBaQ0k2SWpZeFpESTVOR0l6TldJMU56bGlNalF3TkdSa01tUTVOU0lzSW1acGNuTjBUbUZ0WlNJNklraGhiWHBoSWl3aWMzVnlUbUZ0WlNJNklrRnNhU0lzSW1SUFFpSTZJakU1T1RrdE1URXRNamxVTVRrNk1EQTZNREF1TURBd1dpSXNJbkJzWVdObFQyWkNhWEowYUNJNklreGhhRzl5WlNJc0ltZGxibVJsY2lJNmJuVnNiQ3dpWm5KdmJuUkpSRkJvYjNSdklqcHVkV3hzTENKaVlXTnJTVVJRYUc5MGJ5STZiblZzYkN3aVlXUmtjbVZ6Y3lJNklsSnZkWFJsSUVSbElFeGhhRzkxY21OaFpHVWdJaXdpWTI5dGNHeGxiV1Z1ZENJNklsSnZkWFJsSUVSbElpd2lla2xRSWpvaU5EQXpNREFpTENKamFYUjVJam9pVDNKMGFHVjJhV1ZzYkdVaUxDSndhRzkwYnlJNmJuVnNiQ3dpY0dGemMzZHZjbVFpT2lKTlZFbDZUa1JWTWs1Nlp6MGlMQ0p1UlZCSUlqb2lNVEl4SWl3aWJtOVBaa2h5YzFkaGJuUmxaQ0k2SWpJaUxDSmxiV0ZwYkNJNkltaGhiWHBoUUdkdFlXbHNMbU52YlNJc0luQm9iMjVsSWpvaU1USXpORFUyTnpnNU5TSXNJbk5sWTI5dVpFVnRZV2xzSWpvaWFHRnRlbUV5UUdkdFlXbHNMbU52YlNJc0luTmxZMjl1WkZCb2IyNWxJam9pTVRJek5EVTJOemc1T0NJc0ltaHBaMmhYWVhsRGIyUmxSR0YwWlNJNmJuVnNiQ3dpYUdsbmFGZGhlVU52WkdWSmJXRm5aU0k2Ym5Wc2JDd2liR0YwSWpvaU5ETXVOVFUyTURJMklpd2liRzl1WnlJNklpMHhMakUxTVRJd01TSXNJbkp2YkdVaU9pSlRkSFZrWlc1MElpd2laSEpwZG1sdVoxTmphRzl2YkVsRUlqcHVkV3hzTENKeVpXZHBjM1J5WVhScGIyNUVZWFJsSWpwdWRXeHNMQ0prYjJOMWJXVnVkRlJsYzNSbFpDSTZJbFJsYzNSbFpDSXNJbU52Ym5SaFkzUkZiV0ZwYkNJNkltaGhiWHBoUUdkdFlXbHNMbU52YlNJc0ltTlFSa0ZqWTJWd2RDSTZJbVpoYkhObElpd2lkMjl5YTFkcGRHaFBkR2hsY2lJNmJuVnNiQ3dpWjJsMlpVOTFjbEJzWVhSbWIzSnRWR2x0WlNJNmJuVnNiQ3dpZDJocFkyaFFiR0YwWm05eWJTSTZiblZzYkN3aWJHRnpkRUZqZEdsMlpWUnBiV1VpT2lJeU1ESXlMVEEwTFRBM1ZEQTJPalUxT2pJekxqWXdOamM0TVRNck1ESTZNREFpTENKemNHOXJaVzVNWVc1bmRXRm5aU0k2V3lKRmJtZHNhWE5vSWwwc0luQnliMlpwYkdWSmJtWnZJanB1ZFd4c0xDSmhZbk5sYm5SVGRHRnlkRVJoZEdVaU9tNTFiR3dzSW1GaWMyVnVkRVZ1WkVSaGRHVWlPbTUxYkd3c0ltVnRZV2xzVTJWdWRDSTZiblZzYkN3aWFYTlBibXhwYm1VaU9tWmhiSE5sTENKc1lYTjBVMlZsYmlJNklqSXdNakl0TURRdE1EWlVNRFU2TkRNNk5UWXVNRE15V2lJc0luQmhhV1FpT201MWJHd3NJbTF6WjAxaGFXeERiM1Z1ZENJNmJuVnNiQ3dpYVc1emRISjFZM1J2Y2sxbFpYUjFjRkJ2YVc1MFNXNW1iM01pT201MWJHeDkiLCJyb2xlIjoiU3R1ZGVudCIsImF1ZCI6WyIqIiwiaHR0cDovL2xvY2FsaG9zdDo2MzUzOS8iXSwic2VjcmV0S2V5IjoidGhpc2lzc2VjcmV0a2V5IiwianRpIjoiYzA4NDNjMDUtYWU0Ni00ODAzLWI4YzgtMDAyODNhMGM0MGVjIiwiZXhwIjoxNjQ5MzE4MTIzLCJpc3MiOiJodHRwOi8vbG9jYWxob3N0OjYzNTM5LyJ9._txcklq0HWDCzVr4qNrZi9gXiNkgxCwFvAlIcQGqsd4

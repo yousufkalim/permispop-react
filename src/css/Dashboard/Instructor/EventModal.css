@@ -39,7 +39,6 @@
 }
 .booking-modal {
   width: 840px !important;
-  height: 555px !important;
   border-radius: 15px !important;
   overflow: hidden !important;
   margin-bottom: 24px !important;
@@ -48,24 +47,27 @@
   color: #000000 !important;
   font-weight: 600 !important;
   font-size: 28px !important;
+  margin-left: 40px !important;
 }
 .booking-content {
-  margin: 26px !important;
-  margin-top: 4rem !important;
+  margin: 40px 40px 10px 40px !important;
 }
 .booking-btn-div {
   margin-top: 3rem !important;
 }
 .delete-availability {
-  height: 350px !important;
   width: 600px !important;
   border-radius: 15px !important;
   overflow: hidden !important;
+  min-height: 0 !important;
 }
 .delete-availability-text {
   font-size: 20px !important;
   margin-top: 30px !important;
   font-weight: 450 !important;
+  display: flex !important;
+  align-items: center !important;
+  margin-bottom: 20px !important;
 }
 .info-icon {
   font-size: 3rem !important;
