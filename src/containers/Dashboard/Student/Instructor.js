@@ -6,17 +6,16 @@
 // import MultipleSelectPlaceholder from "../../../components/Common/SelectField";
 // import { Instructorcolumns } from "../../../utils/tableHeads";
 // import { Instructorrows } from "../../../utils/tablerows";
+// import { useTranslation } from "react-i18next";
 
-// import Divider from "../../../components/Common/Divider";
+// // import Divider from "../../../components/Common/Divider";
 
 // const index = () => {
+//   const { i18n, t } = useTranslation();
+
 //   return (
 //     <React.Fragment>
-//       <Grid
-//         container
-//         spacing={1}
-//         sx={{ marginTop: "30px", marginLeft: "70px" }}
-//       >
+//       <Grid container spacing={1} sx={{ marginTop: "30px", marginLeft: "70px" }}>
 //         <Grid xs={12} sm={12} md={3}>
 //           <Typography
 //             sx={{
@@ -32,29 +31,21 @@
 //               color: "#2A3235",
 //             }}
 //           >
-//             Instructor
+//             {t("Instructor")}
 //           </Typography>
 //         </Grid>
 //         <Grid xs={3} sm={3} md={2}>
-//           <MultipleSelectPlaceholder
-//             value={["All"]}
-//           ></MultipleSelectPlaceholder>
+//           <MultipleSelectPlaceholder value={["All"]}></MultipleSelectPlaceholder>
 //         </Grid>
 //         <Grid xs={3} sm={3} md={2}>
-//           <MultipleSelectPlaceholder
-//             value={["Filter by receiver"]}
-//           ></MultipleSelectPlaceholder>
+//           <MultipleSelectPlaceholder value={["Filter by receiver"]}></MultipleSelectPlaceholder>
 //         </Grid>
 //         <Grid xs={3} sm={3} md={2}>
-//           <MultipleSelectPlaceholder
-//             value={["Start Date"]}
-//           ></MultipleSelectPlaceholder>
+//           <MultipleSelectPlaceholder value={["Start Date"]}></MultipleSelectPlaceholder>
 //         </Grid>
 
 //         <Grid xs={3} sm={3} md={2}>
-//           <MultipleSelectPlaceholder
-//             value={["End Date"]}
-//           ></MultipleSelectPlaceholder>
+//           <MultipleSelectPlaceholder value={["End Date"]}></MultipleSelectPlaceholder>
 //         </Grid>
 //       </Grid>
 //       <Divider width="100%" borderColor="#D5E4E8" />

@@ -13,8 +13,10 @@ import LocationOnIcon from "@mui/icons-material/LocationOn";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
 import { Grid } from "@mui/material";
+import { useTranslation } from "react-i18next";
 
 const MapNative = (props) => {
+  const { i18n , t } = useTranslation();
   const studentData = JSON.parse(localStorage.getItem("user"));
   const history = useHistory();
   const [data, setData] = useState([]);
@@ -118,12 +120,12 @@ const MapNative = (props) => {
             className="dropdown1"
           >
             <MenuItem value="GearBox" disabled>
-              GearBox
+              {t("GearBox")}
             </MenuItem>
 
-            <MenuItem value="All">All</MenuItem>
-            <MenuItem value="Auto">Auto</MenuItem>
-            <MenuItem value="Manual">Manual</MenuItem>
+            <MenuItem value="All">{t("All")}</MenuItem>
+            <MenuItem value="Auto">{t("Auto")}</MenuItem>
+            <MenuItem value="Manual">{t("Manual")}</MenuItem>
           </Select>
         </Grid>
 
@@ -141,12 +143,12 @@ const MapNative = (props) => {
             className="dropdown1"
           >
             <MenuItem value="Gender" disabled>
-              Gender
+              {t("Gender")}
             </MenuItem>
-            <MenuItem value="All">All</MenuItem>
-            <MenuItem value="Male">Male</MenuItem>
-            <MenuItem value="Female">Female</MenuItem>
-            <MenuItem value="Others">Others</MenuItem>
+            <MenuItem value="All">{t("All")}</MenuItem>
+            <MenuItem value="Male">{t("Male")}</MenuItem>
+            <MenuItem value="Female">{t("Female")}</MenuItem>
+            <MenuItem value="Others">{t("Others")}</MenuItem>
           </Select>
         </Grid>
         <Grid xs={5} sm={5} style={{ margin: "3px" }}>
@@ -163,12 +165,12 @@ const MapNative = (props) => {
             className="dropdown1"
           >
             <MenuItem value="Role" disabled>
-              Role
+              {t("Role")}
             </MenuItem>
-            <MenuItem value="All">All</MenuItem>
-            <MenuItem value="DrivingSchool">Driving School</MenuItem>
-            <MenuItem value="Instructor">Instructor</MenuItem>
-            <MenuItem value="CarRentalAgent">Car Rental Agent</MenuItem>
+            <MenuItem value="All">{t("All")}</MenuItem>
+            <MenuItem value="DrivingSchool">{t("Driving School")}</MenuItem>
+            <MenuItem value="Instructor">{t("Instructor")}</MenuItem>
+            <MenuItem value="CarRentalAgent">{t("Car Rental Agent")}</MenuItem>
           </Select>
         </Grid>
         <Grid xs={5} sm={5} style={{ margin: "3px" }}>
@@ -179,7 +181,7 @@ const MapNative = (props) => {
               variant="contained"
               fullWidth
             >
-              Apply
+              {t("Apply")}
             </Button1>
           </div>
         </Grid>
@@ -204,7 +206,7 @@ const MapNative = (props) => {
             icon={greyIcon}
           >
             <Popup>
-              <p className="pop_text">Your Position</p>
+              <p className="pop_text">{t("Your Position")}</p>
             </Popup>
           </Marker>
           {Object.keys(data).length > 0 &&
@@ -290,7 +292,7 @@ const MapNative = (props) => {
                               <p className="icons_text1">
                                 {item.BookingLength}
                               </p>
-                              <p className="icons_text2">Bookings</p>
+                              <p className="icons_text2">{t("Bookings")}</p>
                             </div>
                           </div>
                           <div className="icons_div">
@@ -301,7 +303,7 @@ const MapNative = (props) => {
                               <p className="icons_text1">
                                 {item.Rating != "NaN" ? item.Rating : "N/A"}
                               </p>
-                              <p className="icons_text2">Ratings</p>
+                              <p className="icons_text2">{t("Ratings")}</p>
                             </div>
                           </div>
                         </div>

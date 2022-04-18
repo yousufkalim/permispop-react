@@ -8,9 +8,10 @@ import FilePicker from "../../Common/FilePicker";
 import API from "../../../api/index";
 import DatePicker from "../../Common/DatePicker";
 import moment from "moment";
-
+import { useTranslation } from "react-i18next";
 
 const Step3 = ({ step3, setStep3, onChange,step3Errors }) => {
+  const { i18n , t } = useTranslation();
   const handleFileChange = async (e) => {
     const formdata = new FormData();
     formdata.append("file", e.target.files[0]);
@@ -32,7 +33,7 @@ const Step3 = ({ step3, setStep3, onChange,step3Errors }) => {
       <Grid container spacing={4}>
         <Grid item xs={12} sm={12} md={4}>
           <TextField
-            label="Insurer"
+            label={t("Insurer")}
             required={true}
             placeholder="John"
             name="insuranceCompany"
@@ -41,12 +42,12 @@ const Step3 = ({ step3, setStep3, onChange,step3Errors }) => {
               onChange(e.target.name, e.target.value);
             }}
             error={step3Errors['insuranceCompany']?true:false}
-            ErrorMsg={step3Errors['insuranceCompany']}
+            ErrorMsg={t(step3Errors['insuranceCompany'])}
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <TextField
-            label="Police Number"
+            label={t("Police Number")}
             required={true}
             placeholder="0000000000"
             name="policeNumber"
@@ -55,12 +56,12 @@ const Step3 = ({ step3, setStep3, onChange,step3Errors }) => {
               onChange(e.target.name, e.target.value);
             }}
             error={step3Errors['policeNumber']?true:false}
-            ErrorMsg={step3Errors['policeNumber']}
+            ErrorMsg={t(step3Errors['policeNumber'])}
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4} sx={{ marginTop: "9px" }}>
           <DatePicker
-            label="Expiration date of your Insurance"
+            label={t("Expiration date of your Insurance")}
             padding="20px 0 0 0px !important"
             required={true}
             width="100% !important"
@@ -80,7 +81,7 @@ const Step3 = ({ step3, setStep3, onChange,step3Errors }) => {
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <FilePicker
-            title="Upload your RC Pro"
+            title={t("Upload your RC Pro")}
             required={true}
             label="YourRCpro"
             name="RcPro"

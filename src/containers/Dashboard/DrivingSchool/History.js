@@ -9,11 +9,14 @@ import DatePicker from "../../../components/Common/DatePicker";
 import MobileViewFilters from "../../../components/Common/MobileViewFilters";
 import Divider from "../../../components/Common/Divider";
 import API from "../../../api";
+import { useTranslation } from "react-i18next";
+
 
 function createData(bookingwith, date, startTime, duration, status, id) {
   return { bookingwith, date, startTime, duration, status, id };
 }
 const Index = () => {
+  const { i18n , t } = useTranslation();
   const [Startvalue, setStartValue] = useState(new Date());
   const [Endvalue, setEndValue] = useState(new Date());
   const [pendingRequestsrows, setPendingRequestsrows] = useState([]);
@@ -90,7 +93,7 @@ const Index = () => {
                 color: "#2A3235",
               }}
             >
-              History
+              {t("History")}
             </Typography>
           </Grid>
           {/* <Grid xs={3} sm={3} md={2}>

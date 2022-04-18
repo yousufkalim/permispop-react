@@ -10,8 +10,10 @@ import Checkbox from "@mui/material/Checkbox";
 import API from "../../../api/index";
 import DatePicker from "../../Common/DatePicker";
 import moment from "moment";
+import { useTranslation } from "react-i18next";
 
 const Step2 = ({ step2, setStep2, onChange,step2Errors }) => {
+  const { i18n , t } = useTranslation();
   const handleFileChange = async (e) => {
     const formdata = new FormData();
     formdata.append("file", e.target.files[0]);
@@ -37,7 +39,7 @@ const Step2 = ({ step2, setStep2, onChange,step2Errors }) => {
       <Grid container spacing={4}>
         <Grid item xs={12} sm={12} md={4}>
           <TextField
-            label="Number"
+            label={t("Number")}
             required={true}
             name="Number"
             type="number"
@@ -47,12 +49,12 @@ const Step2 = ({ step2, setStep2, onChange,step2Errors }) => {
               onChange(e.target.name, e.target.value);
             }}
             error={step2Errors['Number']?true:false}
-            ErrorMsg={step2Errors['Number']}
+            ErrorMsg={t(step2Errors['Number'])}
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <TextField
-            label="Issuing Authority"
+            label={t("Issuing Authority")}
             required={true}
             placeholder="xxxxxxxxxx"
             name="IssuingAurh"
@@ -61,13 +63,13 @@ const Step2 = ({ step2, setStep2, onChange,step2Errors }) => {
               onChange(e.target.name, e.target.value);
             }}
             error={step2Errors['IssuingAurh']?true:false}
-            ErrorMsg={step2Errors['IssuingAurh']}
+            ErrorMsg={t(step2Errors['IssuingAurh'])}
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4} sx={{ marginTop: "9px" }}>
           <DatePicker
           // minDate={new Date()}
-            label="Date of Approval"
+            label={t("Date of Approval")}
             required={true}
             name="Approvaldate"
             padding="20px 0 0 0px !important"
@@ -87,7 +89,7 @@ const Step2 = ({ step2, setStep2, onChange,step2Errors }) => {
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <FilePicker
-            title="Upload your Certificate"
+            title={t("Upload your Certificate")}
             label="YourCertificate"
             name="RcProImg"
             type="file"
@@ -99,14 +101,14 @@ const Step2 = ({ step2, setStep2, onChange,step2Errors }) => {
         </Grid>
       </Grid>
       <Divider width="100%" borderColor="#D5E4E8" margin="2% 0px 2% 0px" />
-      <Typography className="Heading1">Business</Typography>
+      <Typography className="Heading1">{t("Business")}</Typography>
       <Divider width="100%" borderColor="#D5E4E8" margin="2% 0px 2% 0px" />
       <Grid container spacing={4}>
         <div className="DrivingSchool">
           <Grid item xs={12} sm={12} md={12}>
             <div className="DrivingSchool1">
               <TextField
-                label="SIRET Number"
+                label={t("SIRET Number")}
             required={true}
             placeholder="000000"
                 name="SiretNumber"
@@ -116,14 +118,14 @@ const Step2 = ({ step2, setStep2, onChange,step2Errors }) => {
                   onChange(e.target.name, e.target.value);
                 }}
                 error={step2Errors['SiretNumber']?true:false}
-            ErrorMsg={step2Errors['SiretNumber']}
+            ErrorMsg={t(step2Errors['SiretNumber'])}
               ></TextField>
             </div>
           </Grid>
           <Grid item xs={12} sm={12} md={12}>
             <div className="DrivingSchool2">
               <FilePicker
-                title="Upload your Kbls"
+                title={t("Upload your Kbls")}
             required={true}
             name="KBIS"
                 label="Yourkbls"

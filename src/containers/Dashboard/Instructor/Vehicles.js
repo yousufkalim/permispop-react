@@ -17,7 +17,7 @@ import Models from "../../../assets/makesModels/Models.xml";
 import Button from "../../../components/Common/Button";
 import { toast } from "react-toastify";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
-
+import { useTranslation } from "react-i18next";
 import API from "../../../api";
 import { Typography, Grid, Box, Checkbox, Paper, Modal } from "@mui/material";
 import { async } from "validate.js";
@@ -27,6 +27,7 @@ function createData(dateofregistration, brand, model, color, noplate, gearbox) {
   return { dateofregistration, brand, model, color, noplate, gearbox };
 }
 const Index = () => {
+  const { i18n, t } = useTranslation();
   const [allMakes, setAllMakes] = useState([]);
   const [excludingMakes, setExcludingMakes] = useState([]);
   const [allModels, setAllModels] = useState([]);
@@ -72,7 +73,6 @@ const Index = () => {
     setIsEdit(false);
     setAddVehicle(true);
     setVehicleErrors({});
-    
   };
   const [checkbox1, setCheckbox1] = React.useState(false);
   const [disable, setDisable] = useState(false);
@@ -112,7 +112,7 @@ const Index = () => {
         });
         return errors;
       }),
-      Brand: Joi.string()
+    Brand: Joi.string()
       .required()
       .label("Brand")
       .error((errors) => {
@@ -125,7 +125,7 @@ const Index = () => {
         });
         return errors;
       }),
-      Model: Joi.string()
+    Model: Joi.string()
       .required()
       .label("Model")
       .error((errors) => {
@@ -320,10 +320,10 @@ const Index = () => {
         });
         return errors;
       }),
-  }
+  };
   const onChange = (name, value) => {
     const errorMessage = validateSuggest(name, value);
-    setVehicleErrors({...vehicleErrors,[name]:errorMessage});
+    setVehicleErrors({ ...vehicleErrors, [name]: errorMessage });
     setVehicleDet({ ...vehicleDet, [name]: value });
   };
   const validateSuggest = (name, value) => {
@@ -360,24 +360,19 @@ const Index = () => {
 
   const getVehicleData = async (userData) => {
     let allVehicles = [];
-    await API("get", `Profile/GetProfileByPersonalId?id=${userData.id}`).then(
-      (InsprofileRes) => {
-        let vehicleId = JSON.parse(InsprofileRes.data.data.vehicleDetailInfoId);
-        allVehicles = Object.entries(vehicleId).map(([key, value]) => {
-          return API(
-            "get",
-            `VehicleDetail/GetVehicleDetailByIdAsync?id=${value}`
-          );
+    await API("get", `Profile/GetProfileByPersonalId?id=${userData.id}`).then((InsprofileRes) => {
+      let vehicleId = JSON.parse(InsprofileRes.data.data.vehicleDetailInfoId);
+      allVehicles = Object.entries(vehicleId).map(([key, value]) => {
+        return API("get", `VehicleDetail/GetVehicleDetailByIdAsync?id=${value}`);
+      });
+      Promise.all(allVehicles).then((res) => {
+        let vehicles = [];
+        res.map((veh) => {
+          vehicles.push(veh.data.data);
         });
-        Promise.all(allVehicles).then((res) => {
-          let vehicles = [];
-          res.map((veh) => {
-            vehicles.push(veh.data.data);
-          });
-          setVehicleData(vehicles);
-        });
-      }
-    );
+        setVehicleData(vehicles);
+      });
+    });
   };
 
   const handleFileChange = async (e) => {
@@ -472,9 +467,7 @@ const Index = () => {
       await API("put", "TechnicalControl", {
         DateofTechnicalControl: vehicleDet.TechControlDate,
         startDateOfTech: vehicleDet.TechControlDate,
-        endDateOfTechControl: vehicleDet.TechEndDate
-          ? vehicleDet.TechEndDate
-          : "",
+        endDateOfTechControl: vehicleDet.TechEndDate ? vehicleDet.TechEndDate : "",
         TechnicalControlImagePath: vehicleDet.CtImg,
         id: selectedTechnicalId.id,
       }).then(async (Technicalres) => {
@@ -486,13 +479,12 @@ const Index = () => {
           Energy: vehicleDet.Energy,
           GearBox: vehicleDet.GearBox,
           NumberPlate: vehicleDet.NumberPlate,
-          VehicleRegistrationCertificatePhotoImagePath:
-            vehicleDet.VehicleRegImg,
+          VehicleRegistrationCertificatePhotoImagePath: vehicleDet.VehicleRegImg,
           VehicleePhotosImagePath: vehicleDet.VehicleImg,
           vehichleInsuranceInfoId: vehicleinsRes.data.data.id,
           technicalControlInfoID: Technicalres.data.data.id,
         }).then(() => {
-          toast.success("Vehicle detail updated sucessfully");
+          toast.success(t("Vehicle detail updated sucessfully"));
           setAddVehicle(false);
           setIsEdit(false);
           getVehicleData(user);
@@ -521,8 +513,7 @@ const Index = () => {
       GearBox: tempArray[index].gearBox,
       Energy: tempArray[index].energy,
       VehicleImg: tempArray[index].vehicleePhotosImagePath,
-      VehicleRegImg:
-        tempArray[index].vehicleRegistrationCertificatePhotoImagePath,
+      VehicleRegImg: tempArray[index].vehicleRegistrationCertificatePhotoImagePath,
       VehicleInsurer: vehicleIns.insurer,
       PoliceNumber: vehicleIns.policeNumber,
       StartDate: vehicleIns.startDate,
@@ -538,164 +529,126 @@ const Index = () => {
 
   const handleDeleteVehicle = async (index) => {
     const tempArray = [...vehicleData];
-    await API("get", `Profile/GetProfileByPersonalId?id=${user.id}`).then(
-      async (InsprofileRes) => {
-        let vehicleId = JSON.parse(InsprofileRes.data.data.vehicleDetailInfoId);
+    await API("get", `Profile/GetProfileByPersonalId?id=${user.id}`).then(async (InsprofileRes) => {
+      let vehicleId = JSON.parse(InsprofileRes.data.data.vehicleDetailInfoId);
 
-        let allVehicles = {};
-        Object.entries(vehicleId).map(([key, value], i) => {
-          if (tempArray[index].id === value) {
-          } else {
-            allVehicles = {
-              ...allVehicles,
-              ["Vehicle" + (Object.keys(allVehicles).length + 1)]: value,
-            };
-          }
-        });
+      let allVehicles = {};
+      Object.entries(vehicleId).map(([key, value], i) => {
+        if (tempArray[index].id === value) {
+        } else {
+          allVehicles = {
+            ...allVehicles,
+            ["Vehicle" + (Object.keys(allVehicles).length + 1)]: value,
+          };
+        }
+      });
 
-        await API(
-          "get",
-          `VehicleDetail/UpdateVehicleDetail/?id=${tempArray[index].id}`
-        ).then(async (vehicleres) => {
-          await API("post", `Profile/UpdateProfile`, {
-            banDate: InsprofileRes.data.data.banDate,
-            banStatus: InsprofileRes.data.data.banDate,
-            id: InsprofileRes.data.data.id,
-            businessInfoId: InsprofileRes.data.data.businessInfoId,
-            drivingLisenceInfoId: InsprofileRes.data.data.drivingLisenceInfoId,
-            drivingSchoolApprovalInfoId:
-              InsprofileRes.data.data.drivingSchoolApprovalInfoId,
-            drivingSchoolIdentityInfoId:
-              InsprofileRes.data.data.drivingSchoolIdentityInfoId,
-            drivingSchoolInstructorInfoId:
-              InsprofileRes.data.data.drivingSchoolInstructorInfoId,
-            drivingSchoolManagerInfoId:
-              InsprofileRes.data.data.drivingSchoolManagerInfoId,
-            drivingSchoolVehiclesInfoId:
-              InsprofileRes.data.data.drivingSchoolVehiclesInfoId,
-            exersiceAuthorizationInfoId:
-              InsprofileRes.data.data.exersiceAuthorizationInfoId,
-            insuranceCompanyInfoId:
-              InsprofileRes.data.data.insuranceCompanyInfoId,
-            isAdminBan: InsprofileRes.data.data.isAdminBan,
-            isEmailSent: InsprofileRes.data.data.isEmailSent,
-            lat: InsprofileRes.data.data.lat,
-            long: InsprofileRes.data.data.long,
-            personalInfoId: InsprofileRes.data.data.personalInfoId,
-            personalInfos: InsprofileRes.data.data.personalInfos,
-            role: InsprofileRes.data.data.role,
-            status: InsprofileRes.data.data.status,
-            technicalControlInfoId:
-              InsprofileRes.data.data.technicalControlInfoId,
-            vehicleInsuranceInfoId:
-              InsprofileRes.data.data.vehicleInsuranceInfoId,
-            VehicleDetailInfoId:
-              Object.keys(allVehicles).length > 0
-                ? JSON.stringify(allVehicles)
-                : "",
-          }).then((updateprofileres) => {
-            toast.success("Vehicle deleted scuccessfully");
-            getVehicleData(user);
-          });
+      await API("get", `VehicleDetail/UpdateVehicleDetail/?id=${tempArray[index].id}`).then(async (vehicleres) => {
+        await API("post", `Profile/UpdateProfile`, {
+          banDate: InsprofileRes.data.data.banDate,
+          banStatus: InsprofileRes.data.data.banDate,
+          id: InsprofileRes.data.data.id,
+          businessInfoId: InsprofileRes.data.data.businessInfoId,
+          drivingLisenceInfoId: InsprofileRes.data.data.drivingLisenceInfoId,
+          drivingSchoolApprovalInfoId: InsprofileRes.data.data.drivingSchoolApprovalInfoId,
+          drivingSchoolIdentityInfoId: InsprofileRes.data.data.drivingSchoolIdentityInfoId,
+          drivingSchoolInstructorInfoId: InsprofileRes.data.data.drivingSchoolInstructorInfoId,
+          drivingSchoolManagerInfoId: InsprofileRes.data.data.drivingSchoolManagerInfoId,
+          drivingSchoolVehiclesInfoId: InsprofileRes.data.data.drivingSchoolVehiclesInfoId,
+          exersiceAuthorizationInfoId: InsprofileRes.data.data.exersiceAuthorizationInfoId,
+          insuranceCompanyInfoId: InsprofileRes.data.data.insuranceCompanyInfoId,
+          isAdminBan: InsprofileRes.data.data.isAdminBan,
+          isEmailSent: InsprofileRes.data.data.isEmailSent,
+          lat: InsprofileRes.data.data.lat,
+          long: InsprofileRes.data.data.long,
+          personalInfoId: InsprofileRes.data.data.personalInfoId,
+          personalInfos: InsprofileRes.data.data.personalInfos,
+          role: InsprofileRes.data.data.role,
+          status: InsprofileRes.data.data.status,
+          technicalControlInfoId: InsprofileRes.data.data.technicalControlInfoId,
+          vehicleInsuranceInfoId: InsprofileRes.data.data.vehicleInsuranceInfoId,
+          VehicleDetailInfoId: Object.keys(allVehicles).length > 0 ? JSON.stringify(allVehicles) : "",
+        }).then((updateprofileres) => {
+          toast.success(t("Vehicle deleted scuccessfully"));
+          getVehicleData(user);
         });
-      }
-    );
+      });
+    });
   };
 
   const handleAddVehicle = async () => {
-    await API("get", `Profile/GetProfileByPersonalId?id=${user.id}`).then(
-      async (InsprofileRes) => {
-        let vehicleId = JSON.parse(InsprofileRes.data.data.vehicleDetailInfoId);
-        let allVehicles = {};
+    await API("get", `Profile/GetProfileByPersonalId?id=${user.id}`).then(async (InsprofileRes) => {
+      let vehicleId = JSON.parse(InsprofileRes.data.data.vehicleDetailInfoId);
+      let allVehicles = {};
 
-        await API("post", "VehicleInsurance", {
-          Insurer: vehicleDet.VehicleInsurer,
-          PoliceNumber: vehicleDet.PoliceNumber,
-          StartDate: vehicleDet.StartDate,
-          EndDate: vehicleDet.EndDate,
-          GreenCardImagePath: vehicleDet.GreenCard,
-          id: selectedInsuranceId.id,
-        }).then(async (vehicleinsRes) => {
-          await API("post", "TechnicalControl", {
-            DateofTechnicalControl: vehicleDet.TechControlDate,
-            startDateOfTech: vehicleDet.TechControlDate,
-            endDateOfTechControl: vehicleDet.TechEndDate
-              ? vehicleDet.TechEndDate
-              : "",
-            TechnicalControlImagePath: vehicleDet.CtImg,
-            id: selectedTechnicalId.id,
-          }).then(async (Technicalres) => {
-            await API("post", "VehicleDetail", {
-              DateOfFirstRegistration: vehicleDet.FristRegDate,
-              Brand: vehicleDet.Brand,
-              Model: vehicleDet.Model,
-              Color: vehicleDet.Color,
-              Energy: vehicleDet.Energy,
-              GearBox: vehicleDet.GearBox,
-              NumberPlate: vehicleDet.NumberPlate,
-              VehicleRegistrationCertificatePhotoImagePath:
-                vehicleDet.VehicleRegImg,
-              VehicleePhotosImagePath: vehicleDet.VehicleImg,
-              vehichleInsuranceInfoId: vehicleinsRes.data.data.id,
-              technicalControlInfoID: Technicalres.data.data.id,
-            }).then(async (vehicleres) => {
-              allVehicles = JSON.parse(
-                InsprofileRes.data.data.vehicleDetailInfoId
-              );
+      await API("post", "VehicleInsurance", {
+        Insurer: vehicleDet.VehicleInsurer,
+        PoliceNumber: vehicleDet.PoliceNumber,
+        StartDate: vehicleDet.StartDate,
+        EndDate: vehicleDet.EndDate,
+        GreenCardImagePath: vehicleDet.GreenCard,
+        id: selectedInsuranceId.id,
+      }).then(async (vehicleinsRes) => {
+        await API("post", "TechnicalControl", {
+          DateofTechnicalControl: vehicleDet.TechControlDate,
+          startDateOfTech: vehicleDet.TechControlDate,
+          endDateOfTechControl: vehicleDet.TechEndDate ? vehicleDet.TechEndDate : "",
+          TechnicalControlImagePath: vehicleDet.CtImg,
+          id: selectedTechnicalId.id,
+        }).then(async (Technicalres) => {
+          await API("post", "VehicleDetail", {
+            DateOfFirstRegistration: vehicleDet.FristRegDate,
+            Brand: vehicleDet.Brand,
+            Model: vehicleDet.Model,
+            Color: vehicleDet.Color,
+            Energy: vehicleDet.Energy,
+            GearBox: vehicleDet.GearBox,
+            NumberPlate: vehicleDet.NumberPlate,
+            VehicleRegistrationCertificatePhotoImagePath: vehicleDet.VehicleRegImg,
+            VehicleePhotosImagePath: vehicleDet.VehicleImg,
+            vehichleInsuranceInfoId: vehicleinsRes.data.data.id,
+            technicalControlInfoID: Technicalres.data.data.id,
+          }).then(async (vehicleres) => {
+            allVehicles = JSON.parse(InsprofileRes.data.data.vehicleDetailInfoId);
 
-              allVehicles = {
-                ...allVehicles,
-                ["Vehicle" + (Object.keys(allVehicles).length + 1)]:
-                  vehicleres.data.data.id,
-              };
+            allVehicles = {
+              ...allVehicles,
+              ["Vehicle" + (Object.keys(allVehicles).length + 1)]: vehicleres.data.data.id,
+            };
 
-              await API("post", `Profile/UpdateProfile`, {
-                banDate: InsprofileRes.data.data.banDate,
-                banStatus: InsprofileRes.data.data.banDate,
-                id: InsprofileRes.data.data.id,
-                businessInfoId: InsprofileRes.data.data.businessInfoId,
-                drivingLisenceInfoId:
-                  InsprofileRes.data.data.drivingLisenceInfoId,
-                drivingSchoolApprovalInfoId:
-                  InsprofileRes.data.data.drivingSchoolApprovalInfoId,
-                drivingSchoolIdentityInfoId:
-                  InsprofileRes.data.data.drivingSchoolIdentityInfoId,
-                drivingSchoolInstructorInfoId:
-                  InsprofileRes.data.data.drivingSchoolInstructorInfoId,
-                drivingSchoolManagerInfoId:
-                  InsprofileRes.data.data.drivingSchoolManagerInfoId,
-                drivingSchoolVehiclesInfoId:
-                  InsprofileRes.data.data.drivingSchoolVehiclesInfoId,
-                exersiceAuthorizationInfoId:
-                  InsprofileRes.data.data.exersiceAuthorizationInfoId,
-                insuranceCompanyInfoId:
-                  InsprofileRes.data.data.insuranceCompanyInfoId,
-                isAdminBan: InsprofileRes.data.data.isAdminBan,
-                isEmailSent: InsprofileRes.data.data.isEmailSent,
-                lat: InsprofileRes.data.data.lat,
-                long: InsprofileRes.data.data.long,
-                personalInfoId: InsprofileRes.data.data.personalInfoId,
-                personalInfos: InsprofileRes.data.data.personalInfos,
-                role: InsprofileRes.data.data.role,
-                status: InsprofileRes.data.data.status,
-                technicalControlInfoId:
-                  InsprofileRes.data.data.technicalControlInfoId,
-                vehicleInsuranceInfoId:
-                  InsprofileRes.data.data.vehicleInsuranceInfoId,
-                VehicleDetailInfoId:
-                  Object.keys(allVehicles).length > 0
-                    ? JSON.stringify(allVehicles)
-                    : "",
-              }).then(() => {
-                toast.success("Vehicle added scuccessfully");
-                getVehicleData(user);
-                setAddVehicle(false);
-              });
+            await API("post", `Profile/UpdateProfile`, {
+              banDate: InsprofileRes.data.data.banDate,
+              banStatus: InsprofileRes.data.data.banDate,
+              id: InsprofileRes.data.data.id,
+              businessInfoId: InsprofileRes.data.data.businessInfoId,
+              drivingLisenceInfoId: InsprofileRes.data.data.drivingLisenceInfoId,
+              drivingSchoolApprovalInfoId: InsprofileRes.data.data.drivingSchoolApprovalInfoId,
+              drivingSchoolIdentityInfoId: InsprofileRes.data.data.drivingSchoolIdentityInfoId,
+              drivingSchoolInstructorInfoId: InsprofileRes.data.data.drivingSchoolInstructorInfoId,
+              drivingSchoolManagerInfoId: InsprofileRes.data.data.drivingSchoolManagerInfoId,
+              drivingSchoolVehiclesInfoId: InsprofileRes.data.data.drivingSchoolVehiclesInfoId,
+              exersiceAuthorizationInfoId: InsprofileRes.data.data.exersiceAuthorizationInfoId,
+              insuranceCompanyInfoId: InsprofileRes.data.data.insuranceCompanyInfoId,
+              isAdminBan: InsprofileRes.data.data.isAdminBan,
+              isEmailSent: InsprofileRes.data.data.isEmailSent,
+              lat: InsprofileRes.data.data.lat,
+              long: InsprofileRes.data.data.long,
+              personalInfoId: InsprofileRes.data.data.personalInfoId,
+              personalInfos: InsprofileRes.data.data.personalInfos,
+              role: InsprofileRes.data.data.role,
+              status: InsprofileRes.data.data.status,
+              technicalControlInfoId: InsprofileRes.data.data.technicalControlInfoId,
+              vehicleInsuranceInfoId: InsprofileRes.data.data.vehicleInsuranceInfoId,
+              VehicleDetailInfoId: Object.keys(allVehicles).length > 0 ? JSON.stringify(allVehicles) : "",
+            }).then(() => {
+              toast.success(t("Vehicle added scuccessfully"));
+              getVehicleData(user);
+              setAddVehicle(false);
             });
           });
         });
-      }
-    );
+      });
+    });
   };
 
   const getExcludingMakes = (e) => {
@@ -710,13 +663,9 @@ const Index = () => {
 
   return (
     <>
-      {/* <MobileViewFilters title="Vehicles" /> */}
+      {/* <MobileViewFilters title={t("Vehicles")} /> */}
       <div className="Filters">
-        <Grid
-          container
-          spacing={1}
-          sx={{ marginTop: "30px", marginLeft: "70px" }}
-        >
+        <Grid container spacing={1} sx={{ marginTop: "30px", marginLeft: "70px" }}>
           <Grid xs={12} sm={12} md={3}>
             <Typography
               sx={{
@@ -732,7 +681,7 @@ const Index = () => {
                 color: "#2A3235",
               }}
             >
-              Vehicles
+              {t("Vehicles")}
             </Typography>
           </Grid>
           {/* <Grid xs={3} sm={3} md={2}>
@@ -794,34 +743,23 @@ const Index = () => {
         aria-describedby="modal-modal-description"
       >
         <Box component="form" noValidate sx={style}>
-        <Grid container spacing={4}>
-            <Divider
-              width="100%"
-              borderColor="#D5E4E8"
-              margin="2% 0px 2% 0px"
-            />
+          <Grid container spacing={4}>
+            <Divider width="100%" borderColor="#D5E4E8" margin="2% 0px 2% 0px" />
             <Typography style={{ marginLeft: "30px" }} className="Heading1">
-              Vehicle Details
+              {t("Vehicle Details")}
             </Typography>
-            <Divider
-              width="100%"
-              borderColor="#D5E4E8"
-              margin="2% 0px 2% 0px"
-            />
+            <Divider width="100%" borderColor="#D5E4E8" margin="2% 0px 2% 0px" />
             <Grid item xs={12} sm={12} md={4} sx={{ marginTop: "9px" }}>
               <DatePicker
-                label="Date of the 1st Registration"
+                label={t("Date of the 1st Registration")}
                 value={vehicleDet.FristRegDate}
                 required={true}
                 name="FristRegDate"
                 maxDate={moment()}
-                error={vehicleErrors['FristRegDate']?true:false}
-                ErrorMsg={vehicleErrors['FristRegDate']}
+                error={vehicleErrors["FristRegDate"] ? true : false}
+                ErrorMsg={vehicleErrors["FristRegDate"]}
                 onChange={(e) => {
-                  onChange(
-                    "FristRegDate",
-                    moment(e).format("YYYY-MM-DDThh:mm:ss")
-                  );
+                  onChange("FristRegDate", moment(e).format("YYYY-MM-DDThh:mm:ss"));
                 }}
                 padding="20px 0 0 0px !important"
                 width="100% !important"
@@ -830,20 +768,20 @@ const Index = () => {
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
               <DropDown
-                label="Brand"
+                label={t("Brand")}
                 name="Brand"
                 required={true}
                 placeholder="Select Option"
                 value={vehicleDet.Brand}
                 onChange={(e) => getExcludingMakes(e)}
                 MenuItem={allMakes}
-                error={vehicleErrors['Brand']?true:false}
-                ErrorMsg={vehicleErrors['Brand']}
+                error={vehicleErrors["Brand"] ? true : false}
+                ErrorMsg={vehicleErrors["Brand"]}
               ></DropDown>
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
               <DropDown
-                label="Model"
+                label={t("Model")}
                 name="Model"
                 required={true}
                 placeholder="Select Option"
@@ -851,14 +789,14 @@ const Index = () => {
                 onChange={(e) => {
                   onChange("Model", e.target.value);
                 }}
-                error={vehicleErrors['Model']?true:false}
-                ErrorMsg={vehicleErrors['Model']}
+                error={vehicleErrors["Model"] ? true : false}
+                ErrorMsg={vehicleErrors["Model"]}
                 MenuItem={excludingMakes}
               ></DropDown>
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
               <TextField
-                label="Number Plate"
+                label={t("Number Plate")}
                 type="text"
                 required={true}
                 name="NumberPlate"
@@ -867,13 +805,13 @@ const Index = () => {
                 onChange={(e) => {
                   onChange(e.target.name, e.target.value);
                 }}
-                error={vehicleErrors['NumberPlate']?true:false}
-                ErrorMsg={vehicleErrors['NumberPlate']}
+                error={vehicleErrors["NumberPlate"] ? true : false}
+                ErrorMsg={vehicleErrors["NumberPlate"]}
               ></TextField>
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
               <TextField
-                label="Color"
+                label={t("Color")}
                 name="Color"
                 required={true}
                 value={vehicleDet.Color}
@@ -882,13 +820,13 @@ const Index = () => {
                 onChange={(e) => {
                   onChange(e.target.name, e.target.value);
                 }}
-                error={vehicleErrors['Color']?true:false}
-                ErrorMsg={vehicleErrors['Color']}
+                error={vehicleErrors["Color"] ? true : false}
+                ErrorMsg={vehicleErrors["Color"]}
               ></TextField>
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
               <DropDown
-                label="Gearbox"
+                label={t("Gearbox")}
                 required={true}
                 name="GearBox"
                 value={vehicleDet.GearBox}
@@ -899,14 +837,14 @@ const Index = () => {
                 onChange={(e) => {
                   onChange("GearBox", e.target.value);
                 }}
-                error={vehicleErrors['GearBox']?true:false}
-                ErrorMsg={vehicleErrors['GearBox']}
+                error={vehicleErrors["GearBox"] ? true : false}
+                ErrorMsg={vehicleErrors["GearBox"]}
               ></DropDown>
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
               <DropDown
-                label="Energy"
-                placeholder="Select"
+                label={t("Energy")}
+                placeholder={t("Select")}
                 required={true}
                 name="Energy"
                 value={vehicleDet.Energy}
@@ -921,50 +859,46 @@ const Index = () => {
                 onChange={(e) => {
                   onChange("Energy", e.target.value);
                 }}
-                error={vehicleErrors['Energy']?true:false}
-                ErrorMsg={vehicleErrors['Energy']}
+                error={vehicleErrors["Energy"] ? true : false}
+                ErrorMsg={vehicleErrors["Energy"]}
               ></DropDown>
             </Grid>
           </Grid>
           <div className="VehicleSection">
-            <Grid
-              container
-              spacing={4}
-              style={{ display: "flex", alignItems: "flex-end" }}
-            >
+            <Grid container spacing={4} style={{ display: "flex", alignItems: "flex-end" }}>
               <Grid item xs={12} sm={12} md={4}>
                 <FilePicker
-                  title="Upload your Image"
+                  title={t("Upload your Image")}
                   label="YourImg"
                   required={true}
                   name="VehicleImg"
                   value={vehicleDet.VehicleImg}
                   onChange={handleFileChange}
-                  error={vehicleErrors['VehicleImg']?true:false}
-                ErrorMsg={vehicleErrors['VehicleImg']}
+                  error={vehicleErrors["VehicleImg"] ? true : false}
+                  ErrorMsg={vehicleErrors["VehicleImg"]}
                 />
               </Grid>
               <Grid item xs={12} sm={12} md={4}>
                 <FilePicker
-                  title="Upload Vehicle Registration Certificate"
+                  title={t("Upload Vehicle Registration Certificate")}
                   label="RegCertificate"
                   required={true}
                   name="VehicleRegImg"
                   value={vehicleDet.VehicleRegImg}
                   onChange={handleFileChange}
-                  error={vehicleErrors['VehicleRegImg']?true:false}
-                ErrorMsg={vehicleErrors['VehicleRegImg']}
+                  error={vehicleErrors["VehicleRegImg"] ? true : false}
+                  ErrorMsg={vehicleErrors["VehicleRegImg"]}
                 />
               </Grid>
             </Grid>
           </div>
           <Divider width="100%" borderColor="#D5E4E8" margin="2% 0px 2% 0px" />
-          <Typography className="Heading1">Vehicle Insurance</Typography>
+          <Typography className="Heading1">{t("Vehicle Insurance")}</Typography>
           <Divider width="100%" borderColor="#D5E4E8" margin="2% 0px 2% 0px" />
           <Grid container spacing={4}>
             <Grid item xs={12} sm={12} md={4}>
               <TextField
-                label="Insurer"
+                label={t("Insurer")}
                 type="text"
                 placeholder="John"
                 required={true}
@@ -973,13 +907,13 @@ const Index = () => {
                 onChange={(e) => {
                   onChange(e.target.name, e.target.value);
                 }}
-                error={vehicleErrors['VehicleInsurer']?true:false}
-                ErrorMsg={vehicleErrors['VehicleInsurer']}
+                error={vehicleErrors["VehicleInsurer"] ? true : false}
+                ErrorMsg={vehicleErrors["VehicleInsurer"]}
               ></TextField>
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
               <TextField
-                label="Police Nunber"
+                label={t("Police Number")}
                 type="text"
                 required={true}
                 name="PoliceNumber"
@@ -988,13 +922,13 @@ const Index = () => {
                 onChange={(e) => {
                   onChange(e.target.name, e.target.value);
                 }}
-                error={vehicleErrors['PoliceNumber']?true:false}
-                ErrorMsg={vehicleErrors['PoliceNumber']}
+                error={vehicleErrors["PoliceNumber"] ? true : false}
+                ErrorMsg={vehicleErrors["PoliceNumber"]}
               ></TextField>
             </Grid>
             <Grid item xs={12} sm={12} md={4} sx={{ marginTop: "9px" }}>
               <DatePicker
-                label="Start Date"
+                label={t("Start Date")}
                 value={vehicleDet.StartDate}
                 name="StartDate"
                 required={true}
@@ -1002,19 +936,16 @@ const Index = () => {
                 padding="20px 0 0 0px !important"
                 width="100% !important"
                 onChange={(e) => {
-                  onChange(
-                    "StartDate",
-                    moment(e).format("YYYY-MM-DDThh:mm:ss")
-                  );
+                  onChange("StartDate", moment(e).format("YYYY-MM-DDThh:mm:ss"));
                 }}
-                error={vehicleErrors['StartDate']?true:false}
-                ErrorMsg={vehicleErrors['StartDate']}
+                error={vehicleErrors["StartDate"] ? true : false}
+                ErrorMsg={vehicleErrors["StartDate"]}
               />
               <div className="borderbottom"></div>
             </Grid>
             <Grid item xs={12} sm={12} md={4} sx={{ marginTop: "9px" }}>
               <DatePicker
-                label="End Date"
+                label={t("End Date")}
                 name="EndDate"
                 required={true}
                 minDate={moment()}
@@ -1024,8 +955,8 @@ const Index = () => {
                 onChange={(e) => {
                   onChange("EndDate", moment(e).format("YYYY-MM-DDThh:mm:ss"));
                 }}
-                error={vehicleErrors['EndDate']?true:false}
-                ErrorMsg={vehicleErrors['EndDate']}
+                error={vehicleErrors["EndDate"] ? true : false}
+                ErrorMsg={vehicleErrors["EndDate"]}
               />
               <div className="borderbottom"></div>
             </Grid>
@@ -1034,93 +965,80 @@ const Index = () => {
             <Grid container spacing={4}>
               <Grid item xs={12} sm={12} md={4}>
                 <FilePicker
-                  title="Upload Scanned Green Card"
+                  title={t("Upload Scanned Green Card")}
                   label="GreenCard"
                   name="GreenCard"
                   required={true}
                   value={vehicleDet.GreenCard}
                   onChange={handleFileChange}
-                  error={vehicleErrors['GreenCard']?true:false}
-                ErrorMsg={vehicleErrors['GreenCard']}
+                  error={vehicleErrors["GreenCard"] ? true : false}
+                  ErrorMsg={vehicleErrors["GreenCard"]}
                 />
               </Grid>
             </Grid>
           </div>
           <div className="termsConditionsCheckbox">
-          <Checkbox
-                disabled={disable}
-                className="checkbox"
-                onClick={(e) => setCheckbox1(!checkbox1)}
-              />
-              <Typography
-                variant="body1"
-                className="termsConditionsCheckboxTitle"
-              >
-                Technical Control Details if any?
-              </Typography>
-            </div>
-            {checkbox1 ? (
-              <>
-          <Divider width="100%" borderColor="#D5E4E8" margin="2% 0px 2% 0px" />
-          <Typography className="Heading1">Technical Control</Typography>
-          <Divider width="100%" borderColor="#D5E4E8" margin="2% 0px 2% 0px" />
-          <Grid container spacing={4}>
-            <Grid item xs={12} sm={12} md={4} sx={{ marginTop: "9px" }}>
-              <DatePicker
-                label="Date of Technical Control"
-                value={vehicleDet.TechControlDate}
-                maxDate={moment()}
-                name="TechControlDate"
-                padding="20px 0 0 0px !important"
-                width="100% !important"
-                onChange={(e) => {
-                  onChange(
-                    "TechControlDate",
-                    moment(e).format("YYYY-MM-DDThh:mm:ss")
-                  );
-                }}
-                error={vehicleErrors['TechControlDate']?true:false}
-                ErrorMsg={vehicleErrors['TechControlDate']}
-              />
-              <div className="borderbottom"></div>
-            </Grid>
-            <Grid item xs={12} sm={12} md={4} sx={{ marginTop: "9px" }}>
-              <DatePicker
-                label="End Date"
-                value={vehicleDet.TechEndDate}
-                name="TechEndDate"
-                minDate={moment()}
-                padding="20px 0 0 0px !important"
-                width="100% !important"
-                onChange={(e) => {
-                  onChange(
-                    "TechEndDate",
-                    moment(e).format("YYYY-MM-DDThh:mm:ss")
-                  );
-                }}
-                error={vehicleErrors['TechEndDate']?true:false}
-                ErrorMsg={vehicleErrors['TechEndDate']}
-              />
-              <div className="borderbottom"></div>
-            </Grid>
-          </Grid>
-          <div className="VehicleInsurance">
-            <Grid container spacing={4}>
-              <Grid item xs={12} sm={12} md={4}>
-                <FilePicker
-                  title="Scan and upload your CT"
-                  label="YourCt"
-                  name="CtImg"
-                  value={vehicleDet.CtImg}
-                  onChange={handleFileChange}
-                  error={vehicleErrors['CtImg']?true:false}
-                ErrorMsg={vehicleErrors['CtImg']}
-                />
-              </Grid>
-            </Grid>
+            <Checkbox disabled={disable} className="checkbox" onClick={(e) => setCheckbox1(!checkbox1)} />
+            <Typography variant="body1" className="termsConditionsCheckboxTitle">
+              {t("Technical Control Details if any?")}
+            </Typography>
           </div>
-          </>
-           ) : (
+          {checkbox1 ? (
+            <>
+              <Divider width="100%" borderColor="#D5E4E8" margin="2% 0px 2% 0px" />
+              <Typography className="Heading1">{t("Technical Control")}</Typography>
+              <Divider width="100%" borderColor="#D5E4E8" margin="2% 0px 2% 0px" />
+              <Grid container spacing={4}>
+                <Grid item xs={12} sm={12} md={4} sx={{ marginTop: "9px" }}>
+                  <DatePicker
+                    label={t("Date of Technical Control")}
+                    value={vehicleDet.TechControlDate}
+                    maxDate={moment()}
+                    name="TechControlDate"
+                    padding="20px 0 0 0px !important"
+                    width="100% !important"
+                    onChange={(e) => {
+                      onChange("TechControlDate", moment(e).format("YYYY-MM-DDThh:mm:ss"));
+                    }}
+                    error={vehicleErrors["TechControlDate"] ? true : false}
+                    ErrorMsg={vehicleErrors["TechControlDate"]}
+                  />
+                  <div className="borderbottom"></div>
+                </Grid>
+                <Grid item xs={12} sm={12} md={4} sx={{ marginTop: "9px" }}>
+                  <DatePicker
+                    label={t("End Date")}
+                    value={vehicleDet.TechEndDate}
+                    name="TechEndDate"
+                    minDate={moment()}
+                    padding="20px 0 0 0px !important"
+                    width="100% !important"
+                    onChange={(e) => {
+                      onChange("TechEndDate", moment(e).format("YYYY-MM-DDThh:mm:ss"));
+                    }}
+                    error={vehicleErrors["TechEndDate"] ? true : false}
+                    ErrorMsg={vehicleErrors["TechEndDate"]}
+                  />
+                  <div className="borderbottom"></div>
+                </Grid>
+              </Grid>
+              <div className="VehicleInsurance">
+                <Grid container spacing={4}>
+                  <Grid item xs={12} sm={12} md={4}>
+                    <FilePicker
+                      title={t("Scan and upload your CT")}
+                      label="YourCt"
+                      name="CtImg"
+                      value={vehicleDet.CtImg}
+                      onChange={handleFileChange}
+                      error={vehicleErrors["CtImg"] ? true : false}
+                      ErrorMsg={vehicleErrors["CtImg"]}
+                    />
+                  </Grid>
+                </Grid>
+              </div>
+            </>
+          ) : (
             ""
           )}
           <div
@@ -1131,7 +1049,7 @@ const Index = () => {
             }}
           >
             <Button
-              text={isEdit ? "Edit" : "Add"}
+              text={isEdit ? t("Edit") : t("Add")}
               buttonLableStyle="btn_main"
               style={{ marginTop: "24px", marginRight: "10px" }}
               width="10%"
@@ -1140,27 +1058,25 @@ const Index = () => {
               height2="48px"
               onClick={isEdit ? handleSaveEditVehicle : handleAddVehicle}
               disabled={
-                vehicleErrors.FristRegDate===null 
-                && vehicleErrors.Brand===null
-                && vehicleErrors.Model===null
-                && vehicleErrors.NumberPlate===null
-                && vehicleErrors.Color===null
-                && vehicleErrors.GearBox===null
-                && vehicleErrors.Energy===null
-                && vehicleErrors.VehicleImg===null
-                && vehicleErrors.VehicleRegImg===null
-                && vehicleErrors.VehicleInsurer===null
-                && vehicleErrors.PoliceNumber===null
-                && vehicleErrors.StartDate===null
-                && vehicleErrors.EndDate===null
-                && vehicleErrors.GreenCard===null
-
-                && checkbox1===false
-
-                || vehicleErrors.TechControlDate===null
-                && vehicleErrors.TechEndDate===null
-                && vehicleErrors.CtImg===null
-                ? false : true }
+                (vehicleErrors.FristRegDate === null &&
+                  vehicleErrors.Brand === null &&
+                  vehicleErrors.Model === null &&
+                  vehicleErrors.NumberPlate === null &&
+                  vehicleErrors.Color === null &&
+                  vehicleErrors.GearBox === null &&
+                  vehicleErrors.Energy === null &&
+                  vehicleErrors.VehicleImg === null &&
+                  vehicleErrors.VehicleRegImg === null &&
+                  vehicleErrors.VehicleInsurer === null &&
+                  vehicleErrors.PoliceNumber === null &&
+                  vehicleErrors.StartDate === null &&
+                  vehicleErrors.EndDate === null &&
+                  vehicleErrors.GreenCard === null &&
+                  checkbox1 === false) ||
+                (vehicleErrors.TechControlDate === null && vehicleErrors.TechEndDate === null && vehicleErrors.CtImg === null)
+                  ? false
+                  : true
+              }
             ></Button>
           </div>
         </Box>

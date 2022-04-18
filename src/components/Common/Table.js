@@ -16,8 +16,10 @@ import IconButton from "@mui/material/IconButton";
 import Select from "@mui/material/Select";
 import FormControl from "@mui/material/FormControl";
 import BasicModal from "../../components/Common/BasicModal";
+import { useTranslation } from "react-i18next";
 
 export default function DataTable(props) {
+  const { i18n, t } = useTranslation();
   const history = useHistory();
   const handleReBook = () => history.push("/student/booking");
   const [page, setPage] = React.useState(0);
@@ -66,147 +68,129 @@ export default function DataTable(props) {
                         align={column.align}
                         style={{ minWidth: column.minWidth }}
                       >
-                        {column.label}
+                        {t(column.label)}
                       </TableCell>
                     ))
-                  : "No data found"}
+                  : t("No data found")}
               </TableRow>
             </TableHead>
             <TableBody>
               {props.data
-                ? props.data
-                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                    .map((row, index) => {
-                      return (
-                        <TableRow
-                          hover
-                          role="checkbox"
-                          tabIndex={-1}
-                          key={row.bookingwith}
-                        >
-                          {props.columns.map((column) => {
-                            const value = row[column.id];
-                            return (
-                              <>
-                                {column.id !== "options" &&
-                                column.id !== "action" &&
-                                column.id !== "Vaction" &&
-                                column.id !== "historyActions" &&
-                                column.id !== "actions" &&
-                                column.id !== "photo" &&
-                                column.id !== "name" &&
-                                column.id !== "position" &&
-                                column.id !== "reservations" &&
-                                column.id !== "profile" &&
-                                column.id !== "chat" ? (
-                                  <TableCell
-                                    sx={{
-                                      fontFamily: "Inter !important",
-                                      fontStyle: "normal",
-                                      fontWeight: 400,
-                                      fontSize: "15px !important",
-                                      lineHeight: "50px !important",
+                ? props.data.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row, index) => {
+                    return (
+                      <TableRow hover role="checkbox" tabIndex={-1} key={row.bookingwith}>
+                        {props.columns.map((column) => {
+                          const value = row[column.id];
+                          return (
+                            <>
+                              {column.id !== t("options") &&
+                              column.id !== t("action") &&
+                              column.id !== t("Vaction") &&
+                              column.id !== t("historyActions") &&
+                              column.id !== t("actions") &&
+                              column.id !== t("photo") &&
+                              column.id !== t("name") &&
+                              column.id !== t("position") &&
+                              column.id !== t("reservations") &&
+                              column.id !== t("profile") &&
+                              column.id !== t("cat") ? (
+                                <TableCell
+                                  sx={{
+                                    fontFamily: "Inter !important",
+                                    fontStyle: "normal",
+                                    fontWeight: 400,
+                                    fontSize: "15px !important",
+                                    lineHeight: "50px !important",
 
-                                      letterSpacing: "-0.03em",
+                                    letterSpacing: "-0.03em",
 
-                                      color:
-                                        column.id === "status" ||
-                                        column.id === "gearbox"
-                                          ? "#FFA333"
-                                          : "#81878E",
-                                    }}
-                                    color={row.color}
-                                    key={column.id}
-                                    align={column.align}
-                                  >
-                                    {column.format && typeof value === "number"
-                                      ? column.format(value)
-                                      : value}
-                                  </TableCell>
-                                ) : column.id === "actions" ? (
-                                  <TableCell align="right">
-                                    <FormControl>
-                                      <Select
-                                        labelId="demo-simple-select-standard-label"
-                                        id="demo-simple-select-standard"
-                                        value={row.status}
-                                        disabled={
-                                          row.status === "Dispute" ||
-                                          row.status === "Complete" ||
-                                          row.status === "Closed"
-                                            ? true
-                                            : false
-                                        }
-                                        defaultValue={0}
-                                        onChange={(e) => {
-                                          props.updateStatus(
-                                            row.id,
-                                            e.target.value
-                                          );
-                                        }}
+                                    color: column.id === "status" || column.id === "gearbox" ? "#FFA333" : "#81878E",
+                                  }}
+                                  color={row.color}
+                                  key={column.id}
+                                  align={column.align}
+                                >
+                                  {column.format && typeof value === "number" ? column.format(value) : value}
+                                </TableCell>
+                              ) : column.id === "actions" ? (
+                                <TableCell align="right">
+                                  <FormControl>
+                                    <Select
+                                      labelId="demo-simple-select-standard-label"
+                                      id="demo-simple-select-standard"
+                                      value={row.status}
+                                      disabled={
+                                        row.status === t("Dispute") || row.status === t("Complete") || row.status === t("Closed")
+                                          ? true
+                                          : false
+                                      }
+                                      defaultValue={0}
+                                      onChange={(e) => {
+                                        props.updateStatus(row.id, e.target.value);
+                                      }}
+                                      sx={{
+                                        fontSize: "14px",
+                                        color: "#149E7A",
+                                        background: "#E8FEED",
+                                        display: "flex",
+                                        justifyContent: "center",
+                                        textAlign: "center",
+                                      }}
+                                    >
+                                      <MenuItem
+                                        name="In progress"
+                                        value="In progress"
+                                        disabled
                                         sx={{
-                                          fontSize: "14px",
-                                          color: "#149E7A",
-                                          background: "#E8FEED",
+                                          paddingTop: "0px !important",
                                           display: "flex",
                                           justifyContent: "center",
-                                          textAlign: "center",
                                         }}
                                       >
-                                        <MenuItem
-                                          name="In progress"
-                                          value="In progress"
-                                          disabled
-                                          sx={{
-                                            paddingTop: "0px !important",
-                                            display: "flex",
-                                            justifyContent: "center",
-                                          }}
-                                        >
-                                          In Progress
-                                        </MenuItem>
+                                        {t("In Progress")}
+                                      </MenuItem>
 
-                                        <MenuItem
-                                          value={
-                                            row.status === "In progress"
-                                              ? props.user.role === "Student"
-                                                ? "Closed"
-                                                : "Complete"
-                                              : row.status
-                                          }
-                                          name={
-                                            row.status === "In progress"
-                                              ? props.user.role === "Student"
-                                                ? "Closed"
-                                                : "Complete"
-                                              : row.status
-                                          }
-                                          sx={{
-                                            paddingTop: "0px !important",
-                                            display: "flex",
-                                            justifyContent: "center",
-                                          }}
-                                        >
-                                          {row.status === "In progress"
+                                      <MenuItem
+                                        value={
+                                          row.status === "In progress"
                                             ? props.user.role === "Student"
                                               ? "Closed"
                                               : "Complete"
-                                            : row.status}
-                                        </MenuItem>
+                                            : row.status
+                                        }
+                                        name={
+                                          row.status === "In progress"
+                                            ? props.user.role === "Student"
+                                              ? "Closed"
+                                              : "Complete"
+                                            : row.status
+                                        }
+                                        sx={{
+                                          paddingTop: "0px !important",
+                                          display: "flex",
+                                          justifyContent: "center",
+                                        }}
+                                      >
+                                        {row.status === "In progress"
+                                          ? props.user.role === "Student"
+                                            ? "Closed"
+                                            : "Complete"
+                                          : row.status}
+                                      </MenuItem>
 
-                                        <MenuItem
-                                          value="Dispute"
-                                          name="Dispute"
-                                          sx={{
-                                            paddingTop: "0px !important",
-                                            display: "flex",
-                                            justifyContent: "center",
-                                          }}
-                                        >
-                                          Dispute
-                                        </MenuItem>
-                                      </Select>
-                                      {/* <Modal
+                                      <MenuItem
+                                        value="Dispute"
+                                        name="Dispute"
+                                        sx={{
+                                          paddingTop: "0px !important",
+                                          display: "flex",
+                                          justifyContent: "center",
+                                        }}
+                                      >
+                                        {t("Dispute")}
+                                      </MenuItem>
+                                    </Select>
+                                    {/* <Modal
                                         // aria-labelledby="spring-modal-title"
                                         // aria-describedby="spring-modal-description"
                                         // closeAfterTransition
@@ -223,146 +207,140 @@ export default function DataTable(props) {
                                           <handleProfile>xyz</handleProfile>
                                         }
                                       /> */}
-                                    </FormControl>
-                                  </TableCell>
-                                ) : column.id === "historyActions" ? (
-                                  <TableCell align="center">
-                                    <Button
-                                      type="submit"
-                                      text="Re-Book"
-                                      color="#149E7A !important"
-                                      width="100% !important"
-                                      margin="0px 0px 10px 0px !important"
-                                      height="50px !important"
-                                      onClick={handleReBook}
-                                    ></Button>
-                                  </TableCell>
-                                ) : column.id === "action" ? (
-                                  <TableCell align="center">
-                                    <Button
-                                      type="submit"
-                                      text="Detach"
-                                      color="#149E7A !important"
-                                      width="60% !important"
-                                      margin="0px 0px 10px 0px !important"
-                                      height="50px !important"
-                                      onClick={(e) =>
-                                        props.detachInstructor(index)
-                                      }
-                                    ></Button>
-                                    <Button
-                                      type="submit"
-                                      text="Delete"
-                                      color="#149E7A !important"
-                                      width="60% !important"
-                                      margin="0px 0px 10px 0px !important"
-                                      height="50px !important"
-                                      onClick={(e) =>
-                                        props.deleteInstructor(index)
-                                      }
-                                    ></Button>
-                                    <Button
-                                      type="submit"
-                                      text="Add Meetup Point"
-                                      color="#149E7A !important"
-                                      width="60% !important"
-                                      height="50px !important"
-                                      onClick={(e) => props.open(true)}
-                                    ></Button>
-                                  </TableCell>
-                                ) : column.id === "Vaction" ? (
-                                  <TableCell align="center">
-                                    <Button
-                                      type="submit"
-                                      text="Edit"
-                                      width="100% !important"
-                                      margin="0px 0px 10px 0px !important"
-                                      height="50px !important"
-                                      onClick={(e) => props.open(index)}
-                                    ></Button>
-                                    <Button
-                                      type="submit"
-                                      text="Delete"
-                                      color="#149E7A !important"
-                                      width="100% !important"
-                                      margin="0px 0px 10px 0px !important"
-                                      height="50px !important"
-                                      onClick={(e) =>
-                                        props.handleDeleteVehicle(index)
-                                      }
-                                    ></Button>
-                                  </TableCell>
-                                ) : column.id === "photo" ? (
-                                  <TableCell align="center">
-                                    <img
-                                      className="home-logo img-fluid w-75"
-                                      src={row.photo}
-                                      height={50}
-                                      width={50}
-                                      style={{ borderRadius: 100 }}
-                                    />
-                                  </TableCell>
-                                ) : column.id === "name" ? (
-                                  <TableCell align="center">
-                                    {row.firstName} {row.surName}
-                                  </TableCell>
-                                ) : column.id === "position" ? (
-                                  <TableCell align="center">
-                                    {row.address} {row.zip} {row.city}
-                                  </TableCell>
-                                ) : column.id === "reservations" ? (
-                                  <TableCell align="center">
-                                    <Button
-                                      text="Reservations"
-                                      color="#149E7A !important"
-                                      width="100% !important"
-                                      margin="0px 0px 10px 0px !important"
-                                      height="50px !important"
-                                      onClick={props.handleReservation}
-                                    />
-                                  </TableCell>
-                                ) : column.id === "profile" ? (
-                                  <TableCell align="center">
-                                    <Button
-                                      text="Profile"
-                                      color="#149E7A !important"
-                                      width="100% !important"
-                                      margin="0px 0px 10px 0px !important"
-                                      height="50px !important"
-                                      onClick={props.handleProfile}
-                                    />
-                                  </TableCell>
-                                ) : column.id === "chat" ? (
-                                  <TableCell align="center">
-                                    <Button
-                                      text="Chat"
-                                      color="#fda333 !important"
-                                      width="100% !important"
-                                      margin="0px 0px 10px 0px !important"
-                                      height="50px !important"
-                                      onClick={props.handleChat}
-                                    />
-                                  </TableCell>
-                                ) : (
-                                  <TableCell align="center">
-                                    <IconButton>
-                                      <MoreVertIcon />
-                                    </IconButton>
-                                    <IconButton>
-                                      <MoreVertIcon />
-                                    </IconButton>
-                                    <IconButton>
-                                      <MoreVertIcon />
-                                    </IconButton>
-                                  </TableCell>
-                                )}
-                              </>
-                            );
-                          })}
-                        </TableRow>
-                      );
-                    })
-                : "No data found"}
+                                  </FormControl>
+                                </TableCell>
+                              ) : column.id === "historyActions" ? (
+                                <TableCell align="center">
+                                  <Button
+                                    type="submit"
+                                    text={t("Re-Book")}
+                                    color="#149E7A !important"
+                                    width="100% !important"
+                                    margin="0px 0px 10px 0px !important"
+                                    height="50px !important"
+                                    onClick={handleReBook}
+                                  ></Button>
+                                </TableCell>
+                              ) : column.id === "action" ? (
+                                <TableCell align="center">
+                                  <Button
+                                    type="submit"
+                                    text={t("Detach")}
+                                    color="#149E7A !important"
+                                    width="60% !important"
+                                    margin="0px 0px 10px 0px !important"
+                                    height="50px !important"
+                                    onClick={(e) => props.detachInstructor(index)}
+                                  ></Button>
+                                  <Button
+                                    type="submit"
+                                    text={t("Details")}
+                                    color="#149E7A !important"
+                                    width="60% !important"
+                                    margin="0px 0px 10px 0px !important"
+                                    height="50px !important"
+                                    onClick={(e) => props.deleteInstructor(index)}
+                                  ></Button>
+                                  <Button
+                                    type="submit"
+                                    text={t("Add Meetup Point")}
+                                    color="#149E7A !important"
+                                    width="60% !important"
+                                    height="50px !important"
+                                    onClick={(e) => props.open(true)}
+                                  ></Button>
+                                </TableCell>
+                              ) : column.id === "Vaction" ? (
+                                <TableCell align="center">
+                                  <Button
+                                    type="submit"
+                                    text={t("Edit")}
+                                    width="100% !important"
+                                    margin="0px 0px 10px 0px !important"
+                                    height="50px !important"
+                                    onClick={(e) => props.open(index)}
+                                  ></Button>
+                                  <Button
+                                    type="submit"
+                                    text={t("Delete")}
+                                    color="#149E7A !important"
+                                    width="100% !important"
+                                    margin="0px 0px 10px 0px !important"
+                                    height="50px !important"
+                                    onClick={(e) => props.handleDeleteVehicle(index)}
+                                  ></Button>
+                                </TableCell>
+                              ) : column.id === "photo" ? (
+                                <TableCell align="center">
+                                  <img
+                                    className="home-logo img-fluid w-75"
+                                    src={row.photo}
+                                    height={50}
+                                    width={50}
+                                    style={{ borderRadius: 100 }}
+                                  />
+                                </TableCell>
+                              ) : column.id === "name" ? (
+                                <TableCell align="center">
+                                  {row.firstName} {row.surName}
+                                </TableCell>
+                              ) : column.id === "position" ? (
+                                <TableCell align="center">
+                                  {row.address} {row.zip} {row.city}
+                                </TableCell>
+                              ) : column.id === "reservations" ? (
+                                <TableCell align="center">
+                                  <Button
+                                    text={t("Reservations")}
+                                    color="#149E7A !important"
+                                    width="100% !important"
+                                    margin="0px 0px 10px 0px !important"
+                                    height="50px !important"
+                                    onClick={props.handleReservation}
+                                  />
+                                </TableCell>
+                              ) : column.id === "profile" ? (
+                                <TableCell align="center">
+                                  <Button
+                                    text={t("Profile")}
+                                    color="#149E7A !important"
+                                    width="100% !important"
+                                    margin="0px 0px 10px 0px !important"
+                                    height="50px !important"
+                                    onClick={props.handleProfile}
+                                  />
+                                </TableCell>
+                              ) : column.id === "chat" ? (
+                                <TableCell align="center">
+                                  <Button
+                                    text={t("Chat")}
+                                    color="#fda333 !important"
+                                    width="100% !important"
+                                    margin="0px 0px 10px 0px !important"
+                                    height="50px !important"
+                                    onClick={props.handleChat}
+                                  />
+                                </TableCell>
+                              ) : (
+                                <TableCell align="center">
+                                  <IconButton>
+                                    <MoreVertIcon />
+                                  </IconButton>
+                                  <IconButton>
+                                    <MoreVertIcon />
+                                  </IconButton>
+                                  <IconButton>
+                                    <MoreVertIcon />
+                                  </IconButton>
+                                </TableCell>
+                              )}
+                            </>
+                          );
+                        })}
+                      </TableRow>
+                    );
+                  })
+                : t("No data found")}
             </TableBody>
           </Table>
         </TableContainer>

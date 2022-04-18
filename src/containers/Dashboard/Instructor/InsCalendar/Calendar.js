@@ -18,6 +18,7 @@ import TextField from "../../../../components/Common/TextField";
 import Button from "../../../../components/Common/Button";
 import TimePicker from "../../../../components/Common/TimePicker";
 import API from "../../../../api/index";
+import { useTranslation } from "react-i18next";
 
 const Calendar = () => {
   const currentDate = moment();
@@ -44,6 +45,7 @@ const Calendar = () => {
   const [selectedBooking, setSelectedBooking] = useState({});
   const [disabled, setdisabled] = useState(false);
   const [value, setValue] = useState("Availability-page");
+  const { i18n, t } = useTranslation();
 
   useEffect(() => {
     onNavigate(new Date(), "week");
@@ -112,22 +114,8 @@ const Calendar = () => {
           allAvailabilities.push({
             id: availability.id,
             title: "Availability By " + availability.createdBy,
-            start: new Date(
-              date[0],
-              parseInt(date[1]) - 1,
-              date[2],
-              parseInt(start[0]) + j,
-              startMin,
-              0
-            ),
-            end: new Date(
-              date[0],
-              parseInt(date[1]) - 1,
-              date[2],
-              endingHours,
-              endingMins,
-              0
-            ),
+            start: new Date(date[0], parseInt(date[1]) - 1, date[2], parseInt(start[0]) + j, startMin, 0),
+            end: new Date(date[0], parseInt(date[1]) - 1, date[2], endingHours, endingMins, 0),
             status: availability.status,
             type: type,
           });
@@ -142,22 +130,8 @@ const Calendar = () => {
         allAvailabilities.push({
           id: booking.id,
           title: "Booking By " + booking.instructorQuestionFifth,
-          start: new Date(
-            date[0],
-            parseInt(date[1]) - 1,
-            date[2],
-            start[0],
-            start[1],
-            0
-          ),
-          end: new Date(
-            date[0],
-            parseInt(date[1]) - 1,
-            date[2],
-            end[0],
-            end[1],
-            0
-          ),
+          start: new Date(date[0], parseInt(date[1]) - 1, date[2], start[0], start[1], 0),
+          end: new Date(date[0], parseInt(date[1]) - 1, date[2], end[0], end[1], 0),
           bookingTime: booking.startTime + " - " + booking.endTime,
           status: booking.status,
           meetingPlace: booking.meetingPlace,
@@ -183,7 +157,7 @@ const Calendar = () => {
     if (moment(e.start).isAfter(currentDate)) {
       setOpen(true);
     } else {
-      toast.error("can not select past time");
+      toast.error(t("can not select past time"));
     }
   };
 
@@ -201,7 +175,7 @@ const Calendar = () => {
         setSelectedEvent(e);
         setEventDeleteModal(true);
       } else {
-        toast.error("Can not select past event");
+        toast.error(t("can not select past event"));
       }
     }
   };
@@ -273,11 +247,7 @@ const Calendar = () => {
         status: "Available",
       })
         .then((res) => {
-          toast.success(
-            `Availabilty Added for date ${moment(selectedDate).format(
-              "YYYY-DD-MM"
-            )}`
-          );
+          toast.success(`Availabilty Added for date ${moment(selectedDate).format("YYYY-DD-MM")}`);
           setUpdate(!update);
           setOpen(false);
         })
@@ -332,11 +302,7 @@ const Calendar = () => {
         startTime: selectedStartHours + ":" + selectedStartMins,
         status: "Unavailable",
       }).then((res) => {
-        toast.success(
-          `Unavailabilty Added for date ${moment(selectedDate).format(
-            "YYYY-DD-MM"
-          )}`
-        );
+        toast.success(`Unavailabilty Added for date ${moment(selectedDate).format("YYYY-DD-MM")}`);
         setUpdate(!update);
         setDescription("");
         setOpen(false);
@@ -388,11 +354,7 @@ const Calendar = () => {
         startTime: selectedStartHours + ":" + selectedStartMins,
         status: "Personal",
       }).then((res) => {
-        toast.success(
-          `Personal Event Added for date ${moment(selectedDate).format(
-            "YYYY-DD-MM"
-          )}`
-        );
+        toast.success(`Personal Event Added for date ${moment(selectedDate).format("YYYY-DD-MM")}`);
         setUpdate(!update);
         setDescription("");
         setOpen(false);
@@ -403,9 +365,7 @@ const Calendar = () => {
   const handleDeleteAvailability = async () => {
     await API(
       "delete",
-      `Availability/DeleteAvailability_New?AvailabilityId=${
-        selectedEvent.id
-      }&StartTime=${moment(selectedEvent.start).format(
+      `Availability/DeleteAvailability_New?AvailabilityId=${selectedEvent.id}&StartTime=${moment(selectedEvent.start).format(
         "HH:mm"
       )}&Endtime=${moment(selectedEvent.end).format("HH:mm")}&status=deleted`
     )
@@ -435,9 +395,7 @@ const Calendar = () => {
     setdisabled(true);
     await API(
       "delete",
-      `Bookings/DeleteBookingById_Neww?id=${
-        selectedBooking.id
-      }&StartTime=${moment(selectedBooking.start).format(
+      `Bookings/DeleteBookingById_Neww?id=${selectedBooking.id}&StartTime=${moment(selectedBooking.start).format(
         "HH:mm"
       )}&Endtime=${moment(selectedBooking.end).format("HH:mm")}&status=deleted`
     )
@@ -471,7 +429,7 @@ const Calendar = () => {
         open={open}
         closebtn={true}
         onClose={handleClose}
-        modalMainTitle="Add Event"
+        modalMainTitle={t("Add Event")}
         modalTitleProps={{ align: "left" }}
         modalboxclassName="availability-modal"
       >
@@ -479,24 +437,12 @@ const Calendar = () => {
 
         <TabContext value={value}>
           <TabList onChange={handleChange} className="tab-list">
-            <Tab
-              className="tab"
-              label="Add Availability"
-              value="Availability-page"
-            />
+            <Tab className="tab" label={t("Add Availability")} value="Availability-page" />
             <Divider orientation="vertical" flexItem width="4px !important" />
-            <Tab
-              label="Add Unavailability"
-              value="Unavailability-page"
-              className="tab"
-            />
+            <Tab label={t("Add Unavailability")} value="Unavailability-page" className="tab" />
             <Divider orientation="vertical" flexItem width="4px !important" />
 
-            <Tab
-              className="tab"
-              label="Add Personal Event"
-              value="PersonalEvent-page"
-            />
+            <Tab className="tab" label={t("Add Personal Event")} value="PersonalEvent-page" />
           </TabList>
           {/* page 1 */}
           <div className="modal-content">
@@ -527,7 +473,7 @@ const Calendar = () => {
                   </Grid>
                   <Grid xs={12} sm={12} md={6}>
                     <DropDown
-                      label="Start Hours"
+                      label={t("Select Instructor")}
                       placeholder="Start Hours"
                       name="selectedStartHours"
                       value={selectedStartHours}
@@ -553,7 +499,7 @@ const Calendar = () => {
                       onChange={(e) => setSelectedStartHours(e.target.value)}
                     ></DropDown>
                     {/* <TimePicker
-                      label="Start Hours"
+                      label={t("Start Hours")}
                       value={selectedStartHours}
                       name="startHours"
                       onChange={(e) => setSelectedStartHours(e)}
@@ -564,7 +510,7 @@ const Calendar = () => {
                   </Grid>
                   <Grid xs={12} sm={12} md={6}>
                     <DropDown
-                      label="Start Minutes"
+                      label={t("Start Minutes")}
                       placeholder="Start Minutes"
                       name="selectedStartMins"
                       value={selectedStartMins}
@@ -576,7 +522,7 @@ const Calendar = () => {
                     ></DropDown>
 
                     {/* <TimePicker
-                      label="Start Minutes"
+                      label={t("Start Minutes")}
                       value={selectedStartMins}
                       name="startMinutes"
                       onChange={(e) => setSelectedStartMins(e)}
@@ -587,8 +533,8 @@ const Calendar = () => {
                   </Grid>
                   <Grid xs={12} sm={12} md={6}>
                     <DropDown
-                      label="End Hours"
-                      placeholder="End Hours"
+                      label={t("End Hours")}
+                      placeholder={t("End Hours")}
                       name="selectedEndHours"
                       value={selectedEndHours}
                       MenuItem={[
@@ -625,8 +571,8 @@ const Calendar = () => {
                   </Grid>
                   <Grid xs={12} sm={12} md={6}>
                     <DropDown
-                      label="End Minutes"
-                      placeholder="End Minutes"
+                      label={t("End Minutes")}
+                      placeholder={t("End Minutes")}
                       name="selectedEndMins"
                       value={selectedEndMins}
                       MenuItem={[
@@ -636,7 +582,7 @@ const Calendar = () => {
                       onChange={(e) => setSelectedEndMins(e.target.value)}
                     ></DropDown>
                     {/* <TimePicker
-                      label="End Minutes"
+                      label={t("End Minutes")}
                       value={selectedEndMins}
                       name="EndMinutes"
                       onChange={(e) => setSelectedEndMins(e)}
@@ -647,7 +593,7 @@ const Calendar = () => {
                   </Grid>
                   <Grid xs={12} sm={12} md={6}>
                     <DropDown
-                      label="Select Vehicle"
+                      label={t("Select Vehicle")}
                       placeholder="vehicle"
                       name="selectedVehicle"
                       value={selectedVehicle}
@@ -657,8 +603,8 @@ const Calendar = () => {
                   </Grid>
                   <Grid xs={12} sm={12} md={6}>
                     <DropDown
-                      label="Meetup"
-                      placeholder="Meetup"
+                      label={t("Meetup")}
+                      placeholder={t("Meetup")}
                       name="Meetup"
                       value={selectedMeetup}
                       MenuItem={meetupPoints}
@@ -669,7 +615,7 @@ const Calendar = () => {
                 {/* page 2 */}
                 <Grid align="right">
                   <Button
-                    text="Cancel"
+                    text={t("Cancel")}
                     onClick={handleClose}
                     variant="outlined"
                     width="110px !important"
@@ -677,7 +623,8 @@ const Calendar = () => {
                     margin="10px !important"
                   />
                   <Button
-                    text="Confirm"
+                    text={t("Confirm")}
+                    type="submit"
                     textColor="#FFFFFF !important"
                     width="110px !important"
                     color="#149E7A !important"
@@ -714,8 +661,8 @@ const Calendar = () => {
                   </Grid>
                   <Grid xs={12} sm={12} md={6}>
                     <DropDown
-                      label="Start Hours"
-                      placeholder="Start Hours"
+                      label={t("Start Hours")}
+                      placeholder={t("Start Hours")}
                       name="selectedStartHours"
                       value={selectedStartHours}
                       MenuItem={[
@@ -740,7 +687,7 @@ const Calendar = () => {
                       onChange={(e) => setSelectedStartHours(e.target.value)}
                     ></DropDown>
                     {/* <TimePicker
-                      label="Start Hours"
+                      label={t("Start Hours")}
                       value={selectedStartHours}
                       name="startHours"
                       onChange={(e) => setSelectedStartHours(e)}
@@ -751,8 +698,8 @@ const Calendar = () => {
                   </Grid>
                   <Grid xs={12} sm={12} md={6}>
                     <DropDown
-                      label="Start Minutes"
-                      placeholder="Start Minutes"
+                      label={t("Start Minutes")}
+                      placeholder={t("Start Minutes")}
                       name="selectedStartMins"
                       value={selectedStartMins}
                       MenuItem={[
@@ -763,7 +710,7 @@ const Calendar = () => {
                     ></DropDown>
 
                     {/* <TimePicker
-                      label="Start Minutes"
+                      label={t("Start Minutes")}
                       value={selectedStartMins}
                       name="startMinutes"
                       onChange={(e) => setSelectedStartMins(e)}
@@ -801,7 +748,7 @@ const Calendar = () => {
                     ></DropDown>
 
                     {/* <TimePicker
-                      label="End Hours"
+                      label={t("End Hours")}
                       value={selectedEndHours}
                       name="EndHours"
                       onChange={(e) => setSelectedEndHours(e)}
@@ -812,8 +759,8 @@ const Calendar = () => {
                   </Grid>
                   <Grid xs={12} sm={12} md={6}>
                     <DropDown
-                      label="End Minutes"
-                      placeholder="End Minutes"
+                      label={t("End Minutes")}
+                      placeholder={t("End Minutes")}
                       name="selectedEndMins"
                       value={selectedEndMins}
                       MenuItem={[
@@ -834,8 +781,8 @@ const Calendar = () => {
                   </Grid>
                   <Grid xs={12} sm={12} md={12}>
                     <TextField
-                      label="Description"
-                      placeholder="Description"
+                      label={t("Description")}
+                      placeholder={t("Description")}
                       name="Description"
                       value={description}
                       onChange={(e) => setDescription(e.target.value)}
@@ -845,7 +792,7 @@ const Calendar = () => {
 
                 <Grid align="right" style={{ marginTop: "15px" }}>
                   <Button
-                    text="Cancel"
+                    text={t("Cancel")}
                     onClick={handleClose}
                     variant="outlined"
                     width="110px !important"
@@ -853,7 +800,8 @@ const Calendar = () => {
                     margin="10px !important"
                   />
                   <Button
-                    text="Confirm"
+                    text={t("Confirm")}
+                    type="submit"
                     textColor="#FFFFFF !important"
                     width="110px !important"
                     color="#149E7A !important"
@@ -890,8 +838,8 @@ const Calendar = () => {
                   </Grid>
                   <Grid xs={12} sm={12} md={6}>
                     <DropDown
-                      label="Start Hours"
-                      placeholder="Start Hours"
+                      label={t("Start Hours")}
+                      placeholder={t("Start Hours")}
                       name="selectedStartHours"
                       value={selectedStartHours}
                       MenuItem={[
@@ -916,7 +864,7 @@ const Calendar = () => {
                       onChange={(e) => setSelectedStartHours(e.target.value)}
                     ></DropDown>
                     {/* <TimePicker
-                      label="Start Hours"
+                      label={t("Start Hours")}
                       value={selectedStartHours}
                       name="startHours"
                       onChange={(e) => setSelectedStartHours(e)}
@@ -927,8 +875,8 @@ const Calendar = () => {
                   </Grid>
                   <Grid xs={12} sm={12} md={6}>
                     <DropDown
-                      label="Start Minutes"
-                      placeholder="Start Minutes"
+                      label={t("Start Minutes")}
+                      placeholder={t("Start Minutes")}
                       name="selectedStartMins"
                       value={selectedStartMins}
                       MenuItem={[
@@ -939,7 +887,7 @@ const Calendar = () => {
                     ></DropDown>
 
                     {/* <TimePicker
-                      label="Start Minutes"
+                      label={t("Start Minutes")}
                       value={selectedStartMins}
                       name="startMinutes"
                       onChange={(e) => setSelectedStartMins(e)}
@@ -950,8 +898,8 @@ const Calendar = () => {
                   </Grid>
                   <Grid xs={12} sm={12} md={6}>
                     <DropDown
-                      label="End Hours"
-                      placeholder="End Hours"
+                      label={t("End Hours")}
+                      placeholder={t("End Hours")}
                       name="selectedEndHours"
                       value={selectedEndHours}
                       MenuItem={[
@@ -977,7 +925,7 @@ const Calendar = () => {
                     ></DropDown>
 
                     {/* <TimePicker
-                      label="End Hours"
+                      label={t("End Hours")}
                       value={selectedEndHours}
                       name="EndHours"
                       onChange={(e) => setSelectedEndHours(e)}
@@ -988,8 +936,8 @@ const Calendar = () => {
                   </Grid>
                   <Grid xs={12} sm={12} md={6}>
                     <DropDown
-                      label="End Minutes"
-                      placeholder="End Minutes"
+                      label={t("End Minutes")}
+                      placeholder={t("End Minutes")}
                       name="selectedEndMins"
                       value={selectedEndMins}
                       MenuItem={[
@@ -999,7 +947,7 @@ const Calendar = () => {
                       onChange={(e) => setSelectedEndMins(e.target.value)}
                     ></DropDown>
                     {/* <TimePicker
-                      label="End Minutes"
+                      label={t("End Minutes")}
                       value={selectedEndMins}
                       name="EndMinutes"
                       onChange={(e) => setSelectedEndMins(e)}
@@ -1010,8 +958,8 @@ const Calendar = () => {
                   </Grid>
                   <Grid xs={12} sm={12} md={12}>
                     <TextField
-                      label="Description"
-                      placeholder="Description"
+                      label={t("Description")}
+                      placeholder={t("Description")}
                       name="Description"
                       value={description}
                       onChange={(e) => setDescription(e.target.value)}
@@ -1021,7 +969,7 @@ const Calendar = () => {
 
                 <Grid align="right">
                   <Button
-                    text="Cancel"
+                    text={t("Cancel")}
                     onClick={handleClose}
                     variant="outlined"
                     width="110px !important"
@@ -1029,7 +977,8 @@ const Calendar = () => {
                     margin="10px !important"
                   />
                   <Button
-                    text="Confirm"
+                    text={t("Confirm")}
+                    type="submit"
                     textColor="#FFFFFF !important"
                     width="110px !important"
                     color="#149E7A !important"
@@ -1046,17 +995,17 @@ const Calendar = () => {
         open={eventDeleteModal}
         onClose={handleDeleteClose}
         closebtn={true}
-        modalMainTitle="Delete Availability"
+        modalMainTitle={t("Delete Availability")}
         modalboxclassName="delete-availability"
       >
         <Divider />
         <Typography gutterBottom className="delete-availability-text">
           <InfoOutlinedIcon className="info-icon" />
-          Would like to delete your availability?
+          {t("Would like to delete your availability?")}
         </Typography>
         <Grid align="right" className="">
           <Button
-            text="No"
+            text={t("No")}
             onClick={handleDeleteClose}
             variant="outlined"
             width="110px !important"
@@ -1064,7 +1013,8 @@ const Calendar = () => {
             margin="10px !important"
           />
           <Button
-            text="Yes"
+            text={t("Yes")}
+            type="submit"
             textColor="#FFFFFF !important"
             width="110px !important"
             color="#149E7A !important"
@@ -1077,59 +1027,34 @@ const Calendar = () => {
         open={bookingModal}
         onClose={handleBookingClose}
         closebtn={true}
-        modalMainTitle="Booking"
+        modalMainTitle={t("Booking")}
         modalboxclassName="booking-modal"
       >
         <div className="booking-content">
           <Grid container spacing={3}>
             <Grid xs={12} sm={12} md={6}>
-              <TextField
-                label="User Info"
-                height="10px"
-                value={selectedBooking.title}
-                disabled={true}
-              />
+              <TextField label={t("User Info")} height="10px" value={selectedBooking.title} disabled={true} />
             </Grid>
             <Grid xs={12} sm={12} md={6}>
-              <TextField
-                label="Booking Date"
-                disabled={true}
-                value={moment(selectedBooking.start).format("DD-MM-YYYY")}
-              />
+              <TextField label={t("Booking Date")} disabled={true} value={moment(selectedBooking.start).format("DD-MM-YYYY")} />
             </Grid>
             <Grid xs={12} sm={12} md={6}>
-              <TextField
-                label="Booking Time"
-                disabled={true}
-                value={selectedBooking.bookingTime}
-              />
+              <TextField label={t("Booking Time")} disabled={true} value={selectedBooking.bookingTime} />
             </Grid>
             <Grid xs={12} sm={12} md={6}>
-              <TextField
-                label="Duration"
-                disabled={true}
-                value={selectedBooking.duration}
-              />
+              <TextField label={t("Duration")} disabled={true} value={selectedBooking.duration} />
             </Grid>
             <Grid xs={12} sm={12} md={6}>
-              <TextField
-                label="Vechicle"
-                disabled={true}
-                value={selectedBooking.vehicleId}
-              />
+              <TextField label={t("Vechicle")} disabled={true} value={selectedBooking.vehicleId} />
             </Grid>
             <Grid xs={12} sm={12} md={6}>
-              <TextField
-                label="Meetup"
-                disabled={true}
-                value={selectedBooking.meetingPlace}
-              />
+              <TextField label={t("Meetup")} disabled={true} value={selectedBooking.meetingPlace} />
             </Grid>
           </Grid>
           <div className="booking-btn-div">
             <Grid align="right">
               <Button
-                text="Close"
+                text={t("Close")}
                 onClick={handleBookingClose}
                 variant="outlined"
                 width="110px !important"
@@ -1138,7 +1063,8 @@ const Calendar = () => {
                 disabled={disabled}
               />
               <Button
-                text="Delete"
+                text={t("Delete")}
+                type="submit"
                 textColor="#FFFFFF !important"
                 width="110px !important"
                 color="#149E7A !important"

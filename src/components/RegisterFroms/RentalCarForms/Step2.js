@@ -9,7 +9,10 @@ import FilePicker from "../../Common/FilePicker";
 import DatePicker from "../../Common/DatePicker";
 import axios from "axios";
 import moment from "moment";
+import { useTranslation } from "react-i18next";
+
 const Step2 = ({ step2, setStep2, onChange,step2Errors }) => {
+  const { i18n , t } = useTranslation();
   const [InsuranceDateExp, setInsuranceDateExp] = useState();
 
   const handleExpirationDate = (newvalue) => {
@@ -44,23 +47,23 @@ const Step2 = ({ step2, setStep2, onChange,step2Errors }) => {
           <Grid item xs={12} sm={12} md={12}>
             <div className="DrivingSchool1">
               <TextField
-                label="SIRET Number"
+                label={t("SIRET Number")}
                 type="number"
                 required={true}
                 name="Siret"
-                placeholder="Must be 14 Digits"
+                placeholder={t("Must be 14 Digits")}
                 onChange={(e) => {
                   onChange(e.target.name, e.target.value);
                 }}
                 error={step2Errors['Siret']?true:false}
-            ErrorMsg={step2Errors['Siret']}
+            ErrorMsg={t(step2Errors['Siret'])}
               ></TextField>
             </div>
           </Grid>
           <Grid item xs={12} sm={12} md={12}>
             <div className="DrivingSchool2">
               <FilePicker
-                title="Upload your KBLS"
+                title={t("Upload your KBLS")}
                 label="Kbls"
                 required={true}
                 name="Kbls"
@@ -74,12 +77,12 @@ const Step2 = ({ step2, setStep2, onChange,step2Errors }) => {
         </div>
       </Grid>
       <Divider width="100%" borderColor="#D5E4E8" margin="2% 0px 2% 0px" />
-      <Typography className="Heading1">Insurance Company</Typography>
+      <Typography className="Heading1">{t("Insurance Company")}</Typography>
       <Divider width="100%" borderColor="#D5E4E8" margin="2% 0px 2% 0px" />
       <Grid container spacing={4}>
         <Grid item xs={12} sm={12} md={4}>
           <TextField
-            label="Insurer"
+            label={t("Insurer")}
             type="text"
             required={true}
             placeholder="John"
@@ -88,12 +91,12 @@ const Step2 = ({ step2, setStep2, onChange,step2Errors }) => {
               onChange(e.target.name, e.target.value);
             }}
             error={step2Errors['CompanyInsurer']?true:false}
-            ErrorMsg={step2Errors['CompanyInsurer']}
+            ErrorMsg={t(step2Errors['CompanyInsurer'])}
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <TextField
-            label="Police Number"
+            label={t("Police Number")}
             type="text"
             required={true}
             placeholder="Numeric"
@@ -102,12 +105,12 @@ const Step2 = ({ step2, setStep2, onChange,step2Errors }) => {
               onChange(e.target.name, e.target.value);
             }}
             error={step2Errors['CompanyPoliceNumber']?true:false}
-            ErrorMsg={step2Errors['CompanyPoliceNumber']}
+            ErrorMsg={t(step2Errors['CompanyPoliceNumber'])}
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4} sx={{ marginTop: "9px" }}>
           <DatePicker
-            label="Expiration date of your insurance"
+            label={t("Expiration date of your insurance")}
             // value={ExpirationDate}
 
             padding="20px 0 0 0px !important"
@@ -135,7 +138,7 @@ const Step2 = ({ step2, setStep2, onChange,step2Errors }) => {
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <FilePicker
-            title="Upload your RC Pro"
+            title={t("Upload your RC Pro")}
             name="RcPro"
             required={true}
             label="LicenseFront"

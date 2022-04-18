@@ -29,7 +29,12 @@ import { Base64 } from "js-base64";
 import { toast } from "react-toastify";
 import { frontUrl } from "../../config";
 
+import { useTranslation } from "react-i18next";
+import flag_01 from "../../assets/DrawerIcons/flag_01.svg";
+import flag_02 from "../../assets/DrawerIcons/flag_02.svg";
+
 export default function Header(props) {
+  const { i18n, t } = useTranslation();
   const [Loginopen, setLoginOpen] = React.useState(false);
 
   const [email, setEmail] = React.useState("");
@@ -81,12 +86,12 @@ export default function Header(props) {
           window.location.reload(false);
         } else {
           // localStorage.removeItem("token");
-          toast.error("Email or Password is not correct");
+          toast.error(t("Email or Password is not correct"));
         }
       })
       .catch((error) => {
         console.log("------->", error);
-        toast.error("Something Went Wrong");
+        toast.error(t("Something Went Wrong"));
       });
   };
   const handleChange = (prop) => (event) => {
@@ -117,13 +122,13 @@ export default function Header(props) {
           <li>
             <ul>
               <li>
-                <a href={frontUrl}> Home </a>
+                <a href={frontUrl}> {t("Home")} </a>
               </li>
               <li>
-                <a href={frontUrl}> Services </a>
+                <a href={frontUrl}> {t("Services")} </a>
               </li>
               <li>
-                <a href={frontUrl}> Contact Us </a>
+                <a href={frontUrl}> {t("Contact Us")} </a>
               </li>
             </ul>
           </li>
@@ -132,12 +137,20 @@ export default function Header(props) {
       <div className="flex_rowAlign_spacebwt">
         <Search></Search>
         <Divider orientation="vertical" light={true} flexItem variant="middle" sx={{ margin: "10px" }} className={"divider"} />
-        <Button type="submit" text="Login" buttonLableStyle="btn_main" width="50%" onClick={handleLoginOpen}></Button>
+        <Button type="submit" text={t("Login")} buttonLableStyle="btn_main" width="50%" onClick={handleLoginOpen}></Button>
+
+        <IconButton className="flag01" onClick={() => i18n.changeLanguage("en")}>
+          <img alt="America" src={flag_01} className="flags-appbar langFlags" />
+        </IconButton>
+        <IconButton className="flag02" onClick={() => i18n.changeLanguage("fr")}>
+          <img alt="Russia" src={flag_02} className="flags-appbar langFlags" />
+        </IconButton>
+
         <BasicModal
           open={Loginopen}
           closebtn={true}
           onClose={handleLoginClose}
-          modalTitle="Login to your account"
+          modalTitle={t("Login to your account")}
           modalTitleProps={{
             align: "left",
             // marginTop: "10px",
@@ -156,7 +169,7 @@ export default function Header(props) {
                     <TextField
                       className="Loginmodal"
                       id="outlined-basic"
-                      placeholder="Enter email"
+                      placeholder={t("Enter email")}
                       variant="outlined"
                       margin="dense"
                       InputProps={{
@@ -206,17 +219,17 @@ export default function Header(props) {
               <Grid sx={12} sm={12} md={12} className="termsConditionsCheckbox1">
                 <Checkbox defaultChecked className="checkbox" />
                 <Typography variant="body1" className="termsConditionsCheckboxTitle1">
-                  I read and agree to
+                  {t("I read and agree to")}
                 </Typography>
                 <Link href="#" variant="body2" className="termsandconditions">
-                  {"Terms & Conditions"}
+                  {t("Terms & Conditions")}
                 </Link>
               </Grid>
             </Grid>
             <div className="LoginModalButton">
               <Button
                 type="submit"
-                text="Login"
+                text={t("Login")}
                 buttonLableStyle="btn_main"
                 padding="0 30% 0 30% !important"
                 height="50px"
@@ -225,10 +238,10 @@ export default function Header(props) {
             </div>
             <Grid item className="Register_now">
               <div className="account">
-                <Typography>Don’t have an account?</Typography>
+                <Typography>{t("Don’t have an account?")}</Typography>
               </div>
               <Link href="#" variant="body2">
-                {"Register now"}
+                {t("Register now")}
               </Link>
             </Grid>
           </>
@@ -253,9 +266,9 @@ export default function Header(props) {
             horizontal: "left",
           }}
         >
-          <MenuItem onClick={handleClose}>Home</MenuItem>
-          <MenuItem onClick={handleClose}>Services</MenuItem>
-          <MenuItem onClick={handleClose}>Contact Us</MenuItem>
+          <MenuItem onClick={handleClose}>{t("Home")}</MenuItem>
+          <MenuItem onClick={handleClose}>{t("Services")}</MenuItem>
+          <MenuItem onClick={handleClose}>{t("Contact Us")}</MenuItem>
         </Menu>
       </div>
     </div>

@@ -4,8 +4,11 @@ import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import { makeStyles } from "@mui/styles";
+import { useTranslation } from "react-i18next";
 
 export default function DropDown(props) {
+  const { i18n , t } = useTranslation();
+
   // const useStyles = makeStyles((theme) => ({
   //   formControl: {
   //     width: props.formWidth || "100% !important",
@@ -93,12 +96,12 @@ export default function DropDown(props) {
               })
             ) : (
               <MenuItem value={0} disabled={true}>
-                No value found
+                {t("No value found")}
               </MenuItem>
             )
           ) : (
             <MenuItem value={0} disabled={true}>
-              No value found
+              {t("No value found")}
             </MenuItem>
           )}
         </Select>

@@ -2,6 +2,7 @@ import * as React from "react";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
+import { useTranslation } from "react-i18next";
 
 const ITEM_HEIGHT = 48;
 const ITEM_PADDING_TOP = 8;
@@ -15,6 +16,7 @@ const MenuProps = {
 };
 
 export default function MultipleSelectPlaceholder(props) {
+  const { i18n , t } = useTranslation();
   return (
     <div>
       <FormControl sx={{ m: 1, width: "85% !Important" }}>
@@ -31,7 +33,7 @@ export default function MultipleSelectPlaceholder(props) {
           value={props.value || []}
           defaultValue={0}
           // input={<OutlinedInput />}
-          renderValue={(value) => (value.length > 0 ? value : "Enter value")}
+          renderValue={(value) => (value.length > 0 ? value : t("Enter value"))}
           MenuProps={MenuProps}
           inputProps={{ "aria-label": "Without label" }}
         >
@@ -42,12 +44,12 @@ export default function MultipleSelectPlaceholder(props) {
               })
             ) : (
               <MenuItem value={0} disabled={true}>
-                No value found
+                {t("No value found")}
               </MenuItem>
             )
           ) : (
             <MenuItem value={0} disabled={true}>
-              No value found
+              {t("No value found")}
             </MenuItem>
           )}
         </Select>

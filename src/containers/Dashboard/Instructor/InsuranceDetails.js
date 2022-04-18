@@ -12,8 +12,11 @@ import Modal from "@mui/material/Modal";
 import Backdrop from "@mui/material/Backdrop";
 import { toast } from "react-toastify";
 import API from "../../../api";
+import { useTranslation } from "react-i18next";
+
 
 const InsuranceDetails = () => {
+  const { i18n , t } = useTranslation();
   const [businesstore, setBusinesStore] = useState({});
   const [vehicledetail, setVehicleDetail] = useState({});
   const [drivinglicense, setDrivingLicense] = useState({});
@@ -118,13 +121,13 @@ const InsuranceDetails = () => {
         UpdateField: updatefield,
         User: user.id,
       }).then((res) => {
-        toast.success("Request is created for profile update");
+        toast.success(t("Request is created for profile update"));
         setDescription("");
         SetUpdateField("");
         setOpenUpdateProfileModal(false);
       });
     } else {
-      toast.error("Description cannot be empty");
+      toast.error(t("Description cannot be empty"));
       setDisabled(false);
     }
   };
@@ -137,7 +140,7 @@ const InsuranceDetails = () => {
           paddingTop={5}
           marginLeft={4}
         >
-          Insurance Details
+          {t("Insurance Details")}
         </Typography>
         <Button
           className="insuranceBtn"
@@ -155,11 +158,11 @@ const InsuranceDetails = () => {
             paddingLeft={3}
             fontSize={20}
           >
-            Insurance Company
+            {t("Insurance Company")}
           </Typography>
           <Divider />
           <Grid item xs={12} md={12} className="textdiv">
-            <label>Insurer</label>
+            <label>{t("Insurer")}</label>
             <input
               className="placeH"
               placeholder="EFU"
@@ -167,7 +170,7 @@ const InsuranceDetails = () => {
             />
           </Grid>
           <Grid item xs={12} md={12} className="textdiv">
-            <label>Ploice Number</label>
+            <label>{t("Police Number")}</label>
             <input
               placeholder="3222222"
               value={
@@ -178,16 +181,16 @@ const InsuranceDetails = () => {
             />
           </Grid>
           <Grid item xs={12} md={12} className="textdiv">
-            <label>Start Date</label>
+            <label>{t("Start Date")}</label>
             <input
-              placeholder="invalid date"
+              placeholder={t("invalid date")}
               value={
                 companyinsurance.startDate ? companyinsurance.startDate : ""
               }
             />
           </Grid>
           <Grid item xs={12} md={12} className="textdiv">
-            <label>End Date</label>
+            <label>{t("End Date")}</label>
             <input
               placeholder="30/05/2021"
               value={companyinsurance.endDate ? companyinsurance.endDate : ""}
@@ -202,11 +205,11 @@ const InsuranceDetails = () => {
             paddingLeft={3}
             fontSize={20}
           >
-            Driving License
+            {t("Driving License")}
           </Typography>
           <Divider />
           <Grid item xs={12} md={12} className="textdiv">
-            <label>License Number</label>
+            <label>{t("License Number")}</label>
             <input
               className="placeH"
               placeholder="05/07/2021"
@@ -216,7 +219,7 @@ const InsuranceDetails = () => {
             />
           </Grid>
           <Grid item xs={12} md={12} className="textdiv">
-            <label>Delivery Place</label>
+            <label>{t("Delivery Place")}</label>
             <input
               placeholder="433-34344"
               value={
@@ -225,7 +228,7 @@ const InsuranceDetails = () => {
             />
           </Grid>
           <Grid item xs={12} md={12} className="textdiv">
-            <label>Obtain Date</label>
+            <label>{t("Obtain Date")}</label>
             <input
               placeholder="05/05/2021"
               value={
@@ -234,7 +237,7 @@ const InsuranceDetails = () => {
             />
           </Grid>
           <Grid item xs={12} md={12} className="textdiv">
-            <label>Validity Date</label>
+            <label>{t("Validity Date")}</label>
             <input
               placeholder="05/05/2021"
               value={
@@ -251,11 +254,11 @@ const InsuranceDetails = () => {
             paddingLeft={3}
             fontSize={20}
           >
-            Vehicle Detail
+            {t("Vehicle Detail")}
           </Typography>
           <Divider />
           <Grid item md={12} className="textdiv">
-            <label>Registration Date</label>
+            <label>{t("Registration Date")}</label>
             <input
               placeholder="05/05/2012"
               value={
@@ -266,28 +269,28 @@ const InsuranceDetails = () => {
             />
           </Grid>
           <Grid item md={12} className="textdiv">
-            <label>Brand</label>
+            <label>{t("Brand")}</label>
             <input
               placeholder="Audi"
               value={vehicledetail.brand ? vehicledetail.brand : ""}
             />
           </Grid>
           <Grid item md={12} className="textdiv">
-            <label>Color</label>
+            <label>{t("Color")}</label>
             <input
               placeholder="Black"
               value={vehicledetail.color ? vehicledetail.color : ""}
             />
           </Grid>
           <Grid item md={12} className="textdiv">
-            <label>Model</label>
+            <label>{t("Model")}</label>
             <input
               placeholder="Black"
               value={vehicledetail.model ? vehicledetail.model : ""}
             />
           </Grid>
           <Grid item md={12} className="textdiv">
-            <label>Gear Box</label>
+            <label>{t("Gear Box")}</label>
             <input
               placeholder="Auto"
               value={vehicledetail.gearBox ? vehicledetail.gearBox : ""}
@@ -301,11 +304,11 @@ const InsuranceDetails = () => {
             paddingLeft={3}
             fontSize={20}
           >
-            Vehicle Insurance
+            {t("Vehicle Insurance")}
           </Typography>
           <Divider />
           <Grid item md={12} className="textdiv">
-            <label>Start Date</label>
+            <label>{t("Start Date")}</label>
             <input
               placeholder="05/05/2012"
               value={
@@ -314,7 +317,7 @@ const InsuranceDetails = () => {
             />
           </Grid>
           <Grid item md={12} className="textdiv">
-            <label>End Date</label>
+            <label>{t("End Date")}</label>
             <input
               placeholder="05/05/2012"
               value={vehicleInsurance.endDate ? vehicleInsurance.endDate : ""}
@@ -328,11 +331,11 @@ const InsuranceDetails = () => {
             paddingLeft={3}
             fontSize={20}
           >
-            Technical Control
+            {t("Technical Control")}
           </Typography>
           <Divider />
           <Grid item md={12} className="textdiv">
-            <label>Start Date</label>
+            <label>{t("Start Date")}</label>
             <input
               placeholder="05/05/2012"
               value={
@@ -343,7 +346,7 @@ const InsuranceDetails = () => {
             />
           </Grid>
           <Grid item md={12} className="textdiv">
-            <label>End Date</label>
+            <label>{t("End Date")}</label>
             <input
               placeholder="05/05/2012"
               value={
@@ -362,11 +365,11 @@ const InsuranceDetails = () => {
             paddingLeft={3}
             fontSize={20}
           >
-            Exercise Authorization
+            {t("Exercise Authorization")}
           </Typography>
           <Divider />
           <Grid item md={12} className="textdiv">
-            <label>Authorization Date</label>
+            <label>{t("Authorization Date")}</label>
             <input
               placeholder="xxxxxxxxxxx"
               value={
@@ -377,7 +380,7 @@ const InsuranceDetails = () => {
             />
           </Grid>
           <Grid item md={12} className="textdiv">
-            <label>Issueing Authority</label>
+            <label>{t("Issueing Authority")}</label>
             <input
               placeholder="xxxxxxxxxxx"
               value={
@@ -388,7 +391,7 @@ const InsuranceDetails = () => {
             />
           </Grid>
           <Grid item md={12} className="textdiv">
-            <label>Expiry Date</label>
+            <label>{t("Expiry Date")}</label>
             <input
               placeholder="xxxxxxxxxxx"
               value={
@@ -407,11 +410,11 @@ const InsuranceDetails = () => {
             paddingLeft={3}
             fontSize={20}
           >
-            Business Store
+            {t("Business Store")}
           </Typography>
           <Divider />
           <Grid item md={12} className="textdiv">
-            <label>Serial Number</label>
+            <label>{t("Serial Number")}</label>
             <input
               placeholder="xxxxxxxxxx"
               value={businesstore.siretNumber ? businesstore.siretNumber : ""}
@@ -432,7 +435,7 @@ const InsuranceDetails = () => {
           >
             <Box sx={style}>
               <Typography sx={{ color: "#110000" }}>
-                Profile Update Request
+               {t(" Profile Update Request")}
               </Typography>
               <FormControl variant="" sx={{ ml: "-3%" }} className="MobileView">
                 <Select
@@ -452,54 +455,54 @@ const InsuranceDetails = () => {
                     disabled
                     sx={{ paddingTop: "0px !important" }}
                   >
-                    Select the options
+                    {t("Select the options")}
                   </MenuItem>
                   <MenuItem
                     value="InsuranceCompany"
                     name=" InsuranceCompany"
                     onChange={(e) => SetUpdateField(e.target.value)}
                   >
-                    Insurance Company
+                    {t("Insurance Company")}
                   </MenuItem>
                   <MenuItem
                     value="DrivingLicense"
                     name="DrivingLicense"
                     onChange={(e) => SetUpdateField(e.target.value)}
                   >
-                    Driving License
+                    {t("Driving License")}
                   </MenuItem>
                   <MenuItem
                     value="ExerciseAuthorization"
                     name="ExerciseAuthorization"
                     onChange={(e) => SetUpdateField(e.target.value)}
                   >
-                    Exercise Authorization
+                    {t("Exercise Authorization")}
                   </MenuItem>
                   <MenuItem
                     value="BusinessDetails"
                     name="BusinessDetails"
                     onChange={(e) => SetUpdateField(e.target.value)}
                   >
-                    Business Details
+                    {t("Business Details")}
                   </MenuItem>
                   <MenuItem
                     value="Vehicleinsurance"
                     name="Vehicleinsurance"
                     onChange={(e) => SetUpdateField(e.target.value)}
                   >
-                    Vehicle insurance
+                    {t("Vehicle insurance")}
                   </MenuItem>
                   <MenuItem
                     value="TechnicalControl"
                     name="TechnicalControl"
                     onChange={(e) => SetUpdateField(e.target.value)}
                   >
-                    Technical Control
+                    {t("Technical Control")}
                   </MenuItem>
                 </Select>
               </FormControl>
               <Typography sx={{ color: "#110000", marginBottom: "3px" }}>
-                Reason-Information to update
+                {t("Reason-Information to update")}
               </Typography>
               <TextareaAutosize
                 aria-label="minimum height"
@@ -511,7 +514,7 @@ const InsuranceDetails = () => {
               />
               <div style={{ marginTop: "2%" }}>
                 <Button
-                  text="Update Profile"
+                  text={t("Update Profile")}
                   width="95% !important"
                   color="#149e7a"
                   borderRadius="10px"

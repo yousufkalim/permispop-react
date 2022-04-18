@@ -10,8 +10,10 @@ import TwitterIcon from "../../assets/images/twitterIcon.svg";
 import InstagramIcon from "../../assets/images/instagramIcon.svg";
 import LinkedinIcon from "../../assets/images/linkedinIcon.svg";
 import YoutubeIcon from "../../assets/images/youtubeIcon.svg";
+import { useTranslation } from "react-i18next";
 
 const Footer = () => {
+  const { i18n , t } = useTranslation();
   return (
     <div className="main_footer_container">
       <div className="second_footer_container">
@@ -23,11 +25,11 @@ const Footer = () => {
           <img src={YoutubeIcon} alt="services" className="footer_icon" />
         </div>
         <Typography align="center" className="footer_title">
-          PERMISPOP EDUCATION
+          {t("PERMISPOP EDUCATION")}
         </Typography>
         <div className="footer_policy_container">
           <Typography align="center" className="footer_policy">
-            Terms and Conditions
+            {t("Terms and Conditions")}
           </Typography>
           <Divider
             orientation="vertical"
@@ -50,11 +52,11 @@ const Footer = () => {
             className={"divider"}
           />
           <Typography align="center" className="footer_policy">
-            Privacy Policy
+            {t("Privacy Policy")}
           </Typography>
         </div>
         <Typography align="center" className="footer_copyright">
-          Coyright @ 2021 Permispop Drive Education
+          Copyright @ 2021 Permispop Drive Education
         </Typography>
       </div>
     </div>

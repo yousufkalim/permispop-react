@@ -5,6 +5,7 @@ import "react-toastify/dist/ReactToastify.css";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import jwt_decode from "jwt-decode";
 import { Base64 } from "js-base64";
+import "./utils/i18n";
 // Files
 import Index from "./routes/index";
 import "./css/index.css";

@@ -6,7 +6,9 @@ import Feedbackimg from "../../../assets/images/Feedbackmodal.svg";
 import Rating from "../../../components/Common/Rating";
 import TextareaAutosize from "@mui/material/TextareaAutosize";
 import Button from "../../../components/Common/Button";
+import { useTranslation } from "react-i18next";
 export default function FeedbackModal(props) {
+  const { i18n , t } = useTranslation();
   //   const [feedback, setFeedback] = React.useState(true);
 
   return (
@@ -23,8 +25,8 @@ export default function FeedbackModal(props) {
     >
       <Grid className="Feedback">
         <img className="Feedbackimg" src={Feedbackimg} alt="" />
-        <Typography className="RoleLabel">Student</Typography>
-        <Typography className="DateLabel">Booking Date: 6/01/2022</Typography>
+        <Typography className="RoleLabel">{t("Student")}</Typography>
+        <Typography className="DateLabel">{t("Booking Date")}: 6/01/2022</Typography>
         <Rating
           size="large"
           //   readOnly={true}
@@ -43,7 +45,7 @@ export default function FeedbackModal(props) {
       <Grid>
         <Grid className="Buttongrid">
           <Button
-            text="Not Now"
+            text={t("Not Now")}
             variant="outlined"
             color="white"
             margin="0px 10px 0px 0px !important"
@@ -52,7 +54,7 @@ export default function FeedbackModal(props) {
             width="50% !important"
           ></Button>
           <Button
-            text="Submit Rating"
+            text={t("Submit Rating")}
             color="#149E7A"
             margin="0px 10px 0px 0px !important"
             textColor="#fff"

@@ -4,8 +4,10 @@ import Header from "../Common/Header";
 import Typography from "@mui/material/Typography";
 import PlayCircleFilledWhiteOutlinedIcon from "@mui/icons-material/PlayCircleFilledWhiteOutlined";
 import RegisterModal from "./RegisterModal";
+import { useTranslation } from "react-i18next";
 
 const Hero = () => {
+  const {i18n,t} = useTranslation();
   const [Registeropen, setRegisteropen] = React.useState(false);
   const handleRegisterOpen = () => setRegisteropen(true);
   const handleRegisterClose = () => setRegisteropen(false);
@@ -15,12 +17,13 @@ const Hero = () => {
         <Header />
         <div className="hero_title_div">
           <Typography variant="h2" align="center" className="hero_title">
-            The Revolutionary platform for true Driving education freelancers.
+            {t("The Revolutionary platform for true Driving education freelancers.")}
           </Typography>
         </div>
         <div className="hero_subtitle_div">
           <Typography variant="h2" align="center" className="hero_subtitle">
-            Join us to enjoy quality driving education
+            {t("Join us to enjoy quality driving education")}
+            
           </Typography>
         </div>
         <div className="hero_subtitle_btn_div">
@@ -29,7 +32,7 @@ const Hero = () => {
               marginRight: "1%",
             }}
             type="submit"
-            text="Join Now"
+            text={t("Join Now")}
             customWidth1="36%"
             customWidth2="60%"
             buttonLableStyle="btn_main"
@@ -43,7 +46,7 @@ const Hero = () => {
             type="submit"
             color="white !important"
             textColor="#252831"
-            text="Play Video"
+            text={t("Play Video")}
             customWidth1="36%"
             customWidth2="60%"
             buttonLableStyle="btn_main"
@@ -54,7 +57,7 @@ const Hero = () => {
         open={Registeropen}
         closebtn={true}
         onClose={handleRegisterClose}
-        modalTitle="Register As"
+        modalTitle={t("Register As")}
         modalboxclassName="Register_modal"
         modalTitleclassName="Register_title"
       ></RegisterModal>

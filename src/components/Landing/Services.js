@@ -10,19 +10,20 @@ import dot from "../../assets/images/servicesDot.svg";
 import CardImage1 from "../../assets/images/cardImg1.svg";
 import CardImage2 from "../../assets/images/cardImg2.svg";
 import { ReactComponent as NextIcon } from "../../assets/images/nextIcon.svg";
-
+import { useTranslation } from "react-i18next";
 const Services = () => {
+  const { i18n , t } = useTranslation();
   return (
     <div className="main_services_container" id="services">
       <div className="second_services_container">
         <div className="services_title_div">
           <Typography variant="h2" align="center" className="services_title">
-            Our Services
+            {t("Our Services")}
           </Typography>
         </div>
         <div className="services_subtitle_div">
           <Typography variant="h2" align="center" className="services_subtitle">
-            Quisque lobortis ultrices dolor, fringilla venenatis leo sodales at.
+            {t("Quisque lobortis ultrices dolor, fringilla venenatis leo sodales at.")}
           </Typography>
         </div>
         {/*Service Card*/}
@@ -32,13 +33,11 @@ const Services = () => {
             <div className="card_container_inner">
               <img src={dot} alt="services" className="dot_img" />
               <Typography variant="h2" className="card_title">
-                User Behaviour
+                {t("User Behaviour")}
               </Typography>
             </div>
             <Typography variant="h2" className="card_subtitle">
-              Vestibulum eget augue consectetur, mattis turpis et, luctus eros.
-              Aenean luctus varius lacus in imperdiet. Curabitur mi ligula,
-              consequat
+              {t("Vestibulum eget augue consectetur, mattis turpis et, luctus eros.Aenean luctus varius lacus in imperdiet. Curabitur mi ligula,consequat")}
             </Typography>
           </div>
           <div className="card_container_outer">
@@ -46,13 +45,11 @@ const Services = () => {
             <div className="card_container_inner">
               <img src={dot} alt="services" className="dot_img" />
               <Typography variant="h2" className="card_title">
-                Best Time Training
+                {t("Best Time Training")}
               </Typography>
             </div>
             <Typography variant="h2" className="card_subtitle">
-              Vestibulum eget augue consectetur, mattis turpis et, luctus eros.
-              Aenean luctus varius lacus in imperdiet. Curabitur mi ligula,
-              consequat
+              {t("Vestibulum eget augue consectetur, mattis turpis et, luctus eros.Aenean luctus varius lacus in imperdiet. Curabitur mi ligula,consequat")}
             </Typography>
           </div>
           <div className="card_container_outer">
@@ -60,13 +57,11 @@ const Services = () => {
             <div className="card_container_inner">
               <img src={dot} alt="services" className="dot_img" />
               <Typography variant="h2" className="card_title">
-                Individual Approach
+                {t("Individual Approach")}
               </Typography>
             </div>
             <Typography variant="h2" className="card_subtitle">
-              Vestibulum eget augue consectetur, mattis turpis et, luctus eros.
-              Aenean luctus varius lacus in imperdiet. Curabitur mi ligula,
-              consequat
+              {t("Vestibulum eget augue consectetur, mattis turpis et, luctus eros.Aenean luctus varius lacus in imperdiet. Curabitur mi ligula,consequat")}
             </Typography>
           </div>
         </div>
@@ -75,13 +70,13 @@ const Services = () => {
         <div className="code_card_container">
           <div className="code_card_main">
             <Card
-              heading="Pop Code"
-              subHeading="Online Training That Will Revolution Your Code and License"
+              heading={t("Pop Code")}
+              subHeading={t("Online Training That Will Revolution Your Code and License")}
               image={CardImage1}
             ></Card>
             <Card
-              heading="Highway Code"
-              subHeading="The Full Road Code Only For €14.90"
+              heading={t("Highway Code")}
+              subHeading={t("The Full Road Code Only For €14.90")}
               image={CardImage2}
             ></Card>
           </div>
@@ -89,7 +84,7 @@ const Services = () => {
         <div className="highway_code_btn">
           <Button
             endIcon={<NextIcon />}
-            text="Access The Highway Code Here"
+            text={t("Access The Highway Code Here")}
             height="60px"
             height2="60px"
             height3="60px"

@@ -11,8 +11,10 @@ import Divider from "../../Common/Divider";
 import API from "../../../api/index";
 import AutoComplete from "../../Common/Autocomplete";
 import LanguageAutoComplete from "../../Common/LanguageAutoComplete";
+import { useTranslation } from "react-i18next";
 
-const Step1 = ({ step1, setStep1, onChange,step1Errors }) => {
+const Step1 = ({ step1, setStep1, onChange, step1Errors }) => {
+  const { i18n, t } = useTranslation();
   const [addresses, setAddresses] = useState([]);
   const [languages, setLanguages] = useState([]);
 
@@ -113,53 +115,53 @@ const Step1 = ({ step1, setStep1, onChange,step1Errors }) => {
       <Grid container spacing={4}>
         <Grid item xs={12} sm={12} md={4}>
           <TextField
-            label="Tradename"
+            label={t("Tradename")}
             name="TradeName"
             type="text"
-                required={true}
-                placeholder="John"
+            required={true}
+            placeholder="John"
             value={step1.TradeName}
             onChange={(e) => {
               onChange(e.target.name, e.target.value);
             }}
-            error={step1Errors['TradeName']?true:false}
-            ErrorMsg={step1Errors['TradeName']}
+            error={step1Errors["TradeName"] ? true : false}
+            ErrorMsg={t(step1Errors["TradeName"])}
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <TextField
-            label="Company Name"
-                required={true}
-                name="CompanyName"
+            label={t("Company Name")}
+            required={true}
+            name="CompanyName"
             placeholder="Smith.PVT"
             type="text"
             value={step1.CompanyName}
             onChange={(e) => {
               onChange(e.target.name, e.target.value);
             }}
-            error={step1Errors['CompanyName']?true:false}
-            ErrorMsg={step1Errors['CompanyName']}
+            error={step1Errors["CompanyName"] ? true : false}
+            ErrorMsg={t(step1Errors["CompanyName"])}
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <AutoComplete
             name="Address"
-                required={true}
-                label="Address"
+            required={true}
+            label={t("Address")}
             value={step1.Address.Label}
             options={addresses}
-            placeholder="Address"
+            placeholder={t("Address")}
             onChangeAddress={(e) => {
               handleAddress(e);
             }}
             onAddressSelect={(e) => handleSelectAddress(e)}
-            error={step1Errors['Address']?true:false}
-            ErrorMsg={step1Errors['Address']}
+            error={step1Errors["Address"] ? true : false}
+            ErrorMsg={t(step1Errors["Address"])}
           />
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <TextField
-            label="Complement"
+            label={t("Complement")}
             name="Complement"
             placeholder="Text"
             type="text"
@@ -173,9 +175,9 @@ const Step1 = ({ step1, setStep1, onChange,step1Errors }) => {
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <TextField
-            label="City"
-                required={true}
-                name="City"
+            label={t("City")}
+            required={true}
+            name="City"
             disabled={true}
             type="text"
             placeholder="Enter City"
@@ -185,13 +187,12 @@ const Step1 = ({ step1, setStep1, onChange,step1Errors }) => {
               setStep1({ ...step1, [e.target.name]: e.target.value });
             }}
             value={step1.Address.City}
-
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <TextField
-                required={true}
-                label="Zip Code"
+            required={true}
+            label={t("Zip Code")}
             name="Zip"
             type="number"
             disabled={true}
@@ -206,22 +207,22 @@ const Step1 = ({ step1, setStep1, onChange,step1Errors }) => {
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <TextField
-            label="Email"
+            label={t("Email")}
             name="Email"
-                required={true}
-                type="email"
+            required={true}
+            type="email"
             placeholder="Email"
             value={step1.Email}
             onChange={(e) => {
               onChange(e.target.name, e.target.value);
             }}
-            error={step1Errors['Email']?true:false}
-            ErrorMsg={step1Errors['Email']}
+            error={step1Errors["Email"] ? true : false}
+            ErrorMsg={t(step1Errors["Email"])}
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <TextField
-            label="Second Email"
+            label={t("Second Email")}
             name="Email2"
             type="email"
             placeholder="smart_coolkyo@yahoo.com"
@@ -235,23 +236,23 @@ const Step1 = ({ step1, setStep1, onChange,step1Errors }) => {
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <TextField
-            label="Phone"
-                required={true}
-                name="Phone"
-                type="number"
+            label={t("Phone")}
+            required={true}
+            name="Phone"
+            type="number"
             placeholder="0000000000000"
             value={step1.Phone}
             onChange={(e) => {
               onChange(e.target.name, e.target.value);
             }}
-            error={step1Errors['Phone']?true:false}
-            ErrorMsg={step1Errors['Phone']}
+            error={step1Errors["Phone"] ? true : false}
+            ErrorMsg={t(step1Errors["Phone"])}
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <TextField
             name="Phone2"
-            label="Second Phone"
+            label={t("Second Phone")}
             type="number"
             placeholder="00000000000000"
             value={step1.Phone2}
@@ -264,7 +265,7 @@ const Step1 = ({ step1, setStep1, onChange,step1Errors }) => {
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <TextField
-            label="Password"
+            label={t("Password")}
             required={true}
             name="Password"
             type="password"
@@ -273,32 +274,32 @@ const Step1 = ({ step1, setStep1, onChange,step1Errors }) => {
             onChange={(e) => {
               onChange(e.target.name, e.target.value);
             }}
-            error={step1Errors['Password']?true:false}
-            ErrorMsg={step1Errors['Password']}
+            error={step1Errors["Password"] ? true : false}
+            ErrorMsg={t(step1Errors["Password"])}
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <TextField
-            label="Confirm Password"
-                required={true}
-                name="Password2"
+            label={t("Confirm Password")}
+            required={true}
+            name="Password2"
             type="password"
             placeholder="**************"
             value={step1.Password2}
             onChange={(e) => {
               onChange(e.target.name, e.target.value);
             }}
-            error={step1Errors['Password2']?true:false}
-            ErrorMsg={step1Errors['Password2']}
+            error={step1Errors["Password2"] ? true : false}
+            ErrorMsg={t(step1Errors["Password2"])}
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <LanguageAutoComplete
             name="Language"
-            label="Spoken Language"
+            label={t("Spoken Language")}
             value={step1.Language}
             options={languages ? languages : []}
-            placeholder="Language"
+            placeholder={t("Language")}
             setVal={onChange}
             // error={step1Errors['Language']?true:false}
             // ErrorMsg={step1Errors['Language']}
@@ -309,7 +310,9 @@ const Step1 = ({ step1, setStep1, onChange,step1Errors }) => {
       <div className="termsConditionsCheckboxContainer">
         <div className="termsConditionsCheckbox">
           <Checkbox
-            onClick={(e) => {onChange('OtherPlateform', !step1.OtherPlateform)} }
+            onClick={(e) => {
+              onChange("OtherPlateform", !step1.OtherPlateform);
+            }}
             name="OtherPlateform"
             className="checkbox"
             checked={step1.OtherPlateform}
@@ -317,7 +320,7 @@ const Step1 = ({ step1, setStep1, onChange,step1Errors }) => {
             // ErrorMsg={step1Errors['OtherPlateform']}
           />
           <Typography variant="body1" className="termsConditionsCheckboxTitle">
-            Are you working on other platform?
+            {t("Are you working on other platform?")}
           </Typography>
         </div>
         {step1.OtherPlateform ? (
@@ -325,7 +328,7 @@ const Step1 = ({ step1, setStep1, onChange,step1Errors }) => {
             <Grid item xs={12} sm={12} md={5} sx={{ marginRight: "1%" }}>
               <TextField
                 name="Platform"
-                label="Which platform(s)?"
+                label={t("Which platform(s)?")}
                 placeholder="Platform name"
                 type="text"
                 value={step1.Platform}
@@ -338,7 +341,7 @@ const Step1 = ({ step1, setStep1, onChange,step1Errors }) => {
             </Grid>
             <Grid item xs={12} sm={12} md={5}>
               <TextField
-                label="How much time will you give to the students of our platform?(hr/month)"
+                label={t("How much time will you give to the students of our platform?(hr/month)")}
                 placeholder="No. of hours"
                 name="Hours"
                 type="text"
@@ -370,7 +373,7 @@ const Step1 = ({ step1, setStep1, onChange,step1Errors }) => {
           checked={step1.CPF}
         />
         <Typography variant="body1" className="termsConditionsCheckboxTitle">
-          I accept CPF financement
+          {t("I accept CPF financement")}
         </Typography>
       </div>
     </Box>

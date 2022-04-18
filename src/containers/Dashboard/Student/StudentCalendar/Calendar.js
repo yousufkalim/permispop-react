@@ -10,6 +10,7 @@ import Grid from "@mui/material/Grid";
 import moment from "moment";
 import { toast } from "react-toastify";
 import { Views } from "react-big-calendar";
+import { useTranslation } from "react-i18next";
 
 const Calendar = () => {
   const currentDate = moment();
@@ -18,6 +19,9 @@ const Calendar = () => {
   const [disabled, setdisabled] = useState(false);
   const [bookings, setBookings] = React.useState([]);
   const [selectedBooking, setSelectedBooking] = useState({});
+
+  const { i18n, t } = useTranslation();
+
   const [bookingModal, setBookingModal] = React.useState(false);
   const [AddBookingModal, setAddBookingModal] = React.useState(false);
 
@@ -28,47 +32,28 @@ const Calendar = () => {
   }, [update]);
 
   const getBookingData = (userData) => {
-    API("get", `Bookings/GetBookingsByStudent?id=${userData.id}`).then(
-      (res) => {
-        let allBookings = [];
-        res.data.data.map((booking) => {
-          let date = moment(booking.bookingDate).format("YYYY-MM-DD");
-          date = date.split("-");
-          let start = booking.startTime.split(":");
-          let end = moment(booking.endTime).format("HH:mm");
-          end = end.split(":");
-          allBookings.push({
-            id: booking.id,
-            title: "Booking By " + booking.instructorQuestionFifth,
-            start: new Date(
-              date[0],
-              parseInt(date[1]) - 1,
-              date[2],
-              parseInt(start[0]) + 5,
-              start[1],
-              0
-            ),
-            end: new Date(
-              date[0],
-              parseInt(date[1]) - 1,
-              date[2],
-              end[0],
-              end[1],
-              0
-            ),
-            bookingTime:
-              booking.startTime +
-              " - " +
-              moment(booking.endTime).format("HH:mm"),
-            status: booking.status,
-            meetingPlace: booking.meetingPlace,
-            duration: booking.duration,
-            vehicleId: booking.vehicleId,
-          });
+    API("get", `Bookings/GetBookingsByStudent?id=${userData.id}`).then((res) => {
+      let allBookings = [];
+      res.data.data.map((booking) => {
+        let date = moment(booking.bookingDate).format("YYYY-MM-DD");
+        date = date.split("-");
+        let start = booking.startTime.split(":");
+        let end = moment(booking.endTime).format("HH:mm");
+        end = end.split(":");
+        allBookings.push({
+          id: booking.id,
+          title: "Booking By " + booking.instructorQuestionFifth,
+          start: new Date(date[0], parseInt(date[1]) - 1, date[2], parseInt(start[0]) + 5, start[1], 0),
+          end: new Date(date[0], parseInt(date[1]) - 1, date[2], end[0], end[1], 0),
+          bookingTime: booking.startTime + " - " + moment(booking.endTime).format("HH:mm"),
+          status: booking.status,
+          meetingPlace: booking.meetingPlace,
+          duration: booking.duration,
+          vehicleId: booking.vehicleId,
         });
-        setBookings(allBookings);
-      }
-    );
+      });
+      setBookings(allBookings);
+    });
   };
 
   //Add booking modal handles
@@ -76,7 +61,7 @@ const Calendar = () => {
     if (moment(e.start).isAfter(currentDate)) {
       setAddBookingModal(true);
     } else {
-      toast.error("Cannot Book after time");
+      toast.error(t("Cannot Book after time"));
     }
   };
 
@@ -85,8 +70,12 @@ const Calendar = () => {
   };
   //handle Event click
   const handleEventClick = (e) => {
-    setSelectedBooking(e);
-    setBookingModal(true);
+    if (e.status === "booking") {
+      setSelectedBooking(e);
+      setBookingModal(true);
+    } else {
+      toast.error(t("Can only select your bookings"));
+    }
   };
 
   const handleBookingClose = (e) => {
@@ -143,53 +132,38 @@ const Calendar = () => {
         <div className="booking-content">
           <Grid container spacing={3}>
             <Grid xs={12} sm={12} md={6}>
-              <TextField
-                label="User Info"
-                height="10px"
-                value={selectedBooking.title}
-                disabled={true}
-              />
+              <TextField label={t("User Info")} height="10px" value={selectedBooking.title} disabled={true} />
             </Grid>
             <Grid xs={12} sm={12} md={6}>
-              <TextField
-                label="Booking Date"
-                disabled={true}
-                value={moment(selectedBooking.start).format("DD-MM-YYYY")}
-              />
+              <TextField label={t("Booking Date")} disabled={true} value={moment(selectedBooking.start).format("DD-MM-YYYY")} />
             </Grid>
             <Grid xs={12} sm={12} md={6}>
-              <TextField
-                label="Booking Time"
-                disabled={true}
-                value={selectedBooking.bookingTime}
-              />
+              <TextField label={t("Booking Time")} disabled={true} value={selectedBooking.bookingTime} />
             </Grid>
             <Grid xs={12} sm={12} md={6}>
-              <TextField
-                label="Duration"
-                disabled={true}
-                value={selectedBooking.duration}
-              />
+              <TextField label={t("Duration")} disabled={true} value={selectedBooking.duration} />
             </Grid>
             <Grid xs={12} sm={12} md={6}>
-              <TextField
-                label="Vechicle"
-                disabled={true}
-                value={selectedBooking.vehicleId}
-              />
+              <TextField label={t("Vechicle")} disabled={true} value={selectedBooking.vehicleId} />
             </Grid>
             <Grid xs={12} sm={12} md={6}>
-              <TextField
-                label="Meetup"
-                disabled={true}
-                value={selectedBooking.meetingPlace}
-              />
+              <TextField label={t("Meetup")} disabled={true} value={selectedBooking.meetingPlace} />
             </Grid>
           </Grid>
           <div className="booking-btn-div">
             <Grid align="right">
               <Button
-                text="Delete"
+                text={t("Close")}
+                onClick={handleBookingClose}
+                variant="outlined"
+                width="110px !important"
+                textColor="#363557 !important"
+                margin="10px !important"
+                borderColor="black !important"
+              />
+              <Button
+                text={t("Delete")}
+                type="submit"
                 textColor="#FFFFFF !important"
                 width="110px !important"
                 color="#149E7A !important"
@@ -214,34 +188,34 @@ const Calendar = () => {
         <div className="booking-content">
           <Grid container spacing={3}>
             <Grid xs={12} sm={12} md={6}>
-              <TextField label="User Info" placeholder="Enter username " />
+              <TextField label={t("User Info")} placeholder={t("Enter username")} />
             </Grid>
             <Grid xs={12} sm={12} md={6}>
-              <TextField label="Booking Date" placeholder="Add booking date" />
+              <TextField label={t("Booking Date")} placeholder={t("Add booking date")} />
             </Grid>
             <Grid xs={12} sm={12} md={6}>
               <TextField
-                label="Booking Time"
+                label={t("Booking Time")}
                 placeholder="Select booking time"
               />
             </Grid>
             <Grid xs={12} sm={12} md={6}>
               <TextField
-                label="Duration"
-                placeholder="Enter duration of booking"
+                label={t("Duration")}
+                placeholder={t("Enter duration of booking")}
               />
             </Grid>
             <Grid xs={12} sm={12} md={6}>
-              <TextField label="Vechicle" placeholder="Select vechicle type" />
+              <TextField label={t("Vechicle")} placeholder={t("Select vechicle type")} />
             </Grid>
             <Grid xs={12} sm={12} md={6}>
-              <TextField label="Meetup" placeholder="Enter Meet-UP point" />
+              <TextField label={t("Meetup")} placeholder={t("Enter Meet-UP point")} />
             </Grid>
           </Grid>
           <div className="booking-btn-div">
             <Grid align="right">
               <Button
-                text="Close"
+                text={t("Close")}
                 onClick={handleAddBookingClose}
                 variant="outlined"
                 width="110px !important"
@@ -250,7 +224,7 @@ const Calendar = () => {
                 borderColor="black !important"
               />
               <Button
-                text="Add Booking"
+                text={t("Add Booking")}
                 type="submit"
                 textColor="#FFFFFF !important"
                 width="150px !important"

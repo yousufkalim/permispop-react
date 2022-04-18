@@ -12,8 +12,10 @@ import MenuItem from "@mui/material/MenuItem";
 import { toast } from "react-toastify";
 
 import API from "../../api";
+import { useTranslation } from "react-i18next";
 
 const ProfileDetails = (props) => {
+  const { i18n , t } = useTranslation();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [editProfile, seteditProfile] = React.useState(false);
   const [openmodal, setOpenModal] = React.useState(false);
@@ -57,7 +59,7 @@ const ProfileDetails = (props) => {
         <Grid xs={12} sm={12} md={2} className="ProfileButtonGrid">
           <Button
             className="LanguageButton"
-            text="Languages"
+            text={t("Languages")}
             variant="outlined"
             margin="0px 10px 0px 0px !important"
             borderRadius="10px"
@@ -81,7 +83,7 @@ const ProfileDetails = (props) => {
                 return <MenuItem onClick={handleClose}> {language}</MenuItem>;
               })
             ) : (
-              <MenuItem disabled={true}>No Language/s selected</MenuItem>
+              <MenuItem disabled={true}>{t("No Language/s selected")}</MenuItem>
             )}
           </Menu>
         </Grid>
@@ -95,7 +97,7 @@ const ProfileDetails = (props) => {
           <Button
             startIcon={<Editprofile />}
             className="ProfileButton"
-            text="Edit Profile"
+            text={t("Edit Profile")}
             borderRadius="10px"
             width="100% !important"
             color="#149e7a  !important"
@@ -108,7 +110,7 @@ const ProfileDetails = (props) => {
             <Vector className="VectorIcon"></Vector>
             <Grid xs={12} sm={6} md={3}>
               <Button
-                text="Request Profile Update"
+                text={t("Request Profile Update")}
                 variant="outlined"
                 borderRadius="10px"
                 width="95% !important"
@@ -120,7 +122,7 @@ const ProfileDetails = (props) => {
             </Grid>
             <Grid xs={12} sm={6} md={3}>
               <Button
-                text="Change Password"
+                text={t("Change Password")}
                 variant="outlined"
                 width="95% !important"
                 color="white !important"

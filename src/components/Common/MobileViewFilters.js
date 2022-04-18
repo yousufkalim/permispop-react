@@ -7,8 +7,11 @@ import SelectField from "./SelectField";
 import Grid from "@mui/material/Grid";
 import DatePicker from "./DatePicker";
 import InputLabel from "@mui/material/InputLabel";
+import { useTranslation } from "react-i18next";
+
 
 export default function MobileViewFilters(props) {
+  const { i18n , t } = useTranslation();
   const [item, setItem] = React.useState("");
   const handleChange = (event) => {
     setItem(event.target.value);
@@ -68,11 +71,11 @@ export default function MobileViewFilters(props) {
                 disabled
                 sx={{ paddingTop: "0px !important" }}
               >
-                Filter
+                {t("Filter")}
               </MenuItem>
-              <MenuItem value={2}>All</MenuItem>
-              <MenuItem value={1}>Filter by receiver</MenuItem>
-              <MenuItem value={3}>Filter by Date</MenuItem>
+              <MenuItem value={2}>{t("All")}</MenuItem>
+              <MenuItem value={1}>{t("Filter by receiver")}</MenuItem>
+              <MenuItem value={3}>{t("Filter by Date")}</MenuItem>
             </Select>
           </FormControl>
         </Grid>
@@ -89,14 +92,14 @@ export default function MobileViewFilters(props) {
           <Grid container spacing={1} sx={{ padding: "2% 0 4% 7%" }}>
             <Grid xs={6} sm={6} sx={{ display: "flex", alignItems: "center" }}>
               <DatePicker
-                label="Start date"
+                label={t("Start date")}
                 onChange={handleStartdate}
                 value={Startvalue}
               />
             </Grid>
             <Grid xs={6} sm={6} sx={{ display: "flex", alignItems: "center" }}>
               <DatePicker
-                label="End date"
+                label={t("End date")}
                 onChange={handleEnddate}
                 value={Endvalue}
               />

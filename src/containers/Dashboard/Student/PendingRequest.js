@@ -19,11 +19,13 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import FormLabel from "@mui/material/FormLabel";
 import API from "../../../api";
 import { toast } from "react-toastify";
+import { useTranslation } from "react-i18next";
 
 function createData(bookingwith, date, startTime, duration, status, id) {
   return { bookingwith, date, startTime, duration, status, id };
 }
 const Index = () => {
+  const { i18n, t } = useTranslation();
   const style = {
     position: "absolute",
     top: "50%",
@@ -108,12 +110,9 @@ const Index = () => {
       }
     });
     if (status == "Complete" || status == "In progress" || status == "Closed") {
-      await API(
-        "get",
-        `Bookings/UpdateBookingsStatus?id=${id}&status=${status}`
-      ).then((res) => {
+      await API("get", `Bookings/UpdateBookingsStatus?id=${id}&status=${status}`).then((res) => {
         getPendingRequestData(user);
-        toast.success("Status is updated successful");
+        toast.success(t("Status is updated successful"));
       });
     } else {
       openDisputeModal = setOpenDisputeModal(true);
@@ -132,27 +131,23 @@ const Index = () => {
         instructorName: user.firstName ? user.firstName : "",
         DisputingFrom: user.role ? user.role : "",
         feedBackDate: new Date(),
-        studentName: selectedUserData.firstName
-          ? selectedUserData.firstName
-          : "",
-        studentName: selectedUserData.firstName
-          ? selectedUserData.firstName
-          : "",
+        studentName: selectedUserData.firstName ? selectedUserData.firstName : "",
+        studentName: selectedUserData.firstName ? selectedUserData.firstName : "",
         studentID: user.role === "Student" ? user.id : selectedUserData.id,
       }).then((disputeres) => {
         console.log("data", disputeres.data.data);
-        toast.success("Dispute is created sucessfully");
+        toast.success(t("Dispute is created sucessfully"));
         SetUpdateField("");
         setComment("");
         setOpenDisputeModal(false);
       });
     } else {
-      toast.error("Field cannot be empty");
+      toast.error(t("Field cannot be empty"));
     }
   };
   return (
     <>
-      {/* <MobileViewFilters title="Pending requests" /> */}
+      {/* <MobileViewFilters title={t("Pending requests")} /> */}
       <div className="Filters">
         <Grid container spacing={1} sx={{ marginTop: "30px" }}>
           <Grid xs={12} sm={6} md={4}>
@@ -170,7 +165,7 @@ const Index = () => {
                 color: "#2A3235",
               }}
             >
-              Pending Request
+              {t("Pending Request")}
             </Typography>
           </Grid>
           {/* <Grid xs={12} sm={6} md={2}>
@@ -223,35 +218,32 @@ const Index = () => {
       >
         <Box sx={style}>
           <FormControl>
-            <FormLabel
-              id="demo-radio-buttons-group-label"
-              sx={{ fontWeight: "550" }}
-            >
-              Give disputes
+            <FormLabel id="demo-radio-buttons-group-label" sx={{ fontWeight: "550" }}>
+              {t("Give disputes")}
             </FormLabel>
             <RadioGroup>
               <FormControlLabel
                 value="Latedelivery"
                 control={<Radio />}
-                label="Late delivery"
+                label={t("Late delivery")}
                 onChange={(e) => SetUpdateField(e.target.value)}
               />
               <FormControlLabel
                 value="Payment issue"
                 control={<Radio />}
-                label="Payment issue"
+                label={t("Payment issue")}
                 onChange={(e) => SetUpdateField(e.target.value)}
               />
               <FormControlLabel
                 value="Harrasment"
                 control={<Radio />}
-                label="Harrasment"
+                label={t("Harrasment")}
                 onChange={(e) => SetUpdateField(e.target.value)}
               />
               <FormControlLabel
                 value="AbusingLanguage"
                 control={<Radio />}
-                label="Abusing Language"
+                label={t("Abusing Language")}
                 onChange={(e) => SetUpdateField(e.target.value)}
               />
             </RadioGroup>
@@ -264,7 +256,7 @@ const Index = () => {
               fontWeight: "550",
             }}
           >
-            Comments
+            {t("Comments")}
           </Typography>
           <TextareaAutosize
             aria-label="minimum height"
@@ -276,7 +268,7 @@ const Index = () => {
           />
           <div style={{ marginTop: "2%" }}>
             <Button
-              text="Update Profile"
+              text={t("Update Profile")}
               width="95% !important"
               color="#149e7a"
               borderRadius="10px"

@@ -8,10 +8,13 @@ import DatePicker from "../../../components/Common/DatePicker";
 import MobileViewFilters from "../../../components/Common/MobileViewFilters";
 import Divider from "../../../components/Common/Divider";
 import API from "../../../api";
+import { useTranslation } from "react-i18next";
+
 function createData(bookingwith, date, startTime, duration, status, id) {
   return { bookingwith, date, startTime, duration, status, id };
 }
 const Index = () => {
+  const { i18n, t } = useTranslation();
   const [Startvalue, setStartValue] = useState(new Date());
   const [Endvalue, setEndValue] = useState(new Date());
   const [pendingRequestsrows, setPendingRequestsrows] = useState([]);
@@ -75,13 +78,9 @@ const Index = () => {
 
   return (
     <>
-      {/* <MobileViewFilters title="History" /> */}
+      {/* <MobileViewFilters title={t("History")} /> */}
       <div className="Filters">
-        <Grid
-          container
-          spacing={1}
-          sx={{ marginTop: "30px", marginLeft: "1%" }}
-        >
+        <Grid container spacing={1} sx={{ marginTop: "30px", marginLeft: "1%" }}>
           <Grid xs={12} sm={12} md={3}>
             <Typography
               sx={{
@@ -97,7 +96,7 @@ const Index = () => {
                 color: "#2A3235",
               }}
             >
-              History
+              {t("History")}
             </Typography>
           </Grid>
           {/* <Grid xs={3} sm={3} md={2}>
@@ -130,11 +129,7 @@ const Index = () => {
       </div>
       <Divider width="100%" borderColor="#D5E4E8" margin="2% 0px 2% 0px" />
 
-      <DataTable
-        data={pendingRequestsrows}
-        columns={Historycolumns}
-        user={user}
-      ></DataTable>
+      <DataTable data={pendingRequestsrows} columns={Historycolumns} user={user}></DataTable>
     </>
   );
 };

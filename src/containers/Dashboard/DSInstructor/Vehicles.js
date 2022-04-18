@@ -17,6 +17,7 @@ import Models from "../../../assets/makesModels/Models.xml";
 import Button from "../../../components/Common/Button";
 import { toast } from "react-toastify";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
+import { useTranslation } from "react-i18next";
 
 import API from "../../../api";
 import { Typography, Grid, Box, Checkbox, Paper, Modal } from "@mui/material";
@@ -26,6 +27,7 @@ function createData(dateofregistration, brand, model, color, noplate, gearbox) {
   return { dateofregistration, brand, model, color, noplate, gearbox };
 }
 const Index = () => {
+  const { i18n, t } = useTranslation();
   const [allMakes, setAllMakes] = useState([]);
   const [excludingMakes, setExcludingMakes] = useState([]);
   const [allModels, setAllModels] = useState([]);
@@ -113,21 +115,13 @@ const Index = () => {
 
   const getVehicleData = async (userData) => {
     let allVehicles = [];
-    await API("get", `Profile/GetProfileByPersonalId?id=${userData.id}`).then(
-      async (DSInsprofileRes) => {
-        await API(
-          "get",
-          `Profile/GetProfileByPersonalId?id=${DSInsprofileRes.data.data.drivingSchoolIdentityInfoId}`
-        ).then((DSInsPerprofileRes) => {
-          let vehicleId = JSON.parse(
-            DSInsPerprofileRes.data.data.drivingSchoolVehiclesInfoId
-          );
+    await API("get", `Profile/GetProfileByPersonalId?id=${userData.id}`).then(async (DSInsprofileRes) => {
+      await API("get", `Profile/GetProfileByPersonalId?id=${DSInsprofileRes.data.data.drivingSchoolIdentityInfoId}`).then(
+        (DSInsPerprofileRes) => {
+          let vehicleId = JSON.parse(DSInsPerprofileRes.data.data.drivingSchoolVehiclesInfoId);
 
           allVehicles = Object.entries(vehicleId).map(([key, value]) => {
-            return API(
-              "get",
-              `VehicleDetail/GetVehicleDetailByIdAsync?id=${value}`
-            );
+            return API("get", `VehicleDetail/GetVehicleDetailByIdAsync?id=${value}`);
           });
           Promise.all(allVehicles).then((res) => {
             let vehicles = [];
@@ -136,9 +130,9 @@ const Index = () => {
             });
             setVehicleData(vehicles);
           });
-        });
-      }
-    );
+        }
+      );
+    });
   };
   const onChange = (name, value) => {
     setVehicleDet({ ...vehicleDet, [name]: value });
@@ -146,13 +140,9 @@ const Index = () => {
 
   return (
     <>
-      {/* <MobileViewFilters title="Vehicles" /> */}
+      {/* <MobileViewFilters title={t("Vehicles")} /> */}
       <div className="Filters">
-        <Grid
-          container
-          spacing={1}
-          sx={{ marginTop: "30px", marginLeft: "70px" }}
-        >
+        <Grid container spacing={1} sx={{ marginTop: "30px", marginLeft: "70px" }}>
           <Grid xs={12} sm={12} md={3}>
             <Typography
               sx={{
@@ -168,7 +158,7 @@ const Index = () => {
                 color: "#2A3235",
               }}
             >
-              Vehicles
+              {t("Vehicles")}
             </Typography>
           </Grid>
           {/* <Grid xs={3} sm={3} md={2}>

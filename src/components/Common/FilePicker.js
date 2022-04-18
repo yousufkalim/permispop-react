@@ -2,8 +2,10 @@ import React from "react";
 import Typography from "@mui/material/Typography";
 import Button from "@mui/material/Button";
 import { makeStyles } from "@mui/styles";
+import { useTranslation } from "react-i18next";
 
 export default function FilePicker(props) {
+  const { i18n , t } = useTranslation();
   const useStyles = makeStyles((theme) => ({
     container: {
       backgroundColor: "#F5F6F9",
@@ -108,11 +110,11 @@ export default function FilePicker(props) {
             className={classes.button}
           >
             <Typography noWrap variant="button">
-              Choose File
+              {t("Choose File")}
             </Typography>
           </Button>
           <Typography noWrap variant="body1" className={classes.label}>
-            {props.value ? props.value : "No file choosen."}
+            {props.value ? props.value : t("No file choosen.")}
           </Typography>
         </div>
       </label>

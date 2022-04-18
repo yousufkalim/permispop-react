@@ -21,9 +21,10 @@ import { makeStyles } from "@mui/styles";
 import { NavLink } from "react-router-dom";
 import BasicAvatar from "../Common/BasicAvatar";
 import { useHistory } from "react-router-dom";
+import { Redirect } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const user = JSON.parse(localStorage.getItem("user"));
-
 
 const drawerWidth = 300;
 
@@ -83,6 +84,7 @@ function ResponsiveDrawer(props) {
   const classes = useStyles();
   const history = useHistory();
 
+  const { i18n, t } = useTranslation();
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
   const handleDrawerToggle = () => {
@@ -105,15 +107,8 @@ function ResponsiveDrawer(props) {
             onClick={() => setActive(index)}
             disabled={route.path === "/InstructorBooking"}
           >
-            <ListItemIcon
-              className={active === index ? "iconSelected" : "defaultIcon"}
-            >
-              {route.icon}
-            </ListItemIcon>
-            <ListItemText
-              primary={route.name}
-              primaryTypographyProps={{ className: "drawer-list-text" }}
-            />
+            <ListItemIcon className={active === index ? "iconSelected" : "defaultIcon"}>{route.icon}</ListItemIcon>
+            <ListItemText primary={t(route.name)} primaryTypographyProps={{ className: "drawer-list-text" }} />
           </ListItem>
         ))}
       </List>
@@ -141,12 +136,7 @@ function ResponsiveDrawer(props) {
             <MenuIcon />
           </IconButton>
           <span>
-            <img
-              className="dashboard-logo"
-              src={Logo}
-              alt=""
-              onClick={() => history.push(`/${user.role}/myProfile`)}
-            />
+            <img className="dashboard-logo" src={Logo} alt="" onClick={() => history.push(`/${user.role}/myProfile`)} />
           </span>
           <Typography variant="h7" component="div" className="logo-title">
             PERMISPOP.
@@ -157,20 +147,15 @@ function ResponsiveDrawer(props) {
             </IconButton>
             <Divider orientation="vertical" flexItem className="divider" />
 
-            <IconButton className="flag01">
+            <IconButton className="flag01" onClick={() => i18n.changeLanguage("en")}>
               <img alt="America" src={flag_01} className="flags-appbar" />
             </IconButton>
 
-            <IconButton className="flag02">
+            <IconButton className="flag02" onClick={() => i18n.changeLanguage("fr")}>
               <img alt="Russia" src={flag_02} className="flags-appbar" />
             </IconButton>
             <IconButton>
-              <BasicAvatar
-                showActiveStatus={true}
-                online={true}
-                src={Avatar_dumy}
-                avatarclassName="navbar_avatar"
-              />
+              <BasicAvatar showActiveStatus={true} online={true} src={Avatar_dumy} avatarclassName="navbar_avatar" />
             </IconButton>
           </Box>
         </Toolbar>

@@ -21,8 +21,7 @@ import API from "../../api";
 import { toast } from "react-toastify";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import Joi from "joi-browser";
-import { min } from "moment";
-import { max } from "moment";
+import { useTranslation } from "react-i18next";
 
 const ColorlibConnector = withStyles({
   alternativeLabel: {
@@ -102,6 +101,7 @@ function ColorlibStepIcon(props) {
 const DrivingSchool = () => {
   // States and Variables
   let history = useHistory();
+  const { i18n, t } = useTranslation();
   const [vehicles, setVehicles] = React.useState([]);
   const [instructors, setInstructors] = React.useState([]);
   const [activeStep, setActiveStep] = React.useState(1);
@@ -135,7 +135,7 @@ const DrivingSchool = () => {
     TradeName: Joi.string()
       .min(3)
       .required()
-      .label("Trade Name")
+      .label(t("Trade Name"))
       .error((errors) => {
         errors.forEach((err) => {
           switch (err.type) {
@@ -154,7 +154,7 @@ const DrivingSchool = () => {
       }),
     CompanyName: Joi.string()
       .required()
-      .label("Company Name")
+      .label(t("Company Name"))
       .error((errors) => {
         errors.forEach((err) => {
           switch (err.type) {
@@ -173,7 +173,7 @@ const DrivingSchool = () => {
       }),
     Address: Joi.string()
       .required()
-      .label("Address")
+      .label(t("Address"))
       .error((errors) => {
         errors.forEach((err) => {
           switch (err.type) {
@@ -185,7 +185,7 @@ const DrivingSchool = () => {
         return errors;
       }),
     Complement: Joi.string()
-      .label("Complement")
+      .label(t("Complement"))
       .error((errors) => {
         errors.forEach((err) => {
           switch (err.type) {
@@ -199,15 +199,15 @@ const DrivingSchool = () => {
     Email: Joi.string()
       .email()
       .required()
-      .label("Email")
+      .label(t("Email"))
       .error((errors) => {
         errors.forEach((err) => {
           switch (err.type) {
             case "any.empty":
-              err.message = `${err.context.label} Field can't be empty!`;
+              err.message = t(`${err.context.label} Field can't be empty!`);
               break;
             case "string.email":
-              err.message = `Not a Valid ${err.context.label}`;
+              err.message = t(`Not a Valid ${err.context.label}`);
               break;
 
             default:
@@ -217,7 +217,7 @@ const DrivingSchool = () => {
         return errors;
       }),
     Email2: Joi.optional()
-      .label("Second Email")
+      .label(t("Second Email"))
       .error((errors) => {
         errors.forEach((err) => {
           switch (err.type) {
@@ -235,7 +235,7 @@ const DrivingSchool = () => {
 
       .length(10)
       .required()
-      .label("Phone")
+      .label(t("Phone"))
       .error((errors) => {
         errors.forEach((err) => {
           switch (err.type) {
@@ -350,15 +350,15 @@ const DrivingSchool = () => {
       errorMessage = validateSuggest1(name, value.Label);
     } else if (name === "Password") {
       if (value.length < 8) {
-        errorMessage = "Password must be atleast 8 char long";
+        errorMessage = t("Password must be atleast 8 char long");
       } else if (value.length === 0) {
-        errorMessage = "Password cannot be empty";
+        errorMessage = t("Password cannot be empty");
       }
     } else if (name === "Password2") {
       if (step1.Password != value) {
-        errorMessage = "Password didn't match";
+        errorMessage = t("Password didn't match");
       } else if (value.length === 0) {
-        errorMessage = "Password cannot be empty";
+        errorMessage = t("Password cannot be empty");
       }
     } else if (name == "OtherPlateform") {
     } else {
@@ -1549,6 +1549,19 @@ const DrivingSchool = () => {
     let errorMessage = "";
     if (name === "Address") {
       errorMessage = validateSuggest6(name, value.Label);
+    } else if (name === "Password") {
+      if (value.length < 8) {
+        errorMessage = t("Password must be atleast 8 char long");
+      } else if (value.length === 0) {
+        errorMessage = t("Password cannot be empty");
+      }
+    } else if (name === "Password2") {
+      if (step1.Password != value) {
+        errorMessage = t("Password didn't match");
+      } else if (value.length === 0) {
+        errorMessage = t("Password cannot be empty");
+      }
+    } else if (name == "OtherPlateform") {
     } else {
       errorMessage = validateSuggest6(name, value);
     }
@@ -1563,15 +1576,7 @@ const DrivingSchool = () => {
     const { error } = Joi.validate(obj, schema);
     return error ? error.details[0].message : null;
   };
-  const steps = [
-    "Identity",
-    "Details",
-    "Insurance",
-    "Manaager",
-    "Vehicle",
-    "Instructor",
-    "Done",
-  ];
+  const steps = [t("Identity"), t("Details"), t("Insurance"), t("Manaager"), t("Vehicle"), t("Instructor"), t("Done")];
 
   // FUNCTIONS
 
@@ -1651,63 +1656,44 @@ const DrivingSchool = () => {
 
                         let vehiclesRes = [];
                         vehicles.map(async (vehicle) => {
-                          let VehicleInsurancePromise = API(
-                            "post",
-                            "VehicleInsurance",
-                            {
-                              endDate: vehicle.StartDate,
-                              greenCardImagePath: vehicle.GreenCard,
-                              insurer: vehicle.Insurer,
-                              policeNumber: vehicle.PoliceNumber,
-                              startDate: vehicle.EndDate,
-                            }
-                          );
+                          let VehicleInsurancePromise = API("post", "VehicleInsurance", {
+                            endDate: vehicle.StartDate,
+                            greenCardImagePath: vehicle.GreenCard,
+                            insurer: vehicle.Insurer,
+                            policeNumber: vehicle.PoliceNumber,
+                            startDate: vehicle.EndDate,
+                          });
 
                           let TechnicalControlPromise = "";
                           if (step5.checked) {
-                            TechnicalControlPromise = API(
-                              "post",
-                              "TechnicalControl",
-                              {
-                                dateofTechnicalControl: vehicle.TechControlDate,
-                                endData: vehicle.TechEndDate,
-                                endDateOfTechControl: vehicle.TechEndDate,
-                                startDateOfTech: vehicle.TechControlDate,
-                                technicalControlImagePath: vehicle.CTImg,
-                              }
-                            );
+                            TechnicalControlPromise = API("post", "TechnicalControl", {
+                              dateofTechnicalControl: vehicle.TechControlDate,
+                              endData: vehicle.TechEndDate,
+                              endDateOfTechControl: vehicle.TechEndDate,
+                              startDateOfTech: vehicle.TechControlDate,
+                              technicalControlImagePath: vehicle.CTImg,
+                            });
                           }
                           let array = [];
                           if (step5.checked) {
-                            array = [
-                              VehicleInsurancePromise,
-                              TechnicalControlPromise,
-                            ];
+                            array = [VehicleInsurancePromise, TechnicalControlPromise];
                           } else {
                             array = [VehicleInsurancePromise];
                           }
                           vehiclesRes.push(
-                            Promise.all([
-                              VehicleInsurancePromise,
-                              TechnicalControlPromise,
-                            ]).then((e) => {
+                            Promise.all([VehicleInsurancePromise, TechnicalControlPromise]).then((e) => {
                               return API("post", "VehicleDetail", {
                                 brand: vehicle.Brand,
                                 color: vehicle.Color,
-                                dateOfFirstRegistration:
-                                  vehicle.RegistrationDate,
+                                dateOfFirstRegistration: vehicle.RegistrationDate,
                                 energy: vehicle.Energy,
                                 gearBox: vehicle.GearBox,
                                 model: vehicle.Model,
                                 numberPlate: vehicle.NumberPlate,
-                                technicalControlInfoID: e[1]
-                                  ? e[1].data.data.id
-                                  : "",
+                                technicalControlInfoID: e[1] ? e[1].data.data.id : "",
                                 vehichleInsuranceInfoId: e[0].data.data.id,
-                                vehicleRegistrationCertificatePhotoImagePath:
-                                  vehicle.CertificateFrontImage,
-                                vehicleRegistrationCertificatePhotoImagePathBack:
-                                  vehicle.CertificateBackImage,
+                                vehicleRegistrationCertificatePhotoImagePath: vehicle.CertificateFrontImage,
+                                vehicleRegistrationCertificatePhotoImagePathBack: vehicle.CertificateBackImage,
                                 vehicleePhotosImagePath: vehicle.CarImage,
                               });
                             })
@@ -1716,61 +1702,45 @@ const DrivingSchool = () => {
 
                         let instructorsRes = [];
                         instructors.map(async (instructor, index) => {
-                          let DSInstructorPersonalPromise = API(
-                            "post",
-                            "Personal",
-                            {
-                              firstName: instructor.Firstname,
-                              surName: instructor.Surname,
-                              dob: instructor.Dob,
-                              placeOfBirth: instructor.Pob,
-                              gender: instructor.Gender,
-                              ContactEmail: instructor.Email,
-                              email: instructor.Email,
-                              secondEmail: instructor.Email2,
-                              phone: instructor.Phone,
-                              secondPhone: instructor.Phone2,
-                              complement: instructor.Complement,
-                              password: instructor.Password,
-                              photo: instructor.ProfileImg,
-                              SpokenLanguage: languageArray,
-                              address: instructor.Address.Label,
-                              zip: instructor.Address.Zip,
-                              city: instructor.Address.City,
-                              lat: instructor.Address.Lat,
-                              long: instructor.Address.Lat,
-                              Role: "DSInstructor",
-                            }
-                          );
+                          let DSInstructorPersonalPromise = API("post", "Personal", {
+                            firstName: instructor.Firstname,
+                            surName: instructor.Surname,
+                            dob: instructor.Dob,
+                            placeOfBirth: instructor.Pob,
+                            gender: instructor.Gender,
+                            ContactEmail: instructor.Email,
+                            email: instructor.Email,
+                            secondEmail: instructor.Email2,
+                            phone: instructor.Phone,
+                            secondPhone: instructor.Phone2,
+                            complement: instructor.Complement,
+                            password: instructor.Password,
+                            photo: instructor.ProfileImg,
+                            SpokenLanguage: languageArray,
+                            address: instructor.Address.Label,
+                            zip: instructor.Address.Zip,
+                            city: instructor.Address.City,
+                            lat: instructor.Address.Lat,
+                            long: instructor.Address.Lat,
+                            Role: "DSInstructor",
+                          });
 
-                          let DrivingLisencePromise = API(
-                            "post",
-                            "DrivingLisence",
-                            {
-                              drivingLisenceImagePath:
-                                instructor.DriverLicenseFrontImg,
-                              drivingLisenceImagePathBack:
-                                instructor.DriverLicenseBackImg,
-                              lisenceNumber: instructor.DriverLicenseNumber,
-                              obtainingDate: instructor.DriverLicenseStartDate,
-                              validityDate: instructor.DriverLicenseEndDate,
-                            }
-                          );
+                          let DrivingLisencePromise = API("post", "DrivingLisence", {
+                            drivingLisenceImagePath: instructor.DriverLicenseFrontImg,
+                            drivingLisenceImagePathBack: instructor.DriverLicenseBackImg,
+                            lisenceNumber: instructor.DriverLicenseNumber,
+                            obtainingDate: instructor.DriverLicenseStartDate,
+                            validityDate: instructor.DriverLicenseEndDate,
+                          });
 
-                          let ExersiceAuthorizationPromise = API(
-                            "post",
-                            "ExersiceAuthorization",
-                            {
-                              authorizationDate: instructor.ExcAuthStartDate,
-                              authorizationImagePath:
-                                instructor.ExcAuthFrontImg,
-                              authorizationImagePathBack:
-                                instructor.ExcAuthBackImg,
-                              authorizationNumber: instructor.ExcAuthNumber,
-                              expirationDate: instructor.ExcAuthEndDate,
-                              issuingAuthority: instructor.ExcAuthIssueAuth,
-                            }
-                          );
+                          let ExersiceAuthorizationPromise = API("post", "ExersiceAuthorization", {
+                            authorizationDate: instructor.ExcAuthStartDate,
+                            authorizationImagePath: instructor.ExcAuthFrontImg,
+                            authorizationImagePathBack: instructor.ExcAuthBackImg,
+                            authorizationNumber: instructor.ExcAuthNumber,
+                            expirationDate: instructor.ExcAuthEndDate,
+                            issuingAuthority: instructor.ExcAuthIssueAuth,
+                          });
                           let BusinessPromise = API("post", "Business", {
                             siretNumber: "",
                           });
@@ -1801,8 +1771,7 @@ const DrivingSchool = () => {
                                 DrivingLisenceInfoId: e[1].data.data.id,
                                 ExersiceAuthorizationInfoId: e[2].data.data.id,
                                 BusinessInfoId: e[3].data.data.id,
-                                DrivingSchoolIdentityInfoId:
-                                  DSPersonalRes.data.data.id,
+                                DrivingSchoolIdentityInfoId: DSPersonalRes.data.data.id,
                                 Lat: instructor.Address.Lat,
                                 Long: instructor.Address.Lng,
                                 Role: "DSInstructor",
@@ -1820,42 +1789,30 @@ const DrivingSchool = () => {
                             };
                           });
                         });
-                        Promise.all(instructorsRes).then(
-                          async (instructors) => {
-                            await API("post", "Profile", {
-                              BusinessInfoId: BusinessRes.data.data.id,
-                              DrivingSchoolApprovalInfoId:
-                                DrivingSchoolApprovalRes.data.data.id,
-                              DrivingSchoolIdentityInfoId:
-                                DSPersonalRes.data.data.id,
-                              DrivingSchoolInstructorInfoId:
-                                JSON.stringify(finalInstructors),
-                              DrivingSchoolManagerInfoId:
-                                DrivingSchoolManagerRes.data.data.id,
-                              DrivingSchoolVehiclesInfoId:
-                                JSON.stringify(finalVehicles),
-                              InsuranceCompanyInfoId:
-                                InsuranceCompanyRes.data.data.id,
-                              Lat: step1.Address.Lat,
-                              Long: step1.Address.Lng,
-                              PersonalInfoId: DSPersonalRes.data.data.id,
-                              Role: "DrivingSchool",
-                              Status: "Active",
+                        Promise.all(instructorsRes).then(async (instructors) => {
+                          await API("post", "Profile", {
+                            BusinessInfoId: BusinessRes.data.data.id,
+                            DrivingSchoolApprovalInfoId: DrivingSchoolApprovalRes.data.data.id,
+                            DrivingSchoolIdentityInfoId: DSPersonalRes.data.data.id,
+                            DrivingSchoolInstructorInfoId: JSON.stringify(finalInstructors),
+                            DrivingSchoolManagerInfoId: DrivingSchoolManagerRes.data.data.id,
+                            DrivingSchoolVehiclesInfoId: JSON.stringify(finalVehicles),
+                            InsuranceCompanyInfoId: InsuranceCompanyRes.data.data.id,
+                            Lat: step1.Address.Lat,
+                            Long: step1.Address.Lng,
+                            PersonalInfoId: DSPersonalRes.data.data.id,
+                            Role: "DrivingSchool",
+                            Status: "Active",
+                          })
+                            .then((dsProfileRes) => {
+                              history.push("/");
+                              toast.success(t("Driving School Registered Successfully"));
                             })
-                              .then((dsProfileRes) => {
-                                history.push("/");
-                                toast.success(
-                                  "Driving School Registered Successfully"
-                                );
-                              })
-                              .catch((error) => {
-                                console.log(error);
-                                toast.error(
-                                  "Not Registered....Somethong went wrong"
-                                );
-                              });
-                          }
-                        );
+                            .catch((error) => {
+                              console.log(error);
+                              toast.error(t("Not Registered....Somethong went wrong"));
+                            });
+                        });
                       })
                       .catch((error) => {
                         console.log("DrivingSchoolManager Error", error);
@@ -1881,7 +1838,7 @@ const DrivingSchool = () => {
   return (
     <React.Fragment>
       <RegisterHeader
-        title="Driving School Registration"
+        title={t("Driving School Registration")}
         subtitle1="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce varius justo et scelerisque varius. Nullam mollis augue et facilisis blandit. Morbi sollicitudin a eros sed cursus."
         subtitle2="Quisque lobortis ultrices dolor, fringilla venenatis leo sodales at. Nam suscipit felis sit amet convallis."
       />
@@ -1911,34 +1868,26 @@ const DrivingSchool = () => {
             }}
           >
             {activeStep === 1 ? (
-              <>Confirm Identity</>
+              <>{t("Confirm Identity")}</>
             ) : activeStep === 2 ? (
-              <>Approval</>
+              <>{t("Approval")}</>
             ) : activeStep === 3 ? (
-              <>Insurance Company</>
+              <>{t("Insurance Company")}</>
             ) : activeStep === 4 ? (
-              <>Manager Identity</>
+              <>{t("Manager Identity")}</>
             ) : activeStep === 5 ? (
-              <>Vehicles</>
+              <>{t("Vehicles")}</>
             ) : activeStep === 6 ? (
-              <>Identity Of Instructor</>
+              <>{t("Identity Of Instructor")}</>
             ) : (
               ""
             )}
           </Typography>
-          <Stepper
-            alternativeLabel
-            activeStep={activeStep}
-            connector={<ColorlibConnector />}
-            className="stepper"
-          >
+          <Stepper alternativeLabel activeStep={activeStep} connector={<ColorlibConnector />} className="stepper">
             {steps.map((label, index) => (
               <Step key={label}>
                 <StepLabel StepIconComponent={ColorlibStepIcon}>
-                  <span
-                    className="steplabel"
-                    style={{ fontfamily: "Inter", color: "black" }}
-                  >
+                  <span className="steplabel" style={{ fontfamily: "Inter", color: "black" }}>
                     {label}
                   </span>
                 </StepLabel>
@@ -1954,14 +1903,12 @@ const DrivingSchool = () => {
             <Box sx={{ width: "83%" }}>
               {activeStep === steps.length ? (
                 <React.Fragment>
-                  <Typography sx={{ mt: 2, mb: 1 }}>
-                    All steps completed - you&apos;re finished
-                  </Typography>
+                  <Typography sx={{ mt: 2, mb: 1 }}>{t("All steps completed - you're finished")}</Typography>
                   <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
                     <Box sx={{ flex: "1 1 auto" }} />
                     <Button
                       onClick={handleReset}
-                      text="Reset"
+                      text={t("Reset")}
                       buttonLableStyle="btn_main"
                       style={{ marginTop: "24px", marginRight: "10px" }}
                       width="10%"
@@ -1975,33 +1922,13 @@ const DrivingSchool = () => {
                 <React.Fragment>
                   <Typography sx={{ mt: 2, mb: 1 }}>
                     {activeStep === 1 ? (
-                      <Step1
-                        step1={step1}
-                        setStep1={setStep1}
-                        onChange={handleStep1}
-                        step1Errors={step1Errors}
-                      />
+                      <Step1 step1={step1} setStep1={setStep1} onChange={handleStep1} step1Errors={step1Errors} />
                     ) : activeStep === 2 ? (
-                      <Step2
-                        step2={step2}
-                        setStep2={setStep2}
-                        onChange={handleStep2}
-                        step2Errors={step2Errors}
-                      />
+                      <Step2 step2={step2} setStep2={setStep2} onChange={handleStep2} step2Errors={step2Errors} />
                     ) : activeStep === 3 ? (
-                      <Step3
-                        step3={step3}
-                        setStep3={setStep3}
-                        onChange={handleStep3}
-                        step3Errors={step3Errors}
-                      />
+                      <Step3 step3={step3} setStep3={setStep3} onChange={handleStep3} step3Errors={step3Errors} />
                     ) : activeStep === 4 ? (
-                      <Step4
-                        step4={step4}
-                        setStep4={setStep4}
-                        onChange={handleStep4}
-                        step4Errors={step4Errors}
-                      />
+                      <Step4 step4={step4} setStep4={setStep4} onChange={handleStep4} step4Errors={step4Errors} />
                     ) : activeStep === 5 ? (
                       <Step5
                         step5={step5}
@@ -2037,7 +1964,7 @@ const DrivingSchool = () => {
                     <Button
                       disabled={activeStep === 1}
                       onClick={handleBack}
-                      text="Back"
+                      text={t("Back")}
                       buttonLableStyle="btn_main"
                       style={{ marginTop: "24px", marginRight: "10px" }}
                       width="10%"
@@ -2048,18 +1975,14 @@ const DrivingSchool = () => {
                     <Button
                       endIcon={<ArrowForwardIcon sx={{ color: "#fff" }} />}
                       type="submit"
-                      text={activeStep === steps.length - 1 ? "Finish" : "Next"}
+                      text={activeStep === steps.length - 1 ? t("Finish") : t("Next")}
                       buttonLableStyle="btn_main"
                       style={{ marginTop: "24px" }}
                       width="10%"
                       customWidth1="100%"
                       height="48px"
                       height2="48px"
-                      onClick={
-                        activeStep === steps.length - 1
-                          ? handleSubmit
-                          : handleNext
-                      }
+                      onClick={activeStep === steps.length - 1 ? handleSubmit : handleNext}
                       disabled={
                         (activeStep === 1 &&
                           step1Errors.TradeName === null &&

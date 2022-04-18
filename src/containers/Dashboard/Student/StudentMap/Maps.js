@@ -13,8 +13,10 @@ import Select from "@mui/material/Select";
 import FormControl from "@mui/material/FormControl";
 import MenuItem from "@mui/material/MenuItem";
 import { Grid } from "@mui/material";
+import { useTranslation } from "react-i18next";
 
 const Maps = (props) => {
+  const { i18n , t } = useTranslation();
   const studentData = JSON.parse(localStorage.getItem("user"));
   const history = useHistory();
   const [data, setData] = useState([]);
@@ -110,7 +112,7 @@ const Maps = (props) => {
       <Grid container spacing={1}>
         <Grid sx={4} sm={4} md={2} className="filter_div">
           <FormControl>
-            <label style={{ fontWeight: 500 }}>Gearbox</label>
+            <label style={{ fontWeight: 500 }}>{t("Gearbox")}</label>
             <Select
               name="Gearbox"
               value={instructorType.Gearbox}
@@ -118,13 +120,13 @@ const Maps = (props) => {
               className="dropdown1"
             >
               <MenuItem value="All" name="All">
-                All
+                {t("All")}
               </MenuItem>
               <MenuItem value="Auto" name="Auto">
-                Auto
+                {t("Auto")}
               </MenuItem>
               <MenuItem value="Manual" name="Manual">
-                Manual
+                {t("Manual")}
               </MenuItem>
             </Select>
           </FormControl>
@@ -132,7 +134,7 @@ const Maps = (props) => {
 
         <Grid sx={4} sm={4} md={2} className="filter_div">
           <FormControl>
-            <label style={{ fontWeight: 500 }}>Gender</label>
+            <label style={{ fontWeight: 500 }}>{t("Gender")}</label>
             <Select
               name="Gender"
               value={instructorType.Gender}
@@ -140,23 +142,23 @@ const Maps = (props) => {
               className="dropdown1"
             >
               <MenuItem value="All" name="All">
-                All
+                {t("All")}
               </MenuItem>
               <MenuItem value="Male" name="Male">
-                Male
+                {t("Male")}
               </MenuItem>
               <MenuItem value="Female" name="Female">
-                Female
+                {t("Female")}
               </MenuItem>
               <MenuItem value="Others" name="Others">
-                Others
+                {t("Others")}
               </MenuItem>
             </Select>
           </FormControl>
         </Grid>
         <Grid sx={4} sm={4} md={2} className="filter_div">
           <FormControl>
-            <label style={{ fontWeight: 500 }}>Role</label>
+            <label style={{ fontWeight: 500 }}>{t("Role")}</label>
             <Select
               name="Role"
               value={instructorType.Role}
@@ -164,23 +166,23 @@ const Maps = (props) => {
               className="dropdown2"
             >
               <MenuItem value="All" name="All">
-                All
+                {t("All")}
               </MenuItem>
               <MenuItem value="DrivingSchool" name="Driving School">
-                Driving School
+                {t("Driving School")}
               </MenuItem>
               <MenuItem value="Instructor" name="Instructor">
-                Instructor
+                {t("Instructor")}
               </MenuItem>
               <MenuItem value="CarRentalAgent" name="Car Rental Agent">
-                Car Rental Agent
+                {t("Car Rental Agent")}
               </MenuItem>
             </Select>
           </FormControl>
         </Grid>
         <Grid sx={4} sm={4} md={2} className="filter_div">
           <Button
-            text="Apply"
+            text={t("Apply")}
             color="#149e7a !important"
             width="9rem !important"
             className="filter_btn"
@@ -209,7 +211,7 @@ const Maps = (props) => {
             icon={greyIcon}
           >
             <Popup>
-              <p className="pop_text">Your Position</p>
+              <p className="pop_text">{typeof("Your Position")}</p>
             </Popup>
           </Marker>
           {Object.keys(data).length > 0 &&
@@ -295,7 +297,7 @@ const Maps = (props) => {
                               <p className="icons_text1">
                                 {item.BookingLength}
                               </p>
-                              <p className="icons_text2">Bookings</p>
+                              <p className="icons_text2">{t("Bookings")}</p>
                             </div>
                           </div>
                           <div className="icons_div">
@@ -306,13 +308,13 @@ const Maps = (props) => {
                               <p className="icons_text1">
                                 {item.Rating != "NaN" ? item.Rating : "N/A"}
                               </p>
-                              <p className="icons_text2">Ratings</p>
+                              <p className="icons_text2">{t("Ratings")}</p>
                             </div>
                           </div>
                         </div>
                         <div className="popup_button_div">
                           <Button
-                            text="Book Now"
+                            text={t("Book Now")}
                             borderRadius="5px"
                             width="50% !important"
                             textColor="#f4f4f4 !important"
@@ -320,7 +322,7 @@ const Maps = (props) => {
                             onClick={() => handleBooking(item)}
                           />
                           <Button
-                            text="Chat"
+                            text={t("Chat")}
                             borderRadius="5px"
                             width="50% !important"
                             margin="0 0 0 5px !important"
