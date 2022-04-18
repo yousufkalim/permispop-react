@@ -8,7 +8,6 @@ import MobileViewFilters from "../../../components/Common/MobileViewFilters";
 import Divider from "../../../components/Common/Divider";
 import ButtonComponent from "../../../components/Common/Button";
 
-
 const Index = () => {
   const [Startvalue, setStartValue] = useState(new Date());
   const handleStartdate = (newValue) => {
@@ -21,7 +20,7 @@ const Index = () => {
   };
   return (
     <>
-      <MobileViewFilters title="My Procedure" />
+      {/* <MobileViewFilters title="My Procedure" /> */}
       <div className="Filters">
         <Grid container spacing={1} sx={{ marginTop: "30px" }}>
           <Grid xs={12} sm={12} md={4}>

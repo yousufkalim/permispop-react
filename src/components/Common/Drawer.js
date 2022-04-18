@@ -103,6 +103,7 @@ function ResponsiveDrawer(props) {
             key={route.name}
             className={active === index && "selected-item"}
             onClick={() => setActive(index)}
+            disabled={route.path === "/InstructorBooking"}
           >
             <ListItemIcon
               className={active === index ? "iconSelected" : "defaultIcon"}
@@ -123,6 +124,7 @@ function ResponsiveDrawer(props) {
     window.location.reload(false);
     localStorage.removeItem("token");
     localStorage.removeItem("user");
+    localStorage.removeItem("selectedInstructor");
   };
 
   return (

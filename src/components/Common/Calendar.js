@@ -12,17 +12,16 @@ const localizer = momentLocalizer(moment);
 const eventsStyle = (event) => {
   var bgcolor = "";
   // condition for setting color in divs in calendar head
-  if (event.status === "available") {
-    if (event.type === "auto") {
+  if (event.status === "available" || event.status === "Available") {
+    if (event.type === "auto" || event.type === "Auto") {
       bgcolor = "#79CEF7";
-    } else if (event.type === "manual") {
+    } else if (event.type === "manual" || event.type === "Manual") {
       bgcolor = "#FFB6C1";
     } else {
-      console.log("Not auto Not manual");
     }
-  } else if (event.status === "unavailable") {
+  } else if (event.status === "unavailable" || event.status === "Unavailable") {
     bgcolor = "#B0AEAE";
-  } else if (event.status === "personal") {
+  } else if (event.status === "personal" || event.status === "Personal") {
     bgcolor = "#9C6DD1";
   } else {
     bgcolor = "#2CA888";
@@ -39,7 +38,7 @@ const CalendarComponent = (props) => {
   return (
     <div className="main-div">
       <div className="calendar-head">
-        <div className="date-box">
+        {/* <div className="date-box">
           <IconButton>
             <ArrowBackIosNewIcon className="arrow-back" />
           </IconButton>
@@ -53,54 +52,60 @@ const CalendarComponent = (props) => {
           <IconButton>
             <ArrowForwardIosIcon className="arrow-forward" />
           </IconButton>
-        </div>
+        </div> */}
 
-        <div className="instructions-div">
-          <div className="instructions">
-            <div
-              className="colorBox-div"
-              style={{ backgroundColor: "#79CEF7" }}
-            ></div>
-            {/* styling of calendar toolbar text */}
-            <Typography className="instruction-text">
-              Availability Auto
-            </Typography>
-          </div>
-          <div className="instructions">
-            <div
-              className="colorBox-div"
-              style={{ backgroundColor: "#FFB6C1" }}
-            ></div>
-            <Typography className="instruction-text">
-              Availablity Manual
-            </Typography>
-          </div>
-          <div className="instructions">
-            <div
-              className="colorBox-div"
-              style={{ backgroundColor: "#B0AEAE" }}
-            ></div>
-            <Typography className="instruction-text">Unavailability</Typography>
-          </div>
-          <div className="instructions">
-            <div
-              className="colorBox-div"
-              style={{ backgroundColor: "#9C6DD1" }}
-            ></div>
-            <Typography className="instruction-text">Personal</Typography>
-          </div>
-          <div className="instructions">
-            <div
-              className="colorBox-div"
-              style={{ backgroundColor: "#149E7A" }}
-            ></div>
-            <Typography className="instruction-text">Booking</Typography>
+        <div
+          style={{ display: "flex", justifyContent: "center", width: "100%" }}
+        >
+          <div className="instructions-div">
+            <div className="instructions">
+              <div
+                className="colorBox-div"
+                style={{ backgroundColor: "#79CEF7" }}
+              ></div>
+              {/* styling of calendar toolbar text */}
+              <Typography className="instruction-text">
+                Availability Auto
+              </Typography>
+            </div>
+            <div className="instructions">
+              <div
+                className="colorBox-div"
+                style={{ backgroundColor: "#FFB6C1" }}
+              ></div>
+              <Typography className="instruction-text">
+                Availablity Manual
+              </Typography>
+            </div>
+            <div className="instructions">
+              <div
+                className="colorBox-div"
+                style={{ backgroundColor: "#B0AEAE" }}
+              ></div>
+              <Typography className="instruction-text">
+                Unavailability
+              </Typography>
+            </div>
+            <div className="instructions">
+              <div
+                className="colorBox-div"
+                style={{ backgroundColor: "#9C6DD1" }}
+              ></div>
+              <Typography className="instruction-text">Personal</Typography>
+            </div>
+            <div className="instructions">
+              <div
+                className="colorBox-div"
+                style={{ backgroundColor: "#149E7A" }}
+              ></div>
+              <Typography className="instruction-text">Booking</Typography>
+            </div>
           </div>
         </div>
-        <Button className="add-button">
+        {/* <Button className="add-button">
           <AddIcon className="add-icon" />
           <Typography className="btn-text">Add Availibity</Typography>
-        </Button>
+        </Button> */}
       </div>
       <div className="calendar">
         <Calendar
@@ -112,6 +117,9 @@ const CalendarComponent = (props) => {
           onSelectEvent={props.onSelectEvent}
           onSelectSlot={props.onSelectSlot}
           selectable={true}
+          min={props.min}
+          max={props.max}
+          onNavigate={props.onNavigate}
         />
       </div>
     </div>

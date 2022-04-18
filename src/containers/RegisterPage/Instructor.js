@@ -21,7 +21,6 @@ import { toast } from "react-toastify";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import Joi from "joi-browser";
 
-
 const ColorlibConnector = withStyles({
   alternativeLabel: {
     top: 23,
@@ -130,11 +129,10 @@ const Instructor = () => {
     ProfileImg: "",
     OtherPlateform: "",
     GiveTime: "",
-    checked:false,
+    checked: false,
   });
 
   const step1Schema = {
-
     Firstname: Joi.string()
       .min(3)
       .required()
@@ -148,7 +146,7 @@ const Instructor = () => {
             case "string.min":
               err.message = `${err.context.label} must be atleast ${err.context.limit} alphabets Longs!`;
               break;
-          
+
             default:
               break;
           }
@@ -156,7 +154,7 @@ const Instructor = () => {
         return errors;
       }),
 
-      Surname: Joi.string()
+    Surname: Joi.string()
       .min(3)
       .required()
       .label("Surname")
@@ -169,7 +167,7 @@ const Instructor = () => {
             case "string.min":
               err.message = `${err.context.label} must be atleast ${err.context.limit} alphabets Longs!`;
               break;
-          
+
             default:
               break;
           }
@@ -177,7 +175,7 @@ const Instructor = () => {
         return errors;
       }),
 
-      Address: Joi.string()
+    Address: Joi.string()
       .required()
       .label("Address")
       .error((errors) => {
@@ -186,14 +184,14 @@ const Instructor = () => {
             case "string.empty":
               err.message = `${err.context.label} Field can't be empty`;
               break;
-              default:
+            default:
               break;
           }
         });
         return errors;
       }),
 
-      Dob: Joi.string()
+    Dob: Joi.string()
       .required()
       .label("dob")
       .error((errors) => {
@@ -207,7 +205,7 @@ const Instructor = () => {
         return errors;
       }),
 
-      Pob: Joi.string()
+    Pob: Joi.string()
       .required()
       .label("pob")
       .error((errors) => {
@@ -221,7 +219,7 @@ const Instructor = () => {
         return errors;
       }),
 
-      Gender: Joi.string()
+    Gender: Joi.string()
       .required()
       .label("gender")
       .error((errors) => {
@@ -234,7 +232,7 @@ const Instructor = () => {
         });
         return errors;
       }),
-      Email: Joi.string()
+    Email: Joi.string()
       .email()
       .required()
       .label("Email")
@@ -254,7 +252,7 @@ const Instructor = () => {
         });
         return errors;
       }),
-      Email2: Joi.optional()
+    Email2: Joi.optional()
       .label("Second Email")
       .error((errors) => {
         errors.forEach((err) => {
@@ -269,8 +267,8 @@ const Instructor = () => {
         });
         return errors;
       }),
-      Phone: Joi.string()
-  
+    Phone: Joi.string()
+
       .length(10)
       .required()
       .label("Phone")
@@ -286,15 +284,14 @@ const Instructor = () => {
         });
         return errors;
       }),
-      Phone2: Joi
-      .label("Phone2")
+    Phone2: Joi.label("Phone2")
       .optional()
 
       .error((errors) => {
         return errors;
       }),
-      Password: Joi.string()
-  
+    Password: Joi.string()
+
       .min(8)
       .required()
       .label("Password")
@@ -314,8 +311,8 @@ const Instructor = () => {
         return errors;
       }),
 
-      ConfirmPassword: Joi.string()
-      .valid(Joi.ref('Password'))
+    ConfirmPassword: Joi.string()
+      .valid(Joi.ref("Password"))
       .label("ConfirmPassword")
       .error((errors) => {
         errors.forEach((err) => {
@@ -330,7 +327,7 @@ const Instructor = () => {
         return errors;
       }),
 
-      Complement: Joi.string()
+    Complement: Joi.string()
       .required()
       .label("Complement")
       .error((errors) => {
@@ -344,7 +341,7 @@ const Instructor = () => {
         return errors;
       }),
 
-      Language: Joi.array()
+    Language: Joi.array()
       .required()
       .min(1)
       .label("Language")
@@ -359,7 +356,7 @@ const Instructor = () => {
         return errors;
       }),
 
-      FrontImg: Joi.string()
+    FrontImg: Joi.string()
       .required()
       .label("FrontImg")
       .error((errors) => {
@@ -372,7 +369,7 @@ const Instructor = () => {
         });
         return errors;
       }),
-      BackImg: Joi.string()
+    BackImg: Joi.string()
       .required()
       .label("BackImg")
       .error((errors) => {
@@ -385,7 +382,7 @@ const Instructor = () => {
         });
         return errors;
       }),
-      ProfileImg: Joi.string()
+    ProfileImg: Joi.string()
       .label("ProfileImg")
       .error((errors) => {
         errors.forEach((err) => {
@@ -397,7 +394,7 @@ const Instructor = () => {
         });
         return errors;
       }),
-      OtherPlateform: Joi.string()
+    OtherPlateform: Joi.string()
       .label("OtherPlateform")
       .error((errors) => {
         errors.forEach((err) => {
@@ -409,7 +406,7 @@ const Instructor = () => {
         });
         return errors;
       }),
-      GiveTime: Joi.string()
+    GiveTime: Joi.string()
       .label("GiveTime")
       .error((errors) => {
         errors.forEach((err) => {
@@ -421,43 +418,29 @@ const Instructor = () => {
         });
         return errors;
       }),
-
   };
 
   const handleStep1 = (name, value) => {
-    let errorMessage = ''
-    if (name==="Address"){
+    let errorMessage = "";
+    if (name === "Address") {
       errorMessage = validateSuggest1(name, value.Label);
-    }
-    else if (name=="checked"){
-
-    }
-    else if(name==='Password'){
-      if(value.length<8){
-        errorMessage = 'Password must be atleast 8 char long';
-
+    } else if (name == "checked") {
+    } else if (name === "Password") {
+      if (value.length < 8) {
+        errorMessage = "Password must be atleast 8 char long";
+      } else if (value.length === 0) {
+        errorMessage = "Password cannot be empty";
       }
-      else if(value.length===0){
-        errorMessage = 'Password cannot be empty';
-
-      }
-
-    }
-    else if(name==='ConfirmPassword'){
-      if(step1.Password != value){
+    } else if (name === "ConfirmPassword") {
+      if (step1.Password != value) {
         errorMessage = "Password didn't match";
-
+      } else if (value.length === 0) {
+        errorMessage = "Password cannot be empty";
       }
-      else if(value.length===0){
-        errorMessage = 'Password cannot be empty';
-
-      }
-
-    }
-    else {
+    } else {
       errorMessage = validateSuggest1(name, value);
     }
-    setStep1Errors({...step1Errors,[name]:errorMessage});
+    setStep1Errors({ ...step1Errors, [name]: errorMessage });
     setStep1({ ...step1, [name]: value });
   };
 
@@ -469,7 +452,7 @@ const Instructor = () => {
     const { error } = Joi.validate(obj, schema);
     return error ? error.details[0].message : null;
   };
-  
+
   const [step2Errors, setStep2Errors] = React.useState({});
   const [step2, setStep2] = React.useState({
     obtainingdate: new Date(),
@@ -490,222 +473,222 @@ const Instructor = () => {
 
   const step2Schema = {
     licenceNo: Joi.string()
-    .required()
-    .label("licence No.")
-    .error((errors) => {
-      errors.forEach((err) => {
-        switch (err.type) {
-          case "string.empty":
-            err.message = `${err.context.label} Field can't be empty`;
-            break;
-          default:
-            break;
-        }
-      });
-      return errors;
-    }),
+      .required()
+      .label("licence No.")
+      .error((errors) => {
+        errors.forEach((err) => {
+          switch (err.type) {
+            case "string.empty":
+              err.message = `${err.context.label} Field can't be empty`;
+              break;
+            default:
+              break;
+          }
+        });
+        return errors;
+      }),
 
     deliveryPlace: Joi.string()
-    .required()
-    .label("delivery Place")
-    .error((errors) => {
-      errors.forEach((err) => {
-        switch (err.type) {
-          case "string.empty":
-            err.message = `${err.context.label} Field can't be empty`;
-            break;
-          default:
-            break;
-        }
-      });
-      return errors;
-    }),
+      .required()
+      .label("delivery Place")
+      .error((errors) => {
+        errors.forEach((err) => {
+          switch (err.type) {
+            case "string.empty":
+              err.message = `${err.context.label} Field can't be empty`;
+              break;
+            default:
+              break;
+          }
+        });
+        return errors;
+      }),
     issuingAuthority: Joi.string()
-    .required()
-    .label("Issuing Authority")
-    .error((errors) => {
-      errors.forEach((err) => {
-        switch (err.type) {
-          case "string.empty":
-            err.message = `${err.context.label} Field can't be empty`;
-            break;
-          default:
-            break;
-        }
-      });
-      return errors;
-    }),
+      .required()
+      .label("Issuing Authority")
+      .error((errors) => {
+        errors.forEach((err) => {
+          switch (err.type) {
+            case "string.empty":
+              err.message = `${err.context.label} Field can't be empty`;
+              break;
+            default:
+              break;
+          }
+        });
+        return errors;
+      }),
     AuthorizationNumber: Joi.string()
-    .required()
-    .label("Authorization Number")
-    .error((errors) => {
-      errors.forEach((err) => {
-        switch (err.type) {
-          case "string.empty":
-            err.message = `${err.context.label} Field can't be empty`;
-            break;
-          default:
-            break;
-        }
-      });
-      return errors;
-    }),
+      .required()
+      .label("Authorization Number")
+      .error((errors) => {
+        errors.forEach((err) => {
+          switch (err.type) {
+            case "string.empty":
+              err.message = `${err.context.label} Field can't be empty`;
+              break;
+            default:
+              break;
+          }
+        });
+        return errors;
+      }),
     siretNo: Joi.string()
-    .length(14)
-    .required()
-    .label("siret No.")
-    .error((errors) => {
-      errors.forEach((err) => {
-        switch (err.type) {
-          case "string.empty":
-            err.message = `${err.context.label} Field can't be empty`;
-            break;
-          default:
-            break;
-        }
-      });
-      return errors;
-    }),
+      .length(14)
+      .required()
+      .label("siret No.")
+      .error((errors) => {
+        errors.forEach((err) => {
+          switch (err.type) {
+            case "string.empty":
+              err.message = `${err.context.label} Field can't be empty`;
+              break;
+            default:
+              break;
+          }
+        });
+        return errors;
+      }),
     obtainingdate: Joi.string()
-    .required()
-    .label("Obtaining Date")
-    .error((errors) => {
-      errors.forEach((err) => {
-        switch (err.type) {
-          case "string.empty":
-            err.message = `${err.context.label} Field can't be empty`;
-            break;
-          default:
-            break;
-        }
-      });
-      return errors;
-    }),
+      .required()
+      .label("Obtaining Date")
+      .error((errors) => {
+        errors.forEach((err) => {
+          switch (err.type) {
+            case "string.empty":
+              err.message = `${err.context.label} Field can't be empty`;
+              break;
+            default:
+              break;
+          }
+        });
+        return errors;
+      }),
     validitiyDate: Joi.string()
-    .required()
-    .label("Validitiy Date")
-    .error((errors) => {
-      errors.forEach((err) => {
-        switch (err.type) {
-          case "string.empty":
-            err.message = `${err.context.label} Field can't be empty`;
-            break;
-          default:
-            break;
-        }
-      });
-      return errors;
-    }),
+      .required()
+      .label("Validitiy Date")
+      .error((errors) => {
+        errors.forEach((err) => {
+          switch (err.type) {
+            case "string.empty":
+              err.message = `${err.context.label} Field can't be empty`;
+              break;
+            default:
+              break;
+          }
+        });
+        return errors;
+      }),
     DateAuthorization: Joi.string()
-    .required()
-    .label("Date Authorization")
-    .error((errors) => {
-      errors.forEach((err) => {
-        switch (err.type) {
-          case "string.empty":
-            err.message = `${err.context.label} Field can't be empty`;
-            break;
-          default:
-            break;
-        }
-      });
-      return errors;
-    }),
+      .required()
+      .label("Date Authorization")
+      .error((errors) => {
+        errors.forEach((err) => {
+          switch (err.type) {
+            case "string.empty":
+              err.message = `${err.context.label} Field can't be empty`;
+              break;
+            default:
+              break;
+          }
+        });
+        return errors;
+      }),
     ExpirationDate: Joi.string()
-    .required()
-    .label("Expiration Date")
-    .error((errors) => {
-      errors.forEach((err) => {
-        switch (err.type) {
-          case "string.empty":
-            err.message = `${err.context.label} Field can't be empty`;
-            break;
-          default:
-            break;
-        }
-      });
-      return errors;
-    }),
+      .required()
+      .label("Expiration Date")
+      .error((errors) => {
+        errors.forEach((err) => {
+          switch (err.type) {
+            case "string.empty":
+              err.message = `${err.context.label} Field can't be empty`;
+              break;
+            default:
+              break;
+          }
+        });
+        return errors;
+      }),
     licensefront: Joi.string()
-    .required()
-    .label("license front")
-    .error((errors) => {
-      errors.forEach((err) => {
-        switch (err.type) {
-          case "string.empty":
-            err.message = `${err.context.label} Field can't be empty`;
-            break;
-          default:
-            break;
-        }
-      });
-      return errors;
-    }),
+      .required()
+      .label("license front")
+      .error((errors) => {
+        errors.forEach((err) => {
+          switch (err.type) {
+            case "string.empty":
+              err.message = `${err.context.label} Field can't be empty`;
+              break;
+            default:
+              break;
+          }
+        });
+        return errors;
+      }),
     licenseback: Joi.string()
-    .required()
-    .label("License Back")
-    .error((errors) => {
-      errors.forEach((err) => {
-        switch (err.type) {
-          case "string.empty":
-            err.message = `${err.context.label} Field can't be empty`;
-            break;
-          default:
-            break;
-        }
-      });
-      return errors;
-    }),
+      .required()
+      .label("License Back")
+      .error((errors) => {
+        errors.forEach((err) => {
+          switch (err.type) {
+            case "string.empty":
+              err.message = `${err.context.label} Field can't be empty`;
+              break;
+            default:
+              break;
+          }
+        });
+        return errors;
+      }),
     kbls: Joi.string()
-    .required()
-    .label("kbls")
-    .error((errors) => {
-      errors.forEach((err) => {
-        switch (err.type) {
-          case "string.empty":
-            err.message = `${err.context.label} Field can't be empty`;
-            break;
-          default:
-            break;
-        }
-      });
-      return errors;
-    }),
+      .required()
+      .label("kbls")
+      .error((errors) => {
+        errors.forEach((err) => {
+          switch (err.type) {
+            case "string.empty":
+              err.message = `${err.context.label} Field can't be empty`;
+              break;
+            default:
+              break;
+          }
+        });
+        return errors;
+      }),
     Authorizationfront: Joi.string()
-    .required()
-    .label("Authorization Front")
-    .error((errors) => {
-      errors.forEach((err) => {
-        switch (err.type) {
-          case "string.empty":
-            err.message = `${err.context.label} Field can't be empty`;
-            break;
-          default:
-            break;
-        }
-      });
-      return errors;
-    }),
+      .required()
+      .label("Authorization Front")
+      .error((errors) => {
+        errors.forEach((err) => {
+          switch (err.type) {
+            case "string.empty":
+              err.message = `${err.context.label} Field can't be empty`;
+              break;
+            default:
+              break;
+          }
+        });
+        return errors;
+      }),
     Authorizationback: Joi.string()
-    .required()
-    .label("Authorization Back")
-    .error((errors) => {
-      errors.forEach((err) => {
-        switch (err.type) {
-          case "string.empty":
-            err.message = `${err.context.label} Field can't be empty`;
-            break;
-          default:
-            break;
-        }
-      });
-      return errors;
-    }),
-  }
+      .required()
+      .label("Authorization Back")
+      .error((errors) => {
+        errors.forEach((err) => {
+          switch (err.type) {
+            case "string.empty":
+              err.message = `${err.context.label} Field can't be empty`;
+              break;
+            default:
+              break;
+          }
+        });
+        return errors;
+      }),
+  };
 
   const handleStep2 = (name, value) => {
     const errorMessage = validateSuggest2(name, value);
-    setStep2Errors({...step2Errors,[name]:errorMessage});
+    setStep2Errors({ ...step2Errors, [name]: errorMessage });
     setStep2({ ...step2, [name]: value });
   };
 
@@ -717,7 +700,7 @@ const Instructor = () => {
     const { error } = Joi.validate(obj, schema);
     return error ? error.details[0].message : null;
   };
-  
+
   const [step3Errors, setStep3Errors] = React.useState({});
   const [step3, setStep3] = React.useState({
     companyInsurer: "",
@@ -737,7 +720,7 @@ const Instructor = () => {
             case "string.empty":
               err.message = `${err.context.label} Field can't be empty `;
               break;
-          
+
             default:
               break;
           }
@@ -745,7 +728,7 @@ const Instructor = () => {
         return errors;
       }),
 
-      companyPoliceNum: Joi.string()
+    companyPoliceNum: Joi.string()
       .required()
       .label("Police Num")
       .error((errors) => {
@@ -754,7 +737,7 @@ const Instructor = () => {
             case "string.empty":
               err.message = `${err.context.label} Field can't be empty `;
               break;
-          
+
             default:
               break;
           }
@@ -771,7 +754,7 @@ const Instructor = () => {
             case "string.empty":
               err.message = `${err.context.label} can't be a Past Date `;
               break;
-          
+
             default:
               break;
           }
@@ -788,7 +771,7 @@ const Instructor = () => {
             case "string.empty":
               err.message = `${err.context.label} Field can't be empty `;
               break;
-          
+
             default:
               break;
           }
@@ -796,7 +779,7 @@ const Instructor = () => {
         return errors;
       }),
 
-      vehicleInsurer: Joi.string()
+    vehicleInsurer: Joi.string()
       .required()
       .label("Vehicle Insurer")
       .error((errors) => {
@@ -805,7 +788,7 @@ const Instructor = () => {
             case "string.empty":
               err.message = `${err.context.label} Field can't be empty `;
               break;
-          
+
             default:
               break;
           }
@@ -822,7 +805,7 @@ const Instructor = () => {
             case "string.empty":
               err.message = `${err.context.label} Field can't be empty `;
               break;
-          
+
             default:
               break;
           }
@@ -830,7 +813,7 @@ const Instructor = () => {
         return errors;
       }),
 
-      vehicleDoOb: Joi.string()
+    vehicleDoOb: Joi.string()
       .required()
       .label("date of Obtaining")
       .error((errors) => {
@@ -839,7 +822,7 @@ const Instructor = () => {
             case "string.empty":
               err.message = `${err.context.label} Field can't be a Future Date `;
               break;
-          
+
             default:
               break;
           }
@@ -847,7 +830,7 @@ const Instructor = () => {
         return errors;
       }),
 
-      ExpDateinsurance: Joi.string()
+    ExpDateinsurance: Joi.string()
       .required()
       .label("ExpDate Insurance")
       .error((errors) => {
@@ -856,7 +839,7 @@ const Instructor = () => {
             case "string.empty":
               err.message = `${err.context.label} Field can't be a Past Date `;
               break;
-          
+
             default:
               break;
           }
@@ -873,18 +856,18 @@ const Instructor = () => {
             case "string.empty":
               err.message = `${err.context.label} Field can't be empty `;
               break;
-          
+
             default:
               break;
           }
         });
         return errors;
       }),
-  }
+  };
 
   const handleStep3 = (name, value) => {
     const errorMessage = validateSuggest3(name, value);
-    setStep3Errors({...step3Errors,[name]:errorMessage});
+    setStep3Errors({ ...step3Errors, [name]: errorMessage });
     setStep3({ ...step3, [name]: value });
   };
 
@@ -917,8 +900,8 @@ const Instructor = () => {
     RegCertificateback: "",
     GreenCardImgPath: "",
     ControlTechImgPath: "",
-    checked:false,
-    TechnicalControlCheck:"",
+    checked: false,
+    TechnicalControlCheck: "",
   });
 
   const step4Schema = {
@@ -931,7 +914,7 @@ const Instructor = () => {
             case "string.empty":
               err.message = `${err.context.label} Should not be a Future Date `;
               break;
-          
+
             default:
               break;
           }
@@ -939,7 +922,7 @@ const Instructor = () => {
         return errors;
       }),
 
-      Brand: Joi.string()
+    Brand: Joi.string()
       .required()
       .label("Brand")
       .error((errors) => {
@@ -948,7 +931,7 @@ const Instructor = () => {
             case "string.empty":
               err.message = `${err.context.label} Field can't be empty `;
               break;
-          
+
             default:
               break;
           }
@@ -956,7 +939,7 @@ const Instructor = () => {
         return errors;
       }),
 
-      Model: Joi.string()
+    Model: Joi.string()
       .required()
       .label("Model")
       .error((errors) => {
@@ -965,7 +948,7 @@ const Instructor = () => {
             case "string.empty":
               err.message = `${err.context.label} Field can't be empty `;
               break;
-          
+
             default:
               break;
           }
@@ -973,7 +956,7 @@ const Instructor = () => {
         return errors;
       }),
 
-      NumPlate: Joi.string()
+    NumPlate: Joi.string()
       .required()
       .label("NumPlate")
       .error((errors) => {
@@ -982,14 +965,14 @@ const Instructor = () => {
             case "string.empty":
               err.message = `${err.context.label} Field can't be empty `;
               break;
-          
+
             default:
               break;
           }
         });
         return errors;
       }),
-       Color: Joi.string()
+    Color: Joi.string()
       .required()
       .label("Color")
       .error((errors) => {
@@ -998,14 +981,14 @@ const Instructor = () => {
             case "string.empty":
               err.message = `${err.context.label} Field can't be empty `;
               break;
-          
+
             default:
               break;
           }
         });
         return errors;
       }),
-      Energy: Joi.string()
+    Energy: Joi.string()
       .required()
       .label("Energy")
       .error((errors) => {
@@ -1014,14 +997,14 @@ const Instructor = () => {
             case "string.empty":
               err.message = `${err.context.label} Field can't be empty `;
               break;
-          
+
             default:
               break;
           }
         });
         return errors;
       }),
-      Gearbox: Joi.string()
+    Gearbox: Joi.string()
       .required()
       .label("Gearbox")
       .error((errors) => {
@@ -1030,14 +1013,14 @@ const Instructor = () => {
             case "string.empty":
               err.message = `${err.context.label} Field can't be empty `;
               break;
-          
+
             default:
               break;
           }
         });
         return errors;
       }),
-      Insurer: Joi.string()
+    Insurer: Joi.string()
       .min(3)
       .required()
       .label("Insurer")
@@ -1047,14 +1030,14 @@ const Instructor = () => {
             case "string.empty":
               err.message = `${err.context.label} Field can't be empty `;
               break;
-          
+
             default:
               break;
           }
         });
         return errors;
       }),
-      PoliceNum: Joi.string()
+    PoliceNum: Joi.string()
       .required()
       .label("Police Num")
       .error((errors) => {
@@ -1063,14 +1046,14 @@ const Instructor = () => {
             case "string.empty":
               err.message = `${err.context.label} Field can't be empty `;
               break;
-          
+
             default:
               break;
           }
         });
         return errors;
       }),
-      VehicleInsurerStartDate: Joi.string()
+    VehicleInsurerStartDate: Joi.string()
       .required()
       .label("Vehicle Insurer Start Date")
       .error((errors) => {
@@ -1079,14 +1062,14 @@ const Instructor = () => {
             case "string.empty":
               err.message = `${err.context.label} Should not be Future Date `;
               break;
-          
+
             default:
               break;
           }
         });
         return errors;
       }),
-      VehicleInsurerEndDate: Joi.string()
+    VehicleInsurerEndDate: Joi.string()
       .required()
       .label("Vehicle Insurer End Date")
       .error((errors) => {
@@ -1095,15 +1078,15 @@ const Instructor = () => {
             case "string.empty":
               err.message = `${err.context.label} should not be Past Date `;
               break;
-          
+
             default:
               break;
           }
         });
         return errors;
       }),
-    
-      PhotoPath: Joi.string()
+
+    PhotoPath: Joi.string()
       .required()
       .label("PhotoPath")
       .error((errors) => {
@@ -1112,14 +1095,14 @@ const Instructor = () => {
             case "string.empty":
               err.message = `${err.context.label} Field can't be empty `;
               break;
-          
+
             default:
               break;
           }
         });
         return errors;
       }),
-      RegCertificatefront: Joi.string()
+    RegCertificatefront: Joi.string()
       .required()
       .label("RegCertificatefront")
       .error((errors) => {
@@ -1128,14 +1111,14 @@ const Instructor = () => {
             case "string.empty":
               err.message = `${err.context.label} Field can't be empty `;
               break;
-          
+
             default:
               break;
           }
         });
         return errors;
       }),
-      RegCertificateback: Joi.string()
+    RegCertificateback: Joi.string()
       .required()
       .label("RegCertificateback")
       .error((errors) => {
@@ -1144,14 +1127,14 @@ const Instructor = () => {
             case "string.empty":
               err.message = `${err.context.label} Field can't be empty `;
               break;
-          
+
             default:
               break;
           }
         });
         return errors;
       }),
-      GreenCardImgPath: Joi.string()
+    GreenCardImgPath: Joi.string()
       .optional()
       .label("GreenCardImgPath")
       .error((errors) => {
@@ -1160,23 +1143,20 @@ const Instructor = () => {
             case "string.empty":
               err.message = `${err.context.label} Field can't be empty `;
               break;
-          
+
             default:
               break;
           }
         });
         return errors;
       }),
-      // TechEndDate: Joi.any()
-      //  .when('TechStartDate', { is: "", then: Joi.required(), otherwise: Joi.optional() }),
+    // TechEndDate: Joi.any()
+    //  .when('TechStartDate', { is: "", then: Joi.required(), otherwise: Joi.optional() }),
 
-      // TechStartDate: Joi.any()
-      //  .when('TechEndDate', { is: "", then: Joi.required(), otherwise: Joi.optional() }),
+    // TechStartDate: Joi.any()
+    //  .when('TechEndDate', { is: "", then: Joi.required(), otherwise: Joi.optional() }),
 
-     
-
-
-      TechStartDate: Joi.string()
+    TechStartDate: Joi.string()
       .optional()
       .label("TechStartDate")
       .error((errors) => {
@@ -1185,14 +1165,14 @@ const Instructor = () => {
             case "string.empty":
               err.message = `${err.context.label} Should not be Future Date  `;
               break;
-          
+
             default:
               break;
           }
         });
         return errors;
       }),
-      TechEndDate: Joi.string()
+    TechEndDate: Joi.string()
       .optional()
       .label("TechEndDate")
       .error((errors) => {
@@ -1201,14 +1181,14 @@ const Instructor = () => {
             case "string.empty":
               err.message = `${err.context.label} should not be Past Date  `;
               break;
-          
+
             default:
               break;
           }
         });
         return errors;
       }),
-      ControlTechImgPath: Joi.string()
+    ControlTechImgPath: Joi.string()
       .required()
       .label("ControlTechImgPath")
       .error((errors) => {
@@ -1217,23 +1197,21 @@ const Instructor = () => {
             case "string.empty":
               err.message = `${err.context.label} Field can't be empty `;
               break;
-          
+
             default:
               break;
           }
         });
         return errors;
       }),
-  }
+  };
   const handleStep4 = (name, value) => {
-    let errorMessage = ''
-    if (name==="checked"){
-      
+    let errorMessage = "";
+    if (name === "checked") {
     } else {
-
-       errorMessage = validateSuggest4(name, value);
+      errorMessage = validateSuggest4(name, value);
     }
-    setStep4Errors({...step4Errors,[name]:errorMessage});
+    setStep4Errors({ ...step4Errors, [name]: errorMessage });
     setStep4({ ...step4, [name]: value });
   };
 
@@ -1342,24 +1320,33 @@ const Instructor = () => {
                             }
                           );
 
-                          let TechnicalControlPromise = API(
-                            "post",
-                            "TechnicalControl",
-                            {
-                              dateofTechnicalControl: new Date(),
-                              endData: new Date(),
-                              endDateOfTechControl: vehicle.TechEndDate,
-                              startDateOfTech: vehicle.TechStartDate,
-                              technicalControlImagePath:
-                                vehicle.ControlTechImgPath,
-                            }
-                          );
-
-                          vehiclesRes.push(
-                            Promise.all([
+                          let TechnicalControlPromise = "";
+                          if (step4.checked) {
+                            TechnicalControlPromise = API(
+                              "post",
+                              "TechnicalControl",
+                              {
+                                dateofTechnicalControl: new Date(),
+                                endData: new Date(),
+                                endDateOfTechControl: vehicle.TechEndDate,
+                                startDateOfTech: vehicle.TechStartDate,
+                                technicalControlImagePath:
+                                  vehicle.ControlTechImgPath,
+                              }
+                            );
+                          }
+                          let array = [];
+                          if (step4.checked) {
+                            array = [
                               VehicleInsurancePromise,
                               TechnicalControlPromise,
-                            ]).then((e) => {
+                            ];
+                          } else {
+                            array = [VehicleInsurancePromise];
+                          }
+
+                          vehiclesRes.push(
+                            Promise.all(array).then((e) => {
                               return API("post", "VehicleDetail", {
                                 dateOfFirstRegistration:
                                   vehicle.FirstRegistration,
@@ -1376,7 +1363,9 @@ const Instructor = () => {
                                 vehicleRegistrationCertificatePhotoImagePath:
                                   vehicle.RegCertificatefront,
                                 vehichleInsuranceInfoId: e[0].data.data.id,
-                                technicalControlInfoID: e[1].data.data.id,
+                                technicalControlInfoID: e[1]
+                                  ? e[1].data.data.id
+                                  : "",
                               });
                             })
                           );
@@ -1570,8 +1559,6 @@ const Instructor = () => {
                         setVehicles={setVehicles}
                         step4Errors={step4Errors}
                         setStep4Errors={setStep4Errors}
-
-
                       />
                     ) : (
                       ""
@@ -1608,88 +1595,80 @@ const Instructor = () => {
                       height2="48px"
                       onClick={
                         activeStep === steps.length - 1
-                        ? handleSubmit
-                        : handleNext
+                          ? handleSubmit
+                          : handleNext
                       }
-                      disabled={ 
-                        activeStep === 1
-                        && step1Errors.Firstname===null 
-                        && step1Errors.Surname===null 
-                        && step1Errors.Address===null 
-                        && step1.Address.City != ""
-                        && step1.Address.Zip != ""
-                        && step1Errors.Dob===null 
-                        && step1Errors.Pob===null 
-                        && step1Errors.Gender===null 
-                        && step1Errors.Email===null 
-                        && step1Errors.Phone===null 
-                        && step1Errors.Password==='' 
-                        && step1Errors.ConfirmPassword==='' 
-                        && step1Errors.FrontImg===null 
-                        && step1Errors.BackImg===null 
-                        
-                        // && step1Errors.ProfileImg===null 
-                        // && step1Errors.Language===null 
-                        // && step1Errors.Complement===null 
-                        
-                        // && step1Errors.Noh===null 
-                        // && step1Errors.Neph===null 
-                        
+                      disabled={
+                        (activeStep === 1 &&
+                          step1Errors.Firstname === null &&
+                          step1Errors.Surname === null &&
+                          step1Errors.Address === null &&
+                          step1.Address.City != "" &&
+                          step1.Address.Zip != "" &&
+                          step1Errors.Dob === null &&
+                          step1Errors.Pob === null &&
+                          step1Errors.Gender === null &&
+                          step1Errors.Email === null &&
+                          step1Errors.Phone === null &&
+                          step1Errors.Password === "" &&
+                          step1Errors.ConfirmPassword === "" &&
+                          step1Errors.FrontImg === null &&
+                          step1Errors.BackImg === null) ||
+                        // && step1Errors.ProfileImg===null
+                        // && step1Errors.Language===null
+                        // && step1Errors.Complement===null
+
+                        // && step1Errors.Noh===null
+                        // && step1Errors.Neph===null
+
                         // && step1.checked===false
-                        // || step1Errors.OtherPlateform===null 
-                        // && step1Errors.GiveTime===null 
-                        // && step1Errors.Firstname===null 
-                        // && step1Errors.Surname===null 
-                        // && step1Errors.Address===null 
+                        // || step1Errors.OtherPlateform===null
+                        // && step1Errors.GiveTime===null
+                        // && step1Errors.Firstname===null
+                        // && step1Errors.Surname===null
+                        // && step1Errors.Address===null
                         // && step1.Address.City != ""
                         // && step1.Address.Zip != ""
-                        // && step1Errors.Dob===null 
-                        // && step1Errors.Pob===null 
-                        // && step1Errors.Gender===null 
-                        // && step1Errors.Email===null 
-                        // && step1Errors.Phone===null 
-                        // && step1Errors.Password==='' 
-                        // && step1Errors.ConfirmPassword==='' 
-                        // && step1Errors.FrontImg===null 
-                        // && step1Errors.BackImg===null 
-                        
-                        // && step1Errors.ProfileImg===null 
-                        // && step1Errors.Complement===null 
-                        // && step1Errors.Language===null 
+                        // && step1Errors.Dob===null
+                        // && step1Errors.Pob===null
+                        // && step1Errors.Gender===null
+                        // && step1Errors.Email===null
+                        // && step1Errors.Phone===null
+                        // && step1Errors.Password===''
+                        // && step1Errors.ConfirmPassword===''
+                        // && step1Errors.FrontImg===null
+                        // && step1Errors.BackImg===null
 
-                        // && step1Errors.Noh===null 
-                        // && step1Errors.Neph===null 
+                        // && step1Errors.ProfileImg===null
+                        // && step1Errors.Complement===null
+                        // && step1Errors.Language===null
 
+                        // && step1Errors.Noh===null
+                        // && step1Errors.Neph===null
 
-
-
-                        || activeStep === 2
-                        && step2Errors.obtainingdate===null 
-                        && step2Errors.validitiyDate===null 
-                        && step2Errors.DateAuthorization===null 
-                        && step2Errors.ExpirationDate===null 
-                        && step2Errors.licenceNo===null 
-                        && step2Errors.issuingAuthority===null 
-                        && step2Errors.AuthorizationNumber===null 
-                        && step2Errors.siretNo===null 
-                        && step2Errors.licensefront===null 
-                        && step2Errors.licenseback===null 
-                        && step2Errors.kbls===null 
-                        && step2Errors.Authorizationfront===null 
-                        && step2Errors.Authorizationback===null 
-
-                        || activeStep === 3
-                        && step3Errors.companyInsurer===null 
-                        && step3Errors.companyPoliceNum===null 
-                        && step3Errors.insuranceExpDate===null 
-                        && step3Errors.companyRC===null 
-
-                        || activeStep === 4
-                        && vehicles.length > 0
-
-                        ? false : true }
-
- 
+                        (activeStep === 2 &&
+                          step2Errors.obtainingdate === null &&
+                          step2Errors.validitiyDate === null &&
+                          step2Errors.DateAuthorization === null &&
+                          step2Errors.ExpirationDate === null &&
+                          step2Errors.licenceNo === null &&
+                          step2Errors.issuingAuthority === null &&
+                          step2Errors.AuthorizationNumber === null &&
+                          step2Errors.siretNo === null &&
+                          step2Errors.licensefront === null &&
+                          step2Errors.licenseback === null &&
+                          step2Errors.kbls === null &&
+                          step2Errors.Authorizationfront === null &&
+                          step2Errors.Authorizationback === null) ||
+                        (activeStep === 3 &&
+                          step3Errors.companyInsurer === null &&
+                          step3Errors.companyPoliceNum === null &&
+                          step3Errors.insuranceExpDate === null &&
+                          step3Errors.companyRC === null) ||
+                        (activeStep === 4 && vehicles.length > 0)
+                          ? false
+                          : true
+                      }
                     ></Button>
                   </Box>
                 </React.Fragment>

@@ -37,6 +37,7 @@
   font-size: medium !important;
 }
 .instructions-div {
+  width: 80% !important;
   display: flex !important;
   justify-content: center !important;
 }

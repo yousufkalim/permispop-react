@@ -24,6 +24,7 @@ import StudentLearning from "../containers/Dashboard/Student/MyLearning";
 import StudentDispute from "../containers/Dashboard/Student/Dispute";
 import StudentMyProcedure from "../containers/Dashboard/Student/MyProcedure";
 import StudentChat from "../containers/Dashboard/Student/Chat/Chat";
+import UserBookingCalendar from "../containers/Dashboard/Student/UserBookingCalendar";
 import StudentFindIns from "../containers/Dashboard/Student/FindInstructor";
 
 //instructor components routes
@@ -42,7 +43,7 @@ import DsInsProfile from "../containers/Dashboard/DSInstructor/profile";
 import DsInsPendingRequest from "../containers/Dashboard/DSInstructor/PendingRequest";
 import DsInsHistory from "../containers/Dashboard/DSInstructor/History";
 import DsInsCalendar from "../containers/Dashboard/DSInstructor/DsInstructorCalendar/Calendar";
-import DsInsVehicles from "../containers/Dashboard/Instructor/Vehicles";
+import DsInsVehicles from "../containers/Dashboard/DSInstructor/Vehicles";
 import DsInsDispute from "../containers/Dashboard/DSInstructor/Dispute";
 import DsInsChat from "../containers/Dashboard/DSInstructor/Chat/Chat";
 import DsInsInsuranceDetails from "../containers/Dashboard/DSInstructor/InsuranceDetails";
@@ -141,6 +142,11 @@ var StudentRoutes = [
     name: "My Learning",
     icon: <MyLearing className="drawer-icons" />,
     component: StudentLearning,
+    layout: "/student",
+  },
+  {
+    path: "/InstructorBooking",
+    component: UserBookingCalendar,
     layout: "/student",
   },
 ];

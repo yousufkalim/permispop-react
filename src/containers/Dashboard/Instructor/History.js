@@ -75,7 +75,7 @@ const Index = () => {
 
   return (
     <>
-      <MobileViewFilters title="History" />
+      {/* <MobileViewFilters title="History" /> */}
       <div className="Filters">
         <Grid
           container

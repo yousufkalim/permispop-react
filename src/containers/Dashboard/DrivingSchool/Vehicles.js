@@ -505,14 +505,11 @@ const Index = () => {
 
   const handleEditVehicle = (index) => {
     const tempArray = [...vehicleData];
-    console.log("temp", tempArray);
     setEditIndex(index);
     setIsEdit(true);
 
     let technical = JSON.parse(tempArray[index].technicalControlInfoID);
     let vehicleIns = JSON.parse(tempArray[index].vehichleInsuranceInfoId);
-    console.log("tempArray", technical);
-    console.log("vehicleIns", vehicleIns);
 
     setSelectedTechnicalId(technical);
     setSelectedInsuranceId(vehicleIns);
@@ -718,7 +715,7 @@ const Index = () => {
 
   return (
     <>
-      <MobileViewFilters title="Vehicles" />
+      {/* <MobileViewFilters title="Vehicles" /> */}
       <div className="Filters">
         <Grid
           container
