@@ -42,7 +42,7 @@ import DsInsProfile from "../containers/Dashboard/DSInstructor/profile";
 import DsInsPendingRequest from "../containers/Dashboard/DSInstructor/PendingRequest";
 import DsInsHistory from "../containers/Dashboard/DSInstructor/History";
 import DsInsCalendar from "../containers/Dashboard/DSInstructor/DsInstructorCalendar/Calendar";
-import DsInsVehicles from "../containers/Dashboard/Instructor/Vehicles";
+import DsInsVehicles from "../containers/Dashboard/DSInstructor/Vehicles";
 import DsInsDispute from "../containers/Dashboard/DSInstructor/Dispute";
 import DsInsChat from "../containers/Dashboard/DSInstructor/Chat/Chat";
 import DsInsInsuranceDetails from "../containers/Dashboard/DSInstructor/InsuranceDetails";

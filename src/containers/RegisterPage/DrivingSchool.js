@@ -780,8 +780,8 @@ const DrivingSchool = () => {
     TechControlDate: new Date(),
     TechEndDate: new Date(),
     CTImg: "",
-    checked:false,
-    TechnicalControlCheck:"",
+    checked: false,
+    TechnicalControlCheck: "",
   });
 
   const step5Schema = {
@@ -1076,11 +1076,9 @@ const DrivingSchool = () => {
       }),
   };
   const handleStep5 = (name, value) => {
-    let errorMessage = ''
-    if (name==="checked"){
-      
+    let errorMessage = "";
+    if (name === "checked") {
     } else {
-
       errorMessage = validateSuggest5(name, value);
     }
     setStep5Errors({ ...step5Errors, [name]: errorMessage });
@@ -1094,8 +1092,6 @@ const DrivingSchool = () => {
     const { error } = Joi.validate(obj, schema);
     return error ? error.details[0].message : null;
   };
-
-  const [step6Errors, setStep6Errors] = React.useState({});
   const [step6, setStep6] = React.useState({
     Firstname: "",
     Surname: "",
@@ -1130,6 +1126,7 @@ const DrivingSchool = () => {
     ExcAuthBackImg: "",
     TypeContract: "",
   });
+  const [step6Errors, setStep6Errors] = React.useState({});
 
   const step6Schema = {
     Firstname: Joi.string()
@@ -1666,18 +1663,29 @@ const DrivingSchool = () => {
                             }
                           );
 
-                          let TechnicalControlPromise = API(
-                            "post",
-                            "TechnicalControl",
-                            {
-                              dateofTechnicalControl: vehicle.TechControlDate,
-                              endData: vehicle.TechEndDate,
-                              endDateOfTechControl: vehicle.TechEndDate,
-                              startDateOfTech: vehicle.TechControlDate,
-                              technicalControlImagePath: vehicle.CTImg,
-                            }
-                          );
-
+                          let TechnicalControlPromise = "";
+                          if (step5.checked) {
+                            TechnicalControlPromise = API(
+                              "post",
+                              "TechnicalControl",
+                              {
+                                dateofTechnicalControl: vehicle.TechControlDate,
+                                endData: vehicle.TechEndDate,
+                                endDateOfTechControl: vehicle.TechEndDate,
+                                startDateOfTech: vehicle.TechControlDate,
+                                technicalControlImagePath: vehicle.CTImg,
+                              }
+                            );
+                          }
+                          let array = [];
+                          if (step5.checked) {
+                            array = [
+                              VehicleInsurancePromise,
+                              TechnicalControlPromise,
+                            ];
+                          } else {
+                            array = [VehicleInsurancePromise];
+                          }
                           vehiclesRes.push(
                             Promise.all([
                               VehicleInsurancePromise,
@@ -1692,7 +1700,9 @@ const DrivingSchool = () => {
                                 gearBox: vehicle.GearBox,
                                 model: vehicle.Model,
                                 numberPlate: vehicle.NumberPlate,
-                                technicalControlInfoID: e[1].data.data.id,
+                                technicalControlInfoID: e[1]
+                                  ? e[1].data.data.id
+                                  : "",
                                 vehichleInsuranceInfoId: e[0].data.data.id,
                                 vehicleRegistrationCertificatePhotoImagePath:
                                   vehicle.CertificateFrontImage,
@@ -2051,73 +2061,64 @@ const DrivingSchool = () => {
                           : handleNext
                       }
                       disabled={
-                        activeStep === 1 
-                          && step1Errors.TradeName===null 
-                          && step1Errors.CompanyName===null
-                          && step1Errors.Email===null
-                          && step1Errors.Phone===null
-                          && step1Errors.Password===''
-                          && step1Errors.Password2===''
-                           && step1Errors.Address === null
-                          && step1.Address.City != ""
-                           && step1.Address.Zip != "" 
+                        (activeStep === 1 &&
+                          step1Errors.TradeName === null &&
+                          step1Errors.CompanyName === null &&
+                          step1Errors.Email === null &&
+                          step1Errors.Phone === null &&
+                          step1Errors.Password === "" &&
+                          step1Errors.Password2 === "" &&
+                          step1Errors.Address === null &&
+                          step1.Address.City != "" &&
+                          step1.Address.Zip != "" &&
+                          // && step1Errors.Language===null
+                          // && step1Errors.CPF===null
+                          // && step1Errors.Complement===null
+                          // && step1Errors.Email2===null
+                          // && step1Errors.Phone2===null
 
-                        // && step1Errors.Language===null
-                        // && step1Errors.CPF===null
-                        // && step1Errors.Complement===null
-                        // && step1Errors.Email2===null
-                        // && step1Errors.Phone2===null
-
-                        && step1.OtherPlateform===false
-
-                        || step1Errors.Platform===null
-                        && step1Errors.Hours===null
-                        && step1Errors.TradeName===null 
-                        && step1Errors.CompanyName===null
-                        && step1Errors.Email===null
-                        && step1Errors.Phone===null
-                        && step1Errors.Password===''
-                        && step1Errors.Password2===''
-                         && step1Errors.Address === null
-                        && step1.Address.City != ""
-                         && step1.Address.Zip != "" 
-                        
-                        
+                          step1.OtherPlateform === false) ||
+                        (step1Errors.Platform === null &&
+                          step1Errors.Hours === null &&
+                          step1Errors.TradeName === null &&
+                          step1Errors.CompanyName === null &&
+                          step1Errors.Email === null &&
+                          step1Errors.Phone === null &&
+                          step1Errors.Password === "" &&
+                          step1Errors.Password2 === "" &&
+                          step1Errors.Address === null &&
+                          step1.Address.City != "" &&
+                          step1.Address.Zip != "") ||
                         // && step1Errors.Complement===null
                         // && step1Errors.Email2===null
                         // && step1Errors.Phone2===null
                         // && step1Errors.Language===null
                         // && step1Errors.CPF===null
 
-
-                         || activeStep === 2
-                        && step2Errors.Number===null
-                        && step2Errors.IssuingAurh===null
-                        && step2Errors.SiretNumber===null
-                        && step2Errors.KBIS===null
-                        && step2Errors.Approvaldate===null
-
+                        (activeStep === 2 &&
+                          step2Errors.Number === null &&
+                          step2Errors.IssuingAurh === null &&
+                          step2Errors.SiretNumber === null &&
+                          step2Errors.KBIS === null &&
+                          step2Errors.Approvaldate === null) ||
                         // && step2Errors.RcProImg===null
 
-                        || activeStep === 3 
-                        && step3Errors.insuranceCompany===null
-                        && step3Errors.policeNumber===null
-                        && step3Errors.RcPro===null
-                        && step3Errors.dateInsurance===null
-
-                        || activeStep === 4
-                          && step4Errors.Firstname===null
-                          && step4Errors.Surname===null
-                          && step4Errors.Pob===null
-                          && step4Errors.Gender===null
-                          && step4Errors.ProfileImg===null
-                          && step4Errors.Dob===null
-                          && step4Errors.Address===null
-
-                          && step4.TermAndCondition === false 
-
-                          ||activeStep === 5 && vehicles.length > 0 
-                          ||activeStep === 6 && instructors.length > 0
+                        (activeStep === 3 &&
+                          step3Errors.insuranceCompany === null &&
+                          step3Errors.policeNumber === null &&
+                          step3Errors.RcPro === null &&
+                          step3Errors.dateInsurance === null) ||
+                        (activeStep === 4 &&
+                          step4Errors.Firstname === null &&
+                          step4Errors.Surname === null &&
+                          step4Errors.Pob === null &&
+                          step4Errors.Gender === null &&
+                          step4Errors.ProfileImg === null &&
+                          step4Errors.Dob === null &&
+                          step4Errors.Address === null &&
+                          step4.TermAndCondition === false) ||
+                        (activeStep === 5 && vehicles.length > 0) ||
+                        (activeStep === 6 && instructors.length > 0)
                           ? false
                           : true
                       }
