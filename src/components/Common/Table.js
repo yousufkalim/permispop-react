@@ -239,14 +239,20 @@ export default function DataTable(props) {
                                       width="60% !important"
                                       margin="0px 0px 10px 0px !important"
                                       height="50px !important"
+                                      onClick={(e) =>
+                                        props.detachInstructor(index)
+                                      }
                                     ></Button>
                                     <Button
                                       type="submit"
-                                      text="Details"
+                                      text="Delete"
                                       color="#149E7A !important"
                                       width="60% !important"
                                       margin="0px 0px 10px 0px !important"
                                       height="50px !important"
+                                      onClick={(e) =>
+                                        props.deleteInstructor(index)
+                                      }
                                     ></Button>
                                     <Button
                                       type="submit"
@@ -254,6 +260,7 @@ export default function DataTable(props) {
                                       color="#149E7A !important"
                                       width="60% !important"
                                       height="50px !important"
+                                      onClick={(e) => props.open(true)}
                                     ></Button>
                                   </TableCell>
                                 ) : column.id === "Vaction" ? (
