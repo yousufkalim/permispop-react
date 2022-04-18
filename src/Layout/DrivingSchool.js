@@ -24,8 +24,9 @@ const DrivingSchool = () => {
 
   const getRoutes = (Routes) => {
     return Routes.map((props, key) => {
-      if (user.documentTested === "Tested" || props.path === "/myProfille") {
-        if (userProfileStatus !== "DeActive" || props.path === "/myProfille") {
+      let path = props.path.toLowerCase();
+      if (user.documentTested === "Tested" || path === "/myprofile") {
+        if (userProfileStatus !== "DeActive" || path === "/myprofile") {
           return (
             <Route
               exact
