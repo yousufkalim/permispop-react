@@ -199,7 +199,7 @@ export const FindInstructorcolumns = [
   },
   {
     id: "cat",
-    label: "Cat",
+    label: "Chat",
     minWidth: 170,
     align: "center",
   },

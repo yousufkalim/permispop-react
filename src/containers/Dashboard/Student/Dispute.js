@@ -8,8 +8,10 @@ import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
+import { useTranslation } from "react-i18next";
 
 const Index = () => {
+  const { i18n , t } = useTranslation();
   const [dispute, setDispute] = useState([]);
   const [user, setUser] = useState();
 
@@ -46,11 +48,11 @@ const Index = () => {
         <Table sx={{ minWidth: 650 }} size="small" aria-label="a dense table">
           <TableHead>
             <TableRow>
-              <TableCell>Dispute</TableCell>
-              <TableCell>FeedBack Date</TableCell>
-              <TableCell>Status</TableCell>
-              <TableCell>Comment</TableCell>
-              <TableCell>Disputing From</TableCell>
+              <TableCell>{t("Dispute")}</TableCell>
+              <TableCell>{t("FeedBack Date")}</TableCell>
+              <TableCell>{t("Status")}</TableCell>
+              <TableCell>{t("Comment")}</TableCell>
+              <TableCell>{t("Disputing From")}</TableCell>
             </TableRow>
           </TableHead>
 

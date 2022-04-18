@@ -110,14 +110,14 @@ var StudentRoutes = [
   },
   {
     path: "/findInstructure",
-    name: "Find Instructure",
+    name: "Find Instructor",
     icon: <FindInstructure className="drawer-icons" />,
     component: Test,
     layout: "/student",
   },
   {
     path: "/instructureOnMap",
-    name: "Instructure On Map",
+    name: "Instructor On Map",
     icon: <InsOnMap className="drawer-icons" />,
     component: Map,
     layout: "/student",

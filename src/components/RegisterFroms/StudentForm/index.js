@@ -18,13 +18,14 @@ import { toast } from "react-toastify";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import Joi from "joi-browser";
 import moment from "moment";
+import { useTranslation } from "react-i18next";
 
 import { Preview } from "@mui/icons-material";
 
 
 const StudentForm = (props) => {
   const [checkbox1, setCheckbox1] = React.useState(false);
-
+  const { i18n , t } = useTranslation();
   const [disable, setDisable] = useState(false);
   const [studentErrors, setStudentErrors] = useState({});
   const [addresses, setAddresses] = React.useState([]);
@@ -62,7 +63,7 @@ const StudentForm = (props) => {
     firstname: Joi.string()
       .min(3)
       .required()
-      .label("First Name")
+      .label(t("First Name"))
       .error((errors) => {
         errors.forEach((err) => {
           switch (err.type) {
@@ -397,22 +398,22 @@ const StudentForm = (props) => {
     }
     else if(name==='password'){
       if(value.length<8){
-        errorMessage = 'Password must be atleast 8 char long';
+        errorMessage = t("Password must be atleast 8 char long");
 
       }
       else if(value.length===0){
-        errorMessage = 'Password cannot be empty';
+        errorMessage = t("Password cannot be empty");
 
       }
 
     }
     else if(name==='confirmpassword'){
       if(student.password != value){
-        errorMessage = "Password didn't match";
+        errorMessage = t("Password didn't match");
 
       }
       else if(value.length===0){
-        errorMessage = 'Password cannot be empty';
+        errorMessage = t("Password cannot be empty");
 
       }
 
@@ -556,11 +557,11 @@ const StudentForm = (props) => {
       })
       .then(() => {
         history.push("/");
-        toast.success("Student Registered Successfully");
+        toast.success(t("Student Registered Successfully"));
       })
       .catch((error) => {
         console.log(error);
-        toast.error("Not Registered....Somethong went wrong");
+        toast.error(t("Not Registered....Somethong went wrong"));
         setDisable(false);
       });
   };
@@ -608,12 +609,10 @@ const StudentForm = (props) => {
           <div className="second_registerSub_container">
             <div className="registerSub_title_container">
               <Typography variant="h3" className="registerSub_title">
-                Student Identity
+                {t("Student Identity")}
               </Typography>
               <Typography variant="h6" className="registerSub_subtitle">
-                You can provide all your documents and your NEPH mumber after
-                validation of your profile isn’t that awesome? So let’s go, fill
-                out the form and validate it!t
+                {t("You can provide all your documents and your NEPH mumber after validation of your profile isn’t that awesome? So let’s go, fill out the form and validate it!")}
               </Typography>
             </div>
           </div>
@@ -631,7 +630,7 @@ const StudentForm = (props) => {
           <Grid container spacing={4}>
             <Grid item xs={12} sm={12} md={4}>
               <TextField
-                label="First Name"
+                label={t("First Name")}
                 name="firstname"
                 required={true}
                 type="text"
@@ -642,12 +641,12 @@ const StudentForm = (props) => {
                   handleStudent(e.target.name, e.target.value);
                 }}
                 error={studentErrors['firstname']?true:false}
-                ErrorMsg={studentErrors['firstname']}
+                ErrorMsg={t(studentErrors['firstname'])}
               />
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
               <TextField
-                label="Surname"
+                label={t("Surname")}
                 required={true}
                 name="surname"
                 disabled={disable}
@@ -658,7 +657,7 @@ const StudentForm = (props) => {
                   handleStudent(e.target.name, e.target.value);
                 }}
                 error={studentErrors['surname']?true:false}
-                ErrorMsg={studentErrors['surname']}
+                ErrorMsg={t(studentErrors['surname'])}
               ></TextField>
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
@@ -666,21 +665,21 @@ const StudentForm = (props) => {
                 name="Address"
                 required={true}
                 disabled={disable}
-                label="Address"
+                label={t("Address")}
                 value={student.Address.label}
                 options={addresses}
-                placeholder="Address"
+                placeholder={t("Address")}
                 onChangeAddress={(e) => {
                   handleAddress(e);
                 }}
                 error={studentErrors['Address']?true:false}
-                ErrorMsg={studentErrors['Address']}
+                ErrorMsg={t(studentErrors['Address'])}
                 onAddressSelect={(e) => handleSelectAddress(e)}
               />
             </Grid>
             <Grid item xs={12} sm={12} md={4} sx={{ marginTop: "9px" }}>
               <Datepicker
-                label="Date of birth"
+                label={t("Date of Birth")}
                 required={true}
                 disabled={disable}
                 name="dob"
@@ -699,7 +698,7 @@ const StudentForm = (props) => {
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
               <TextField
-                label="Place of birth"
+                label={t("Place of Birth")}
                 required={true}
                 name="pob"
                 disabled={disable}
@@ -710,13 +709,13 @@ const StudentForm = (props) => {
                   handleStudent(e.target.name, e.target.value);
                 }}
                error={studentErrors['pob']?true:false}
-                ErrorMsg={studentErrors['pob']}
+                ErrorMsg={t(studentErrors['pob'])}
               ></TextField>
                 
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
               <TextField
-                label="Zip Code"
+                label={t("Zip Code")}
                 required={true}
                 name="zip"
                 placeholder="712333"
@@ -726,9 +725,9 @@ const StudentForm = (props) => {
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
               <DropDown
-                label="Gender"
+                label={t("Gender")}
                 required={true}
-                placeholder="Male"
+                placeholder={t("Male")}
                 disabled={disable}
                 name="gender"
                 value={student.gender}
@@ -744,7 +743,7 @@ const StudentForm = (props) => {
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
               <TextField
-                label="Email"
+                label={t("Email")}
                 required={true}
                 name="email"
                 disabled={disable}
@@ -755,12 +754,12 @@ const StudentForm = (props) => {
                   handleStudent(e.target.name, e.target.value);
                 }}
                 error={studentErrors['email']?true:false}
-                ErrorMsg={studentErrors['email']}
+                ErrorMsg={t(studentErrors['email'])}
               ></TextField>
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
               <TextField
-                label="Second Email"
+                label={t("Second Email")}
                 name="email2"
                 disabled={disable}
                 type="email"
@@ -775,7 +774,7 @@ const StudentForm = (props) => {
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
               <TextField
-                label="Phone"
+                label={t("Phone")}
                 required={true}
                 disabled={disable}
                 type="number"
@@ -786,12 +785,12 @@ const StudentForm = (props) => {
                   handleStudent(e.target.name, e.target.value);
                 }}
                 error={studentErrors['phone']?true:false}
-                ErrorMsg={studentErrors['phone']}
+                ErrorMsg={t(studentErrors['phone'])}
               ></TextField>
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
               <TextField
-                label="Second Phone"
+                label={t("Second Phone")}
                 type="number"
                 placeholder="XX-XXXXXX-XX"
                 disabled={disable}
@@ -806,7 +805,7 @@ const StudentForm = (props) => {
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
               <TextField
-                label="City"
+                label={t("City")}
                 required={true}
                 name="city"
                 disabled={true}
@@ -816,10 +815,10 @@ const StudentForm = (props) => {
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
               <TextField
-                label="Complement"
+                label={t("Complement")}
                 type="text"
                 disabled={disable}
-                placeholder="Student"
+                placeholder={t("Student")}
                 name="complement"
                 value={student.complement}
                 onChange={(e) => {
@@ -831,7 +830,7 @@ const StudentForm = (props) => {
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
               <TextField
-                label="Password"
+                label={t("Password")}
                 required={true}
                 disabled={disable}
                 type="password"
@@ -842,12 +841,12 @@ const StudentForm = (props) => {
                   handleStudent("password", e.target.value);
                 }}
                 error={studentErrors['password']?true:false}
-                ErrorMsg={studentErrors['password']}
+                ErrorMsg={t(studentErrors['password'])}
               ></TextField>
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
               <TextField
-                label="Confirm Password"
+                label={t("Confirm Password")}
                 required={true}
                 disabled={disable}
                 type="password"
@@ -858,12 +857,12 @@ const StudentForm = (props) => {
                   handleStudent("confirmpassword", e.target.value);
                 }}
                 error={studentErrors['confirmpassword']?true:false}
-                ErrorMsg={studentErrors['confirmpassword']}
+                ErrorMsg={t(studentErrors['confirmpassword'])}
               ></TextField>
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
               <TextField
-                label="Number of hours"
+                label={t("Number of hours")}
                 type="number"
                 disabled={disable}
                 placeholder="44"
@@ -878,7 +877,7 @@ const StudentForm = (props) => {
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
               <TextField
-                label="NEPH Number"
+                label={t("NEPH Number")}
                 name="neph"
                 disabled={disable}
                 placeholder="532-3321-111"
@@ -895,10 +894,10 @@ const StudentForm = (props) => {
               <LanguageAutoComplete
                 name="language"
                 disabled={disable}
-                label="Spoken Language"
+                label={t("Spoken Language")}
                 value={student.language}
                 options={student.languages ? student.languages : []}
-                placeholder="Language"
+                placeholder={t("Language")}
                 setVal={handleStudent}
                 // error={studentErrors['language']?true:false}
                 // ErrorMsg={studentErrors['language']}
@@ -914,8 +913,8 @@ const StudentForm = (props) => {
           <Grid container spacing={4} alignItems="flex-end">
             <Grid item xs={12} sm={12} md={4}>
               <FilePicker
-                title="Upload front of your ID Card/Passport"
-                label="frontImage"
+                title={t("Upload front of your ID Card/Passport")}
+                label={t("front Image")}
                 disabled={disable}
                 name="frontImage"
                 type="file"
@@ -927,9 +926,9 @@ const StudentForm = (props) => {
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
               <FilePicker
-                title="Upload back of your ID Card/Passport"
+                title={t("Upload back of your ID Card/Passport")}
                 disabled={disable}
-                label="backImage"
+                label={t("back Image")}
                 name="backImage"
                 type="file"
                 value={student.backImage}
@@ -940,9 +939,9 @@ const StudentForm = (props) => {
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
               <FilePicker
-                title="Upload your profile picture"
+                title={t("Upload your profile picture")}
                 disabled={disable}
-                label="profileImage"
+                label={t("profileImage")}
                 name="profileImage"
                 type="file"
                 value={student.profileImage}
@@ -963,7 +962,7 @@ const StudentForm = (props) => {
                 variant="body1"
                 className="termsConditionsCheckboxTitle"
               >
-                Click me if you had
+                {t("Click me if you had")}
               </Typography>
             </div>
             <div className="termsConditionsCheckbox">
@@ -981,7 +980,7 @@ const StudentForm = (props) => {
                 className="termsConditionsCheckboxTitle"
                
               >
-                Terms & Conditions Applied
+                {t("Terms & Conditions Applied")}
               </Typography>
             </div>
           </div>
@@ -989,7 +988,7 @@ const StudentForm = (props) => {
             <Grid container spacing={2}>
               <Grid item xs={12} sm={12} md={4} sx={{ marginTop: "9px" }}>
                 <Datepicker
-                  label="Date"
+                  label={t("Date")}
                   disabled={disable}
                   name="highwayCodeDate"
                   value={student.highwayCodeDate}
@@ -1009,9 +1008,9 @@ const StudentForm = (props) => {
               </Grid>
               <Grid item xs={12} sm={12} md={4} sx={{ marginLeft: "1%" }}>
                 <FilePicker
-                  title="Upload Highway code image file"
+                  title={t("Upload Highway code image file")}
                   disabled={disable}
-                  label="highwayCodeImg"
+                  label={t("highwayCodeImg")}
                   name="highwayCodeImg"
                   type="file"
                   value={student.highwayCodeImg}
@@ -1034,7 +1033,7 @@ const StudentForm = (props) => {
           >
             <Button
               endIcon={<DoneIcon sx={{ color: "#fff" }} />}
-              text="Register"
+              text={t("Register")}
               buttonLableStyle="btn_main"
               style={{ marginTop: "24px" }}
               width="10%"
@@ -1045,17 +1044,17 @@ const StudentForm = (props) => {
 
               disabled={
                 studentErrors.firstname===null 
-                && studentErrors.surname===null 
-                && studentErrors.Address===null 
-                && student.Address.city != ""
-                && student.Address.zip != ""
-                && studentErrors.password===''
-                && studentErrors.confirmpassword===''
-                && studentErrors.dob===null 
-                && studentErrors.pob===null 
-                && studentErrors.gender===null
-                && studentErrors.email===null
-                && studentErrors.phone===null
+                // && studentErrors.surname===null 
+                // && studentErrors.Address===null 
+                // && student.Address.city != ""
+                // && student.Address.zip != ""
+                // && studentErrors.password===''
+                // && studentErrors.confirmpassword===''
+                // && studentErrors.dob===null 
+                // && studentErrors.pob===null 
+                // && studentErrors.gender===null
+                // && studentErrors.email===null
+                // && studentErrors.phone===null
                 && student.TermAndCondition === true
 
                 // && studentErrors.noh===null

@@ -7,8 +7,10 @@ import { ReactComponent as InstCalendar } from "../../assets/DrawerIcons/Icon-Ca
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import AddIcon from "@mui/icons-material/Add";
+import { useTranslation } from "react-i18next";
 
 const localizer = momentLocalizer(moment);
+
 const eventsStyle = (event) => {
   var bgcolor = "";
   // condition for setting color in divs in calendar head
@@ -36,6 +38,8 @@ const eventsStyle = (event) => {
   };
 };
 const CalendarComponent = (props) => {
+const { i18n , t } = useTranslation();
+
   return (
     <div className="main-div">
       <div className="calendar-head">
@@ -47,7 +51,7 @@ const CalendarComponent = (props) => {
           <IconButton>
             <InstCalendar className="calendar-icon" />
 
-            <Typography className="current-date">Week 01</Typography>
+            <Typography className="current-date">{t("Week")} 01</Typography>
           </IconButton>
           <Divider orientation="vertical" flexItem />
           <IconButton>
@@ -63,7 +67,7 @@ const CalendarComponent = (props) => {
             ></div>
             {/* styling of calendar toolbar text */}
             <Typography className="instruction-text">
-              Availability Auto
+              {t("Availability Auto")}
             </Typography>
           </div>
           <div className="instructions">
@@ -72,7 +76,7 @@ const CalendarComponent = (props) => {
               style={{ backgroundColor: "#FFB6C1" }}
             ></div>
             <Typography className="instruction-text">
-              Availablity Manual
+              {t("Availablity Manual")}
             </Typography>
           </div>
           <div className="instructions">
@@ -80,26 +84,26 @@ const CalendarComponent = (props) => {
               className="colorBox-div"
               style={{ backgroundColor: "#B0AEAE" }}
             ></div>
-            <Typography className="instruction-text">Unavailability</Typography>
+            <Typography className="instruction-text">{t("Unavailability")}</Typography>
           </div>
           <div className="instructions">
             <div
               className="colorBox-div"
               style={{ backgroundColor: "#9C6DD1" }}
             ></div>
-            <Typography className="instruction-text">Personal</Typography>
+            <Typography className="instruction-text">{t("Personal")}</Typography>
           </div>
           <div className="instructions">
             <div
               className="colorBox-div"
               style={{ backgroundColor: "#149E7A" }}
             ></div>
-            <Typography className="instruction-text">Booking</Typography>
+            <Typography className="instruction-text">{t("Booking")}</Typography>
           </div>
         </div>
         <Button className="add-button">
           <AddIcon className="add-icon" />
-          <Typography className="btn-text">Add Availibity</Typography>
+          <Typography className="btn-text">{t("Add Availibity")}</Typography>
         </Button>
       </div>
       <div className="calendar">

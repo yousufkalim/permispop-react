@@ -13,6 +13,7 @@ import axios from "axios";
 import moment from "moment";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
+import { useTranslation } from "react-i18next";
 import {
   Typography,
   Grid,
@@ -45,6 +46,7 @@ const style = {
 };
 
 const Step5 = ({ step5, setStep5, onChange, vehicles, setVehicles,step5Errors,setStep5Errors }) => {
+  const { i18n , t } = useTranslation();
   const [addVehicle, setAddVehicle] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
   const [editIndex, setEditIndex] = useState("");
@@ -262,7 +264,7 @@ const Step5 = ({ step5, setStep5, onChange, vehicles, setVehicles,step5Errors,se
               <TableRow
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
-                <TableCell align="left">No Vehicle Added.</TableCell>
+                <TableCell align="left">{t("No Vehicle Added.")}</TableCell>
               </TableRow>
             )}
           </TableBody>
@@ -276,12 +278,12 @@ const Step5 = ({ step5, setStep5, onChange, vehicles, setVehicles,step5Errors,se
         aria-describedby="modal-modal-description"
       >
         <Box component="form" noValidate sx={style}>
-          <Typography className="Heading1">Vehicle Details</Typography>
+          <Typography className="Heading1">{t("Vehicle Details")}</Typography>
           <Divider width="100%" borderColor="#D5E4E8" margin="2% 0px 2% 0px" />
           <Grid container spacing={4}>
             <Grid item xs={12} sm={12} md={4} sx={{ marginTop: "9px" }}>
               <DatePicker
-                label="Date of the 1st Registration"
+                label={t("Date of the 1st Registration")}
             required={true}
             name="RegistrationDate"
                 padding="20px 0 0 0px !important"
@@ -301,7 +303,7 @@ const Step5 = ({ step5, setStep5, onChange, vehicles, setVehicles,step5Errors,se
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
               <DropDown
-                label="Brand"
+                label={t("Brand")}
             required={true}
             name="Brand"
                 placeholder="Select Option"
@@ -314,7 +316,7 @@ const Step5 = ({ step5, setStep5, onChange, vehicles, setVehicles,step5Errors,se
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
               <DropDown
-                label="Model"
+                label={t("Model")}
             required={true}
             name="Model"
                 placeholder="Select Option"
@@ -330,7 +332,7 @@ const Step5 = ({ step5, setStep5, onChange, vehicles, setVehicles,step5Errors,se
             <Grid item xs={12} sm={12} md={4}>
               <TextField
             required={true}
-            label="Number Plate"
+            label={t("Number Plate")}
                 name="NumberPlate"
                 placeholder="xx-xxx-xx"
                 value={step5.NumberPlate}
@@ -338,12 +340,12 @@ const Step5 = ({ step5, setStep5, onChange, vehicles, setVehicles,step5Errors,se
                   onChange(e.target.name, e.target.value);
                 }}
                 error={step5Errors['NumberPlate']?true:false}
-                ErrorMsg={step5Errors['NumberPlate']}
+                ErrorMsg={t(step5Errors['NumberPlate'])}
               ></TextField>
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
               <DropDown
-                label="Gearbox"
+                label={t("Gearbox")}
             required={true}
             name="GearBox"
                 MenuItem={[
@@ -361,7 +363,7 @@ const Step5 = ({ step5, setStep5, onChange, vehicles, setVehicles,step5Errors,se
             <Grid item xs={12} sm={12} md={4}>
               <TextField
             required={true}
-            label="Color"
+            label={t("Color")}
                 name="Color"
                 placeholder="Red"
                 value={step5.Color}
@@ -369,12 +371,12 @@ const Step5 = ({ step5, setStep5, onChange, vehicles, setVehicles,step5Errors,se
                   onChange(e.target.name, e.target.value);
                 }}
                 error={step5Errors['Color']?true:false}
-                ErrorMsg={step5Errors['Color']}
+                ErrorMsg={t(step5Errors['Color'])}
               ></TextField>
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
               <DropDown
-                label="Energy"
+                label={t("Energy")}
                 placeholder="Select"
             required={true}
             name="Energy"
@@ -403,7 +405,7 @@ const Step5 = ({ step5, setStep5, onChange, vehicles, setVehicles,step5Errors,se
             >
               <Grid item xs={12} sm={12} md={4}>
                 <FilePicker
-                  title="Upload your Image"
+                  title={t("Upload your Image")}
             required={true}
             label="CarImage"
                   name="CarImage"
@@ -415,7 +417,7 @@ const Step5 = ({ step5, setStep5, onChange, vehicles, setVehicles,step5Errors,se
               </Grid>
               <Grid item xs={12} sm={12} md={4}>
                 <FilePicker
-                  title="Upload Vehicle Registration Certificate"
+                  title={t("Upload Vehicle Registration Certificate")}
             required={true}
             label="CertificateFrontImage"
                   name="CertificateFrontImage"
@@ -427,7 +429,7 @@ const Step5 = ({ step5, setStep5, onChange, vehicles, setVehicles,step5Errors,se
               </Grid>
               <Grid item xs={12} sm={12} md={4}>
                 <FilePicker
-                  title="Upload Vehicle Registration Certificate Back"
+                  title={t("Upload Vehicle Registration Certificate Back")}
             required={true}
             label="CertificateBackImage"
                   name="CertificateBackImage"
@@ -440,12 +442,12 @@ const Step5 = ({ step5, setStep5, onChange, vehicles, setVehicles,step5Errors,se
             </Grid>
           </div>
           <Divider width="100%" borderColor="#D5E4E8" margin="2% 0px 2% 0px" />
-          <Typography className="Heading1">Vehicle Insurance</Typography>
+          <Typography className="Heading1">{t("Vehicle Insurance")}</Typography>
           <Divider width="100%" borderColor="#D5E4E8" margin="2% 0px 2% 0px" />
           <Grid container spacing={4}>
             <Grid item xs={12} sm={12} md={4}>
               <TextField
-                label="Insurer"
+                label={t("Insurer")}
             required={true}
             name="Insurer"
                 placeholder="John"
@@ -454,12 +456,12 @@ const Step5 = ({ step5, setStep5, onChange, vehicles, setVehicles,step5Errors,se
                   onChange(e.target.name, e.target.value);
                 }}
                 error={step5Errors['Insurer']?true:false}
-                ErrorMsg={step5Errors['Insurer']}
+                ErrorMsg={t(step5Errors['Insurer'])}
               ></TextField>
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
               <TextField
-                label="Police Number"
+                label={t("Police Number")}
             required={true}
             name="PoliceNumber"
                 placeholder="xxx-xxx"
@@ -468,12 +470,12 @@ const Step5 = ({ step5, setStep5, onChange, vehicles, setVehicles,step5Errors,se
                   onChange(e.target.name, e.target.value);
                 }}
                 error={step5Errors['PoliceNumber']?true:false}
-                ErrorMsg={step5Errors['PoliceNumber']}
+                ErrorMsg={t(step5Errors['PoliceNumber'])}
               ></TextField>
             </Grid>
             <Grid item xs={12} sm={12} md={4} sx={{ marginTop: "9px" }}>
               <DatePicker
-                label="Start Date"
+                label={t("Start Date")}
             required={true}
             padding="20px 0 0 0px !important"
                 width="100% !important"
@@ -493,7 +495,7 @@ const Step5 = ({ step5, setStep5, onChange, vehicles, setVehicles,step5Errors,se
             </Grid>
             <Grid item xs={12} sm={12} md={4} sx={{ marginTop: "9px" }}>
               <DatePicker
-                label="End Date"
+                label={t("End Date")}
                 padding="20px 0 0 0px !important"
             required={true}
             width="100% !important"
@@ -514,7 +516,7 @@ const Step5 = ({ step5, setStep5, onChange, vehicles, setVehicles,step5Errors,se
               <Grid item xs={12} sm={12} md={4}>
                 <FilePicker
             required={true}
-            title="Upload Scanned Green Card"
+            title={t("Upload Scanned Green Card")}
                   name="GreenCard"
                   label="GreenCard"
                   value={step5.GreenCard}
@@ -534,19 +536,19 @@ const Step5 = ({ step5, setStep5, onChange, vehicles, setVehicles,step5Errors,se
             onClick={(e) =>  onChange('checked', !step5.checked)}
           />
           <Typography variant="body1" className="termsConditionsCheckboxTitle">
-          Technical Control Details if any?
+          {t("Technical Control Details if any?")}
           </Typography>
         </div>
       </div>
       {step5.checked ? (
         <div>
                               <Divider width="100%" borderColor="#D5E4E8" margin="2% 0px 2% 0px" />
-          <Typography className="Heading1">Technical Control</Typography>
+          <Typography className="Heading1">{t("Technical Control")}</Typography>
           <Divider width="100%" borderColor="#D5E4E8" margin="2% 0px 2% 0px" />
           <Grid container spacing={4}>
             <Grid item xs={12} sm={12} md={4} sx={{ marginTop: "9px" }}>
               <DatePicker
-                label="Date of Technical Control"
+                label={t("Date of Technical Control")}
                 padding="20px 0 0 0px !important"
                 width="100% !important"
                 name="TechControlDate"
@@ -565,7 +567,7 @@ const Step5 = ({ step5, setStep5, onChange, vehicles, setVehicles,step5Errors,se
             </Grid>
             <Grid item xs={12} sm={12} md={4} sx={{ marginTop: "9px" }}>
               <DatePicker
-                label="End Date"
+                label={t("End Date")}
                 padding="20px 0 0 0px !important"
                 width="100% !important"
                 name="TechEndDate"
@@ -587,7 +589,7 @@ const Step5 = ({ step5, setStep5, onChange, vehicles, setVehicles,step5Errors,se
             <Grid container spacing={4}>
               <Grid item xs={12} sm={12} md={4}>
                 <FilePicker
-                  title="Scan and Upload your CT"
+                  title={t("Scan and Upload your CT")}
                   name="CTImg"
                   label="CTImg"
                   value={step5.CTImg}
@@ -610,7 +612,7 @@ const Step5 = ({ step5, setStep5, onChange, vehicles, setVehicles,step5Errors,se
             }}
           >
             <Button
-              text={isEdit ? "Edit" : "Add"}
+              text={isEdit ? t("Edit") : t("Add")}
               buttonLableStyle="btn_main"
               style={{ marginTop: "24px", marginRight: "10px" }}
               width="10%"
@@ -618,46 +620,46 @@ const Step5 = ({ step5, setStep5, onChange, vehicles, setVehicles,step5Errors,se
               height="48px"
               height2="48px"
               onClick={isEdit ? handleSaveEditVehicle : handleAdd}
-              disabled={
-                 step5Errors.RegistrationDate===null
-              && step5Errors.Brand===null 
-              && step5Errors.Model===null 
-              && step5Errors.NumberPlate===null 
-              && step5Errors.GearBox===null 
-              && step5Errors.Color===null 
-              && step5Errors.Energy===null 
-              && step5Errors.CarImage===null 
-              && step5Errors.CertificateFrontImage===null 
-              && step5Errors.CertificateBackImage===null 
-              && step5Errors.Insurer===null 
-              && step5Errors.PoliceNumber===null 
-              && step5Errors.StartDate===null 
-              && step5Errors.EndDate===null 
-              && step5Errors.GreenCard===null 
+              // disabled={
+              //    step5Errors.RegistrationDate===null
+              // && step5Errors.Brand===null 
+              // && step5Errors.Model===null 
+              // && step5Errors.NumberPlate===null 
+              // && step5Errors.GearBox===null 
+              // && step5Errors.Color===null 
+              // && step5Errors.Energy===null 
+              // && step5Errors.CarImage===null 
+              // && step5Errors.CertificateFrontImage===null 
+              // && step5Errors.CertificateBackImage===null 
+              // && step5Errors.Insurer===null 
+              // && step5Errors.PoliceNumber===null 
+              // && step5Errors.StartDate===null 
+              // && step5Errors.EndDate===null 
+              // && step5Errors.GreenCard===null 
               
-              && step5.checked===false
+              // && step5.checked===false
 
-              || step5Errors.TechControlDate===null 
-              && step5Errors.TechEndDate===null 
-              && step5Errors.CTImg===null 
-              && step5Errors.RegistrationDate===null
-              && step5Errors.Brand===null 
-              && step5Errors.Model===null 
-              && step5Errors.NumberPlate===null 
-              && step5Errors.GearBox===null 
-              && step5Errors.Color===null 
-              && step5Errors.Energy===null 
-              && step5Errors.CarImage===null 
-              && step5Errors.CertificateFrontImage===null 
-              && step5Errors.CertificateBackImage===null 
-              && step5Errors.Insurer===null 
-              && step5Errors.PoliceNumber===null 
-              && step5Errors.StartDate===null 
-              && step5Errors.EndDate===null 
-              && step5Errors.GreenCard===null 
+              // || step5Errors.TechControlDate===null 
+              // && step5Errors.TechEndDate===null 
+              // && step5Errors.CTImg===null 
+              // && step5Errors.RegistrationDate===null
+              // && step5Errors.Brand===null 
+              // && step5Errors.Model===null 
+              // && step5Errors.NumberPlate===null 
+              // && step5Errors.GearBox===null 
+              // && step5Errors.Color===null 
+              // && step5Errors.Energy===null 
+              // && step5Errors.CarImage===null 
+              // && step5Errors.CertificateFrontImage===null 
+              // && step5Errors.CertificateBackImage===null 
+              // && step5Errors.Insurer===null 
+              // && step5Errors.PoliceNumber===null 
+              // && step5Errors.StartDate===null 
+              // && step5Errors.EndDate===null 
+              // && step5Errors.GreenCard===null 
 
 
-              ? false : true}
+              // ? false : true}
             ></Button>
           </div>
         </Box>

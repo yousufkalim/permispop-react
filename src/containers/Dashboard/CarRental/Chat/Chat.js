@@ -15,9 +15,11 @@ import { HubConnectionBuilder } from "@microsoft/signalr";
 import Chatlist from "../../../../components/Common/Chatlist";
 import { toast } from "react-toastify";
 import { useHistory } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const user = JSON.parse(localStorage.getItem("user"));
 const Index = (props) => {
+  const { i18n , t } = useTranslation();
   const [chatMessages, setChatMessages] = useState([]);
   const [userData, setUserData] = useState([]);
   const [filteredUserData, setFilteredUserData] = useState([]);
@@ -138,7 +140,7 @@ const Index = (props) => {
         console.log(e);
       }
     } else {
-      toast.error("No connection to server yet.");
+      toast.error(t("No connection to server yet."));
     }
   };
   // onSend click trigers the send message method
@@ -179,9 +181,9 @@ const Index = (props) => {
           <Grid xs={10.5} sm={10.5} md={10.5} lg={4.5}>
             <div className="ChatList">
               <div>
-                <Typography className="ChatHeading">Chats</Typography>
+                <Typography className="ChatHeading">{t("Chats")}</Typography>
                 <div className="ChatListVector">
-                  <Typography className="ChatVector">Recent chat</Typography>
+                  <Typography className="ChatVector">{t("Recent chat")}</Typography>
                 </div>
               </div>
             </div>
@@ -190,7 +192,7 @@ const Index = (props) => {
               <div className="SearchText">
                 <img src={SearchIcon} />
                 <input
-                  placeholder="Search"
+                  placeholder={t("Search")}
                   className="SearchBoxTypingField"
                   value={search}
                   onChange={handleSearch}
@@ -272,7 +274,7 @@ const Index = (props) => {
                   style={{ backgroundColor: "#FFA333" }}
                   onClick={() => history.push("/student/booking")}
                 >
-                  Book Me
+                  {t("Book Me")}
                 </button>
               </div>
             </div>
@@ -370,7 +372,7 @@ const Index = (props) => {
             <div className="MessageDiv">
               <div className="MessageText">
                 <input
-                  placeholder="Type a message here"
+                  placeholder={t("Type a message here")}
                   className="ChatBoxTypingField"
                   onKeyPress={handleKeypress}
                   value={message}

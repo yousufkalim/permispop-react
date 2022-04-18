@@ -12,6 +12,7 @@ import Paper from "@mui/material/Paper";
 import { pink } from "@mui/material/colors";
 import Radio from "@mui/material/Radio";
 import { color } from "@mui/system";
+import { useTranslation } from "react-i18next";
 
 const label = { inputProps: { "aria-label": "Checkbox demo" } };
 function createData(wording, comments) {
@@ -39,7 +40,7 @@ const rows = [
 function Mylearning() {
   const [step, setStep] = React.useState(1);
   const [selectedValue, setSelectedValue] = React.useState("a");
-
+  const { i18n , t } = useTranslation();
   const handleChange = (event) => {
     setSelectedValue(event.target.value);
   };
@@ -53,7 +54,7 @@ function Mylearning() {
   });
   return (
     <div style={{ padding: "0% 5% 5% 5%" }}>
-      <Typography className="Mylearning_title"> My Learning</Typography>
+      <Typography className="Mylearning_title"> {t("My Learning")}</Typography>
       <Divider
         width="100%"
         borderColor="#D5E4E8"
@@ -62,7 +63,7 @@ function Mylearning() {
       <Grid container spacing={1} className="Mylearning_buttons">
         <Grid sx={6} sm={6} md={3} className="Buttonsec">
           <Button
-            text="I - Practice"
+            text={t("I - Practice")}
             color={step === 1 ? "#149E7A !important" : "white !important"}
             variant="outlined"
             margin="0px 10px 0px 0px !important"
@@ -74,7 +75,7 @@ function Mylearning() {
         </Grid>
         <Grid sx={6} sm={6} md={3} className="Buttonsec">
           <Button
-            text="II - Apprehend"
+            text={t("II - Apprehend")}
             color={step === 2 ? "#149E7A !important" : "white !important"}
             variant="outlined"
             margin="0px 10px 0px 0px !important"
@@ -86,7 +87,7 @@ function Mylearning() {
         </Grid>
         <Grid sx={6} sm={6} md={3} className="Buttonsec">
           <Button
-            text="III - Driving"
+            text={t("III - Driving")}
             color={step === 3 ? "#149E7A !important" : "white !important"}
             variant="outlined"
             margin="0px 10px 0px 0px !important"
@@ -98,7 +99,7 @@ function Mylearning() {
         </Grid>
         <Grid sx={6} sm={6} md={3} className="Buttonsec">
           <Button
-            text="IV - Master"
+            text={t("IV - Master")}
             color={step === 4 ? "#149E7A !important" : "white !important"}
             variant="outlined"
             textColor={step === 4 ? "#fff !important" : "#333"}
@@ -117,7 +118,7 @@ function Mylearning() {
       {step === 1 ? (
         <>
           <Typography className="Mylearning_heading">
-            Practice the handling of the vehicle in light or no traffic
+            {t("Practice the handling of the vehicle in light or no traffic")}
           </Typography>
           <TableContainer
             component={Paper}
@@ -126,13 +127,13 @@ function Mylearning() {
             <Table size="large" className="Learning_table">
               <tr className="Headingsdiv">
                 <th className="Heading_data" align="center">
-                  Accquired
+                  {t("Accquired")}
                 </th>
                 <th className="Heading_data" align="center">
-                  Wording
+                  {t("Wording")}
                 </th>
                 <th className="Heading_data" align="center">
-                  Comments
+                  {t("Comments")}
                 </th>
               </tr>
               <TableBody>
@@ -186,7 +187,7 @@ function Mylearning() {
       ) : step === 2 ? (
         <>
           <Typography className="Mylearning_heading">
-            Apprehend the handling of the vehicle in light or no traffic
+            {t("Apprehend the handling of the vehicle in light or no traffic")}
           </Typography>
           <TableContainer
             component={Paper}
@@ -195,13 +196,13 @@ function Mylearning() {
             <Table size="large" className="Learning_table">
               <tr className="Headingsdiv">
                 <th className="Heading_data" align="center">
-                  Accquired
+                  {t("Accquired")}
                 </th>
                 <th className="Heading_data" align="center">
-                  Wording
+                  {t("Wording")}
                 </th>
                 <th className="Heading_data" align="center">
-                  Comments
+                  {t("Comments")}
                 </th>
               </tr>
               <TableBody>
@@ -255,7 +256,7 @@ function Mylearning() {
       ) : step === 3 ? (
         <>
           <Typography className="Mylearning_heading">
-            Drive the handling of the vehicle in light or no traffic
+            {t("Drive the handling of the vehicle in light or no traffic")}
           </Typography>
           <TableContainer
             component={Paper}
@@ -264,13 +265,13 @@ function Mylearning() {
             <Table size="large" className="Learning_table">
               <tr className="Headingsdiv">
                 <th className="Heading_data" align="center">
-                  Accquired
+                  {t("Accquired")}
                 </th>
                 <th className="Heading_data" align="center">
-                  Wording
+                  {t("Wording")}
                 </th>
                 <th className="Heading_data" align="center">
-                  Comments
+                  {t("Comments")}
                 </th>
               </tr>
               <TableBody>
@@ -324,7 +325,7 @@ function Mylearning() {
       ) : step === 4 ? (
         <>
           <Typography className="Mylearning_heading">
-            Master the handling of the vehicle in light or no traffic
+            {t("Master the handling of the vehicle in light or no traffic")}
           </Typography>
           <TableContainer
             component={Paper}
@@ -333,13 +334,13 @@ function Mylearning() {
             <Table size="large" className="Learning_table">
               <tr className="Headingsdiv">
                 <th className="Heading_data" align="center">
-                  Accquired
+                  {t("Accquired")}
                 </th>
                 <th className="Heading_data" align="center">
-                  Wording
+                  {t("Wording")}
                 </th>
                 <th className="Heading_data" align="center">
-                  Comments
+                  {t("Comments")}
                 </th>
               </tr>
               <TableBody>

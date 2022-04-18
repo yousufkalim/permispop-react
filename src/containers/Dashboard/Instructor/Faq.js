@@ -5,28 +5,32 @@ import Grid from "@mui/material/Grid";
 import Slider from '@mui/material/Slider';
 import Radio from '@mui/material/Radio';
 import FormControlLabel from '@mui/material/FormControlLabel';
+import { useTranslation } from "react-i18next";
+
 const Faq = () => {
+    const { i18n , t } = useTranslation();
+
     return(
         <React.Fragment>
 
             <Typography fontWeight={600} fontSize={25} paddingTop={5} marginLeft={6}>       
-              FAQ
+              {t("FAQ")}
             </Typography>
             <Divider/> 
             <div className="topTitle">
                 <Typography className="TitleH" fontWeight={500} fontSize={20} marginLeft={6}>
-                test data for hags jjksm ls,l,ls lll j heading
+                {t("test data for hags jjksm ls,l,ls lll j heading")}
                 </Typography>
                 <Typography className="TitleP" marginLeft={6}>
-                test data for headingtest data for heading data for heading
+                {t("test data for headingtest data for heading data for heading")}
                 </Typography>
             </div>
            
             <Grid container spacing={1} marginTop={5} sx={{marginLeft:"30px"}}>
                 <Grid item xs={11} sm={11} md={11} lg={6.5}> 
                 <div className="leftdivs">
-                    <Typography className="LeftH">1- test data for heading</Typography>
-                    <Typography className="LeftP">test data for headingtest data for heading</Typography>
+                    <Typography className="LeftH">1- {t("test data for heading")}</Typography>
+                    <Typography className="LeftP">{t("test data for headingtest data for heading")}</Typography>
                 <div className="sliderdiv" >
                 <div className="slidertop">
                     <Typography className="SliderH">15 H</Typography>
@@ -46,8 +50,8 @@ const Faq = () => {
                 />
                 </div>
                 <div className="leftdivs">
-                    <Typography className="LeftH">2- test data for heading</Typography>
-                    <Typography className="LeftP" >test data for headingtest data for heading</Typography>
+                    <Typography className="LeftH">2- {t("test data for heading<")}</Typography>
+                    <Typography className="LeftP" >{t("test data for headingtest data for heading")}</Typography>
 
                 <div className="sliderdiv" >
                 <div className="slidertop">
@@ -66,8 +70,8 @@ const Faq = () => {
                 />
                 </div>
                 <div className="leftdivs">
-                <Typography className="LeftH">3- test data for heading</Typography>
-                <Typography className="LeftP">test data for headingtest data for heading</Typography>
+                <Typography className="LeftH">3- {t("test data for heading")}</Typography>
+                <Typography className="LeftP">{t("test data for headingtest data for heading")}</Typography>
                 <div className="sliderdiv" >
                 <div className="slidertop">
                 <Typography className="SliderH">200 $</Typography>
@@ -93,7 +97,7 @@ const Faq = () => {
                 <div className="rightdivs">
                 <div >
                 <Typography className="RightH">CFE (5)</Typography>
-                <Typography className="RightP">test data for headingtest data for heading</Typography>
+                <Typography className="RightP">{t("test data for headingtest data for heading")}</Typography>
                 </div>
                 <div className="rightR">
                     <Typography className="rightR">20$</Typography>

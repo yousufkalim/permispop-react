@@ -6,10 +6,12 @@ import Typography from "@mui/material/Typography";
 import MultipleSelectPlaceholder from "../../../components/Common/SelectField";
 import { Instructorcolumns } from "../../../utils/tableHeads";
 import { Instructorrows } from "../../../utils/tablerows";
+import { useTranslation } from "react-i18next";
 
 import Divider from "../../../components/Common/Divider";
 
 const index = () => {
+  const { i18n , t } = useTranslation();
   return (
     <React.Fragment>
       <Grid
@@ -32,7 +34,7 @@ const index = () => {
               color: "#2A3235",
             }}
           >
-            Instructor
+            {t("Instructor")}
           </Typography>
         </Grid>
         <Grid xs={3} sm={3} md={2}>

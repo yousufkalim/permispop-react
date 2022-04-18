@@ -12,9 +12,10 @@ import DropDown from "../../Common/DropDown";
 import AutoComplete from "../../Common/Autocomplete";
 import axios from "axios";
 import moment from "moment";
-
+import { useTranslation } from "react-i18next"
 
 const Step4 = ({ step4, setStep4, onChange, step4Errors}) => {
+  const { i18n , t } = useTranslation();
   const [addresses, setAddresses] = React.useState([]);
 
   const handleSelectAddress = (e) => {
@@ -94,7 +95,7 @@ const Step4 = ({ step4, setStep4, onChange, step4Errors}) => {
       <Grid container spacing={4}>
         <Grid item xs={12} sm={12} md={4}>
           <TextField
-            label="First Name"
+            label={t("First Name")}
             name="Firstname"
             required={true}
             placeholder="John"
@@ -103,12 +104,12 @@ const Step4 = ({ step4, setStep4, onChange, step4Errors}) => {
               onChange(e.target.name, e.target.value);
             }}
             error={step4Errors['Firstname']?true:false}
-            ErrorMsg={step4Errors['Firstname']}
+            ErrorMsg={t(step4Errors['Firstname'])}
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <TextField
-            label="Surname"
+            label={t("Surname")}
             name="Surname"
             required={true}
             placeholder="Smith"
@@ -117,12 +118,12 @@ const Step4 = ({ step4, setStep4, onChange, step4Errors}) => {
               onChange(e.target.name, e.target.value);
             }}
             error={step4Errors['Surname']?true:false}
-            ErrorMsg={step4Errors['Surname']}
+            ErrorMsg={t(step4Errors['Surname'])}
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4} sx={{ marginTop: "9px" }}>
           <DatePicker
-            label="Date of Birth"
+            label={t("Date of Birth")}
             required={true}
             name="Dob"
             padding="20px 0 0 0px !important"
@@ -143,7 +144,7 @@ const Step4 = ({ step4, setStep4, onChange, step4Errors}) => {
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <TextField
-            label="Place of Birth"
+            label={t("Place of Birth")}
             required={true}
             name="Pob"
             placeholder="France"
@@ -152,28 +153,28 @@ const Step4 = ({ step4, setStep4, onChange, step4Errors}) => {
               onChange(e.target.name, e.target.value);
             }}
             error={step4Errors['Pob']?true:false}
-            ErrorMsg={step4Errors['Pob']}
+            ErrorMsg={t(step4Errors['Pob'])}
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <AutoComplete
             name="Address"
             required={true}
-            label="Address"
+            label={t("Address")}
             value={step4.Address.Label}
             options={addresses}
-            placeholder="Address"
+            placeholder={t("Address")}
             onChangeAddress={(e) => {
               handleAddress(e);
             }}
             error={step4Errors['Address']?true:false}
-            ErrorMsg={step4Errors['Address']}
+            ErrorMsg={t(step4Errors['Address'])}
             onAddressSelect={(e) => handleSelectAddress(e)}
           />
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <DropDown
-            label="Gender"
+            label={t("Gender")}
             required={true}
             name="Gender"
             placeholder="Gender"
@@ -191,7 +192,7 @@ const Step4 = ({ step4, setStep4, onChange, step4Errors}) => {
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <TextField
-            label="Complement"
+            label={t("Complement")}
             name="Complement"
             placeholder="John"
             value={step4.Complement}
@@ -205,7 +206,7 @@ const Step4 = ({ step4, setStep4, onChange, step4Errors}) => {
         <Grid item xs={12} sm={12} md={4}>
           <TextField
             required={true}
-            label="Zip Code"
+            label={t("Zip Code")}
             name="Zip"
             placeholder="0000000"
             value={step4.Address.Zip}
@@ -214,7 +215,7 @@ const Step4 = ({ step4, setStep4, onChange, step4Errors}) => {
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <TextField
-            label="City"
+            label={t("City")}
             required={true}
             name="City"
             placeholder="102 Street, building 02, NY"
@@ -224,7 +225,7 @@ const Step4 = ({ step4, setStep4, onChange, step4Errors}) => {
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <FilePicker
-            title="Upload your Image"
+            title={t("Upload your Image")}
             required={true}
             name="ProfileImg"
             label="ProfileImg"
@@ -249,7 +250,7 @@ const Step4 = ({ step4, setStep4, onChange, step4Errors}) => {
             }
             />
           <Typography variant="body1" className="termsConditionsCheckboxTitle">
-            Terms and Condition applied
+            {t("Terms and Condition applied")}
           </Typography>
         </div>
       </div>

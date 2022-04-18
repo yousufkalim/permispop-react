@@ -20,6 +20,7 @@ import moment from "moment";
 import { toast } from "react-toastify";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import Joi from "joi-browser";
+import { useTranslation } from "react-i18next";
 
 
 const ColorlibConnector = withStyles({
@@ -98,6 +99,7 @@ function ColorlibStepIcon(props) {
 }
 
 const Instructor = () => {
+  const { i18n , t } = useTranslation();
   let history = useHistory();
 
   const [activeStep, setActiveStep] = React.useState(1);
@@ -138,7 +140,9 @@ const Instructor = () => {
     Firstname: Joi.string()
       .min(3)
       .required()
-      .label("First Name")
+      .label(t("First Name"))
+      // .message(`${label} hjsjdhsj`),
+      // .options({ language: { any: { allowOnly: 'must match password' } } }),
       .error((errors) => {
         errors.forEach((err) => {
           switch (err.type) {
@@ -242,7 +246,7 @@ const Instructor = () => {
         errors.forEach((err) => {
           switch (err.type) {
             case "any.empty":
-              err.message = `${err.context.label} Field can't be empty!`;
+              err.message = t(`${err.context.label} Field can't be empty!`);
               break;
             case "string.email":
               err.message = `Not a Valid ${err.context.label}`;
@@ -434,22 +438,22 @@ const Instructor = () => {
     }
     else if(name==='Password'){
       if(value.length<8){
-        errorMessage = 'Password must be atleast 8 char long';
+        errorMessage = t("Password must be atleast 8 char long");
 
       }
       else if(value.length===0){
-        errorMessage = 'Password cannot be empty';
+        errorMessage = t("Password cannot be empty");
 
       }
 
     }
     else if(name==='ConfirmPassword'){
       if(step1.Password != value){
-        errorMessage = "Password didn't match";
+        errorMessage = t("Password didn't match");
 
       }
       else if(value.length===0){
-        errorMessage = 'Password cannot be empty';
+        errorMessage = t("Password cannot be empty");
 
       }
 
@@ -1418,41 +1422,41 @@ const Instructor = () => {
                             }).then(() => {
                               history.push("/");
                               toast.success(
-                                "Instructor Registered Successfully"
+                                t("Instructor Registered Successfully")
                               );
                             });
                           });
                         });
                       })
                       .catch((error) => {
-                        toast.error("Not Registered....Error Occured", error);
+                        toast.error(t("Not Registered....Error Occured"), error);
                         console.log("InsuranceCompanyResponse", error);
                       });
                   })
                   .catch((error) => {
-                    toast.error("Not Registered....Error Occured", error);
+                    toast.error(t("Not Registered....Error Occured"), error);
                     console.log("BusinessResponse", error);
                   });
               })
               .catch((error) => {
-                toast.error("Not Registered....Error Occured", error);
+                toast.error(t("Not Registered....Error Occured"), error);
                 console.log("ExersiceAuthorizationResponse", error);
               });
           })
           .catch((error) => {
-            toast.error("Not Registered....Error Occured", error);
+            toast.error(t("Not Registered....Error Occured"), error);
             console.log("DrivingLisenceResponse", error);
           });
       })
       .catch((error) => {
         console.log("PersonalResponse", error);
-        toast.error("Not Registered....Error Occured", error);
+        toast.error(t("Not Registered....Error Occured"), error);
       });
   };
   return (
     <React.Fragment>
       <RegisterHeader
-        title="Instructor Registration"
+        title={t("Instructor Registration")}
         subtitle1="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce varius justo et scelerisque varius. Nullam mollis augue et facilisis blandit. Morbi sollicitudin a eros sed cursus."
         subtitle2="Quisque lobortis ultrices dolor, fringilla venenatis leo sodales at. Nam suscipit felis sit amet convallis."
       />
@@ -1481,13 +1485,13 @@ const Instructor = () => {
             }}
           >
             {activeStep === 1 ? (
-              <>Instructor Identity</>
+              <>{t("Instructor Identity")}</>
             ) : activeStep === 2 ? (
-              <>Driver’s License</>
+              <>{t("Driver’s License")}</>
             ) : activeStep === 3 ? (
-              <>Insurance</>
+              <>{t("Insurance")}</>
             ) : activeStep === 4 ? (
-              <>Vehicle Details</>
+              <>{t("Vehicle Details")}</>
             ) : (
               ""
             )}
@@ -1521,13 +1525,13 @@ const Instructor = () => {
               {activeStep === steps.length ? (
                 <React.Fragment>
                   <Typography sx={{ mt: 2, mb: 1 }}>
-                    All steps completed - you&apos;re finished
+                    {t("All steps completed - you're finished")}
                   </Typography>
                   <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
                     <Box sx={{ flex: "1 1 auto" }} />
                     <Button
                       onClick={handleReset}
-                      text="Reset"
+                      text={t("Reset")}
                       buttonLableStyle="btn_main"
                       style={{ marginTop: "24px", marginRight: "10px" }}
                       width="10%"
@@ -1588,7 +1592,7 @@ const Instructor = () => {
                     <Button
                       disabled={activeStep === 1}
                       onClick={handleBack}
-                      text="Back"
+                      text={t("Back")}
                       buttonLableStyle="btn_main"
                       style={{ marginTop: "24px", marginRight: "10px" }}
                       width="10%"
@@ -1599,7 +1603,7 @@ const Instructor = () => {
                     <Button
                       endIcon={<ArrowForwardIcon sx={{ color: "#fff" }} />}
                       type="submit"
-                      text={activeStep === steps.length - 1 ? "Finish" : "Next"}
+                      text={activeStep === steps.length - 1 ? t("Finish") : t("Next")}
                       buttonLableStyle="btn_main"
                       style={{ marginTop: "24px" }}
                       width="10%"
@@ -1613,20 +1617,20 @@ const Instructor = () => {
                       }
                       disabled={ 
                         activeStep === 1
-                        && step1Errors.Firstname===null 
-                        && step1Errors.Surname===null 
-                        && step1Errors.Address===null 
-                        && step1.Address.City != ""
-                        && step1.Address.Zip != ""
-                        && step1Errors.Dob===null 
-                        && step1Errors.Pob===null 
-                        && step1Errors.Gender===null 
-                        && step1Errors.Email===null 
-                        && step1Errors.Phone===null 
-                        && step1Errors.Password==='' 
-                        && step1Errors.ConfirmPassword==='' 
-                        && step1Errors.FrontImg===null 
-                        && step1Errors.BackImg===null 
+                        // && step1Errors.Firstname===null 
+                        // && step1Errors.Surname===null 
+                        // && step1Errors.Address===null 
+                        // && step1.Address.City != ""
+                        // && step1.Address.Zip != ""
+                        // && step1Errors.Dob===null 
+                        // && step1Errors.Pob===null 
+                        // && step1Errors.Gender===null 
+                        // && step1Errors.Email===null 
+                        // && step1Errors.Phone===null 
+                        // && step1Errors.Password==='' 
+                        // && step1Errors.ConfirmPassword==='' 
+                        // && step1Errors.FrontImg===null 
+                        // && step1Errors.BackImg===null 
                         
                         // && step1Errors.ProfileImg===null 
                         // && step1Errors.Language===null 
@@ -1664,25 +1668,25 @@ const Instructor = () => {
 
 
                         || activeStep === 2
-                        && step2Errors.obtainingdate===null 
-                        && step2Errors.validitiyDate===null 
-                        && step2Errors.DateAuthorization===null 
-                        && step2Errors.ExpirationDate===null 
-                        && step2Errors.licenceNo===null 
-                        && step2Errors.issuingAuthority===null 
-                        && step2Errors.AuthorizationNumber===null 
-                        && step2Errors.siretNo===null 
-                        && step2Errors.licensefront===null 
-                        && step2Errors.licenseback===null 
-                        && step2Errors.kbls===null 
-                        && step2Errors.Authorizationfront===null 
-                        && step2Errors.Authorizationback===null 
+                        // && step2Errors.obtainingdate===null 
+                        // && step2Errors.validitiyDate===null 
+                        // && step2Errors.DateAuthorization===null 
+                        // && step2Errors.ExpirationDate===null 
+                        // && step2Errors.licenceNo===null 
+                        // && step2Errors.issuingAuthority===null 
+                        // && step2Errors.AuthorizationNumber===null 
+                        // && step2Errors.siretNo===null 
+                        // && step2Errors.licensefront===null 
+                        // && step2Errors.licenseback===null 
+                        // && step2Errors.kbls===null 
+                        // && step2Errors.Authorizationfront===null 
+                        // && step2Errors.Authorizationback===null 
 
                         || activeStep === 3
-                        && step3Errors.companyInsurer===null 
-                        && step3Errors.companyPoliceNum===null 
-                        && step3Errors.insuranceExpDate===null 
-                        && step3Errors.companyRC===null 
+                        // && step3Errors.companyInsurer===null 
+                        // && step3Errors.companyPoliceNum===null 
+                        // && step3Errors.insuranceExpDate===null 
+                        // && step3Errors.companyRC===null 
 
                         || activeStep === 4
                         && vehicles.length > 0

@@ -9,7 +9,9 @@ import API from "../../../api/index";
 import Checkbox from "@mui/material/Checkbox";
 import { Typography } from "@mui/material";
 import moment from "moment";
+import { useTranslation } from "react-i18next";
 const Step2 = (props) => {
+  const { i18n , t } = useTranslation();
   const handleFileChange = async (e) => {
     const formdata = new FormData();
     formdata.append("file", e.target.files[0]);
@@ -40,7 +42,7 @@ const Step2 = (props) => {
       <Grid container spacing={4}>
         <Grid item xs={12} sm={12} md={4}>
           <TextField
-            label="Driving License Number"
+            label={t("Driving License Number")}
             required={true}
             name="licenceNo"
             type="number"
@@ -50,12 +52,12 @@ const Step2 = (props) => {
               props.onChange(e.target.name, e.target.value);
             }}
             error={props.step2Errors['licenceNo']?true:false}
-            ErrorMsg={props.step2Errors['licenceNo']}
+            ErrorMsg={t(props.step2Errors['licenceNo'])}
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <TextField
-            label="Place of Delivery"
+            label={t("Place of Delivery")}
             name="deliveryPlace"
             type="text"
             required={true}
@@ -65,12 +67,12 @@ const Step2 = (props) => {
               props.onChange(e.target.name, e.target.value);
             }}
             error={props.step2Errors['deliveryPlace']?true:false}
-            ErrorMsg={props.step2Errors['deliveryPlace']}
+            ErrorMsg={t(props.step2Errors['deliveryPlace'])}
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <TextField
-            label="Issuing Authority"
+            label={t("Issuing Authority")}
             name="issuingAuthority"
             required={true}
             placeholder="712333"
@@ -79,12 +81,12 @@ const Step2 = (props) => {
               props.onChange(e.target.name, e.target.value);
             }}
             error={props.step2Errors['issuingAuthority']?true:false}
-            ErrorMsg={props.step2Errors['issuingAuthority']}
+            ErrorMsg={t(props.step2Errors['issuingAuthority'])}
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <Datepicker
-            label="Validity Date"
+            label={t("Validity Date")}
             required={true}
             name="validitiyDate"
             padding="20px 0 0 0px !important"
@@ -104,7 +106,7 @@ const Step2 = (props) => {
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <Datepicker
-            label="Date of authorization to excersice"
+            label={t("Date of Authorization to Excersice")}
             required={true}
             name="DateAuthorization"
             padding="20px 0 0 0px !important"
@@ -124,7 +126,7 @@ const Step2 = (props) => {
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <Datepicker
-            label="Dates of Obtaining"
+            label={t("Date of Obtaining")}
             required={true}
             name="obtainingdate"
             padding="20px 0 0 0px !important"
@@ -145,7 +147,7 @@ const Step2 = (props) => {
         <Grid item xs={12} sm={12} md={4} sx={{ marginTop: "9px" }}>
           <Datepicker
             required={true}
-            label="Expiration Date"
+            label={t("Expiration Date")}
             name="ExpirationDate"
             padding="20px 0 0 0px !important"
             width="100% !important"
@@ -164,7 +166,7 @@ const Step2 = (props) => {
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <TextField
-            label="Authorization Number"
+            label={t("Authorization Number")}
             required={true}
             name="AuthorizationNumber"
             type="text"
@@ -174,13 +176,13 @@ const Step2 = (props) => {
               props.onChange(e.target.name, e.target.value);
             }}
             error={props.step2Errors['AuthorizationNumber']?true:false}
-            ErrorMsg={props.step2Errors['AuthorizationNumber']}
+            ErrorMsg={t(props.step2Errors['AuthorizationNumber'])}
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <TextField
             required={true}
-            label="SIRET Number"
+            label={t("SIRET Number")}
             name="siretNo"
             type="number"
             placeholder="000000000"
@@ -189,7 +191,7 @@ const Step2 = (props) => {
               props.onChange(e.target.name, e.target.value);
             }}
             error={props.step2Errors['siretNo']?true:false}
-            ErrorMsg={props.step2Errors['siretNo']}
+            ErrorMsg={t(props.step2Errors['siretNo'])}
           ></TextField>
         </Grid>
       </Grid>
@@ -199,7 +201,7 @@ const Step2 = (props) => {
       <Grid container spacing={4} alignItems="flex-end">
         <Grid item xs={12} sm={12} md={4}>
           <FilePicker
-            title="Upload your Driving License Front Side"
+            title={t("Upload your Driving License Front Side")}
             label="licensefront"
             required={true}
             type="file"
@@ -212,7 +214,7 @@ const Step2 = (props) => {
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <FilePicker
-            title="Upload your Driving License Back Side"
+            title={t("Upload your Driving License Back Side")}
             required={true}
             label="licenseback"
             type="file"
@@ -226,7 +228,7 @@ const Step2 = (props) => {
         <Grid item xs={12} sm={12} md={4}>
           <FilePicker
             required={true}
-            title="Upload your KBLS"
+            title={t("Upload your KBLS")}
             label="kbls"
             name="kbls"
             type="file"
@@ -238,7 +240,7 @@ const Step2 = (props) => {
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <FilePicker
-            title="Upload your Authorization Front Side"
+            title={t("Upload your Authorization Front Side")}
             label="Authorizationfront"
             required={true}
             name="Authorizationfront"
@@ -251,7 +253,7 @@ const Step2 = (props) => {
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <FilePicker
-            title="Upload your Authorization Back Side"
+            title={t("Upload your Authorization Back Side")}
             required={true}
             label="Authorizationback"
             name="Authorizationback"

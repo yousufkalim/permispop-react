@@ -21,6 +21,9 @@ import { makeStyles } from "@mui/styles";
 import { NavLink } from "react-router-dom";
 import BasicAvatar from "../Common/BasicAvatar";
 import { Redirect } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+
+
 
 const drawerWidth = 300;
 
@@ -78,7 +81,7 @@ function ResponsiveDrawer(props) {
     },
   }));
   const classes = useStyles();
-
+  const {i18n,t}=useTranslation();
   const [mobileOpen, setMobileOpen] = React.useState(false);
 
   const handleDrawerToggle = () => {
@@ -106,7 +109,7 @@ function ResponsiveDrawer(props) {
               {route.icon}
             </ListItemIcon>
             <ListItemText
-              primary={route.name}
+              primary={t(route.name)}
               primaryTypographyProps={{ className: "drawer-list-text" }}
             />
           </ListItem>
@@ -146,11 +149,18 @@ function ResponsiveDrawer(props) {
             </IconButton>
             <Divider orientation="vertical" flexItem className="divider" />
 
-            <IconButton className="flag01">
+            <IconButton 
+              className="flag01"
+              onClick ={() => i18n.changeLanguage("en")}
+              >
+               
               <img alt="America" src={flag_01} className="flags-appbar" />
             </IconButton>
 
-            <IconButton className="flag02">
+            <IconButton 
+              className="flag02"
+              onClick ={() => i18n.changeLanguage("fr")}
+            >
               <img alt="Russia" src={flag_02} className="flags-appbar" />
             </IconButton>
             <IconButton>

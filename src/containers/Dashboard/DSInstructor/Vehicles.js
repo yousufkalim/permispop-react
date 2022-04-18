@@ -17,6 +17,7 @@ import Models from "../../../assets/makesModels/Models.xml";
 import Button from "../../../components/Common/Button";
 import { toast } from "react-toastify";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
+import { useTranslation } from "react-i18next";
 
 import API from "../../../api";
 import { Typography, Grid, Box, Checkbox, Paper, Modal } from "@mui/material";
@@ -26,6 +27,7 @@ function createData(dateofregistration, brand, model, color, noplate, gearbox) {
   return { dateofregistration, brand, model, color, noplate, gearbox };
 }
 const Index = () => {
+  const { i18n , t } = useTranslation();
   const [allMakes, setAllMakes] = useState([]);
   const [excludingMakes, setExcludingMakes] = useState([]);
   const [allModels, setAllModels] = useState([]);
@@ -146,7 +148,7 @@ const Index = () => {
 
   return (
     <>
-      <MobileViewFilters title="Vehicles" />
+      <MobileViewFilters title={t("Vehicles")} />
       <div className="Filters">
         <Grid
           container
@@ -168,7 +170,7 @@ const Index = () => {
                 color: "#2A3235",
               }}
             >
-              Vehicles
+              {t("Vehicles")}
             </Typography>
           </Grid>
           {/* <Grid xs={3} sm={3} md={2}>

@@ -22,12 +22,17 @@ import API from "../../../api";
 import { Typography, Grid, Box, Checkbox, Paper, Modal } from "@mui/material";
 import { async } from "validate.js";
 import Joi from "joi-browser";
+import { useTranslation } from "react-i18next";
+
+
 
 
 function createData(dateofregistration, brand, model, color, noplate, gearbox) {
   return { dateofregistration, brand, model, color, noplate, gearbox };
 }
 const Index = () => {
+  const { i18n , t } = useTranslation();
+
   const [allMakes, setAllMakes] = useState([]);
   const [excludingMakes, setExcludingMakes] = useState([]);
   const [allModels, setAllModels] = useState([]);
@@ -494,7 +499,7 @@ const Index = () => {
           vehichleInsuranceInfoId: vehicleinsRes.data.data.id,
           technicalControlInfoID: Technicalres.data.data.id,
         }).then(() => {
-          toast.success("Vehicle detail updated sucessfully");
+          toast.success(t("Vehicle detail updated sucessfully"));
           setAddVehicle(false);
           setIsEdit(false);
           getVehicleData(user);
@@ -601,7 +606,7 @@ const Index = () => {
                 ? JSON.stringify(allVehicles)
                 : "",
           }).then((updateprofileres) => {
-            toast.success("Vehicle deleted scuccessfully");
+            toast.success(t("Vehicle deleted scuccessfully"));
             getVehicleData(user);
           });
         });
@@ -694,7 +699,7 @@ const Index = () => {
                     ? JSON.stringify(allVehicles)
                     : "",
               }).then(() => {
-                toast.success("Vehicle added scuccessfully");
+                toast.success(t("Vehicle added scuccessfully"));
                 getVehicleData(user);
                 setAddVehicle(false);
                 setVehicleErrors({});
@@ -718,7 +723,7 @@ const Index = () => {
 
   return (
     <>
-      <MobileViewFilters title="Vehicles" />
+      <MobileViewFilters title={t("Vehicles")} />
       <div className="Filters">
         <Grid
           container
@@ -740,7 +745,7 @@ const Index = () => {
                 color: "#2A3235",
               }}
             >
-              Vehicles
+              {t("Vehicles")}
             </Typography>
           </Grid>
           {/* <Grid xs={3} sm={3} md={2}>
@@ -809,7 +814,7 @@ const Index = () => {
               margin="2% 0px 2% 0px"
             />
             <Typography style={{ marginLeft: "30px" }} className="Heading1">
-              Vehicle Details
+              {t("Vehicle Details")}
             </Typography>
             <Divider
               width="100%"
@@ -818,7 +823,7 @@ const Index = () => {
             />
             <Grid item xs={12} sm={12} md={4} sx={{ marginTop: "9px" }}>
               <DatePicker
-                label="Date of the 1st Registration"
+                label={t("Date of the 1st Registration")}
                 value={vehicleDet.FristRegDate}
                 maxDate={moment()}
                 name="FristRegDate"
@@ -839,7 +844,7 @@ const Index = () => {
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
               <DropDown
-                label="Brand"
+                label={t("Brand")}
                 required={true}
                 placeholder="Select Option"
                 value={vehicleDet.Brand}
@@ -851,7 +856,7 @@ const Index = () => {
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
               <DropDown
-                label="Model"
+                label={t("Model")}
                 required={true}
                 name="Model"
                 placeholder="Select Option"
@@ -866,7 +871,7 @@ const Index = () => {
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
               <TextField
-                label="Number Plate"
+                label={t("Number Plate")}
                 type="text"
                 required={true}
                 name="NumberPlate"
@@ -882,7 +887,7 @@ const Index = () => {
             <Grid item xs={12} sm={12} md={4}>
               <TextField
                 required={true}
-                label="Color"
+                label={t("Color")}
                 name="Color"
                 value={vehicleDet.Color}
                 type="text"
@@ -896,7 +901,7 @@ const Index = () => {
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
               <DropDown
-                label="Gearbox"
+                label={t("Gearbox")}
                 required={true}
                 name="GearBox"
                 value={vehicleDet.GearBox}
@@ -913,7 +918,7 @@ const Index = () => {
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
               <DropDown
-                label="Energy"
+                label={t("Energy")}
                 placeholder="Select"
                 required={true}
                 name="Energy"
@@ -942,7 +947,7 @@ const Index = () => {
             >
               <Grid item xs={12} sm={12} md={4}>
                 <FilePicker
-                  title="Upload your Image"
+                  title={t("Upload your Image")}
                 required={true}
                 label="YourImg"
                   name="VehicleImg"
@@ -954,7 +959,7 @@ const Index = () => {
               </Grid>
               <Grid item xs={12} sm={12} md={4}>
                 <FilePicker
-                  title="Upload Vehicle Registration Certificate"
+                  title={t("Upload Vehicle Registration Certificate")}
                   label="RegCertificate"
                 required={true}
                 name="VehicleRegImg"
@@ -967,12 +972,12 @@ const Index = () => {
             </Grid>
           </div>
           <Divider width="100%" borderColor="#D5E4E8" margin="2% 0px 2% 0px" />
-          <Typography className="Heading1">Vehicle Insurance</Typography>
+          <Typography className="Heading1">{t("Vehicle Insurance")}</Typography>
           <Divider width="100%" borderColor="#D5E4E8" margin="2% 0px 2% 0px" />
           <Grid container spacing={4}>
             <Grid item xs={12} sm={12} md={4}>
               <TextField
-                label="Insurer"
+                label={t("Insurer")}
                 type="text"
                 required={true}
                 placeholder="John"
@@ -987,7 +992,7 @@ const Index = () => {
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
               <TextField
-                label="Police Nunber"
+                label={t("Police Nunber")}
                 type="text"
                 required={true}
                 name="PoliceNumber"
@@ -1002,7 +1007,7 @@ const Index = () => {
             </Grid>
             <Grid item xs={12} sm={12} md={4} sx={{ marginTop: "9px" }}>
               <DatePicker
-                label="Start Date"
+                label={t("Start Date")}
                 value={vehicleDet.StartDate}
                 maxDate={moment()}
                 required={true}
@@ -1022,7 +1027,7 @@ const Index = () => {
             </Grid>
             <Grid item xs={12} sm={12} md={4} sx={{ marginTop: "9px" }}>
               <DatePicker
-                label="End Date"
+                label={t("End Date")}
                 minDate={moment()}
                 required={true}
                 name="EndDate"
@@ -1042,7 +1047,7 @@ const Index = () => {
             <Grid container spacing={4}>
               <Grid item xs={12} sm={12} md={4}>
                 <FilePicker
-                  title="Upload Scanned Green Card"
+                  title={t("Upload Scanned Green Card")}
                   label="GreenCard"
                 required={true}
                 name="GreenCard"
@@ -1064,18 +1069,18 @@ const Index = () => {
                 variant="body1"
                 className="termsConditionsCheckboxTitle"
               >
-                Technical Control Details if any?
+                {t("Technical Control Details if any?")}
               </Typography>
             </div>
             {checkbox1 ? (
               <>
           <Divider width="100%" borderColor="#D5E4E8" margin="2% 0px 2% 0px" />
-          <Typography className="Heading1">Technical Control</Typography>
+          <Typography className="Heading1">{t("Technical Control")}</Typography>
           <Divider width="100%" borderColor="#D5E4E8" margin="2% 0px 2% 0px" />
           <Grid container spacing={4}>
             <Grid item xs={12} sm={12} md={4} sx={{ marginTop: "9px" }}>
               <DatePicker
-                label="Date of Technical Control"
+                label={t("Date of Technical Control")}
                 value={vehicleDet.TechControlDate}
                 maxDate={moment()}
                 name="TechControlDate"
@@ -1094,7 +1099,7 @@ const Index = () => {
             </Grid>
             <Grid item xs={12} sm={12} md={4} sx={{ marginTop: "9px" }}>
               <DatePicker
-                label="End Date"
+                label={t("End Date")}
                 value={vehicleDet.TechEndDate}
                 name="TechEndDate"
                 minDate={moment()}
@@ -1116,7 +1121,7 @@ const Index = () => {
             <Grid container spacing={4}>
               <Grid item xs={12} sm={12} md={4}>
                 <FilePicker
-                  title="Scan and upload your CT"
+                  title={t("Scan and upload your CT")}
                   label="YourCt"
                   name="CtImg"
                   value={vehicleDet.CtImg}
@@ -1140,7 +1145,7 @@ const Index = () => {
           >
             {console.log("handleAddVehicle",handleAddVehicle)}
             <Button
-              text={isEdit ? "Edit" : "Add"}
+              text={isEdit ? t("Edit") : t("Add")}
               buttonLableStyle="btn_main"
               style={{ marginTop: "24px", marginRight: "10px" }}
               width="10%"

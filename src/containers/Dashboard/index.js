@@ -13,9 +13,11 @@ import DataTable from "../../components/Common/Table";
 import { FindInstructorcolumns } from "../../utils/tableHeads";
 import { useHistory } from "react-router-dom";
 import "../../css/Dashboard/Student/instructor.css";
+import { useTranslation } from "react-i18next";
 
 // component
 const Index = () => {
+  const { i18n , t } = useTranslation();
   const user = JSON.parse(localStorage.getItem("user"));
   const history = useHistory();
   // states
@@ -64,7 +66,7 @@ const Index = () => {
       <div className="instructor-dropdown-div">
         <div className="filter-container">
           <FormControl className="MobileView">
-            <label style={{ fontWeight: 500 }}>Gearbox</label>
+            <label style={{ fontWeight: 500 }}>{t("Gearbox")}</label>
             <Select
               labelId="demo-simple-select-standard-label"
               id="demo-simple-select-standard"
@@ -74,20 +76,20 @@ const Index = () => {
               className="instructor-dropdown"
             >
               <MenuItem value="All" name="All">
-                All
+                {t("All")}
               </MenuItem>
               <MenuItem value="Auto" name="Auto">
-                Auto
+                {t("Auto")}
               </MenuItem>
               <MenuItem value="Manual" name="Manual">
-                Manual
+                {t("Manual")}
               </MenuItem>
             </Select>
           </FormControl>
         </div>
         <div className="filter-container">
           <FormControl className="MobileView">
-            <label style={{ fontWeight: 500 }}>Gender</label>
+            <label style={{ fontWeight: 500 }}>{t("Gender")}</label>
             <Select
               labelId="demo-simple-select-standard-label"
               id="demo-simple-select-standard"
@@ -97,23 +99,23 @@ const Index = () => {
               className="instructor-dropdown"
             >
               <MenuItem value="All" name="All">
-                All
+                {t("All")}
               </MenuItem>
               <MenuItem value="Male" name="Male">
-                Male
+                {t("Male")}
               </MenuItem>
               <MenuItem value="Female" name="Female">
-                Female
+                {t("Female")}
               </MenuItem>
               <MenuItem value="Others" name="Others">
-                Others
+                {t("Others")}
               </MenuItem>
             </Select>
           </FormControl>
         </div>
         <div className="filter-container">
           <FormControl className="MobileView">
-            <label style={{ fontWeight: 500 }}>Interval /KM</label>
+            <label style={{ fontWeight: 500 }}>{t("Interval /KM")}</label>
             <Select
               labelId="demo-simple-select-standard-label"
               id="demo-simple-select-standard"
@@ -142,7 +144,7 @@ const Index = () => {
         </div>
         <div className="filter-container">
           <FormControl className="MobileView">
-            <label style={{ fontWeight: 500 }}>Role</label>
+            <label style={{ fontWeight: 500 }}>{t("Role")}</label>
             <Select
               labelId="demo-simple-select-standard-label"
               id="demo-simple-select-standard"
@@ -152,16 +154,16 @@ const Index = () => {
               className="instructor-dropdown"
             >
               <MenuItem value="All" name="All">
-                All
+                {t("All")}
               </MenuItem>
               <MenuItem value="DrivingSchool" name="Driving School">
-                Driving School
+                {t("Driving School")}
               </MenuItem>
               <MenuItem value="Instructor" name="Instructor">
-                Instructor
+                {t("Instructor")}
               </MenuItem>
               <MenuItem value="CarRentalAgent" name="Car Rental Agent">
-                Car Rental Agent
+                {t("Car Rental Agent")}
               </MenuItem>
             </Select>
           </FormControl>
@@ -169,7 +171,7 @@ const Index = () => {
         <div style={{ marginLeft: "2%" }}>
           <FormControl className="MobileView">
             <label style={{ fontWeight: 500, marginBottom: -5 }}>
-              Start date
+              {t("Start date")}
             </label>
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <DatePicker
@@ -192,7 +194,7 @@ const Index = () => {
         <div className="filter-container">
           <FormControl className="MobileView">
             <label style={{ fontWeight: 500, marginBottom: -5 }}>
-              End date
+              {t("End date")}
             </label>
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <DatePicker
@@ -212,7 +214,7 @@ const Index = () => {
         </div>
 
         <Button
-          text="Apply"
+          text={t("Apply")}
           borderRadius="5px"
           height="60px"
           height2="60px"

@@ -8,8 +8,10 @@ import Button from "../../../../components/Common/Button";
 import Grid from "@mui/material/Grid";
 import moment from "moment";
 import { toast } from "react-toastify";
+import { useTranslation } from "react-i18next";
 
 const Calendar = () => {
+  const { i18n , t } = useTranslation();
   //   const [open, setOpen] = React.useState(false);
 
   //   const [eventDeleteModal, setEventDeleteModal] = React.useState(false);
@@ -27,7 +29,7 @@ const Calendar = () => {
     if (moment(e.start).isAfter(currentDate)) {
       setAddBookingModal(true);
     } else {
-      toast.error("Cannot Book after time");
+      toast.error(t("Cannot Book after time"));
     }
   };
   const handleAddBookingClose = (e) => {
@@ -40,7 +42,7 @@ const Calendar = () => {
     if (e.status === "booking") {
       setBookingModal(true);
     } else {
-      toast.error("Can only select your bookings");
+      toast.error(t("Can only select your bookings"));
     }
   };
   const handleBookingClose = (e) => {
@@ -69,28 +71,28 @@ const Calendar = () => {
         <div className="booking-content">
           <Grid container spacing={3}>
             <Grid xs={12} sm={12} md={6}>
-              <TextField label="User Info" />
+              <TextField label={t("User Info")} />
             </Grid>
             <Grid xs={12} sm={12} md={6}>
-              <TextField label="Booking Date" />
+              <TextField label={t("Booking Date")} />
             </Grid>
             <Grid xs={12} sm={12} md={6}>
-              <TextField label="Booking Time" />
+              <TextField label={t("Booking Time")} />
             </Grid>
             <Grid xs={12} sm={12} md={6}>
-              <TextField label="Duration" />
+              <TextField label={t("Duration")} />
             </Grid>
             <Grid xs={12} sm={12} md={6}>
-              <TextField label="Vechicle" />
+              <TextField label={t("Vechicle")} />
             </Grid>
             <Grid xs={12} sm={12} md={6}>
-              <TextField label="Meetup" />
+              <TextField label={t("Meetup")} />
             </Grid>
           </Grid>
           <div className="booking-btn-div">
             <Grid align="right">
               <Button
-                text="Close"
+                text={t("Close")}
                 onClick={handleBookingClose}
                 variant="outlined"
                 width="110px !important"
@@ -99,7 +101,7 @@ const Calendar = () => {
                 borderColor="black !important"
               />
               <Button
-                text="Delete"
+                text={t("Delete")}
                 type="submit"
                 textColor="#FFFFFF !important"
                 width="110px !important"
@@ -123,34 +125,34 @@ const Calendar = () => {
         <div className="booking-content">
           <Grid container spacing={3}>
             <Grid xs={12} sm={12} md={6}>
-              <TextField label="User Info" placeholder="Enter username " />
+              <TextField label={t("User Info")} placeholder={t("Enter username")} />
             </Grid>
             <Grid xs={12} sm={12} md={6}>
-              <TextField label="Booking Date" placeholder="Add booking date" />
+              <TextField label={t("Booking Date")} placeholder={t("Add booking date")} />
             </Grid>
             <Grid xs={12} sm={12} md={6}>
               <TextField
-                label="Booking Time"
+                label={t("Booking Time")}
                 placeholder="Select booking time"
               />
             </Grid>
             <Grid xs={12} sm={12} md={6}>
               <TextField
-                label="Duration"
-                placeholder="Enter duration of booking"
+                label={t("Duration")}
+                placeholder={t("Enter duration of booking")}
               />
             </Grid>
             <Grid xs={12} sm={12} md={6}>
-              <TextField label="Vechicle" placeholder="Select vechicle type" />
+              <TextField label={t("Vechicle")} placeholder={t("Select vechicle type")} />
             </Grid>
             <Grid xs={12} sm={12} md={6}>
-              <TextField label="Meetup" placeholder="Enter Meet-UP point" />
+              <TextField label={t("Meetup")} placeholder={t("Enter Meet-UP point")} />
             </Grid>
           </Grid>
           <div className="booking-btn-div">
             <Grid align="right">
               <Button
-                text="Close"
+                text={t("Close")}
                 onClick={handleAddBookingClose}
                 variant="outlined"
                 width="110px !important"
@@ -159,7 +161,7 @@ const Calendar = () => {
                 borderColor="black !important"
               />
               <Button
-                text="Add Booking"
+                text={t("Add Booking")}
                 type="submit"
                 textColor="#FFFFFF !important"
                 width="150px !important"

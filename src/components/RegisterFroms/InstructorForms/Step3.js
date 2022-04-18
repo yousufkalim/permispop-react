@@ -9,8 +9,10 @@ import Datepicker from "../../Common/DatePicker";
 import API from "../../../api/index";
 import { toast } from "react-toastify";
 import moment from "moment";
+import { useTranslation } from "react-i18next";
 
 const Step1 = (props) => {
+  const { i18n , t } = useTranslation();
   const handleFileChange = async (e) => {
     const formdata = new FormData();
     formdata.append("file", e.target.files[0]);
@@ -22,7 +24,7 @@ const Step1 = (props) => {
       })
       .catch((error) => {
         console.log("UploadProfileImageResponce------>", error);
-        toast.error("Image not Uploaded");
+        toast.error(t("Image not Uploaded"));
       });
   };
 
@@ -36,13 +38,13 @@ const Step1 = (props) => {
         marginTop: "70px",
       }}
     >
-      <Typography className="Heading1">Insurance Company</Typography>
+      <Typography className="Heading1">{t("Insurance Company")}</Typography>
       <Divider width="100%" borderColor="#D5E4E8" margin="1% 0px 1% 0px" />
       <Grid container spacing={4}>
         <Grid item xs={12} sm={12} md={4}>
           <TextField
             required={true}
-            label="Insurer"
+            label={t("Insurer")}
             name="companyInsurer"
             placeholder="John"
             value={props.step3.companyInsurer}
@@ -50,12 +52,12 @@ const Step1 = (props) => {
               props.onChange(e.target.name, e.target.value);
             }}
             error={props.step3Errors['companyInsurer']?true:false}
-            ErrorMsg={props.step3Errors['companyInsurer']}
+            ErrorMsg={t(props.step3Errors['companyInsurer'])}
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <TextField
-            label="Police Number"
+            label={t("Police Number")}
             name="companyPoliceNum"
             required={true}
             placeholder="Smith"
@@ -64,12 +66,12 @@ const Step1 = (props) => {
               props.onChange(e.target.name, e.target.value);
             }}
             error={props.step3Errors['companyPoliceNum']?true:false}
-            ErrorMsg={props.step3Errors['companyPoliceNum']}
+            ErrorMsg={t(props.step3Errors['companyPoliceNum'])}
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4} sx={{ marginTop: "9px" }}>
           <Datepicker
-            label="Expiration date of your insurance"
+            label={t("Expiration date of your insurance")}
             required={true}
             name="insuranceExpDate"
             placeholder="19-10-1992 "
@@ -90,7 +92,7 @@ const Step1 = (props) => {
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <FilePicker
-            title="Upload Insurance Company your RC Pro"
+            title={t("Upload your RC Pro")}
             name="companyRC"
             required={true}
             label="companyRC"

@@ -9,10 +9,12 @@ import Divider from "../../components/Common/Divider";
 import RegisterStudent from "../../assets/images/RegisterStudent.svg";
 import RegisterProfessional from "../../assets/images/RegisterProfessional.svg";
 import { useHistory } from "react-router-dom";
+import { useTranslation } from "react-i18next";
+
 
 export default function RegisterModal(props) {
   const [register, setRegister] = React.useState(true);
-
+  const { i18n , t } = useTranslation();
   const history = useHistory();
   const handleStudentRegister = () => history.push("/register/student");
   const handleInstructorRegister = () => history.push("/register/instructor");
@@ -67,7 +69,7 @@ export default function RegisterModal(props) {
                       fontWeight: "500",
                     }}
                   >
-                    Student
+                    {t("Student")}
                   </Typography>
                 </CardContent>
               </Card>
@@ -112,7 +114,7 @@ export default function RegisterModal(props) {
                       fontWeight: "500",
                     }}
                   >
-                    Professional
+                    {t("Professional")}
                   </Typography>
                 </CardContent>
               </Card>
@@ -150,7 +152,7 @@ export default function RegisterModal(props) {
                       fontWeight: "500",
                     }}
                   >
-                    Instructor
+                    {t("Instructor")}
                   </Typography>
                 </CardContent>
               </Card>
@@ -194,7 +196,7 @@ export default function RegisterModal(props) {
                       fontWeight: "500",
                     }}
                   >
-                    Driving School
+                    {t("Driving School")}
                   </Typography>
                 </CardContent>
               </Card>
@@ -238,7 +240,7 @@ export default function RegisterModal(props) {
                       fontWeight: "500",
                     }}
                   >
-                    Rental Car Agent
+                    {t("Rental Car Agent")}
                   </Typography>
                 </CardContent>
               </Card>

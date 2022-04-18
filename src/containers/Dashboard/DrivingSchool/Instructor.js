@@ -8,8 +8,10 @@ import { Instructorrows } from "../../../utils/tablerows";
 import DatePicker from "../../../components/Common/DatePicker";
 import MobileViewFilters from "../../../components/Common/MobileViewFilters";
 import Divider from "../../../components/Common/Divider";
+import { useTranslation } from "react-i18next";
 
 const Index = () => {
+  const { i18n , t } = useTranslation();
   const [Startvalue, setStartValue] = useState(new Date());
   const handleStartdate = (newValue) => {
     setStartValue(newValue);
@@ -21,7 +23,7 @@ const Index = () => {
   };
   return (
     <>
-      <MobileViewFilters title="Instructor" />
+      <MobileViewFilters title={t("Instructor")} />
       <div className="Filters">
         <Grid
           container
@@ -43,7 +45,7 @@ const Index = () => {
                 color: "#2A3235",
               }}
             >
-              Instructor
+              {t("Instructor")}
             </Typography>
           </Grid>
           {/* <Grid xs={3} sm={3} md={2}>

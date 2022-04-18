@@ -7,9 +7,11 @@ import DatePicker from "../../../components/Common/DatePicker";
 import MobileViewFilters from "../../../components/Common/MobileViewFilters";
 import Divider from "../../../components/Common/Divider";
 import ButtonComponent from "../../../components/Common/Button";
+import { useTranslation } from "react-i18next";
 
 
 const Index = () => {
+  const { i18n , t } = useTranslation();
   const [Startvalue, setStartValue] = useState(new Date());
   const handleStartdate = (newValue) => {
     setStartValue(newValue);
@@ -21,7 +23,7 @@ const Index = () => {
   };
   return (
     <>
-      <MobileViewFilters title="My Procedure" />
+      <MobileViewFilters title={t("My Procedure")} />
       <div className="Filters">
         <Grid container spacing={1} sx={{ marginTop: "30px" }}>
           <Grid xs={12} sm={12} md={4}>
@@ -40,7 +42,7 @@ const Index = () => {
                 color: "#2A3235",
               }}
             >
-              My Procedure
+              {t("My Procedure")}
             </Typography>
           </Grid>
         </Grid>
@@ -51,18 +53,18 @@ const Index = () => {
       <Grid container spacing={1} sx={{ margin: "30px" }}>
         <Grid xs={12}>
           <div className="ProceduresList">
-            <Typography className="ProcedureGrid">ANTS</Typography>
+            <Typography className="ProcedureGrid">{t("ANTS")}</Typography>
           </div>
           <Divider />
           <div className="ProceduresList">
             <Typography className="ProcedureGrid">
-              Mes demarches simplifees
+              {t("My simplified procedures")}
             </Typography>
           </div>
           <Divider />
           <div className="ProceduresList">
             <Typography className="ProcedureGrid">
-              Reserver une date de code
+              {t("Book a code date")}
             </Typography>
           </div>
         </Grid>

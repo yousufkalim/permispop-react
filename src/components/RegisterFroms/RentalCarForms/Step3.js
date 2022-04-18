@@ -14,6 +14,7 @@ import Button from "../../Common/Button";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
+import { useTranslation } from "react-i18next";
 import {
   Typography,
   Grid,
@@ -47,6 +48,7 @@ const style = {
 };
 
 const Step3 = (props) => {
+  const { i18n , t } = useTranslation();
   const [FirstRegDate, setFirstRegDate] = React.useState(new Date());
   const [StartDate, setStartDate] = React.useState(new Date());
   const [EndDate, setEndDate] = React.useState(new Date());
@@ -270,7 +272,7 @@ const Step3 = (props) => {
               <TableRow
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
-                <TableCell align="left">No Vehicle Added.</TableCell>
+                <TableCell align="left">{t("No Vehicle Added.")}</TableCell>
               </TableRow>
             )}
           </TableBody>
@@ -291,7 +293,7 @@ const Step3 = (props) => {
               margin="2% 0px 2% 0px"
             />
             <Typography style={{ marginLeft: "30px" }} className="Heading1">
-              Vehicle Details
+              {t("Vehicle Details")}
             </Typography>
             <Divider
               width="100%"
@@ -300,7 +302,7 @@ const Step3 = (props) => {
             />
             <Grid item xs={12} sm={12} md={4} sx={{ marginTop: "9px" }}>
               <DatePicker
-                label="Date of the 1st Registration"
+                label={t("Date of the 1st Registration")}
                 required={true}
                 value={props.step3.FristRegDate}
                 name="FristRegDate"
@@ -320,7 +322,7 @@ const Step3 = (props) => {
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
               <DropDown
-                label="Brand"
+                label={t("Brand")}
                 required={true}
                 placeholder="Select Option"
                 value={props.step3.Brand}
@@ -332,7 +334,7 @@ const Step3 = (props) => {
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
               <DropDown
-                label="Model"
+                label={t("Model")}
                 required={true}
                 name="Model"
                 placeholder="Select Option"
@@ -348,7 +350,7 @@ const Step3 = (props) => {
             <Grid item xs={12} sm={12} md={4}>
               <TextField
                 required={true}
-                label="Number Plate"
+                label={t("Number Plate")}
                 type="text"
                 name="NumberPlate"
                 placeholder="Numeric"
@@ -356,12 +358,12 @@ const Step3 = (props) => {
                   props.onChange(e.target.name, e.target.value);
                 }}
                 error={props.step3Errors['NumberPlate']?true:false}
-                ErrorMsg={props.step3Errors['NumberPlate']}
+                ErrorMsg={t(props.step3Errors['NumberPlate'])}
               ></TextField>
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
               <TextField
-                label="Color"
+                label={t("Color")}
                 required={true}
                 name="Color"
                 type="text"
@@ -370,13 +372,13 @@ const Step3 = (props) => {
                   props.onChange(e.target.name, e.target.value);
                 }}
                 error={props.step3Errors['Color']?true:false}
-                ErrorMsg={props.step3Errors['Color']}
+                ErrorMsg={t(props.step3Errors['Color'])}
               ></TextField>
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
               <DropDown
                 required={true}
-                label="Gearbox"
+                label={t("Gearbox")}
                 name="GearBox"
                 value={props.step3.GearBox}
                 MenuItem={[
@@ -393,7 +395,7 @@ const Step3 = (props) => {
             <Grid item xs={12} sm={12} md={4}>
               <DropDown
                 required={true}
-                label="Energy"
+                label={t("Energy")}
                 placeholder="Select"
                 name="Energy"
                 value={props.step3.Energy}
@@ -421,7 +423,7 @@ const Step3 = (props) => {
             >
               <Grid item xs={12} sm={12} md={4}>
                 <FilePicker
-                  title="Upload your Image"
+                  title={t("Upload your Image")}
                 required={true}
                 label="YourImg"
                   name="VehicleImg"
@@ -433,7 +435,7 @@ const Step3 = (props) => {
               </Grid>
               <Grid item xs={12} sm={12} md={4}>
                 <FilePicker
-                  title="Upload Vehicle Registration Certificate"
+                  title={t("Upload Vehicle Registration Certificate")}
                   label="RegCertificate"
                 required={true}
                 name="VehicleRegImg"
@@ -446,12 +448,12 @@ const Step3 = (props) => {
             </Grid>
           </div>
           <Divider width="100%" borderColor="#D5E4E8" margin="2% 0px 2% 0px" />
-          <Typography className="Heading1">Vehicle Insurance</Typography>
+          <Typography className="Heading1">{t("Vehicle Insurance")}</Typography>
           <Divider width="100%" borderColor="#D5E4E8" margin="2% 0px 2% 0px" />
           <Grid container spacing={4}>
             <Grid item xs={12} sm={12} md={4}>
               <TextField
-                label="Insurer"
+                label={t("Insurer")}
                 type="text"
                 required={true}
                 placeholder="John"
@@ -460,12 +462,12 @@ const Step3 = (props) => {
                   props.onChange(e.target.name, e.target.value);
                 }}
                 error={props.step3Errors['VehicleInsurer']?true:false}
-            ErrorMsg={props.step3Errors['VehicleInsurer']}
+            ErrorMsg={t(props.step3Errors['VehicleInsurer'])}
               ></TextField>
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
               <TextField
-                label="Police Nunber"
+                label={t("Police Number")}
                 type="text"
                 required={true}
                 name="PoliceNumber"
@@ -474,12 +476,12 @@ const Step3 = (props) => {
                   props.onChange(e.target.name, e.target.value);
                 }}
                 error={props.step3Errors['PoliceNumber']?true:false}
-                ErrorMsg={props.step3Errors['PoliceNumber']}
+                ErrorMsg={t(props.step3Errors['PoliceNumber'])}
               ></TextField>
             </Grid>
             <Grid item xs={12} sm={12} md={4} sx={{ marginTop: "9px" }}>
               <DatePicker
-                label="Start Date"
+                label={t("Start Date")}
                 value={props.step3.StartDate}
                 required={true}
                 name="StartDate"
@@ -499,7 +501,7 @@ const Step3 = (props) => {
             </Grid>
             <Grid item xs={12} sm={12} md={4} sx={{ marginTop: "9px" }}>
               <DatePicker
-                label="End Date"
+                label={t("End Date")}
                 required={true}
                 name="EndDate"
                 value={props.step3.EndDate}
@@ -522,9 +524,9 @@ const Step3 = (props) => {
             <Grid container spacing={4}>
               <Grid item xs={12} sm={12} md={4}>
                 <FilePicker
-                  title="Upload Scanned Green Card"
+                  title={t("Upload Scanned Green Card")}
                 required={true}
-                label="GreenCard"
+                label={t("GreenCard")}
                   name="GreenCard"
                   value={props.step3.GreenCard}
                   onChange={handleFileChange}
@@ -543,19 +545,19 @@ const Step3 = (props) => {
             onClick={(e) =>  props.onChange('checked', !props.step3.checked)}
           />
           <Typography variant="body1" className="termsConditionsCheckboxTitle">
-          Technical Control if any?
+          {t("Technical Control if any?")}
           </Typography>
         </div>
       </div>
       {props.step3.checked ? (
         <div>
                     <Divider width="100%" borderColor="#D5E4E8" margin="2% 0px 2% 0px" />
-          <Typography className="Heading1">Technical Control</Typography>
+          <Typography className="Heading1">{t("Technical Control")}</Typography>
           <Divider width="100%" borderColor="#D5E4E8" margin="2% 0px 2% 0px" />
           <Grid container spacing={4}>
             <Grid item xs={12} sm={12} md={4} sx={{ marginTop: "9px" }}>
               <DatePicker
-                label="Date of Technical Control"
+                label={t("Date of Technical Control")}
                 value={props.step3.TechControlDate}
                 name="TechControlDate"
                 padding="20px 0 0 0px !important"
@@ -574,7 +576,7 @@ const Step3 = (props) => {
             </Grid>
             <Grid item xs={12} sm={12} md={4} sx={{ marginTop: "9px" }}>
               <DatePicker
-                label="End Date"
+                label={t("End Date")}
                 value={props.step3.TechEndDate}
                 name="TechEndDate"
                 padding="20px 0 0 0px !important"
@@ -596,7 +598,7 @@ const Step3 = (props) => {
             <Grid container spacing={4}>
               <Grid item xs={12} sm={12} md={4}>
                 <FilePicker
-                  title="Scan and upload your CT"
+                  title={t("Scan and upload your CT")}
                   label="YourCt"
                   name="CtImg"
                   value={props.step3.CtImg}
@@ -619,7 +621,7 @@ const Step3 = (props) => {
             }}
           >
             <Button
-              text={isEdit ? "Edit" : "Add"}
+              text={isEdit ? t("Edit") : t("Add")}
               buttonLableStyle="btn_main"
               style={{ marginTop: "24px", marginRight: "10px" }}
               width="10%"

@@ -12,6 +12,7 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteIcon from "@mui/icons-material/Delete";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import moment from "moment";
+import { useTranslation } from "react-i18next";
 
 
 import {
@@ -48,6 +49,7 @@ const style = {
 };
 
 const Step6 = ({ step6, setStep6, onChange, instructors, setInstructors,step6Errors, setStep6Errors }) => {
+  const { i18n , t } = useTranslation();
   const [addInstructor, setAddInstructor] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
   const [editIndex, setEditIndex] = useState("");
@@ -254,7 +256,7 @@ const Step6 = ({ step6, setStep6, onChange, instructors, setInstructors,step6Err
               <TableRow
                 sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
               >
-                <TableCell align="left">No Instructors Added.</TableCell>
+                <TableCell align="left">{t("No Instructors Added.")}</TableCell>
               </TableRow>
             )}
           </TableBody>
@@ -276,7 +278,7 @@ const Step6 = ({ step6, setStep6, onChange, instructors, setInstructors,step6Err
           <Grid container spacing={4}>
             <Grid item xs={12} sm={12} md={4}>
               <TextField
-                label="First Name"
+                label={t("First Name")}
             required={true}
             name="Firstname"
                 placeholder="John"
@@ -285,13 +287,13 @@ const Step6 = ({ step6, setStep6, onChange, instructors, setInstructors,step6Err
                   onChange(e.target.name, e.target.value);
                 }}
                 error={step6Errors['Firstname']?true:false}
-                ErrorMsg={step6Errors['Firstname']}
+                ErrorMsg={t(step6Errors['Firstname'])}
               ></TextField>
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
               <TextField
             required={true}
-            label="Surname"
+            label={t("Surname")}
                 name="Surname"
                 placeholder="smith"
                 value={step6.Surname}
@@ -299,13 +301,13 @@ const Step6 = ({ step6, setStep6, onChange, instructors, setInstructors,step6Err
                   onChange(e.target.name, e.target.value);
                 }}
                 error={step6Errors['Surname']?true:false}
-                ErrorMsg={step6Errors['Surname']}
+                ErrorMsg={t(step6Errors['Surname'])}
               ></TextField>
             </Grid>
             <Grid item xs={12} sm={12} md={4} sx={{ marginTop: "9px" }}>
               <DatePicker
             required={true}
-            label="Date of Birth"
+            label={t("Date of Birth")}
                 name="Dob"
                 padding="20px 0 0 0px !important"
                 width="100% !important"
@@ -325,7 +327,7 @@ const Step6 = ({ step6, setStep6, onChange, instructors, setInstructors,step6Err
             <Grid item xs={12} sm={12} md={4}>
               <TextField
             required={true}
-            label="Place of Birth"
+            label={t("Place of Birth")}
                 name="Pob"
                 placeholder="France"
                 value={step6.Pob}
@@ -333,12 +335,12 @@ const Step6 = ({ step6, setStep6, onChange, instructors, setInstructors,step6Err
                   onChange(e.target.name, e.target.value);
                 }}
                 error={step6Errors['Pob']?true:false}
-                ErrorMsg={step6Errors['Pob']}
+                ErrorMsg={t(step6Errors['Pob'])}
               ></TextField>
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
               <DropDown
-                label="Gender"
+                label={t("Gender")}
             required={true}
             placeholder="Male"
                 name="Gender"
@@ -357,22 +359,22 @@ const Step6 = ({ step6, setStep6, onChange, instructors, setInstructors,step6Err
               <AutoComplete
                 name="Address"
             required={true}
-            label="Address"
+            label={t("Address")}
                 value={step6.Address.Label ? step6.Address.Label : ""}
                 options={addresses}
-                placeholder="Address"
+                placeholder={t("Address")}
                 onChangeAddress={(e) => {
                   handleAddress(e);
                 }}
                 error={step6Errors['Address']?true:false}
-                ErrorMsg={step6Errors['Address']}
+                ErrorMsg={t(step6Errors['Address'])}
                 onAddressSelect={(e) => handleSelectAddress(e)}
               />
             </Grid>
 
             <Grid item xs={12} sm={12} md={4}>
               <TextField
-                label="Complement"
+                label={t("Complement")}
                 name="Complement"
                 placeholder="Text"
                 value={step6.Complement}
@@ -385,7 +387,7 @@ const Step6 = ({ step6, setStep6, onChange, instructors, setInstructors,step6Err
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
               <TextField
-                label="City"
+                label={t("City")}
                 name="City"
             required={true}
             disabled={true}
@@ -399,7 +401,7 @@ const Step6 = ({ step6, setStep6, onChange, instructors, setInstructors,step6Err
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
               <TextField
-                label="Zip Code"
+                label={t("Zip Code")}
             required={true}
             name="Zip"
                 type="number"
@@ -414,7 +416,7 @@ const Step6 = ({ step6, setStep6, onChange, instructors, setInstructors,step6Err
             <Grid item xs={12} sm={12} md={4}>
               <TextField
             required={true}
-            label="Email"
+            label={t("Email")}
                 name="Email"
                 type="email"
                 placeholder="Email"
@@ -423,12 +425,12 @@ const Step6 = ({ step6, setStep6, onChange, instructors, setInstructors,step6Err
                   onChange(e.target.name, e.target.value);
                 }}
                 error={step6Errors['Email']?true:false}
-                ErrorMsg={step6Errors['Email']}
+                ErrorMsg={t(step6Errors['Email'])}
               ></TextField>
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
               <TextField
-                label="Second Email"
+                label={t("Second Email")}
                 name="Email2"
                 type="email"
                 placeholder="smart_coolkyo@yahoo.com"
@@ -442,7 +444,7 @@ const Step6 = ({ step6, setStep6, onChange, instructors, setInstructors,step6Err
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
               <TextField
-                label="Phone"
+                label={t("Phone")}
                 name="Phone"
                 placeholder="0000000000000"
                 type="number"
@@ -452,13 +454,13 @@ const Step6 = ({ step6, setStep6, onChange, instructors, setInstructors,step6Err
                   onChange(e.target.name, e.target.value);
                 }}
                 error={step6Errors['Phone']?true:false}
-                ErrorMsg={step6Errors['Phone']}
+                ErrorMsg={t(step6Errors['Phone'])}
               ></TextField>
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
               <TextField
                 name="Phone2"
-                label="Second Phone"
+                label={t("Second Phone")}
                 type="number"
                 placeholder="00000000000000"
                 value={step6.Phone2}
@@ -471,7 +473,7 @@ const Step6 = ({ step6, setStep6, onChange, instructors, setInstructors,step6Err
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
               <TextField
-                label="Password"
+                label={t("Password")}
             required={true}
             name="Password"
                 type="password"
@@ -481,12 +483,12 @@ const Step6 = ({ step6, setStep6, onChange, instructors, setInstructors,step6Err
                   onChange(e.target.name, e.target.value);
                 }}
                 error={step6Errors['Password']?true:false}
-                ErrorMsg={step6Errors['Password']}
+                ErrorMsg={t(step6Errors['Password'])}
               ></TextField>
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
               <TextField
-                label="Confirm Password"
+                label={t("Confirm Password")}
             required={true}
             name="ConfirmPassword"
                 type="password"
@@ -496,12 +498,12 @@ const Step6 = ({ step6, setStep6, onChange, instructors, setInstructors,step6Err
                   onChange(e.target.name, e.target.value);
                 }}
                 error={step6Errors['ConfirmPassword']?true:false}
-                ErrorMsg={step6Errors['ConfirmPassword']}
+                ErrorMsg={t(step6Errors['ConfirmPassword'])}
               ></TextField>
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
               <FilePicker
-                title="Upload Image"
+                title={t("Upload Image")}
                 type="file"
                 label="ProfileImg"
                 name="ProfileImg"
@@ -513,12 +515,12 @@ const Step6 = ({ step6, setStep6, onChange, instructors, setInstructors,step6Err
             </Grid>
           </Grid>
           <Divider width="100%" borderColor="#D5E4E8" margin="2% 0px 2% 0px" />
-          <Typography className="Heading1">Driver’s License</Typography>
+          <Typography className="Heading1">{t("Driver’s License")}</Typography>
           <Divider width="100%" borderColor="#D5E4E8" margin="2% 0px 2% 0px" />
           <Grid container spacing={4}>
             <Grid item xs={12} sm={12} md={4}>
               <TextField
-                label="Driver’s License Number"
+                label={t("Driver’s License Number")}
             required={true}
             name="DriverLicenseNumber"
                 placeholder="XXXXX_XXX"
@@ -527,12 +529,12 @@ const Step6 = ({ step6, setStep6, onChange, instructors, setInstructors,step6Err
                   onChange(e.target.name, e.target.value);
                 }}
                 error={step6Errors['DriverLicenseNumber']?true:false}
-                ErrorMsg={step6Errors['DriverLicenseNumber']}
+                ErrorMsg={t(step6Errors['DriverLicenseNumber'])}
               ></TextField>
             </Grid>
             <Grid item xs={12} sm={12} md={4} sx={{ marginTop: "9px" }}>
               <DatePicker
-                label="Date of Obtaining"
+                label={t("Date of Obtaining")}
             required={true}
             name="DriverLicenseStartDate"
                 padding="20px 0 0 0px !important"
@@ -552,7 +554,7 @@ const Step6 = ({ step6, setStep6, onChange, instructors, setInstructors,step6Err
             </Grid>
             <Grid item xs={12} sm={12} md={4} sx={{ marginTop: "9px" }}>
               <DatePicker
-                label="End Date"
+                label={t("End Date")}
             required={true}
             name="DriverLicenseEndDate"
                 padding="20px 0 0 0px !important"
@@ -572,7 +574,7 @@ const Step6 = ({ step6, setStep6, onChange, instructors, setInstructors,step6Err
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
               <FilePicker
-                title="Upload your driving license front side"
+                title={t("Upload your driving license front side")}
             required={true}
             name="DriverLicenseFrontImg"
                 type="file"
@@ -586,7 +588,7 @@ const Step6 = ({ step6, setStep6, onChange, instructors, setInstructors,step6Err
             <Grid item xs={12} sm={12} md={4}>
               <FilePicker
             required={true}
-            title="Upload your driving license back side"
+            title={t("Upload your driving license back side")}
                 name="DriverLicenseBackImg"
                 type="file"
                 label="DriverLicenseBackImg"
@@ -599,13 +601,13 @@ const Step6 = ({ step6, setStep6, onChange, instructors, setInstructors,step6Err
           </Grid>
           <Divider width="100%" borderColor="#D5E4E8" margin="2% 0px 2% 0px" />
           <Typography className="Heading1">
-            Authorization to Exercise
+            {t("Authorization to Exercise")}
           </Typography>
           <Divider width="100%" borderColor="#D5E4E8" margin="2% 0px 2% 0px" />
           <Grid container spacing={4}>
             <Grid item xs={12} sm={12} md={4} sx={{ marginTop: "9px" }}>
               <DatePicker
-                label="Date of the authorization to exercise"
+                label={t("Date of the authorization to exercise")}
             required={true}
             name="ExcAuthStartDate"
                 padding="20px 0 0 0px !important"
@@ -625,7 +627,7 @@ const Step6 = ({ step6, setStep6, onChange, instructors, setInstructors,step6Err
             </Grid>
             <Grid item xs={12} sm={12} md={4} sx={{ marginTop: "9px" }}>
               <DatePicker
-                label="Expiration date"
+                label={t("Expiration date")}
             required={true}
             name="ExcAuthEndDate"
                 padding="20px 0 0 0px !important"
@@ -646,7 +648,7 @@ const Step6 = ({ step6, setStep6, onChange, instructors, setInstructors,step6Err
             <Grid item xs={12} sm={12} md={4}>
               <TextField
             required={true}
-            label="Issuing Authority"
+            label={t("Issuing Authority")}
                 name="ExcAuthIssueAuth"
                 placeholder="xxxxxxxxx"
                 value={step6.ExcAuthIssueAuth}
@@ -654,12 +656,12 @@ const Step6 = ({ step6, setStep6, onChange, instructors, setInstructors,step6Err
                   onChange(e.target.name, e.target.value);
                 }}
                 error={step6Errors['ExcAuthIssueAuth']?true:false}
-                ErrorMsg={step6Errors['ExcAuthIssueAuth']}
+                ErrorMsg={t(step6Errors['ExcAuthIssueAuth'])}
               ></TextField>
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
               <TextField
-                label="Authorization Number"
+                label={t("Authorization Number")}
             required={true}
             name="ExcAuthNumber"
                 placeholder="DON.John"
@@ -668,7 +670,7 @@ const Step6 = ({ step6, setStep6, onChange, instructors, setInstructors,step6Err
                   onChange(e.target.name, e.target.value);
                 }}
                 error={step6Errors['ExcAuthNumber']?true:false}
-                ErrorMsg={step6Errors['ExcAuthNumber']}
+                ErrorMsg={t(step6Errors['ExcAuthNumber'])}
               ></TextField>
             </Grid>
           </Grid>
@@ -676,7 +678,7 @@ const Step6 = ({ step6, setStep6, onChange, instructors, setInstructors,step6Err
             <Grid container spacing={4}>
               <Grid item xs={12} sm={12} md={4}>
                 <FilePicker
-                  title="Upload your authorization front side"
+                  title={t("Upload your authorization front side")}
             required={true}
             label="ExcAuthFrontImg"
                   name="ExcAuthFrontImg"
@@ -689,7 +691,7 @@ const Step6 = ({ step6, setStep6, onChange, instructors, setInstructors,step6Err
               </Grid>
               <Grid item xs={12} sm={12} md={4}>
                 <FilePicker
-                  title="Upload your authorization back side"
+                  title={t("Upload your authorization back side")}
                   label="ExcAuthBackImg"
             required={true}
             name="ExcAuthBackImg"
@@ -704,7 +706,7 @@ const Step6 = ({ step6, setStep6, onChange, instructors, setInstructors,step6Err
           </div>
           <Divider width="100%" borderColor="#D5E4E8" margin="2% 0px 2% 0px" />
           <Typography className="Heading1">
-            Type Of Contract With Driving School
+            {t("Type Of Contract With Driving School")}
           </Typography>
           <Typography className="HeadingContent">
             <RadioGroup
@@ -717,12 +719,12 @@ const Step6 = ({ step6, setStep6, onChange, instructors, setInstructors,step6Err
               <FormControlLabel
                 value="Employee"
                 control={<Radio />}
-                label="Employee"
+                label={t("Employee")}
               />
               <FormControlLabel
                 value="External Provider"
                 control={<Radio />}
-                label="External Provider"
+                label={t("External Provider")}
               />
             </RadioGroup>
           </Typography>
@@ -736,7 +738,7 @@ const Step6 = ({ step6, setStep6, onChange, instructors, setInstructors,step6Err
             }}
           >
             <Button
-              text={isEdit ? "Edit" : "Add"}
+              text={isEdit ? t("Edit") : t("Add")}
               buttonLableStyle="btn_main"
               style={{ marginTop: "24px", marginRight: "10px" }}
               width="10%"
@@ -744,37 +746,37 @@ const Step6 = ({ step6, setStep6, onChange, instructors, setInstructors,step6Err
               height="48px"
               height2="48px"
               onClick={isEdit ? handleSaveEditInstructor : handleAdd}
-              disabled={
-                 step6Errors.Firstname===null 
-                        && step6Errors.Surname===null 
-                        && step6Errors.Pob===null 
-                        && step6Errors.Gender===null 
-                        && step6Errors.Email===null 
-                        && step6Errors.Phone===null 
-                        && step6Errors.Password===null 
-                        && step6Errors.ConfirmPassword===null 
-                        && step6Errors.DriverLicenseNumber===null 
-                        && step6Errors.DriverLicenseFrontImg===null 
-                        && step6Errors.DriverLicenseBackImg===null 
-                        && step6Errors.ExcAuthNumber===null 
-                        && step6Errors.ExcAuthIssueAuth===null 
-                        && step6Errors.ExcAuthFrontImg===null 
-                        && step6Errors.ExcAuthBackImg===null 
-                        && step6Errors.Dob===null 
-                        && step6Errors.DriverLicenseStartDate===null 
-                        && step6Errors.DriverLicenseEndDate===null 
-                        && step6Errors.ExcAuthStartDate===null 
-                        && step6Errors.ExcAuthEndDate===null 
-                        && step6Errors.Address===null 
-                        && step6.Address.City != "" 
-                        && step6.Address.Zip != ""
+              // disabled={
+              //    step6Errors.Firstname===null 
+              //           && step6Errors.Surname===null 
+              //           && step6Errors.Pob===null 
+              //           && step6Errors.Gender===null 
+              //           && step6Errors.Email===null 
+              //           && step6Errors.Phone===null 
+              //           && step6Errors.Password===null 
+              //           && step6Errors.ConfirmPassword===null 
+              //           && step6Errors.DriverLicenseNumber===null 
+              //           && step6Errors.DriverLicenseFrontImg===null 
+              //           && step6Errors.DriverLicenseBackImg===null 
+              //           && step6Errors.ExcAuthNumber===null 
+              //           && step6Errors.ExcAuthIssueAuth===null 
+              //           && step6Errors.ExcAuthFrontImg===null 
+              //           && step6Errors.ExcAuthBackImg===null 
+              //           && step6Errors.Dob===null 
+              //           && step6Errors.DriverLicenseStartDate===null 
+              //           && step6Errors.DriverLicenseEndDate===null 
+              //           && step6Errors.ExcAuthStartDate===null 
+              //           && step6Errors.ExcAuthEndDate===null 
+              //           && step6Errors.Address===null 
+              //           && step6.Address.City != "" 
+              //           && step6.Address.Zip != ""
                         
                         // && step6Errors.Complement===null 
                         // && step6Errors.Email2===null 
                         // && step6Errors.Phone2===null 
                         // && step6Errors.ProfileImg===null 
                         // && step6Errors.TypeContract===null 
-                        ? false : true }
+                        // ? false : true }
               
             ></Button>
           </div>

@@ -15,8 +15,10 @@ import MenuItem from "@mui/material/MenuItem";
 import IconButton from "@mui/material/IconButton";
 import Select from "@mui/material/Select";
 import FormControl from "@mui/material/FormControl";
+import { useTranslation } from "react-i18next";
 
 export default function DataTable(props) {
+  const { i18n , t } = useTranslation();
   const history = useHistory();
   const handleReBook = () => history.push("/student/booking");
   const [page, setPage] = React.useState(0);
@@ -65,10 +67,10 @@ export default function DataTable(props) {
                         align={column.align}
                         style={{ minWidth: column.minWidth }}
                       >
-                        {column.label}
+                        {t(column.label)}
                       </TableCell>
                     ))
-                  : "No data found"}
+                  : t("No data found")}
               </TableRow>
             </TableHead>
             <TableBody>
@@ -87,17 +89,17 @@ export default function DataTable(props) {
                             const value = row[column.id];
                             return (
                               <>
-                                {column.id !== "options" &&
-                                column.id !== "action" &&
-                                column.id !== "Vaction" &&
-                                column.id !== "historyActions" &&
-                                column.id !== "actions" &&
-                                column.id !== "photo" &&
-                                column.id !== "name" &&
-                                column.id !== "position" &&
-                                column.id !== "reservations" &&
-                                column.id !== "profile" &&
-                                column.id !== "cat" ? (
+                                {column.id !== t("options") &&
+                                column.id !== t("action") &&
+                                column.id !== t("Vaction") &&
+                                column.id !== t("historyActions") &&
+                                column.id !== t("actions") &&
+                                column.id !== t("photo") &&
+                                column.id !== t("name") &&
+                                column.id !== t("position") &&
+                                column.id !== t("reservations") &&
+                                column.id !== t("profile") &&
+                                column.id !== t("cat") ? (
                                   <TableCell
                                     sx={{
                                       fontFamily: "Inter !important",
@@ -130,9 +132,9 @@ export default function DataTable(props) {
                                         id="demo-simple-select-standard"
                                         value={row.status}
                                         disabled={
-                                          row.status === "Dispute" ||
-                                          row.status === "Complete" ||
-                                          row.status === "Closed"
+                                          row.status === t("Dispute") ||
+                                          row.status === t("Complete") ||
+                                          row.status === t("Closed")
                                             ? true
                                             : false
                                         }
@@ -162,7 +164,7 @@ export default function DataTable(props) {
                                             justifyContent: "center",
                                           }}
                                         >
-                                          In Progress
+                                          {t("In Progress")}
                                         </MenuItem>
 
                                         <MenuItem
@@ -202,7 +204,7 @@ export default function DataTable(props) {
                                             justifyContent: "center",
                                           }}
                                         >
-                                          Dispute
+                                          {t("Dispute")}
                                         </MenuItem>
                                       </Select>
                                       {/* <Modal
@@ -228,7 +230,7 @@ export default function DataTable(props) {
                                   <TableCell align="center">
                                     <Button
                                       type="submit"
-                                      text="Re-Book"
+                                      text={t("Re-Book")}
                                       color="#149E7A !important"
                                       width="100% !important"
                                       margin="0px 0px 10px 0px !important"
@@ -240,7 +242,7 @@ export default function DataTable(props) {
                                   <TableCell align="center">
                                     <Button
                                       type="submit"
-                                      text="Detach"
+                                      text={t("Detach")}
                                       color="#149E7A !important"
                                       width="60% !important"
                                       margin="0px 0px 10px 0px !important"
@@ -248,7 +250,7 @@ export default function DataTable(props) {
                                     ></Button>
                                     <Button
                                       type="submit"
-                                      text="Details"
+                                      text={t("Details")}
                                       color="#149E7A !important"
                                       width="60% !important"
                                       margin="0px 0px 10px 0px !important"
@@ -256,7 +258,7 @@ export default function DataTable(props) {
                                     ></Button>
                                     <Button
                                       type="submit"
-                                      text="Add Meetup Point"
+                                      text={t("Add Meetup Point")}
                                       color="#149E7A !important"
                                       width="60% !important"
                                       height="50px !important"
@@ -266,7 +268,7 @@ export default function DataTable(props) {
                                   <TableCell align="center">
                                     <Button
                                       type="submit"
-                                      text="Edit"
+                                      text={t("Edit")}
                                       width="100% !important"
                                       margin="0px 0px 10px 0px !important"
                                       height="50px !important"
@@ -274,7 +276,7 @@ export default function DataTable(props) {
                                     ></Button>
                                     <Button
                                       type="submit"
-                                      text="Delete"
+                                      text={t("Delete")}
                                       color="#149E7A !important"
                                       width="100% !important"
                                       margin="0px 0px 10px 0px !important"
@@ -305,7 +307,7 @@ export default function DataTable(props) {
                                 ) : column.id === "reservations" ? (
                                   <TableCell align="center">
                                     <Button
-                                      text="Reservations"
+                                      text={t("Reservations")}
                                       color="#149E7A !important"
                                       width="100% !important"
                                       margin="0px 0px 10px 0px !important"
@@ -316,7 +318,7 @@ export default function DataTable(props) {
                                 ) : column.id === "profile" ? (
                                   <TableCell align="center">
                                     <Button
-                                      text="Profile"
+                                      text={t("Profile")}
                                       color="#149E7A !important"
                                       width="100% !important"
                                       margin="0px 0px 10px 0px !important"
@@ -327,7 +329,7 @@ export default function DataTable(props) {
                                 ) : column.id === "cat" ? (
                                   <TableCell align="center">
                                     <Button
-                                      text="Cat"
+                                      text={t("Chat")}
                                       color="#fda333 !important"
                                       width="100% !important"
                                       margin="0px 0px 10px 0px !important"
@@ -354,7 +356,7 @@ export default function DataTable(props) {
                         </TableRow>
                       );
                     })
-                : "No data found"}
+                : t("No data found")}
             </TableBody>
           </Table>
         </TableContainer>

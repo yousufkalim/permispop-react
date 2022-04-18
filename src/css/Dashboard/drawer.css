@@ -32,6 +32,9 @@
 .flags-appbar {
   height: 1.5rem !important;
 }
+.langFlags {
+  height: 1rem !important;
+}
 
 .power-icon {
   color: #2a3235 !important;

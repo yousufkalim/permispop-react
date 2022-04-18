@@ -21,8 +21,7 @@ import API from "../../api";
 import { toast } from "react-toastify";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import Joi from "joi-browser";
-import { min } from "moment";
-import { max } from "moment";
+import { useTranslation } from "react-i18next";
 
 const ColorlibConnector = withStyles({
   alternativeLabel: {
@@ -102,6 +101,7 @@ function ColorlibStepIcon(props) {
 const DrivingSchool = () => {
   // States and Variables
   let history = useHistory();
+  const { i18n , t } = useTranslation();
   const [vehicles, setVehicles] = React.useState([]);
   const [instructors, setInstructors] = React.useState([]);
   const [activeStep, setActiveStep] = React.useState(1);
@@ -135,7 +135,7 @@ const DrivingSchool = () => {
     TradeName: Joi.string()
       .min(3)
       .required()
-      .label("Trade Name")
+      .label(t("Trade Name"))
       .error((errors) => {
         errors.forEach((err) => {
           switch (err.type) {
@@ -154,7 +154,7 @@ const DrivingSchool = () => {
       }),
     CompanyName: Joi.string()
       .required()
-      .label("Company Name")
+      .label(t("Company Name"))
       .error((errors) => {
         errors.forEach((err) => {
           switch (err.type) {
@@ -173,7 +173,7 @@ const DrivingSchool = () => {
       }),
     Address: Joi.string()
       .required()
-      .label("Address")
+      .label(t("Address"))
       .error((errors) => {
         errors.forEach((err) => {
           switch (err.type) {
@@ -185,7 +185,7 @@ const DrivingSchool = () => {
         return errors;
       }),
     Complement: Joi.string()
-      .label("Complement")
+      .label(t("Complement"))
       .error((errors) => {
         errors.forEach((err) => {
           switch (err.type) {
@@ -199,15 +199,15 @@ const DrivingSchool = () => {
     Email: Joi.string()
       .email()
       .required()
-      .label("Email")
+      .label(t("Email"))
       .error((errors) => {
         errors.forEach((err) => {
           switch (err.type) {
             case "any.empty":
-              err.message = `${err.context.label} Field can't be empty!`;
+              err.message = t(`${err.context.label} Field can't be empty!`);
               break;
             case "string.email":
-              err.message = `Not a Valid ${err.context.label}`;
+              err.message = t(`Not a Valid ${err.context.label}`);
               break;
 
             default:
@@ -217,7 +217,7 @@ const DrivingSchool = () => {
         return errors;
       }),
     Email2: Joi.optional()
-      .label("Second Email")
+      .label(t("Second Email"))
       .error((errors) => {
         errors.forEach((err) => {
           switch (err.type) {
@@ -235,7 +235,7 @@ const DrivingSchool = () => {
 
       .length(10)
       .required()
-      .label("Phone")
+      .label(t("Phone"))
       .error((errors) => {
         errors.forEach((err) => {
           switch (err.type) {
@@ -350,15 +350,15 @@ const DrivingSchool = () => {
       errorMessage = validateSuggest1(name, value.Label);
     } else if (name === "Password") {
       if (value.length < 8) {
-        errorMessage = "Password must be atleast 8 char long";
+        errorMessage = t("Password must be atleast 8 char long");
       } else if (value.length === 0) {
-        errorMessage = "Password cannot be empty";
+        errorMessage = t("Password cannot be empty");
       }
     } else if (name === "Password2") {
       if (step1.Password != value) {
-        errorMessage = "Password didn't match";
+        errorMessage = t("Password didn't match");
       } else if (value.length === 0) {
-        errorMessage = "Password cannot be empty";
+        errorMessage = t("Password cannot be empty");
       }
     } else if (name == "OtherPlateform") {
     } else {
@@ -1552,7 +1552,20 @@ const DrivingSchool = () => {
     let errorMessage = "";
     if (name === "Address") {
       errorMessage = validateSuggest6(name, value.Label);
-    } else {
+    }  else if (name === "Password") {
+      if (value.length < 8) {
+        errorMessage = t("Password must be atleast 8 char long");
+      } else if (value.length === 0) {
+        errorMessage = t("Password cannot be empty");
+      }
+    } else if (name === "Password2") {
+      if (step1.Password != value) {
+        errorMessage = t("Password didn't match");
+      } else if (value.length === 0) {
+        errorMessage = t("Password cannot be empty");
+      }
+    } else if (name == "OtherPlateform") {
+    }else {
       errorMessage = validateSuggest6(name, value);
     }
     setStep6Errors({ ...step6Errors, [name]: errorMessage });
@@ -1835,13 +1848,13 @@ const DrivingSchool = () => {
                               .then((dsProfileRes) => {
                                 history.push("/");
                                 toast.success(
-                                  "Driving School Registered Successfully"
+                                  t("Driving School Registered Successfully")
                                 );
                               })
                               .catch((error) => {
                                 console.log(error);
                                 toast.error(
-                                  "Not Registered....Somethong went wrong"
+                                  t("Not Registered....Somethong went wrong")
                                 );
                               });
                           }
@@ -1871,7 +1884,7 @@ const DrivingSchool = () => {
   return (
     <React.Fragment>
       <RegisterHeader
-        title="Driving School Registration"
+        title={t("Driving School Registration")}
         subtitle1="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce varius justo et scelerisque varius. Nullam mollis augue et facilisis blandit. Morbi sollicitudin a eros sed cursus."
         subtitle2="Quisque lobortis ultrices dolor, fringilla venenatis leo sodales at. Nam suscipit felis sit amet convallis."
       />
@@ -1901,17 +1914,17 @@ const DrivingSchool = () => {
             }}
           >
             {activeStep === 1 ? (
-              <>Confirm Identity</>
+              <>{t("Confirm Identity")}</>
             ) : activeStep === 2 ? (
-              <>Approval</>
+              <>{t("Approval")}</>
             ) : activeStep === 3 ? (
-              <>Insurance Company</>
+              <>{t("Insurance Company")}</>
             ) : activeStep === 4 ? (
-              <>Manager Identity</>
+              <>{t("Manager Identity")}</>
             ) : activeStep === 5 ? (
-              <>Vehicles</>
+              <>{t("Vehicles")}</>
             ) : activeStep === 6 ? (
-              <>Identity Of Instructor</>
+              <>{t("Identity Of Instructor")}</>
             ) : (
               ""
             )}
@@ -1945,13 +1958,13 @@ const DrivingSchool = () => {
               {activeStep === steps.length ? (
                 <React.Fragment>
                   <Typography sx={{ mt: 2, mb: 1 }}>
-                    All steps completed - you&apos;re finished
+                    {t("All steps completed - you're finished")}
                   </Typography>
                   <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
                     <Box sx={{ flex: "1 1 auto" }} />
                     <Button
                       onClick={handleReset}
-                      text="Reset"
+                      text={t("Reset")}
                       buttonLableStyle="btn_main"
                       style={{ marginTop: "24px", marginRight: "10px" }}
                       width="10%"
@@ -2027,7 +2040,7 @@ const DrivingSchool = () => {
                     <Button
                       disabled={activeStep === 1}
                       onClick={handleBack}
-                      text="Back"
+                      text={t("Back")}
                       buttonLableStyle="btn_main"
                       style={{ marginTop: "24px", marginRight: "10px" }}
                       width="10%"
@@ -2038,7 +2051,7 @@ const DrivingSchool = () => {
                     <Button
                       endIcon={<ArrowForwardIcon sx={{ color: "#fff" }} />}
                       type="submit"
-                      text={activeStep === steps.length - 1 ? "Finish" : "Next"}
+                      text={activeStep === steps.length - 1 ? t("Finish") : t("Next")}
                       buttonLableStyle="btn_main"
                       style={{ marginTop: "24px" }}
                       width="10%"
@@ -2050,17 +2063,17 @@ const DrivingSchool = () => {
                           ? handleSubmit
                           : handleNext
                       }
-                      disabled={
-                        activeStep === 1 
-                          && step1Errors.TradeName===null 
-                          && step1Errors.CompanyName===null
-                          && step1Errors.Email===null
-                          && step1Errors.Phone===null
-                          && step1Errors.Password===''
-                          && step1Errors.Password2===''
-                           && step1Errors.Address === null
-                          && step1.Address.City != ""
-                           && step1.Address.Zip != "" 
+                      // disabled={
+                      //   activeStep === 1 
+                          // && step1Errors.TradeName===null 
+                          // && step1Errors.CompanyName===null
+                          // && step1Errors.Email===null
+                          // && step1Errors.Phone===null
+                          // && step1Errors.Password===''
+                          // && step1Errors.Password2===''
+                          //  && step1Errors.Address === null
+                          // && step1.Address.City != ""
+                          //  && step1.Address.Zip != "" 
 
                         // && step1Errors.Language===null
                         // && step1Errors.CPF===null
@@ -2068,19 +2081,19 @@ const DrivingSchool = () => {
                         // && step1Errors.Email2===null
                         // && step1Errors.Phone2===null
 
-                        && step1.OtherPlateform===false
+                        // && step1.OtherPlateform===false
 
-                        || step1Errors.Platform===null
-                        && step1Errors.Hours===null
-                        && step1Errors.TradeName===null 
-                        && step1Errors.CompanyName===null
-                        && step1Errors.Email===null
-                        && step1Errors.Phone===null
-                        && step1Errors.Password===''
-                        && step1Errors.Password2===''
-                         && step1Errors.Address === null
-                        && step1.Address.City != ""
-                         && step1.Address.Zip != "" 
+                        // || step1Errors.Platform===null
+                        // && step1Errors.Hours===null
+                        // && step1Errors.TradeName===null 
+                        // && step1Errors.CompanyName===null
+                        // && step1Errors.Email===null
+                        // && step1Errors.Phone===null
+                        // && step1Errors.Password===''
+                        // && step1Errors.Password2===''
+                        //  && step1Errors.Address === null
+                        // && step1.Address.City != ""
+                        //  && step1.Address.Zip != "" 
                         
                         
                         // && step1Errors.Complement===null
@@ -2090,37 +2103,37 @@ const DrivingSchool = () => {
                         // && step1Errors.CPF===null
 
 
-                         || activeStep === 2
-                        && step2Errors.Number===null
-                        && step2Errors.IssuingAurh===null
-                        && step2Errors.SiretNumber===null
-                        && step2Errors.KBIS===null
-                        && step2Errors.Approvaldate===null
+                        //  || activeStep === 2
+                        // && step2Errors.Number===null
+                        // && step2Errors.IssuingAurh===null
+                        // && step2Errors.SiretNumber===null
+                        // && step2Errors.KBIS===null
+                        // && step2Errors.Approvaldate===null
 
                         // && step2Errors.RcProImg===null
 
-                        || activeStep === 3 
-                        && step3Errors.insuranceCompany===null
-                        && step3Errors.policeNumber===null
-                        && step3Errors.RcPro===null
-                        && step3Errors.dateInsurance===null
+                        // || activeStep === 3 
+                        // && step3Errors.insuranceCompany===null
+                        // && step3Errors.policeNumber===null
+                        // && step3Errors.RcPro===null
+                        // && step3Errors.dateInsurance===null
 
-                        || activeStep === 4
-                          && step4Errors.Firstname===null
-                          && step4Errors.Surname===null
-                          && step4Errors.Pob===null
-                          && step4Errors.Gender===null
-                          && step4Errors.ProfileImg===null
-                          && step4Errors.Dob===null
-                          && step4Errors.Address===null
+                        // || activeStep === 4
+                        //   && step4Errors.Firstname===null
+                        //   && step4Errors.Surname===null
+                        //   && step4Errors.Pob===null
+                        //   && step4Errors.Gender===null
+                        //   && step4Errors.ProfileImg===null
+                        //   && step4Errors.Dob===null
+                        //   && step4Errors.Address===null
 
-                          && step4.TermAndCondition === false 
+                        //   && step4.TermAndCondition === false 
 
-                          ||activeStep === 5 && vehicles.length > 0 
-                          ||activeStep === 6 && instructors.length > 0
-                          ? false
-                          : true
-                      }
+                          // ||activeStep === 5 && vehicles.length > 0 
+                          // ||activeStep === 6 && instructors.length > 0
+                      //     ? false
+                      //     : true
+                      // }
                     ></Button>
                   </Box>
                 </React.Fragment>

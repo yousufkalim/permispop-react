@@ -16,8 +16,10 @@ import { Typography } from "@mui/material";
 // import InfoOutlinedIcon from "@mui/icons-material/InfoOutlined";
 import moment from "moment";
 import { toast } from "react-toastify";
+import { useTranslation } from "react-i18next";
 
 const Calendar = () => {
+  const { i18n , t } = useTranslation();
   const [open, setOpen] = React.useState(false);
 
   const [eventDeleteModal, setEventDeleteModal] = React.useState(false);
@@ -33,7 +35,7 @@ const Calendar = () => {
     if (moment(e.start).isAfter(currentDate)) {
       setOpen(true);
     } else {
-      toast.error("can not select past time");
+      toast.error(t("can not select past time"));
     }
   };
   const handleClose = (e) => {
@@ -50,7 +52,7 @@ const Calendar = () => {
       if (moment(e.start).isAfter(currentDate)) {
         setEventDeleteModal(true);
       } else {
-        toast.error("can not select past event");
+        toast.error(t("can not select past event"));
       }
     }
   };
@@ -79,7 +81,7 @@ const Calendar = () => {
         open={open}
         closebtn={true}
         onClose={handleClose}
-        modalTitle="Add Event"
+        modalTitle={t("Add Event")}
         modalTitleProps={{ align: "left" }}
         modalTitleclassName="Event_modal_title"
         modalboxclassName="availability-modal"
@@ -90,12 +92,12 @@ const Calendar = () => {
           <TabList onChange={handleChange} className="tab-list">
             <Tab
               className="tab"
-              label="Add Availability"
+              label={t("Add Availability")}
               value="Availability-page"
             />
             <Divider orientation="vertical" flexItem width="4px !important" />
             <Tab
-              label="Add Unavailability"
+              label={t("Add Unavailability")}
               value="Unavailability-page"
               className="tab"
             />
@@ -103,7 +105,7 @@ const Calendar = () => {
 
             <Tab
               className="tab"
-              label="Add Personal Event"
+              label={t("Add Personal Event")}
               value="PersonalEvent-page"
             />
           </TabList>
@@ -114,7 +116,7 @@ const Calendar = () => {
                 <Grid container spacing={3}>
                   <Grid xs={12} sm={12} md={6}>
                     <DropDown
-                      label="Select Instructor"
+                      label={t("Select Instructor")}
                       placeholder="Hamza"
                     ></DropDown>
                   </Grid>
@@ -122,28 +124,28 @@ const Calendar = () => {
                     <DatePicker />
                   </Grid>
                   <Grid xs={12} sm={12} md={6}>
-                    <DropDown label="Start Hours" />
+                    <DropDown label={t("Start Hours")}/>
                   </Grid>
                   <Grid xs={12} sm={12} md={6}>
-                    <DropDown label="Start Minutes" />
+                    <DropDown label={t("Start Minutes")} />
                   </Grid>
                   <Grid xs={12} sm={12} md={6}>
-                    <DropDown label="End Hours" />
+                    <DropDown label={t("End Hours")} />
                   </Grid>
                   <Grid xs={12} sm={12} md={6}>
-                    <DropDown label="End Minutes" />
+                    <DropDown label={t("End Minutes")} />
                   </Grid>
                   <Grid xs={12} sm={12} md={6}>
-                    <DropDown label="Select Vehicle" />
+                    <DropDown label={t("Select Vehicle")} />
                   </Grid>
                   <Grid xs={12} sm={12} md={6}>
-                    <DropDown label="Meetup" placeholder="Meetup" />
+                    <DropDown label={t("Meetup")} placeholder={t("Meetup")} />
                   </Grid>
                 </Grid>
                 {/* page 2 */}
                 <Grid align="right">
                   <Button
-                    text="Cancel"
+                    text={t("Cancel")}
                     onClick={handleClose}
                     type="submit"
                     variant="outlined"
@@ -152,7 +154,7 @@ const Calendar = () => {
                     margin="10px !important"
                   />
                   <Button
-                    text="Confirm"
+                    text={t("Confirm")}
                     type="submit"
                     textColor="#FFFFFF !important"
                     width="110px !important"
@@ -169,25 +171,25 @@ const Calendar = () => {
                     <DatePicker />
                   </Grid>
                   <Grid xs={12} sm={12} md={6}>
-                    <DropDown label="Start Hours" />
+                    <DropDown label={t("Start Hours")} />
                   </Grid>
                   <Grid xs={12} sm={12} md={6}>
-                    <DropDown label="Start Minutes" />
+                    <DropDown label={t("Start Minutes")} />
                   </Grid>
                   <Grid xs={12} sm={12} md={6}>
-                    <DropDown label="End Hours" />
+                    <DropDown label={t("End Hours")} />
                   </Grid>
                   <Grid xs={12} sm={12} md={6}>
-                    <DropDown label="End Minutes" />
+                    <DropDown label={t("End Minutes")} />
                   </Grid>
                   <Grid xs={12} sm={12} md={6}>
-                    <TextField label="Description" placeholder="Description" />
+                    <TextField label={t("Description")} placeholder={t("Description")} />
                   </Grid>
                 </Grid>
 
                 <Grid align="right">
                   <Button
-                    text="Cancel"
+                    text={t("Cancel")}
                     onClick={handleClose}
                     type="submit"
                     variant="outlined"
@@ -196,7 +198,7 @@ const Calendar = () => {
                     margin="10px !important"
                   />
                   <Button
-                    text="Confirm"
+                    text={t("Confirm")}
                     type="submit"
                     textColor="#FFFFFF !important"
                     width="110px !important"
@@ -213,25 +215,25 @@ const Calendar = () => {
                     <DatePicker />
                   </Grid>
                   <Grid xs={12} sm={12} md={6}>
-                    <DropDown label="Start Hours" />
+                    <DropDown label={t("Start Hours")} />
                   </Grid>
                   <Grid xs={12} sm={12} md={6}>
-                    <DropDown label="Start Minutes" />
+                    <DropDown label={t("Start Minutes")} />
                   </Grid>
                   <Grid xs={12} sm={12} md={6}>
-                    <DropDown label="End Hours" />
+                    <DropDown label={t("End Hours")} />
                   </Grid>
                   <Grid xs={12} sm={12} md={6}>
-                    <DropDown label="End Minutes" />
+                    <DropDown label={t("End Minutes")} />
                   </Grid>
                   <Grid xs={12} sm={12} md={12}>
-                    <TextField label="Description" placeholder="Description" />
+                    <TextField label={t("Description")} placeholder={t("Description")} />
                   </Grid>
                 </Grid>
 
                 <Grid align="right">
                   <Button
-                    text="Cancel"
+                    text={t("Cancel")}
                     onClick={handleClose}
                     type="submit"
                     variant="outlined"
@@ -240,7 +242,7 @@ const Calendar = () => {
                     margin="10px !important"
                   />
                   <Button
-                    text="Confirm"
+                    text={t("Confirm")}
                     type="submit"
                     textColor="#FFFFFF !important"
                     width="110px !important"
@@ -257,17 +259,17 @@ const Calendar = () => {
         open={eventDeleteModal}
         onClose={handleDeleteClose}
         closebtn={true}
-        modalTitle="Delete Availability"
+        modalTitle={t("Delete Availability")}
         modalTitleProps={{ align: "left" }}
       >
         <Divider />
         <Typography variant="h4" gutterBottom>
           {/* <InfoOutlinedIcon style={{ fontSize: large }} /> */}
-          Would like to delete your Availability?
+          {t("Would like to delete your Availability?")}
         </Typography>
         <Grid align="right">
           <Button
-            text="No"
+            text={t("No")}
             onClick={handleDeleteClose}
             variant="outlined"
             width="110px !important"
@@ -275,7 +277,7 @@ const Calendar = () => {
             margin="10px !important"
           />
           <Button
-            text="Yes"
+            text={t("Yes")}
             type="submit"
             textColor="#FFFFFF !important"
             width="110px !important"
@@ -288,7 +290,7 @@ const Calendar = () => {
         open={bookingModal}
         onClose={handleBookingClose}
         closebtn={true}
-        modalTitle="Booking"
+        modalTitle={t("Booking")}
         modalTitleProps={{ align: "left" }}
         modalboxclassName="booking-modal"
         modalTitleclassName="booking-modal-title"
@@ -296,28 +298,28 @@ const Calendar = () => {
         <div className="booking-content">
           <Grid container spacing={3}>
             <Grid xs={12} sm={12} md={6}>
-              <TextField label="User Info" />
+              <TextField label={t("User Info")} />
             </Grid>
             <Grid xs={12} sm={12} md={6}>
-              <TextField label="Booking Date" />
+              <TextField label={t("Booking Date")} />
             </Grid>
             <Grid xs={12} sm={12} md={6}>
-              <TextField label="Booking Time" />
+              <TextField label={t("Booking Time")} />
             </Grid>
             <Grid xs={12} sm={12} md={6}>
-              <TextField label="Duration" />
+              <TextField label={t("Duration")} />
             </Grid>
             <Grid xs={12} sm={12} md={6}>
-              <TextField label="Vechicle" />
+              <TextField label={t("Vechicle")} />
             </Grid>
             <Grid xs={12} sm={12} md={6}>
-              <TextField label="Meetup" />
+              <TextField label={t("Meetup")} />
             </Grid>
           </Grid>
           <div className="booking-btn-div">
             <Grid align="right">
               <Button
-                text="Close"
+                text={t("Close")}
                 onClick={handleBookingClose}
                 variant="outlined"
                 width="110px !important"
@@ -325,7 +327,7 @@ const Calendar = () => {
                 margin="10px !important"
               />
               <Button
-                text="Delete"
+                text={t("Delete")}
                 type="submit"
                 textColor="#FFFFFF !important"
                 width="110px !important"

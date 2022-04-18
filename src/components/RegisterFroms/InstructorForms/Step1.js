@@ -13,8 +13,10 @@ import axios from "axios";
 import AutoComplete from "../../Common/Autocomplete";
 import API from "../../../api/index";
 import moment from "moment";
+import { useTranslation } from "react-i18next";
 
 const Step1 = (props) => {
+  const { i18n , t } = useTranslation();
   const [addresses, setAddresses] = useState([]);
   const [languages, setLanguages] = useState([]);
 
@@ -124,7 +126,7 @@ const Step1 = (props) => {
       <Grid container spacing={4}>
         <Grid item xs={12} sm={12} md={4}>
           <TextField
-            label="First Name"
+            label={t("First Name")}
             name="Firstname"
             type="text"
             required={true}
@@ -135,12 +137,12 @@ const Step1 = (props) => {
               props.onChange(e.target.name, e.target.value);
             }}
             error={props.step1Errors['Firstname']?true:false}
-            ErrorMsg={props.step1Errors['Firstname']}
+            ErrorMsg={t(props.step1Errors['Firstname'])}
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <TextField
-            label="Surname"
+            label={t("Surname")}
             name="Surname"
             required={true}
             placeholder="Surname"
@@ -150,16 +152,16 @@ const Step1 = (props) => {
               props.onChange(e.target.name, e.target.value);
             }}
             error={props.step1Errors['Surname']?true:false}
-            ErrorMsg={props.step1Errors['Surname']}
+            ErrorMsg={t(props.step1Errors['Surname'])}
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <AutoComplete
             name="Address"
-            label="Address"
+            label={t("Address")}
             value={props.step1.Address.Label}
             options={addresses}
-            placeholder="Address"
+            placeholder={t("Address")}
             required={true}
             onChangeAddress={(e) => {
               handleAddress(e);
@@ -171,7 +173,7 @@ const Step1 = (props) => {
         </Grid>
         <Grid item xs={12} sm={12} md={4} sx={{ marginTop: "9px" }}>
           <Datepicker
-            label="Date of birth"
+            label={t("Date of Birth")}
             name="Dob"
             required={true}
             value={props.step1.Dob}
@@ -184,13 +186,13 @@ const Step1 = (props) => {
             padding="20px 0 0 0px !important"
             width="100% !important"
             error={props.step1Errors['Dob']?true:false}
-            ErrorMsg={props.step1Errors['Dob']}
+            ErrorMsg={t(props.step1Errors['Dob'])}
           ></Datepicker>
           <div className="borderbottom"></div>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <TextField
-            label="Place of birth"
+            label={t("Place of Birth")}
             name="Pob"
             required={true}
             placeholder="Place of birth"
@@ -200,12 +202,12 @@ const Step1 = (props) => {
               props.onChange(e.target.name, e.target.value);
             }}
             error={props.step1Errors['Pob']?true:false}
-            ErrorMsg={props.step1Errors['Pob']}
+            ErrorMsg={t(props.step1Errors['Pob'])}
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <TextField
-            label="Zip Code"
+            label={t("Zip Code")}
             required={true}
             name="Zip"
             placeholder="Zip code"
@@ -217,7 +219,7 @@ const Step1 = (props) => {
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <DropDown
-            label="Gender"
+            label={t("Gender")}
             placeholder="Male"
             name="Gender"
             required={true}
@@ -229,12 +231,12 @@ const Step1 = (props) => {
               { name: "others", value: "others" },
             ]}
             error={props.step1Errors['Gender']?true:false}
-            ErrorMsg={props.step1Errors['Gender']}
+            ErrorMsg={t(props.step1Errors['Gender'])}
           ></DropDown>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <TextField
-            label="Email"
+            label={t("Email")}
             required={true}
             name="Email"
             placeholder="Email"
@@ -244,12 +246,12 @@ const Step1 = (props) => {
               props.onChange(e.target.name, e.target.value);
             }}
             error={props.step1Errors['Email']?true:false}
-            ErrorMsg={props.step1Errors['Email']}
+            ErrorMsg={t(props.step1Errors['Email'])}
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <TextField
-            label="Second Email"
+            label={t("Second Email")}
             name="Email2"
             type="email"
             placeholder="Second email"
@@ -263,7 +265,7 @@ const Step1 = (props) => {
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <TextField
-            label="Phone"
+            label={t("Phone")}
             type="number"
             required={true}
             placeholder="Phone"
@@ -273,12 +275,12 @@ const Step1 = (props) => {
               props.onChange(e.target.name, e.target.value);
             }}
             error={props.step1Errors['Phone']?true:false}
-            ErrorMsg={props.step1Errors['Phone']}
+            ErrorMsg={t(props.step1Errors['Phone'])}
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <TextField
-            label="Second Phone"
+            label={t("Second Phone")}
             type="number"
             placeholder="Second phone"
             name="Phone2"
@@ -292,7 +294,7 @@ const Step1 = (props) => {
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <TextField
-            label="City"
+            label={t("City")}
             required={true}
             name="City"
             placeholder="City"
@@ -304,7 +306,7 @@ const Step1 = (props) => {
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <TextField
-            label="Complement"
+            label={t("Complement")}
             type="text"
             name="Complement"
             placeholder="Complement"
@@ -318,7 +320,7 @@ const Step1 = (props) => {
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <TextField
-            label="Password"
+            label={t("Password")}
             type="password"
             name="Password"
             required={true}
@@ -328,12 +330,12 @@ const Step1 = (props) => {
               props.onChange(e.target.name, e.target.value);
             }}
             error={props.step1Errors['Password']?true:false}
-            ErrorMsg={props.step1Errors['Password']}
+            ErrorMsg={t(props.step1Errors['Password'])}
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>  
           <TextField
-            label="Confirm Password"
+            label={t("Confirm Password")}
             required={true}
             type="password"
             name="ConfirmPassword"
@@ -343,7 +345,7 @@ const Step1 = (props) => {
               props.onChange(e.target.name, e.target.value);  
             }}
             error={props.step1Errors['ConfirmPassword']?true:false}
-            ErrorMsg={props.step1Errors['ConfirmPassword']}
+            ErrorMsg={t(props.step1Errors['ConfirmPassword'])}
           ></TextField>
         </Grid>
         {/* <Grid item xs={12} sm={12} md={4}>
@@ -379,7 +381,7 @@ const Step1 = (props) => {
         <Grid item xs={12} sm={12} md={4}>
           <LanguageAutoComplete
             name="Language"
-            label="Spoken Language"
+            label={t("Spoken Language")}
             value={props.step1.Language}
             options={languages ? languages : []}
             placeholder="Language"
@@ -395,7 +397,7 @@ const Step1 = (props) => {
       <Grid container spacing={4} alignItems="flex-end">
         <Grid item xs={12} sm={12} md={4}>
           <FilePicker
-            title="Upload front of your ID Card/Passport"
+            title={t("Upload front of your ID Card/Passport")}
             required={true}
             label="FrontImg"
             name="FrontImg"
@@ -408,7 +410,7 @@ const Step1 = (props) => {
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <FilePicker
-            title="Upload back of your ID Card/Passport"
+            title={t("Upload back of your ID Card/Passport")}
             required={true}
             label="BackImg"
             name="BackImg"
@@ -421,7 +423,7 @@ const Step1 = (props) => {
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <FilePicker
-            title="Upload your profile picture"
+            title={t("Upload your profile picture")}
             label="ProfileImg"
             name="ProfileImg"
             type="file"
@@ -440,7 +442,7 @@ const Step1 = (props) => {
             onClick={(e) =>  props.onChange('checked', !props.step1.checked)}
           />
           <Typography variant="body1" className="termsConditionsCheckboxTitle">
-            Are you working on other platform?
+            {t("Are you working on other platform?")}
           </Typography>
         </div>
       </div>
@@ -448,7 +450,7 @@ const Step1 = (props) => {
         <Grid container spacing={2}>
           <Grid item xs={12} sm={12} md={4}>
             <TextField
-              label="Which plateforms"
+              label={t("Which plateforms")}
               name="OtherPlateform"
               placeholder="Platform name"
               value={props.step1.OtherPlateform}
@@ -461,7 +463,7 @@ const Step1 = (props) => {
           </Grid>
           <Grid item xs={12} sm={12} md={6}>
             <TextField
-              label="How much time will you give to the students of our platform?(hr/month)"
+              label={t("How much time will you give to the students of our platform?(hr/month)")}
               name="GiveTime"
               placeholder="How much time?"
               value={props.step1.GiveTime}

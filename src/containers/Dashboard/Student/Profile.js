@@ -16,6 +16,7 @@ import Select from "@mui/material/Select";
 import TextareaAutosize from "@mui/material/TextareaAutosize";
 import API from "../../../api";
 import { toast } from "react-toastify";
+import { useTranslation } from "react-i18next";
 
 const Profile = (props) => {
   const style = {
@@ -31,6 +32,7 @@ const Profile = (props) => {
   };
 
   const [oldPassword, setOldPassword] = useState("");
+  const { i18n , t } = useTranslation();
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [user, setUser] = useState();
@@ -69,7 +71,7 @@ const Profile = (props) => {
           "post",
           `Personal/ChangePassword?id=${user.id}&oldPassword=${oldPassword}&newPassword=${newPassword}`
         ).then((res) => {
-          toast.success("Password updated Successfully");
+          toast.success(t("Password updated Successfully"));
           setOldPassword("");
           setNewPassword("");
           setConfirmPassword("");
@@ -77,11 +79,11 @@ const Profile = (props) => {
           setOpenModal(false);
         });
       } else {
-        toast.error("New password does not match Confirm password");
+        toast.error(t("New password does not match Confirm password"));
         setDisabled(false);
       }
     } else {
-      toast.warning("Cannot accept empty fields");
+      toast.warning(t("Cannot accept empty fields"));
 
       setDisabled(false);
     }
@@ -93,13 +95,13 @@ const Profile = (props) => {
         UpdateField: updatefield,
         User: user.id,
       }).then((res) => {
-        toast.success("Request is created for profile update");
+        toast.success(t("Request is created for profile update"));
         setDescription("");
         SetUpdateField("");
         setOpenUpdateProfileModal(false);
       });
     } else {
-      toast.error("Description cannot be empty");
+      toast.error(t("Description cannot be empty"));
       setDisabled(false);
     }
   };
@@ -117,7 +119,7 @@ const Profile = (props) => {
             name={user ? user.firstName + " " + user.surName : ""}
             location={user ? user.address : ""}
             role={user ? user.role : ""}
-            ranking={"Rankings"}
+            ranking={t("Rankings")}
             // value={user? user.}
             openPasswordModal={setOpenModal}
             openProfileUpdate={setOpenUpdateProfileModal}
@@ -128,16 +130,16 @@ const Profile = (props) => {
           ></ProfileDetails>
           <div>
             <Grid className="ProfileDetails">
-              <Typography className="Abouttitlle">About</Typography>
+              <Typography className="Abouttitlle">{t("About")}</Typography>
               <Divider className="ProfileDivider"></Divider>
             </Grid>
             <Typography className="AboutHeading">
-              Contact Information
+             {t("Contact Information")}
             </Typography>
 
             <Grid container spacing={1} className="formdata">
               <Grid sx={12} sm={12} md={2} className="Information">
-                First Name:
+                {t("First Name")}:
               </Grid>
               <Grid sx={12} sm={12} md={2} className="RoleInformation">
                 {user ? (user.firstName ? user.firstName : "N/A") : ""}
@@ -145,7 +147,7 @@ const Profile = (props) => {
             </Grid>
             <Grid container spacing={1} className="formdata">
               <Grid sx={12} sm={12} md={2} className="Information">
-                Surname:
+                {t("Surname")}:
               </Grid>
               <Grid sx={12} sm={12} md={2} className="RoleInformation">
                 {user ? (user.surName ? user.surName : "N/A") : ""}
@@ -153,7 +155,7 @@ const Profile = (props) => {
             </Grid>
             <Grid container spacing={1} className="formdata">
               <Grid sx={12} sm={12} md={2} className="Information">
-                Gender:
+                {t("Gender")}:
               </Grid>
               <Grid sx={12} sm={12} md={2} className="RoleInformation">
                 {user ? (user.gender ? user.gender : "N/A") : ""}
@@ -161,7 +163,7 @@ const Profile = (props) => {
             </Grid>
             <Grid container spacing={1} className="formdata">
               <Grid sx={12} sm={12} md={2} className="Information">
-                Date of birth:
+                {t("Date of Birth")}:
               </Grid>
               <Grid sx={12} sm={12} md={2} className="RoleInformation">
                 {user ? (user.dOB ? user.dOB : "N/A") : ""}
@@ -169,7 +171,7 @@ const Profile = (props) => {
             </Grid>
             <Grid container spacing={1} className="formdata">
               <Grid sx={12} sm={12} md={2} className="Information">
-                Place of birth:
+                {t("Place of Birth")}:
               </Grid>
               <Grid sx={12} sm={12} md={2} className="RoleInformation">
                 {user ? (user.placeOfBirth ? user.placeOfBirth : "N/A") : ""}
@@ -177,7 +179,7 @@ const Profile = (props) => {
             </Grid>
             <Grid container spacing={1} className="formdata">
               <Grid sx={12} sm={12} md={2} className="Information">
-                Address:
+                {t("Address")}:
               </Grid>
               <Grid sx={12} sm={12} md={2} className="RoleInformation">
                 {user ? (user.address ? user.address : "N/A") : ""}
@@ -185,7 +187,7 @@ const Profile = (props) => {
             </Grid>
             <Grid container spacing={1} className="formdata">
               <Grid sx={12} sm={12} md={2} className="Information">
-                Complement:
+                {t("Complement")}:
               </Grid>
               <Grid sx={12} sm={12} md={2} className="RoleInformation">
                 {user ? (user.complement ? user.complement : "N/A") : ""}
@@ -193,7 +195,7 @@ const Profile = (props) => {
             </Grid>
             <Grid container spacing={1} className="formdata">
               <Grid sx={12} sm={12} md={2} className="Information">
-                Postal Code:
+                {t("Postal Code")}:
               </Grid>
               <Grid sx={12} sm={12} md={2} className="RoleInformation">
                 {user ? (user.zIP ? user.zIP : "N/A") : ""}
@@ -201,7 +203,7 @@ const Profile = (props) => {
             </Grid>
             <Grid container spacing={1} className="formdata">
               <Grid sx={12} sm={12} md={2} className="Information">
-                City:
+                {t("City")}:
               </Grid>
               <Grid sx={12} sm={12} md={2} className="RoleInformation">
                 {user ? (user.city ? user.city : "N/A") : ""}
@@ -210,11 +212,11 @@ const Profile = (props) => {
             <Divider className="ProfileDivider" />
 
             <Typography className="AboutHeading">
-              Contact Information
+              {t("Contact Information")}
             </Typography>
             <Grid container spacing={1} className="formdata">
               <Grid sx={12} sm={12} md={2} className="Information">
-                NESPHF:
+                {t("NESPHF")}:
               </Grid>
               <Grid sx={12} sm={12} md={2} className="RoleInformation">
                 {user ? (user.nEPH ? user.nEPH : "N/A") : ""}
@@ -222,7 +224,7 @@ const Profile = (props) => {
             </Grid>
             <Grid container spacing={1} className="formdata">
               <Grid sx={12} sm={12} md={2} className="Information">
-                Number of hours:
+                {t("Number of hours")}:
               </Grid>
               <Grid sx={12} sm={12} md={2} className="RoleInformation">
                 {user ? (user.noOfHrsWanted ? user.noOfHrsWanted : "N/A") : ""}
@@ -230,7 +232,7 @@ const Profile = (props) => {
             </Grid>
             <Grid container spacing={1} className="formdata">
               <Grid sx={12} sm={12} md={2} className="Information">
-                Highway Code Date:
+                {t("Highway Code Date")}:
               </Grid>
               <Grid sx={12} sm={12} md={2} className="RoleInformation">
                 {user
@@ -256,7 +258,7 @@ const Profile = (props) => {
           >
             <Box sx={style}>
               <TextField
-                label="Old password"
+                label={t("Old password")}
                 name="oldPassword"
                 value={oldPassword}
                 type="password"
@@ -267,7 +269,7 @@ const Profile = (props) => {
                 }}
               />
               <TextField
-                label="New password"
+                label={t("New password")}
                 name="newPassword"
                 value={newPassword}
                 type="password"
@@ -277,7 +279,7 @@ const Profile = (props) => {
                 }}
               />
               <TextField
-                label="Confirm password"
+                label={t("Confirm password")}
                 name="confirmPassword"
                 type="password"
                 value={confirmPassword}
@@ -286,7 +288,7 @@ const Profile = (props) => {
               />
               <div style={{ marginTop: "2%" }}>
                 <Button
-                  text="Change Password"
+                  text={t("Change Password")}
                   width="95% !important"
                   color="#149e7a"
                   borderRadius="10px"
@@ -311,7 +313,7 @@ const Profile = (props) => {
           >
             <Box sx={style}>
               <Typography sx={{ color: "#110000" }}>
-                Profile Update Request
+                {t("Profile Update Request")}
               </Typography>
               <FormControl variant="" sx={{ ml: "-3%" }} className="MobileView">
                 <Select
@@ -331,52 +333,52 @@ const Profile = (props) => {
                     disabled
                     sx={{ paddingTop: "0px !important" }}
                   >
-                    Select the options
+                    {t("Select the options")}
                   </MenuItem>
                   <MenuItem
                     value="FirstName"
                     name=" FirstName"
                     onChange={(e) => SetUpdateField(e.target.value)}
                   >
-                    First Name
+                    {t("First Name")}
                   </MenuItem>
                   <MenuItem
                     value="Surname"
                     name="Surname"
                     onChange={(e) => SetUpdateField(e.target.value)}
                   >
-                    Surname
+                    {t("Surname")}
                   </MenuItem>
                   <MenuItem
                     value="Dateofbirth"
                     name="Dateofbirth"
                     onChange={(e) => SetUpdateField(e.target.value)}
                   >
-                    Date of birth
+                    {t("Date of birth")}
                   </MenuItem>
                   <MenuItem
                     value="Meetuppoints"
                     name="Meetuppoints"
                     onChange={(e) => SetUpdateField(e.target.value)}
                   >
-                    Meetup points
+                    {t("Meetup points")}
                   </MenuItem>
                 </Select>
               </FormControl>
               <Typography sx={{ color: "#110000", marginBottom: "3px" }}>
-                Reason-Information to update
+                {t("Reason-Information to update")}
               </Typography>
               <TextareaAutosize
                 aria-label="minimum height"
                 minRows={5}
-                placeholder="Minimum 3 rows"
+                placeholder={t("Minimum 3 rows")}
                 name="description"
                 onChange={(e) => setDescription(e.target.name)}
                 style={{ width: "100%", borderRadius: "5px" }}
               />
               <div style={{ marginTop: "2%" }}>
                 <Button
-                  text="Update Profile"
+                  text={t("Update Profile")}
                   width="95% !important"
                   color="#149e7a"
                   borderRadius="10px"
