@@ -27,6 +27,7 @@ import API from "../../api/index";
 import jwt_decode from "jwt-decode";
 import { Base64 } from "js-base64";
 import { toast } from "react-toastify";
+import { frontUrl } from "../../config";
 
 export default function Header(props) {
   const [Loginopen, setLoginOpen] = React.useState(false);
@@ -106,7 +107,7 @@ export default function Header(props) {
   return (
     <div className="main-list">
       <div className="flex_rowAlign_center">
-        <a href={process.env.REACT_APP_FRONT_URL}>
+        <a href={frontUrl}>
           <img className="home-logo img-fluid w-75" src={Logo} alt="" />
         </a>
         <Typography variant="p" className="logo_title">
@@ -116,13 +117,13 @@ export default function Header(props) {
           <li>
             <ul>
               <li>
-                <a href={process.env.REACT_APP_FRONT_URL}> Home </a>
+                <a href={frontUrl}> Home </a>
               </li>
               <li>
-                <a href={process.env.REACT_APP_FRONT_URL}> Services </a>
+                <a href={frontUrl}> Services </a>
               </li>
               <li>
-                <a href={process.env.REACT_APP_FRONT_URL}> Contact Us </a>
+                <a href={frontUrl}> Contact Us </a>
               </li>
             </ul>
           </li>
@@ -130,21 +131,8 @@ export default function Header(props) {
       </div>
       <div className="flex_rowAlign_spacebwt">
         <Search></Search>
-        <Divider
-          orientation="vertical"
-          light={true}
-          flexItem
-          variant="middle"
-          sx={{ margin: "10px" }}
-          className={"divider"}
-        />
-        <Button
-          type="submit"
-          text="Login"
-          buttonLableStyle="btn_main"
-          width="50%"
-          onClick={handleLoginOpen}
-        ></Button>
+        <Divider orientation="vertical" light={true} flexItem variant="middle" sx={{ margin: "10px" }} className={"divider"} />
+        <Button type="submit" text="Login" buttonLableStyle="btn_main" width="50%" onClick={handleLoginOpen}></Button>
         <BasicModal
           open={Loginopen}
           closebtn={true}
@@ -200,11 +188,7 @@ export default function Header(props) {
                             onMouseDown={handleMouseDownPassword}
                             edge="end"
                           >
-                            {values.showPassword ? (
-                              <VisibilityOff />
-                            ) : (
-                              <Visibility />
-                            )}
+                            {values.showPassword ? <VisibilityOff /> : <Visibility />}
                           </IconButton>
                         </InputAdornment>
                       }
@@ -219,17 +203,9 @@ export default function Header(props) {
               </div>
             </Grid>
             <Grid className="termsConditionsCheckboxContainer1">
-              <Grid
-                sx={12}
-                sm={12}
-                md={12}
-                className="termsConditionsCheckbox1"
-              >
+              <Grid sx={12} sm={12} md={12} className="termsConditionsCheckbox1">
                 <Checkbox defaultChecked className="checkbox" />
-                <Typography
-                  variant="body1"
-                  className="termsConditionsCheckboxTitle1"
-                >
+                <Typography variant="body1" className="termsConditionsCheckboxTitle1">
                   I read and agree to
                 </Typography>
                 <Link href="#" variant="body2" className="termsandconditions">
@@ -258,12 +234,7 @@ export default function Header(props) {
           </>
         </BasicModal>
         <div className="burger_btn">
-          <IconButton
-            color="inherit"
-            edge="start"
-            aria-expanded={open ? "true" : undefined}
-            onClick={handleClick}
-          >
+          <IconButton color="inherit" edge="start" aria-expanded={open ? "true" : undefined} onClick={handleClick}>
             <MenuIcon sx={{ fontSize: 40 }} />
           </IconButton>
         </div>
