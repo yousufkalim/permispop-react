@@ -19,7 +19,6 @@ import { toast } from "react-toastify";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import Joi from "joi-browser";
 
-
 const ColorlibConnector = withStyles({
   alternativeLabel: {
     top: 23,
@@ -117,18 +116,16 @@ const RentalCar = () => {
     ProfileImg: "",
     FrontSideimg: "",
     BackSideimg: "",
-    Address:   {
+    Address: {
       Label: "",
-      Zip : "",
+      Zip: "",
       City: "",
       Lat: "",
       Lng: "",
-      }
-    
+    },
   });
 
   const step1Schema = {
-
     FirstName: Joi.string()
       .min(3)
       .required()
@@ -142,7 +139,7 @@ const RentalCar = () => {
             case "string.min":
               err.message = `${err.context.label} must be atleast ${err.context.limit} alphabets Longs!`;
               break;
-          
+
             default:
               break;
           }
@@ -150,7 +147,7 @@ const RentalCar = () => {
         return errors;
       }),
 
-      SurName: Joi.string()
+    SurName: Joi.string()
       .min(3)
       .required()
       .label("SurName")
@@ -163,7 +160,7 @@ const RentalCar = () => {
             case "string.min":
               err.message = `${err.context.label} must be atleast ${err.context.limit} alphabets Longs!`;
               break;
-          
+
             default:
               break;
           }
@@ -171,7 +168,7 @@ const RentalCar = () => {
         return errors;
       }),
 
-      Dob: Joi.string()
+    Dob: Joi.string()
       .required()
       .label("Dob")
       .error((errors) => {
@@ -185,7 +182,7 @@ const RentalCar = () => {
         return errors;
       }),
 
-      Pob: Joi.string()
+    Pob: Joi.string()
       .required()
       .label("Pob")
       .error((errors) => {
@@ -199,7 +196,7 @@ const RentalCar = () => {
         return errors;
       }),
 
-      Gender: Joi.string()
+    Gender: Joi.string()
       .required()
       .label("Gender")
       .error((errors) => {
@@ -213,7 +210,7 @@ const RentalCar = () => {
         return errors;
       }),
 
-      Complement: Joi.string()
+    Complement: Joi.string()
       .required()
       .label("Complement")
       .error((errors) => {
@@ -227,7 +224,7 @@ const RentalCar = () => {
         return errors;
       }),
 
-      Email: Joi.string()
+    Email: Joi.string()
       .email()
       .required()
       .label("Email")
@@ -247,7 +244,7 @@ const RentalCar = () => {
         });
         return errors;
       }),
-      Email2: Joi.optional()
+    Email2: Joi.optional()
       .label("Second Email")
       .error((errors) => {
         errors.forEach((err) => {
@@ -262,8 +259,8 @@ const RentalCar = () => {
         });
         return errors;
       }),
-      Phone: Joi.string()
-  
+    Phone: Joi.string()
+
       .length(10)
       .required()
       .label("Phone")
@@ -279,14 +276,13 @@ const RentalCar = () => {
         });
         return errors;
       }),
-      Phone2: Joi
-      .label("Phone2")
+    Phone2: Joi.label("Phone2")
       .optional()
 
       .error((errors) => {
         return errors;
       }),
-      Password: Joi.string()
+    Password: Joi.string()
       .min(8)
       .max(15)
       .required()
@@ -307,8 +303,8 @@ const RentalCar = () => {
         return errors;
       }),
 
-      ConfirmPassword: Joi.string()
-      .valid(Joi.ref('Password'))
+    ConfirmPassword: Joi.string()
+      .valid(Joi.ref("Password"))
       .min(8)
       .required()
       .label("confirmpassword")
@@ -328,7 +324,7 @@ const RentalCar = () => {
         return errors;
       }),
 
-      TimeOnPlatform: Joi.string()
+    TimeOnPlatform: Joi.string()
       .required()
       .label("TimeOnPlatform")
       .error((errors) => {
@@ -342,7 +338,7 @@ const RentalCar = () => {
         return errors;
       }),
 
-      ProfileImg: Joi.string()
+    ProfileImg: Joi.string()
       .required()
       .label("ProfileImg")
       .error((errors) => {
@@ -356,7 +352,7 @@ const RentalCar = () => {
         return errors;
       }),
 
-      FrontSideimg: Joi.string()
+    FrontSideimg: Joi.string()
       .required()
       .label("FrontSideimg")
       .error((errors) => {
@@ -370,7 +366,7 @@ const RentalCar = () => {
         return errors;
       }),
 
-      BackSideimg: Joi.string()
+    BackSideimg: Joi.string()
       .required()
       .label("BackSideimg")
       .error((errors) => {
@@ -384,7 +380,7 @@ const RentalCar = () => {
         return errors;
       }),
 
-      Address: Joi.string()
+    Address: Joi.string()
       .required()
       .label("Address")
       .error((errors) => {
@@ -397,42 +393,29 @@ const RentalCar = () => {
         });
         return errors;
       }),
-
-      
-  }
+  };
 
   const handleStep1 = (name, value) => {
-    let errorMessage = ''
-    if (name=="Address"){
+    let errorMessage = "";
+    if (name == "Address") {
       errorMessage = validateSuggest1(name, value.Label);
-    }
-    else if(name==='Password'){
-      if(value.length<8){
-        errorMessage = 'Password must be atleast 8 char long';
-
+    } else if (name === "Password") {
+      if (value.length < 8) {
+        errorMessage = "Password must be atleast 8 char long";
+      } else if (value.length === 0) {
+        errorMessage = "Password cannot be empty";
       }
-      else if(value.length===0){
-        errorMessage = 'Password cannot be empty';
-
-      }
-
-    }
-    else if(name==='ConfirmPassword'){
-      if(step1.Password != value){
+    } else if (name === "ConfirmPassword") {
+      if (step1.Password != value) {
         errorMessage = "Password didn't match";
-
+      } else if (value.length === 0) {
+        errorMessage = "Password cannot be empty";
       }
-      else if(value.length===0){
-        errorMessage = 'Password cannot be empty';
-
-      }
-
-    }
-    else {
+    } else {
       errorMessage = validateSuggest1(name, value);
     }
 
-    setStep1Errors({...step1Errors,[name]:errorMessage});
+    setStep1Errors({ ...step1Errors, [name]: errorMessage });
     setStep1({ ...step1, [name]: value });
   };
 
@@ -469,7 +452,7 @@ const RentalCar = () => {
             case "string.min":
               err.message = `${err.context.label} must be exactly ${err.context.limit} digits!`;
               break;
-          
+
             default:
               break;
           }
@@ -486,7 +469,7 @@ const RentalCar = () => {
             case "string.empty":
               err.message = `${err.context.label} Field can't be empty `;
               break;
-          
+
             default:
               break;
           }
@@ -494,7 +477,7 @@ const RentalCar = () => {
         return errors;
       }),
 
-      CompanyInsurer: Joi.string()
+    CompanyInsurer: Joi.string()
       .min(3)
       .required()
       .label("CompanyInsurer")
@@ -504,7 +487,7 @@ const RentalCar = () => {
             case "string.empty":
               err.message = `${err.context.label} Field can't be empty `;
               break;
-          
+
             default:
               break;
           }
@@ -521,7 +504,7 @@ const RentalCar = () => {
             case "string.empty":
               err.message = `${err.context.label} Field can't be empty `;
               break;
-          
+
             default:
               break;
           }
@@ -538,7 +521,7 @@ const RentalCar = () => {
             case "string.empty":
               err.message = `${err.context.label} Field can't be empty `;
               break;
-          
+
             default:
               break;
           }
@@ -555,18 +538,17 @@ const RentalCar = () => {
             case "string.empty":
               err.message = `${err.context.label} Field can't be empty `;
               break;
-          
+
             default:
               break;
           }
         });
         return errors;
       }),
-    
-  }
+  };
   const handleStep2 = (name, value) => {
     const errorMessage = validateSuggest2(name, value);
-    setStep2Errors({...step2Errors,[name]:errorMessage});
+    setStep2Errors({ ...step2Errors, [name]: errorMessage });
     setStep2({ ...step2, [name]: value });
   };
 
@@ -598,8 +580,8 @@ const RentalCar = () => {
     TechControlDate: new Date(),
     TechEndDate: new Date(),
     CtImg: "",
-    checked:true,
-    TechnicalControlCheck:"",
+    checked: true,
+    TechnicalControlCheck: "",
   });
   const step3Schema = {
     FristRegDate: Joi.string()
@@ -611,7 +593,7 @@ const RentalCar = () => {
             case "string.empty":
               err.message = `${err.context.label} Should not be a Future Date `;
               break;
-          
+
             default:
               break;
           }
@@ -619,7 +601,7 @@ const RentalCar = () => {
         return errors;
       }),
 
-      Brand: Joi.string()
+    Brand: Joi.string()
       .required()
       .label("Brand")
       .error((errors) => {
@@ -628,7 +610,7 @@ const RentalCar = () => {
             case "string.empty":
               err.message = `${err.context.label} Field can't be empty `;
               break;
-          
+
             default:
               break;
           }
@@ -636,7 +618,7 @@ const RentalCar = () => {
         return errors;
       }),
 
-      Model: Joi.string()
+    Model: Joi.string()
       .required()
       .label("Model")
       .error((errors) => {
@@ -645,7 +627,7 @@ const RentalCar = () => {
             case "string.empty":
               err.message = `${err.context.label} Field can't be empty `;
               break;
-          
+
             default:
               break;
           }
@@ -653,7 +635,7 @@ const RentalCar = () => {
         return errors;
       }),
 
-      NumberPlate: Joi.string()
+    NumberPlate: Joi.string()
       .required()
       .label("NumPlate")
       .error((errors) => {
@@ -662,14 +644,14 @@ const RentalCar = () => {
             case "string.empty":
               err.message = `${err.context.label} Field can't be empty `;
               break;
-          
+
             default:
               break;
           }
         });
         return errors;
       }),
-      Color: Joi.string()
+    Color: Joi.string()
       .required()
       .label("Color")
       .error((errors) => {
@@ -678,14 +660,14 @@ const RentalCar = () => {
             case "string.empty":
               err.message = `${err.context.label} Field can't be empty `;
               break;
-          
+
             default:
               break;
           }
         });
         return errors;
       }),
-      Energy: Joi.string()
+    Energy: Joi.string()
       .required()
       .label("Energy")
       .error((errors) => {
@@ -694,14 +676,14 @@ const RentalCar = () => {
             case "string.empty":
               err.message = `${err.context.label} Field can't be empty `;
               break;
-          
+
             default:
               break;
           }
         });
         return errors;
       }),
-      GearBox: Joi.string()
+    GearBox: Joi.string()
       .required()
       .label("Gearbox")
       .error((errors) => {
@@ -710,7 +692,7 @@ const RentalCar = () => {
             case "string.empty":
               err.message = `${err.context.label} Field can't be empty `;
               break;
-          
+
             default:
               break;
           }
@@ -718,7 +700,7 @@ const RentalCar = () => {
         return errors;
       }),
 
-      VehicleImg: Joi.string()
+    VehicleImg: Joi.string()
       .required()
       .label("VehicleImg")
       .error((errors) => {
@@ -727,7 +709,7 @@ const RentalCar = () => {
             case "string.empty":
               err.message = `${err.context.label} Field can't be empty `;
               break;
-          
+
             default:
               break;
           }
@@ -735,7 +717,7 @@ const RentalCar = () => {
         return errors;
       }),
 
-      VehicleRegImg: Joi.string()
+    VehicleRegImg: Joi.string()
       .required()
       .label("VehicleRegImg")
       .error((errors) => {
@@ -744,7 +726,7 @@ const RentalCar = () => {
             case "string.empty":
               err.message = `${err.context.label} Field can't be empty `;
               break;
-          
+
             default:
               break;
           }
@@ -752,7 +734,7 @@ const RentalCar = () => {
         return errors;
       }),
 
-      VehicleInsurer: Joi.string()
+    VehicleInsurer: Joi.string()
       .min(3)
       .required()
       .label("VehicleInsurer")
@@ -762,7 +744,7 @@ const RentalCar = () => {
             case "string.empty":
               err.message = `${err.context.label} Field can't be empty `;
               break;
-          
+
             default:
               break;
           }
@@ -770,7 +752,7 @@ const RentalCar = () => {
         return errors;
       }),
 
-      PoliceNumber: Joi.string()
+    PoliceNumber: Joi.string()
       .required()
       .label("PoliceNumber")
       .error((errors) => {
@@ -779,7 +761,7 @@ const RentalCar = () => {
             case "string.empty":
               err.message = `${err.context.label} Field can't be empty `;
               break;
-          
+
             default:
               break;
           }
@@ -787,7 +769,7 @@ const RentalCar = () => {
         return errors;
       }),
 
-      StartDate: Joi.string()
+    StartDate: Joi.string()
       .required()
       .label("StartDate")
       .error((errors) => {
@@ -796,7 +778,7 @@ const RentalCar = () => {
             case "string.empty":
               err.message = `${err.context.label} Should not be Future Date `;
               break;
-          
+
             default:
               break;
           }
@@ -804,7 +786,7 @@ const RentalCar = () => {
         return errors;
       }),
 
-      EndDate: Joi.string()
+    EndDate: Joi.string()
       .required()
       .label("EndDate")
       .error((errors) => {
@@ -813,7 +795,7 @@ const RentalCar = () => {
             case "string.empty":
               err.message = `${err.context.label} should not be past date `;
               break;
-          
+
             default:
               break;
           }
@@ -821,7 +803,7 @@ const RentalCar = () => {
         return errors;
       }),
 
-      GreenCard: Joi.string()
+    GreenCard: Joi.string()
       .required()
       .label("GreenCard")
       .error((errors) => {
@@ -830,7 +812,7 @@ const RentalCar = () => {
             case "string.empty":
               err.message = `${err.context.label} Field can't be empty `;
               break;
-          
+
             default:
               break;
           }
@@ -838,7 +820,7 @@ const RentalCar = () => {
         return errors;
       }),
 
-      TechControlDate: Joi.string()
+    TechControlDate: Joi.string()
       .required()
       .label("TechControlDate")
       .error((errors) => {
@@ -847,7 +829,7 @@ const RentalCar = () => {
             case "string.empty":
               err.message = `${err.context.label} should not be past date  `;
               break;
-          
+
             default:
               break;
           }
@@ -855,7 +837,7 @@ const RentalCar = () => {
         return errors;
       }),
 
-      TechEndDate: Joi.string()
+    TechEndDate: Joi.string()
       .required()
       .label("TechEndDate")
       .error((errors) => {
@@ -864,7 +846,7 @@ const RentalCar = () => {
             case "string.empty":
               err.message = `${err.context.label} should not be past date `;
               break;
-          
+
             default:
               break;
           }
@@ -872,7 +854,7 @@ const RentalCar = () => {
         return errors;
       }),
 
-      CtImg: Joi.string()
+    CtImg: Joi.string()
       .required()
       .label("CtImg")
       .error((errors) => {
@@ -881,24 +863,22 @@ const RentalCar = () => {
             case "string.empty":
               err.message = `${err.context.label} Field can't be empty `;
               break;
-          
+
             default:
               break;
           }
         });
         return errors;
       }),
-    }
+  };
 
   const handleStep3 = (name, value) => {
-    let errorMessage = ''
-    if (name==="checked"){
-      
+    let errorMessage = "";
+    if (name === "checked") {
     } else {
-
-       errorMessage = validateSuggest3(name, value);
+      errorMessage = validateSuggest3(name, value);
     }
-    setStep3Errors({...step3Errors,[name]:errorMessage});
+    setStep3Errors({ ...step3Errors, [name]: errorMessage });
     setStep3({ ...step3, [name]: value });
   };
 
@@ -925,7 +905,6 @@ const RentalCar = () => {
   const handleReset = () => {
     setActiveStep(1);
   };
-  
 
   const handleSubmit = async () => {
     await API("post", "Personal", {
@@ -949,7 +928,7 @@ const RentalCar = () => {
       SecondPhone: step1.Phone2,
       Lat: step1.Address.Lat,
       Long: step1.Address.Lng,
-      Role: "Car Rental",
+      Role: "CarRentalAgent",
     })
       .then(async (personalRes) => {
         await API("post", "Business", {
@@ -1203,40 +1182,39 @@ const RentalCar = () => {
                           ? handleSubmit
                           : handleNext
                       }
-                      disabled={ 
-                        activeStep === 1
-                        && step1Errors.Address===null 
-                        && step1.Address.City != ""
-                        && step1.Address.Zip != ""
-                        && step1Errors.FirstName===null 
-                        && step1Errors.SurName===null 
-                        && step1Errors.Dob===null 
-                        && step1Errors.Pob===null 
-                        && step1Errors.Gender===null 
-                        && step1Errors.Email===null 
-                        && step1Errors.Phone===null 
-                        && step1Errors.Password==='' 
-                        && step1Errors.ConfirmPassword==='' 
-                        && step1Errors.FrontSideimg===null 
-                        && step1Errors.BackSideimg===null 
-                        
-                        // && step1Errors.ProfileImg===null 
-                        // && step1Errors.Phone2===null 
-                        // && step1Errors.Email2===null 
-                        // && step1Errors.Complement===null 
-                        // && step1Errors.TimeOnPlatform===null 
+                      disabled={
+                        (activeStep === 1 &&
+                          step1Errors.Address === null &&
+                          step1.Address.City != "" &&
+                          step1.Address.Zip != "" &&
+                          step1Errors.FirstName === null &&
+                          step1Errors.SurName === null &&
+                          step1Errors.Dob === null &&
+                          step1Errors.Pob === null &&
+                          step1Errors.Gender === null &&
+                          step1Errors.Email === null &&
+                          step1Errors.Phone === null &&
+                          step1Errors.Password === "" &&
+                          step1Errors.ConfirmPassword === "" &&
+                          step1Errors.FrontSideimg === null &&
+                          step1Errors.BackSideimg === null) ||
+                        // && step1Errors.ProfileImg===null
+                        // && step1Errors.Phone2===null
+                        // && step1Errors.Email2===null
+                        // && step1Errors.Complement===null
+                        // && step1Errors.TimeOnPlatform===null
 
-                        || activeStep === 2
-                        && step2Errors.Siret===null 
-                        && step2Errors.Kbls===null 
-                        && step2Errors.CompanyInsurer===null 
-                        && step2Errors.CompanyPoliceNumber===null 
-                        && step2Errors.InsuranceDateExp===null 
-                        && step2Errors.RcPro===null 
-                     
-                        || activeStep === 3
-                        && vehicles.length > 0
-                        ? false : true }
+                        (activeStep === 2 &&
+                          step2Errors.Siret === null &&
+                          step2Errors.Kbls === null &&
+                          step2Errors.CompanyInsurer === null &&
+                          step2Errors.CompanyPoliceNumber === null &&
+                          step2Errors.InsuranceDateExp === null &&
+                          step2Errors.RcPro === null) ||
+                        (activeStep === 3 && vehicles.length > 0)
+                          ? false
+                          : true
+                      }
                     ></Button>
                   </Box>
                 </React.Fragment>
