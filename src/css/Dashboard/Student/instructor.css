@@ -2,11 +2,39 @@
     margin-left: 2%;
     width: 150px;
 }
+.profile_text_left{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
+    font-weight: 600;
+  }
+  .profile_text_right{
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    font-size: 1rem;
+  }
+  .profile_text_div{
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+  }
+  .profile_modal{
+      overflow: hidden;
+      width: 25% !important;
+      height: 58% !important;
+  }
 
 .instructor-dropdown{
     width: 150px;
 }
-
+.profile_icons_div {
+    margin:  10px 20px 10px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 .instructor-dropdown-div {
     margin-bottom: 10px !important;
     display: grid;
@@ -17,16 +45,61 @@
     .instructor-dropdown-div {
         grid-template-columns:repeat(4,minmax(0,1fr));
       }
+      .profile_text_right{
+        font-size: 0.8rem
+      }
+      .profile_text_left{
+        font-size: 0.9rem
+      }
+      .profile_modal{
+          height: 50% !important;
+          width: 38% !important;
+      }
 }
 
 @media only screen and (max-width: 900px) {
     .instructor-dropdown-div {
         grid-template-columns:repeat(3,minmax(0,1fr));
       }
+      .profile_text_right{
+        font-size: 0.7rem
+      }
+      .profile_text_left{
+        font-size: 0.8rem
+      }
+      .profile_modal{
+          height: 48% !important;
+          width: 50% !important;
+      }
 }
 
 @media only screen and (max-width: 750px) {
     .instructor-dropdown-div {
         grid-template-columns:repeat(2,minmax(0,1fr));
+      }
+      .profile_text_right{
+        font-size: 0.7rem
+      }
+      .profile_text_left{
+        font-size: 0.8rem
+      }
+      .profile_modal{
+          height: 50% !important;
+          width: 60% !important;
+      }
+}
+@media only screen and (max-width: 650px) {
+    .instructor-dropdown-div {
+        grid-template-columns:repeat(1,minmax(0,1fr));
+      }
+      .profile_text_right{
+        font-size: 0.7rem
+      }
+      .profile_text_left{
+        font-size: 0.7rem
+      }
+      .profile_modal{
+          height: 45% !important;
+          width: 70% !important;
       }
 }
