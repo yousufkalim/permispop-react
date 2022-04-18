@@ -147,7 +147,7 @@ const Index = () => {
   };
   return (
     <>
-      <MobileViewFilters title="Pending Request" />
+      {/* <MobileViewFilters title="Pending Request" /> */}
       <div className="Filters">
         <Grid container spacing={1} sx={{ marginTop: "30px" }}>
           <Grid xs={12} sm={12} md={3}>

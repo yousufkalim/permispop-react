@@ -1356,7 +1356,7 @@ const Index = () => {
   // }
   return (
     <>
-      <MobileViewFilters title="Instructor" />
+      {/* <MobileViewFilters title="Instructor" /> */}
       <div className="Filters">
         <Grid
           container

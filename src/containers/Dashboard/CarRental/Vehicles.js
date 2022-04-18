@@ -477,7 +477,7 @@ const Index = () => {
 
   return (
     <>
-      <MobileViewFilters title="Vehicles" />
+      {/* <MobileViewFilters title="Vehicles" /> */}
       <div className="Filters">
         <Grid
           container
