@@ -75,9 +75,8 @@ i18n
           name: "name",
           historyActions: "historyActions",
           Vaction: "Vaction",
-          Vaction: "Vacances",
           Options: "Options",
-          options: "optionss",
+          options: "options",
           "Student Registered Successfully": "Student Registered Successfully",
           "Not Registered....Error Occured": "Not Registered....Error Occured",
           "Rental Car Registered Successfully": "Rental Car Registered Successfully",
@@ -93,7 +92,6 @@ i18n
           "Availablity Manual": "Availablity Manual",
           UnAvailability: "UnAvailability",
           Personal: "Personal",
-          Booking: "Booking",
           "Add Availibity": "Add Availibity",
           Week: "Week",
           "Profile Update Request": "Profile Update Request",
@@ -108,13 +106,12 @@ i18n
           "Registration Date": "Registration Date",
           "Update Profile": "Update Profile",
           "Insurance Details": "Insurance Details",
-          No: "No",
+          "No": "No",
           Yes: "Yes",
           "Would like to delete your availability?": "Would like to delete your availability?",
           Description: "Description",
           Confirm: "Confirm",
           Cancel: "Cancel",
-          "Start Hours": "Start Hours",
           "End Hours": "End Hours",
           "Start Minutes": "Start Minutes",
           "End Minutes": "End Minutes",
@@ -152,7 +149,6 @@ i18n
           Detach: "Detach",
           Details: "Details",
           "Add Meetup Point": "Add Meetup Point",
-          Reservations: "Reservations",
           Profile: "Profil",
           "In Progress": "In Progress",
           "Interval /KM": "Interval /KM",
@@ -162,15 +158,12 @@ i18n
           Role: "Role",
           "Car Rental Agent": "Car Rental Agent",
           "Rental Car Agent": "Rental Car Agent",
-          "Pending Request": "Pending Request",
-          "pending request": "Pending Request",
           "Start date": "Start date",
           "End date": "End date",
           "Filter by Date": "Filter by Date",
           "Filter by receiver": "Filter by receiver",
           All: "All",
           Filter: "Filter",
-          Filter: "Filtrer",
           "Booking with": "Booking with",
           History: "History",
           "My Procedure": "My Procedure",
@@ -297,8 +290,7 @@ i18n
 
           "SIRET Number": "SIRET Number",
 
-          "Upload your authorization front side": "Upload your authorization front side",
-          "Upload your authorization back side": "Upload your authorization back side",
+
           "Enter City": "Enter City",
           "How much time you will give to students of our platforms?":
             "How much time you will give to students of our platforms?",
@@ -338,12 +330,10 @@ i18n
           Female: "Female",
           female: "female",
           "Zip Code": "Zip Code",
-          Other: "Other",
           "You can provide all your documents and your NEPH mumber after validation of your profile isn’t that awesome? So let’s go, fill out the form and validate it!":
             "You can provide all your documents and your NEPH mumber after validation of your profile isn’t that awesome? So let’s go, fill out the form and validate it!",
           "Student Identity": "Student Identity",
           "Driving School": "Driving School",
-          "Rental Car Agent": "Rental Car Agent",
           Instructor: "Instructor",
           Student: "Student",
           "Terms and Conditions": "Terms and Conditions",
@@ -516,7 +506,6 @@ i18n
           instructorAgeError: "Instructor should be 20 years old.",
           "Password cannot be empty": "Password cannot be empty",
           "Password didn't match": "Password didn't match",
-          "Password cannot be empty": "Password cannot be empty",
           "Password must be atleast 8 char long": "Password must be atleast 8 char long",
 
           "Student-Reg-para1":
@@ -532,9 +521,8 @@ i18n
           '"Nom" is not allowed to be empty': '"Nom" is not allowed to be empty',
 
           '"Address" is not allowed to be empty': '"Address" is not allowed to be empty',
-          '"Adresse" is not allowed to be empty': '"Adresse" is not allowed to be empty',
+          '"Adresse" is not allowed to be empty': '"Address" is not allowed to be empty',
 
-          '"pob" is not allowed to be empty': '"pob" is not allowed to be empty',
           '"pob" is not allowed to be empty': '"pob" is not allowed to be empty',
 
           "Email Field can't be empty!": "Email Field can't be empty!",
@@ -559,7 +547,6 @@ i18n
           '"n° de siret" is not allowed to be empty': '"n° de siret" is not allowed to be empty',
 
           '"company Insurer" is not allowed to be empty': '"company Insurer" is not allowed to be empty',
-          '"Compagnie Assureur" is not allowed to be empty': '"Compagnie Assureur" is not allowed to be empty',
 
           '"Police Num" is not allowed to be empty': '"Police Num" is not allowed to be empty',
           '"Numéro de police" is not allowed to be empty': '"Numéro de police" is not allowed to be empty',
@@ -579,16 +566,12 @@ i18n
           // car rental validation translation
 
           '"SurName" is not allowed to be empty': '"SurName" is not allowed to be empty',
-          '"Nom" is not allowed to be empty': '"Nom" is not allowed to be empty',
 
-          '"Pob" is not allowed to be empty': '"Pob" is not allowed to be empty',
           '"Pob" is not allowed to be empty': '"Pob" is not allowed to be empty',
 
           '"Siret" is not allowed to be empty': '"Siret" is not allowed to be empty',
-          '"n° de siret" is not allowed to be empty': '"n° de siret" is not allowed to be empty',
 
           '"CompanyInsurer" is not allowed to be empty': '"CompanyInsurer" is not allowed to be empty',
-          '"Compagnie Assureur" is not allowed to be empty': '"Compagnie Assureur" is not allowed to be empty',
 
           '"Company Police Number" is not allowed to be empty': '"Company Police Number" is not allowed to be empty',
           '"Numéro de police de l entreprise" is not allowed to be empty':
@@ -598,7 +581,6 @@ i18n
           '"Assureur du véhicule" is not allowed to be empty': '"Assureur du véhicule" is not allowed to be empty',
 
           '"PoliceNumber" is not allowed to be empty': '"PoliceNumber" is not allowed to be empty',
-          '"Numéro de police" is not allowed to be empty': '"Numéro de police" is not allowed to be empty',
 
           // Driving School validation translation
 
@@ -621,36 +603,46 @@ i18n
           '"Compagnie d assurance" is not allowed to be empty': '"Compagnie d assurance" is not allowed to be empty',
 
           '"Police Number" is not allowed to be empty': '"Police Number" is not allowed to be empty',
-          '"Numéro de police" is not allowed to be empty': '"Numéro de police" is not allowed to be empty',
 
           '"Firstname" is not allowed to be empty': '"Firstname" is not allowed to be empty',
-          '"Prénom" is not allowed to be empty': '"Prénom" is not allowed to be empty',
-
+          
           '"NumberPlate" is not allowed to be empty': '"NumberPlate" is not allowed to be empty',
-          '"Plaque d immatriculation" is not allowed to be empty': '"Plaque d immatriculation" is not allowed to be empty',
-
+          
           '"DriverLicenseNumber" is not allowed to be empty': '"DriverLicenseNumber" is not allowed to be empty',
           '"Numéro de permis de conduire" is not allowed to be empty':
-            '"Numéro de permis de conduire" is not allowed to be empty',
-
+          '"Numéro de permis de conduire" is not allowed to be empty',
+          
           '"ExcAuthIssueAuth" is not allowed to be empty': '"ExcAuthIssueAuth" is not allowed to be empty',
-          '"ExcAuthIssueAuth" is not allowed to be empty': '"ExcAuthIssueAuth" is not allowed to be empty',
-
+          
           '"ExcAuthNumber" is not allowed to be empty': '"ExcAuthNumber" is not allowed to be empty',
-          '"ExcAuthNumber" is not allowed to be empty': '"ExcAuthNumber" is not allowed to be empty',
+          
           "Best Time Training": "Best Time Training",
           "Enter email": "Enter email",
-          Manaager: "Manager",
+          "Manaager": "Manager",
+          
+          "First Name must be atleast 3 alphabets Longs!": "First Name must be atleast 3 alphabets Longs!",
+          "Prénom must be atleast 3 alphabets Longs!": "Prénom must be atleast 3 alphabets Longs!",
+          
+          "Surname must be atleast 3 alphabets Longs!": "Surname must be atleast 3 alphabets Longs!",
+          "Nom must be atleast 3 alphabets Longs!": "Nom must be atleast 3 alphabets Longs!",
+
         },
       },
       fr: {
         translations: {
           // Driving School validation translation
+          
+                    "Surname must be atleast 3 alphabets Longs!": "Nom doit comporter au moins 3 alphabets Longs !",
+                    "Nom must be atleast 3 alphabets Longs!": "Nom doit comporter au moins 3 alphabets Longs !",
+
+          '"Address" is not allowed to be empty': "L'adresse ne doit pas être vide",
+          '"Adresse" is not allowed to be empty': "L'adresse ne doit pas être vide",
+
+          "First Name must be atleast 3 alphabets Longs!": "Le prénom doit comporter au moins 3 alphabets Longs !",
+          "Prénom must be atleast 3 alphabets Longs!": "Le prénom doit comporter au moins 3 alphabets Longs !",
 
           '"ExcAuthNumber" is not allowed to be empty': '"ExcAuthNumber" est pas autorisé à être vide',
-          '"ExcAuthNumber" is not allowed to be empty': '"ExcAuthNumber" est pas autorisé à être vide',
 
-          '"ExcAuthIssueAuth" is not allowed to be empty': '"ExcAuthIssueAuth" est pas autorisé à être vide',
           '"ExcAuthIssueAuth" is not allowed to be empty': '"ExcAuthIssueAuth" est pas autorisé à être vide',
 
           '"DriverLicenseNumber" is not allowed to be empty': '"Numéro de permis de conduire" est pas autorisé à être vide',
@@ -687,7 +679,6 @@ i18n
           // car rental validation translation
 
           '"PoliceNumber" is not allowed to be empty': '"Numéro de police" est pas autorisé à être vide',
-          '"Numéro de police" is not allowed to be empty': '"Numéro de police" est pas autorisé à être vide',
 
           '"VehicleInsurer" is not allowed to be empty': '"Assureur du véhicule" est pas autorisé à être vide',
           '"Assureur du véhicule" is not allowed to be empty': '"Assureur du véhicule" est pas autorisé à être vide',
@@ -702,7 +693,6 @@ i18n
           '"Siret" is not allowed to be empty': '"n° de siret" est pas autorisé à être vide',
           '"n° de siret" is not allowed to be empty': '"n° de siret" est pas autorisé à être vide',
 
-          '"Pob" is not allowed to be empty': '"Pob" est pas autorisé à être vide',
           '"Pob" is not allowed to be empty': '"Pob" est pas autorisé à être vide',
 
           '"SurName" is not allowed to be empty': '"Nom" est pas autorisé à être vide',
@@ -722,16 +712,12 @@ i18n
           '"Couleur" is not allowed to be empty': '"Couleur" est pas autorisé à être vide',
 
           '"NumPlate" is not allowed to be empty': '"Plaque d immatriculation" est pas autorisé à être vide',
-          '"Plaque d immatriculation" is not allowed to be empty': '"Plaque d immatriculation" est pas autorisé à être vide',
 
           '"Police Num" is not allowed to be empty': '"Numéro de police" est pas autorisé à être vide',
-          '"Numéro de police" is not allowed to be empty': '"Numéro de police" est pas autorisé à être vide',
 
           '"company Insurer" is not allowed to be empty': '"Compagnie Assureur" est pas autorisé à être vide',
-          '"Compagnie Assureur" is not allowed to be empty': '"Compagnie Assureur" est pas autorisé à être vide',
 
           '"siret No." is not allowed to be empty': '"n° de siret" est pas autorisé à être vide',
-          '"n° de siret" is not allowed to be empty': '"n° de siret" est pas autorisé à être vide',
 
           '"Authorization Number" is not allowed to be empty': '"Numéro d autorisation" est pas autorisé à être vide',
           '"Numéro d autorisation" is not allowed to be empty': '"Numéro d autorisation" est pas autorisé à être vide',
@@ -749,21 +735,17 @@ i18n
           '"téléphone" is not allowed to be empty': '"téléphone" est pas autorisé à être vide',
 
           '"pob" is not allowed to be empty': '"pob" est pas autorisé à être vide',
-          '"pob" is not allowed to be empty': '"pob" est pas autorisé à être vide',
 
           '"Surname" is not allowed to be empty': '"Nom" est pas autorisé à être vide',
-          '"Nom" is not allowed to be empty': '"Nom" est pas autorisé à être vide',
 
           '"First Name" must be atleast 3 alphabets Longs!': '"Prénom" la longueur doit être dau moins 3 caractères',
           '"Prénom" must be atleast 3 alphabets Longs!': '"Prénom" la longueur doit être dau moins 3 caractères',
 
           '"First Name" is not allowed to be empty': '"Prénom" est pas autorisé à être vide',
-          '"Prénom" is not allowed to be empty': '"Prénom" est pas autorisé à être vide',
           // french
           "Password didn't match": "Le mot de passe ne correspond pas",
           "Password cannot be empty": "Le mot de passe ne peut pas être vide",
           "Password must be atleast 8 char long": "Le mot de passe doit comporter au moins 8 caractères",
-          "Password cannot be empty": "Le mot de passe ne peut pas être vide",
           "Instructor Name": "Nom de l'instructeur",
           Picture: "Image",
           "Booking with": "Réservation avec",
@@ -819,8 +801,6 @@ i18n
           "Meetup point": "Point de rencontre",
           "Serial Number": "Numéro de série",
           "Insurance Details": "Détails de l'assurance",
-          No: "Non",
-          Yes: "Oui",
           "Would like to delete your availability?": "Vous souhaitez supprimer votre disponibilité ?",
           Description: "La description",
           "Add Unavailability": "Ajouter une indisponibilité",
@@ -834,7 +814,6 @@ i18n
           "Add Booking": "Ajouter une réservation",
           Ratings: "Notes",
           "Type a message here": "Tapez un message ici",
-          "Book Me": "Réservez-moi",
           "Recent chat": "Chat récent",
           "Submit Rating": "Soumettre une note",
           "Not Now": "Pas maintenant",
@@ -986,7 +965,6 @@ i18n
           male: "Homme",
           Female: "Femme",
           female: "Femme",
-          Other: "Autre",
           "Upload front of your ID Card/Passport/Residence permit": "Télécharge le recto de ta CNI/Passeport/Permis de séjour",
           "Upload back of your ID Card/Passport/Residence permit": "Télécharge le verso de ta CNI/Passeport/Permis de séjour",
           Address: "Adresse",
@@ -1323,8 +1301,6 @@ i18n
           "Select Vehicle": "Sélectionne un véhicule",
           // Meetup: "Point de rencontre",
           "Picked DateTime": "Heure de début",
-          "Picked DateTime": "Picked DateTime",
-          "Start Hours": "Start Hours",
 
           "No Meetup Point. Add from you profile section": "Pas de point de rencontre. Ajoute le dans ton profil",
           "Add Meetup Point": "Ajouter un point de rencontre",
@@ -1604,8 +1580,8 @@ i18n
           StudentComplete: "ÉlèveComplété",
           "My Calendar": "Mon calendrier",
 
-          Yes: "Oui",
-          No: "Non",
+          "Yes": "Oui",
+          "No": "Non",
 
           Block: "Bloquer",
           Unblock: "Débloquer",
@@ -1622,6 +1598,8 @@ i18n
           "Best Time Training": "Meilleur temps d'entraînement",
           "Enter email": "Entrez votre e-mail",
           Manaager: "Gestionnaire",
+          Vaction: "Vacances",
+
         },
       },
     },
