@@ -141,16 +141,16 @@ const Maps = (props) => {
               onChange={(e) => handleChange("Gender", e.target.value)}
               className="dropdown1"
             >
-              <MenuItem value="All" name="All">
+              <MenuItem value="All" name={t("All")}>
                 {t("All")}
               </MenuItem>
-              <MenuItem value="Male" name="Male">
+              <MenuItem value="Male" name={t("Male")}>
                 {t("Male")}
               </MenuItem>
-              <MenuItem value="Female" name="Female">
+              <MenuItem value="Female" name={t("Female")}>
                 {t("Female")}
               </MenuItem>
-              <MenuItem value="Others" name="Others">
+              <MenuItem value="Others" name={t("Others")}>
                 {t("Others")}
               </MenuItem>
             </Select>
