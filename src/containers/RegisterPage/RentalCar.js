@@ -98,7 +98,7 @@ function ColorlibStepIcon(props) {
 const RentalCar = () => {
   const { i18n, t } = useTranslation();
   let history = useHistory();
-  const steps = [t("Identity"), t("Details"), t("Vehicle"), t("Done")];
+  const steps = ["Identity", "Details", "Vehicle", "Done"];
 
   const [step1Errors, setStep1Errors] = React.useState({});
   const [step1, setStep1] = React.useState({
@@ -1081,7 +1081,7 @@ const RentalCar = () => {
               <Step key={label}>
                 <StepLabel StepIconComponent={ColorlibStepIcon}>
                   <span className="steplabel" style={{ fontfamily: "Inter", color: "black" }}>
-                    {label}
+                    {t(label)}
                   </span>
                 </StepLabel>
               </Step>

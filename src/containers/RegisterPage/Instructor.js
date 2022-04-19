@@ -1228,7 +1228,7 @@ const Instructor = () => {
     return error ? error.details[0].message : null;
   };
 
-  const steps = [t("Identity"), t("Details"), t("Insurance"), t("Vehicle"), t("Done")];
+  const steps = ["Identity", "Details", "Insurance", "Vehicle", "Done"];
 
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -1465,7 +1465,7 @@ const Instructor = () => {
               <Step key={label}>
                 <StepLabel StepIconComponent={ColorlibStepIcon}>
                   <span className="steplabel" style={{ fontfamily: "Inter", color: "black" }}>
-                    {label}
+                    {t(label)}
                   </span>
                 </StepLabel>
               </Step>

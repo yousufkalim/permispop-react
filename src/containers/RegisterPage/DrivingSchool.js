@@ -1576,7 +1576,7 @@ const DrivingSchool = () => {
     const { error } = Joi.validate(obj, schema);
     return error ? error.details[0].message : null;
   };
-  const steps = [t("Identity"), t("Details"), t("Insurance"), t("Manaager"), t("Vehicle"), t("Instructor"), t("Done")];
+  const steps = ["Identity", "Details", "Insurance", "Manaager", "Vehicle", "Instructor", "Done"];
 
   // FUNCTIONS
 
@@ -1888,7 +1888,7 @@ const DrivingSchool = () => {
               <Step key={label}>
                 <StepLabel StepIconComponent={ColorlibStepIcon}>
                   <span className="steplabel" style={{ fontfamily: "Inter", color: "black" }}>
-                    {label}
+                    {t(label)}
                   </span>
                 </StepLabel>
               </Step>
