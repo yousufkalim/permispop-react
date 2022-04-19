@@ -610,7 +610,7 @@ const DrivingSchool = () => {
 
   const step4Schema = {
     Firstname: Joi.string()
-      .min(3)
+      .min(2)
       .required()
       .label("Firstname")
       .error((errors) => {
@@ -627,7 +627,7 @@ const DrivingSchool = () => {
         return errors;
       }),
     Surname: Joi.string()
-      .min(3)
+      .min(2)
       .required()
       .label("Surname")
       .error((errors) => {
@@ -1130,7 +1130,7 @@ const DrivingSchool = () => {
 
   const step6Schema = {
     Firstname: Joi.string()
-      .min(3)
+      .min(2)
       .required()
       .label("Firstname")
       .error((errors) => {
@@ -1147,7 +1147,7 @@ const DrivingSchool = () => {
         return errors;
       }),
     Surname: Joi.string()
-      .min(3)
+      .min(2)
       .required()
       .label("Surname")
       .error((errors) => {
@@ -1275,6 +1275,7 @@ const DrivingSchool = () => {
         return errors;
       }),
     Phone: Joi.string()
+      .length(10)
       .required()
       .label("Phone")
       .error((errors) => {
@@ -1555,7 +1556,7 @@ const DrivingSchool = () => {
       } else if (value.length === 0) {
         errorMessage = t("Password cannot be empty");
       }
-    } else if (name === "Password2") {
+    } else if (name === "ConfirmPassword") {
       if (step1.Password != value) {
         errorMessage = t("Password didn't match");
       } else if (value.length === 0) {
@@ -1983,68 +1984,68 @@ const DrivingSchool = () => {
                       height="48px"
                       height2="48px"
                       onClick={activeStep === steps.length - 1 ? handleSubmit : handleNext}
-                      disabled={
-                        (activeStep === 1 &&
-                          step1Errors.TradeName === null &&
-                          step1Errors.CompanyName === null &&
-                          step1Errors.Email === null &&
-                          step1Errors.Phone === null &&
-                          step1Errors.Password === "" &&
-                          step1Errors.Password2 === "" &&
-                          step1Errors.Address === null &&
-                          step1.Address.City != "" &&
-                          step1.Address.Zip != "" &&
+                      // disabled={
+                      //   (activeStep === 1 &&
+                      //     step1Errors.TradeName === null &&
+                      //     step1Errors.CompanyName === null &&
+                      //     step1Errors.Email === null &&
+                      //     step1Errors.Phone === null &&
+                      //     step1Errors.Password === "" &&
+                      //     step1Errors.Password2 === "" &&
+                      //     step1Errors.Address === null &&
+                      //     step1.Address.City != "" &&
+                      //     step1.Address.Zip != "" &&
                           // && step1Errors.Language===null
                           // && step1Errors.CPF===null
                           // && step1Errors.Complement===null
                           // && step1Errors.Email2===null
                           // && step1Errors.Phone2===null
 
-                          step1.OtherPlateform === false) ||
-                        (step1Errors.Platform === null &&
-                          step1Errors.Hours === null &&
-                          step1Errors.TradeName === null &&
-                          step1Errors.CompanyName === null &&
-                          step1Errors.Email === null &&
-                          step1Errors.Phone === null &&
-                          step1Errors.Password === "" &&
-                          step1Errors.Password2 === "" &&
-                          step1Errors.Address === null &&
-                          step1.Address.City != "" &&
-                          step1.Address.Zip != "") ||
+                        //   step1.OtherPlateform === false) ||
+                        // (step1Errors.Platform === null &&
+                        //   step1Errors.Hours === null &&
+                        //   step1Errors.TradeName === null &&
+                        //   step1Errors.CompanyName === null &&
+                        //   step1Errors.Email === null &&
+                        //   step1Errors.Phone === null &&
+                        //   step1Errors.Password === "" &&
+                        //   step1Errors.Password2 === "" &&
+                        //   step1Errors.Address === null &&
+                        //   step1.Address.City != "" &&
+                        //   step1.Address.Zip != "") ||
                         // && step1Errors.Complement===null
                         // && step1Errors.Email2===null
                         // && step1Errors.Phone2===null
                         // && step1Errors.Language===null
                         // && step1Errors.CPF===null
 
-                        (activeStep === 2 &&
-                          step2Errors.Number === null &&
-                          step2Errors.IssuingAurh === null &&
-                          step2Errors.SiretNumber === null &&
-                          step2Errors.KBIS === null &&
-                          step2Errors.Approvaldate === null) ||
+                        // (activeStep === 2 &&
+                        //   step2Errors.Number === null &&
+                        //   step2Errors.IssuingAurh === null &&
+                        //   step2Errors.SiretNumber === null &&
+                        //   step2Errors.KBIS === null &&
+                        //   step2Errors.Approvaldate === null) ||
                         // && step2Errors.RcProImg===null
 
-                        (activeStep === 3 &&
-                          step3Errors.insuranceCompany === null &&
-                          step3Errors.policeNumber === null &&
-                          step3Errors.RcPro === null &&
-                          step3Errors.dateInsurance === null) ||
-                        (activeStep === 4 &&
-                          step4Errors.Firstname === null &&
-                          step4Errors.Surname === null &&
-                          step4Errors.Pob === null &&
-                          step4Errors.Gender === null &&
-                          step4Errors.ProfileImg === null &&
-                          step4Errors.Dob === null &&
-                          step4Errors.Address === null &&
-                          step4.TermAndCondition === false) ||
-                        (activeStep === 5 && vehicles.length > 0) ||
-                        (activeStep === 6 && instructors.length > 0)
-                          ? false
-                          : true
-                      }
+                      //   (activeStep === 3 &&
+                      //     step3Errors.insuranceCompany === null &&
+                      //     step3Errors.policeNumber === null &&
+                      //     step3Errors.RcPro === null &&
+                      //     step3Errors.dateInsurance === null) ||
+                      //   (activeStep === 4 &&
+                      //     step4Errors.Firstname === null &&
+                      //     step4Errors.Surname === null &&
+                      //     step4Errors.Pob === null &&
+                      //     step4Errors.Gender === null &&
+                      //     step4Errors.ProfileImg === null &&
+                      //     step4Errors.Dob === null &&
+                      //     step4Errors.Address === null &&
+                      //     step4.TermAndCondition === false) ||
+                      //   (activeStep === 5 && vehicles.length > 0) ||
+                      //   (activeStep === 6 && instructors.length > 0)
+                      //     ? false
+                      //     : true
+                      // }
                     ></Button>
                   </Box>
                 </React.Fragment>
