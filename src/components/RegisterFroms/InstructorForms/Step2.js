@@ -45,7 +45,7 @@ const Step2 = (props) => {
             label={t("Driving License Number")}
             required={true}
             name="licenceNo"
-            type="number"
+            type="text"
             placeholder="000000000"
             value={props.step2.licenceNo}
             onChange={(e) => {

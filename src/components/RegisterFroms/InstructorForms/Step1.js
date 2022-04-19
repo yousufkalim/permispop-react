@@ -167,7 +167,7 @@ const Step1 = (props) => {
               handleAddress(e);
             }}
             error={props.step1Errors['Address']?true:false}
-            ErrorMsg={props.step1Errors['Address']}
+            ErrorMsg={t(props.step1Errors['Address'])}
             onAddressSelect={(e) => handleSelectAddress(e)}
           />
         </Grid>
@@ -220,15 +220,15 @@ const Step1 = (props) => {
         <Grid item xs={12} sm={12} md={4}>
           <DropDown
             label={t("Gender")}
-            placeholder="Male"
+            placeholder={t("Male")}
             name="Gender"
             required={true}
             value={props.step1.Gender}
             onChange={(e) => props.onChange("Gender", e.target.value)}
             MenuItem={[
-              { name: "Male", value: "Male" },
-              { name: "Female", value: "Female" },
-              { name: "others", value: "others" },
+              { name: t("Male"), value: "Male" },
+              { name: t("Female"), value: "Female" },
+              { name: t("others"), value: "others" },
             ]}
             error={props.step1Errors['Gender']?true:false}
             ErrorMsg={t(props.step1Errors['Gender'])}
