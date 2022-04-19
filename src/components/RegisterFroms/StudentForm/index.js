@@ -61,7 +61,7 @@ const StudentForm = (props) => {
 
   const studentSchema = {
     firstname: Joi.string()
-      .min(3)
+      .min(2)
       .required()
       .label(t("First Name"))
       .error((errors) => {
@@ -81,7 +81,7 @@ const StudentForm = (props) => {
         return errors;
       }),
       surname: Joi.string()
-      .min(3)
+      .min(2)
       .required()
       .label("Surname")
       .error((errors) => {
@@ -733,9 +733,9 @@ const StudentForm = (props) => {
                 value={student.gender}
                 onChange={(e) => handleStudent("gender", e.target.value)}
                 MenuItem={[
-                  { name: "Male", value: "Male" },
-                  { name: "Female", value: "Female" },
-                  { name: "others", value: "others" },
+                  { name: t("Male"), value: "Male" },
+                  { name: t("Female"), value: "Female" },
+                  { name: t("others"), value: "others" },
                 ]}
                 error={studentErrors['gender']?true:false}
                 ErrorMsg={studentErrors['gender']}

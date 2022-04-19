@@ -107,7 +107,7 @@ const Index = () => {
         setSelectedUserData(booking.studentData);
       }
     });
-    if (status == "Complete" || status == "In progress") {
+    if (status == t("Complete") || status == t("In progress")) {
       await API("get", `Bookings/UpdateBookingsStatus?id=${id}&status=${status}`).then((res) => {
         getPendingRequestData(user);
         toast.success(t("Status is updated successful"));

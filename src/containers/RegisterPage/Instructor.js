@@ -136,7 +136,7 @@ const Instructor = () => {
 
   const step1Schema = {
     Firstname: Joi.string()
-      .min(3)
+      .min(2)
       .required()
       .label(t("First Name"))
       // .message(`${label} hjsjdhsj`),
@@ -159,7 +159,7 @@ const Instructor = () => {
       }),
 
     Surname: Joi.string()
-      .min(3)
+      .min(2)
       .required()
       .label("Surname")
       .error((errors) => {
@@ -1548,22 +1548,22 @@ const Instructor = () => {
                       height="48px"
                       height2="48px"
                       onClick={activeStep === steps.length - 1 ? handleSubmit : handleNext}
-                      disabled={
-                        (activeStep === 1 &&
-                          step1Errors.Firstname === null &&
-                          step1Errors.Surname === null &&
-                          step1Errors.Address === null &&
-                          step1.Address.City != "" &&
-                          step1.Address.Zip != "" &&
-                          step1Errors.Dob === null &&
-                          step1Errors.Pob === null &&
-                          step1Errors.Gender === null &&
-                          step1Errors.Email === null &&
-                          step1Errors.Phone === null &&
-                          step1Errors.Password === "" &&
-                          step1Errors.ConfirmPassword === "" &&
-                          step1Errors.FrontImg === null &&
-                          step1Errors.BackImg === null) ||
+                      // disabled={
+                      //   (activeStep === 1 &&
+                      //     step1Errors.Firstname === null &&
+                      //     step1Errors.Surname === null &&
+                      //     step1Errors.Address === null &&
+                      //     step1.Address.City != "" &&
+                      //     step1.Address.Zip != "" &&
+                      //     step1Errors.Dob === null &&
+                      //     step1Errors.Pob === null &&
+                      //     step1Errors.Gender === null &&
+                      //     step1Errors.Email === null &&
+                      //     step1Errors.Phone === null &&
+                      //     step1Errors.Password === "" &&
+                      //     step1Errors.ConfirmPassword === "" &&
+                      //     step1Errors.FrontImg === null &&
+                      //     step1Errors.BackImg === null) ||
                         // && step1Errors.ProfileImg===null
                         // && step1Errors.Language===null
                         // && step1Errors.Complement===null
@@ -1596,29 +1596,29 @@ const Instructor = () => {
                         // && step1Errors.Noh===null
                         // && step1Errors.Neph===null
 
-                        (activeStep === 2 &&
-                          step2Errors.obtainingdate === null &&
-                          step2Errors.validitiyDate === null &&
-                          step2Errors.DateAuthorization === null &&
-                          step2Errors.ExpirationDate === null &&
-                          step2Errors.licenceNo === null &&
-                          step2Errors.issuingAuthority === null &&
-                          step2Errors.AuthorizationNumber === null &&
-                          step2Errors.siretNo === null &&
-                          step2Errors.licensefront === null &&
-                          step2Errors.licenseback === null &&
-                          step2Errors.kbls === null &&
-                          step2Errors.Authorizationfront === null &&
-                          step2Errors.Authorizationback === null) ||
-                        (activeStep === 3 &&
-                          step3Errors.companyInsurer === null &&
-                          step3Errors.companyPoliceNum === null &&
-                          step3Errors.insuranceExpDate === null &&
-                          step3Errors.companyRC === null) ||
-                        (activeStep === 4 && vehicles.length > 0)
-                          ? false
-                          : true
-                      }
+                      //   (activeStep === 2 &&
+                      //     step2Errors.obtainingdate === null &&
+                      //     step2Errors.validitiyDate === null &&
+                      //     step2Errors.DateAuthorization === null &&
+                      //     step2Errors.ExpirationDate === null &&
+                      //     step2Errors.licenceNo === null &&
+                      //     step2Errors.issuingAuthority === null &&
+                      //     step2Errors.AuthorizationNumber === null &&
+                      //     step2Errors.siretNo === null &&
+                      //     step2Errors.licensefront === null &&
+                      //     step2Errors.licenseback === null &&
+                      //     step2Errors.kbls === null &&
+                      //     step2Errors.Authorizationfront === null &&
+                      //     step2Errors.Authorizationback === null) ||
+                      //   (activeStep === 3 &&
+                      //     step3Errors.companyInsurer === null &&
+                      //     step3Errors.companyPoliceNum === null &&
+                      //     step3Errors.insuranceExpDate === null &&
+                      //     step3Errors.companyRC === null) ||
+                      //   (activeStep === 4 && vehicles.length > 0)
+                      //     ? false
+                      //     : true
+                      // }
                     ></Button>
                   </Box>
                 </React.Fragment>

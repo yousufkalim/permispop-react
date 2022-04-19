@@ -1469,14 +1469,14 @@ const Index = () => {
               <DropDown
                 label="Gender"
                 required={true}
-                placeholder="Male"
+                placeholder={t("Male")}
                 name="Gender"
                 value={instructorDetail.Gender}
                 onChange={(e) => onChange("Gender", e.target.value)}
                 MenuItem={[
-                  { name: "Male", value: "Male" },
-                  { name: "Female", value: "Female" },
-                  { name: "others", value: "others" },
+                  { name: t("Male"), value: "Male" },
+                  { name: t("Female"), value: "Female" },
+                  { name: t("others"), value: "others" },
                 ]}
                 error={step6Errors["Gender"] ? true : false}
                 ErrorMsg={step6Errors["Gender"]}

@@ -142,13 +142,13 @@ const Index = () => {
               <MenuItem value="All" name="All">
                 {t("All")}
               </MenuItem>
-              <MenuItem value="Male" name="Male">
+              <MenuItem value="Male" name={t("Male")}>
                 {t("Male")}
               </MenuItem>
-              <MenuItem value="Female" name="Female">
+              <MenuItem value="Female" name={t("Female")}>
                 {t("Female")}
               </MenuItem>
-              <MenuItem value="Others" name="Others">
+              <MenuItem value="Others" name={t("Others")}>
                 {t("Others")}
               </MenuItem>
             </Select>

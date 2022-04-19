@@ -175,7 +175,7 @@ const Profile = () => {
               {user ? (user.complement ? user.complement : "N/A") : ""}
             </Grid>
           </Grid>
-          <Grid container spacing={1} className="formdata">
+          {/* <Grid container spacing={1} className="formdata">
             <Grid sx={12} sm={12} md={2} className="Information">
               {t("Postal Code")}:
             </Grid>
@@ -190,7 +190,7 @@ const Profile = () => {
             <Grid sx={12} sm={12} md={2} className="RoleInformation">
               {user ? (user.city ? user.city : "N/A") : ""}
             </Grid>
-          </Grid>
+          </Grid> */}
           <Grid container spacing={1} className="formdata">
             <Grid sx={12} sm={12} md={2} className="Information">
               {t("CDF Accepted")}:
@@ -218,7 +218,7 @@ const Profile = () => {
                 name="oldPassword"
                 value={oldPassword}
                 type="password"
-                placeholder="Enter password"
+                placeholder={t("Enter password")}
                 sx={{ marginBottom: "2% !important" }}
                 onChange={(e) => {
                   setOldPassword(e.target.value);
@@ -229,7 +229,7 @@ const Profile = () => {
                 name="newPassword"
                 value={newPassword}
                 type="password"
-                placeholder="Enter password"
+                placeholder={t("Enter password")}
                 onChange={(e) => {
                   setNewPassword(e.target.value);
                 }}
@@ -239,7 +239,7 @@ const Profile = () => {
                 name="confirmPassword"
                 type="password"
                 value={confirmPassword}
-                placeholder="Enter password"
+                placeholder={t("Enter password")}
                 onChange={(e) => setConfirmPassword(e.target.value)}
               />
               <div style={{ marginTop: "2%" }}>
@@ -327,7 +327,7 @@ const Profile = () => {
               <TextareaAutosize
                 aria-label="minimum height"
                 minRows={5}
-                placeholder="Minimum 3 rows"
+                placeholder={t("Minimum 3 rows")}
                 name="description"
                 onChange={(e) => setDescription(e.target.name)}
                 style={{ width: "100%", borderRadius: "5px" }}

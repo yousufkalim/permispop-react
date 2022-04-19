@@ -129,7 +129,7 @@ const RentalCar = () => {
 
   const step1Schema = {
     FirstName: Joi.string()
-      .min(3)
+      .min(2)
       .required()
       .label("First Name")
       .error((errors) => {
@@ -150,7 +150,7 @@ const RentalCar = () => {
       }),
 
     SurName: Joi.string()
-      .min(3)
+      .min(2)
       .required()
       .label("SurName")
       .error((errors) => {

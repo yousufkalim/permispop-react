@@ -118,7 +118,7 @@ const InsuranceDetails = () => {
         </Typography>
         <Button
           className="insuranceBtn"
-          text="Update Profile"
+          text={t("Update Profile")}
           onClick={(e) => setOpenUpdateProfileModal(true)}
         ></Button>
       </Grid>

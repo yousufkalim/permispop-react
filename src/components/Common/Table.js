@@ -153,16 +153,16 @@ export default function DataTable(props) {
                                       <MenuItem
                                         value={
                                           row.status === "In progress"
-                                            ? props.user.role === "Student"
-                                              ? "Closed"
-                                              : "Complete"
+                                            ? props.user.role === t("Student")
+                                              ? t("Closed")
+                                              : t("Complete")
                                             : row.status
                                         }
                                         name={
                                           row.status === "In progress"
-                                            ? props.user.role === "Student"
-                                              ? "Closed"
-                                              : "Complete"
+                                            ? props.user.role === t("Student")
+                                              ? t("Closed")
+                                              : t("Complete")
                                             : row.status
                                         }
                                         sx={{
@@ -172,9 +172,9 @@ export default function DataTable(props) {
                                         }}
                                       >
                                         {row.status === "In progress"
-                                          ? props.user.role === "Student"
-                                            ? "Closed"
-                                            : "Complete"
+                                          ? props.user.role === t("Student")
+                                            ? t("Closed")
+                                            : t("Complete")
                                           : row.status}
                                       </MenuItem>
 

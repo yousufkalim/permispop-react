@@ -100,6 +100,7 @@ i18n
           "Delete Availability": "Delete Availability",
           "Add Event": "Add Event",
           "Meetup point": "Meetup point",
+          "Meetup points": "Meetup points",
           Delete: "Delete",
           "Serial Number": "Serial Number",
           "Business Store": "Business Store",
@@ -154,6 +155,7 @@ i18n
           "Interval /KM": "Interval /KM",
           Manual: "Manual",
           Others: "Others",
+          others: "Others",
           Other: "Other",
           Role: "Role",
           "Car Rental Agent": "Car Rental Agent",
@@ -514,8 +516,8 @@ i18n
           '"First Name" is not allowed to be empty': '"First Name" is not allowed to be empty',
           '"Prénom" is not allowed to be empty': '"Prénom" is not allowed to be empty',
 
-          '"First Name" must be atleast 3 alphabets Longs!': '"First Name" must be atleast 3 alphabets Longs!',
-          '"Prénom" must be atleast 3 alphabets Longs!': '"Prénom" must be atleast 3 alphabets Longs!',
+          '"First Name" must be atleast 2 alphabets Longs!': '"First Name" must be atleast 2 alphabets Longs!',
+          '"Prénom" must be atleast 2 alphabets Longs!': '"Prénom" must be atleast 2 alphabets Longs!',
 
           '"Surname" is not allowed to be empty': '"Surname" is not allowed to be empty',
           '"Nom" is not allowed to be empty': '"Nom" is not allowed to be empty',
@@ -529,7 +531,7 @@ i18n
           "E-mail Field can't be empty!": "Email Field can't be empty!",
 
           '"Phone" is not allowed to be empty': '"Phone" is not allowed to be empty',
-          '"téléphone" is not allowed to be empty': '"téléphone" is not allowed to be empty',
+          '"Téléphone" is not allowed to be empty': '"Téléphone" is not allowed to be empty',
 
           '"licence No." is not allowed to be empty': '"licence No." is not allowed to be empty',
           '"Numéro de licence" is not allowed to be empty': '"Numéro de licence" is not allowed to be empty',
@@ -588,7 +590,7 @@ i18n
           '"Nom commercial" is not allowed to be empty': '"Nom commercial" is not allowed to be empty',
 
           '"Company Name" is not allowed to be empty': '"Company Name" is not allowed to be empty',
-          '"Nom de l entreprise" is not allowed to be empty': '"Nom de l entreprise" is not allowed to be empty',
+          '"Nom de la société" is not allowed to be empty': '"Nom de la société" is not allowed to be empty',
 
           '"Number" is not allowed to be empty': '"Number" is not allowed to be empty',
           '"Numéro" is not allowed to be empty': '"Numéro" is not allowed to be empty',
@@ -620,30 +622,83 @@ i18n
           "Enter email": "Enter email",
           "Manaager": "Manager",
           
-          "First Name must be atleast 3 alphabets Longs!": "First Name must be atleast 3 alphabets Longs!",
-          "Prénom must be atleast 3 alphabets Longs!": "Prénom must be atleast 3 alphabets Longs!",
+          "First Name must be atleast 2 alphabets Longs!": "First Name must be atleast 2 alphabets Longs!",
+          "Prénom must be atleast 2 alphabets Longs!": "Prénom must be atleast 2 alphabets Longs!",
           
-          "Surname must be atleast 3 alphabets Longs!": "Surname must be atleast 3 alphabets Longs!",
-          "Nom must be atleast 3 alphabets Longs!": "Nom must be atleast 3 alphabets Longs!",
+          "Surname must be atleast 2 alphabets Longs!": "Surname must be atleast 2 alphabets Longs!",
+          "Nom must be atleast 2 alphabets Longs!": "Nom must be atleast 2 alphabets Longs!",
 
+          "Not a Valid Email":"Not a Valid Email",
+          "Not a Valid E-mail":"Not a Valid E-mail",
+          '"Phone" length must be 10 characters long':'"Phone" length must be 10 characters long',
+          'Trade Name must be atleast 3 alphabets Longs!':'Trade Name must be atleast 3 alphabets Longs!',
+          '"siret No." length must be 14 characters long':'"Siret No." length must be 14 characters long',
+          '"Siret" length must be 14 characters long':'"Siret" length must be 14 characters long',
+          "SurName must be atleast 2 alphabets Longs!":"SurName must be atleast 2 alphabets Longs!",
+          '"CompanyInsurer" length must be at least 3 characters long':'"CompanyInsurer" length must be at least 3 characters long',
+          '"VehicleInsurer" length must be at least 3 characters long':'"VehicleInsurer" length must be at least 3 characters long',
+          '"Téléphone" length must be 10 characters long':'"Téléphone" length must be 10 characters long',
+          '"Siret Number" length must be at least 14 characters long':'"Siret Number" length must be at least 14 characters long',
+          '"Insurance Company" length must be at least 3 characters long':'"Insurance Company" length must be at least 3 characters long',
+          '"Firstname" length must be at least 2 characters long':'"Firstname" length must be at least 2 characters long',
+          '"Surname" length must be at least 2 characters long':'"Surname" length must be at least 2 characters long',
+          '"Insurer" length must be at least 3 characters long':'"Insurer" length must be at least 3 characters long',
+          '"Email" is not allowed to be empty':'"Email" is not allowed to be empty',
+          '"Email" must be a valid email':'"Email" must be a valid email',
+          "Old password":"Old password",
+          "New password":"New password",
+          "Confirm password":"Confirm password",
+          "Enter password":"Enter password",
+          "Closed":"Closed",
+          "Complete":"Complete",
+          "CarRentalAgent":"CarRentalAgent",
+          "DrivingSchool":"Driving School",
+          "DSInstructor":"DSInstructor",
         },
       },
       fr: {
         translations: {
+          "Instructor Registered Successfully": "Votre profil instructeur a été créé avec succès !",
+
+          "Old password":"Ancien mot de passe",
+          "New password":"Nouveau mot de passe",
+          "Enter password":"Entrer le mot de passe",
+          "Confirm password":"Confirmez le mot de passe",
+
+          '"Email" must be a valid email':"L'e-mail doit être un e-mail valide",
+          '"Email" is not allowed to be empty':"L'e-mail ne doit pas être vide",
+
+          '"Insurer" length must be at least 2 characters long':"L’assureur ne peut pas être vide",
+
+          '"Surname" length must be at least 2 characters long':"Le nom doit être de minimum 2 caractères",
+
+          '"Firstname" length must be at least 2 characters long':"Le prénom doit être de minimum 2 caractères",
+          '"Insurance Company" length must be at least 3 characters long':"La longueur de la compagnie d'assurance doit comporter au moins 3 caractères",
+          '"Téléphone" length must be 10 characters long':"Le téléphone doit être de minimum 10 caractères",
+          '"Phone" length must be 10 characters long':"Le téléphone doit être de minimum 10 caractères",
+          "Trade Name must be atleast 3 alphabets Longs!":"Le nom commercial doit comporter au moins 3 lettres de l'alphabet Longs !",
+          '"VehicleInsurer" length must be at least 3 characters long':"La longueur de l'assureur du véhicule doit comporter au moins 3 caractères",
+          '"CompanyInsurer" length must be at least 3 characters long':"La longueur de l'assureur de la société doit comporter au moins 3 caractères",
+          "SurName must be atleast 2 alphabets Longs!":"Le nom doit être de minimum 2 caractères",
+          '"Siret" length must be 14 characters long':'La longueur du N° Siret doit être de 14 caractères',
+          '"Siret Number" length must be at least 14 characters long':'La longueur du N° Siret doit être de 14 caractères',
+          '"siret No." length must be 14 characters long':"Le n° de SIRET doit être de 14 caractères",
+          "Not a Valid Email":"Pas un e-mail valide",
+          "Not a Valid E-mail":"Pas un e-mail valide",
           // Driving School validation translation
           
-                    "Surname must be atleast 3 alphabets Longs!": "Nom doit comporter au moins 3 alphabets Longs !",
-                    "Nom must be atleast 3 alphabets Longs!": "Nom doit comporter au moins 3 alphabets Longs !",
+                    "Surname must be atleast 2 alphabets Longs!": "Le nom doit être de minimum 2 caractères",
+                    "Nom must be atleast 2 alphabets Longs!": "Le nom doit être de minimum 2 caractères",
 
           '"Address" is not allowed to be empty': "L'adresse ne doit pas être vide",
           '"Adresse" is not allowed to be empty': "L'adresse ne doit pas être vide",
 
-          "First Name must be atleast 3 alphabets Longs!": "Le prénom doit comporter au moins 3 alphabets Longs !",
-          "Prénom must be atleast 3 alphabets Longs!": "Le prénom doit comporter au moins 3 alphabets Longs !",
+          "First Name must be atleast 2 alphabets Longs!": "Le prénom doit être de minimum 2 caractères",
+          "Prénom must be atleast 2 alphabets Longs!": "Le prénom doit être de minimum 2 caractères",
 
-          '"ExcAuthNumber" is not allowed to be empty': '"ExcAuthNumber" est pas autorisé à être vide',
+          '"ExcAuthNumber" is not allowed to be empty': "Numéro d'autorisation est pas autorisé à être vide",
 
-          '"ExcAuthIssueAuth" is not allowed to be empty': '"ExcAuthIssueAuth" est pas autorisé à être vide',
+          '"ExcAuthIssueAuth" is not allowed to be empty': '"Autorité de délivrance" est pas autorisé à être vide',
 
           '"DriverLicenseNumber" is not allowed to be empty': '"Numéro de permis de conduire" est pas autorisé à être vide',
           '"Numéro de permis de conduire" is not allowed to be empty':
@@ -652,8 +707,8 @@ i18n
           '"NumberPlate" is not allowed to be empty': '"Plaque d immatriculation" est pas autorisé à être vide',
           '"Plaque d immatriculation" is not allowed to be empty': '"Plaque d immatriculation" est pas autorisé à être vide',
 
-          '"Firstname" is not allowed to be empty': '"Prénom" est pas autorisé à être vide',
-          '"Prénom" is not allowed to be empty': '"Prénom" est pas autorisé à être vide',
+          '"Firstname" is not allowed to be empty': "Le prénom ne peut pas être vide",
+          '"Prénom" is not allowed to be empty': "Le prénom ne peut pas être vide",
 
           '"Police Number" is not allowed to be empty': '"Numéro de police" est pas autorisé à être vide',
           '"Numéro de police" is not allowed to be empty': '"Numéro de police" est pas autorisé à être vide',
@@ -670,8 +725,8 @@ i18n
           '"Number" is not allowed to be empty': '"Numéro" est pas autorisé à être vide',
           '"Numéro" is not allowed to be empty': '"Numéro" est pas autorisé à être vide',
 
-          '"Company Name" is not allowed to be empty': '"Nom de l entreprise" est pas autorisé à être vide',
-          '"Nom de l entreprise" is not allowed to be empty': '"Nom de l entreprise" est pas autorisé à être vide',
+          '"Company Name" is not allowed to be empty': '"Nom de la société" est pas autorisé à être vide',
+          '"Nom de la société" is not allowed to be empty': '"Nom de la société" est pas autorisé à être vide',
 
           '"Trade Name" is not allowed to be empty': '"Nom commercial" est pas autorisé à être vide',
           '"Nom commercial" is not allowed to be empty': '"Nom commercial" est pas autorisé à être vide',
@@ -693,55 +748,56 @@ i18n
           '"Siret" is not allowed to be empty': '"n° de siret" est pas autorisé à être vide',
           '"n° de siret" is not allowed to be empty': '"n° de siret" est pas autorisé à être vide',
 
-          '"Pob" is not allowed to be empty': '"Pob" est pas autorisé à être vide',
+          '"Pob" is not allowed to be empty': 'Lieu de naissance est pas autorisé à être vide',
+          
 
-          '"SurName" is not allowed to be empty': '"Nom" est pas autorisé à être vide',
-          '"Nom" is not allowed to be empty': '"Nom" est pas autorisé à être vide',
+          '"SurName" is not allowed to be empty': "Le nom ne peut pas être vide",
+          '"Nom" is not allowed to be empty': "Le nom ne peut pas être vide",
 
           //instructor  validation translation
-          "Email Field can't be empty!": "Le champ e-mail ne peut pas être vide !",
-          "E-mail Field can't be empty!": "Le champ e-mail ne peut pas être vide !",
+          "Email Field can't be empty!": "L’adresse mail n’est pas correcte",
+          "E-mail Field can't be empty!": "L’adresse mail n’est pas correcte",
 
-          '"Insurer" is not allowed to be empty': '"Assureur" est pas autorisé à être vide',
-          '"Assureur" is not allowed to be empty': '"Assureur" est pas autorisé à être vide',
+          '"Insurer" is not allowed to be empty': "L’assureur ne peut pas être vide",
+          '"Assureur" is not allowed to be empty': "L’assureur ne peut pas être vide",
 
           '"Energy" is not allowed to be empty': '"Énergie" est pas autorisé à être vide',
           '"Énergie" is not allowed to be empty': '"Énergie" est pas autorisé à être vide',
 
-          '"Color" is not allowed to be empty': '"Couleur" est pas autorisé à être vide',
+          '"Color" is not allowed to be empty': "La couleur ne peut pas être vide",
           '"Couleur" is not allowed to be empty': '"Couleur" est pas autorisé à être vide',
 
-          '"NumPlate" is not allowed to be empty': '"Plaque d immatriculation" est pas autorisé à être vide',
+          '"NumPlate" is not allowed to be empty': "La plaque d’immatriculation ne peut pas être vide",
 
-          '"Police Num" is not allowed to be empty': '"Numéro de police" est pas autorisé à être vide',
+          '"Police Num" is not allowed to be empty': "Le n° de police ne peut pas être vide",
 
-          '"company Insurer" is not allowed to be empty': '"Compagnie Assureur" est pas autorisé à être vide',
+          '"company Insurer" is not allowed to be empty': "La compagnie s’assurance ne peut pas être vide",
 
-          '"siret No." is not allowed to be empty': '"n° de siret" est pas autorisé à être vide',
+          '"siret No." is not allowed to be empty': "Le n° de SIRET ne peut pas être vide",
 
-          '"Authorization Number" is not allowed to be empty': '"Numéro d autorisation" est pas autorisé à être vide',
+          '"Authorization Number" is not allowed to be empty': "Le numéro d’autorisation ne peut pas être vide",
           '"Numéro d autorisation" is not allowed to be empty': '"Numéro d autorisation" est pas autorisé à être vide',
 
           '"Issuing Authority" is not allowed to be empty': '"Autorité de délivrance" est pas autorisé à être vide',
           '"Autorité de délivrance" is not allowed to be empty': '"Autorité de délivrance" est pas autorisé à être vide',
 
-          '"licence No." is not allowed to be empty': '"adresse de livraison" est pas autorisé à être vide',
+          '"licence No." is not allowed to be empty': "Le numéro de permis de conduire ne peut pas être vide",
           '"adresse de livraison" is not allowed to be empty': '"adresse de livraison" est pas autorisé à être vide',
 
-          '"delivery Place" is not allowed to be empty': '"Numéro de licence" est pas autorisé à être vide',
+          '"delivery Place" is not allowed to be empty': "L’autorité de délivrance ne peut pas être vide",
           '"Numéro de licence" is not allowed to be empty': '"Numéro de licence" est pas autorisé à être vide',
 
-          '"Phone" is not allowed to be empty': '"téléphone" est pas autorisé à être vide',
-          '"téléphone" is not allowed to be empty': '"téléphone" est pas autorisé à être vide',
+          '"Phone" is not allowed to be empty': "Le téléphone ne peut pas être vide",
+          '"Téléphone" is not allowed to be empty': "Le téléphone ne peut pas être vide",
 
-          '"pob" is not allowed to be empty': '"pob" est pas autorisé à être vide',
+          '"pob" is not allowed to be empty': 'Lieu de naissance est pas autorisé à être vide',
 
-          '"Surname" is not allowed to be empty': '"Nom" est pas autorisé à être vide',
+          '"Surname" is not allowed to be empty': "Le nom ne peut pas être vide",
 
-          '"First Name" must be atleast 3 alphabets Longs!': '"Prénom" la longueur doit être dau moins 3 caractères',
-          '"Prénom" must be atleast 3 alphabets Longs!': '"Prénom" la longueur doit être dau moins 3 caractères',
+          '"First Name" must be atleast 2 alphabets Longs!': "Le prénom doit être de minimum 2 caractères",
+          '"Prénom" must be atleast 2 alphabets Longs!': "Le prénom doit être de minimum 2 caractères",
 
-          '"First Name" is not allowed to be empty': '"Prénom" est pas autorisé à être vide',
+          '"First Name" is not allowed to be empty': "Le prénom ne peut pas être vide",
           // french
           "Password didn't match": "Le mot de passe ne correspond pas",
           "Password cannot be empty": "Le mot de passe ne peut pas être vide",
@@ -758,7 +814,7 @@ i18n
           "Gear Box": "Boîte de vitesses",
           "invalid date": "date invalide",
           "Minimum 3 rows": "Minimum 3 rangées",
-          Rankings: "Classements",
+          Rankings: "Évaluations",
           "Instructure On Map": "Instructure sur la carte",
           "Instructor On Map": "Instructeur sur carte",
           "Find Instructure": "Trouver une structure",
@@ -799,6 +855,7 @@ i18n
           "Add Availibity": "Ajouter une disponibilité",
           Week: "La semaine",
           "Meetup point": "Point de rencontre",
+          "Meetup points": "Points de rencontre",
           "Serial Number": "Numéro de série",
           "Insurance Details": "Détails de l'assurance",
           "Would like to delete your availability?": "Vous souhaitez supprimer votre disponibilité ?",
@@ -821,11 +878,15 @@ i18n
           reservations: "réservations",
           "Interval /KM": "Intervalle /KM",
           Others: "Autres",
+          others: "Autres",
           Other: "Autre",
           // "Pending request":"Demande en attente",
           // "pending request":"Demande en attente",
           // "pending Request":"Demande en attente",
           "Pending Request": "Demande en attente",
+          "Pending request": "Demande en attente",
+          "pending request": "Demande en attente",
+          "pending Request": "Demande en attente",
           "Start date": "Date de début",
           "End date": "Date de fin",
           "Filter by Date": "Filtrer par date",
@@ -849,7 +910,7 @@ i18n
           "II - Apprehend": "II - Appréhender",
           "I - Practice": "I - Entraine toi",
           "No Language/s selected": "Aucune langue/s sélectionnée",
-          "Edit Profile": "Editer le profil",
+          "Edit Profile": "Mettre à jour mon profil",
           About: "Sur",
           "Contact Information": "Coordonnées",
           Finish: "Finir",
@@ -1014,7 +1075,7 @@ i18n
           "Insurance Detail": "Détail de l'assurance",
           "My Learning": "Mon apprentissage",
           "My Availability": "Mes disponibilités",
-          Instructor: "Enseignant",
+          Instructor: "Instructeur ",
           Instructors: "Enseignants de cette auto-école",
           "Book now": "Réserver maintenant",
           "Book with School": "Réserver avec l'auto-école",
@@ -1075,7 +1136,7 @@ i18n
           "Upload your Kbls": "Télécharge ton KBIS",
           "Upload your KBLS": "Télécharge ton KBIS",
           "Insurance Company": "Compagnie d'assurance",
-          Insurer: "Assurance",
+          Insurer: "Assureur",
           "Police Number": "N° de Police",
           "Upload your RC Pro": "Télécharge ton assurance RC Pro",
           "Expiration date of your Insurance": "Date d'expiration de ton assurance RC Pro",
@@ -1368,7 +1429,7 @@ i18n
           "Address field should not be empty": "Le champ d'adresse ne doit pas être vide",
           "Email should be valid": "L'e-mail doit être valide",
           "Email alread exist": "Les e-mails existent déjà",
-          "Phone must be 10 digits": "Le téléphone doit être composé de 10 chiffres",
+          "Phone must be 10 digits": "Le téléphone doit être de minimum 10 caractères",
           "Must be numeric": "Ce champ doit être uniquement numérique",
           "Password must contain only alphanumeric, special characters and must have a minimum length of 8":
             "Le mot de passe ne doit contenir que des caractères alphanumériques spéciaux et doit avoir une longueur minimale de 8",
@@ -1517,14 +1578,14 @@ i18n
           "Date field cannot be empty": "Le champ de date ne peut pas être vide",
 
           // Registration fields
-          "Upload your Driving License Front Side": "Téléchargez votre permis de conduire recto",
+          "Upload your Driving License Front Side": "Téléchargez le recto de votre permis de conduire",
           "Upload your driving license front side": "Téléchargez votre permis de conduire recto",
           "Upload your Driving License Back Side": "Téléchargez le verso de votre permis de conduire",
           "Upload your driving license back side": "Téléchargez le verso de votre permis de conduire",
           "Upload your authorization front side": "Téléchargez votre autorisation au recto",
           "Upload your authorization back side": "Téléchargez votre autorisation au verso",
-          "Upload your Authorization Front Side": "Téléchargez votre autorisation au recto",
-          "Upload your Authorization Back Side": "Téléchargez votre autorisation au verso",
+          "Upload your Authorization Front Side": "Téléchargez le recto de votre autorisation",
+          "Upload your Authorization Back Side": "Téléchargez le verso de votre autorisation",
           "Authorization Number": "Numéro d'autorisation",
           "Duration should not be less than 1 hour": "La durée ne doit pas être inférieure à 1 heure",
 
@@ -1542,7 +1603,7 @@ i18n
           CarRentalAgent: "Agent de location de voitures",
           "View larger map": "Agrandir le plan",
 
-          "Change Password": "Changeur le mot de passe",
+          "Change Password": "Changer mon mot de passe",
           "Request Profile Update": "Demander la mise à jour de mon profil",
           "Update Vehicle": "Modifier le véhicule",
           Profile: "profil",

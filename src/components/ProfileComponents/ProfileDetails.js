@@ -37,7 +37,7 @@ const ProfileDetails = (props) => {
         <Locationicon className="locationicon"></Locationicon>
         <Typography className="location">{props.location}</Typography>
       </div>
-      <Typography className="Role">{props.role}</Typography>
+      <Typography className="Role">{t(props.role)}</Typography>
       <Typography className="Ranking">{props.ranking}</Typography>
       <Rating
         className="rating"

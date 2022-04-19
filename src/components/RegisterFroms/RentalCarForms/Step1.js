@@ -195,9 +195,9 @@ const Step1 = ({ step1, setStep1, onChange, step1Errors }) => {
             name="Gender"
             placeholder="ali"
             MenuItem={[
-              { name: "Male", value: "Male" },
-              { name: "Female", value: "Female" },
-              { name: "others", value: "Others" },
+              { name: t("Male"), value: "Male" },
+              { name: t("Female"), value: "Female" },
+              { name: t("others"), value: "Others" },
             ]}
             value={step1.Gender}
             onChange={(e) => {
