@@ -1,5 +1,5 @@
 import React from "react";
-import Logo from "../../assets/images/logo.svg";
+import Logo from "../../assets/Logo/v.png";
 // import email from "../../assets/images/email.svg";
 import { ReactComponent as Email } from "../../assets/images/email.svg";
 import { ReactComponent as Lock } from "../../assets/images/lockimg.svg";
