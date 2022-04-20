@@ -16,10 +16,11 @@ import { Grid } from "@mui/material";
 import { useTranslation } from "react-i18next";
 
 const Maps = (props) => {
-  const { i18n , t } = useTranslation();
+  const { i18n, t } = useTranslation();
   const studentData = JSON.parse(localStorage.getItem("user"));
   const history = useHistory();
   const [data, setData] = useState([]);
+  const [selected, setSelected] = useState();
   const [instructorType, setInstructorType] = useState({
     Gearbox: "All",
     Gender: "All",
@@ -88,15 +89,32 @@ const Maps = (props) => {
         console.log(error);
       });
   };
+  const handleChatClick = async (instructorData) => {
+    await API(
+      "get",
+      `Chat/getorcreatechatroom?userA=${studentData.id}&userB=${instructorData.id}`
+    )
+      .then((ChatroomResponse) => {
+        console.log(ChatroomResponse.data.data.id);
+        localStorage.setItem(
+          "ChatroomId",
+          JSON.stringify(ChatroomResponse.data.data.id)
+        );
+        history.push("/student/chat");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
   const handleChange = (name, value) => {
     setInstructorType({ ...instructorType, [name]: value });
   };
 
-  const handleChatClick = () => history.push("/student/chat");
   const handleBooking = (item) => {
     localStorage.setItem("selectedInstructor", JSON.stringify(item));
     history.push("/student/InstructorBooking");
   };
+
   const url = "https://www.nbrc.com.au/images/avatar-placeholder.png";
   const profileImg = studentData.role ? studentData.photo : url;
 
@@ -211,7 +229,7 @@ const Maps = (props) => {
             icon={greyIcon}
           >
             <Popup>
-              <p className="pop_text">{typeof("Your Position")}</p>
+              <p className="pop_text">{typeof "Your Position"}</p>
             </Popup>
           </Marker>
           {Object.keys(data).length > 0 &&
@@ -329,7 +347,7 @@ const Maps = (props) => {
                             textColor="#f4f4f4 !important"
                             color="#149e7a  !important"
                             className="popup_btn"
-                            onClick={handleChatClick}
+                            onClick={() => handleChatClick(item)}
                           />
                         </div>
                       </div>
