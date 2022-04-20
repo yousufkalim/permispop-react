@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Button from "../../components/Common/Button";
 import RegisterHeader from "../../components/RegisterFroms/registerHeader";
 import Footer from "../../components/Landing/Footer";
@@ -97,6 +97,8 @@ function ColorlibStepIcon(props) {
 
 const RentalCar = () => {
   const { i18n, t } = useTranslation();
+  const [rentalCarForm, setRentalCarForm] = useState({});
+  const [lng, setLng] = useState();
   let history = useHistory();
   const steps = ["Identity", "Details", "Vehicle", "Done"];
 
@@ -976,7 +978,10 @@ const RentalCar = () => {
                 }
 
                 vehiclesRes.push(
-                  Promise.all([VehicleInsurancePromise, TechnicalControlPromise]).then((e) => {
+                  Promise.all([
+                    VehicleInsurancePromise,
+                    TechnicalControlPromise,
+                  ]).then((e) => {
                     return API("post", "VehicleDetail", {
                       DateOfFirstRegistration: vehicle.FristRegDate,
                       Brand: vehicle.Brand,
@@ -985,7 +990,8 @@ const RentalCar = () => {
                       Energy: vehicle.Energy,
                       GearBox: vehicle.GearBox,
                       NumberPlate: vehicle.NumberPlate,
-                      VehicleRegistrationCertificatePhotoImagePath: vehicle.VehicleRegImg,
+                      VehicleRegistrationCertificatePhotoImagePath:
+                        vehicle.VehicleRegImg,
                       VehicleePhotosImagePath: vehicle.VehicleImg,
                       vehichleInsuranceInfoId: e[0].data.data.id,
                       technicalControlInfoID: e[1] ? e[1].data.data.id : "",
@@ -1005,8 +1011,10 @@ const RentalCar = () => {
                   role: "CarRentalAgent",
                   PersonalInfoId: personalRes.data.data.id,
                   VehicleDetailInfoId: JSON.stringify(finalVehicles),
-                  VehicleInsuranceInfoId: vehicles[0].data.data.vehichleInsuranceInfoId,
-                  TechnicalControlInfoId: vehicles[0].data.data.technicalControlInfoID,
+                  VehicleInsuranceInfoId:
+                    vehicles[0].data.data.vehichleInsuranceInfoId,
+                  TechnicalControlInfoId:
+                    vehicles[0].data.data.technicalControlInfoID,
                   BusinessInfoId: BusinessRes.data.data.id,
                   InsuranceCompanyInfoId: InsuranceCompanyRes.data.data.id,
                 }).then(async (Profileres) => {
@@ -1035,13 +1043,36 @@ const RentalCar = () => {
         console.log("Personal Response", error);
       });
   };
+  useEffect(() => {
+    getRentalCarForm();
+    setLng(localStorage.getItem("i18nextLng"));
+  }, [localStorage.getItem("i18nextLng")]);
+  const getRentalCarForm = async () => {
+    await API("get", "CMS/GetPageData?page=register")
+      .then((getRentalCarFormResponse) => {
+        const RentalCarFormData = getRentalCarFormResponse.data.data.find(
+          (item) => item.sectionName === "Rental Car Agent"
+        );
+        setRentalCarForm(RentalCarFormData);
+      })
+      .catch((error) => console.log("error------->", error));
+  };
   return (
     <React.Fragment>
       <RegisterHeader
-        title={t("Rental Car Registration")}
-        subtitle1="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce varius justo et scelerisque varius. Nullam mollis augue et facilisis blandit. Morbi sollicitudin a eros sed cursus."
-        subtitle2="Quisque lobortis ultrices dolor, fringilla venenatis leo sodales at. Nam suscipit felis sit amet convallis."
-      />
+        title={
+          lng === "en"
+            ? rentalCarForm?.headingEnglish
+            : lng === "fr"
+            ? rentalCarForm?.headingFrench
+            : ""
+        }
+        subtitle1={ lng === "en"
+        ? rentalCarForm?.textEnglish
+        : lng === "fr"
+        ? rentalCarForm?.textFrench
+        : ""}
+/>
       <div
         style={{
           display: "flex",
@@ -1076,11 +1107,19 @@ const RentalCar = () => {
               ""
             )}
           </Typography>
-          <Stepper alternativeLabel activeStep={activeStep} connector={<ColorlibConnector />} className="stepper">
+          <Stepper
+            alternativeLabel
+            activeStep={activeStep}
+            connector={<ColorlibConnector />}
+            className="stepper"
+          >
             {steps.map((label, index) => (
               <Step key={label}>
                 <StepLabel StepIconComponent={ColorlibStepIcon}>
-                  <span className="steplabel" style={{ fontfamily: "Inter", color: "black" }}>
+                  <span
+                    className="steplabel"
+                    style={{ fontfamily: "Inter", color: "black" }}
+                  >
                     {t(label)}
                   </span>
                 </StepLabel>
@@ -1096,7 +1135,9 @@ const RentalCar = () => {
             <Box sx={{ width: "83%" }}>
               {activeStep === steps.length ? (
                 <React.Fragment>
-                  <Typography sx={{ mt: 2, mb: 1 }}>{t("All steps completed - you're finished")}</Typography>
+                  <Typography sx={{ mt: 2, mb: 1 }}>
+                    {t("All steps completed - you're finished")}
+                  </Typography>
                   <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
                     <Box sx={{ flex: "1 1 auto" }} />
                     <Button
@@ -1115,9 +1156,19 @@ const RentalCar = () => {
                 <React.Fragment>
                   <Typography sx={{ mt: 2, mb: 1 }}>
                     {activeStep === 1 ? (
-                      <Step1 step1={step1} setStep1={setStep1} onChange={handleStep1} step1Errors={step1Errors} />
+                      <Step1
+                        step1={step1}
+                        setStep1={setStep1}
+                        onChange={handleStep1}
+                        step1Errors={step1Errors}
+                      />
                     ) : activeStep === 2 ? (
-                      <Step2 step2={step2} setStep2={setStep2} onChange={handleStep2} step2Errors={step2Errors} />
+                      <Step2
+                        step2={step2}
+                        setStep2={setStep2}
+                        onChange={handleStep2}
+                        step2Errors={step2Errors}
+                      />
                     ) : activeStep === 3 ? (
                       <Step3
                         step3={step3}
@@ -1154,14 +1205,22 @@ const RentalCar = () => {
                     <Button
                       endIcon={<ArrowForwardIcon sx={{ color: "#fff" }} />}
                       type="submit"
-                      text={activeStep === steps.length - 1 ? t("Finish") : t("Next")}
+                      text={
+                        activeStep === steps.length - 1
+                          ? t("Finish")
+                          : t("Next")
+                      }
                       buttonLableStyle="btn_main"
                       style={{ marginTop: "24px" }}
                       width="10%"
                       customWidth1="100%"
                       height="48px"
                       height2="48px"
-                      onClick={activeStep === steps.length - 1 ? handleSubmit : handleNext}
+                      onClick={
+                        activeStep === steps.length - 1
+                          ? handleSubmit
+                          : handleNext
+                      }
                       disabled={
                         (activeStep === 1 &&
                           step1Errors.Address === null &&
