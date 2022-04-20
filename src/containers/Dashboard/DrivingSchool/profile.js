@@ -30,7 +30,7 @@ const Profile = () => {
     borderRadius: "10px",
     p: 4,
   };
-  const { i18n , t } = useTranslation();
+  const { i18n, t } = useTranslation();
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -119,7 +119,7 @@ const Profile = () => {
       <Grid container spacing={1} className="maindiv">
         <Grid md={3} className="leftprofilediv">
           <ProfileImage
-            src={user ? (user.photo ? user.photo : { Studentprofile }) : ""}
+            src={user ? (user.photo ? user.photo : Studentprofile) : ""}
           ></ProfileImage>
         </Grid>
 
@@ -135,13 +135,15 @@ const Profile = () => {
             languages={
               user ? (user.spokenLanguage ? user.spokenLanguage : []) : []
             }
-            ratings={ratings ? ratings : ""}
+            ratings={ratings ? (ratings === "NaN" ? t("N/A") : ratings) : ""}
           ></ProfileDetails>
           <Grid className="ProfileDetails">
             <Typography className="Abouttitlle">{t("About")}</Typography>
             <Divider className="ProfileDivider"></Divider>
           </Grid>
-          <Typography className="AboutHeading">{t("Contact Information")}</Typography>
+          <Typography className="AboutHeading">
+            {t("Contact Information")}
+          </Typography>
 
           <Grid container spacing={1} className="formdata">
             <Grid sx={12} sm={12} md={2} className="Information">

@@ -12,7 +12,7 @@ import moment from "moment";
 import { useTranslation } from "react-i18next";
 
 const Step1 = (props) => {
-  const { i18n , t } = useTranslation();
+  const { i18n, t } = useTranslation();
   const handleFileChange = async (e) => {
     const formdata = new FormData();
     formdata.append("file", e.target.files[0]);
@@ -51,8 +51,8 @@ const Step1 = (props) => {
             onChange={(e) => {
               props.onChange(e.target.name, e.target.value);
             }}
-            error={props.step3Errors['companyInsurer']?true:false}
-            ErrorMsg={t(props.step3Errors['companyInsurer'])}
+            error={props.step3Errors["companyInsurer"] ? true : false}
+            ErrorMsg={t(props.step3Errors["companyInsurer"])}
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
@@ -65,8 +65,8 @@ const Step1 = (props) => {
             onChange={(e) => {
               props.onChange(e.target.name, e.target.value);
             }}
-            error={props.step3Errors['companyPoliceNum']?true:false}
-            ErrorMsg={t(props.step3Errors['companyPoliceNum'])}
+            error={props.step3Errors["companyPoliceNum"] ? true : false}
+            ErrorMsg={t(props.step3Errors["companyPoliceNum"])}
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4} sx={{ marginTop: "9px" }}>
@@ -85,8 +85,8 @@ const Step1 = (props) => {
                 moment(e).format("YYYY-MM-DDThh:mm:ss")
               );
             }}
-            error={props.step3Errors['insuranceExpDate']?true:false}
-            ErrorMsg={props.step3Errors['insuranceExpDate']}
+            error={props.step3Errors["insuranceExpDate"] ? true : false}
+            ErrorMsg={props.step3Errors["insuranceExpDate"]}
           ></Datepicker>
           <div className="borderbottom"></div>
         </Grid>
@@ -96,10 +96,10 @@ const Step1 = (props) => {
             name="companyRC"
             required={true}
             label="companyRC"
-            value={props.step3.companyRC}
+            value={props.step3.companyRC.split("_").slice(1).join("_")}
             onChange={handleFileChange}
-            error={props.step3Errors['companyRC']?true:false}
-            ErrorMsg={props.step3Errors['companyRC']}
+            error={props.step3Errors["companyRC"] ? true : false}
+            ErrorMsg={props.step3Errors["companyRC"]}
           />
         </Grid>
       </Grid>

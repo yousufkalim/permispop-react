@@ -117,7 +117,7 @@ const Instructor = () => {
       Lat: "",
       Lng: "",
     },
-    Dob: new Date("01/01/2000"),
+    Dob: "",
     Pob: "",
     Gender: "",
     Email: "",
@@ -443,9 +443,26 @@ const Instructor = () => {
       } else if (value.length === 0) {
         errorMessage = t("Password cannot be empty");
       }
-    } else {
-      errorMessage = validateSuggest1(name, value);
+    } else if (name === "Dob") {
+      let todayDate = moment().format("YYYY");
+      let selectedDate = moment(value).format("YYYY");
+      console.log("todayDate", todayDate);
+      console.log("selectedDate", selectedDate);
+      if (todayDate - selectedDate > 22) {
+      } else {
+        errorMessage = t("Instructor can’t be younger than 22 years old");
+      }
     }
+    // else if (name === "Phone2") {
+    //   if (step1.Phone === value) {
+    //     errorMessage = t("Phone 2 can’t be the same as the first phone number");
+    //   } else {
+    //   }
+    //   console.log(errorMessage);
+    // }
+    //  else {
+    //   errorMessage = validateSuggest1(name, value);
+    // }
     setStep1Errors({ ...step1Errors, [name]: errorMessage });
     setStep1({ ...step1, [name]: value });
   };
@@ -461,10 +478,10 @@ const Instructor = () => {
 
   const [step2Errors, setStep2Errors] = React.useState({});
   const [step2, setStep2] = React.useState({
-    obtainingdate: new Date(),
-    validitiyDate: new Date(),
-    DateAuthorization: new Date(),
-    ExpirationDate: new Date(),
+    obtainingdate: "",
+    validitiyDate: "",
+    DateAuthorization: "",
+    ExpirationDate: "",
     licenceNo: "",
     deliveryPlace: "",
     issuingAuthority: "",
@@ -711,7 +728,7 @@ const Instructor = () => {
   const [step3, setStep3] = React.useState({
     companyInsurer: "",
     companyPoliceNum: "",
-    insuranceExpDate: new Date(),
+    insuranceExpDate: "",
     companyRC: "",
   });
 
@@ -897,10 +914,10 @@ const Instructor = () => {
     Gearbox: "",
     Insurer: "",
     PoliceNum: "",
-    VehicleInsurerStartDate: new Date(),
-    VehicleInsurerEndDate: new Date(),
-    TechStartDate: new Date(),
-    TechEndDate: new Date(),
+    VehicleInsurerStartDate: "",
+    VehicleInsurerEndDate: "",
+    TechStartDate: "",
+    TechEndDate: "",
     PhotoPath: "",
     RegCertificatefront: "",
     RegCertificateback: "",
@@ -1636,6 +1653,7 @@ const Instructor = () => {
                       customWidth1="100%"
                       height="48px"
                       height2="48px"
+                      color="#219D7B"
                       onClick={
                         activeStep === steps.length - 1
                           ? handleSubmit

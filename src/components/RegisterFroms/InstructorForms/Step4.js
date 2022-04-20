@@ -47,7 +47,7 @@ const style = {
 };
 
 const Step4 = (props) => {
-  const { i18n , t } = useTranslation();
+  const { i18n, t } = useTranslation();
   const [allMakes, setAllMakes] = useState([]);
   const [excludingMakes, setExcludingMakes] = useState([]);
   const [allModels, setAllModels] = useState([]);
@@ -82,7 +82,6 @@ const Step4 = (props) => {
       ControlTechImgPath: "",
       TechnicalControlCheck: "",
       checked: false,
-
     });
     setIsEdit(false);
     setAddVehicle(true);
@@ -532,7 +531,7 @@ const Step4 = (props) => {
                 name="PhotoPath"
                 required={true}
                 label="PhotoPath"
-                value={props.step4.PhotoPath}
+                value={props.step4.PhotoPath.split("_").slice(1).join("_")}
                 onChange={handleFileChange}
                 error={props.step4Errors["PhotoPath"] ? true : false}
                 ErrorMsg={props.step4Errors["PhotoPath"]}
@@ -544,7 +543,9 @@ const Step4 = (props) => {
                 required={true}
                 label="RegCertificatefront"
                 name="RegCertificatefront"
-                value={props.step4.RegCertificatefront}
+                value={props.step4.RegCertificatefront.split("_")
+                  .slice(1)
+                  .join("_")}
                 onChange={handleFileChange}
                 error={props.step4Errors["RegCertificatefront"] ? true : false}
                 ErrorMsg={props.step4Errors["RegCertificatefront"]}
@@ -556,7 +557,9 @@ const Step4 = (props) => {
                 required={true}
                 label="RegCertificateback"
                 name="RegCertificateback"
-                value={props.step4.RegCertificateback}
+                value={props.step4.RegCertificateback.split("_")
+                  .slice(1)
+                  .join("_")}
                 onChange={handleFileChange}
                 error={props.step4Errors["RegCertificateback"] ? true : false}
                 ErrorMsg={props.step4Errors["RegCertificateback"]}
@@ -568,86 +571,102 @@ const Step4 = (props) => {
                 required={true}
                 name="GreenCardImgPath"
                 label="GreenCardImgPath"
-                value={props.step4.GreenCardImgPath}
+                value={props.step4.GreenCardImgPath.split("_")
+                  .slice(1)
+                  .join("_")}
                 onChange={handleFileChange}
                 error={props.step4Errors["GreenCardImgPath"] ? true : false}
                 ErrorMsg={props.step4Errors["GreenCardImgPath"]}
               />
             </Grid>
-            
           </Grid>
           <div className="termsConditionsCheckboxContainer">
-        <div className="termsConditionsCheckbox">
-          <Checkbox
-            name="TechnicalControlCheck"
-            className="checkbox"
-            onClick={(e) =>  props.onChange('checked', !props.step4.checked)}
-          />
-          <Typography variant="body1" className="termsConditionsCheckboxTitle">
-          {t("Technical Control if any?")}
-          </Typography>
-        </div>
-      </div>
-      {props.step4.checked ? (
-        <div>
-                    <Divider width="100%" borderColor="#D5E4E8" margin="3% 0px 2% 0px" />
-          <Typography className="Heading1">{t("Technical Control")}</Typography>
-          <Divider width="100%" borderColor="#D5E4E8" margin="2% 0px 3% 0px" />
-        <Grid container spacing={4}>
-        <Grid item xs={12} sm={12} md={4}>
-          <Datepicker
-            label={t("Date of Technical Control")}
-            name="TechStartDate"
-            padding="20px 0 0 0px !important"
-            width="100% !important"
-            value={props.step4.TechStartDate}
-            maxDate={moment()}
-            onChange={(e) => {
-              props.onChange(
-                "TechStartDate",
-                moment(e).format("YYYY-MM-DDThh:mm:ss")
-              );
-            }}
-            error={props.step4Errors["TechStartDate"] ? true : false}
-            ErrorMsg={props.step4Errors["TechStartDate"]}
-          ></Datepicker>
-          <div className="borderbottom"></div>
-        </Grid>
-        <Grid item xs={12} sm={12} md={4}>
-          <Datepicker
-            label={t("End Date")}
-            name="TechEndDate"
-            padding="20px 0 0 0px !important"
-            width="100% !important"
-            value={props.step4.TechEndDate}
-            minDate={moment()}
-            onChange={(e) => {
-              props.onChange(
-                "TechEndDate",
-                moment(e).format("YYYY-MM-DDThh:mm:ss")
-              );
-            }}
-            error={props.step4Errors["TechEndDate"] ? true : false}
-            ErrorMsg={props.step4Errors["TechEndDate"]}
-          ></Datepicker>
-          <div className="borderbottom"></div>
-        </Grid>
-        <Grid item xs={12} sm={12} md={4}>
-              <FilePicker
-                title={t("Scan and Upload your CT")}
-                name="ControlTechImgPath"
-                label="ControlTechImgPath"
-                value={props.step4.ControlTechImgPath}
-                onChange={handleFileChange}
-                // error={props.step4Errors['ControlTechImgPath']?true:false}
-                // ErrorMsg={props.step4Errors['ControlTechImgPath']}
+            <div className="termsConditionsCheckbox">
+              <Checkbox
+                name="TechnicalControlCheck"
+                className="checkbox"
+                onClick={(e) => props.onChange("checked", !props.step4.checked)}
               />
-            </Grid>
-      </Grid>
-      </div>
-      ) : (
-        ""
-      )}
+              <Typography
+                variant="body1"
+                className="termsConditionsCheckboxTitle"
+              >
+                {t("Technical Control if any?")}
+              </Typography>
+            </div>
+          </div>
+          {props.step4.checked ? (
+            <div>
+              <Divider
+                width="100%"
+                borderColor="#D5E4E8"
+                margin="3% 0px 2% 0px"
+              />
+              <Typography className="Heading1">
+                {t("Technical Control")}
+              </Typography>
+              <Divider
+                width="100%"
+                borderColor="#D5E4E8"
+                margin="2% 0px 3% 0px"
+              />
+              <Grid container spacing={4}>
+                <Grid item xs={12} sm={12} md={4}>
+                  <Datepicker
+                    label={t("Date of Technical Control")}
+                    name="TechStartDate"
+                    padding="20px 0 0 0px !important"
+                    width="100% !important"
+                    value={props.step4.TechStartDate}
+                    maxDate={moment()}
+                    onChange={(e) => {
+                      props.onChange(
+                        "TechStartDate",
+                        moment(e).format("YYYY-MM-DDThh:mm:ss")
+                      );
+                    }}
+                    error={props.step4Errors["TechStartDate"] ? true : false}
+                    ErrorMsg={props.step4Errors["TechStartDate"]}
+                  ></Datepicker>
+                  <div className="borderbottom"></div>
+                </Grid>
+                <Grid item xs={12} sm={12} md={4}>
+                  <Datepicker
+                    label={t("End Date")}
+                    name="TechEndDate"
+                    padding="20px 0 0 0px !important"
+                    width="100% !important"
+                    value={props.step4.TechEndDate}
+                    minDate={moment()}
+                    onChange={(e) => {
+                      props.onChange(
+                        "TechEndDate",
+                        moment(e).format("YYYY-MM-DDThh:mm:ss")
+                      );
+                    }}
+                    error={props.step4Errors["TechEndDate"] ? true : false}
+                    ErrorMsg={props.step4Errors["TechEndDate"]}
+                  ></Datepicker>
+                  <div className="borderbottom"></div>
+                </Grid>
+                <Grid item xs={12} sm={12} md={4}>
+                  <FilePicker
+                    title={t("Scan and Upload your CT")}
+                    name="ControlTechImgPath"
+                    label="ControlTechImgPath"
+                    value={props.step4.ControlTechImgPath.split("_")
+                      .slice(1)
+                      .join("_")}
+                    onChange={handleFileChange}
+                    // error={props.step4Errors['ControlTechImgPath']?true:false}
+                    // ErrorMsg={props.step4Errors['ControlTechImgPath']}
+                  />
+                </Grid>
+              </Grid>
+            </div>
+          ) : (
+            ""
+          )}
           <div
             style={{
               display: "flex",
@@ -665,29 +684,26 @@ const Step4 = (props) => {
               height2="48px"
               onClick={isEdit ? handleSaveEditVehicle : handleAdd}
               // disabled={
-                // props.step4Errors.FirstRegistration ===null
-                // && props.step4Errors.Brand===null
-                // && props.step4Errors.Model===null
-                // && props.step4Errors.NumPlate===null
-                // && props.step4Errors.Color===null
-                // && props.step4Errors.Energy===null
-                // && props.step4Errors.Gearbox===null
-                // && props.step4Errors.Insurer===null
-                // && props.step4Errors.PoliceNum===null
-                // && props.step4Errors.VehicleInsurerStartDate===null
-                // && props.step4Errors.VehicleInsurerEndDate===null
-                // && props.step4Errors.PhotoPath===null
-                // && props.step4Errors.RegCertificatefront===null
-                // && props.step4Errors.RegCertificateback===null
-                // && props.step4Errors.GreenCardImgPath===null
-
-
-
+              // props.step4Errors.FirstRegistration ===null
+              // && props.step4Errors.Brand===null
+              // && props.step4Errors.Model===null
+              // && props.step4Errors.NumPlate===null
+              // && props.step4Errors.Color===null
+              // && props.step4Errors.Energy===null
+              // && props.step4Errors.Gearbox===null
+              // && props.step4Errors.Insurer===null
+              // && props.step4Errors.PoliceNum===null
+              // && props.step4Errors.VehicleInsurerStartDate===null
+              // && props.step4Errors.VehicleInsurerEndDate===null
+              // && props.step4Errors.PhotoPath===null
+              // && props.step4Errors.RegCertificatefront===null
+              // && props.step4Errors.RegCertificateback===null
+              // && props.step4Errors.GreenCardImgPath===null
 
               //   && props.step4.checked===false
-              //   || props.step4Errors.TechStartDate===null 
-              //   && props.step4Errors.TechEndDate===null 
-              //   && props.step4Errors.ControlTechImgPath===null 
+              //   || props.step4Errors.TechStartDate===null
+              //   && props.step4Errors.TechEndDate===null
+              //   && props.step4Errors.ControlTechImgPath===null
               //   && props.step4Errors.FirstRegistration ===null
               //   && props.step4Errors.Brand===null
               //   && props.step4Errors.Model===null
@@ -703,13 +719,12 @@ const Step4 = (props) => {
               //   && props.step4Errors.RegCertificatefront===null
               //   && props.step4Errors.RegCertificateback===null
               //   && props.step4Errors.GreenCardImgPath===null
-                
-              //     ? 
+
+              //     ?
               //     false
               //     : true
               // }
             ></Button>
-           
           </div>
         </Box>
       </Modal>

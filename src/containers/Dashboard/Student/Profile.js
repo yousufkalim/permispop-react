@@ -33,7 +33,7 @@ const Profile = (props) => {
   };
 
   const [oldPassword, setOldPassword] = useState("");
-  const { i18n , t } = useTranslation();
+  const { i18n, t } = useTranslation();
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [user, setUser] = useState();
@@ -66,7 +66,7 @@ const Profile = (props) => {
 
   const changePassword = async () => {
     setDisabled(true);
-    if (newPassword != "" && confirmPassword != "" && oldPassword != "") {
+    if (newPassword !== "" && confirmPassword !== "" && oldPassword !== "") {
       if (newPassword === confirmPassword) {
         await API(
           "post",
@@ -90,7 +90,7 @@ const Profile = (props) => {
     }
   };
   const updateProfile = async () => {
-    if (description != "") {
+    if (description !== "") {
       await API("post", `Profile/updateByAdminRequest`, {
         Description: description,
         UpdateField: updatefield,
@@ -111,7 +111,7 @@ const Profile = (props) => {
       <Grid container spacing={1} className="maindiv">
         <Grid md={3} className="leftprofilediv">
           <ProfileImage
-            src={user ? (user.photo ? user.photo : { Studentprofile }) : ""}
+            src={user ? (user.photo ? user.photo : Studentprofile) : ""}
           ></ProfileImage>
         </Grid>
 
@@ -127,7 +127,7 @@ const Profile = (props) => {
             languages={
               user ? (user.spokenLanguage ? user.spokenLanguage : []) : []
             }
-            ratings={ratings ? ratings : ""}
+            ratings={ratings ? (ratings === "NaN" ? t("N/A") : ratings) : ""}
           ></ProfileDetails>
           <div>
             <Grid className="ProfileDetails">
@@ -135,7 +135,7 @@ const Profile = (props) => {
               <Divider className="ProfileDivider"></Divider>
             </Grid>
             <Typography className="AboutHeading">
-             {t("Contact Information")}
+              {t("Contact Information")}
             </Typography>
 
             <Grid container spacing={1} className="formdata">
@@ -159,16 +159,15 @@ const Profile = (props) => {
                 {t("Gender")}:
               </Grid>
               <Grid sx={12} sm={12} md={2} className="RoleInformation">
-              {user
-                ? user.gender === "Male"
-                  ? t("Male")
-                  : user.gender === "Female"
-                  ? t("Female")
-                  : user.gender === "Other"
-                  ? t("Other")
-                  : "N/A"
-                : ""
-                }
+                {user
+                  ? user.gender === "Male"
+                    ? t("Male")
+                    : user.gender === "Female"
+                    ? t("Female")
+                    : user.gender === "Other"
+                    ? t("Other")
+                    : "N/A"
+                  : ""}
               </Grid>
             </Grid>
             <Grid container spacing={1} className="formdata">
@@ -176,12 +175,11 @@ const Profile = (props) => {
                 {t("Date of Birth")}:
               </Grid>
               <Grid sx={12} sm={12} md={2} className="RoleInformation">
-              {user
-                ? user.dOB
-                  ? moment(user.dOB).format("DD-MM-YYYY")
-                  : "N/A"
-                : ""
-              }
+                {user
+                  ? user.dOB
+                    ? moment(user.dOB).format("DD-MM-YYYY")
+                    : "N/A"
+                  : ""}
               </Grid>
             </Grid>
             <Grid container spacing={1} className="formdata">
@@ -231,7 +229,7 @@ const Profile = (props) => {
             </Typography>
             <Grid container spacing={1} className="formdata">
               <Grid sx={12} sm={12} md={2} className="Information">
-                {t("NESPHF")}:
+                {t("NEPH")}:
               </Grid>
               <Grid sx={12} sm={12} md={2} className="RoleInformation">
                 {user ? (user.nEPH ? user.nEPH : "N/A") : ""}
