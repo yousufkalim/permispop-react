@@ -8,13 +8,14 @@ import Grid from "@mui/material/Grid";
 import Divider from "../../components/Common/Divider";
 import RegisterStudent from "../../assets/images/RegisterStudent.svg";
 import RegisterProfessional from "../../assets/images/RegisterProfessional.svg";
+import DrivingSchool from "../../assets/images/DrivingSchool.svg";
+import RentalCar from "../../assets/images/RentalCar.svg";
 import { useHistory } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
-
 export default function RegisterModal(props) {
   const [register, setRegister] = React.useState(true);
-  const { i18n , t } = useTranslation();
+  const { i18n, t } = useTranslation();
   const history = useHistory();
   const handleStudentRegister = () => history.push("/register/student");
   const handleInstructorRegister = () => history.push("/register/instructor");
@@ -139,7 +140,7 @@ export default function RegisterModal(props) {
                   <CardMedia
                     className="RegisterImg"
                     component="img"
-                    image={RegisterStudent}
+                    image={RegisterProfessional}
                     alt="services"
                   />
                   <Typography
@@ -183,7 +184,7 @@ export default function RegisterModal(props) {
                   <CardMedia
                     className="RegisterImg"
                     component="img"
-                    image={RegisterProfessional}
+                    image={DrivingSchool}
                     alt="services"
                   />
                   <Typography
@@ -228,7 +229,7 @@ export default function RegisterModal(props) {
                   <CardMedia
                     className="RegisterImg"
                     component="img"
-                    image={RegisterProfessional}
+                    image={RentalCar}
                     alt="services"
                   />
                   <Typography
@@ -236,7 +237,7 @@ export default function RegisterModal(props) {
                     sx={{
                       mt: 3,
                       color: "#2F363D",
-                      fontSize: "15px",
+                      fontSize: "14px",
                       fontWeight: "500",
                     }}
                   >
