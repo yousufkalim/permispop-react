@@ -15,6 +15,10 @@ import StudentRegister from "../containers/RegisterPage/Student";
 import RentalCarRegister from "../containers/RegisterPage/RentalCar";
 import InstructorRegister from "../containers/RegisterPage/Instructor";
 import DrivingSchoolRegister from "../containers/RegisterPage/DrivingSchool";
+// Privacy&Policy
+import PrivacyPolicy from "../containers/LandingPage/Privacy&Policy";
+// Terms&Condition
+import TermsCondition from "../containers/LandingPage/Terms&condition";
 import jwt_decode from "jwt-decode";
 import { Base64 } from "js-base64";
 const queryParams = new URLSearchParams(window.location.search);
@@ -112,6 +116,16 @@ const Index = (props) => {
                 component={RentalCarRegister}
               />
               <Route exact path="/register" component={StudentRegister} />
+              <Route
+                exact
+                path="/home/terms&condition"
+                component={TermsCondition}
+              />
+              <Route
+                exact
+                path="/home/privacy&policy"
+                component={PrivacyPolicy}
+              />
               <Redirect from="/" to="/" />
             </>
           )}
