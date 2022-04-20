@@ -138,7 +138,7 @@ const Instructor = () => {
 
   const step1Schema = {
     Firstname: Joi.string()
-      .min(3)
+      .min(2)
       .required()
       .label(t("First Name"))
       // .message(`${label} hjsjdhsj`),
@@ -161,7 +161,7 @@ const Instructor = () => {
       }),
 
     Surname: Joi.string()
-      .min(3)
+      .min(2)
       .required()
       .label("Surname")
       .error((errors) => {
@@ -1454,8 +1454,11 @@ const Instructor = () => {
   const getInstructorForm = async () => {
     await API("get", "CMS/GetPageData?page=register")
       .then((getInstructorFormResponse) => {
-      console.log("🚀 ~ file: Instructor.js ~ line 1457 ~ .then ~ getInstructorFormResponse", getInstructorFormResponse)
-        
+        console.log(
+          "🚀 ~ file: Instructor.js ~ line 1457 ~ .then ~ getInstructorFormResponse",
+          getInstructorFormResponse
+        );
+
         const instructorFormData = getInstructorFormResponse.data.data.find(
           (item) => item.sectionName === "Instructor"
         );

@@ -109,6 +109,7 @@ i18n
           "Delete Availability": "Delete Availability",
           "Add Event": "Add Event",
           "Meetup point": "Meetup point",
+          "Meetup points": "Meetup points",
           Delete: "Delete",
           "Serial Number": "Serial Number",
           "Business Store": "Business Store",
@@ -164,6 +165,7 @@ i18n
           "Interval /KM": "Interval /KM",
           Manual: "Manual",
           Others: "Others",
+          others: "Others",
           Other: "Other",
           Role: "Role",
           "Car Rental Agent": "Car Rental Agent",
@@ -752,6 +754,49 @@ i18n
       },
       fr: {
         translations: {
+          "Instructor Registered Successfully":
+            "Votre profil instructeur a été créé avec succès !",
+
+          "Old password": "Ancien mot de passe",
+          "New password": "Nouveau mot de passe",
+          "Enter password": "Entrer le mot de passe",
+          "Confirm password": "Confirmez le mot de passe",
+
+          '"Email" must be a valid email':
+            "L'e-mail doit être un e-mail valide",
+          '"Email" is not allowed to be empty':
+            "L'e-mail ne doit pas être vide",
+
+          '"Insurer" length must be at least 2 characters long':
+            "L’assureur ne peut pas être vide",
+
+          '"Surname" length must be at least 2 characters long':
+            "Le nom doit être de minimum 2 caractères",
+
+          '"Firstname" length must be at least 2 characters long':
+            "Le prénom doit être de minimum 2 caractères",
+          '"Insurance Company" length must be at least 3 characters long':
+            "La longueur de la compagnie d'assurance doit comporter au moins 3 caractères",
+          '"Téléphone" length must be 10 characters long':
+            "Le téléphone doit être de minimum 10 caractères",
+          '"Phone" length must be 10 characters long':
+            "Le téléphone doit être de minimum 10 caractères",
+          "Trade Name must be atleast 3 alphabets Longs!":
+            "Le nom commercial doit comporter au moins 3 lettres de l'alphabet Longs !",
+          '"VehicleInsurer" length must be at least 3 characters long':
+            "La longueur de l'assureur du véhicule doit comporter au moins 3 caractères",
+          '"CompanyInsurer" length must be at least 3 characters long':
+            "La longueur de l'assureur de la société doit comporter au moins 3 caractères",
+          "SurName must be atleast 2 alphabets Longs!":
+            "Le nom doit être de minimum 2 caractères",
+          '"Siret" length must be 14 characters long':
+            "La longueur du N° Siret doit être de 14 caractères",
+          '"Siret Number" length must be at least 14 characters long':
+            "La longueur du N° Siret doit être de 14 caractères",
+          '"siret No." length must be 14 characters long':
+            "Le n° de SIRET doit être de 14 caractères",
+          "Not a Valid Email": "Pas un e-mail valide",
+          "Not a Valid E-mail": "Pas un e-mail valide",
           // Driving School validation translation
 
           "Surname must be atleast 3 alphabets Longs!":
@@ -947,7 +992,7 @@ i18n
           "Gear Box": "Boîte de vitesses",
           "invalid date": "date invalide",
           "Minimum 3 rows": "Minimum 3 rangées",
-          Rankings: "Classements",
+          Rankings: "Évaluations",
           "Instructure On Map": "Instructure sur la carte",
           "Instructor On Map": "Instructeur sur carte",
           "Find Instructure": "Trouver une structure",
@@ -1001,6 +1046,7 @@ i18n
           "Add Availibity": "Ajouter une disponibilité",
           Week: "La semaine",
           "Meetup point": "Point de rencontre",
+          "Meetup points": "Points de rencontre",
           "Serial Number": "Numéro de série",
           "Insurance Details": "Détails de l'assurance",
           "Would like to delete your availability?":
@@ -1024,11 +1070,15 @@ i18n
           reservations: "réservations",
           "Interval /KM": "Intervalle /KM",
           Others: "Autres",
+          others: "Autres",
           Other: "Autre",
           // "Pending request":"Demande en attente",
           // "pending request":"Demande en attente",
           // "pending Request":"Demande en attente",
           "Pending Request": "Demande en attente",
+          "Pending request": "Demande en attente",
+          "pending request": "Demande en attente",
+          "pending Request": "Demande en attente",
           "Start date": "Date de début",
           "End date": "Date de fin",
           "Filter by Date": "Filtrer par date",
@@ -1052,7 +1102,7 @@ i18n
           "II - Apprehend": "II - Appréhender",
           "I - Practice": "I - Entraine toi",
           "No Language/s selected": "Aucune langue/s sélectionnée",
-          "Edit Profile": "Editer le profil",
+          "Edit Profile": "Mettre à jour mon profil",
           About: "Sur",
           "Contact Information": "Coordonnées",
           Finish: "Finir",
@@ -1239,7 +1289,7 @@ i18n
           "Insurance Detail": "Détail de l'assurance",
           "My Learning": "Mon apprentissage",
           "My Availability": "Mes disponibilités",
-          Instructor: "Enseignant",
+          Instructor: "Instructeur ",
           Instructors: "Enseignants de cette auto-école",
           "Book now": "Réserver maintenant",
           "Book with School": "Réserver avec l'auto-école",
@@ -1314,7 +1364,7 @@ i18n
           "Upload your Kbls": "Télécharge ton KBIS",
           "Upload your KBLS": "Télécharge ton KBIS",
           "Insurance Company": "Compagnie d'assurance",
-          Insurer: "Assurance",
+          Insurer: "Assureur",
           "Police Number": "N° de Police",
           "Upload your RC Pro": "Télécharge ton assurance RC Pro",
           "Expiration date of your Insurance":
@@ -1861,7 +1911,7 @@ i18n
           CarRentalAgent: "Agent de location de voitures",
           "View larger map": "Agrandir le plan",
 
-          "Change Password": "Changeur le mot de passe",
+          "Change Password": "Changer mon mot de passe",
           "Request Profile Update": "Demander la mise à jour de mon profil",
           "Update Vehicle": "Modifier le véhicule",
           Profile: "profil",

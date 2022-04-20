@@ -17,6 +17,7 @@ import TextareaAutosize from "@mui/material/TextareaAutosize";
 import API from "../../../api";
 import { toast } from "react-toastify";
 import { useTranslation } from "react-i18next";
+import moment from "moment";
 
 const Profile = () => {
   const { i18n , t } = useTranslation();
@@ -164,7 +165,16 @@ const Profile = () => {
               {t("Gender")}:
             </Grid>
             <Grid sx={12} sm={12} md={2} className="RoleInformation">
-              {user ? (user.gender ? user.gender : "N/A") : ""}
+            {user
+                ? user.gender === "Male"
+                  ? t("Male")
+                  : user.gender === "Female"
+                  ? t("Female")
+                  : user.gender === "Other"
+                  ? t("Other")
+                  : "N/A"
+                : ""
+                }
             </Grid>
           </Grid>
           <Grid container spacing={1} className="formdata">
@@ -172,7 +182,12 @@ const Profile = () => {
               {t("Date of Birth")}:
             </Grid>
             <Grid sx={12} sm={12} md={2} className="RoleInformation">
-              {user ? (user.dOB ? user.dOB : "N/A") : ""}
+            {user
+                ? user.dOB
+                  ? moment(user.dOB).format("DD-MM-YYYY")
+                  : "N/A"
+                : ""
+              }
             </Grid>
           </Grid>
           <Grid container spacing={1} className="formdata">
@@ -199,7 +214,7 @@ const Profile = () => {
               {user ? (user.complement ? user.complement : "N/A") : ""}
             </Grid>
           </Grid>
-          <Grid container spacing={1} className="formdata">
+          {/* <Grid container spacing={1} className="formdata">
             <Grid sx={12} sm={12} md={2} className="Information">
               {t("Zip Code")}:
             </Grid>
@@ -214,7 +229,7 @@ const Profile = () => {
             <Grid sx={12} sm={12} md={2} className="RoleInformation">
               {user ? (user.city ? user.city : "N/A") : ""}
             </Grid>
-          </Grid>
+          </Grid> */}
           <Divider className="ProfileDivider" />
 
           <Typography className="AboutHeading">{t("Contact Information")}</Typography>
@@ -224,7 +239,7 @@ const Profile = () => {
               instructorMeetupPointInfos.map((item, index) => {
                 return (
                   <>
-                    <Grid sx={12} sm={12} md={4} className="Information">
+                    <Grid sx={12} sm={12} md={2} className="Information">
                       {t("Meetup point")} {index + 1}:
                     </Grid>
                     <Grid sx={12} sm={12} md={4} className="RoleInformation">
@@ -253,7 +268,7 @@ const Profile = () => {
                 name="oldPassword"
                 value={oldPassword}
                 type="password"
-                placeholder="Enter password"
+                placeholder={t("Enter password")}
                 sx={{ marginBottom: "2% !important" }}
                 onChange={(e) => {
                   setOldPassword(e.target.value);
@@ -264,7 +279,7 @@ const Profile = () => {
                 name="newPassword"
                 value={newPassword}
                 type="password"
-                placeholder="Enter password"
+                placeholder={t("Enter password")}
                 onChange={(e) => {
                   setNewPassword(e.target.value);
                 }}
@@ -274,7 +289,7 @@ const Profile = () => {
                 name="confirmPassword"
                 type="password"
                 value={confirmPassword}
-                placeholder="Enter password"
+                placeholder={t("Enter password")}
                 onChange={(e) => setConfirmPassword(e.target.value)}
               />
               <div style={{ marginTop: "2%" }}>

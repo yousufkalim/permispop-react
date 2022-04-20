@@ -179,9 +179,9 @@ const Step4 = ({ step4, setStep4, onChange, step4Errors}) => {
             name="Gender"
             placeholder="Gender"
             MenuItem={[
-              { name: "Male", value: "male" },
-              { name: "Female", value: "female" },
-              { name: "Others", value: "others" },
+              { name: t("Male"), value: "male" },
+              { name: t("Female"), value: "female" },
+              { name: t("Others"), value: "others" },
             ]}
             onChange={(e) => {
               onChange("Gender", e.target.value);

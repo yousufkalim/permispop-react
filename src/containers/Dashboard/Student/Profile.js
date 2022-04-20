@@ -17,6 +17,7 @@ import TextareaAutosize from "@mui/material/TextareaAutosize";
 import API from "../../../api";
 import { toast } from "react-toastify";
 import { useTranslation } from "react-i18next";
+import moment from "moment";
 
 const Profile = (props) => {
   const style = {
@@ -158,7 +159,16 @@ const Profile = (props) => {
                 {t("Gender")}:
               </Grid>
               <Grid sx={12} sm={12} md={2} className="RoleInformation">
-                {user ? (user.gender ? user.gender : "N/A") : ""}
+              {user
+                ? user.gender === "Male"
+                  ? t("Male")
+                  : user.gender === "Female"
+                  ? t("Female")
+                  : user.gender === "Other"
+                  ? t("Other")
+                  : "N/A"
+                : ""
+                }
               </Grid>
             </Grid>
             <Grid container spacing={1} className="formdata">
@@ -166,7 +176,12 @@ const Profile = (props) => {
                 {t("Date of Birth")}:
               </Grid>
               <Grid sx={12} sm={12} md={2} className="RoleInformation">
-                {user ? (user.dOB ? user.dOB : "N/A") : ""}
+              {user
+                ? user.dOB
+                  ? moment(user.dOB).format("DD-MM-YYYY")
+                  : "N/A"
+                : ""
+              }
               </Grid>
             </Grid>
             <Grid container spacing={1} className="formdata">
@@ -262,7 +277,7 @@ const Profile = (props) => {
                 name="oldPassword"
                 value={oldPassword}
                 type="password"
-                placeholder="Enter password"
+                placeholder={t("Enter password")}
                 sx={{ marginBottom: "2% !important" }}
                 onChange={(e) => {
                   setOldPassword(e.target.value);
@@ -273,7 +288,7 @@ const Profile = (props) => {
                 name="newPassword"
                 value={newPassword}
                 type="password"
-                placeholder="Enter password"
+                placeholder={t("Enter password")}
                 onChange={(e) => {
                   setNewPassword(e.target.value);
                 }}
@@ -283,7 +298,7 @@ const Profile = (props) => {
                 name="confirmPassword"
                 type="password"
                 value={confirmPassword}
-                placeholder="Enter password"
+                placeholder={t("Enter password")}
                 onChange={(e) => setConfirmPassword(e.target.value)}
               />
               <div style={{ marginTop: "2%" }}>
