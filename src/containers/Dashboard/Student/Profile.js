@@ -32,7 +32,7 @@ const Profile = (props) => {
   };
 
   const [oldPassword, setOldPassword] = useState("");
-  const { i18n , t } = useTranslation();
+  const { i18n, t } = useTranslation();
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [user, setUser] = useState();
@@ -134,7 +134,7 @@ const Profile = (props) => {
               <Divider className="ProfileDivider"></Divider>
             </Grid>
             <Typography className="AboutHeading">
-             {t("Contact Information")}
+              {t("Contact Information")}
             </Typography>
 
             <Grid container spacing={1} className="formdata">

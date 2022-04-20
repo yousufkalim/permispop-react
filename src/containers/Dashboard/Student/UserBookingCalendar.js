@@ -10,11 +10,15 @@ import moment from "moment";
 import { toast } from "react-toastify";
 import { Views } from "react-big-calendar";
 import DropDown from "../../../components/Common/DropDown";
+import { useTranslation } from "react-i18next";
 
 const Calendar = () => {
   const currentDate = moment();
+  const { i18n, t } = useTranslation();
   const [user, setUser] = useState();
   const [selectedInstructor, setSelectedInstructor] = useState();
+  const [drivingSchoolInstructors, setDrivingSchoolInstructors] = useState();
+  const [selectedDSInstructor, setSelectedDSInstructor] = useState();
   const [selectedAvailability, setSelectedAvailability] = useState();
   const [update, setUpdate] = useState(false);
   const [disabled, setdisabled] = useState(false);
@@ -26,6 +30,14 @@ const Calendar = () => {
   const [selectedHours, setSelectedHours] = React.useState(0);
   const [hours, setHours] = React.useState(0);
   const [selectedMins, setSelectedMins] = React.useState("00");
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
+  const [lng, setLng] = useState();
+
+  useEffect(() => {
+    onNavigate(new Date(), "week");
+    setLng(localStorage.getItem("i18nextLng"));
+  }, [localStorage.getItem("i18nextLng")]);
 
   useEffect(() => {
     const userData = JSON.parse(localStorage.getItem("user"));
@@ -34,115 +46,176 @@ const Calendar = () => {
     );
     setUser(userData);
     setSelectedInstructor(selectedInstructor);
-    getBookingData(userData, selectedInstructor);
+    if (startDate != "" || endDate != "") {
+      getBookingData(userData, selectedInstructor);
+    }
   }, [update]);
 
   const getBookingData = async (userData, selectedInstructor) => {
     let allEvents = [];
-
-    // API("get", `Bookings/GetBookingsByStudent?id=${userData.id}`).then(
-    //   async (res) => {
-    //     res.data.data.map((booking) => {
-    //       let date = moment(booking.bookingDate).format("YYYY-MM-DD");
-    //       date = date.split("-");
-    //       let start = booking.startTime.split(":");
-    //       let end = moment(booking.endTime).format("HH:mm");
-    //       end = end.split(":");
-    //       allEvents.push({
-    //         id: booking.id,
-    //         title: "Booking By " + booking.instructorQuestionFifth,
-    //         start: new Date(
-    //           date[0],
-    //           parseInt(date[1]) - 1,
-    //           date[2],
-    //           parseInt(start[0]),
-    //           start[1],
-    //           0
-    //         ),
-    //         end: new Date(
-    //           date[0],
-    //           parseInt(date[1]) - 1,
-    //           date[2],
-    //           parseInt(end[0]),
-    //           end[1],
-    //           0
-    //         ),
-    //         bookingTime:
-    //           booking.startTime +
-    //           " - " +
-    //           moment(booking.endTime).format("HH:mm"),
-    //         status: booking.status,
-    //         meetingPlace: booking.meetingPlace,
-    //         duration: booking.duration,
-    //         vehicleId: booking.vehicleId,
-    //       });
-    //     });
-
-    //   }
-    // );
-    await API(
-      "get",
-      `Availability/GetAvailabilitySetForInstructor/?id=${selectedInstructor.id}&stuid=${userData.id}&lat=${userData.lat}&lng=${userData.lng}&radius=30&distancematch=false`
-    ).then((InsAvailabilitiesRes) => {
-      let meetups = [];
-      let allVehicles = [];
-      let allAvailabilities = [];
-
-      InsAvailabilitiesRes.data.data.map((availability) => {
-        console.log("availability", availability.status);
-        let date = moment(availability.date).format("YYYY-MM-DD");
-        date = date.split("-");
-        let start = availability.startTime.split(":");
-        let end = availability.endTime.split(":");
-        let type = "";
-
-        if (availability.vehicleId.includes("Auto")) {
-          type = "Auto";
-        } else if (availability.vehicleId.includes("Manual")) {
-          type = "Manual";
-        }
-
-        let title = "";
-        if (availability.status === "Available") {
-          title = "Availability By " + availability.createdBy;
-        } else {
-          title = "Booking By " + availability.createdBy;
-        }
-
-        if (end[0] - 12 != start[0]) {
-          allEvents.push({
-            id: availability.id,
-            title: title,
-            start: new Date(
-              date[0],
-              parseInt(date[1]) - 1,
-              date[2],
-              parseInt(start[0]),
-              start[1],
-              0
-            ),
-            end: new Date(
-              date[0],
-              parseInt(date[1]) - 1,
-              date[2],
-              end[0],
-              end[1],
-              0
-            ),
-            startHour: start[0],
-            endHour: end[0],
-            status: availability.status,
-            type: type,
-            meetUp: availability.meetUp,
-            vehicle: availability.vehicleId,
-            instructorId: availability.instructorId,
-            createdBy: availability.createdBy,
+    if (selectedInstructor.role === "DrivingSchool") {
+      await API("get", `Bookings/GetBookingsByStudent?id=${userData.id}`).then(
+        async (res) => {
+          res.data.data.map((booking) => {
+            let date = moment(booking.bookingDate).format("YYYY-MM-DD");
+            date = date.split("-");
+            let start = booking.startTime.split(":");
+            let end = moment(booking.endTime).format("HH:mm");
+            end = end.split(":");
+            allEvents.push({
+              id: booking.id,
+              title: "Booking By " + booking.instructorQuestionFifth,
+              start: new Date(
+                date[0],
+                parseInt(date[1]) - 1,
+                date[2],
+                parseInt(start[0]) + 5,
+                start[1],
+                0
+              ),
+              end: new Date(
+                date[0],
+                parseInt(date[1]) - 1,
+                date[2],
+                end[0],
+                end[1],
+                0
+              ),
+              bookingTime:
+                parseInt(start[0]) +
+                5 +
+                ":" +
+                start[1] +
+                " - " +
+                moment(booking.endTime).format("HH:mm"),
+              status: booking.status,
+              meetingPlace: booking.meetingPlace,
+              duration: booking.duration,
+              vehicleId: booking.vehicleId,
+            });
           });
         }
-      });
+      );
 
-      setBookings(allEvents);
-    });
+      await API(
+        "get",
+        `Availability/GetAvailabilityPlusBookingsSetForInstructor_New?id=${selectedInstructor.id}&start=${startDate}&end=${endDate}`
+      ).then((InsAvailabilitiesRes) => {
+        InsAvailabilitiesRes.data.data.availabilities.map((availability) => {
+          let date = moment(availability.date).format("YYYY-MM-DD");
+          date = date.split("-");
+          let start = availability.startTime.split(":");
+          let end = availability.endTime.split(":");
+          let type = "";
+
+          if (availability.vehicleId.includes("Auto")) {
+            type = "Auto";
+          } else if (availability.vehicleId.includes("Manual")) {
+            type = "Manual";
+          }
+
+          let title = "";
+          if (availability.status === "Available") {
+            title = "Availability By " + availability.createdBy;
+          } else {
+            title = "Booking By " + availability.createdBy;
+          }
+
+          if (availability.status === "Available") {
+            if (end[0] - 12 != start[0]) {
+              allEvents.push({
+                id: availability.id,
+                title: title,
+                start: new Date(
+                  date[0],
+                  parseInt(date[1]) - 1,
+                  date[2],
+                  parseInt(start[0]),
+                  start[1],
+                  0
+                ),
+                end: new Date(
+                  date[0],
+                  parseInt(date[1]) - 1,
+                  date[2],
+                  end[0],
+                  end[1],
+                  0
+                ),
+                startHour: start[0],
+                endHour: end[0],
+                status: availability.status,
+                type: type,
+                meetUp: availability.meetUp,
+                vehicle: availability.vehicleId,
+                instructorId: availability.instructorId,
+                createdBy: availability.createdBy,
+              });
+            }
+          }
+        });
+        setBookings(allEvents);
+      });
+    } else {
+      await API(
+        "get",
+        `Availability/GetAvailabilitySetForInstructor/?id=${selectedInstructor.id}&stuid=${userData.id}&lat=${userData.lat}&lng=${userData.lng}&radius=30&distancematch=false`
+      ).then((InsAvailabilitiesRes) => {
+        InsAvailabilitiesRes.data.data.map((availability) => {
+          let date = moment(availability.date).format("YYYY-MM-DD");
+          date = date.split("-");
+          let start = availability.startTime.split(":");
+          let end = availability.endTime.split(":");
+          let type = "";
+
+          if (availability.vehicleId.includes("Auto")) {
+            type = "Auto";
+          } else if (availability.vehicleId.includes("Manual")) {
+            type = "Manual";
+          }
+
+          let title = "";
+          if (availability.status === "Available") {
+            title = "Availability By " + availability.createdBy;
+          } else {
+            title = "Booking By " + availability.createdBy;
+          }
+
+          if (end[0] - 12 != start[0]) {
+            allEvents.push({
+              id: availability.id,
+              title: title,
+              start: new Date(
+                date[0],
+                parseInt(date[1]) - 1,
+                date[2],
+                parseInt(start[0]),
+                start[1],
+                0
+              ),
+              end: new Date(
+                date[0],
+                parseInt(date[1]) - 1,
+                date[2],
+                end[0],
+                end[1],
+                0
+              ),
+              startHour: start[0],
+              endHour: end[0],
+              status: availability.status,
+              type: type,
+              meetUp: availability.meetUp,
+              vehicle: availability.vehicleId,
+              instructorId: availability.instructorId,
+              createdBy: availability.createdBy,
+            });
+          }
+        });
+
+        setBookings(allEvents);
+      });
+    }
   };
 
   //Add booking modal handles
@@ -160,7 +233,6 @@ const Calendar = () => {
 
   //handle Event click
   const handleEventClick = (e) => {
-    console.log("e", e);
     if (moment(e.start).isAfter(new Date())) {
       if (e.status === "Available" || e.status === "available") {
         let count = parseInt(e.endHour) - parseInt(e.startHour);
@@ -196,8 +268,8 @@ const Calendar = () => {
     let end = moment(selectedBooking.end).format("HH:mm");
     start = start.split(":");
     end = end.split(":");
-    start = parseInt(start[0]) + ":" + start[1];
-    end = parseInt(end[0]) + ":" + end[1];
+    start = parseInt(start[0]) - 5 + ":" + start[1];
+    end = parseInt(end[0]) - 5 + ":" + end[1];
 
     await API(
       "delete",
@@ -216,37 +288,69 @@ const Calendar = () => {
   };
 
   const handleAddBooking = async () => {
-    var endDate = moment(selectedAvailability.start).add(
-      parseInt(duration) + 5,
-      "hours"
-    );
+    setdisabled(true);
 
-    await API("post", `Bookings`, {
-      VehicleId: selectedAvailability.vehicle,
-      bookingDate: moment(selectedAvailability.start).add(5, "hours"),
-      drivingSchoolId: "",
-      duration: duration,
-      endTime: endDate,
-      instructionId: selectedAvailability.instructorId,
-      instructorAbsence: "",
-      instructorComments: "",
-      instructorComplaintReson: "",
-      instructorDelay: "",
-      instructorQuestionFifth: selectedAvailability.createdBy,
-      meetingPlace: selectedAvailability.meetUp,
-      ratingByInstructor: "",
-      ratingByStudent: "",
-      startTime: moment(selectedAvailability.start).format("HH:mm"),
-      status: "In progress",
-      studentAbsence: "",
-      studentComplaintReson: "",
-      studentDelay: "",
-      studentId: user.id,
-    }).then((res) => {
+    if (
+      parseInt(selectedAvailability.startHour) + parseInt(duration) >=
+      parseInt(selectedAvailability.endHour)
+    ) {
+      toast.warning("Booking time cannot exceed availability end time!");
+      setdisabled(false);
+    } else {
+      var endDate = moment(selectedAvailability.start).add(
+        parseInt(duration),
+        "hours"
+      );
+
+      var startDate = moment(selectedAvailability.start).subtract(5, "hours");
+
+      await API("post", `Bookings`, {
+        VehicleId: selectedAvailability.vehicle,
+        bookingDate: moment(selectedAvailability.start),
+        drivingSchoolId:
+          selectedInstructor.role === "DrivingSchool"
+            ? selectedInstructor.id
+            : "",
+        duration: duration,
+        endTime: endDate,
+        instructionId: selectedAvailability.instructorId,
+        instructorAbsence: "",
+        instructorComments: "",
+        instructorComplaintReson: "",
+        instructorDelay: "",
+        instructorQuestionFifth: selectedAvailability.createdBy,
+        meetingPlace: selectedAvailability.meetUp,
+        ratingByInstructor: "",
+        ratingByStudent: "",
+        startTime: moment(startDate).format("HH:mm"),
+        status: "In progress",
+        studentAbsence: "",
+        studentComplaintReson: "",
+        studentDelay: "",
+        studentId: user.id,
+      })
+        .then((res) => {
+          setUpdate(!update);
+          toast.success("Booking Added successfully!");
+          handleBookingClose();
+          setdisabled(false);
+        })
+        .catch((err) => {
+          console.log("err", err);
+          setdisabled(false);
+        });
+    }
+  };
+
+  const onNavigate = (date, view) => {
+    let start, end;
+    if (view === "week") {
+      start = moment(date).startOf("week");
+      end = moment(date).endOf("week");
+      setStartDate(start.format());
+      setEndDate(end.format());
       setUpdate(!update);
-      toast.success("Booking Added successfully!");
-      handleBookingClose();
-    });
+    }
   };
 
   return (
@@ -258,9 +362,10 @@ const Calendar = () => {
         onSelectEvent={handleEventClick}
         min={new Date(0, 0, 0, 6, 0, 0)}
         max={new Date(0, 0, 0, 22, 0, 0)}
-        // onNavigate={(e) => {
-        //   onNavigate(e, Views.WEEK);
-        // }}
+        onNavigate={(e) => {
+          onNavigate(e, Views.WEEK);
+        }}
+        lng={lng}
       />
 
       {/* View Booking modal */}
@@ -293,7 +398,12 @@ const Calendar = () => {
                 label="Booking Time"
                 disabled={true}
                 value={
-                  selectedBooking.startHour + " - " + selectedBooking.endHour
+                  selectedInstructor &&
+                  selectedInstructor.role === "DrivingSchool"
+                    ? selectedBooking.bookingTime
+                    : selectedBooking.startHour +
+                      " - " +
+                      selectedBooking.endHour
                 }
               />
             </Grid>
@@ -302,8 +412,11 @@ const Calendar = () => {
                 label="Duration"
                 disabled={true}
                 value={
-                  parseInt(selectedBooking.endHour) -
-                  parseInt(selectedBooking.startHour)
+                  selectedInstructor &&
+                  selectedInstructor.role === "DrivingSchool"
+                    ? selectedBooking.duration
+                    : parseInt(selectedBooking.endHour) -
+                      parseInt(selectedBooking.startHour)
                 }
               />
             </Grid>
@@ -311,14 +424,24 @@ const Calendar = () => {
               <TextField
                 label="Vechicle"
                 disabled={true}
-                value={selectedBooking.vehicle}
+                value={
+                  selectedInstructor &&
+                  selectedInstructor.role === "DrivingSchool"
+                    ? selectedBooking.vehicleId
+                    : selectedBooking.vehicle
+                }
               />
             </Grid>
             <Grid xs={12} sm={12} md={6}>
               <TextField
                 label="Meetup"
                 disabled={true}
-                value={selectedBooking.meetUp}
+                value={
+                  selectedInstructor &&
+                  selectedInstructor.role === "DrivingSchool"
+                    ? selectedBooking.meetingPlace
+                    : selectedBooking.meetUp
+                }
               />
             </Grid>
           </Grid>
@@ -421,6 +544,7 @@ const Calendar = () => {
                 width="150px !important"
                 color="#149E7A !important"
                 onClick={(e) => handleAddBooking(e)}
+                disabled={disabled}
               />
             </Grid>
           </div>

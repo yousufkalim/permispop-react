@@ -8,8 +8,59 @@ import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import AddIcon from "@mui/icons-material/Add";
 import { useTranslation } from "react-i18next";
+import "moment/locale/fr";
+import "moment/locale/en-gb";
+
+moment.locale("fr");
+moment.locale("es-es", {
+  week: {
+    dow: 1, //Monday is the first day of the week.
+  },
+});
 
 const localizer = momentLocalizer(moment);
+
+let formats = {
+  dateFormat: "DD",
+  monthHeaderFormat: "DD/MM/YYYY",
+  dayHeaderFormat: "DD/MM/YYYY",
+  dayRangeHeaderFormat: "DD/MM/YYYY",
+  timeGutterFormat: (date, culture, localizer) =>
+    localizer.format(date, "HH:mm", culture),
+  eventTimeRangeFormat: ({ start, end }, culture, localizer) =>
+    localizer.format(start, "HH:mm") + "-" + localizer.format(end, "HH:mm"),
+};
+//change calender texts to french
+
+const messagesFrench = {
+  allDay: "journée",
+  previous: "précédent",
+  next: "suivant",
+  today: "aujourd'hui",
+  month: "mois",
+  week: "semaine",
+  day: "jour",
+  agenda: "Agenda",
+  date: "date",
+  time: "heure",
+  event: "événement", // Or anything you want
+  showMore: (total) => `+ ${total} événement(s) supplémentaire(s)`,
+};
+
+const messagesEnglish = {
+  allDay: "journée",
+  previous: "précédent",
+  next: "suivant",
+  today: "aujourd'hui",
+  month: "mois",
+  week: "semaine",
+  day: "jour",
+  agenda: "Agenda",
+  date: "date",
+  time: "heure",
+  event: "événement", // Or anything you want
+  showMore: (total) => `+ ${total} événement(s) supplémentaire(s)`,
+};
 
 const eventsStyle = (event) => {
   var bgcolor = "";
@@ -58,35 +109,72 @@ const CalendarComponent = (props) => {
           </IconButton>
         </div> */}
 
-        <div style={{ display: "flex", justifyContent: "center", width: "100%" }}>
+        <div
+          style={{ display: "flex", justifyContent: "center", width: "100%" }}
+        >
           <div className="instructions-div">
             <div className="instructions">
-              <div className="colorBox-div" style={{ backgroundColor: "#79CEF7" }}></div>
+              <div
+                className="colorBox-div"
+                style={{ backgroundColor: "#79CEF7" }}
+              ></div>
               {/* styling of calendar toolbar text */}
-              <Typography className="instruction-text">{t("Availability Auto")}</Typography>
+              <Typography className="instruction-text">
+                {t("Availability Auto")}
+              </Typography>
             </div>
             <div className="instructions">
-              <div className="colorBox-div" style={{ backgroundColor: "#FFB6C1" }}></div>
-              <Typography className="instruction-text">{t("Availablity Manual")}</Typography>
+              <div
+                className="colorBox-div"
+                style={{ backgroundColor: "#FFB6C1" }}
+              ></div>
+              <Typography className="instruction-text">
+                {t("Availablity Manual")}
+              </Typography>
             </div>
             <div className="instructions">
-              <div className="colorBox-div" style={{ backgroundColor: "#B0AEAE" }}></div>
-              <Typography className="instruction-text">{t("Unavailability")}</Typography>
+              <div
+                className="colorBox-div"
+                style={{ backgroundColor: "#B0AEAE" }}
+              ></div>
+              <Typography className="instruction-text">
+                {t("Unavailability")}
+              </Typography>
             </div>
             <div className="instructions">
-              <div className="colorBox-div" style={{ backgroundColor: "#9C6DD1" }}></div>
-              <Typography className="instruction-text">{t("Personal")}</Typography>
+              <div
+                className="colorBox-div"
+                style={{ backgroundColor: "#9C6DD1" }}
+              ></div>
+              <Typography className="instruction-text">
+                {t("Personal")}
+              </Typography>
             </div>
             <div className="instructions">
-              <div className="colorBox-div" style={{ backgroundColor: "#149E7A" }}></div>
-              <Typography className="instruction-text">{t("Booking")}</Typography>
+              <div
+                className="colorBox-div"
+                style={{ backgroundColor: "#149E7A" }}
+              ></div>
+              <Typography className="instruction-text">
+                {t("Booking")}
+              </Typography>
             </div>
           </div>
         </div>
-        {/* <Button className="add-button">
-          <AddIcon className="add-icon" />
-          <Typography className="btn-text">{t(Add Availibity</Typography>
-        </Button> */}
+        {props.role ? (
+          props.role === "DrivingSchool" ? (
+            <Button className="add-button" onClick={props.onAddClick}>
+              <AddIcon className="add-icon" />
+              <Typography className="btn-text">
+                {t("Add Availibity")}
+              </Typography>
+            </Button>
+          ) : (
+            ""
+          )
+        ) : (
+          ""
+        )}
       </div>
       <div className="calendar">
         <Calendar
@@ -101,6 +189,9 @@ const CalendarComponent = (props) => {
           min={props.min}
           max={props.max}
           onNavigate={props.onNavigate}
+          culture={props.lng}
+          formats={formats}
+          messages={props.lng === "fr" && messagesFrench}
         />
       </div>
     </div>
