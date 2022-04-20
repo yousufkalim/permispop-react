@@ -18,6 +18,7 @@ import { useHistory } from "react-router-dom";
 import { chatUrl } from "../../../../config";
 import { useTranslation } from "react-i18next";
 
+const ChatroomId = localStorage.getItem("ChatroomId");
 const user = JSON.parse(localStorage.getItem("user"));
 const Index = (props) => {
   const { i18n, t } = useTranslation();
@@ -32,10 +33,16 @@ const Index = (props) => {
   const history = useHistory();
   latestChat.current = chatMessages;
   const messagesEndRef = useRef(null);
-
+  // useEffect(() => {
+  // ChatroomId ? GetMessages(ChatroomId) : "";
+  // localStorage.removeItem("ChatroomId");
+  // }, []);
   useEffect(() => {
     ChatList(user);
-    const newConnection = new HubConnectionBuilder().withUrl(`${chatUrl}/chathub`).withAutomaticReconnect().build();
+    const newConnection = new HubConnectionBuilder()
+      .withUrl(`${chatUrl}/chathub`)
+      .withAutomaticReconnect()
+      .build();
     setConnection(newConnection);
   }, []);
   useEffect(() => {
@@ -61,63 +68,67 @@ const Index = (props) => {
   }, [connection]);
 
   const ChatList = async (user) => {
-    await API("get", `Chat/GetChatList/?id=${user.id}`).then((GetChatListResponse) => {
-      let array = [];
-      GetChatListResponse.data.data.map((item) => {
-        let A = JSON.parse(item.userA);
-        let B = JSON.parse(item.userB);
-        if (A.id === user.id) {
-          array.push({
-            chatroom_id: item.id,
-            chatroom_label: `${B.firstName} ${B.surName}`,
-            user_role: B.role,
-            reciever: B.id,
-            isOnline: B.isOnline,
-            lastSeen: B.lastSeen,
-            block: item.block,
-            blockBy: item.blockBy,
-            last_activeTime: B.lastActiveTime,
-            profile_photo: B.photo,
-            lastMessage: item.lastMessage,
-          });
-        } else if (B.id === user.id) {
-          array.push({
-            chatroom_id: item.id,
-            chatroom_label: `${A.firstName} ${A.surName}`,
-            user_role: A.role,
-            reciever: A.id,
-            isOnline: A.isOnline,
-            lastSeen: A.lastSeen,
-            block: item.block,
-            blockBy: item.blockBy,
-            last_activeTime: A.lastActiveTime,
-            profile_photo: A.photo,
-            lastMessage: item.lastMessage,
-          });
-        }
-      });
-      setUserData(array);
-      setFilteredUserData(array);
-    });
+    await API("get", `Chat/GetChatList/?id=${user.id}`).then(
+      (GetChatListResponse) => {
+        let array = [];
+        GetChatListResponse.data.data.map((item) => {
+          let A = JSON.parse(item.userA);
+          let B = JSON.parse(item.userB);
+          if (A.id === user.id) {
+            array.push({
+              chatroom_id: item.id,
+              chatroom_label: `${B.firstName} ${B.surName}`,
+              user_role: B.role,
+              reciever: B.id,
+              isOnline: B.isOnline,
+              lastSeen: B.lastSeen,
+              block: item.block,
+              blockBy: item.blockBy,
+              last_activeTime: B.lastActiveTime,
+              profile_photo: B.photo,
+              lastMessage: item.lastMessage,
+            });
+          } else if (B.id === user.id) {
+            array.push({
+              chatroom_id: item.id,
+              chatroom_label: `${A.firstName} ${A.surName}`,
+              user_role: A.role,
+              reciever: A.id,
+              isOnline: A.isOnline,
+              lastSeen: A.lastSeen,
+              block: item.block,
+              blockBy: item.blockBy,
+              last_activeTime: A.lastActiveTime,
+              profile_photo: A.photo,
+              lastMessage: item.lastMessage,
+            });
+          }
+        });
+        setUserData(array);
+        setFilteredUserData(array);
+      }
+    );
   };
   // get Messages api
   const GetMessages = async (item) => {
     setSelectedChat(item);
-    await API("get", `Chat/GetMessages/?chatId=${item.chatroom_id}`).then((GetMessagesResponse) => {
-      let chatArray = [];
-      GetMessagesResponse.data.data.messages.map((item) => {
-        let msg = JSON.parse(item);
-        chatArray.push({
-          sender: msg.sender,
-          reciever: msg.reciever,
-          message: msg.message,
-          timeStamp: msg.timeStamp,
-          readMsg: msg.readMsg,
-          id: msg.id,
+    await API("get", `Chat/GetMessages/?chatId=${item.chatroom_id}`).then(
+      (GetMessagesResponse) => {
+        let chatArray = [];
+        GetMessagesResponse.data.data.messages.map((item) => {
+          let msg = JSON.parse(item);
+          chatArray.push({
+            sender: msg.sender,
+            reciever: msg.reciever,
+            message: msg.message,
+            timeStamp: msg.timeStamp,
+            readMsg: msg.readMsg,
+            id: msg.id,
+          });
         });
-      });
-      setChatMessages(chatArray);
-    });
+        setChatMessages(chatArray);
+      }
+    );
   };
   // sending message method
   const sendMessage = async (message) => {
@@ -177,7 +188,9 @@ const Index = (props) => {
               <div>
                 <Typography className="ChatHeading">{t("Chats")}</Typography>
                 <div className="ChatListVector">
-                  <Typography className="ChatVector">{t("Recent chat")}</Typography>
+                  <Typography className="ChatVector">
+                    {t("Recent chat")}
+                  </Typography>
                 </div>
               </div>
             </div>
@@ -185,7 +198,12 @@ const Index = (props) => {
             <div className="SearchDiv">
               <div className="SearchText">
                 <img src={SearchIcon} />
-                <input placeholder={t("Search")} className="SearchBoxTypingField" value={search} onChange={handleSearch} />
+                <input
+                  placeholder={t("Search")}
+                  className="SearchBoxTypingField"
+                  value={search}
+                  onChange={handleSearch}
+                />
               </div>
             </div>
 
@@ -237,7 +255,6 @@ const Index = (props) => {
                   <Typography
                     sx={{
                       paddingLeft: "12px",
-
                       fontFamily: "Inter",
                       fontStyle: " normal",
                       fontWeight: 600,
@@ -267,13 +284,21 @@ const Index = (props) => {
                 </button>
               </div>
             </div>
-            <Divider width="100%" borderColor="#D5E4E8" margin="2% 0px 2% 0px" />
+            <Divider
+              width="100%"
+              borderColor="#D5E4E8"
+              margin="2% 0px 2% 0px"
+            />
             <div className="ChatboxScroller">
               {chatMessages.map((item, index) => {
                 return item.reciever === user.id ? (
                   <div className="ChatReceived">
                     <div className="AvatarClass">
-                      <ChatAvatar className="AvatarClass" src={selectedChat.profile_photo} showActiveStatus={false} />
+                      <ChatAvatar
+                        className="AvatarClass"
+                        src={selectedChat.profile_photo}
+                        showActiveStatus={false}
+                      />
                     </div>
                     <div className="ReceivedText">
                       <div className="ReceivedDots">
@@ -300,7 +325,10 @@ const Index = (props) => {
                   </div>
                 ) : item.sender === user.id ? (
                   <div className="SentDiv">
-                    <div id={chatMessages.length === index + 1 ? "lastMsg" : ""} className="SentText">
+                    <div
+                      id={chatMessages.length === index + 1 ? "lastMsg" : ""}
+                      className="SentText"
+                    >
                       <Typography
                         sx={{
                           padding: "15px",
@@ -320,11 +348,17 @@ const Index = (props) => {
                       </Typography>
 
                       {item.readMsg === "Delivered" ? (
-                        <DoubleTick style={{ color: "#d2d7d9", margin: "7px" }} />
+                        <DoubleTick
+                          style={{ color: "#d2d7d9", margin: "7px" }}
+                        />
                       ) : item.readMsg === "Seen" ? (
-                        <DoubleTick style={{ color: "#79d8f2", margin: "7px" }} />
+                        <DoubleTick
+                          style={{ color: "#79d8f2", margin: "7px" }}
+                        />
                       ) : (
-                        <SingleTick style={{ color: "#d2d7d9", margin: "7px" }} />
+                        <SingleTick
+                          style={{ color: "#d2d7d9", margin: "7px" }}
+                        />
                       )}
                     </div>
                   </div>
@@ -334,7 +368,12 @@ const Index = (props) => {
               })}
               <div ref={messagesEndRef} />
             </div>
-            <Divider width="100%" borderColor="#D5E4E8" margin="2% 0px 2% 0px" className="MessageDivider" />
+            <Divider
+              width="100%"
+              borderColor="#D5E4E8"
+              margin="2% 0px 2% 0px"
+              className="MessageDivider"
+            />
 
             <div className="MessageDiv">
               <div className="MessageText">
@@ -349,7 +388,12 @@ const Index = (props) => {
                 />
               </div>
               <div className="MessageRight" onClick={onClick}>
-                <Fab size="small" color="secondary" aria-label="add" sx={{ margin: "10px" }}>
+                <Fab
+                  size="small"
+                  color="secondary"
+                  aria-label="add"
+                  sx={{ margin: "10px" }}
+                >
                   <img src={SendVector} />
                 </Fab>
               </div>

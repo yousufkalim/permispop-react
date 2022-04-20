@@ -21,7 +21,16 @@ export default function BasicDatePicker(props) {
     <LocalizationProvider dateAdapter={DateAdapter}>
       <div>
         <DatePicker
-          label={ props.required ? <div style={{display:'flex'}}>{props.label}<div style={{color:'red'}}>*</div></div>:props.label}
+          label={
+            props.required ? (
+              <div style={{ display: "flex" }}>
+                {props.label}
+                <div style={{ color: "red" }}>*</div>
+              </div>
+            ) : (
+              props.label
+            )
+          }
           shrink={false}
           value={props.value}
           disabled={props.disabled === true ? true : false}
@@ -41,6 +50,7 @@ export default function BasicDatePicker(props) {
                 boxShadow: "",
               }}
               error={props.error ? true : false}
+              InputLabelProps={{ shrink: true }}
             >
               {props.error && (
                 <FormHelperText

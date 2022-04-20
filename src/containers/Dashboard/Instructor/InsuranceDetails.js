@@ -144,7 +144,7 @@ const InsuranceDetails = () => {
         </Typography>
         <Button
           className="insuranceBtn"
-          text="Update Profile"
+          text={t("Update Profile")}
           onClick={(e) => setOpenUpdateProfileModal(true)}
         ></Button>
       </Grid>
@@ -507,7 +507,7 @@ const InsuranceDetails = () => {
               <TextareaAutosize
                 aria-label="minimum height"
                 minRows={5}
-                placeholder="Minimum 3 rows"
+                placeholder={t("Minimum 3 rows")}
                 name="description"
                 onChange={(e) => setDescription(e.target.name)}
                 style={{ width: "100%", borderRadius: "5px" }}

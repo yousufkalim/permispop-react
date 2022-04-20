@@ -230,8 +230,8 @@ const Step1 = ({ step1, setStep1, onChange, step1Errors }) => {
             onChange={(e) => {
               onChange(e.target.name, e.target.value);
             }}
-            // error={step1Errors['Email2']?true:false}
-            // ErrorMsg={step1Errors['Email2']}
+            error={step1Errors["Email2"] ? true : false}
+            ErrorMsg={t(step1Errors["Email2"])}
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
@@ -259,8 +259,8 @@ const Step1 = ({ step1, setStep1, onChange, step1Errors }) => {
             onChange={(e) => {
               onChange(e.target.name, e.target.value);
             }}
-            // error={step1Errors['Phone2']?true:false}
-            // ErrorMsg={step1Errors['Phone2']}
+            error={step1Errors["Phone2"] ? true : false}
+            ErrorMsg={t(step1Errors["Phone2"])}
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
@@ -341,7 +341,9 @@ const Step1 = ({ step1, setStep1, onChange, step1Errors }) => {
             </Grid>
             <Grid item xs={12} sm={12} md={5}>
               <TextField
-                label={t("How much time will you give to the students of our platform?(hr/month)")}
+                label={t(
+                  "How much time will you give to the students of our platform?(hr/month)"
+                )}
                 placeholder="No. of hours"
                 name="Hours"
                 type="text"

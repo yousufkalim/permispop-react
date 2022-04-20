@@ -806,7 +806,7 @@ const Index = () => {
                   onChange(e.target.name, e.target.value);
                 }}
                 error={vehicleErrors["NumberPlate"] ? true : false}
-                ErrorMsg={vehicleErrors["NumberPlate"]}
+                ErrorMsg={t(vehicleErrors["NumberPlate"])}
               ></TextField>
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
@@ -821,7 +821,7 @@ const Index = () => {
                   onChange(e.target.name, e.target.value);
                 }}
                 error={vehicleErrors["Color"] ? true : false}
-                ErrorMsg={vehicleErrors["Color"]}
+                ErrorMsg={t(vehicleErrors["Color"])}
               ></TextField>
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
@@ -908,7 +908,7 @@ const Index = () => {
                   onChange(e.target.name, e.target.value);
                 }}
                 error={vehicleErrors["VehicleInsurer"] ? true : false}
-                ErrorMsg={vehicleErrors["VehicleInsurer"]}
+                ErrorMsg={t(vehicleErrors["VehicleInsurer"])}
               ></TextField>
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
@@ -923,7 +923,7 @@ const Index = () => {
                   onChange(e.target.name, e.target.value);
                 }}
                 error={vehicleErrors["PoliceNumber"] ? true : false}
-                ErrorMsg={vehicleErrors["PoliceNumber"]}
+                ErrorMsg={t(vehicleErrors["PoliceNumber"])}
               ></TextField>
             </Grid>
             <Grid item xs={12} sm={12} md={4} sx={{ marginTop: "9px" }}>

@@ -43,6 +43,8 @@
   width: 100% !important;
 }
 .footer_policy {
+  cursor: pointer;
+  text-align: center;
   width: 16% !important;
   margin: 20px !important;
   font-family: Inter !important;

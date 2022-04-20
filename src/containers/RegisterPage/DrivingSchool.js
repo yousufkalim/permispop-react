@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Button from "../../components/Common/Button";
 import RegisterHeader from "../../components/RegisterFroms/registerHeader";
 import Footer from "../../components/Landing/Footer";
@@ -101,11 +101,12 @@ function ColorlibStepIcon(props) {
 const DrivingSchool = () => {
   // States and Variables
   let history = useHistory();
-  const { i18n, t } = useTranslation();
+  const { t } = useTranslation();
   const [vehicles, setVehicles] = React.useState([]);
   const [instructors, setInstructors] = React.useState([]);
   const [activeStep, setActiveStep] = React.useState(1);
-
+  const [drivingSchoolForm, setDrivingSchoolForm] = useState({});
+  const [lng, setLng] = useState();
   const [step1Errors, setStep1Errors] = React.useState({});
   const [step1, setStep1] = React.useState({
     TradeName: "",
@@ -346,6 +347,8 @@ const DrivingSchool = () => {
 
   const handleStep1 = (name, value) => {
     let errorMessage = "";
+    let phoneCheck = false;
+    let regex = /[^\s@]+@[^\s@]+\.[^\s@]+/;
     if (name === "Address") {
       errorMessage = validateSuggest1(name, value.Label);
     } else if (name === "Password") {
@@ -361,6 +364,67 @@ const DrivingSchool = () => {
         errorMessage = t("Password cannot be empty");
       }
     } else if (name == "OtherPlateform") {
+    } else if (name === "Email2") {
+      if (step1.Email == value) {
+        if (step1.Email === "" && value === "") {
+        } else {
+          errorMessage = t("Email 2 can’t be the same as the first email");
+        }
+      } else if (value.length === 0) {
+      } else if (regex.test(value)) {
+      } else if (regex.test(value) == null || regex.test(value) == "") {
+        errorMessage = t("Not a Valid Email");
+      }
+    } else if (name === "Phone") {
+      if (value.length > 10) {
+        phoneCheck = true;
+        if (value.length === 0) {
+          errorMessage = t("Phone can't be blank");
+        } else if (value[0] != "0") {
+          errorMessage = t("Phone number should start with 0");
+        } else if (value.length < 10 && value.length > 0) {
+          errorMessage = t("The phone must be at least 10 characters");
+        }
+      } else {
+        if (value.length === 0) {
+          errorMessage = t("Phone can't be blank");
+        } else if (value[0] != "0") {
+          errorMessage = t("Phone number should start with 0");
+        } else if (value.length < 10 && value.length > 0) {
+          errorMessage = t("The phone must be at least 10 characters");
+        }
+      }
+    } else if (name === "Phone2") {
+      if (value.length > 10) {
+        phoneCheck = true;
+        if (step1.Phone == value) {
+          if (step1.Phone === "" && value === "") {
+          } else {
+            errorMessage = t(
+              "The 2nd phone number cannot be the same as the 1st"
+            );
+          }
+        } else if (value.length === 0) {
+        } else if (value[0] != "0") {
+          errorMessage = t("Phone number should start with 0");
+        } else if (value.length < 10 && value.length > 0) {
+          errorMessage = t("The phone must be at least 10 characters");
+        }
+      } else {
+        if (step1.Phone == value) {
+          if (step1.Phone === "" && value === "") {
+          } else {
+            errorMessage = t(
+              "The 2nd phone number cannot be the same as the 1st"
+            );
+          }
+        } else if (value.length === 0) {
+        } else if (value[0] != "0") {
+          errorMessage = t("Phone number should start with 0");
+        } else if (value.length < 10 && value.length > 0) {
+          errorMessage = t("The phone must be at least 10 characters");
+        }
+      }
     } else {
       errorMessage = validateSuggest1(name, value);
     }
@@ -368,7 +432,10 @@ const DrivingSchool = () => {
       ...step1Errors,
       [name]: errorMessage,
     });
-    setStep1({ ...step1, [name]: value });
+    if (phoneCheck) {
+    } else {
+      setStep1({ ...step1, [name]: value });
+    }
   };
   const validateSuggest1 = (name, value) => {
     const obj = { [name]: value };
@@ -610,7 +677,7 @@ const DrivingSchool = () => {
 
   const step4Schema = {
     Firstname: Joi.string()
-      .min(3)
+      .min(2)
       .required()
       .label("Firstname")
       .error((errors) => {
@@ -627,7 +694,7 @@ const DrivingSchool = () => {
         return errors;
       }),
     Surname: Joi.string()
-      .min(3)
+      .min(2)
       .required()
       .label("Surname")
       .error((errors) => {
@@ -1130,7 +1197,7 @@ const DrivingSchool = () => {
 
   const step6Schema = {
     Firstname: Joi.string()
-      .min(3)
+      .min(2)
       .required()
       .label("Firstname")
       .error((errors) => {
@@ -1147,7 +1214,7 @@ const DrivingSchool = () => {
         return errors;
       }),
     Surname: Joi.string()
-      .min(3)
+      .min(2)
       .required()
       .label("Surname")
       .error((errors) => {
@@ -1275,6 +1342,7 @@ const DrivingSchool = () => {
         return errors;
       }),
     Phone: Joi.string()
+      .length(10)
       .required()
       .label("Phone")
       .error((errors) => {
@@ -1547,6 +1615,8 @@ const DrivingSchool = () => {
 
   const handleStep6 = (name, value) => {
     let errorMessage = "";
+    let phoneCheck = false;
+    let regex = /[^\s@]+@[^\s@]+\.[^\s@]+/;
     if (name === "Address") {
       errorMessage = validateSuggest6(name, value.Label);
     } else if (name === "Password") {
@@ -1555,18 +1625,82 @@ const DrivingSchool = () => {
       } else if (value.length === 0) {
         errorMessage = t("Password cannot be empty");
       }
-    } else if (name === "Password2") {
+    } else if (name === "ConfirmPassword") {
       if (step1.Password != value) {
         errorMessage = t("Password didn't match");
       } else if (value.length === 0) {
         errorMessage = t("Password cannot be empty");
       }
     } else if (name == "OtherPlateform") {
+    } else if (name === "Email2") {
+      if (step6.Email == value) {
+        if (step6.Email === "" && value === "") {
+        } else {
+          errorMessage = t("Email 2 can’t be the same as the first email");
+        }
+      } else if (value.length === 0) {
+      } else if (regex.test(value)) {
+      } else if (regex.test(value) == null || regex.test(value) == "") {
+        errorMessage = t("Not a Valid Email");
+      }
+    } else if (name === "Phone") {
+      if (value.length > 10) {
+        phoneCheck = true;
+        if (value.length === 0) {
+          errorMessage = t("Phone can't be blank");
+        } else if (value[0] != "0") {
+          errorMessage = t("Phone number should start with 0");
+        } else if (value.length < 10 && value.length > 0) {
+          errorMessage = t("The phone must be at least 10 characters");
+        }
+      } else {
+        if (value.length === 0) {
+          errorMessage = t("Phone can't be blank");
+        } else if (value[0] != "0") {
+          errorMessage = t("Phone number should start with 0");
+        } else if (value.length < 10 && value.length > 0) {
+          errorMessage = t("The phone must be at least 10 characters");
+        }
+      }
+    } else if (name === "Phone2") {
+      if (value.length > 10) {
+        phoneCheck = true;
+        if (step6.Phone == value) {
+          if (step6.Phone === "" && value === "") {
+          } else {
+            errorMessage = t(
+              "The 2nd phone number cannot be the same as the 1st"
+            );
+          }
+        } else if (value.length === 0) {
+        } else if (value[0] != "0") {
+          errorMessage = t("Phone number should start with 0");
+        } else if (value.length < 10 && value.length > 0) {
+          errorMessage = t("The phone must be at least 10 characters");
+        }
+      } else {
+        if (step6.Phone == value) {
+          if (step6.Phone === "" && value === "") {
+          } else {
+            errorMessage = t(
+              "The 2nd phone number cannot be the same as the 1st"
+            );
+          }
+        } else if (value.length === 0) {
+        } else if (value[0] != "0") {
+          errorMessage = t("Phone number should start with 0");
+        } else if (value.length < 10 && value.length > 0) {
+          errorMessage = t("The phone must be at least 10 characters");
+        }
+      }
     } else {
       errorMessage = validateSuggest6(name, value);
     }
     setStep6Errors({ ...step6Errors, [name]: errorMessage });
-    setStep6({ ...step6, [name]: value });
+    if (phoneCheck) {
+    } else {
+      setStep6({ ...step6, [name]: value });
+    }
   };
   const validateSuggest6 = (name, value) => {
     const obj = { [name]: value };
@@ -1577,13 +1711,13 @@ const DrivingSchool = () => {
     return error ? error.details[0].message : null;
   };
   const steps = [
-    "Identity",
-    "Details",
-    "Insurance",
-    "Manaager",
-    "Vehicle",
-    "Instructor",
-    "Done",
+    t("Identity"),
+    t("Details"),
+    t("Insurance"),
+    t("Manaager"),
+    t("Vehicle"),
+    t("Instructor"),
+    t("Done"),
   ];
 
   // FUNCTIONS
@@ -1890,13 +2024,40 @@ const DrivingSchool = () => {
         console.log("Personal Response", error);
       });
   };
+  useEffect(() => {
+    getDrivingSchoolForm();
+    setLng(localStorage.getItem("i18nextLng"));
+  }, [localStorage.getItem("i18nextLng")]);
+  const getDrivingSchoolForm = async () => {
+    await API("get", "CMS/GetPageData?page=register")
+      .then((getDrivingSchoolFormResponse) => {
+        const DrivingSchoolFormData =
+          getDrivingSchoolFormResponse.data.data.find(
+            (item) => item.sectionName === "Driving school"
+          );
+        setDrivingSchoolForm(DrivingSchoolFormData);
+      })
+      .catch((error) => console.log("error------->", error));
+  };
 
   return (
     <React.Fragment>
       <RegisterHeader
-        title={t("Driving School Registration")}
-        subtitle1="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce varius justo et scelerisque varius. Nullam mollis augue et facilisis blandit. Morbi sollicitudin a eros sed cursus."
-        subtitle2="Quisque lobortis ultrices dolor, fringilla venenatis leo sodales at. Nam suscipit felis sit amet convallis."
+        title={
+          lng === "en"
+            ? drivingSchoolForm?.headingEnglish
+            : lng === "fr"
+            ? drivingSchoolForm?.headingFrench
+            : ""
+        }
+        subtitle1={
+          lng === "en"
+            ? drivingSchoolForm?.textEnglish
+            : lng === "fr"
+            ? drivingSchoolForm?.textFrench
+            : ""
+        }
+        // subtitle2="Quisque lobortis ultrices dolor, fringilla venenatis leo sodales at. Nam suscipit felis sit amet convallis."
       />
 
       <div
@@ -2087,25 +2248,25 @@ const DrivingSchool = () => {
                           step1Errors.Password2 === "" &&
                           step1Errors.Address === null &&
                           step1.Address.City != "" &&
-                          step1.Address.Zip != "" &&
-                          // && step1Errors.Language===null
-                          // && step1Errors.CPF===null
-                          // && step1Errors.Complement===null
-                          // && step1Errors.Email2===null
-                          // && step1Errors.Phone2===null
-
-                          step1.OtherPlateform === false) ||
-                        (step1Errors.Platform === null &&
-                          step1Errors.Hours === null &&
-                          step1Errors.TradeName === null &&
-                          step1Errors.CompanyName === null &&
-                          step1Errors.Email === null &&
-                          step1Errors.Phone === null &&
-                          step1Errors.Password === "" &&
-                          step1Errors.Password2 === "" &&
-                          step1Errors.Address === null &&
-                          step1.Address.City != "" &&
                           step1.Address.Zip != "") ||
+                        // && step1Errors.Language===null
+                        // && step1Errors.CPF===null
+                        // && step1Errors.Complement===null
+                        // && step1Errors.Email2===null
+                        // && step1Errors.Phone2===null
+
+                        //   step1.OtherPlateform === false) ||
+                        // (step1Errors.Platform === null &&
+                        //   step1Errors.Hours === null &&
+                        //   step1Errors.TradeName === null &&
+                        //   step1Errors.CompanyName === null &&
+                        //   step1Errors.Email === null &&
+                        //   step1Errors.Phone === null &&
+                        //   step1Errors.Password === "" &&
+                        //   step1Errors.Password2 === "" &&
+                        //   step1Errors.Address === null &&
+                        //   step1.Address.City != "" &&
+                        //   step1.Address.Zip != "") ||
                         // && step1Errors.Complement===null
                         // && step1Errors.Email2===null
                         // && step1Errors.Phone2===null
@@ -2118,13 +2279,14 @@ const DrivingSchool = () => {
                           step2Errors.SiretNumber === null &&
                           step2Errors.KBIS === null &&
                           step2Errors.Approvaldate === null) ||
-                        // && step2Errors.RcProImg===null
-
-                        (activeStep === 3 &&
-                          step3Errors.insuranceCompany === null &&
-                          step3Errors.policeNumber === null &&
-                          step3Errors.RcPro === null &&
-                          step3Errors.dateInsurance === null) ||
+                        step2Errors.RcProImg ===
+                          null(
+                            activeStep === 3 &&
+                              step3Errors.insuranceCompany === null &&
+                              step3Errors.policeNumber === null &&
+                              step3Errors.RcPro === null &&
+                              step3Errors.dateInsurance === null
+                          ) ||
                         (activeStep === 4 &&
                           step4Errors.Firstname === null &&
                           step4Errors.Surname === null &&

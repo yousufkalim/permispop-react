@@ -105,7 +105,7 @@ const Index = () => {
         setSelectedUserData(booking.studentData);
       }
     });
-    if (status == "Complete" || status == "In progress") {
+    if (status == t("Complete") || status == t("In progress")) {
       await API("get", `Bookings/UpdateBookingsStatus?id=${id}&status=${status}`).then((res) => {
         getPendingRequestData(user);
         toast.success(t("Status is updated successful"));
@@ -246,7 +246,7 @@ const Index = () => {
           <TextareaAutosize
             aria-label="minimum height"
             minRows={5}
-            placeholder="Minimum 3 rows"
+            placeholder={t("Minimum 3 rows")}
             name="comment"
             onChange={(e) => setComment(e.target.name)}
             style={{ width: "100%", borderRadius: "5px" }}

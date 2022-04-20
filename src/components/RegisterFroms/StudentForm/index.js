@@ -22,17 +22,16 @@ import { useTranslation } from "react-i18next";
 
 import { Preview } from "@mui/icons-material";
 
-
 const StudentForm = (props) => {
   const [checkbox1, setCheckbox1] = React.useState(false);
-  const { i18n , t } = useTranslation();
+  const { i18n, t } = useTranslation();
   const [disable, setDisable] = useState(false);
   const [studentErrors, setStudentErrors] = useState({});
   const [addresses, setAddresses] = React.useState([]);
   const [student, setStudent] = React.useState({
     firstname: "",
     surname: "",
-    dob: new Date("01/01/2000"),
+    dob: "",
     pob: "",
     gender: "",
     email: "",
@@ -50,18 +49,17 @@ const StudentForm = (props) => {
     backImage: "",
     profileImage: "",
     highwayCodeImg: "",
-    highwayCodeDate: new Date(),
+    highwayCodeDate: "",
     checkbox2: false,
-    date: new Date(),
+    date: "",
     languages: [],
     Address: { zip: "", label: "", city: "", lat: "", lng: "" },
   });
   let history = useHistory();
 
-
   const studentSchema = {
     firstname: Joi.string()
-      .min(3)
+      .min(2)
       .required()
       .label(t("First Name"))
       .error((errors) => {
@@ -73,15 +71,15 @@ const StudentForm = (props) => {
             case "string.min":
               err.message = `${err.context.label} must be atleast ${err.context.limit} alphabets Longs!`;
               break;
-          
+
             default:
               break;
           }
         });
         return errors;
       }),
-      surname: Joi.string()
-      .min(3)
+    surname: Joi.string()
+      .min(2)
       .required()
       .label("Surname")
       .error((errors) => {
@@ -93,14 +91,14 @@ const StudentForm = (props) => {
             case "string.min":
               err.message = `${err.context.label} must be atleast ${err.context.limit} alphabets Longs!`;
               break;
-          
+
             default:
               break;
           }
         });
         return errors;
       }),
-      dob: Joi.string()
+    dob: Joi.string()
       .required()
       .label("dob")
       .error((errors) => {
@@ -113,7 +111,7 @@ const StudentForm = (props) => {
         });
         return errors;
       }),
-      pob: Joi.string()
+    pob: Joi.string()
       .required()
       .label("pob")
       .error((errors) => {
@@ -126,7 +124,7 @@ const StudentForm = (props) => {
         });
         return errors;
       }),
-      gender: Joi.string()
+    gender: Joi.string()
       .required()
       .label("gender")
       .error((errors) => {
@@ -139,7 +137,7 @@ const StudentForm = (props) => {
         });
         return errors;
       }),
-      email: Joi.string()
+    email: Joi.string()
       .email()
       .required()
       .label("Email")
@@ -159,20 +157,17 @@ const StudentForm = (props) => {
         });
         return errors;
       }),
-      email2: Joi
-      .label("Second Email")
-      .error((errors) => {
-        errors.forEach((err) => {
-          switch (err.type) {
+    email2: Joi.label("Second Email").error((errors) => {
+      errors.forEach((err) => {
+        switch (err.type) {
+          default:
+            break;
+        }
+      });
+      return errors;
+    }),
+    phone: Joi.string()
 
-            default:
-              break;
-          }
-        });
-        return errors;
-      }),
-      phone: Joi.string()
-  
       .length(10)
       .required()
       .label("Phone")
@@ -188,19 +183,17 @@ const StudentForm = (props) => {
         });
         return errors;
       }),
-      phone2: Joi
-      .label("Phone2")
-      .error((errors) => {
-        errors.forEach((err) => {
-          switch (err.type) {
-            default:
-              break;
-          }
-        });
-        return errors;
-      }),
-      password: Joi.string()
-  
+    phone2: Joi.label("Phone2").error((errors) => {
+      errors.forEach((err) => {
+        switch (err.type) {
+          default:
+            break;
+        }
+      });
+      return errors;
+    }),
+    password: Joi.string()
+
       .min(8)
       .max(15)
       .required()
@@ -216,32 +209,32 @@ const StudentForm = (props) => {
               break;
             default:
               break;
-            }
-          });
-          return errors;
-        }),
-        
-        Address: Joi.string()
-        .required()
-        .label("Address") 
-        .error((errors) => {
-          errors.forEach((err) => {
-            switch (err.type) {
-              case "string.empty":
-                err.message = `${err.context.label} can't be empty`;
-                break;
-              default:
-                break;
-            }
-          });
-          return errors;
-        }),
-      // confirmpassword: Joi.string()
-      // .required()
-      // .label("confirmpassword")
-      // .valid(Joi.ref('password'))
+          }
+        });
+        return errors;
+      }),
 
-      complement: Joi.string()
+    Address: Joi.string()
+      .required()
+      .label("Address")
+      .error((errors) => {
+        errors.forEach((err) => {
+          switch (err.type) {
+            case "string.empty":
+              err.message = `${err.context.label} can't be empty`;
+              break;
+            default:
+              break;
+          }
+        });
+        return errors;
+      }),
+    // confirmpassword: Joi.string()
+    // .required()
+    // .label("confirmpassword")
+    // .valid(Joi.ref('password'))
+
+    complement: Joi.string()
       .label("Complement")
       .error((errors) => {
         errors.forEach((err) => {
@@ -254,7 +247,7 @@ const StudentForm = (props) => {
         return errors;
       }),
 
-      noh: Joi.string()
+    noh: Joi.string()
       .label("Number of Hours")
       .error((errors) => {
         errors.forEach((err) => {
@@ -266,10 +259,10 @@ const StudentForm = (props) => {
         });
         return errors;
       }),
-      neph: Joi.string()
+    neph: Joi.string()
       .min(14)
       .max(14)
-      .label("NEPH Number") 
+      .label("NEPH Number")
       .error((errors) => {
         errors.forEach((err) => {
           switch (err.type) {
@@ -288,8 +281,8 @@ const StudentForm = (props) => {
         });
         return errors;
       }),
-      frontImage: Joi.string()
-      .label("Front Image") 
+    frontImage: Joi.string()
+      .label("Front Image")
       .error((errors) => {
         errors.forEach((err) => {
           switch (err.type) {
@@ -302,8 +295,8 @@ const StudentForm = (props) => {
         });
         return errors;
       }),
-      backImage: Joi.string()
-      .label("backImage") 
+    backImage: Joi.string()
+      .label("backImage")
       .error((errors) => {
         errors.forEach((err) => {
           switch (err.type) {
@@ -316,8 +309,8 @@ const StudentForm = (props) => {
         });
         return errors;
       }),
-      profileImage: Joi.string()
-      .label("profile Image") 
+    profileImage: Joi.string()
+      .label("profile Image")
       .error((errors) => {
         errors.forEach((err) => {
           switch (err.type) {
@@ -330,8 +323,8 @@ const StudentForm = (props) => {
         });
         return errors;
       }),
-      highwayCodeImg: Joi.string()
-      .label("highwayCodeImg") 
+    highwayCodeImg: Joi.string()
+      .label("highwayCodeImg")
       .error((errors) => {
         errors.forEach((err) => {
           switch (err.type) {
@@ -344,8 +337,8 @@ const StudentForm = (props) => {
         });
         return errors;
       }),
-      highwayCodeDate: Joi.string()
-      .label("Date") 
+    highwayCodeDate: Joi.string()
+      .label("Date")
       .error((errors) => {
         errors.forEach((err) => {
           switch (err.type) {
@@ -358,21 +351,21 @@ const StudentForm = (props) => {
         });
         return errors;
       }),
-      // checkbox2: Joi.string()
-      // .label("checkbox2") 
-      // .error((errors) => {
-      //   errors.forEach((err) => {
-      //     switch (err.type) {
-      //       default:
-      //         break;
-      //     }
-      //   });
-      //   return errors;
-      // }),
-     
-      language: Joi.array()
+    // checkbox2: Joi.string()
+    // .label("checkbox2")
+    // .error((errors) => {
+    //   errors.forEach((err) => {
+    //     switch (err.type) {
+    //       default:
+    //         break;
+    //     }
+    //   });
+    //   return errors;
+    // }),
+
+    language: Joi.array()
       .min(1)
-      .label("languages") 
+      .label("languages")
       .error((errors) => {
         errors.forEach((err) => {
           switch (err.type) {
@@ -385,47 +378,106 @@ const StudentForm = (props) => {
         });
         return errors;
       }),
-
-    
-      
   };
-
 
   const handleStudent = (name, value) => {
-    let errorMessage =''
-    if (name==="Address"){
+    let errorMessage = "";
+    let phoneCheck = false;
+    let regex = /[^\s@]+@[^\s@]+\.[^\s@]+/;
+    if (name === "Address") {
       errorMessage = validateSuggest(name, value.label);
-    }
-    else if(name==='password'){
-      if(value.length<8){
+    } else if (name === "password") {
+      if (value.length < 8) {
         errorMessage = t("Password must be atleast 8 char long");
-
-      }
-      else if(value.length===0){
+      } else if (value.length === 0) {
         errorMessage = t("Password cannot be empty");
-
       }
-
-    }
-    else if(name==='confirmpassword'){
-      if(student.password != value){
+    } else if (name === "confirmpassword") {
+      if (student.password != value) {
         errorMessage = t("Password didn't match");
-
-      }
-      else if(value.length===0){
+      } else if (value.length === 0) {
         errorMessage = t("Password cannot be empty");
-
       }
-
-    }
-    else{
+    } else if (name === "dob") {
+      let todayDate = moment().format("YYYY");
+      let selectedDate = moment(value).format("YYYY");
+      console.log("todayDate", todayDate);
+      console.log("selectedDate", selectedDate);
+      if (todayDate - selectedDate > 16) {
+      } else {
+        errorMessage = t("Student can’t be younger than 16 years old");
+      }
+    } else if (name === "email2") {
+      if (student.email == value) {
+        if (student.email === "" && value === "") {
+        } else {
+          errorMessage = t("Email 2 can’t be the same as the first email");
+        }
+      } else if (value.length === 0) {
+      } else if (regex.test(value)) {
+      } else if (regex.test(value) == null || regex.test(value) == "") {
+        errorMessage = t("Not a Valid Email");
+      }
+    } else if (name === "phone") {
+      if (value.length > 10) {
+        phoneCheck = true;
+        if (value.length === 0) {
+          errorMessage = t("Phone can't be blank");
+        } else if (value[0] != "0") {
+          errorMessage = t("Phone number should start with 0");
+        } else if (value.length < 10 && value.length > 0) {
+          errorMessage = t("The phone must be at least 10 characters");
+        }
+      } else {
+        if (value.length === 0) {
+          errorMessage = t("Phone can't be blank");
+        } else if (value[0] != "0") {
+          errorMessage = t("Phone number should start with 0");
+        } else if (value.length < 10 && value.length > 0) {
+          errorMessage = t("The phone must be at least 10 characters");
+        }
+      }
+    } else if (name === "phone2") {
+      if (value.length > 10) {
+        phoneCheck = true;
+        if (student.phone == value) {
+          if (student.phone === "" && value === "") {
+          } else {
+            errorMessage = t(
+              "The 2nd phone number cannot be the same as the 1st"
+            );
+          }
+        } else if (value.length === 0) {
+        } else if (value[0] != "0") {
+          errorMessage = t("Phone number should start with 0");
+        } else if (value.length < 10 && value.length > 0) {
+          errorMessage = t("The phone must be at least 10 characters");
+        }
+      } else {
+        if (student.phone == value) {
+          if (student.phone === "" && value === "") {
+          } else {
+            errorMessage = t(
+              "The 2nd phone number cannot be the same as the 1st"
+            );
+          }
+        } else if (value.length === 0) {
+        } else if (value[0] != "0") {
+          errorMessage = t("Phone number should start with 0");
+        } else if (value.length < 10 && value.length > 0) {
+          errorMessage = t("The phone must be at least 10 characters");
+        }
+      }
+    } else {
       errorMessage = validateSuggest(name, value);
     }
-    
-    setStudentErrors({...studentErrors,[name]:errorMessage});
-    setStudent({ ...student, [name]: value });
-  };
 
+    setStudentErrors({ ...studentErrors, [name]: errorMessage });
+    if (phoneCheck) {
+    } else {
+      setStudent({ ...student, [name]: value });
+    }
+  };
 
   const validateSuggest = (name, value) => {
     const obj = { [name]: value };
@@ -436,7 +488,6 @@ const StudentForm = (props) => {
     return error ? error.details[0].message : null;
   };
 
-  
   const handleFileChange = async (e) => {
     const formdata = new FormData();
 
@@ -482,22 +533,22 @@ const StudentForm = (props) => {
   }, []);
   const handleSelectAddress = (e) => {
     if (e) {
-    handleStudent("Address", {
-      label: e.label,
-      zip: e.PostalCode,
-      city: e.city,
-      lat: e.lat,
-      lng: e.lng,
-    });
-  } else {
-    handleStudent("Address", {
-      label: "",
-      zip: "",
-      city: "",
-      lat: "",
-      lng: "",
-    });
-  }
+      handleStudent("Address", {
+        label: e.label,
+        zip: e.PostalCode,
+        city: e.city,
+        lat: e.lat,
+        lng: e.lng,
+      });
+    } else {
+      handleStudent("Address", {
+        label: "",
+        zip: "",
+        city: "",
+        lat: "",
+        lng: "",
+      });
+    }
   };
 
   const handleSubmit = async () => {
@@ -578,27 +629,27 @@ const StudentForm = (props) => {
       setAddresses([]);
     } else {
       handleStudent("Address", { ...student.Address, label: e.target.value });
-    var config = {
-      method: "get",
-      url: `https://api-adresse.data.gouv.fr/search/?q=${e.target.value}&type=housenumber&autocomplete=1`,
-    };
-    await axios(config)
-      .then((res) => {
-        let addressToSet = [];
-        res.data.features.map((item) => {
-          addressToSet.push({
-            label: item.properties.label,
-            city: item.properties.city,
-            PostalCode: item.properties.postcode,
-            lat: item.geometry.coordinates[1],
-            lng: item.geometry.coordinates[0],
+      var config = {
+        method: "get",
+        url: `https://api-adresse.data.gouv.fr/search/?q=${e.target.value}&type=housenumber&autocomplete=1`,
+      };
+      await axios(config)
+        .then((res) => {
+          let addressToSet = [];
+          res.data.features.map((item) => {
+            addressToSet.push({
+              label: item.properties.label,
+              city: item.properties.city,
+              PostalCode: item.properties.postcode,
+              lat: item.geometry.coordinates[1],
+              lng: item.geometry.coordinates[0],
+            });
           });
+          setAddresses(addressToSet);
+        })
+        .catch(function (error) {
+          console.log(error);
         });
-        setAddresses(addressToSet);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
     }
   };
 
@@ -612,7 +663,9 @@ const StudentForm = (props) => {
                 {t("Student Identity")}
               </Typography>
               <Typography variant="h6" className="registerSub_subtitle">
-                {t("You can provide all your documents and your NEPH mumber after validation of your profile isn’t that awesome? So let’s go, fill out the form and validate it!")}
+                {t(
+                  "You can provide all your documents and your NEPH mumber after validation of your profile isn’t that awesome? So let’s go, fill out the form and validate it!"
+                )}
               </Typography>
             </div>
           </div>
@@ -630,22 +683,6 @@ const StudentForm = (props) => {
           <Grid container spacing={4}>
             <Grid item xs={12} sm={12} md={4}>
               <TextField
-                label={t("First Name")}
-                name="firstname"
-                required={true}
-                type="text"
-                placeholder="John"
-                disabled={disable}
-                value={student.firstname}
-                onChange={(e) => {
-                  handleStudent(e.target.name, e.target.value);
-                }}
-                error={studentErrors['firstname']?true:false}
-                ErrorMsg={t(studentErrors['firstname'])}
-              />
-            </Grid>
-            <Grid item xs={12} sm={12} md={4}>
-              <TextField
                 label={t("Surname")}
                 required={true}
                 name="surname"
@@ -656,27 +693,45 @@ const StudentForm = (props) => {
                 onChange={(e) => {
                   handleStudent(e.target.name, e.target.value);
                 }}
-                error={studentErrors['surname']?true:false}
-                ErrorMsg={t(studentErrors['surname'])}
+                error={studentErrors["surname"] ? true : false}
+                ErrorMsg={t(studentErrors["surname"])}
               ></TextField>
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
-              <AutoComplete
-                name="Address"
+              <TextField
+                label={t("First Name")}
+                name="firstname"
                 required={true}
+                type="text"
+                placeholder="John"
                 disabled={disable}
-                label={t("Address")}
-                value={student.Address.label}
-                options={addresses}
-                placeholder={t("Address")}
-                onChangeAddress={(e) => {
-                  handleAddress(e);
+                value={student.firstname}
+                onChange={(e) => {
+                  handleStudent(e.target.name, e.target.value);
                 }}
-                error={studentErrors['Address']?true:false}
-                ErrorMsg={t(studentErrors['Address'])}
-                onAddressSelect={(e) => handleSelectAddress(e)}
+                error={studentErrors["firstname"] ? true : false}
+                ErrorMsg={t(studentErrors["firstname"])}
               />
             </Grid>
+            <Grid item xs={12} sm={12} md={4}>
+              <DropDown
+                label={t("Gender")}
+                required={true}
+                placeholder={t("Male")}
+                disabled={disable}
+                name="gender"
+                value={student.gender}
+                onChange={(e) => handleStudent("gender", e.target.value)}
+                MenuItem={[
+                  { name: t("Male"), value: "Male" },
+                  { name: t("Female"), value: "Female" },
+                  { name: t("others"), value: "others" },
+                ]}
+                error={studentErrors["gender"] ? true : false}
+                ErrorMsg={studentErrors["gender"]}
+              ></DropDown>
+            </Grid>
+
             <Grid item xs={12} sm={12} md={4} sx={{ marginTop: "9px" }}>
               <Datepicker
                 label={t("Date of Birth")}
@@ -691,8 +746,8 @@ const StudentForm = (props) => {
                 }}
                 padding="20px 0 0 0px !important"
                 width="100% !important"
-                error={studentErrors['dob']?true:false}
-                ErrorMsg={studentErrors['dob']}
+                error={studentErrors["dob"] ? true : false}
+                ErrorMsg={studentErrors["dob"]}
               ></Datepicker>
               <div className="borderbottom"></div>
             </Grid>
@@ -708,110 +763,39 @@ const StudentForm = (props) => {
                 onChange={(e) => {
                   handleStudent(e.target.name, e.target.value);
                 }}
-               error={studentErrors['pob']?true:false}
-                ErrorMsg={t(studentErrors['pob'])}
-              ></TextField>
-                
-            </Grid>
-            <Grid item xs={12} sm={12} md={4}>
-              <TextField
-                label={t("Zip Code")}
-                required={true}
-                name="zip"
-                placeholder="712333"
-                disabled={true}
-                value={student.Address.zip}
+                error={studentErrors["pob"] ? true : false}
+                ErrorMsg={t(studentErrors["pob"])}
               ></TextField>
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
-              <DropDown
-                label={t("Gender")}
-                required={true}
-                placeholder={t("Male")}
+              <LanguageAutoComplete
+                name="language"
                 disabled={disable}
-                name="gender"
-                value={student.gender}
-                onChange={(e) => handleStudent("gender", e.target.value)}
-                MenuItem={[
-                  { name: "Male", value: "Male" },
-                  { name: "Female", value: "Female" },
-                  { name: "others", value: "others" },
-                ]}
-                error={studentErrors['gender']?true:false}
-                ErrorMsg={studentErrors['gender']}
-              ></DropDown>
+                label={t("Spoken Language")}
+                value={student.language}
+                options={student.languages ? student.languages : []}
+                placeholder={t("Language")}
+                setVal={handleStudent}
+                // error={studentErrors['language']?true:false}
+                // ErrorMsg={studentErrors['language']}
+              />
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
-              <TextField
-                label={t("Email")}
+              <AutoComplete
+                name="Address"
                 required={true}
-                name="email"
                 disabled={disable}
-                type="email"
-                placeholder="arslan.alikh@gmail.com"
-                value={student.email}
-                onChange={(e) => {
-                  handleStudent(e.target.name, e.target.value);
+                label={t("Address")}
+                value={student.Address.label}
+                options={addresses}
+                placeholder={t("Address")}
+                onChangeAddress={(e) => {
+                  handleAddress(e);
                 }}
-                error={studentErrors['email']?true:false}
-                ErrorMsg={t(studentErrors['email'])}
-              ></TextField>
-            </Grid>
-            <Grid item xs={12} sm={12} md={4}>
-              <TextField
-                label={t("Second Email")}
-                name="email2"
-                disabled={disable}
-                type="email"
-                placeholder="smart_coolkyo@yahoo.com"
-                value={student.email2}
-                onChange={(e) => {
-                  handleStudent(e.target.name, e.target.value);
-                }}
-                // error={studentErrors['email2']?true:false}
-                // ErrorMsg={studentErrors['email2']}
-              ></TextField>
-            </Grid>
-            <Grid item xs={12} sm={12} md={4}>
-              <TextField
-                label={t("Phone")}
-                required={true}
-                disabled={disable}
-                type="number"
-                placeholder="XX-XXXXXX-XX"
-                name="phone"
-                value={student.phone}
-                onChange={(e) => {
-                  handleStudent(e.target.name, e.target.value);
-                }}
-                error={studentErrors['phone']?true:false}
-                ErrorMsg={t(studentErrors['phone'])}
-              ></TextField>
-            </Grid>
-            <Grid item xs={12} sm={12} md={4}>
-              <TextField
-                label={t("Second Phone")}
-                type="number"
-                placeholder="XX-XXXXXX-XX"
-                disabled={disable}
-                name="phone2"
-                value={student.phone2}
-                onChange={(e) => {
-                  handleStudent(e.target.name, e.target.value);
-                }}
-                // error={studentErrors['phone2']?true:false}
-                // ErrorMsg={studentErrors['phone2']}
-              ></TextField>
-            </Grid>
-            <Grid item xs={12} sm={12} md={4}>
-              <TextField
-                label={t("City")}
-                required={true}
-                name="city"
-                disabled={true}
-                placeholder="New york"
-                value={student.Address.city}
-              ></TextField>
+                error={studentErrors["Address"] ? true : false}
+                ErrorMsg={t(studentErrors["Address"])}
+                onAddressSelect={(e) => handleSelectAddress(e)}
+              />
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
               <TextField
@@ -830,6 +814,89 @@ const StudentForm = (props) => {
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
               <TextField
+                label={t("Zip Code")}
+                required={true}
+                name="zip"
+                placeholder="712333"
+                disabled={true}
+                value={student.Address.zip}
+              ></TextField>
+            </Grid>
+            <Grid item xs={12} sm={12} md={4}>
+              <TextField
+                label={t("City")}
+                required={true}
+                name="city"
+                disabled={true}
+                placeholder="New york"
+                value={student.Address.city}
+              ></TextField>
+            </Grid>
+            <Grid item xs={12} sm={12} md={4}>
+              <TextField
+                label={t("Email")}
+                required={true}
+                name="email"
+                disabled={disable}
+                type="email"
+                placeholder="arslan.alikh@gmail.com"
+                value={student.email}
+                onChange={(e) => {
+                  handleStudent(e.target.name, e.target.value);
+                }}
+                error={studentErrors["email"] ? true : false}
+                ErrorMsg={t(studentErrors["email"])}
+              ></TextField>
+            </Grid>
+            <Grid item xs={12} sm={12} md={4}>
+              <TextField
+                label={t("Second Email")}
+                name="email2"
+                disabled={disable}
+                type="email"
+                placeholder="smart_coolkyo@yahoo.com"
+                value={student.email2}
+                onChange={(e) => {
+                  handleStudent(e.target.name, e.target.value);
+                }}
+                error={studentErrors["email2"] ? true : false}
+                ErrorMsg={t(studentErrors["email2"])}
+              ></TextField>
+            </Grid>
+            <Grid item xs={12} sm={12} md={4}>
+              <TextField
+                label={t("Phone")}
+                required={true}
+                disabled={disable}
+                type="number"
+                placeholder="XX-XXXXXX-XX"
+                name="phone"
+                value={student.phone}
+                onChange={(e) => {
+                  handleStudent(e.target.name, e.target.value);
+                }}
+                error={studentErrors["phone"] ? true : false}
+                ErrorMsg={t(studentErrors["phone"])}
+              ></TextField>
+            </Grid>
+            <Grid item xs={12} sm={12} md={4}>
+              <TextField
+                label={t("Second Phone")}
+                type="number"
+                placeholder="XX-XXXXXX-XX"
+                disabled={disable}
+                name="phone2"
+                value={student.phone2}
+                onChange={(e) => {
+                  handleStudent(e.target.name, e.target.value);
+                }}
+                error={studentErrors["phone2"] ? true : false}
+                ErrorMsg={t(studentErrors["phone2"])}
+              ></TextField>
+            </Grid>
+
+            <Grid item xs={12} sm={12} md={4}>
+              <TextField
                 label={t("Password")}
                 required={true}
                 disabled={disable}
@@ -840,8 +907,8 @@ const StudentForm = (props) => {
                 onChange={(e) => {
                   handleStudent("password", e.target.value);
                 }}
-                error={studentErrors['password']?true:false}
-                ErrorMsg={t(studentErrors['password'])}
+                error={studentErrors["password"] ? true : false}
+                ErrorMsg={t(studentErrors["password"])}
               ></TextField>
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
@@ -856,8 +923,23 @@ const StudentForm = (props) => {
                 onChange={(e) => {
                   handleStudent("confirmpassword", e.target.value);
                 }}
-                error={studentErrors['confirmpassword']?true:false}
-                ErrorMsg={t(studentErrors['confirmpassword'])}
+                error={studentErrors["confirmpassword"] ? true : false}
+                ErrorMsg={t(studentErrors["confirmpassword"])}
+              ></TextField>
+            </Grid>
+            <Grid item xs={12} sm={12} md={4}>
+              <TextField
+                label={t("NEPH Number")}
+                name="neph"
+                disabled={disable}
+                placeholder="532-3321-111"
+                type="text"
+                value={student.neph}
+                onChange={(e) => {
+                  handleStudent(e.target.name, e.target.value);
+                }}
+                // error={studentErrors['neph']?true:false}
+                // ErrorMsg={studentErrors['neph']}
               ></TextField>
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
@@ -875,34 +957,6 @@ const StudentForm = (props) => {
                 // ErrorMsg={studentErrors['noh']}
               ></TextField>
             </Grid>
-            <Grid item xs={12} sm={12} md={4}>
-              <TextField
-                label={t("NEPH Number")}
-                name="neph"
-                disabled={disable}
-                placeholder="532-3321-111"
-                type="number"
-                value={student.neph}
-                onChange={(e) => {
-                  handleStudent(e.target.name, e.target.value);
-                }}
-                // error={studentErrors['neph']?true:false}
-                // ErrorMsg={studentErrors['neph']}
-              ></TextField>
-            </Grid>
-            <Grid item xs={12} sm={12} md={4}>
-              <LanguageAutoComplete
-                name="language"
-                disabled={disable}
-                label={t("Spoken Language")}
-                value={student.language}
-                options={student.languages ? student.languages : []}
-                placeholder={t("Language")}
-                setVal={handleStudent}
-                // error={studentErrors['language']?true:false}
-                // ErrorMsg={studentErrors['language']}
-              />
-            </Grid>
           </Grid>
           <Divider
             width="100%"
@@ -912,13 +966,17 @@ const StudentForm = (props) => {
 
           <Grid container spacing={4} alignItems="flex-end">
             <Grid item xs={12} sm={12} md={4}>
+              {console.log(
+                "tes",
+                student.frontImage.split("_").slice(1).join("_")
+              )}
               <FilePicker
                 title={t("Upload front of your ID Card/Passport")}
                 label={t("front Image")}
                 disabled={disable}
                 name="frontImage"
                 type="file"
-                value={student.frontImage}
+                value={student.frontImage.split("_").slice(1).join("_")}
                 onChange={handleFileChange}
                 // error={studentErrors['frontImage']?true:false}
                 // ErrorMsg={studentErrors['frontImage']}
@@ -931,7 +989,7 @@ const StudentForm = (props) => {
                 label={t("back Image")}
                 name="backImage"
                 type="file"
-                value={student.backImage}
+                value={student.backImage.split("_").slice(1).join("_")}
                 onChange={handleFileChange}
                 // error={studentErrors['backImage']?true:false}
                 // ErrorMsg={studentErrors['backImage']}
@@ -944,7 +1002,7 @@ const StudentForm = (props) => {
                 label={t("profileImage")}
                 name="profileImage"
                 type="file"
-                value={student.profileImage}
+                value={student.profileImage.split("_").slice(1).join("_")}
                 onChange={handleFileChange}
                 // error={studentErrors['profileImage']?true:false}
                 // ErrorMsg={studentErrors['profileImage']}
@@ -966,19 +1024,20 @@ const StudentForm = (props) => {
               </Typography>
             </div>
             <div className="termsConditionsCheckbox">
-              <Checkbox 
-               
-                className="checkbox" 
+              <Checkbox
+                className="checkbox"
                 name="TermAndCondition"
-                value={student.TermAndCondition} 
-                onClick={
-                  ()=>setStudent({ ...student, 'TermAndCondition': !student.TermAndCondition })
+                value={student.TermAndCondition}
+                onClick={() =>
+                  setStudent({
+                    ...student,
+                    TermAndCondition: !student.TermAndCondition,
+                  })
                 }
-                />
+              />
               <Typography
                 variant="body1"
                 className="termsConditionsCheckboxTitle"
-               
               >
                 {t("Terms & Conditions Applied")}
               </Typography>
@@ -1000,9 +1059,9 @@ const StudentForm = (props) => {
                   }}
                   padding="20px 0 0 0px !important"
                   width="100% !important"
-                 
-                //   error={studentErrors['highwayCodeDate']?true:false}
-                // ErrorMsg={studentErrors['highwayCodeDate']}
+
+                  //   error={studentErrors['highwayCodeDate']?true:false}
+                  // ErrorMsg={studentErrors['highwayCodeDate']}
                 ></Datepicker>
                 <div className="borderbottom"></div>
               </Grid>
@@ -1041,56 +1100,55 @@ const StudentForm = (props) => {
               height="48px"
               height2="48px"
               onClick={handleSubmit}
-
               disabled={
-                studentErrors.firstname===null 
-                // && studentErrors.surname===null 
-                // && studentErrors.Address===null 
+                studentErrors.firstname === null &&
+                // && studentErrors.surname===null
+                // && studentErrors.Address===null
                 // && student.Address.city != ""
                 // && student.Address.zip != ""
                 // && studentErrors.password===''
                 // && studentErrors.confirmpassword===''
-                // && studentErrors.dob===null 
-                // && studentErrors.pob===null 
+                // && studentErrors.dob===null
+                // && studentErrors.pob===null
                 // && studentErrors.gender===null
                 // && studentErrors.email===null
                 // && studentErrors.phone===null
-                && student.TermAndCondition === true
+                student.TermAndCondition === true
+                  ? // && studentErrors.noh===null
+                    // && studentErrors.neph===null
+                    // && studentErrors.frontImage===null
+                    // && studentErrors.backImage===null
+                    // && studentErrors.profileImage===null
+                    // && studentErrors.language===null
+                    // && studentErrors.complement===null
 
-                // && studentErrors.noh===null
-                // && studentErrors.neph===null
-                // && studentErrors.frontImage===null
-                // && studentErrors.backImage===null
-                // && studentErrors.profileImage===null
-                // && studentErrors.language===null
-                // && studentErrors.complement===null
-               
+                    // && checkbox1===false
+                    // || studentErrors.highwayCodeDate===null
+                    // && studentErrors.highwayCodeImg===null
+                    // && studentErrors.firstname===null
+                    // && studentErrors.surname===null
+                    // && studentErrors.Address===null
+                    // && student.Address.city != ""
+                    // && student.Address.zip != ""
+                    // && studentErrors.password===''
+                    // && studentErrors.confirmpassword===''
+                    // && studentErrors.dob===null
+                    // && studentErrors.pob===null
+                    // && studentErrors.gender===null
+                    // && studentErrors.email===null
+                    // && studentErrors.phone===null
+                    // && student.TermAndCondition === true
 
-                // && checkbox1===false
-                // || studentErrors.highwayCodeDate===null
-                // && studentErrors.highwayCodeImg===null
-                // && studentErrors.firstname===null 
-                // && studentErrors.surname===null 
-                // && studentErrors.Address===null 
-                // && student.Address.city != ""
-                // && student.Address.zip != ""
-                // && studentErrors.password===''
-                // && studentErrors.confirmpassword===''
-                // && studentErrors.dob===null 
-                // && studentErrors.pob===null 
-                // && studentErrors.gender===null
-                // && studentErrors.email===null
-                // && studentErrors.phone===null
-                // && student.TermAndCondition === true
-                
-                // && studentErrors.language===null
-                // && studentErrors.complement===null
-                // && studentErrors.noh===null
-                // && studentErrors.neph===null
-                // && studentErrors.frontImage===null
-                // && studentErrors.backImage===null
-                // && studentErrors.profileImage===null
-                ? false: true }
+                    // && studentErrors.language===null
+                    // && studentErrors.complement===null
+                    // && studentErrors.noh===null
+                    // && studentErrors.neph===null
+                    // && studentErrors.frontImage===null
+                    // && studentErrors.backImage===null
+                    // && studentErrors.profileImage===null
+                    false
+                  : true
+              }
             ></Button>
           </Grid>
         </Box>

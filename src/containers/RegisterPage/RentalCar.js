@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Button from "../../components/Common/Button";
 import RegisterHeader from "../../components/RegisterFroms/registerHeader";
 import Footer from "../../components/Landing/Footer";
@@ -97,6 +97,8 @@ function ColorlibStepIcon(props) {
 
 const RentalCar = () => {
   const { i18n, t } = useTranslation();
+  const [rentalCarForm, setRentalCarForm] = useState({});
+  const [lng, setLng] = useState();
   let history = useHistory();
   const steps = ["Identity", "Details", "Vehicle", "Done"];
 
@@ -129,7 +131,7 @@ const RentalCar = () => {
 
   const step1Schema = {
     FirstName: Joi.string()
-      .min(3)
+      .min(2)
       .required()
       .label("First Name")
       .error((errors) => {
@@ -150,7 +152,7 @@ const RentalCar = () => {
       }),
 
     SurName: Joi.string()
-      .min(3)
+      .min(2)
       .required()
       .label("SurName")
       .error((errors) => {
@@ -278,12 +280,8 @@ const RentalCar = () => {
         });
         return errors;
       }),
-    Phone2: Joi.label("Phone2")
-      .optional()
+    Phone2: Joi.optional().label("Phone2"),
 
-      .error((errors) => {
-        return errors;
-      }),
     Password: Joi.string()
       .min(8)
       .max(15)
@@ -399,6 +397,8 @@ const RentalCar = () => {
 
   const handleStep1 = (name, value) => {
     let errorMessage = "";
+    let phoneCheck = false;
+    let regex = /[^\s@]+@[^\s@]+\.[^\s@]+/;
     if (name == "Address") {
       errorMessage = validateSuggest1(name, value.Label);
     } else if (name === "Password") {
@@ -413,12 +413,77 @@ const RentalCar = () => {
       } else if (value.length === 0) {
         errorMessage = t("Password cannot be empty");
       }
+    } else if (name === "Email2") {
+      if (step1.Email == value) {
+        if (step1.Email === "" && value === "") {
+        } else {
+          errorMessage = t("Email 2 can’t be the same as the first email");
+        }
+      } else if (value.length === 0) {
+      } else if (regex.test(value)) {
+      } else if (regex.test(value) == null || regex.test(value) == "") {
+        errorMessage = t("Not a Valid Email");
+      }
+    } else if (name === "Phone") {
+      if (value.length > 10) {
+        phoneCheck = true;
+        if (value.length === 0) {
+          errorMessage = t("Phone can't be blank");
+        } else if (value[0] != "0") {
+          errorMessage = t("Phone number should start with 0");
+        } else if (value.length < 10 && value.length > 0) {
+          errorMessage = t("The phone must be at least 10 characters");
+        }
+      } else {
+        if (value.length === 0) {
+          errorMessage = t("Phone can't be blank");
+        } else if (value[0] != "0") {
+          errorMessage = t("Phone number should start with 0");
+        } else if (value.length < 10 && value.length > 0) {
+          errorMessage = t("The phone must be at least 10 characters");
+        }
+      }
+    } else if (name === "Phone2") {
+      if (value.length > 10) {
+        phoneCheck = true;
+
+        if (step1.Phone === value) {
+          if (step1.Phone === "" && value === "") {
+          } else {
+            errorMessage = t(
+              "The 2nd phone number cannot be the same as the 1st"
+            );
+          }
+        } else if (value.length === 0) {
+        } else if (value[0] != "0") {
+          errorMessage = t("Phone number should start with 0");
+        } else if (value.length < 10 && value.length > 0) {
+          errorMessage = t("The phone must be at least 10 characters");
+        }
+      } else {
+        if (step1.Phone == value) {
+          if (step1.Phone === "" && value === "") {
+          } else {
+            errorMessage = t(
+              "The 2nd phone number cannot be the same as the 1st"
+            );
+          }
+        } else if (value.length === 0) {
+        } else if (value[0] != "0") {
+          errorMessage = t("Phone number should start with 0");
+        } else if (value.length < 10 && value.length > 0) {
+          errorMessage = t("The phone must be at least 10 characters");
+        }
+      }
     } else {
       errorMessage = validateSuggest1(name, value);
     }
 
     setStep1Errors({ ...step1Errors, [name]: errorMessage });
-    setStep1({ ...step1, [name]: value });
+    if (phoneCheck) {
+    } else {
+      setStep1({ ...step1, [name]: value });
+    }
   };
 
   const validateSuggest1 = (name, value) => {
@@ -1041,13 +1106,36 @@ const RentalCar = () => {
         console.log("Personal Response", error);
       });
   };
+  useEffect(() => {
+    getRentalCarForm();
+    setLng(localStorage.getItem("i18nextLng"));
+  }, [localStorage.getItem("i18nextLng")]);
+  const getRentalCarForm = async () => {
+    await API("get", "CMS/GetPageData?page=register")
+      .then((getRentalCarFormResponse) => {
+        const RentalCarFormData = getRentalCarFormResponse.data.data.find(
+          (item) => item.sectionName === "Rental Car Agent"
+        );
+        setRentalCarForm(RentalCarFormData);
+      })
+      .catch((error) => console.log("error------->", error));
+  };
   return (
     <React.Fragment>
       <RegisterHeader
-        title={t("Rental Car Registration")}
-        subtitle1="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce varius justo et scelerisque varius. Nullam mollis augue et facilisis blandit. Morbi sollicitudin a eros sed cursus."
-        subtitle2="Quisque lobortis ultrices dolor, fringilla venenatis leo sodales at. Nam suscipit felis sit amet convallis."
-      />
+        title={
+          lng === "en"
+            ? rentalCarForm?.headingEnglish
+            : lng === "fr"
+            ? rentalCarForm?.headingFrench
+            : ""
+        }
+        subtitle1={ lng === "en"
+        ? rentalCarForm?.textEnglish
+        : lng === "fr"
+        ? rentalCarForm?.textFrench
+        : ""}
+/>
       <div
         style={{
           display: "flex",

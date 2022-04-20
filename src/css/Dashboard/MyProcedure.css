@@ -4,6 +4,7 @@
     background-color: #fff;
     margin: 0px 90px 0px 20px;
     padding: 20px;
+    cursor: pointer;
   
 }
 .ProcedureGrid{
@@ -13,7 +14,7 @@
     
 }
 .MyProcedureHeading {
-    font-size: 28px !important;
+    font-size: 25px !important;
 }
 @media only screen and (max-width: 1440px) {
     .ProcedureGrid{

@@ -30,7 +30,7 @@ const Profile = () => {
     borderRadius: "10px",
     p: 4,
   };
-  const { i18n , t } = useTranslation();
+  const { i18n, t } = useTranslation();
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -119,7 +119,7 @@ const Profile = () => {
       <Grid container spacing={1} className="maindiv">
         <Grid md={3} className="leftprofilediv">
           <ProfileImage
-            src={user ? (user.photo ? user.photo : { Studentprofile }) : ""}
+            src={user ? (user.photo ? user.photo : Studentprofile) : ""}
           ></ProfileImage>
         </Grid>
 
@@ -135,13 +135,15 @@ const Profile = () => {
             languages={
               user ? (user.spokenLanguage ? user.spokenLanguage : []) : []
             }
-            ratings={ratings ? ratings : ""}
+            ratings={ratings ? (ratings === "NaN" ? t("N/A") : ratings) : ""}
           ></ProfileDetails>
           <Grid className="ProfileDetails">
             <Typography className="Abouttitlle">{t("About")}</Typography>
             <Divider className="ProfileDivider"></Divider>
           </Grid>
-          <Typography className="AboutHeading">{t("Contact Information")}</Typography>
+          <Typography className="AboutHeading">
+            {t("Contact Information")}
+          </Typography>
 
           <Grid container spacing={1} className="formdata">
             <Grid sx={12} sm={12} md={2} className="Information">
@@ -175,7 +177,7 @@ const Profile = () => {
               {user ? (user.complement ? user.complement : "N/A") : ""}
             </Grid>
           </Grid>
-          <Grid container spacing={1} className="formdata">
+          {/* <Grid container spacing={1} className="formdata">
             <Grid sx={12} sm={12} md={2} className="Information">
               {t("Postal Code")}:
             </Grid>
@@ -190,7 +192,7 @@ const Profile = () => {
             <Grid sx={12} sm={12} md={2} className="RoleInformation">
               {user ? (user.city ? user.city : "N/A") : ""}
             </Grid>
-          </Grid>
+          </Grid> */}
           <Grid container spacing={1} className="formdata">
             <Grid sx={12} sm={12} md={2} className="Information">
               {t("CDF Accepted")}:
@@ -218,7 +220,7 @@ const Profile = () => {
                 name="oldPassword"
                 value={oldPassword}
                 type="password"
-                placeholder="Enter password"
+                placeholder={t("Enter password")}
                 sx={{ marginBottom: "2% !important" }}
                 onChange={(e) => {
                   setOldPassword(e.target.value);
@@ -229,7 +231,7 @@ const Profile = () => {
                 name="newPassword"
                 value={newPassword}
                 type="password"
-                placeholder="Enter password"
+                placeholder={t("Enter password")}
                 onChange={(e) => {
                   setNewPassword(e.target.value);
                 }}
@@ -239,7 +241,7 @@ const Profile = () => {
                 name="confirmPassword"
                 type="password"
                 value={confirmPassword}
-                placeholder="Enter password"
+                placeholder={t("Enter password")}
                 onChange={(e) => setConfirmPassword(e.target.value)}
               />
               <div style={{ marginTop: "2%" }}>
@@ -327,7 +329,7 @@ const Profile = () => {
               <TextareaAutosize
                 aria-label="minimum height"
                 minRows={5}
-                placeholder="Minimum 3 rows"
+                placeholder={t("Minimum 3 rows")}
                 name="description"
                 onChange={(e) => setDescription(e.target.name)}
                 style={{ width: "100%", borderRadius: "5px" }}

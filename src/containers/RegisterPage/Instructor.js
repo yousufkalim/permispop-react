@@ -98,6 +98,8 @@ function ColorlibStepIcon(props) {
 }
 
 const Instructor = () => {
+  const [instructorForm, setInstructorForm] = React.useState({});
+  const [lng, setLng] = React.useState();
   const { i18n, t } = useTranslation();
   let history = useHistory();
 
@@ -115,7 +117,7 @@ const Instructor = () => {
       Lat: "",
       Lng: "",
     },
-    Dob: new Date("01/01/2000"),
+    Dob: "",
     Pob: "",
     Gender: "",
     Email: "",
@@ -136,7 +138,7 @@ const Instructor = () => {
 
   const step1Schema = {
     Firstname: Joi.string()
-      .min(3)
+      .min(2)
       .required()
       .label(t("First Name"))
       // .message(`${label} hjsjdhsj`),
@@ -159,7 +161,7 @@ const Instructor = () => {
       }),
 
     Surname: Joi.string()
-      .min(3)
+      .min(2)
       .required()
       .label("Surname")
       .error((errors) => {
@@ -258,6 +260,7 @@ const Instructor = () => {
       }),
     Email2: Joi.optional()
       .label("Second Email")
+      // .email()
       .error((errors) => {
         errors.forEach((err) => {
           switch (err.type) {
@@ -288,12 +291,8 @@ const Instructor = () => {
         });
         return errors;
       }),
-    Phone2: Joi.label("Phone2")
-      .optional()
+    Phone2: Joi.optional().label("Phone2"),
 
-      .error((errors) => {
-        return errors;
-      }),
     Password: Joi.string()
 
       .min(8)
@@ -426,6 +425,8 @@ const Instructor = () => {
 
   const handleStep1 = (name, value) => {
     let errorMessage = "";
+    let phoneCheck = false;
+    let regex = /[^\s@]+@[^\s@]+\.[^\s@]+/;
     if (name === "Address") {
       errorMessage = validateSuggest1(name, value.Label);
     } else if (name == "checked") {
@@ -441,11 +442,92 @@ const Instructor = () => {
       } else if (value.length === 0) {
         errorMessage = t("Password cannot be empty");
       }
+    } else if (name === "Dob") {
+      let todayDate = moment().format("YYYY");
+      let selectedDate = moment(value).format("YYYY");
+      if (todayDate - selectedDate > 22) {
+      } else {
+        errorMessage = t("Instructor can’t be younger than 22 years old");
+      }
+    } else if (name === "Email2") {
+      if (step1.Email == value) {
+        if (step1.Email === "" && value === "") {
+        } else {
+          errorMessage = t("Email 2 can’t be the same as the first email");
+        }
+      } else if (value.length === 0) {
+      } else if (regex.test(value)) {
+      } else if (regex.test(value) == null || regex.test(value) == "") {
+        errorMessage = t("Not a Valid Email");
+      }
+    } else if (name === "Phone") {
+      if (value.length > 10) {
+        phoneCheck = true;
+        if (value.length === 0) {
+          errorMessage = t("Phone can't be blank");
+        } else if (value[0] != "0") {
+          errorMessage = t("Phone number should start with 0");
+        } else if (value.length < 10 && value.length > 0) {
+          errorMessage = t("The phone must be at least 10 characters");
+        }
+      } else {
+        if (value.length === 0) {
+          errorMessage = t("Phone can't be blank");
+        } else if (value[0] != "0") {
+          errorMessage = t("Phone number should start with 0");
+        } else if (value.length < 10 && value.length > 0) {
+          errorMessage = t("The phone must be at least 10 characters");
+        }
+      }
+    } else if (name === "Phone2") {
+      if (value.length > 10) {
+        phoneCheck = true;
+        if (step1.Phone == value) {
+          if (step1.Phone === "" && value === "") {
+          } else {
+            errorMessage = t(
+              "The 2nd phone number cannot be the same as the 1st"
+            );
+          }
+        } else if (value.length === 0) {
+        } else if (value[0] != "0") {
+          errorMessage = t("Phone number should start with 0");
+        } else if (value.length < 10 && value.length > 0) {
+          errorMessage = t("The phone must be at least 10 characters");
+        }
+      } else {
+        if (step1.Phone == value) {
+          if (step1.Phone === "" && value === "") {
+          } else {
+            errorMessage = t(
+              "The 2nd phone number cannot be the same as the 1st"
+            );
+          }
+        } else if (value.length === 0) {
+        } else if (value[0] != "0") {
+          errorMessage = t("Phone number should start with 0");
+        } else if (value.length < 10 && value.length > 0) {
+          errorMessage = t("The phone must be at least 10 characters");
+        }
+      }
     } else {
       errorMessage = validateSuggest1(name, value);
     }
+    // else if (name === "Phone2") {
+    //   if (step1.Phone === value) {
+    //     errorMessage = t("Phone 2 can’t be the same as the first phone number");
+    //   } else {
+    //   }
+    //   console.log(errorMessage);
+    // }
+    //  else {
+    //   errorMessage = validateSuggest1(name, value);
+    // }
     setStep1Errors({ ...step1Errors, [name]: errorMessage });
-    setStep1({ ...step1, [name]: value });
+    if (phoneCheck) {
+    } else {
+      setStep1({ ...step1, [name]: value });
+    }
   };
 
   const validateSuggest1 = (name, value) => {
@@ -459,10 +541,10 @@ const Instructor = () => {
 
   const [step2Errors, setStep2Errors] = React.useState({});
   const [step2, setStep2] = React.useState({
-    obtainingdate: new Date(),
-    validitiyDate: new Date(),
-    DateAuthorization: new Date(),
-    ExpirationDate: new Date(),
+    obtainingdate: "",
+    validitiyDate: "",
+    DateAuthorization: "",
+    ExpirationDate: "",
     licenceNo: "",
     deliveryPlace: "",
     issuingAuthority: "",
@@ -709,7 +791,7 @@ const Instructor = () => {
   const [step3, setStep3] = React.useState({
     companyInsurer: "",
     companyPoliceNum: "",
-    insuranceExpDate: new Date(),
+    insuranceExpDate: "",
     companyRC: "",
   });
 
@@ -895,10 +977,10 @@ const Instructor = () => {
     Gearbox: "",
     Insurer: "",
     PoliceNum: "",
-    VehicleInsurerStartDate: new Date(),
-    VehicleInsurerEndDate: new Date(),
-    TechStartDate: new Date(),
-    TechEndDate: new Date(),
+    VehicleInsurerStartDate: "",
+    VehicleInsurerEndDate: "",
+    TechStartDate: "",
+    TechEndDate: "",
     PhotoPath: "",
     RegCertificatefront: "",
     RegCertificateback: "",
@@ -1228,7 +1310,13 @@ const Instructor = () => {
     return error ? error.details[0].message : null;
   };
 
-  const steps = ["Identity", "Details", "Insurance", "Vehicle", "Done"];
+  const steps = [
+    t("Identity"),
+    t("Details"),
+    t("Insurance"),
+    t("Vehicle"),
+    t("Done"),
+  ];
 
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
@@ -1312,27 +1400,39 @@ const Instructor = () => {
 
                         let vehiclesRes = [];
                         vehicles.map(async (vehicle) => {
-                          let VehicleInsurancePromise = API("post", "VehicleInsurance", {
-                            insurer: vehicle.Insurer,
-                            policeNumber: vehicle.PoliceNum,
-                            startDate: vehicle.VehicleInsurerStartDate,
-                            endDate: vehicle.VehicleInsurerEndDate,
-                            greenCardImagePath: vehicle.GreenCardImgPath,
-                          });
+                          let VehicleInsurancePromise = API(
+                            "post",
+                            "VehicleInsurance",
+                            {
+                              insurer: vehicle.Insurer,
+                              policeNumber: vehicle.PoliceNum,
+                              startDate: vehicle.VehicleInsurerStartDate,
+                              endDate: vehicle.VehicleInsurerEndDate,
+                              greenCardImagePath: vehicle.GreenCardImgPath,
+                            }
+                          );
 
                           let TechnicalControlPromise = "";
                           if (step4.checked) {
-                            TechnicalControlPromise = API("post", "TechnicalControl", {
-                              dateofTechnicalControl: new Date(),
-                              endData: new Date(),
-                              endDateOfTechControl: vehicle.TechEndDate,
-                              startDateOfTech: vehicle.TechStartDate,
-                              technicalControlImagePath: vehicle.ControlTechImgPath,
-                            });
+                            TechnicalControlPromise = API(
+                              "post",
+                              "TechnicalControl",
+                              {
+                                dateofTechnicalControl: new Date(),
+                                endData: new Date(),
+                                endDateOfTechControl: vehicle.TechEndDate,
+                                startDateOfTech: vehicle.TechStartDate,
+                                technicalControlImagePath:
+                                  vehicle.ControlTechImgPath,
+                              }
+                            );
                           }
                           let array = [];
                           if (step4.checked) {
-                            array = [VehicleInsurancePromise, TechnicalControlPromise];
+                            array = [
+                              VehicleInsurancePromise,
+                              TechnicalControlPromise,
+                            ];
                           } else {
                             array = [VehicleInsurancePromise];
                           }
@@ -1340,18 +1440,24 @@ const Instructor = () => {
                           vehiclesRes.push(
                             Promise.all(array).then((e) => {
                               return API("post", "VehicleDetail", {
-                                dateOfFirstRegistration: vehicle.FirstRegistration,
+                                dateOfFirstRegistration:
+                                  vehicle.FirstRegistration,
                                 brand: vehicle.Brand,
                                 model: vehicle.Model,
                                 numberPlate: vehicle.NumPlate,
                                 color: vehicle.Color,
                                 energy: vehicle.Energy,
                                 gearBox: vehicle.Gearbox,
-                                vehicleePhotosImagePath: vehicle.ControlTechImgPath,
-                                vehicleRegistrationCertificatePhotoImagePathBack: vehicle.RegCertificateback,
-                                vehicleRegistrationCertificatePhotoImagePath: vehicle.RegCertificatefront,
+                                vehicleePhotosImagePath:
+                                  vehicle.ControlTechImgPath,
+                                vehicleRegistrationCertificatePhotoImagePathBack:
+                                  vehicle.RegCertificateback,
+                                vehicleRegistrationCertificatePhotoImagePath:
+                                  vehicle.RegCertificatefront,
                                 vehichleInsuranceInfoId: e[0].data.data.id,
-                                technicalControlInfoID: e[1] ? e[1].data.data.id : "",
+                                technicalControlInfoID: e[1]
+                                  ? e[1].data.data.id
+                                  : "",
                               });
                             })
                           );
@@ -1366,17 +1472,22 @@ const Instructor = () => {
                           });
                           await API("post", "Profile", {
                             businessInfoId: BusinessResponse.data.data.id,
-                            drivingLisenceInfoId: DrivingLisenceResponse.data.data.id,
-                            exersiceAuthorizationInfoId: ExersiceAuthorizationResponse.data.data.id,
-                            insuranceCompanyInfoId: InsuranceCompanyResponse.data.data.id,
+                            drivingLisenceInfoId:
+                              DrivingLisenceResponse.data.data.id,
+                            exersiceAuthorizationInfoId:
+                              ExersiceAuthorizationResponse.data.data.id,
+                            insuranceCompanyInfoId:
+                              InsuranceCompanyResponse.data.data.id,
                             lat: step1.Address.Lat,
                             long: step1.Address.Lng,
                             personalInfoId: PersonalResponse.data.data.id,
                             role: "Instructor",
                             status: "Active",
-                            technicalControlInfoId: vehicles[0].data.data.technicalControlInfoID,
+                            technicalControlInfoId:
+                              vehicles[0].data.data.technicalControlInfoID,
                             vehicleDetailInfoId: JSON.stringify(finalVehicles),
-                            vehicleInsuranceInfoid: vehicles[0].data.data.vehichleInsuranceInfoId,
+                            vehicleInsuranceInfoid:
+                              vehicles[0].data.data.vehichleInsuranceInfoId,
                           }).then(async (ProfileResponse) => {
                             await API("post", "InstructorMeetupPoints", {
                               ZipCode: step1.Address.Zip,
@@ -1387,13 +1498,18 @@ const Instructor = () => {
                               meetup: step1.Address.Label,
                             }).then(() => {
                               history.push("/");
-                              toast.success(t("Instructor Registered Successfully"));
+                              toast.success(
+                                t("Instructor Registered Successfully")
+                              );
                             });
                           });
                         });
                       })
                       .catch((error) => {
-                        toast.error(t("Not Registered....Error Occured"), error);
+                        toast.error(
+                          t("Not Registered....Error Occured"),
+                          error
+                        );
                         console.log("InsuranceCompanyResponse", error);
                       });
                   })
@@ -1417,12 +1533,42 @@ const Instructor = () => {
         toast.error(t("Not Registered....Error Occured"), error);
       });
   };
+  React.useEffect(() => {
+    getInstructorForm();
+    setLng(localStorage.getItem("i18nextLng"));
+  }, [localStorage.getItem("i18nextLng")]);
+  const getInstructorForm = async () => {
+    await API("get", "CMS/GetPageData?page=register")
+      .then((getInstructorFormResponse) => {
+        console.log(
+          "🚀 ~ file: Instructor.js ~ line 1457 ~ .then ~ getInstructorFormResponse",
+          getInstructorFormResponse
+        );
+
+        const instructorFormData = getInstructorFormResponse.data.data.find(
+          (item) => item.sectionName === "Instructor"
+        );
+        setInstructorForm(instructorFormData);
+      })
+      .catch((error) => console.log("error------->", error));
+  };
   return (
     <React.Fragment>
       <RegisterHeader
-        title={t("Instructor Registration")}
-        subtitle1="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce varius justo et scelerisque varius. Nullam mollis augue et facilisis blandit. Morbi sollicitudin a eros sed cursus."
-        subtitle2="Quisque lobortis ultrices dolor, fringilla venenatis leo sodales at. Nam suscipit felis sit amet convallis."
+        title={
+          lng === "en"
+            ? instructorForm?.headingEnglish
+            : lng === "fr"
+            ? instructorForm?.headingFrench
+            : ""
+        }
+        subtitle1={
+          lng === "en"
+            ? instructorForm?.textEnglish
+            : lng === "fr"
+            ? instructorForm?.textFrench
+            : ""
+        }
       />
       <div
         style={{
@@ -1460,11 +1606,19 @@ const Instructor = () => {
               ""
             )}
           </Typography>
-          <Stepper alternativeLabel activeStep={activeStep} connector={<ColorlibConnector />} className="stepper">
+          <Stepper
+            alternativeLabel
+            activeStep={activeStep}
+            connector={<ColorlibConnector />}
+            className="stepper"
+          >
             {steps.map((label, index) => (
               <Step key={label}>
                 <StepLabel StepIconComponent={ColorlibStepIcon}>
-                  <span className="steplabel" style={{ fontfamily: "Inter", color: "black" }}>
+                  <span
+                    className="steplabel"
+                    style={{ fontfamily: "Inter", color: "black" }}
+                  >
                     {t(label)}
                   </span>
                 </StepLabel>
@@ -1480,7 +1634,9 @@ const Instructor = () => {
             <Box sx={{ width: "83%" }}>
               {activeStep === steps.length ? (
                 <React.Fragment>
-                  <Typography sx={{ mt: 2, mb: 1 }}>{t("All steps completed - you're finished")}</Typography>
+                  <Typography sx={{ mt: 2, mb: 1 }}>
+                    {t("All steps completed - you're finished")}
+                  </Typography>
                   <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
                     <Box sx={{ flex: "1 1 auto" }} />
                     <Button
@@ -1499,11 +1655,26 @@ const Instructor = () => {
                 <React.Fragment>
                   <Typography sx={{ mt: 2, mb: 1 }}>
                     {activeStep === 1 ? (
-                      <Step1 step1={step1} setStep1={setStep1} onChange={handleStep1} step1Errors={step1Errors} />
+                      <Step1
+                        step1={step1}
+                        setStep1={setStep1}
+                        onChange={handleStep1}
+                        step1Errors={step1Errors}
+                      />
                     ) : activeStep === 2 ? (
-                      <Step2 step2={step2} setStep2={setStep2} onChange={handleStep2} step2Errors={step2Errors} />
+                      <Step2
+                        step2={step2}
+                        setStep2={setStep2}
+                        onChange={handleStep2}
+                        step2Errors={step2Errors}
+                      />
                     ) : activeStep === 3 ? (
-                      <Step3 step3={step3} setStep3={setStep3} onChange={handleStep3} step3Errors={step3Errors} />
+                      <Step3
+                        step3={step3}
+                        setStep3={setStep3}
+                        onChange={handleStep3}
+                        step3Errors={step3Errors}
+                      />
                     ) : activeStep === 4 ? (
                       <Step4
                         step4={step4}
@@ -1540,14 +1711,23 @@ const Instructor = () => {
                     <Button
                       endIcon={<ArrowForwardIcon sx={{ color: "#fff" }} />}
                       type="submit"
-                      text={activeStep === steps.length - 1 ? t("Finish") : t("Next")}
+                      text={
+                        activeStep === steps.length - 1
+                          ? t("Finish")
+                          : t("Next")
+                      }
                       buttonLableStyle="btn_main"
                       style={{ marginTop: "24px" }}
                       width="10%"
                       customWidth1="100%"
                       height="48px"
                       height2="48px"
-                      onClick={activeStep === steps.length - 1 ? handleSubmit : handleNext}
+                      color="#219D7B"
+                      onClick={
+                        activeStep === steps.length - 1
+                          ? handleSubmit
+                          : handleNext
+                      }
                       disabled={
                         (activeStep === 1 &&
                           step1Errors.Firstname === null &&

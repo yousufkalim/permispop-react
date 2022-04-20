@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Typography from "@mui/material/Typography";
 // import Grid from "@mui/material/Grid";
 // import Box from "@mui/material/Box";
@@ -11,26 +11,30 @@ import InstagramIcon from "../../assets/images/instagramIcon.svg";
 import LinkedinIcon from "../../assets/images/linkedinIcon.svg";
 import YoutubeIcon from "../../assets/images/youtubeIcon.svg";
 import { useTranslation } from "react-i18next";
+import API from "../../api/index";
+import { useHistory } from "react-router-dom";
 
 const Footer = () => {
-  const { i18n , t } = useTranslation();
+  const history = useHistory();
+  const { i18n, t } = useTranslation();
   return (
     <div className="main_footer_container">
       <div className="second_footer_container">
         <div className="footer_icons_container">
           <img src={FacebookIcon} alt="services" className="footer_icon" />
-          <img src={TwitterIcon} alt="services" className="footer_icon" />
           <img src={InstagramIcon} alt="services" className="footer_icon" />
-          <img src={LinkedinIcon} alt="services" className="footer_icon" />
-          <img src={YoutubeIcon} alt="services" className="footer_icon" />
         </div>
+
         <Typography align="center" className="footer_title">
-          {t("PERMISPOP EDUCATION")}
+          {t("PERMISPOP")}
         </Typography>
         <div className="footer_policy_container">
-          <Typography align="center" className="footer_policy">
+          <p
+            className="footer_policy"
+            onClick={() => history.push("/home/terms&condition")}
+          >
             {t("Terms and Conditions")}
-          </Typography>
+          </p>
           <Divider
             orientation="vertical"
             light={true}
@@ -51,12 +55,15 @@ const Footer = () => {
             variant="middle"
             className={"divider"}
           />
-          <Typography align="center" className="footer_policy">
+          <p
+            className="footer_policy"
+            onClick={() => history.push("/home/privacy&policy")}
+          >
             {t("Privacy Policy")}
-          </Typography>
+          </p>
         </div>
         <Typography align="center" className="footer_copyright">
-          Copyright @ 2021 Permispop Drive Education
+          Copyright @ 2022 Permispop
         </Typography>
       </div>
     </div>
