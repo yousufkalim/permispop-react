@@ -22,6 +22,8 @@ import { useTranslation } from "react-i18next";
 
 const Calendar = () => {
   const currentDate = moment();
+  const { i18n, t } = useTranslation();
+
   const [open, setOpen] = useState(false);
   const [update, setUpdate] = useState(false);
   const [user, setUser] = useState();
@@ -44,12 +46,13 @@ const Calendar = () => {
   const [selectedEvent, setSelectedEvent] = useState({});
   const [selectedBooking, setSelectedBooking] = useState({});
   const [disabled, setdisabled] = useState(false);
+  const [lng, setLng] = useState();
   const [value, setValue] = useState("Availability-page");
-  const { i18n, t } = useTranslation();
 
   useEffect(() => {
     onNavigate(new Date(), "week");
-  }, []);
+    setLng(localStorage.getItem("i18nextLng"));
+  }, [localStorage.getItem("i18nextLng")]);
 
   useEffect(() => {
     const userData = JSON.parse(localStorage.getItem("user"));
@@ -114,8 +117,22 @@ const Calendar = () => {
           allAvailabilities.push({
             id: availability.id,
             title: "Availability By " + availability.createdBy,
-            start: new Date(date[0], parseInt(date[1]) - 1, date[2], parseInt(start[0]) + j, startMin, 0),
-            end: new Date(date[0], parseInt(date[1]) - 1, date[2], endingHours, endingMins, 0),
+            start: new Date(
+              date[0],
+              parseInt(date[1]) - 1,
+              date[2],
+              parseInt(start[0]) + j,
+              startMin,
+              0
+            ),
+            end: new Date(
+              date[0],
+              parseInt(date[1]) - 1,
+              date[2],
+              endingHours,
+              endingMins,
+              0
+            ),
             status: availability.status,
             type: type,
           });
@@ -130,8 +147,22 @@ const Calendar = () => {
         allAvailabilities.push({
           id: booking.id,
           title: "Booking By " + booking.instructorQuestionFifth,
-          start: new Date(date[0], parseInt(date[1]) - 1, date[2], start[0], start[1], 0),
-          end: new Date(date[0], parseInt(date[1]) - 1, date[2], end[0], end[1], 0),
+          start: new Date(
+            date[0],
+            parseInt(date[1]) - 1,
+            date[2],
+            start[0],
+            start[1],
+            0
+          ),
+          end: new Date(
+            date[0],
+            parseInt(date[1]) - 1,
+            date[2],
+            end[0],
+            end[1],
+            0
+          ),
           bookingTime: booking.startTime + " - " + booking.endTime,
           status: booking.status,
           meetingPlace: booking.meetingPlace,
@@ -247,7 +278,11 @@ const Calendar = () => {
         status: "Available",
       })
         .then((res) => {
-          toast.success(`Availabilty Added for date ${moment(selectedDate).format("YYYY-DD-MM")}`);
+          toast.success(
+            `Availabilty Added for date ${moment(selectedDate).format(
+              "YYYY-DD-MM"
+            )}`
+          );
           setUpdate(!update);
           setOpen(false);
         })
@@ -302,7 +337,11 @@ const Calendar = () => {
         startTime: selectedStartHours + ":" + selectedStartMins,
         status: "Unavailable",
       }).then((res) => {
-        toast.success(`Unavailabilty Added for date ${moment(selectedDate).format("YYYY-DD-MM")}`);
+        toast.success(
+          `Unavailabilty Added for date ${moment(selectedDate).format(
+            "YYYY-DD-MM"
+          )}`
+        );
         setUpdate(!update);
         setDescription("");
         setOpen(false);
@@ -354,7 +393,11 @@ const Calendar = () => {
         startTime: selectedStartHours + ":" + selectedStartMins,
         status: "Personal",
       }).then((res) => {
-        toast.success(`Personal Event Added for date ${moment(selectedDate).format("YYYY-DD-MM")}`);
+        toast.success(
+          `Personal Event Added for date ${moment(selectedDate).format(
+            "YYYY-DD-MM"
+          )}`
+        );
         setUpdate(!update);
         setDescription("");
         setOpen(false);
@@ -365,7 +408,9 @@ const Calendar = () => {
   const handleDeleteAvailability = async () => {
     await API(
       "delete",
-      `Availability/DeleteAvailability_New?AvailabilityId=${selectedEvent.id}&StartTime=${moment(selectedEvent.start).format(
+      `Availability/DeleteAvailability_New?AvailabilityId=${
+        selectedEvent.id
+      }&StartTime=${moment(selectedEvent.start).format(
         "HH:mm"
       )}&Endtime=${moment(selectedEvent.end).format("HH:mm")}&status=deleted`
     )
@@ -395,7 +440,9 @@ const Calendar = () => {
     setdisabled(true);
     await API(
       "delete",
-      `Bookings/DeleteBookingById_Neww?id=${selectedBooking.id}&StartTime=${moment(selectedBooking.start).format(
+      `Bookings/DeleteBookingById_Neww?id=${
+        selectedBooking.id
+      }&StartTime=${moment(selectedBooking.start).format(
         "HH:mm"
       )}&Endtime=${moment(selectedBooking.end).format("HH:mm")}&status=deleted`
     )
@@ -422,6 +469,7 @@ const Calendar = () => {
         onNavigate={(e) => {
           onNavigate(e, Views.WEEK);
         }}
+        lng={lng}
       />
       {/* Add availibility modal */}
 
@@ -437,12 +485,24 @@ const Calendar = () => {
 
         <TabContext value={value}>
           <TabList onChange={handleChange} className="tab-list">
-            <Tab className="tab" label={t("Add Availability")} value="Availability-page" />
+            <Tab
+              className="tab"
+              label={t("Add Availability")}
+              value="Availability-page"
+            />
             <Divider orientation="vertical" flexItem width="4px !important" />
-            <Tab label={t("Add Unavailability")} value="Unavailability-page" className="tab" />
+            <Tab
+              label={t("Add Unavailability")}
+              value="Unavailability-page"
+              className="tab"
+            />
             <Divider orientation="vertical" flexItem width="4px !important" />
 
-            <Tab className="tab" label={t("Add Personal Event")} value="PersonalEvent-page" />
+            <Tab
+              className="tab"
+              label={t("Add Personal Event")}
+              value="PersonalEvent-page"
+            />
           </TabList>
           {/* page 1 */}
           <div className="modal-content">
@@ -1034,22 +1094,47 @@ const Calendar = () => {
         <div className="booking-content">
           <Grid container spacing={3}>
             <Grid xs={12} sm={12} md={6}>
-              <TextField label={t("User Info")} height="10px" value={selectedBooking.title} disabled={true} />
+              <TextField
+                label={t("User Info")}
+                height="10px"
+                value={selectedBooking.title}
+                disabled={true}
+              />
             </Grid>
             <Grid xs={12} sm={12} md={6}>
-              <TextField label={t("Booking Date")} disabled={true} value={moment(selectedBooking.start).format("DD-MM-YYYY")} />
+              <TextField
+                label={t("Booking Date")}
+                disabled={true}
+                value={moment(selectedBooking.start).format("DD-MM-YYYY")}
+              />
             </Grid>
             <Grid xs={12} sm={12} md={6}>
-              <TextField label={t("Booking Time")} disabled={true} value={selectedBooking.bookingTime} />
+              <TextField
+                label={t("Booking Time")}
+                disabled={true}
+                value={selectedBooking.bookingTime}
+              />
             </Grid>
             <Grid xs={12} sm={12} md={6}>
-              <TextField label={t("Duration")} disabled={true} value={selectedBooking.duration} />
+              <TextField
+                label={t("Duration")}
+                disabled={true}
+                value={selectedBooking.duration}
+              />
             </Grid>
             <Grid xs={12} sm={12} md={6}>
-              <TextField label={t("Vechicle")} disabled={true} value={selectedBooking.vehicleId} />
+              <TextField
+                label={t("Vechicle")}
+                disabled={true}
+                value={selectedBooking.vehicleId}
+              />
             </Grid>
             <Grid xs={12} sm={12} md={6}>
-              <TextField label={t("Meetup")} disabled={true} value={selectedBooking.meetingPlace} />
+              <TextField
+                label={t("Meetup")}
+                disabled={true}
+                value={selectedBooking.meetingPlace}
+              />
             </Grid>
           </Grid>
           <div className="booking-btn-div">

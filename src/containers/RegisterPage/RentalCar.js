@@ -1063,7 +1063,7 @@ const RentalCar = () => {
                 );
               });
 
-              Promise.all(vehiclesRes).then(async (vehicles) => {
+              await Promise.all(vehiclesRes).then(async (vehicles) => {
                 vehicles.map((v, index) => {
                   finalVehicles = {
                     ...finalVehicles,
@@ -1082,7 +1082,7 @@ const RentalCar = () => {
                   InsuranceCompanyInfoId: InsuranceCompanyRes.data.data.id,
                 }).then(async (Profileres) => {
                   await API("post", "InstructorMeetupPoints", {
-                    PersonalInfoId: personalRes.data.data.id,
+                    instructorId: personalRes.data.data.id,
                     MeetUp: step1.Address.Label,
                     ZIP: step1.Address.Zip,
                     City: step1.Address.City,

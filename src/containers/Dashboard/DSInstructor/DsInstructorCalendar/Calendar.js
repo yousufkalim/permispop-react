@@ -18,6 +18,7 @@ import TextField from "../../../../components/Common/TextField";
 import Button from "../../../../components/Common/Button";
 import TimePicker from "../../../../components/Common/TimePicker";
 import API from "../../../../api/index";
+import { useTranslation } from "react-i18next";
 
 const Calendar = () => {
   const currentDate = moment();
@@ -44,10 +45,13 @@ const Calendar = () => {
   const [selectedBooking, setSelectedBooking] = useState({});
   const [disabled, setdisabled] = useState(false);
   const [value, setValue] = useState("Availability-page");
+  const { i18n, t } = useTranslation();
+  const [lng, setLng] = useState();
 
   useEffect(() => {
     onNavigate(new Date(), "week");
-  }, []);
+    setLng(localStorage.getItem("i18nextLng"));
+  }, [localStorage.getItem("i18nextLng")]);
 
   useEffect(() => {
     const userData = JSON.parse(localStorage.getItem("user"));
@@ -464,6 +468,7 @@ const Calendar = () => {
         onNavigate={(e) => {
           onNavigate(e, Views.WEEK);
         }}
+        lng={lng}
       />
       {/* Add availibility modal */}
 

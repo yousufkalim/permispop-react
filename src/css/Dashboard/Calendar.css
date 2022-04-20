@@ -37,7 +37,7 @@
   font-size: medium !important;
 }
 .instructions-div {
-  width: 80% !important;
+  width: 100% !important;
   display: flex !important;
   justify-content: center !important;
 }
@@ -63,7 +63,7 @@
 }
 .add-button {
   height: 50px !important;
-  width: 13% !important;
+  width: 18% !important;
   border-radius: 5px !important;
   background: #149e7a !important;
   margin: 1rem !important;
@@ -75,7 +75,7 @@
 .btn-text {
   color: #ffffff !important;
   font-weight: 600 !important;
-  font-size: 13px !important;
+  font-size: 12px !important;
 }
 .calendar {
   height: 700px !important;
@@ -115,17 +115,49 @@
   }
   .colorBox-div {
     height: 20px !important;
-    width: 24px !important;
+    width: 20px !important;
   }
 }
 
 @media only screen and (max-width: 1366px) {
+  .btn-text {
+    font-size: 10px !important;
+  }
+
+  .instruction-text {
+    font-size: 12px !important;
+  }
+  .colorBox-div {
+    height: 18px !important;
+    width: 18px !important;
+  }
 }
 
 @media only screen and (max-width: 992px) {
+  .btn-text {
+    display: none !important;
+  }
+  .add-button {
+    height: 30px !important;
+    width: 30px !important;
+    margin: 2px !important;
+  }
 }
 
 @media only screen and (max-width: 768px) {
+  .instruction-text {
+    font-size: 10px !important;
+  }
+  .colorBox-div {
+    height: 16px !important;
+    width: 16px !important;
+  }
+  .instructions-div {
+    width: 100% !important;
+  }
+  .instructions {
+    margin: 2px !important;
+  }
 }
 
 @media only screen and (max-width: 600px) {
