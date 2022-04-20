@@ -1,13 +1,31 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Typography from "@mui/material/Typography";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import TextField from "../Common/TextField";
 import Button from "../Common/Button";
 import { useTranslation } from "react-i18next";
+import API from "../../api/index";
 
 const ContactUs = () => {
-  const { i18n , t } = useTranslation();
+  const { i18n, t } = useTranslation();
+  const [contactUs, setContactUs] = useState({});
+  const [lng, setLng] = useState();
+  useEffect(() => {
+    getContactusData();
+    setLng(localStorage.getItem("i18nextLng"));
+  }, [localStorage.getItem("i18nextLng")]);
+  const getContactusData = async () => {
+    await API("get", "CMS/GetPageData?page=home")
+      .then((getContactusDataResponse) => {
+        const contactUsData = getContactusDataResponse.data.data.find(
+          (item) => item.sectionName === "Contact Us"
+        );
+        setContactUs(contactUsData);
+      })
+      .catch((error) => console.log("error------->", error));
+  };
+
   const handleChange = (e) => {
     console.log("hello", e.target.value);
   };
@@ -17,12 +35,20 @@ const ContactUs = () => {
       <div className="second_contact_container">
         <div className="contact_title_div">
           <Typography variant="h2" align="center" className="contact_title">
-            {t("Contact Us")}
+            {lng === "en"
+              ? contactUs?.headingEnglish
+              : lng === "fr"
+              ? contactUs?.headingFrench
+              : ""}
           </Typography>
         </div>
         <div className="contact_subtitle_div">
           <Typography variant="h2" align="center" className="contact_subtitle">
-            {t("Fill up the form and we will get back to you within 24 hours")}
+            {lng === "en"
+              ? contactUs?.textEnglish
+              : lng === "fr"
+              ? contactUs?.textFrench
+              : ""}
           </Typography>
         </div>
         <Box
@@ -33,14 +59,17 @@ const ContactUs = () => {
         >
           <Grid container spacing={2}>
             <Grid item xs={12} sm={12} md={6}>
-              <TextField label={t("Full Name")} placeholder="Permispop"></TextField>
+              <TextField
+                label={t("Full Name")}
+                placeholder="Permispop"
+              ></TextField>
             </Grid>
             <Grid item xs={12} sm={12} md={6}>
               <TextField
                 label={t("Email")}
                 placeholder="hello@permispop.com"
                 inputLabelStyle="input_label"
-                inputLabelProps={{ required: true }}
+                inputLabelProps={{ required: false }}
                 handleChange={(e) => handleChange(e)}
               ></TextField>
             </Grid>
@@ -49,7 +78,7 @@ const ContactUs = () => {
                 label={t("Phone")}
                 placeholder="+33 123 4567890"
                 inputLabelStyle="input_label"
-                inputLabelProps={{ required: true }}
+                inputLabelProps={{ required: false }}
                 handleChange={(e) => handleChange(e)}
               ></TextField>
             </Grid>
@@ -58,7 +87,7 @@ const ContactUs = () => {
                 label={t("Address")}
                 placeholder="France"
                 inputLabelStyle="input_label"
-                inputLabelProps={{ required: true }}
+                inputLabelProps={{ required: false }}
                 handleChange={(e) => handleChange(e)}
               ></TextField>
             </Grid>
