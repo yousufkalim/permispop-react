@@ -299,8 +299,8 @@ const Step1 = (props) => {
             onChange={(e) => {
               props.onChange(e.target.name, e.target.value);
             }}
-            // error={props.step1Errors['Email2']?true:false}
-            // ErrorMsg={props.step1Errors['Email2']}
+            error={props.step1Errors["Email2"] ? true : false}
+            ErrorMsg={t(props.step1Errors["Email2"])}
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
@@ -328,8 +328,8 @@ const Step1 = (props) => {
             onChange={(e) => {
               props.onChange(e.target.name, e.target.value);
             }}
-            // error={props.step1Errors['Phone2']?true:false}
-            // ErrorMsg={props.step1Errors['Phone2']}
+            error={props.step1Errors["Phone2"] ? true : false}
+            ErrorMsg={t(props.step1Errors["Phone2"])}
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>

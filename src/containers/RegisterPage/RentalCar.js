@@ -280,12 +280,8 @@ const RentalCar = () => {
         });
         return errors;
       }),
-    Phone2: Joi.label("Phone2")
-      .optional()
+    Phone2: Joi.optional().label("Phone2"),
 
-      .error((errors) => {
-        return errors;
-      }),
     Password: Joi.string()
       .min(8)
       .max(15)
@@ -401,6 +397,8 @@ const RentalCar = () => {
 
   const handleStep1 = (name, value) => {
     let errorMessage = "";
+    let phoneCheck = false;
+    let regex = /[^\s@]+@[^\s@]+\.[^\s@]+/;
     if (name == "Address") {
       errorMessage = validateSuggest1(name, value.Label);
     } else if (name === "Password") {
@@ -415,12 +413,77 @@ const RentalCar = () => {
       } else if (value.length === 0) {
         errorMessage = t("Password cannot be empty");
       }
+    } else if (name === "Email2") {
+      if (step1.Email == value) {
+        if (step1.Email === "" && value === "") {
+        } else {
+          errorMessage = t("Email 2 can’t be the same as the first email");
+        }
+      } else if (value.length === 0) {
+      } else if (regex.test(value)) {
+      } else if (regex.test(value) == null || regex.test(value) == "") {
+        errorMessage = t("Not a Valid Email");
+      }
+    } else if (name === "Phone") {
+      if (value.length > 10) {
+        phoneCheck = true;
+        if (value.length === 0) {
+          errorMessage = t("Phone can't be blank");
+        } else if (value[0] != "0") {
+          errorMessage = t("Phone number should start with 0");
+        } else if (value.length < 10 && value.length > 0) {
+          errorMessage = t("The phone must be at least 10 characters");
+        }
+      } else {
+        if (value.length === 0) {
+          errorMessage = t("Phone can't be blank");
+        } else if (value[0] != "0") {
+          errorMessage = t("Phone number should start with 0");
+        } else if (value.length < 10 && value.length > 0) {
+          errorMessage = t("The phone must be at least 10 characters");
+        }
+      }
+    } else if (name === "Phone2") {
+      if (value.length > 10) {
+        phoneCheck = true;
+
+        if (step1.Phone === value) {
+          if (step1.Phone === "" && value === "") {
+          } else {
+            errorMessage = t(
+              "The 2nd phone number cannot be the same as the 1st"
+            );
+          }
+        } else if (value.length === 0) {
+        } else if (value[0] != "0") {
+          errorMessage = t("Phone number should start with 0");
+        } else if (value.length < 10 && value.length > 0) {
+          errorMessage = t("The phone must be at least 10 characters");
+        }
+      } else {
+        if (step1.Phone == value) {
+          if (step1.Phone === "" && value === "") {
+          } else {
+            errorMessage = t(
+              "The 2nd phone number cannot be the same as the 1st"
+            );
+          }
+        } else if (value.length === 0) {
+        } else if (value[0] != "0") {
+          errorMessage = t("Phone number should start with 0");
+        } else if (value.length < 10 && value.length > 0) {
+          errorMessage = t("The phone must be at least 10 characters");
+        }
+      }
     } else {
       errorMessage = validateSuggest1(name, value);
     }
 
     setStep1Errors({ ...step1Errors, [name]: errorMessage });
-    setStep1({ ...step1, [name]: value });
+    if (phoneCheck) {
+    } else {
+      setStep1({ ...step1, [name]: value });
+    }
   };
 
   const validateSuggest1 = (name, value) => {

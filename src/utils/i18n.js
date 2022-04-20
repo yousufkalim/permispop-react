@@ -475,7 +475,7 @@ i18n
           "non-verify-message":
             "Please Upload missing documents to get access to this feature.",
           "non-verify-teacher-message":
-            "this area will be accessible once admin verify you profile, or you can send non verified documents to admin on admin@permispop.fr.",
+            "Only for Verified Users! admin on admin@permispop.fr.",
           "member-title": "Only member access",
           "member-message": "To access this page please by membership",
 
@@ -578,10 +578,10 @@ i18n
           '"Prénom" is not allowed to be empty':
             '"Prénom" is not allowed to be empty',
 
-          '"First Name" must be atleast 3 alphabets Longs!':
-            '"First Name" must be atleast 3 alphabets Longs!',
-          '"Prénom" must be atleast 3 alphabets Longs!':
-            '"Prénom" must be atleast 3 alphabets Longs!',
+          '"First Name" must be atleast 2 alphabets Longs!':
+            '"First Name" must be atleast 2 alphabets Longs!',
+          '"Prénom" must be atleast 2 alphabets Longs!':
+            '"Prénom" must be atleast 2 alphabets Longs!',
 
           '"Surname" is not allowed to be empty':
             '"Surname" is not allowed to be empty',
@@ -601,8 +601,8 @@ i18n
 
           '"Phone" is not allowed to be empty':
             '"Phone" is not allowed to be empty',
-          '"téléphone" is not allowed to be empty':
-            '"téléphone" is not allowed to be empty',
+          '"Téléphone" is not allowed to be empty':
+            '"Téléphone" is not allowed to be empty',
 
           '"licence No." is not allowed to be empty':
             '"licence No." is not allowed to be empty',
@@ -693,8 +693,8 @@ i18n
 
           '"Company Name" is not allowed to be empty':
             '"Company Name" is not allowed to be empty',
-          '"Nom de l entreprise" is not allowed to be empty':
-            '"Nom de l entreprise" is not allowed to be empty',
+          '"Nom de la société" is not allowed to be empty':
+            '"Nom de la société" is not allowed to be empty',
 
           '"Number" is not allowed to be empty':
             '"Number" is not allowed to be empty',
@@ -740,20 +740,89 @@ i18n
           "Enter email": "Enter email",
           Manaager: "Manager",
 
-          "First Name must be atleast 3 alphabets Longs!":
-            "First Name must be atleast 3 alphabets Longs!",
-          "Prénom must be atleast 3 alphabets Longs!":
-            "Prénom must be atleast 3 alphabets Longs!",
+          "First Name must be atleast 2 alphabets Longs!":
+            "First Name must be atleast 2 alphabets Longs!",
+          "Prénom must be atleast 2 alphabets Longs!":
+            "Prénom must be atleast 2 alphabets Longs!",
 
-          "Surname must be atleast 3 alphabets Longs!":
-            "Surname must be atleast 3 alphabets Longs!",
-          "Nom must be atleast 3 alphabets Longs!":
-            "Nom must be atleast 3 alphabets Longs!",
-          Professionnel: "Professional",
+          "Surname must be atleast 2 alphabets Longs!":
+            "Surname must be atleast 2 alphabets Longs!",
+          "Nom must be atleast 2 alphabets Longs!":
+            "Nom must be atleast 2 alphabets Longs!",
+
+          "Not a Valid Email": "Not a Valid Email",
+          "Not a Valid E-mail": "Not a Valid E-mail",
+          '"Phone" length must be 10 characters long':
+            '"Phone" length must be 10 characters long',
+          "Trade Name must be atleast 3 alphabets Longs!":
+            "Trade Name must be atleast 3 alphabets Longs!",
+          '"siret No." length must be 14 characters long':
+            '"Siret No." length must be 14 characters long',
+          '"Siret" length must be 14 characters long':
+            '"Siret" length must be 14 characters long',
+          "SurName must be atleast 2 alphabets Longs!":
+            "SurName must be atleast 2 alphabets Longs!",
+          '"CompanyInsurer" length must be at least 3 characters long':
+            '"CompanyInsurer" length must be at least 3 characters long',
+          '"VehicleInsurer" length must be at least 3 characters long':
+            '"VehicleInsurer" length must be at least 3 characters long',
+          '"Téléphone" length must be 10 characters long':
+            '"Téléphone" length must be 10 characters long',
+          '"Siret Number" length must be at least 14 characters long':
+            '"Siret Number" length must be at least 14 characters long',
+          '"Insurance Company" length must be at least 3 characters long':
+            '"Insurance Company" length must be at least 3 characters long',
+          '"Firstname" length must be at least 2 characters long':
+            '"Firstname" length must be at least 2 characters long',
+          '"Surname" length must be at least 2 characters long':
+            '"Surname" length must be at least 2 characters long',
+          '"Insurer" length must be at least 3 characters long':
+            '"Insurer" length must be at least 3 characters long',
+          '"Email" is not allowed to be empty':
+            '"Email" is not allowed to be empty',
+          '"Email" must be a valid email': '"Email" must be a valid email',
+          "Old password": "Old password",
+          "New password": "New password",
+          "Confirm password": "Confirm password",
+          "Enter password": "Enter password",
+          Closed: "Closed",
+          Complete: "Complete",
+          CarRentalAgent: "CarRentalAgent",
+          DrivingSchool: "Driving School",
+          DSInstructor: "DSInstructor",
+          "The 2nd phone number cannot be the same as the 1st":
+            "The 2nd phone number cannot be the same as the 1st",
+          "Phone number should start with 0":
+            "Phone number should start with 0",
+          "The 2nd email address cannot be the same as the 1st email":
+            "The 2nd email address cannot be the same as the 1st email",
+          "Email 2 can’t be the same as the first email":
+            "Email 2 can’t be the same as the first email",
+          "Only for Verified Users!": "Only for Verified Users!",
+          "This area will be accessible once admin verify your profile,":
+            "This area will be accessible once admin verify your profile,",
+          "or you can send your non-verified documents":
+            "or you can send your non-verified documents",
+          "to admin on": "to admin on",
         },
       },
       fr: {
         translations: {
+          "to admin on": "à admin sur ",
+          "or you can send your non-verified documents":
+            "ou vous pouvez envoyer vos documents non vérifiés",
+          "This area will be accessible once admin verify your profile,":
+            "Cette section sera accessible une fois que l'administrateur aura vérifié votre profil",
+          "Only for Verified Users!":
+            "Uniquement pour les utilisateurs vérifiés !",
+          "Email 2 can’t be the same as the first email":
+            "La 2ème adresse mail ne peut pas être la même que la 1ère",
+          "The 2nd email address cannot be the same as the 1st email":
+            "La 2ème adresse mail ne peut pas être la même que la 1ère",
+          "Phone number should start with 0":
+            "Le numéro de téléphone doit commencer par 0",
+          "The 2nd phone number cannot be the same as the 1st":
+            "Le 2ème numéro de téléphone ne peut pas être le même que le 1er",
           "Instructor Registered Successfully":
             "Votre profil instructeur a été créé avec succès !",
 
@@ -779,6 +848,8 @@ i18n
             "La longueur de la compagnie d'assurance doit comporter au moins 3 caractères",
           '"Téléphone" length must be 10 characters long':
             "Le téléphone doit être de minimum 10 caractères",
+          "The phone must be at least 10 characters":
+            "Le téléphone doit être de minimum 10 caractères",
           '"Phone" length must be 10 characters long':
             "Le téléphone doit être de minimum 10 caractères",
           "Trade Name must be atleast 3 alphabets Longs!":
@@ -795,30 +866,30 @@ i18n
             "La longueur du N° Siret doit être de 14 caractères",
           '"siret No." length must be 14 characters long':
             "Le n° de SIRET doit être de 14 caractères",
-          "Not a Valid Email": "Pas un e-mail valide",
-          "Not a Valid E-mail": "Pas un e-mail valide",
+          "Not a Valid Email": "L’adresse mail n’est pas correcte",
+          "Not a Valid E-mail": "L’adresse mail n’est pas correcte",
           // Driving School validation translation
 
-          "Surname must be atleast 3 alphabets Longs!":
-            "Nom doit comporter au moins 3 alphabets Longs !",
-          "Nom must be atleast 3 alphabets Longs!":
-            "Nom doit comporter au moins 3 alphabets Longs !",
+          "Surname must be atleast 2 alphabets Longs!":
+            "Le nom doit être de minimum 2 caractères",
+          "Nom must be atleast 2 alphabets Longs!":
+            "Le nom doit être de minimum 2 caractères",
 
           '"Address" is not allowed to be empty':
             "L'adresse ne doit pas être vide",
           '"Adresse" is not allowed to be empty':
             "L'adresse ne doit pas être vide",
 
-          "First Name must be atleast 3 alphabets Longs!":
-            "Le prénom doit comporter au moins 3 alphabets Longs !",
-          "Prénom must be atleast 3 alphabets Longs!":
-            "Le prénom doit comporter au moins 3 alphabets Longs !",
+          "First Name must be atleast 2 alphabets Longs!":
+            "Le prénom doit être de minimum 2 caractères",
+          "Prénom must be atleast 2 alphabets Longs!":
+            "Le prénom doit être de minimum 2 caractères",
 
           '"ExcAuthNumber" is not allowed to be empty':
-            '"ExcAuthNumber" est pas autorisé à être vide',
+            "Numéro d'autorisation est pas autorisé à être vide",
 
           '"ExcAuthIssueAuth" is not allowed to be empty':
-            '"ExcAuthIssueAuth" est pas autorisé à être vide',
+            '"Autorité de délivrance" est pas autorisé à être vide',
 
           '"DriverLicenseNumber" is not allowed to be empty':
             '"Numéro de permis de conduire" est pas autorisé à être vide',
@@ -831,9 +902,9 @@ i18n
             '"Plaque d immatriculation" est pas autorisé à être vide',
 
           '"Firstname" is not allowed to be empty':
-            '"Prénom" est pas autorisé à être vide',
+            "Le prénom ne peut pas être vide",
           '"Prénom" is not allowed to be empty':
-            '"Prénom" est pas autorisé à être vide',
+            "Le prénom ne peut pas être vide",
 
           '"Police Number" is not allowed to be empty':
             '"Numéro de police" est pas autorisé à être vide',
@@ -861,9 +932,9 @@ i18n
             '"Numéro" est pas autorisé à être vide',
 
           '"Company Name" is not allowed to be empty':
-            '"Nom de l entreprise" est pas autorisé à être vide',
-          '"Nom de l entreprise" is not allowed to be empty':
-            '"Nom de l entreprise" est pas autorisé à être vide',
+            '"Nom de la société" est pas autorisé à être vide',
+          '"Nom de la société" is not allowed to be empty':
+            '"Nom de la société" est pas autorisé à être vide',
 
           '"Trade Name" is not allowed to be empty':
             '"Nom commercial" est pas autorisé à être vide',
@@ -896,23 +967,20 @@ i18n
             '"n° de siret" est pas autorisé à être vide',
 
           '"Pob" is not allowed to be empty':
-            '"Pob" est pas autorisé à être vide',
+            "Lieu de naissance est pas autorisé à être vide",
 
           '"SurName" is not allowed to be empty':
-            '"Nom" est pas autorisé à être vide',
-          '"Nom" is not allowed to be empty':
-            '"Nom" est pas autorisé à être vide',
+            "Le nom ne peut pas être vide",
+          '"Nom" is not allowed to be empty': "Le nom ne peut pas être vide",
 
           //instructor  validation translation
-          "Email Field can't be empty!":
-            "Le champ e-mail ne peut pas être vide !",
-          "E-mail Field can't be empty!":
-            "Le champ e-mail ne peut pas être vide !",
+          "Email Field can't be empty!": "L'e-mail ne peut pas être vide",
+          "E-mail Field can't be empty!": "L'e-mail ne peut pas être vide",
 
           '"Insurer" is not allowed to be empty':
-            '"Assureur" est pas autorisé à être vide',
+            "L’assureur ne peut pas être vide",
           '"Assureur" is not allowed to be empty':
-            '"Assureur" est pas autorisé à être vide',
+            "L’assureur ne peut pas être vide",
 
           '"Energy" is not allowed to be empty':
             '"Énergie" est pas autorisé à être vide',
@@ -920,24 +988,24 @@ i18n
             '"Énergie" est pas autorisé à être vide',
 
           '"Color" is not allowed to be empty':
-            '"Couleur" est pas autorisé à être vide',
+            "La couleur ne peut pas être vide",
           '"Couleur" is not allowed to be empty':
             '"Couleur" est pas autorisé à être vide',
 
           '"NumPlate" is not allowed to be empty':
-            '"Plaque d immatriculation" est pas autorisé à être vide',
+            "La plaque d’immatriculation ne peut pas être vide",
 
           '"Police Num" is not allowed to be empty':
-            '"Numéro de police" est pas autorisé à être vide',
+            "Le n° de police ne peut pas être vide",
 
           '"company Insurer" is not allowed to be empty':
-            '"Compagnie Assureur" est pas autorisé à être vide',
+            "La compagnie s’assurance ne peut pas être vide",
 
           '"siret No." is not allowed to be empty':
-            '"n° de siret" est pas autorisé à être vide',
+            "Le n° de SIRET ne peut pas être vide",
 
           '"Authorization Number" is not allowed to be empty':
-            '"Numéro d autorisation" est pas autorisé à être vide',
+            "Le numéro d’autorisation ne peut pas être vide",
           '"Numéro d autorisation" is not allowed to be empty':
             '"Numéro d autorisation" est pas autorisé à être vide',
 
@@ -947,33 +1015,33 @@ i18n
             '"Autorité de délivrance" est pas autorisé à être vide',
 
           '"licence No." is not allowed to be empty':
-            '"adresse de livraison" est pas autorisé à être vide',
+            "Le numéro de permis de conduire ne peut pas être vide",
           '"adresse de livraison" is not allowed to be empty':
             '"adresse de livraison" est pas autorisé à être vide',
 
           '"delivery Place" is not allowed to be empty':
-            '"Numéro de licence" est pas autorisé à être vide',
+            "L’autorité de délivrance ne peut pas être vide",
           '"Numéro de licence" is not allowed to be empty':
             '"Numéro de licence" est pas autorisé à être vide',
-
+          "Phone can't be blank": "Le téléphone ne peut pas être vide",
           '"Phone" is not allowed to be empty':
-            '"téléphone" est pas autorisé à être vide',
-          '"téléphone" is not allowed to be empty':
-            '"téléphone" est pas autorisé à être vide',
+            "Le téléphone ne peut pas être vide",
+          '"Téléphone" is not allowed to be empty':
+            "Le téléphone ne peut pas être vide",
 
           '"pob" is not allowed to be empty':
-            '"pob" est pas autorisé à être vide',
+            "Lieu de naissance est pas autorisé à être vide",
 
           '"Surname" is not allowed to be empty':
-            '"Nom" est pas autorisé à être vide',
+            "Le nom ne peut pas être vide",
 
-          '"First Name" must be atleast 3 alphabets Longs!':
-            '"Prénom" la longueur doit être dau moins 3 caractères',
-          '"Prénom" must be atleast 3 alphabets Longs!':
-            '"Prénom" la longueur doit être dau moins 3 caractères',
+          '"First Name" must be atleast 2 alphabets Longs!':
+            "Le prénom doit être de minimum 2 caractères",
+          '"Prénom" must be atleast 2 alphabets Longs!':
+            "Le prénom doit être de minimum 2 caractères",
 
           '"First Name" is not allowed to be empty':
-            '"Prénom" est pas autorisé à être vide',
+            "Le prénom ne peut pas être vide",
           // french
           "Password didn't match": "Le mot de passe ne correspond pas",
           "Password cannot be empty": "Le mot de passe ne peut pas être vide",
@@ -1104,7 +1172,7 @@ i18n
           "No Language/s selected": "Aucune langue/s sélectionnée",
           "Edit Profile": "Mettre à jour mon profil",
           About: "Sur",
-          "Contact Information": "Coordonnées",
+          "Contact Information": "Informations",
           Finish: "Finir",
           "No file choosen.": "Aucun fichier choisi.",
           "Type Of Contract With Driving School":
@@ -1687,7 +1755,7 @@ i18n
           "Email should be valid": "L'e-mail doit être valide",
           "Email alread exist": "Les e-mails existent déjà",
           "Phone must be 10 digits":
-            "Le téléphone doit être composé de 10 chiffres",
+            "Le téléphone doit être de minimum 10 caractères",
           "Must be numeric": "Ce champ doit être uniquement numérique",
           "Password must contain only alphanumeric, special characters and must have a minimum length of 8":
             "Le mot de passe ne doit contenir que des caractères alphanumériques spéciaux et doit avoir une longueur minimale de 8",
@@ -1877,7 +1945,7 @@ i18n
 
           // Registration fields
           "Upload your Driving License Front Side":
-            "Téléchargez votre permis de conduire recto",
+            "Téléchargez le recto de votre permis de conduire",
           "Upload your driving license front side":
             "Téléchargez votre permis de conduire recto",
           "Upload your Driving License Back Side":
@@ -1889,9 +1957,9 @@ i18n
           "Upload your authorization back side":
             "Téléchargez votre autorisation au verso",
           "Upload your Authorization Front Side":
-            "Téléchargez votre autorisation au recto",
+            "Téléchargez le recto de votre autorisation",
           "Upload your Authorization Back Side":
-            "Téléchargez votre autorisation au verso",
+            "Téléchargez le verso de votre autorisation",
           "Authorization Number": "Numéro d'autorisation",
           "Duration should not be less than 1 hour":
             "La durée ne doit pas être inférieure à 1 heure",
@@ -1923,8 +1991,8 @@ i18n
           "Reason-Information to update": "Raison-Informations à mettre à jour",
           "Your email or password is incorrect!":
             "Ton e-mail ou ton mot de passe est incorrect!",
-          "'Email' is not a valid email": "L'email est invalide!",
-          "Email is invalid!": "L'email est invalide!",
+          "'Email' is not a valid email": "Votre email n'est valide",
+          "Email is invalid!": "Votre email n'est valide",
           "Enter the email address associated with your account and we'll send you a link to reset your password":
             "Entre l'adresse e-mail associée à ton compte et nous t'enverrons un lien pour réinitialiser ton mot de passe",
           "Return to sign in": "Revenir pour se connecter",

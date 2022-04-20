@@ -4,8 +4,11 @@ import FormHelperText from "@mui/material/FormHelperText";
 import Input from "@mui/material/Input";
 import InputLabel from "@mui/material/InputLabel";
 import { makeStyles } from "@mui/styles";
+import { useTranslation } from "react-i18next";
 
 export default function UseFormControl(props) {
+  const { i18n , t } = useTranslation();
+
   // const useStyles = makeStyles((theme) => ({
   //   formControl: {
   //     width: props.formWidth || "100% !important",
@@ -65,7 +68,7 @@ export default function UseFormControl(props) {
         shrink={true}
         {...props.inputLabelProps}
       >
-      <>{props.label} </>  
+      <>{t(props.label)} </>  
         
         
         {props.required? <div style={{color:'red'}}> *</div>:''}
@@ -73,6 +76,7 @@ export default function UseFormControl(props) {
       <Input
         className="input"
         name={props.name}
+        maxLength={props.maxLength}
         type={props.type}
         value={props.value}
         onChange={props.onChange}
