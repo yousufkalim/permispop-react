@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Button from "../../components/Common/Button";
 import RegisterHeader from "../../components/RegisterFroms/registerHeader";
 import Footer from "../../components/Landing/Footer";
@@ -97,6 +97,8 @@ function ColorlibStepIcon(props) {
 
 const RentalCar = () => {
   const { i18n, t } = useTranslation();
+  const [rentalCarForm, setRentalCarForm] = useState({});
+  const [lng, setLng] = useState();
   let history = useHistory();
   const steps = ["Identity", "Details", "Vehicle", "Done"];
 
@@ -1104,13 +1106,36 @@ const RentalCar = () => {
         console.log("Personal Response", error);
       });
   };
+  useEffect(() => {
+    getRentalCarForm();
+    setLng(localStorage.getItem("i18nextLng"));
+  }, [localStorage.getItem("i18nextLng")]);
+  const getRentalCarForm = async () => {
+    await API("get", "CMS/GetPageData?page=register")
+      .then((getRentalCarFormResponse) => {
+        const RentalCarFormData = getRentalCarFormResponse.data.data.find(
+          (item) => item.sectionName === "Rental Car Agent"
+        );
+        setRentalCarForm(RentalCarFormData);
+      })
+      .catch((error) => console.log("error------->", error));
+  };
   return (
     <React.Fragment>
       <RegisterHeader
-        title={t("Rental Car Registration")}
-        subtitle1="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce varius justo et scelerisque varius. Nullam mollis augue et facilisis blandit. Morbi sollicitudin a eros sed cursus."
-        subtitle2="Quisque lobortis ultrices dolor, fringilla venenatis leo sodales at. Nam suscipit felis sit amet convallis."
-      />
+        title={
+          lng === "en"
+            ? rentalCarForm?.headingEnglish
+            : lng === "fr"
+            ? rentalCarForm?.headingFrench
+            : ""
+        }
+        subtitle1={ lng === "en"
+        ? rentalCarForm?.textEnglish
+        : lng === "fr"
+        ? rentalCarForm?.textFrench
+        : ""}
+/>
       <div
         style={{
           display: "flex",

@@ -1,21 +1,36 @@
 // import { TableRow } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
-import MultipleSelectPlaceholder from "../../../components/Common/SelectField";
-import DatePicker from "../../../components/Common/DatePicker";
-import MobileViewFilters from "../../../components/Common/MobileViewFilters";
+
 import Divider from "../../../components/Common/Divider";
-import ButtonComponent from "../../../components/Common/Button";
+
 import { useTranslation } from "react-i18next";
+import API from "../../../api/index";
+import LinkIcon from "@mui/icons-material/Link";
 
 const Index = () => {
   const { i18n, t } = useTranslation();
+  const [lng, setLng] = useState();
+  const [proceduresData, setProceduresData] = useState([]);
+
+  useEffect(() => {
+    getProcedureData();
+    setLng(localStorage.getItem("i18nextLng"));
+  }, [localStorage.getItem("i18nextLng")]);
+  const getProcedureData = async () => {
+    await API("get", "CMS/GetPageData?page=procedures")
+      .then((getProcedureDataResponse) => {
+        const procedures = getProcedureDataResponse.data.data;
+        setProceduresData(procedures);
+      })
+      .catch((error) => console.log("error------->", error));
+  };
+
   const [Startvalue, setStartValue] = useState(new Date());
   const handleStartdate = (newValue) => {
     setStartValue(newValue);
   };
-
   const [Endvalue, setEndValue] = useState(new Date());
   const handleEnddate = (newValue) => {
     setEndValue(newValue);
@@ -51,17 +66,26 @@ const Index = () => {
 
       <Grid container spacing={1} sx={{ margin: "30px" }}>
         <Grid xs={12}>
-          <div className="ProceduresList">
-            <Typography className="ProcedureGrid">{t("ANTS")}</Typography>
-          </div>
-          <Divider />
-          <div className="ProceduresList">
-            <Typography className="ProcedureGrid">{t("My simplified procedures")}</Typography>
-          </div>
-          <Divider />
-          <div className="ProceduresList">
-            <Typography className="ProcedureGrid">{t("Book a code date")}</Typography>
-          </div>
+          {proceduresData.map((item) => {
+            return (
+              <>
+                <div
+                  className="ProceduresList"
+                  onClick={() => window.open(`${item.textEnglish}`)}
+                >
+                  <Typography className="ProcedureGrid">
+                    {lng === "en"
+                      ? item?.headingEnglish
+                      : lng === "fr"
+                      ? item?.headingFrench
+                      : ""}
+                  </Typography>
+                  <LinkIcon fontSize="large" />
+                </div>
+                <Divider />
+              </>
+            );
+          })}
         </Grid>
       </Grid>
     </>

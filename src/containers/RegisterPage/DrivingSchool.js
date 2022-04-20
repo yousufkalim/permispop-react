@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Button from "../../components/Common/Button";
 import RegisterHeader from "../../components/RegisterFroms/registerHeader";
 import Footer from "../../components/Landing/Footer";
@@ -105,7 +105,8 @@ const DrivingSchool = () => {
   const [vehicles, setVehicles] = React.useState([]);
   const [instructors, setInstructors] = React.useState([]);
   const [activeStep, setActiveStep] = React.useState(1);
-
+  const [drivingSchoolForm, setDrivingSchoolForm] = useState({});
+  const [lng, setLng] = useState();
   const [step1Errors, setStep1Errors] = React.useState({});
   const [step1, setStep1] = React.useState({
     TradeName: "",
@@ -2023,13 +2024,40 @@ const DrivingSchool = () => {
         console.log("Personal Response", error);
       });
   };
+  useEffect(() => {
+    getDrivingSchoolForm();
+    setLng(localStorage.getItem("i18nextLng"));
+  }, [localStorage.getItem("i18nextLng")]);
+  const getDrivingSchoolForm = async () => {
+    await API("get", "CMS/GetPageData?page=register")
+      .then((getDrivingSchoolFormResponse) => {
+        const DrivingSchoolFormData =
+          getDrivingSchoolFormResponse.data.data.find(
+            (item) => item.sectionName === "Driving school"
+          );
+        setDrivingSchoolForm(DrivingSchoolFormData);
+      })
+      .catch((error) => console.log("error------->", error));
+  };
 
   return (
     <React.Fragment>
       <RegisterHeader
-        title={t("Driving School Registration")}
-        subtitle1="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce varius justo et scelerisque varius. Nullam mollis augue et facilisis blandit. Morbi sollicitudin a eros sed cursus."
-        subtitle2="Quisque lobortis ultrices dolor, fringilla venenatis leo sodales at. Nam suscipit felis sit amet convallis."
+        title={
+          lng === "en"
+            ? drivingSchoolForm?.headingEnglish
+            : lng === "fr"
+            ? drivingSchoolForm?.headingFrench
+            : ""
+        }
+        subtitle1={
+          lng === "en"
+            ? drivingSchoolForm?.textEnglish
+            : lng === "fr"
+            ? drivingSchoolForm?.textFrench
+            : ""
+        }
+        // subtitle2="Quisque lobortis ultrices dolor, fringilla venenatis leo sodales at. Nam suscipit felis sit amet convallis."
       />
 
       <div
@@ -2210,68 +2238,69 @@ const DrivingSchool = () => {
                           ? handleSubmit
                           : handleNext
                       }
-                      // disabled={
-                      //   (activeStep === 1 &&
-                      //     step1Errors.TradeName === null &&
-                      //     step1Errors.CompanyName === null &&
-                      //     step1Errors.Email === null &&
-                      //     step1Errors.Phone === null &&
-                      //     step1Errors.Password === "" &&
-                      //     step1Errors.Password2 === "" &&
-                      //     step1Errors.Address === null &&
-                      //     step1.Address.City != "" &&
-                      //     step1.Address.Zip != "" &&
-                      // && step1Errors.Language===null
-                      // && step1Errors.CPF===null
-                      // && step1Errors.Complement===null
-                      // && step1Errors.Email2===null
-                      // && step1Errors.Phone2===null
+                      disabled={
+                        (activeStep === 1 &&
+                          step1Errors.TradeName === null &&
+                          step1Errors.CompanyName === null &&
+                          step1Errors.Email === null &&
+                          step1Errors.Phone === null &&
+                          step1Errors.Password === "" &&
+                          step1Errors.Password2 === "" &&
+                          step1Errors.Address === null &&
+                          step1.Address.City != "" &&
+                          step1.Address.Zip != "") ||
+                        // && step1Errors.Language===null
+                        // && step1Errors.CPF===null
+                        // && step1Errors.Complement===null
+                        // && step1Errors.Email2===null
+                        // && step1Errors.Phone2===null
 
-                      //   step1.OtherPlateform === false) ||
-                      // (step1Errors.Platform === null &&
-                      //   step1Errors.Hours === null &&
-                      //   step1Errors.TradeName === null &&
-                      //   step1Errors.CompanyName === null &&
-                      //   step1Errors.Email === null &&
-                      //   step1Errors.Phone === null &&
-                      //   step1Errors.Password === "" &&
-                      //   step1Errors.Password2 === "" &&
-                      //   step1Errors.Address === null &&
-                      //   step1.Address.City != "" &&
-                      //   step1.Address.Zip != "") ||
-                      // && step1Errors.Complement===null
-                      // && step1Errors.Email2===null
-                      // && step1Errors.Phone2===null
-                      // && step1Errors.Language===null
-                      // && step1Errors.CPF===null
+                        //   step1.OtherPlateform === false) ||
+                        // (step1Errors.Platform === null &&
+                        //   step1Errors.Hours === null &&
+                        //   step1Errors.TradeName === null &&
+                        //   step1Errors.CompanyName === null &&
+                        //   step1Errors.Email === null &&
+                        //   step1Errors.Phone === null &&
+                        //   step1Errors.Password === "" &&
+                        //   step1Errors.Password2 === "" &&
+                        //   step1Errors.Address === null &&
+                        //   step1.Address.City != "" &&
+                        //   step1.Address.Zip != "") ||
+                        // && step1Errors.Complement===null
+                        // && step1Errors.Email2===null
+                        // && step1Errors.Phone2===null
+                        // && step1Errors.Language===null
+                        // && step1Errors.CPF===null
 
-                      // (activeStep === 2 &&
-                      //   step2Errors.Number === null &&
-                      //   step2Errors.IssuingAurh === null &&
-                      //   step2Errors.SiretNumber === null &&
-                      //   step2Errors.KBIS === null &&
-                      //   step2Errors.Approvaldate === null) ||
-                      // && step2Errors.RcProImg===null
-
-                      //   (activeStep === 3 &&
-                      //     step3Errors.insuranceCompany === null &&
-                      //     step3Errors.policeNumber === null &&
-                      //     step3Errors.RcPro === null &&
-                      //     step3Errors.dateInsurance === null) ||
-                      //   (activeStep === 4 &&
-                      //     step4Errors.Firstname === null &&
-                      //     step4Errors.Surname === null &&
-                      //     step4Errors.Pob === null &&
-                      //     step4Errors.Gender === null &&
-                      //     step4Errors.ProfileImg === null &&
-                      //     step4Errors.Dob === null &&
-                      //     step4Errors.Address === null &&
-                      //     step4.TermAndCondition === false) ||
-                      //   (activeStep === 5 && vehicles.length > 0) ||
-                      //   (activeStep === 6 && instructors.length > 0)
-                      //     ? false
-                      //     : true
-                      // }
+                        (activeStep === 2 &&
+                          step2Errors.Number === null &&
+                          step2Errors.IssuingAurh === null &&
+                          step2Errors.SiretNumber === null &&
+                          step2Errors.KBIS === null &&
+                          step2Errors.Approvaldate === null) ||
+                        step2Errors.RcProImg ===
+                          null(
+                            activeStep === 3 &&
+                              step3Errors.insuranceCompany === null &&
+                              step3Errors.policeNumber === null &&
+                              step3Errors.RcPro === null &&
+                              step3Errors.dateInsurance === null
+                          ) ||
+                        (activeStep === 4 &&
+                          step4Errors.Firstname === null &&
+                          step4Errors.Surname === null &&
+                          step4Errors.Pob === null &&
+                          step4Errors.Gender === null &&
+                          step4Errors.ProfileImg === null &&
+                          step4Errors.Dob === null &&
+                          step4Errors.Address === null &&
+                          step4.TermAndCondition === false) ||
+                        (activeStep === 5 && vehicles.length > 0) ||
+                        (activeStep === 6 && instructors.length > 0)
+                          ? false
+                          : true
+                      }
                     ></Button>
                   </Box>
                 </React.Fragment>

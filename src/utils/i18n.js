@@ -1242,7 +1242,7 @@ i18n
           "User Behaviour": "Comportement de l'utilisateur",
           "Register As": "S'inscrire en tant que",
           "Play Video": "Lire la vidéo",
-          "Join Now": "Adhérer maintenant",
+          "Join Now": "Inscrivez-vous",
           "Join us to enjoy quality driving education":
             "Rejoignez-nous pour profiter d'une formation à la conduite de qualité",
           "The Revolutionary platform for true Driving education freelancers.":
