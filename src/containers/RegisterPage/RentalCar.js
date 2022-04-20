@@ -278,12 +278,8 @@ const RentalCar = () => {
         });
         return errors;
       }),
-    Phone2: Joi.label("Phone2")
-      .optional()
+    Phone2: Joi.optional().label("Phone2"),
 
-      .error((errors) => {
-        return errors;
-      }),
     Password: Joi.string()
       .min(8)
       .max(15)
@@ -399,6 +395,8 @@ const RentalCar = () => {
 
   const handleStep1 = (name, value) => {
     let errorMessage = "";
+    let phoneCheck = false;
+    let regex = /[^\s@]+@[^\s@]+\.[^\s@]+/;
     if (name == "Address") {
       errorMessage = validateSuggest1(name, value.Label);
     } else if (name === "Password") {
@@ -413,12 +411,77 @@ const RentalCar = () => {
       } else if (value.length === 0) {
         errorMessage = t("Password cannot be empty");
       }
+    } else if (name === "Email2") {
+      if (step1.Email == value) {
+        if (step1.Email === "" && value === "") {
+        } else {
+          errorMessage = t("Email 2 can’t be the same as the first email");
+        }
+      } else if (value.length === 0) {
+      } else if (regex.test(value)) {
+      } else if (regex.test(value) == null || regex.test(value) == "") {
+        errorMessage = t("Not a Valid Email");
+      }
+    } else if (name === "Phone") {
+      if (value.length > 10) {
+        phoneCheck = true;
+        if (value.length === 0) {
+          errorMessage = t("Phone can't be blank");
+        } else if (value[0] != "0") {
+          errorMessage = t("Phone number should start with 0");
+        } else if (value.length < 10 && value.length > 0) {
+          errorMessage = t("The phone must be at least 10 characters");
+        }
+      } else {
+        if (value.length === 0) {
+          errorMessage = t("Phone can't be blank");
+        } else if (value[0] != "0") {
+          errorMessage = t("Phone number should start with 0");
+        } else if (value.length < 10 && value.length > 0) {
+          errorMessage = t("The phone must be at least 10 characters");
+        }
+      }
+    } else if (name === "Phone2") {
+      if (value.length > 10) {
+        phoneCheck = true;
+
+        if (step1.Phone === value) {
+          if (step1.Phone === "" && value === "") {
+          } else {
+            errorMessage = t(
+              "The 2nd phone number cannot be the same as the 1st"
+            );
+          }
+        } else if (value.length === 0) {
+        } else if (value[0] != "0") {
+          errorMessage = t("Phone number should start with 0");
+        } else if (value.length < 10 && value.length > 0) {
+          errorMessage = t("The phone must be at least 10 characters");
+        }
+      } else {
+        if (step1.Phone == value) {
+          if (step1.Phone === "" && value === "") {
+          } else {
+            errorMessage = t(
+              "The 2nd phone number cannot be the same as the 1st"
+            );
+          }
+        } else if (value.length === 0) {
+        } else if (value[0] != "0") {
+          errorMessage = t("Phone number should start with 0");
+        } else if (value.length < 10 && value.length > 0) {
+          errorMessage = t("The phone must be at least 10 characters");
+        }
+      }
     } else {
       errorMessage = validateSuggest1(name, value);
     }
 
     setStep1Errors({ ...step1Errors, [name]: errorMessage });
-    setStep1({ ...step1, [name]: value });
+    if (phoneCheck) {
+    } else {
+      setStep1({ ...step1, [name]: value });
+    }
   };
 
   const validateSuggest1 = (name, value) => {
@@ -976,7 +1039,10 @@ const RentalCar = () => {
                 }
 
                 vehiclesRes.push(
-                  Promise.all([VehicleInsurancePromise, TechnicalControlPromise]).then((e) => {
+                  Promise.all([
+                    VehicleInsurancePromise,
+                    TechnicalControlPromise,
+                  ]).then((e) => {
                     return API("post", "VehicleDetail", {
                       DateOfFirstRegistration: vehicle.FristRegDate,
                       Brand: vehicle.Brand,
@@ -985,7 +1051,8 @@ const RentalCar = () => {
                       Energy: vehicle.Energy,
                       GearBox: vehicle.GearBox,
                       NumberPlate: vehicle.NumberPlate,
-                      VehicleRegistrationCertificatePhotoImagePath: vehicle.VehicleRegImg,
+                      VehicleRegistrationCertificatePhotoImagePath:
+                        vehicle.VehicleRegImg,
                       VehicleePhotosImagePath: vehicle.VehicleImg,
                       vehichleInsuranceInfoId: e[0].data.data.id,
                       technicalControlInfoID: e[1] ? e[1].data.data.id : "",
@@ -1005,8 +1072,10 @@ const RentalCar = () => {
                   role: "CarRentalAgent",
                   PersonalInfoId: personalRes.data.data.id,
                   VehicleDetailInfoId: JSON.stringify(finalVehicles),
-                  VehicleInsuranceInfoId: vehicles[0].data.data.vehichleInsuranceInfoId,
-                  TechnicalControlInfoId: vehicles[0].data.data.technicalControlInfoID,
+                  VehicleInsuranceInfoId:
+                    vehicles[0].data.data.vehichleInsuranceInfoId,
+                  TechnicalControlInfoId:
+                    vehicles[0].data.data.technicalControlInfoID,
                   BusinessInfoId: BusinessRes.data.data.id,
                   InsuranceCompanyInfoId: InsuranceCompanyRes.data.data.id,
                 }).then(async (Profileres) => {
@@ -1076,11 +1145,19 @@ const RentalCar = () => {
               ""
             )}
           </Typography>
-          <Stepper alternativeLabel activeStep={activeStep} connector={<ColorlibConnector />} className="stepper">
+          <Stepper
+            alternativeLabel
+            activeStep={activeStep}
+            connector={<ColorlibConnector />}
+            className="stepper"
+          >
             {steps.map((label, index) => (
               <Step key={label}>
                 <StepLabel StepIconComponent={ColorlibStepIcon}>
-                  <span className="steplabel" style={{ fontfamily: "Inter", color: "black" }}>
+                  <span
+                    className="steplabel"
+                    style={{ fontfamily: "Inter", color: "black" }}
+                  >
                     {t(label)}
                   </span>
                 </StepLabel>
@@ -1096,7 +1173,9 @@ const RentalCar = () => {
             <Box sx={{ width: "83%" }}>
               {activeStep === steps.length ? (
                 <React.Fragment>
-                  <Typography sx={{ mt: 2, mb: 1 }}>{t("All steps completed - you're finished")}</Typography>
+                  <Typography sx={{ mt: 2, mb: 1 }}>
+                    {t("All steps completed - you're finished")}
+                  </Typography>
                   <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
                     <Box sx={{ flex: "1 1 auto" }} />
                     <Button
@@ -1115,9 +1194,19 @@ const RentalCar = () => {
                 <React.Fragment>
                   <Typography sx={{ mt: 2, mb: 1 }}>
                     {activeStep === 1 ? (
-                      <Step1 step1={step1} setStep1={setStep1} onChange={handleStep1} step1Errors={step1Errors} />
+                      <Step1
+                        step1={step1}
+                        setStep1={setStep1}
+                        onChange={handleStep1}
+                        step1Errors={step1Errors}
+                      />
                     ) : activeStep === 2 ? (
-                      <Step2 step2={step2} setStep2={setStep2} onChange={handleStep2} step2Errors={step2Errors} />
+                      <Step2
+                        step2={step2}
+                        setStep2={setStep2}
+                        onChange={handleStep2}
+                        step2Errors={step2Errors}
+                      />
                     ) : activeStep === 3 ? (
                       <Step3
                         step3={step3}
@@ -1154,14 +1243,22 @@ const RentalCar = () => {
                     <Button
                       endIcon={<ArrowForwardIcon sx={{ color: "#fff" }} />}
                       type="submit"
-                      text={activeStep === steps.length - 1 ? t("Finish") : t("Next")}
+                      text={
+                        activeStep === steps.length - 1
+                          ? t("Finish")
+                          : t("Next")
+                      }
                       buttonLableStyle="btn_main"
                       style={{ marginTop: "24px" }}
                       width="10%"
                       customWidth1="100%"
                       height="48px"
                       height2="48px"
-                      onClick={activeStep === steps.length - 1 ? handleSubmit : handleNext}
+                      onClick={
+                        activeStep === steps.length - 1
+                          ? handleSubmit
+                          : handleNext
+                      }
                       disabled={
                         (activeStep === 1 &&
                           step1Errors.Address === null &&

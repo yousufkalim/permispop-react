@@ -382,6 +382,8 @@ const StudentForm = (props) => {
 
   const handleStudent = (name, value) => {
     let errorMessage = "";
+    let phoneCheck = false;
+    let regex = /[^\s@]+@[^\s@]+\.[^\s@]+/;
     if (name === "Address") {
       errorMessage = validateSuggest(name, value.label);
     } else if (name === "password") {
@@ -405,12 +407,76 @@ const StudentForm = (props) => {
       } else {
         errorMessage = t("Student can’t be younger than 16 years old");
       }
+    } else if (name === "email2") {
+      if (student.email == value) {
+        if (student.email === "" && value === "") {
+        } else {
+          errorMessage = t("Email 2 can’t be the same as the first email");
+        }
+      } else if (value.length === 0) {
+      } else if (regex.test(value)) {
+      } else if (regex.test(value) == null || regex.test(value) == "") {
+        errorMessage = t("Not a Valid Email");
+      }
+    } else if (name === "phone") {
+      if (value.length > 10) {
+        phoneCheck = true;
+        if (value.length === 0) {
+          errorMessage = t("Phone can't be blank");
+        } else if (value[0] != "0") {
+          errorMessage = t("Phone number should start with 0");
+        } else if (value.length < 10 && value.length > 0) {
+          errorMessage = t("The phone must be at least 10 characters");
+        }
+      } else {
+        if (value.length === 0) {
+          errorMessage = t("Phone can't be blank");
+        } else if (value[0] != "0") {
+          errorMessage = t("Phone number should start with 0");
+        } else if (value.length < 10 && value.length > 0) {
+          errorMessage = t("The phone must be at least 10 characters");
+        }
+      }
+    } else if (name === "phone2") {
+      if (value.length > 10) {
+        phoneCheck = true;
+        if (student.phone == value) {
+          if (student.phone === "" && value === "") {
+          } else {
+            errorMessage = t(
+              "The 2nd phone number cannot be the same as the 1st"
+            );
+          }
+        } else if (value.length === 0) {
+        } else if (value[0] != "0") {
+          errorMessage = t("Phone number should start with 0");
+        } else if (value.length < 10 && value.length > 0) {
+          errorMessage = t("The phone must be at least 10 characters");
+        }
+      } else {
+        if (student.phone == value) {
+          if (student.phone === "" && value === "") {
+          } else {
+            errorMessage = t(
+              "The 2nd phone number cannot be the same as the 1st"
+            );
+          }
+        } else if (value.length === 0) {
+        } else if (value[0] != "0") {
+          errorMessage = t("Phone number should start with 0");
+        } else if (value.length < 10 && value.length > 0) {
+          errorMessage = t("The phone must be at least 10 characters");
+        }
+      }
     } else {
       errorMessage = validateSuggest(name, value);
     }
 
     setStudentErrors({ ...studentErrors, [name]: errorMessage });
-    setStudent({ ...student, [name]: value });
+    if (phoneCheck) {
+    } else {
+      setStudent({ ...student, [name]: value });
+    }
   };
 
   const validateSuggest = (name, value) => {
@@ -793,8 +859,8 @@ const StudentForm = (props) => {
                 onChange={(e) => {
                   handleStudent(e.target.name, e.target.value);
                 }}
-                // error={studentErrors['email2']?true:false}
-                // ErrorMsg={studentErrors['email2']}
+                error={studentErrors["email2"] ? true : false}
+                ErrorMsg={t(studentErrors["email2"])}
               ></TextField>
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
@@ -824,8 +890,8 @@ const StudentForm = (props) => {
                 onChange={(e) => {
                   handleStudent(e.target.name, e.target.value);
                 }}
-                // error={studentErrors['phone2']?true:false}
-                // ErrorMsg={studentErrors['phone2']}
+                error={studentErrors["phone2"] ? true : false}
+                ErrorMsg={t(studentErrors["phone2"])}
               ></TextField>
             </Grid>
 
