@@ -29,7 +29,8 @@ i18n
           "pending Request": "Pending Request",
           "Pending Request": "Pending Request",
           "test data for heading": "test data for heading",
-          "test data for headingtest data for heading": "test data for headingtest data for heading",
+          "test data for headingtest data for heading":
+            "test data for headingtest data for heading",
           "Expiry Date": "Expiry Date",
           "Issueing Authority": "Issueing Authority",
           "Authorization Date": "Authorization Date",
@@ -57,20 +58,24 @@ i18n
           "can not select past time": "can not select past time",
           "Vehicle added scuccessfully": "Vehicle added scuccessfully",
           "Vehicle deleted scuccessfully": "Vehicle deleted scuccessfully",
-          "Vehicle detail updated sucessfully": "Vehicle detail updated sucessfully",
+          "Vehicle detail updated sucessfully":
+            "Vehicle detail updated sucessfully",
           "Password updated Successfully": "Password updated Successfully",
-          "New password does not match Confirm password": "New password does not match Confirm password",
+          "New password does not match Confirm password":
+            "New password does not match Confirm password",
           "Cannot accept empty fields": "Cannot accept empty fields",
           "Field cannot be empty": "Field cannot be empty",
           "Dispute is created sucessfully": "Dispute is created sucessfully",
           "Status is updated successful": "Status is updated successful",
           "Description cannot be empty": "Description cannot be empty",
-          "Request is created for profile update": "Request is created for profile update",
+          "Request is created for profile update":
+            "Request is created for profile update",
           "Image not Uploaded": "Image not Uploaded",
           "Something Went Wrong": "Something Went Wrong",
           reservations: "reservations",
           Reservations: "Reservations",
-          "Email or Password is not correct": "Email or Password is not correct",
+          "Email or Password is not correct":
+            "Email or Password is not correct",
           position: "position",
           name: "name",
           historyActions: "historyActions",
@@ -79,10 +84,14 @@ i18n
           options: "options",
           "Student Registered Successfully": "Student Registered Successfully",
           "Not Registered....Error Occured": "Not Registered....Error Occured",
-          "Rental Car Registered Successfully": "Rental Car Registered Successfully",
-          "Instructor Registered Successfully": "Instructor Registered Successfully",
-          "Not Registered....Somethong went wrong": "Not Registered....Somethong went wrong",
-          "Driving School Registered Successfully": "Driving School Registered Successfully",
+          "Rental Car Registered Successfully":
+            "Rental Car Registered Successfully",
+          "Instructor Registered Successfully":
+            "Instructor Registered Successfully",
+          "Not Registered....Somethong went wrong":
+            "Not Registered....Somethong went wrong",
+          "Driving School Registered Successfully":
+            "Driving School Registered Successfully",
           "My Profile": "My Profile",
           Reset: "Reset",
           "No data found": "No data found",
@@ -107,9 +116,10 @@ i18n
           "Registration Date": "Registration Date",
           "Update Profile": "Update Profile",
           "Insurance Details": "Insurance Details",
-          "No": "No",
+          No: "No",
           Yes: "Yes",
-          "Would like to delete your availability?": "Would like to delete your availability?",
+          "Would like to delete your availability?":
+            "Would like to delete your availability?",
           Description: "Description",
           Confirm: "Confirm",
           Cancel: "Cancel",
@@ -178,7 +188,8 @@ i18n
           Dispute: "Dispute",
           "Master the handling of the vehicle in light or no traffic":
             "Master the handling of the vehicle in light or no traffic",
-          "Drive the handling of the vehicle in light or no traffic": "Drive the handling of the vehicle in light or no traffic",
+          "Drive the handling of the vehicle in light or no traffic":
+            "Drive the handling of the vehicle in light or no traffic",
           "Apprehend the handling of the vehicle in light or no traffic":
             "Apprehend the handling of the vehicle in light or no traffic",
           Comments: "Comments",
@@ -205,12 +216,15 @@ i18n
           "No file choosen.": "No file choosen.",
           "Driver’s License Number": "Driver’s License Number",
           "Authorization to Exercise": "Authorization to Exercise",
-          "Date of the authorization to exercise": "Date of the authorization to exercise",
-          "Type Of Contract With Driving School": "Type Of Contract With Driving School",
+          "Date of the authorization to exercise":
+            "Date of the authorization to exercise",
+          "Type Of Contract With Driving School":
+            "Type Of Contract With Driving School",
           "External Provider": "External Provider",
           Employee: "Employee",
           "No Instructors Added.": "No Instructors Added.",
-          "Technical Control Details if any?": "Technical Control Details if any?",
+          "Technical Control Details if any?":
+            "Technical Control Details if any?",
           "Company Name": "Company Name",
           Tradename: "Tradename",
           "Terms and Condition applied": "Terms and Condition applied",
@@ -229,34 +243,47 @@ i18n
           "Confirm Identity": "Confirm Identity",
           "Driving School Registration": "Driving School Registration",
           "Date of 1st Registration": "Date of 1st Registration",
-          "Upload Vehicle Registration Certificate Back": "Upload Vehicle Registration Certificate Back",
-          "Upload Vehicle Registration Certificate Front": "Upload Vehicle Registration Certificate Front",
+          "Upload Vehicle Registration Certificate Back":
+            "Upload Vehicle Registration Certificate Back",
+          "Upload Vehicle Registration Certificate Front":
+            "Upload Vehicle Registration Certificate Front",
           "Upload Image": "Upload Image",
           "Date of Obtaining": "Date of Obtaining",
           Insurance: "Insurance",
           "Driver’s License": "Driver’s License",
-          "Upload your authorization front side": "Upload your authorization front side",
-          "Upload your authorization back side": "Upload your authorization back side",
-          "Upload your Authorization Front Side": "Upload your Authorization Front Side",
-          "Upload your Authorization Back Side": "Upload your Authorization Back Side",
+          "Upload your authorization front side":
+            "Upload your authorization front side",
+          "Upload your authorization back side":
+            "Upload your authorization back side",
+          "Upload your Authorization Front Side":
+            "Upload your Authorization Front Side",
+          "Upload your Authorization Back Side":
+            "Upload your Authorization Back Side",
           "Authorization Number": "Authorization Number",
-          "Upload your Driving License Front Side": "Upload your Driving License Front Side",
-          "Upload your driving license front side": "Upload your Driving License Front Side",
-          "Upload your Driving License Back Side": "Upload your Driving License Back Side",
-          "Upload your driving license back side": "Upload your Driving License Back Side",
+          "Upload your Driving License Front Side":
+            "Upload your Driving License Front Side",
+          "Upload your driving license front side":
+            "Upload your Driving License Front Side",
+          "Upload your Driving License Back Side":
+            "Upload your Driving License Back Side",
+          "Upload your driving license back side":
+            "Upload your Driving License Back Side",
           "Expiration date": "Expiration Date",
           "Expiration Date": "Expiration Date",
-          "Date of Authorization to Excersice": "Date of Authorization to Excersice",
+          "Date of Authorization to Excersice":
+            "Date of Authorization to Excersice",
           "Validity Date": "Validity Date",
           "Issuing Authority": "Issuing Authority",
           "Place of Delivery": "Place of Delivery",
           "Driving License Number": "Driving License Number",
-          "Are you working on other platform?": "Are you working on other platform?",
+          "Are you working on other platform?":
+            "Are you working on other platform?",
           "Which plateforms": "Which plateforms",
           "How much time will you give to the students of our platform?(hr/month)":
             "How much time will you give to the students of our platform?(hr/month)",
           Back: "Back",
-          "All steps completed - you're finished": "All steps completed - you're finished",
+          "All steps completed - you're finished":
+            "All steps completed - you're finished",
           "Instructor Registration": "Instructor Registration",
           "Scan and upload your CT": "Scan and upload your CT",
           "Scan and Upload your CT": "Scan and Upload your CT",
@@ -267,7 +294,8 @@ i18n
           "Vehicle Insurance": "Vehicle Insurance",
           "Start Date": "Start Date",
           "End Date": "End Date",
-          "Upload Vehicle Registration Certificate": "Upload Vehicle Registration Certificate",
+          "Upload Vehicle Registration Certificate":
+            "Upload Vehicle Registration Certificate",
           "Upload your Image": "Upload your Image",
           Energy: "Energy",
           "Number Plate": "Number Plate",
@@ -281,8 +309,10 @@ i18n
           "No Vehicle Added.": "No Vehicle Added.",
           "Must be 14 Digits": "Must be 14 Digits",
           "Upload your RC Pro": "Upload your RC Pro",
-          "Expiration date of your insurance": "Expiration date of your insurance",
-          "Expiration date of your Insurance": "Expiration date of your Insurance",
+          "Expiration date of your insurance":
+            "Expiration date of your insurance",
+          "Expiration date of your Insurance":
+            "Expiration date of your Insurance",
           "Police Number": "Police Number",
           Insurer: "Insurer",
           "Insurance Company": "Insurance Company",
@@ -291,7 +321,6 @@ i18n
           "Upload your kbls": "Upload your kbls",
 
           "SIRET Number": "SIRET Number",
-
 
           "Enter City": "Enter City",
           "How much time you will give to students of our platforms?":
@@ -311,8 +340,10 @@ i18n
           "Upload Highway code image file": "Upload Highway code image file",
           "Upload your profile picture": "Upload your profile picture",
           "Upload your Profile Picture": "Upload your Profile Picture",
-          "Upload back of your ID Card/Passport": "Upload back of your ID Card/Passport",
-          "Upload front of your ID Card/Passport": "Upload front of your ID Card/Passport",
+          "Upload back of your ID Card/Passport":
+            "Upload back of your ID Card/Passport",
+          "Upload front of your ID Card/Passport":
+            "Upload front of your ID Card/Passport",
           "Spoken Language": "Spoken Language",
           "NEPH Number": "NEPH Number",
           "Number of hours": "Number of hours",
@@ -348,7 +379,8 @@ i18n
           "Fill up the form and we will get back to you within 24 hours":
             "Fill up the form and we will get back to you within 24 hours",
           "Access The Highway Code Here": "Access The Highway Code Here",
-          "The Full Road Code Only For €14.90": "The Full Road Code Only For €14.90",
+          "The Full Road Code Only For €14.90":
+            "The Full Road Code Only For €14.90",
           "Highway Code": "Highway Code",
           "Online Training That Will Revolution Your Code and License":
             "Online Training That Will Revolution Your Code and License",
@@ -357,7 +389,8 @@ i18n
           "Register As": "Register As",
           "Play Video": "Play Video",
           "Join Now": "Join Now",
-          "Join us to enjoy quality driving education": "Join us to enjoy quality driving education",
+          "Join us to enjoy quality driving education":
+            "Join us to enjoy quality driving education",
           "Terms & Conditions": "Terms & Conditions",
           "The Revolutionary platform for true Driving education freelancers.":
             "The Revolutionary platform for true Driving education freelancers.",
@@ -384,9 +417,11 @@ i18n
           //   "The revolutionary platform for true driving education freelancers.",
           "Join-us-text": "Join us to enjoy quality driving education.",
           "Student Registeration": "Student Registeration",
-          "i-certify-neph": "I certify on my honour that the above information is true and I have obtain the code.",
+          "i-certify-neph":
+            "I certify on my honour that the above information is true and I have obtain the code.",
           "neph-confirm-error": "should select this field to continue.",
-          "valid-email-for-forgot-password": "Enter your valid email to recieve mail",
+          "valid-email-for-forgot-password":
+            "Enter your valid email to recieve mail",
           "auto-complete-error": "Please Select From Dropdown to set Address",
           require1vehicleError: "Require atleast one vehicle",
           "20yearAgeError": "You Should be 20 year old.",
@@ -437,7 +472,8 @@ i18n
           "deactive-title": "Account Deactive",
           "non-verify-title": "This is area accessable for only Verified users",
           "non-verfiy-teacher-title": "Only For Verified Users",
-          "non-verify-message": "Please Upload missing documents to get access to this feature.",
+          "non-verify-message":
+            "Please Upload missing documents to get access to this feature.",
           "non-verify-teacher-message":
             "this area will be accessible once admin verify you profile, or you can send non verified documents to admin on admin@permispop.fr.",
           "member-title": "Only member access",
@@ -450,54 +486,77 @@ i18n
           closeBtnMylearning: "Close",
 
           // my learing lesson desciprtion\
-          myLearingLessonDescription1: "Master the handling of the vehicle in light or no traffic.",
-          myLearingLessonDescription2: "Understand the road and travel under normal conditions.",
-          myLearingLessonDescription3: "Travel in difficult conditions and share the road with other users.",
-          myLearingLessonDescription4: "Practice autonomous, safe and economical driving.",
+          myLearingLessonDescription1:
+            "Master the handling of the vehicle in light or no traffic.",
+          myLearingLessonDescription2:
+            "Understand the road and travel under normal conditions.",
+          myLearingLessonDescription3:
+            "Travel in difficult conditions and share the road with other users.",
+          myLearingLessonDescription4:
+            "Practice autonomous, safe and economical driving.",
           // end of my learing lesson description
 
           // my learing Items translation
           myLearningLesson1:
             "A turn in the road must be performed without hitting or touching the curb and within as few moves as necessary",
-          myLearningLesson2: "This is the first lesson where you learn what does what in the car.",
-          myLearningLesson3: "Tenir, tourner le volant et maintenir la trajectoire.",
+          myLearningLesson2:
+            "This is the first lesson where you learn what does what in the car.",
+          myLearningLesson3:
+            "Tenir, tourner le volant et maintenir la trajectoire.",
           myLearningLesson4: "Démarrer et s’arrêter.",
-          myLearningLesson5: "Doser l’accélération et le freinage à diverses allures.",
+          myLearningLesson5:
+            "Doser l’accélération et le freinage à diverses allures.",
           myLearningLesson6: "Utiliser la boîte de vitesses.",
-          myLearningLesson7: "Diriger la voiture en avant en ligne droite et en courbe en adaptant allure et trajectoire.",
+          myLearningLesson7:
+            "Diriger la voiture en avant en ligne droite et en courbe en adaptant allure et trajectoire.",
           myLearningLesson8: "Regarder autour de soi et avertir.",
-          myLearningLesson9: "Effectuer une marche arrière et un demi-tour en sécurité.",
+          myLearningLesson9:
+            "Effectuer une marche arrière et un demi-tour en sécurité.",
           // Compétence 2
-          myLearningLesson10: "Entrer, s’installer au poste de conduite et en sortir.",
-          myLearningLesson11: "Rechercher la signalisation, les indices utiles et en tenir compte.",
-          myLearningLesson12: "Positionner le véhicule sur la chaussée et choisir la voie de circulation.",
+          myLearningLesson10:
+            "Entrer, s’installer au poste de conduite et en sortir.",
+          myLearningLesson11:
+            "Rechercher la signalisation, les indices utiles et en tenir compte.",
+          myLearningLesson12:
+            "Positionner le véhicule sur la chaussée et choisir la voie de circulation.",
           myLearningLesson13: "Adapter l’allure aux situations.",
           myLearningLesson14: "Tourner à droite et à gauche en agglomération.",
-          myLearningLesson15: "Détecter, identifier et franchir les intersections suivant le régime de priorité.",
-          myLearningLesson16: "Franchir les ronds-points et les carrefours à sens giratoire.",
-          myLearningLesson17: "S’arrêter et stationner en épi, en bataille et en créneau.",
+          myLearningLesson15:
+            "Détecter, identifier et franchir les intersections suivant le régime de priorité.",
+          myLearningLesson16:
+            "Franchir les ronds-points et les carrefours à sens giratoire.",
+          myLearningLesson17:
+            "S’arrêter et stationner en épi, en bataille et en créneau.",
           // Compétence 3
           myLearningLesson18: "Evaluer et maintenir les distances de sécurité.",
           myLearningLesson19: "Croiser, dépasser, être dépassé.",
           myLearningLesson20: "Passer des virages et conduire en déclivité.",
           myLearningLesson21:
             "Connaître les caractéristiques des autres usagers et savoir se comporter à leur égard avec respect et courtoisie.",
-          myLearningLesson22: "S’insérer, circuler et sortir d’une voie rapide.",
-          myLearningLesson23: "Conduire dans une file de véhicules et dans une circulation dense.",
-          myLearningLesson24: "Conduire quand l’adhérence et la visibilité sont réduites.",
+          myLearningLesson22:
+            "S’insérer, circuler et sortir d’une voie rapide.",
+          myLearningLesson23:
+            "Conduire dans une file de véhicules et dans une circulation dense.",
+          myLearningLesson24:
+            "Conduire quand l’adhérence et la visibilité sont réduites.",
           // Compétence 4
           myLearningLesson25: "Suivre un itinéraire de manière autonome.",
-          myLearningLesson26: "Préparer et effectuer un voyage « longue distance » en autonomie.",
-          myLearningLesson27: "Connaître les principaux facteurs de risque au volant et les recommandations à appliquer.",
-          myLearningLesson28: "Connaître les comportements à adopter en cas d’accident : protéger, alerter, secourir.",
+          myLearningLesson26:
+            "Préparer et effectuer un voyage « longue distance » en autonomie.",
+          myLearningLesson27:
+            "Connaître les principaux facteurs de risque au volant et les recommandations à appliquer.",
+          myLearningLesson28:
+            "Connaître les comportements à adopter en cas d’accident : protéger, alerter, secourir.",
           myLearningLesson29:
             "Faire l’expérience des aides à la conduite du véhicule (régulateur, limiteur de vitesse, ABS,aides à la navigation...).",
-          myLearningLesson30: "Avoir des notions sur l’entretien, le dépannage et les situations d’urgence.",
+          myLearningLesson30:
+            "Avoir des notions sur l’entretien, le dépannage et les situations d’urgence.",
           myLearningLesson31: "Pratiquer l’écoconduite.",
 
           // ---------------------
 
-          validityDateErrorInstructor: "Validatity date can't be less than to obtain date.",
+          validityDateErrorInstructor:
+            "Validatity date can't be less than to obtain date.",
           pastExpireError: "Expire date should not be in past.",
           pastDateError: "date should not be in past.",
           kbis14digits: "Sirel must be 14 digits.",
@@ -508,307 +567,426 @@ i18n
           instructorAgeError: "Instructor should be 20 years old.",
           "Password cannot be empty": "Password cannot be empty",
           "Password didn't match": "Password didn't match",
-          "Password must be atleast 8 char long": "Password must be atleast 8 char long",
+          "Password must be atleast 8 char long":
+            "Password must be atleast 8 char long",
 
           "Student-Reg-para1":
             "Are you there to register on PermisPop as a student? No problem! The registration is done in one step! \nYou asked OKLM with your friends and one of them just told you about PermisPop? Have you seen our ad or heard of us but are you in class or outside? Don't leave!\nYou can provide all your documents and your NEPH number after validation of your profile! Isn't that awesome? So let's go, fill out the form and validate it!",
           //instructor  validation translation
-          '"First Name" is not allowed to be empty': '"First Name" is not allowed to be empty',
-          '"Prénom" is not allowed to be empty': '"Prénom" is not allowed to be empty',
+          '"First Name" is not allowed to be empty':
+            '"First Name" is not allowed to be empty',
+          '"Prénom" is not allowed to be empty':
+            '"Prénom" is not allowed to be empty',
 
-          '"First Name" must be atleast 2 alphabets Longs!': '"First Name" must be atleast 2 alphabets Longs!',
-          '"Prénom" must be atleast 2 alphabets Longs!': '"Prénom" must be atleast 2 alphabets Longs!',
+          '"First Name" must be atleast 3 alphabets Longs!':
+            '"First Name" must be atleast 3 alphabets Longs!',
+          '"Prénom" must be atleast 3 alphabets Longs!':
+            '"Prénom" must be atleast 3 alphabets Longs!',
 
-          '"Surname" is not allowed to be empty': '"Surname" is not allowed to be empty',
-          '"Nom" is not allowed to be empty': '"Nom" is not allowed to be empty',
+          '"Surname" is not allowed to be empty':
+            '"Surname" is not allowed to be empty',
+          '"Nom" is not allowed to be empty':
+            '"Nom" is not allowed to be empty',
 
-          '"Address" is not allowed to be empty': '"Address" is not allowed to be empty',
-          '"Adresse" is not allowed to be empty': '"Address" is not allowed to be empty',
+          '"Address" is not allowed to be empty':
+            '"Address" is not allowed to be empty',
+          '"Adresse" is not allowed to be empty':
+            '"Address" is not allowed to be empty',
 
-          '"pob" is not allowed to be empty': '"pob" is not allowed to be empty',
+          '"pob" is not allowed to be empty':
+            '"pob" is not allowed to be empty',
 
           "Email Field can't be empty!": "Email Field can't be empty!",
           "E-mail Field can't be empty!": "Email Field can't be empty!",
 
-          '"Phone" is not allowed to be empty': '"Phone" is not allowed to be empty',
-          '"Téléphone" is not allowed to be empty': '"Téléphone" is not allowed to be empty',
+          '"Phone" is not allowed to be empty':
+            '"Phone" is not allowed to be empty',
+          '"téléphone" is not allowed to be empty':
+            '"téléphone" is not allowed to be empty',
 
-          '"licence No." is not allowed to be empty': '"licence No." is not allowed to be empty',
-          '"Numéro de licence" is not allowed to be empty': '"Numéro de licence" is not allowed to be empty',
+          '"licence No." is not allowed to be empty':
+            '"licence No." is not allowed to be empty',
+          '"Numéro de licence" is not allowed to be empty':
+            '"Numéro de licence" is not allowed to be empty',
 
-          '"delivery Place" is not allowed to be empty': '"delivery Place" is not allowed to be empty',
-          '"adresse de livraison" is not allowed to be empty': '"adresse de livraison" is not allowed to be empty',
+          '"delivery Place" is not allowed to be empty':
+            '"delivery Place" is not allowed to be empty',
+          '"adresse de livraison" is not allowed to be empty':
+            '"adresse de livraison" is not allowed to be empty',
 
-          '"Issuing Authority" is not allowed to be empty': '"Issuing Authority" is not allowed to be empty',
-          '"Autorité de délivrance" is not allowed to be empty': '"Autorité de délivrance" is not allowed to be empty',
+          '"Issuing Authority" is not allowed to be empty':
+            '"Issuing Authority" is not allowed to be empty',
+          '"Autorité de délivrance" is not allowed to be empty':
+            '"Autorité de délivrance" is not allowed to be empty',
 
-          '"Authorization Number" is not allowed to be empty': '"Authorization Number" is not allowed to be empty',
-          '"Numéro d autorisation" is not allowed to be empty': '"Numéro d autorisation" is not allowed to be empty',
+          '"Authorization Number" is not allowed to be empty':
+            '"Authorization Number" is not allowed to be empty',
+          '"Numéro d autorisation" is not allowed to be empty':
+            '"Numéro d autorisation" is not allowed to be empty',
 
-          '"siret No." is not allowed to be empty': '"siret No." is not allowed to be empty',
-          '"n° de siret" is not allowed to be empty': '"n° de siret" is not allowed to be empty',
+          '"siret No." is not allowed to be empty':
+            '"siret No." is not allowed to be empty',
+          '"n° de siret" is not allowed to be empty':
+            '"n° de siret" is not allowed to be empty',
 
-          '"company Insurer" is not allowed to be empty': '"company Insurer" is not allowed to be empty',
+          '"company Insurer" is not allowed to be empty':
+            '"company Insurer" is not allowed to be empty',
 
-          '"Police Num" is not allowed to be empty': '"Police Num" is not allowed to be empty',
-          '"Numéro de police" is not allowed to be empty': '"Numéro de police" is not allowed to be empty',
+          '"Police Num" is not allowed to be empty':
+            '"Police Num" is not allowed to be empty',
+          '"Numéro de police" is not allowed to be empty':
+            '"Numéro de police" is not allowed to be empty',
 
-          '"NumPlate" is not allowed to be empty': '"NumPlate" is not allowed to be empty',
-          '"Plaque d immatriculation" is not allowed to be empty': '"Plaque d immatriculation" is not allowed to be empty',
+          '"NumPlate" is not allowed to be empty':
+            '"NumPlate" is not allowed to be empty',
+          '"Plaque d immatriculation" is not allowed to be empty':
+            '"Plaque d immatriculation" is not allowed to be empty',
 
-          '"Color" is not allowed to be empty': '"Color" is not allowed to be empty',
-          '"Couleur" is not allowed to be empty': '"Couleur" is not allowed to be empty',
+          '"Color" is not allowed to be empty':
+            '"Color" is not allowed to be empty',
+          '"Couleur" is not allowed to be empty':
+            '"Couleur" is not allowed to be empty',
 
-          '"Energy" is not allowed to be empty': '"Energy" is not allowed to be empty',
-          '"Énergie" is not allowed to be empty': '"Énergie" is not allowed to be empty',
+          '"Energy" is not allowed to be empty':
+            '"Energy" is not allowed to be empty',
+          '"Énergie" is not allowed to be empty':
+            '"Énergie" is not allowed to be empty',
 
-          '"Insurer" is not allowed to be empty': '"Insurer" is not allowed to be empty',
-          '"Assureur" is not allowed to be empty': '"Assureur" is not allowed to be empty',
+          '"Insurer" is not allowed to be empty':
+            '"Insurer" is not allowed to be empty',
+          '"Assureur" is not allowed to be empty':
+            '"Assureur" is not allowed to be empty',
 
           // car rental validation translation
 
-          '"SurName" is not allowed to be empty': '"SurName" is not allowed to be empty',
+          '"SurName" is not allowed to be empty':
+            '"SurName" is not allowed to be empty',
 
-          '"Pob" is not allowed to be empty': '"Pob" is not allowed to be empty',
+          '"Pob" is not allowed to be empty':
+            '"Pob" is not allowed to be empty',
 
-          '"Siret" is not allowed to be empty': '"Siret" is not allowed to be empty',
+          '"Siret" is not allowed to be empty':
+            '"Siret" is not allowed to be empty',
 
-          '"CompanyInsurer" is not allowed to be empty': '"CompanyInsurer" is not allowed to be empty',
+          '"CompanyInsurer" is not allowed to be empty':
+            '"CompanyInsurer" is not allowed to be empty',
 
-          '"Company Police Number" is not allowed to be empty': '"Company Police Number" is not allowed to be empty',
+          '"Company Police Number" is not allowed to be empty':
+            '"Company Police Number" is not allowed to be empty',
           '"Numéro de police de l entreprise" is not allowed to be empty':
             '"Numéro de police de l entreprise" is not allowed to be empty',
 
-          '"VehicleInsurer" is not allowed to be empty': '"VehicleInsurer" is not allowed to be empty',
-          '"Assureur du véhicule" is not allowed to be empty': '"Assureur du véhicule" is not allowed to be empty',
+          '"VehicleInsurer" is not allowed to be empty':
+            '"VehicleInsurer" is not allowed to be empty',
+          '"Assureur du véhicule" is not allowed to be empty':
+            '"Assureur du véhicule" is not allowed to be empty',
 
-          '"PoliceNumber" is not allowed to be empty': '"PoliceNumber" is not allowed to be empty',
+          '"PoliceNumber" is not allowed to be empty':
+            '"PoliceNumber" is not allowed to be empty',
 
           // Driving School validation translation
 
-          '"Trade Name" is not allowed to be empty': '"Trade Name" is not allowed to be empty',
-          '"Nom commercial" is not allowed to be empty': '"Nom commercial" is not allowed to be empty',
+          '"Trade Name" is not allowed to be empty':
+            '"Trade Name" is not allowed to be empty',
+          '"Nom commercial" is not allowed to be empty':
+            '"Nom commercial" is not allowed to be empty',
 
-          '"Company Name" is not allowed to be empty': '"Company Name" is not allowed to be empty',
-          '"Nom de la société" is not allowed to be empty': '"Nom de la société" is not allowed to be empty',
+          '"Company Name" is not allowed to be empty':
+            '"Company Name" is not allowed to be empty',
+          '"Nom de l entreprise" is not allowed to be empty':
+            '"Nom de l entreprise" is not allowed to be empty',
 
-          '"Number" is not allowed to be empty': '"Number" is not allowed to be empty',
-          '"Numéro" is not allowed to be empty': '"Numéro" is not allowed to be empty',
+          '"Number" is not allowed to be empty':
+            '"Number" is not allowed to be empty',
+          '"Numéro" is not allowed to be empty':
+            '"Numéro" is not allowed to be empty',
 
-          '"Issuing Aurh" is not allowed to be empty': '"Issuing Aurh" is not allowed to be empty',
-          '"Autorisation de délivrance" is not allowed to be empty': '"Autorisation de délivrance" is not allowed to be empty',
+          '"Issuing Aurh" is not allowed to be empty':
+            '"Issuing Aurh" is not allowed to be empty',
+          '"Autorisation de délivrance" is not allowed to be empty':
+            '"Autorisation de délivrance" is not allowed to be empty',
 
-          '"Siret Number" is not allowed to be empty': '"Siret Number" is not allowed to be empty',
-          '"Numéro de Siret" is not allowed to be empty': '"Numéro de Siret" is not allowed to be empty',
+          '"Siret Number" is not allowed to be empty':
+            '"Siret Number" is not allowed to be empty',
+          '"Numéro de Siret" is not allowed to be empty':
+            '"Numéro de Siret" is not allowed to be empty',
 
-          '"Insurance Company" is not allowed to be empty': '"Insurance Company" is not allowed to be empty',
-          '"Compagnie d assurance" is not allowed to be empty': '"Compagnie d assurance" is not allowed to be empty',
+          '"Insurance Company" is not allowed to be empty':
+            '"Insurance Company" is not allowed to be empty',
+          '"Compagnie d assurance" is not allowed to be empty':
+            '"Compagnie d assurance" is not allowed to be empty',
 
-          '"Police Number" is not allowed to be empty': '"Police Number" is not allowed to be empty',
+          '"Police Number" is not allowed to be empty':
+            '"Police Number" is not allowed to be empty',
 
-          '"Firstname" is not allowed to be empty': '"Firstname" is not allowed to be empty',
-          
-          '"NumberPlate" is not allowed to be empty': '"NumberPlate" is not allowed to be empty',
-          
-          '"DriverLicenseNumber" is not allowed to be empty': '"DriverLicenseNumber" is not allowed to be empty',
+          '"Firstname" is not allowed to be empty':
+            '"Firstname" is not allowed to be empty',
+
+          '"NumberPlate" is not allowed to be empty':
+            '"NumberPlate" is not allowed to be empty',
+
+          '"DriverLicenseNumber" is not allowed to be empty':
+            '"DriverLicenseNumber" is not allowed to be empty',
           '"Numéro de permis de conduire" is not allowed to be empty':
-          '"Numéro de permis de conduire" is not allowed to be empty',
-          
-          '"ExcAuthIssueAuth" is not allowed to be empty': '"ExcAuthIssueAuth" is not allowed to be empty',
-          
-          '"ExcAuthNumber" is not allowed to be empty': '"ExcAuthNumber" is not allowed to be empty',
-          
+            '"Numéro de permis de conduire" is not allowed to be empty',
+
+          '"ExcAuthIssueAuth" is not allowed to be empty':
+            '"ExcAuthIssueAuth" is not allowed to be empty',
+
+          '"ExcAuthNumber" is not allowed to be empty':
+            '"ExcAuthNumber" is not allowed to be empty',
+
           "Best Time Training": "Best Time Training",
           "Enter email": "Enter email",
-          "Manaager": "Manager",
-          
-          "First Name must be atleast 2 alphabets Longs!": "First Name must be atleast 2 alphabets Longs!",
-          "Prénom must be atleast 2 alphabets Longs!": "Prénom must be atleast 2 alphabets Longs!",
-          
-          "Surname must be atleast 2 alphabets Longs!": "Surname must be atleast 2 alphabets Longs!",
-          "Nom must be atleast 2 alphabets Longs!": "Nom must be atleast 2 alphabets Longs!",
+          Manaager: "Manager",
 
-          "Not a Valid Email":"Not a Valid Email",
-          "Not a Valid E-mail":"Not a Valid E-mail",
-          '"Phone" length must be 10 characters long':'"Phone" length must be 10 characters long',
-          'Trade Name must be atleast 3 alphabets Longs!':'Trade Name must be atleast 3 alphabets Longs!',
-          '"siret No." length must be 14 characters long':'"Siret No." length must be 14 characters long',
-          '"Siret" length must be 14 characters long':'"Siret" length must be 14 characters long',
-          "SurName must be atleast 2 alphabets Longs!":"SurName must be atleast 2 alphabets Longs!",
-          '"CompanyInsurer" length must be at least 3 characters long':'"CompanyInsurer" length must be at least 3 characters long',
-          '"VehicleInsurer" length must be at least 3 characters long':'"VehicleInsurer" length must be at least 3 characters long',
-          '"Téléphone" length must be 10 characters long':'"Téléphone" length must be 10 characters long',
-          '"Siret Number" length must be at least 14 characters long':'"Siret Number" length must be at least 14 characters long',
-          '"Insurance Company" length must be at least 3 characters long':'"Insurance Company" length must be at least 3 characters long',
-          '"Firstname" length must be at least 2 characters long':'"Firstname" length must be at least 2 characters long',
-          '"Surname" length must be at least 2 characters long':'"Surname" length must be at least 2 characters long',
-          '"Insurer" length must be at least 3 characters long':'"Insurer" length must be at least 3 characters long',
-          '"Email" is not allowed to be empty':'"Email" is not allowed to be empty',
-          '"Email" must be a valid email':'"Email" must be a valid email',
-          "Old password":"Old password",
-          "New password":"New password",
-          "Confirm password":"Confirm password",
-          "Enter password":"Enter password",
-          "Closed":"Closed",
-          "Complete":"Complete",
-          "CarRentalAgent":"CarRentalAgent",
-          "DrivingSchool":"Driving School",
-          "DSInstructor":"DSInstructor",
+          "First Name must be atleast 3 alphabets Longs!":
+            "First Name must be atleast 3 alphabets Longs!",
+          "Prénom must be atleast 3 alphabets Longs!":
+            "Prénom must be atleast 3 alphabets Longs!",
+
+          "Surname must be atleast 3 alphabets Longs!":
+            "Surname must be atleast 3 alphabets Longs!",
+          "Nom must be atleast 3 alphabets Longs!":
+            "Nom must be atleast 3 alphabets Longs!",
+          Professionnel: "Professional",
         },
       },
       fr: {
         translations: {
-          "Instructor Registered Successfully": "Votre profil instructeur a été créé avec succès !",
+          "Instructor Registered Successfully":
+            "Votre profil instructeur a été créé avec succès !",
 
-          "Old password":"Ancien mot de passe",
-          "New password":"Nouveau mot de passe",
-          "Enter password":"Entrer le mot de passe",
-          "Confirm password":"Confirmez le mot de passe",
+          "Old password": "Ancien mot de passe",
+          "New password": "Nouveau mot de passe",
+          "Enter password": "Entrer le mot de passe",
+          "Confirm password": "Confirmez le mot de passe",
 
-          '"Email" must be a valid email':"L'e-mail doit être un e-mail valide",
-          '"Email" is not allowed to be empty':"L'e-mail ne doit pas être vide",
+          '"Email" must be a valid email':
+            "L'e-mail doit être un e-mail valide",
+          '"Email" is not allowed to be empty':
+            "L'e-mail ne doit pas être vide",
 
-          '"Insurer" length must be at least 2 characters long':"L’assureur ne peut pas être vide",
+          '"Insurer" length must be at least 2 characters long':
+            "L’assureur ne peut pas être vide",
 
-          '"Surname" length must be at least 2 characters long':"Le nom doit être de minimum 2 caractères",
+          '"Surname" length must be at least 2 characters long':
+            "Le nom doit être de minimum 2 caractères",
 
-          '"Firstname" length must be at least 2 characters long':"Le prénom doit être de minimum 2 caractères",
-          '"Insurance Company" length must be at least 3 characters long':"La longueur de la compagnie d'assurance doit comporter au moins 3 caractères",
-          '"Téléphone" length must be 10 characters long':"Le téléphone doit être de minimum 10 caractères",
-          '"Phone" length must be 10 characters long':"Le téléphone doit être de minimum 10 caractères",
-          "Trade Name must be atleast 3 alphabets Longs!":"Le nom commercial doit comporter au moins 3 lettres de l'alphabet Longs !",
-          '"VehicleInsurer" length must be at least 3 characters long':"La longueur de l'assureur du véhicule doit comporter au moins 3 caractères",
-          '"CompanyInsurer" length must be at least 3 characters long':"La longueur de l'assureur de la société doit comporter au moins 3 caractères",
-          "SurName must be atleast 2 alphabets Longs!":"Le nom doit être de minimum 2 caractères",
-          '"Siret" length must be 14 characters long':'La longueur du N° Siret doit être de 14 caractères',
-          '"Siret Number" length must be at least 14 characters long':'La longueur du N° Siret doit être de 14 caractères',
-          '"siret No." length must be 14 characters long':"Le n° de SIRET doit être de 14 caractères",
-          "Not a Valid Email":"Pas un e-mail valide",
-          "Not a Valid E-mail":"Pas un e-mail valide",
+          '"Firstname" length must be at least 2 characters long':
+            "Le prénom doit être de minimum 2 caractères",
+          '"Insurance Company" length must be at least 3 characters long':
+            "La longueur de la compagnie d'assurance doit comporter au moins 3 caractères",
+          '"Téléphone" length must be 10 characters long':
+            "Le téléphone doit être de minimum 10 caractères",
+          '"Phone" length must be 10 characters long':
+            "Le téléphone doit être de minimum 10 caractères",
+          "Trade Name must be atleast 3 alphabets Longs!":
+            "Le nom commercial doit comporter au moins 3 lettres de l'alphabet Longs !",
+          '"VehicleInsurer" length must be at least 3 characters long':
+            "La longueur de l'assureur du véhicule doit comporter au moins 3 caractères",
+          '"CompanyInsurer" length must be at least 3 characters long':
+            "La longueur de l'assureur de la société doit comporter au moins 3 caractères",
+          "SurName must be atleast 2 alphabets Longs!":
+            "Le nom doit être de minimum 2 caractères",
+          '"Siret" length must be 14 characters long':
+            "La longueur du N° Siret doit être de 14 caractères",
+          '"Siret Number" length must be at least 14 characters long':
+            "La longueur du N° Siret doit être de 14 caractères",
+          '"siret No." length must be 14 characters long':
+            "Le n° de SIRET doit être de 14 caractères",
+          "Not a Valid Email": "Pas un e-mail valide",
+          "Not a Valid E-mail": "Pas un e-mail valide",
           // Driving School validation translation
-          
-                    "Surname must be atleast 2 alphabets Longs!": "Le nom doit être de minimum 2 caractères",
-                    "Nom must be atleast 2 alphabets Longs!": "Le nom doit être de minimum 2 caractères",
 
-          '"Address" is not allowed to be empty': "L'adresse ne doit pas être vide",
-          '"Adresse" is not allowed to be empty': "L'adresse ne doit pas être vide",
+          "Surname must be atleast 3 alphabets Longs!":
+            "Nom doit comporter au moins 3 alphabets Longs !",
+          "Nom must be atleast 3 alphabets Longs!":
+            "Nom doit comporter au moins 3 alphabets Longs !",
 
-          "First Name must be atleast 2 alphabets Longs!": "Le prénom doit être de minimum 2 caractères",
-          "Prénom must be atleast 2 alphabets Longs!": "Le prénom doit être de minimum 2 caractères",
+          '"Address" is not allowed to be empty':
+            "L'adresse ne doit pas être vide",
+          '"Adresse" is not allowed to be empty':
+            "L'adresse ne doit pas être vide",
 
-          '"ExcAuthNumber" is not allowed to be empty': "Numéro d'autorisation est pas autorisé à être vide",
+          "First Name must be atleast 3 alphabets Longs!":
+            "Le prénom doit comporter au moins 3 alphabets Longs !",
+          "Prénom must be atleast 3 alphabets Longs!":
+            "Le prénom doit comporter au moins 3 alphabets Longs !",
 
-          '"ExcAuthIssueAuth" is not allowed to be empty': '"Autorité de délivrance" est pas autorisé à être vide',
+          '"ExcAuthNumber" is not allowed to be empty':
+            '"ExcAuthNumber" est pas autorisé à être vide',
 
-          '"DriverLicenseNumber" is not allowed to be empty': '"Numéro de permis de conduire" est pas autorisé à être vide',
+          '"ExcAuthIssueAuth" is not allowed to be empty':
+            '"ExcAuthIssueAuth" est pas autorisé à être vide',
+
+          '"DriverLicenseNumber" is not allowed to be empty':
+            '"Numéro de permis de conduire" est pas autorisé à être vide',
           '"Numéro de permis de conduire" is not allowed to be empty':
             '"Numéro de permis de conduire" est pas autorisé à être vide',
 
-          '"NumberPlate" is not allowed to be empty': '"Plaque d immatriculation" est pas autorisé à être vide',
-          '"Plaque d immatriculation" is not allowed to be empty': '"Plaque d immatriculation" est pas autorisé à être vide',
+          '"NumberPlate" is not allowed to be empty':
+            '"Plaque d immatriculation" est pas autorisé à être vide',
+          '"Plaque d immatriculation" is not allowed to be empty':
+            '"Plaque d immatriculation" est pas autorisé à être vide',
 
-          '"Firstname" is not allowed to be empty': "Le prénom ne peut pas être vide",
-          '"Prénom" is not allowed to be empty': "Le prénom ne peut pas être vide",
+          '"Firstname" is not allowed to be empty':
+            '"Prénom" est pas autorisé à être vide',
+          '"Prénom" is not allowed to be empty':
+            '"Prénom" est pas autorisé à être vide',
 
-          '"Police Number" is not allowed to be empty': '"Numéro de police" est pas autorisé à être vide',
-          '"Numéro de police" is not allowed to be empty': '"Numéro de police" est pas autorisé à être vide',
+          '"Police Number" is not allowed to be empty':
+            '"Numéro de police" est pas autorisé à être vide',
+          '"Numéro de police" is not allowed to be empty':
+            '"Numéro de police" est pas autorisé à être vide',
 
-          '"Insurance Company" is not allowed to be empty': '"Compagnie d assurance" est pas autorisé à être vide',
-          '"Compagnie d assurance" is not allowed to be empty': '"Compagnie d assurance" est pas autorisé à être vide',
+          '"Insurance Company" is not allowed to be empty':
+            '"Compagnie d assurance" est pas autorisé à être vide',
+          '"Compagnie d assurance" is not allowed to be empty':
+            '"Compagnie d assurance" est pas autorisé à être vide',
 
-          '"Siret Number" is not allowed to be empty': '"Numéro de Siret" est pas autorisé à être vide',
-          '"Numéro de Siret" is not allowed to be empty': '"Numéro de Siret" est pas autorisé à être vide',
+          '"Siret Number" is not allowed to be empty':
+            '"Numéro de Siret" est pas autorisé à être vide',
+          '"Numéro de Siret" is not allowed to be empty':
+            '"Numéro de Siret" est pas autorisé à être vide',
 
-          '"Issuing Aurh" is not allowed to be empty': '"Autorisation de délivrance" est pas autorisé à être vide',
-          '"Autorisation de délivrance" is not allowed to be empty': '"Autorisation de délivrance" est pas autorisé à être vide',
+          '"Issuing Aurh" is not allowed to be empty':
+            '"Autorisation de délivrance" est pas autorisé à être vide',
+          '"Autorisation de délivrance" is not allowed to be empty':
+            '"Autorisation de délivrance" est pas autorisé à être vide',
 
-          '"Number" is not allowed to be empty': '"Numéro" est pas autorisé à être vide',
-          '"Numéro" is not allowed to be empty': '"Numéro" est pas autorisé à être vide',
+          '"Number" is not allowed to be empty':
+            '"Numéro" est pas autorisé à être vide',
+          '"Numéro" is not allowed to be empty':
+            '"Numéro" est pas autorisé à être vide',
 
-          '"Company Name" is not allowed to be empty': '"Nom de la société" est pas autorisé à être vide',
-          '"Nom de la société" is not allowed to be empty': '"Nom de la société" est pas autorisé à être vide',
+          '"Company Name" is not allowed to be empty':
+            '"Nom de l entreprise" est pas autorisé à être vide',
+          '"Nom de l entreprise" is not allowed to be empty':
+            '"Nom de l entreprise" est pas autorisé à être vide',
 
-          '"Trade Name" is not allowed to be empty': '"Nom commercial" est pas autorisé à être vide',
-          '"Nom commercial" is not allowed to be empty': '"Nom commercial" est pas autorisé à être vide',
+          '"Trade Name" is not allowed to be empty':
+            '"Nom commercial" est pas autorisé à être vide',
+          '"Nom commercial" is not allowed to be empty':
+            '"Nom commercial" est pas autorisé à être vide',
 
           // car rental validation translation
 
-          '"PoliceNumber" is not allowed to be empty': '"Numéro de police" est pas autorisé à être vide',
+          '"PoliceNumber" is not allowed to be empty':
+            '"Numéro de police" est pas autorisé à être vide',
 
-          '"VehicleInsurer" is not allowed to be empty': '"Assureur du véhicule" est pas autorisé à être vide',
-          '"Assureur du véhicule" is not allowed to be empty': '"Assureur du véhicule" est pas autorisé à être vide',
+          '"VehicleInsurer" is not allowed to be empty':
+            '"Assureur du véhicule" est pas autorisé à être vide',
+          '"Assureur du véhicule" is not allowed to be empty':
+            '"Assureur du véhicule" est pas autorisé à être vide',
 
-          '"Company Police Number" is not allowed to be empty': '"Numéro de police de l entreprise" est pas autorisé à être vide',
+          '"Company Police Number" is not allowed to be empty':
+            '"Numéro de police de l entreprise" est pas autorisé à être vide',
           '"Numéro de police de l entreprise" is not allowed to be empty':
             '"Numéro de police de l entreprise" est pas autorisé à être vide',
 
-          '"CompanyInsurer" is not allowed to be empty': '"Compagnie Assureur" est pas autorisé à être vide',
-          '"Compagnie Assureur" is not allowed to be empty': '"Compagnie Assureur" est pas autorisé à être vide',
+          '"CompanyInsurer" is not allowed to be empty':
+            '"Compagnie Assureur" est pas autorisé à être vide',
+          '"Compagnie Assureur" is not allowed to be empty':
+            '"Compagnie Assureur" est pas autorisé à être vide',
 
-          '"Siret" is not allowed to be empty': '"n° de siret" est pas autorisé à être vide',
-          '"n° de siret" is not allowed to be empty': '"n° de siret" est pas autorisé à être vide',
+          '"Siret" is not allowed to be empty':
+            '"n° de siret" est pas autorisé à être vide',
+          '"n° de siret" is not allowed to be empty':
+            '"n° de siret" est pas autorisé à être vide',
 
-          '"Pob" is not allowed to be empty': 'Lieu de naissance est pas autorisé à être vide',
-          
+          '"Pob" is not allowed to be empty':
+            '"Pob" est pas autorisé à être vide',
 
-          '"SurName" is not allowed to be empty': "Le nom ne peut pas être vide",
-          '"Nom" is not allowed to be empty': "Le nom ne peut pas être vide",
+          '"SurName" is not allowed to be empty':
+            '"Nom" est pas autorisé à être vide',
+          '"Nom" is not allowed to be empty':
+            '"Nom" est pas autorisé à être vide',
 
           //instructor  validation translation
-          "Email Field can't be empty!": "L’adresse mail n’est pas correcte",
-          "E-mail Field can't be empty!": "L’adresse mail n’est pas correcte",
+          "Email Field can't be empty!":
+            "Le champ e-mail ne peut pas être vide !",
+          "E-mail Field can't be empty!":
+            "Le champ e-mail ne peut pas être vide !",
 
-          '"Insurer" is not allowed to be empty': "L’assureur ne peut pas être vide",
-          '"Assureur" is not allowed to be empty': "L’assureur ne peut pas être vide",
+          '"Insurer" is not allowed to be empty':
+            '"Assureur" est pas autorisé à être vide',
+          '"Assureur" is not allowed to be empty':
+            '"Assureur" est pas autorisé à être vide',
 
-          '"Energy" is not allowed to be empty': '"Énergie" est pas autorisé à être vide',
-          '"Énergie" is not allowed to be empty': '"Énergie" est pas autorisé à être vide',
+          '"Energy" is not allowed to be empty':
+            '"Énergie" est pas autorisé à être vide',
+          '"Énergie" is not allowed to be empty':
+            '"Énergie" est pas autorisé à être vide',
 
-          '"Color" is not allowed to be empty': "La couleur ne peut pas être vide",
-          '"Couleur" is not allowed to be empty': '"Couleur" est pas autorisé à être vide',
+          '"Color" is not allowed to be empty':
+            '"Couleur" est pas autorisé à être vide',
+          '"Couleur" is not allowed to be empty':
+            '"Couleur" est pas autorisé à être vide',
 
-          '"NumPlate" is not allowed to be empty': "La plaque d’immatriculation ne peut pas être vide",
+          '"NumPlate" is not allowed to be empty':
+            '"Plaque d immatriculation" est pas autorisé à être vide',
 
-          '"Police Num" is not allowed to be empty': "Le n° de police ne peut pas être vide",
+          '"Police Num" is not allowed to be empty':
+            '"Numéro de police" est pas autorisé à être vide',
 
-          '"company Insurer" is not allowed to be empty': "La compagnie s’assurance ne peut pas être vide",
+          '"company Insurer" is not allowed to be empty':
+            '"Compagnie Assureur" est pas autorisé à être vide',
 
-          '"siret No." is not allowed to be empty': "Le n° de SIRET ne peut pas être vide",
+          '"siret No." is not allowed to be empty':
+            '"n° de siret" est pas autorisé à être vide',
 
-          '"Authorization Number" is not allowed to be empty': "Le numéro d’autorisation ne peut pas être vide",
-          '"Numéro d autorisation" is not allowed to be empty': '"Numéro d autorisation" est pas autorisé à être vide',
+          '"Authorization Number" is not allowed to be empty':
+            '"Numéro d autorisation" est pas autorisé à être vide',
+          '"Numéro d autorisation" is not allowed to be empty':
+            '"Numéro d autorisation" est pas autorisé à être vide',
 
-          '"Issuing Authority" is not allowed to be empty': '"Autorité de délivrance" est pas autorisé à être vide',
-          '"Autorité de délivrance" is not allowed to be empty': '"Autorité de délivrance" est pas autorisé à être vide',
+          '"Issuing Authority" is not allowed to be empty':
+            '"Autorité de délivrance" est pas autorisé à être vide',
+          '"Autorité de délivrance" is not allowed to be empty':
+            '"Autorité de délivrance" est pas autorisé à être vide',
 
-          '"licence No." is not allowed to be empty': "Le numéro de permis de conduire ne peut pas être vide",
-          '"adresse de livraison" is not allowed to be empty': '"adresse de livraison" est pas autorisé à être vide',
+          '"licence No." is not allowed to be empty':
+            '"adresse de livraison" est pas autorisé à être vide',
+          '"adresse de livraison" is not allowed to be empty':
+            '"adresse de livraison" est pas autorisé à être vide',
 
-          '"delivery Place" is not allowed to be empty': "L’autorité de délivrance ne peut pas être vide",
-          '"Numéro de licence" is not allowed to be empty': '"Numéro de licence" est pas autorisé à être vide',
+          '"delivery Place" is not allowed to be empty':
+            '"Numéro de licence" est pas autorisé à être vide',
+          '"Numéro de licence" is not allowed to be empty':
+            '"Numéro de licence" est pas autorisé à être vide',
 
-          '"Phone" is not allowed to be empty': "Le téléphone ne peut pas être vide",
-          '"Téléphone" is not allowed to be empty': "Le téléphone ne peut pas être vide",
+          '"Phone" is not allowed to be empty':
+            '"téléphone" est pas autorisé à être vide',
+          '"téléphone" is not allowed to be empty':
+            '"téléphone" est pas autorisé à être vide',
 
-          '"pob" is not allowed to be empty': 'Lieu de naissance est pas autorisé à être vide',
+          '"pob" is not allowed to be empty':
+            '"pob" est pas autorisé à être vide',
 
-          '"Surname" is not allowed to be empty': "Le nom ne peut pas être vide",
+          '"Surname" is not allowed to be empty':
+            '"Nom" est pas autorisé à être vide',
 
-          '"First Name" must be atleast 2 alphabets Longs!': "Le prénom doit être de minimum 2 caractères",
-          '"Prénom" must be atleast 2 alphabets Longs!': "Le prénom doit être de minimum 2 caractères",
+          '"First Name" must be atleast 3 alphabets Longs!':
+            '"Prénom" la longueur doit être dau moins 3 caractères',
+          '"Prénom" must be atleast 3 alphabets Longs!':
+            '"Prénom" la longueur doit être dau moins 3 caractères',
 
-          '"First Name" is not allowed to be empty': "Le prénom ne peut pas être vide",
+          '"First Name" is not allowed to be empty':
+            '"Prénom" est pas autorisé à être vide',
           // french
           "Password didn't match": "Le mot de passe ne correspond pas",
           "Password cannot be empty": "Le mot de passe ne peut pas être vide",
-          "Password must be atleast 8 char long": "Le mot de passe doit comporter au moins 8 caractères",
+          "Password must be atleast 8 char long":
+            "Le mot de passe doit comporter au moins 8 caractères",
           "Instructor Name": "Nom de l'instructeur",
           Picture: "Image",
           "Booking with": "Réservation avec",
           "Date of registration": "Date d'enregistrement",
           Unavailability: "Indisponibilité",
           "test data for heading": "données de test pour le cap",
-          "test data for headingtest data for heading": "données de test pour le capdonnées de test pour le cap",
+          "test data for headingtest data for heading":
+            "données de test pour le capdonnées de test pour le cap",
           "Issueing Authority": "Autorité de délivrance",
           "Exercise Authorization": "Autorisation d'exercice",
           "Gear Box": "Boîte de vitesses",
@@ -820,33 +998,46 @@ i18n
           "Find Instructure": "Trouver une structure",
           "Find Instructor": "Trouver un instructeur",
           Chat: "Chat",
-          "Can only select your bookings": "Ne peut sélectionner que vos réservations",
+          "Can only select your bookings":
+            "Ne peut sélectionner que vos réservations",
           "Cannot Book after time": "Impossible de réserver après l'heure",
           "No connection to server yet.": "Pas encore de connexion au serveur.",
-          "can not select past event": "impossible de sélectionner un événement passé",
+          "can not select past event":
+            "impossible de sélectionner un événement passé",
           "can not select past time": "ne peut pas sélectionner le temps passé",
           "Vehicle added scuccessfully": "Véhicule ajouté avec succès",
           "Vehicle deleted scuccessfully": "Véhicule supprimé avec succès",
-          "Vehicle detail updated sucessfully": "Détails du véhicule mis à jour avec succès",
-          "Password updated Successfully": "Mot de passe mis à jour avec succès",
-          "New password does not match Confirm password": "Le nouveau mot de passe ne correspond pas Confirmer le mot de passe",
-          "Cannot accept empty fields": "Impossible d'accepter les champs vides",
+          "Vehicle detail updated sucessfully":
+            "Détails du véhicule mis à jour avec succès",
+          "Password updated Successfully":
+            "Mot de passe mis à jour avec succès",
+          "New password does not match Confirm password":
+            "Le nouveau mot de passe ne correspond pas Confirmer le mot de passe",
+          "Cannot accept empty fields":
+            "Impossible d'accepter les champs vides",
           "Field cannot be empty": "Le champ ne peut pas être vide",
           "Dispute is created sucessfully": "Le litige est créé avec succès",
-          "Status is updated successful": "Le statut est mis à jour avec succès",
+          "Status is updated successful":
+            "Le statut est mis à jour avec succès",
           "Description cannot be empty": "La description ne peut pas être vide",
-          "Request is created for profile update": "La demande est créée pour la mise à jour du profil",
+          "Request is created for profile update":
+            "La demande est créée pour la mise à jour du profil",
           "Image not Uploaded": "Image non téléchargée",
           "Something Went Wrong": "Quelque chose s'est mal passé",
-          "Email or Password is not correct": "L'e-mail ou le mot de passe n'est pas correct",
+          "Email or Password is not correct":
+            "L'e-mail ou le mot de passe n'est pas correct",
           name: "Nom",
           photo: "photo",
           historyActions: "actionHistorique",
           "Student Registered Successfully": "Étudiant inscrit avec succès",
-          "Rental Car Registered Successfully": "Voiture de location enregistrée avec succès",
-          "Not Registered....Error Occured": "Non enregistré.... Une erreur s'est produite",
-          "Not Registered....Somethong went wrong": "Non enregistré....Quelque chose s'est mal passé",
-          "Driving School Registered Successfully": "Auto-école enregistrée avec succès",
+          "Rental Car Registered Successfully":
+            "Voiture de location enregistrée avec succès",
+          "Not Registered....Error Occured":
+            "Non enregistré.... Une erreur s'est produite",
+          "Not Registered....Somethong went wrong":
+            "Non enregistré....Quelque chose s'est mal passé",
+          "Driving School Registered Successfully":
+            "Auto-école enregistrée avec succès",
           "No data found": "Aucune donnée disponible",
           "Enter value": "Entrez la valeur",
           "No value found": "Aucune valeur trouvée",
@@ -858,7 +1049,8 @@ i18n
           "Meetup points": "Points de rencontre",
           "Serial Number": "Numéro de série",
           "Insurance Details": "Détails de l'assurance",
-          "Would like to delete your availability?": "Vous souhaitez supprimer votre disponibilité ?",
+          "Would like to delete your availability?":
+            "Vous souhaitez supprimer votre disponibilité ?",
           Description: "La description",
           "Add Unavailability": "Ajouter une indisponibilité",
           "Enter username": "Saisissez votre nom d'utilisateur",
@@ -915,23 +1107,30 @@ i18n
           "Contact Information": "Coordonnées",
           Finish: "Finir",
           "No file choosen.": "Aucun fichier choisi.",
-          "Type Of Contract With Driving School": "Type de contrat avec l'école de conduite",
+          "Type Of Contract With Driving School":
+            "Type de contrat avec l'école de conduite",
           "No Instructors Added.": "Aucun instructeur ajouté.",
-          "Technical Control Details if any?": "Détails du contrôle technique, le cas échéant ?",
+          "Technical Control Details if any?":
+            "Détails du contrôle technique, le cas échéant ?",
           "Terms and Condition applied": "Termes et conditions appliqués",
           "Upload your Certificate": "Téléchargez votre certificat",
           "I accept CPF financement": "J'accepte le financement CPF",
           "Confirm Identity": "Confirmer l'identité",
           "Driving School Registration": "Inscription à l'école de conduite",
           "Date of 1st Registration": "Date de 1ère inscription",
-          "Upload Vehicle Registration Certificate Back": "Télécharger le certificat d'immatriculation du véhicule Retour",
-          "Upload Vehicle Registration Certificate Front": "Télécharger le certificat d'immatriculation du véhicule avant",
+          "Upload Vehicle Registration Certificate Back":
+            "Télécharger le certificat d'immatriculation du véhicule Retour",
+          "Upload Vehicle Registration Certificate Front":
+            "Télécharger le certificat d'immatriculation du véhicule avant",
           "Driver’s License": "Permis de conduire",
-          "Date of Authorization to Excersice": "Date d'autorisation d'exercice",
+          "Date of Authorization to Excersice":
+            "Date d'autorisation d'exercice",
           "Driving License Number": "Numéro de permis de conduire",
-          "Are you working on other platform?": "Travaillez-vous sur une autre plateforme ?",
+          "Are you working on other platform?":
+            "Travaillez-vous sur une autre plateforme ?",
           "Which plateforms": "Quelles plateformes",
-          "All steps completed - you're finished": "Toutes les étapes sont terminées - vous avez terminé",
+          "All steps completed - you're finished":
+            "Toutes les étapes sont terminées - vous avez terminé",
           "Instructor Registration": "Inscription des instructeurs",
           "Technical Control if any?": "Contrôle technique s'il y a lieu ?",
           "Upload your Image": "Téléchargez votre image",
@@ -946,11 +1145,14 @@ i18n
             "Vous êtes là pour vous inscrire sur PermisPop en tant qu'étudiant ? Aucun problème! L'inscription se fait en une seule étape !",
           "Student Registration": "Inscription des étudiants",
           "Choose File": "Choisir le fichier",
-          "Upload Highway code image file": "Télécharger le fichier image du code de la route",
+          "Upload Highway code image file":
+            "Télécharger le fichier image du code de la route",
           "Upload your profile picture": "Téléchargez votre photo de profil",
           "Upload your Profile Picture": "Téléchargez votre photo de profil",
-          "Upload back of your ID Card/Passport": "Téléchargez votre carte d'identité/passeport",
-          "Upload front of your ID Card/Passport": "Téléchargez le recto de votre carte d'identité/passeport",
+          "Upload back of your ID Card/Passport":
+            "Téléchargez votre carte d'identité/passeport",
+          "Upload front of your ID Card/Passport":
+            "Téléchargez le recto de votre carte d'identité/passeport",
           "Number of hours": "Nombre d'heures",
           "Second Phone": "Deuxième téléphone",
           "Second Email": "Deuxième e-mail",
@@ -963,7 +1165,8 @@ i18n
           "Fill up the form and we will get back to you within 24 hours":
             "Remplissez le formulaire et nous vous répondrons dans les 24 heures",
           "Access The Highway Code Here": "Accéder au code de la route ici",
-          "The Full Road Code Only For €14.90": "Le code de la route complet seulement pour 14,90 €",
+          "The Full Road Code Only For €14.90":
+            "Le code de la route complet seulement pour 14,90 €",
           "Highway Code": "Code de la route",
           "Online Training That Will Revolution Your Code and License":
             "Une formation en ligne qui révolutionnera votre code et votre licence",
@@ -971,15 +1174,18 @@ i18n
           "User Behaviour": "Comportement de l'utilisateur",
           "Register As": "S'inscrire en tant que",
           "Play Video": "Lire la vidéo",
-          "Join Now": "Adhérer maintenant",
-          "Join us to enjoy quality driving education": "Rejoignez-nous pour profiter d'une formation à la conduite de qualité",
+          "Join Now": "Inscrivez-vous",
+          "Join us to enjoy quality driving education":
+            "Rejoignez-nous pour profiter d'une formation à la conduite de qualité",
           "The Revolutionary platform for true Driving education freelancers.":
             "La plateforme révolutionnaire pour les vrais indépendants de l'éducation à la conduite.",
           "Don’t have an account?": "Vous n'avez pas de compte ?",
           "I read and agree to": "J'ai lu et j'accepte",
           "Login to your account": "Connectez-vous à votre compte",
-          "Impossible de supprimer les anciennes disponibilités.": "Unable to delete old availabilities.",
-          "Souhaitez-vous supprimer cette disponibilité?": "Would you like to remove this availability?",
+          "Impossible de supprimer les anciennes disponibilités.":
+            "Unable to delete old availabilities.",
+          "Souhaitez-vous supprimer cette disponibilité?":
+            "Would you like to remove this availability?",
           "Student Identity": "Mon identité",
           // "Vehicle Details": "Détails du véhicule",
           "No file chosen": "Aucun fichier sélectionné",
@@ -1014,8 +1220,10 @@ i18n
           "Register now": "S'inscrire ",
           Name: "Nom Prénom",
           "Your Message": "Votre message",
-          "revolutionary-platform": "La plateforme pensée par les enseignants pour tous les professionnels du permis",
-          "Join-us-text": "Rejoins-nous pour profiter d'un enseignement de la conduite de qualité.",
+          "revolutionary-platform":
+            "La plateforme pensée par les enseignants pour tous les professionnels du permis",
+          "Join-us-text":
+            "Rejoins-nous pour profiter d'un enseignement de la conduite de qualité.",
           "Student Registeration": "S'inscrire  en tant qu'élève",
           "First Name": "Prénom",
           Surname: "Nom",
@@ -1026,8 +1234,10 @@ i18n
           male: "Homme",
           Female: "Femme",
           female: "Femme",
-          "Upload front of your ID Card/Passport/Residence permit": "Télécharge le recto de ta CNI/Passeport/Permis de séjour",
-          "Upload back of your ID Card/Passport/Residence permit": "Télécharge le verso de ta CNI/Passeport/Permis de séjour",
+          "Upload front of your ID Card/Passport/Residence permit":
+            "Télécharge le recto de ta CNI/Passeport/Permis de séjour",
+          "Upload back of your ID Card/Passport/Residence permit":
+            "Télécharge le verso de ta CNI/Passeport/Permis de séjour",
           Address: "Adresse",
           City: "Ville",
           "Zip Code": "Code Postal",
@@ -1041,11 +1251,13 @@ i18n
           "Forget Password": "Mot de passe oublié",
           password: "Mot de passe",
           "Confirm Password": "Confirme ton mot de passe",
-          "Estimated number of hours you want to take": "Combien d'heures de conduite penses-tu prendre?",
+          "Estimated number of hours you want to take":
+            "Combien d'heures de conduite penses-tu prendre?",
           "NEPH Number": "Numéro NEPH",
           "Highway code obtained": "Code obtenu",
           "Click me if you had": "Clique ici si t'as obtenu ton code",
-          "Terms & Conditions Applied": "J'accepte les termes et conditions appliqués",
+          "Terms & Conditions Applied":
+            "J'accepte les termes et conditions appliqués",
           "Terms & Conditions": "Termes et conditions",
           "BACK TO WEBSITE": "Retour au site",
           "Privacy Policy": "Politique de confidentialité",
@@ -1053,9 +1265,11 @@ i18n
           Register: "S'inscrire ",
           "login-page": "Connexion",
           "Must be digits": "Doit être des chiffres",
-          "Manager should be at least 23 years old": "Le manager ne peut pas avoir moins de 23 ans",
+          "Manager should be at least 23 years old":
+            "Le manager ne peut pas avoir moins de 23 ans",
           "Manager Identity": "Identité du manager",
-          "enter-email-pass": "Entre ton email et ton mot de passe pour te connecter à PermisPop",
+          "enter-email-pass":
+            "Entre ton email et ton mot de passe pour te connecter à PermisPop",
           "profile-update-request": "Demande de mise à jour de mon profil",
           "select-option": "Sélectionne les informations à mettre à jour",
           reason: "Raison",
@@ -1092,18 +1306,22 @@ i18n
           // ----------------------------------------------------Registeration Instuctor-----------------
           Number: "N° d'agrément",
           "Date of Obtaining": "Date d'obtention",
-          "Scan and Upload your Driving License": "Télécharge ton permis de conduire (recto/verso)",
+          "Scan and Upload your Driving License":
+            "Télécharge ton permis de conduire (recto/verso)",
           "Place of Delivery": "Lieu de délivrance",
           "Validity Date": "Date de validité",
           "Upload Scaned Green Card": "Télécharger la carte verte numérisée",
-          "Do you have other licenses obtained?": "As-tu obtenu d'autres permis?",
+          "Do you have other licenses obtained?":
+            "As-tu obtenu d'autres permis?",
           "License For?": "Licence pour?",
           "Spoken Language": "Langues parlées",
           "License Type?": "Type de licence?",
           // license type
           "Motorcycle license": "Permis moto",
-          "Heavy car or quadricycle license": "Permis B (voiture ou quadricycle lourd)",
-          "Licenses for the transportation of goods and people": "Permis pour le transport de marchandises et de personnes",
+          "Heavy car or quadricycle license":
+            "Permis B (voiture ou quadricycle lourd)",
+          "Licenses for the transportation of goods and people":
+            "Permis pour le transport de marchandises et de personnes",
           // sub options
           "License A1 (125 cm3)": "Permis A1 (permis 125 cm3)",
           "License A2 (35 kw -)": "Permis A2 (- de 35 kw)",
@@ -1111,25 +1329,35 @@ i18n
           // b sub options
 
           "License B (car or van)": "Permis B : voiture ou camionnette",
-          "License B1 (heavy motor quadricycle)": "Permis B1 : quadricycle lourd à moteur",
-          "License BE (car + trailer over 750 kg)": "Permis BE : voiture + remorque de plus de 750 kg",
+          "License B1 (heavy motor quadricycle)":
+            "Permis B1 : quadricycle lourd à moteur",
+          "License BE (car + trailer over 750 kg)":
+            "Permis BE : voiture + remorque de plus de 750 kg",
           // c sub options
 
           "License C (7,5 t +)": "Permis C (+ de 7,5 t)",
-          "License CE (7,5 t + with trailer)": "Permis CE (+ de 7,5 t avec remorque)",
-          "License C1 (between 3,5 t and 7,5 t)": "Permis C1 (entre 3,5 t et 7,5 t)",
-          "License C1E (between 3.5 t and 7.5 t with trailer)": "Permis C1E (entre 3,5 t et 7,5 t avec remorque)",
-          "License D (transport more than 8 passengers)": "Permis D (transport + de 8 passagers)",
-          "License DE (transport more than 8 passengers with trailer)": "Permis DE (transport + 8 passagers avec remorque)",
-          "License D1 (transport of 16 passengers maximum)": "Permis D1 (transport de 16 passagers maximum)",
+          "License CE (7,5 t + with trailer)":
+            "Permis CE (+ de 7,5 t avec remorque)",
+          "License C1 (between 3,5 t and 7,5 t)":
+            "Permis C1 (entre 3,5 t et 7,5 t)",
+          "License C1E (between 3.5 t and 7.5 t with trailer)":
+            "Permis C1E (entre 3,5 t et 7,5 t avec remorque)",
+          "License D (transport more than 8 passengers)":
+            "Permis D (transport + de 8 passagers)",
+          "License DE (transport more than 8 passengers with trailer)":
+            "Permis DE (transport + 8 passagers avec remorque)",
+          "License D1 (transport of 16 passengers maximum)":
+            "Permis D1 (transport de 16 passagers maximum)",
           "License D1E (transport of 16 passengers maximum with trailer)":
             "Permis D1E (transport de 16 passagers maximum avec remorque)",
           "Authorization to Exercise": "Autorisation d'exercer",
-          "Date of the authorization to exercise": "Date de délivrance de l'autorisation d'exercer",
+          "Date of the authorization to exercise":
+            "Date de délivrance de l'autorisation d'exercer",
           "Issuing Authority": "Délivré par",
           "Expiration date": "Date d'expiration",
           "Expiration Date": "Date d'expiration",
-          "Scan and upload your authorization": "Télécharge ton autorisation d'exercer",
+          "Scan and upload your authorization":
+            "Télécharge ton autorisation d'exercer",
           Business: "Entreprise",
           "SIrel Number": "N° de SIRET",
           "Upload your kbls": "Télécharge ton KBIS",
@@ -1139,10 +1367,13 @@ i18n
           Insurer: "Assureur",
           "Police Number": "N° de Police",
           "Upload your RC Pro": "Télécharge ton assurance RC Pro",
-          "Expiration date of your Insurance": "Date d'expiration de ton assurance RC Pro",
-          "Expiration date of your insurance": "Date d'expiration de ton assurance RC Pro",
+          "Expiration date of your Insurance":
+            "Date d'expiration de ton assurance RC Pro",
+          "Expiration date of your insurance":
+            "Date d'expiration de ton assurance RC Pro",
           "Vehicle Insurance": "Assurance de ton/tes véhicule(s)",
-          "Upload your Green Card": "Télécharge l'assurance de ton/tes véhicule(s)",
+          "Upload your Green Card":
+            "Télécharge l'assurance de ton/tes véhicule(s)",
           "Start Date": "Date de début",
           "End Date": "Date de fin",
           "Insurance of the driving school": "Assurance de l'auto-école",
@@ -1154,7 +1385,8 @@ i18n
           "Upload Images": "Télécharger l'Images",
           Model: "Modèle",
           Color: "Couleur",
-          "Upload Vehicle Registration Certificate": "Télécharge ta carte grise (recto/verso)",
+          "Upload Vehicle Registration Certificate":
+            "Télécharge ta carte grise (recto/verso)",
           Gearbox: "Boîte de vitesse",
           "Vehicle Image": "PHOTO DU VÉHICULE",
           "Register Certificate": "CERTIFICAT D'Enregistrer",
@@ -1164,7 +1396,8 @@ i18n
           "Scan and upload your CT": "Télécharge ton contrôle technique",
           "Scan and Upload your CT": "Télécharge ton contrôle technique",
           "Driving School Registeration": "S'inscrire  en tant qu'auto-école",
-          "Rental Car Registeration": "S'inscrire en tant que loueur double commande",
+          "Rental Car Registeration":
+            "S'inscrire en tant que loueur double commande",
           "View Booking": "Voir la réservation",
           Accept: "Accepter",
           Decline: "Décliner",
@@ -1177,8 +1410,10 @@ i18n
           "Date of Approval": "Date de délivrance de l'agrément",
           // "Manager Identity": "Identité du manager",
           Vehicles: "Véhicule(s)",
-          "Maximum 2 and minimum 1 Vehicles can be add": "Tu peux ajouter jusqu'à 2 véhicules",
-          "Maximum 2 Instructor can be add": "Un maximum de 2 enseignants peuvent être ajoutés",
+          "Maximum 2 and minimum 1 Vehicles can be add":
+            "Tu peux ajouter jusqu'à 2 véhicules",
+          "Maximum 2 Instructor can be add":
+            "Un maximum de 2 enseignants peuvent être ajoutés",
           // "Vehicles Details": "Détails du véhicule",
           Employee: "Employé",
           "External provider": "Indépendant",
@@ -1187,12 +1422,14 @@ i18n
           Manual: "Manuelle",
           Petrol: "Essence",
           Electric: "Electrique",
-          "Type of contract with the driving school": "Type de contrat avec l'auto-école",
+          "Type of contract with the driving school":
+            "Type de contrat avec l'auto-école",
           Next: "Suivant",
           Back: "Précédent",
           greetings: "Salut",
           no_chat_title: "Aucun chat sélectionné",
-          no_chat_desc: "Veuillez sélectionner n'importe quel chat pour commencer la messagerie",
+          no_chat_desc:
+            "Veuillez sélectionner n'importe quel chat pour commencer la messagerie",
           // -----------------------steps
           Identity: "Identité",
           "Identity Of Instructor": "Identité de l'enseignant",
@@ -1226,16 +1463,20 @@ i18n
           "Login-para": "",
           "Services-main-tag":
             "La plateforme de mise en relation PermisPop a été pensée par des enseignants pour tous les professionnels du permis dont les principaux services proposés sont les suivants.",
-          "Behaviour-text": "Enseignant véhiculé ou non\nAuto-école\nLoueur double commandes",
-          "bestTimeTrain-text": "Réservation\nGestion de planning\nGestion des disponibilités",
+          "Behaviour-text":
+            "Enseignant véhiculé ou non\nAuto-école\nLoueur double commandes",
+          "bestTimeTrain-text":
+            "Réservation\nGestion de planning\nGestion des disponibilités",
           "trainAllAges-text":
             "Heure facturable à 32€ max\nForfait à XX€ pour les élèves pour accéder à PermisPop\nForfait gratuit pour les auto-école et enseignants indépendants",
-          "individualApproach-text": "Élève d'auto-école\nCandidat libre\nPerfectionnement de la conduite\nRemise à niveau",
+          "individualApproach-text":
+            "Élève d'auto-école\nCandidat libre\nPerfectionnement de la conduite\nRemise à niveau",
           "calmIns-text":
             "Temps d’attente pour des heures de conduite\nIndisponibilité des enseignants\nSuivi difficile du planning\nAnnulation difficile des heures",
           "duplicatePedals-text":
             "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deleniti aliquid vero harum rerum voluptates, ab, ullam",
-          "allDoc-text": "De nombreux partenaires\nPermis accéléré\nPossibilité d'obtenir une date d'examen rapidement",
+          "allDoc-text":
+            "De nombreux partenaires\nPermis accéléré\nPossibilité d'obtenir une date d'examen rapidement",
           "bestClass-text":
             "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Deleniti aliquid vero harum rerum voluptates, ab, ullam",
           "bestInstructor-text":
@@ -1257,9 +1498,11 @@ i18n
           "Our Services": "Plateforme complète",
           "Users Behavior": "Pour tous les professionnels",
           "SEND MESSAGE": "Envoyer le message",
-          "Please give reasons for rating low": "Veuillez donner les raisons de la note faible",
+          "Please give reasons for rating low":
+            "Veuillez donner les raisons de la note faible",
           Late: "En retard",
-          "How long is the road test appointment?": "PermisPop, comment ça fonctionne ?",
+          "How long is the road test appointment?":
+            "PermisPop, comment ça fonctionne ?",
           General: "Général",
           "Our Solutions": "Nos solutions",
           "Our Experience": "Notre expérience",
@@ -1330,17 +1573,24 @@ i18n
           Wording: "Compétence",
           "Student Learning Booklet": "Livret d'apprentissage de l'élève",
           // my learing lesson desciprtion\
-          myLearingLessonDescription1: "Maîtriser le maniement du véhicule dans un trafic faible ou nul.",
-          myLearingLessonDescription2: "Appréhender la route et circuler dans des conditions normales.",
-          myLearingLessonDescription3: "Circuler dans des conditions difficiles et partager la route avec les autres usagers.",
-          myLearingLessonDescription4: "Pratiquer une conduite autonome, sûre et économique.",
+          myLearingLessonDescription1:
+            "Maîtriser le maniement du véhicule dans un trafic faible ou nul.",
+          myLearingLessonDescription2:
+            "Appréhender la route et circuler dans des conditions normales.",
+          myLearingLessonDescription3:
+            "Circuler dans des conditions difficiles et partager la route avec les autres usagers.",
+          myLearingLessonDescription4:
+            "Pratiquer une conduite autonome, sûre et économique.",
           // end of my learing lesson description
           "Legal Information": "Information légale",
-          "*Click on text to open popup details.": "*Clique sur le texte pour voir les détails",
+          "*Click on text to open popup details.":
+            "*Clique sur le texte pour voir les détails",
           "Why better learn?": "Pourquoi mieux apprendre?",
-          "What is the use of your learning booklet?": "Quelle est l'utilité de ton livret d'apprentissage?",
+          "What is the use of your learning booklet?":
+            "Quelle est l'utilité de ton livret d'apprentissage?",
           "What training program?": "Quel programme de formation?",
-          "How are your progress assessed?": "Comment tes progrès sont-ils évalués?",
+          "How are your progress assessed?":
+            "Comment tes progrès sont-ils évalués?",
           "How is the exam?": "Comment se passe l'examen?",
           "Add Availablity": "Ajouter une disponibilité",
           "Vehicle Brand": "Marque du véhicule",
@@ -1363,7 +1613,8 @@ i18n
           // Meetup: "Point de rencontre",
           "Picked DateTime": "Heure de début",
 
-          "No Meetup Point. Add from you profile section": "Pas de point de rencontre. Ajoute le dans ton profil",
+          "No Meetup Point. Add from you profile section":
+            "Pas de point de rencontre. Ajoute le dans ton profil",
           "Add Meetup Point": "Ajouter un point de rencontre",
           Confirm: "Ajouter",
           Duration: "Durée",
@@ -1396,21 +1647,26 @@ i18n
           "Edit Question": "Modifier la question",
           "Number Plate": "Plaque d'immatriculation",
           "Must upload file": "Ce fichier est obligatoire",
-          "Expiry date should be future date.": "La date d'expiration doit être une date ultérieure.",
+          "Expiry date should be future date.":
+            "La date d'expiration doit être une date ultérieure.",
           Add: "Ajouter",
           Active: "Actif",
           "deactive-title": "Compte désactivé",
           "deactive-message":
             "Ton compte a été désactivé par l'administrateur en raison de certaines conditions non respectées.\nContacte l'administrateur pour plus d'informations.\nContact",
-          "non-verfiy-title": "Cette zone est accessible uniquement aux utilisateurs vérifiés",
-          "non-verify-message": "Tu dois télécharger les documents manquants pour accéder à cette fonctionnalité.",
+          "non-verfiy-title":
+            "Cette zone est accessible uniquement aux utilisateurs vérifiés",
+          "non-verify-message":
+            "Tu dois télécharger les documents manquants pour accéder à cette fonctionnalité.",
           "Upload documents": "Télécharger des documents",
           "member-title": "Uniquement accès Memeber",
-          "member-message": "Pour accéder à cette page s'il vous plaît en adhérant",
+          "member-message":
+            "Pour accéder à cette page s'il vous plaît en adhérant",
           "No History Found": "Aucun historique trouvé",
           "No Pending Request Found": "Aucune demande en attente trouvée",
           // my learing
-          myLearningLeagalInfoMessage: "*Clique sur le texte pour voir les détails",
+          myLearningLeagalInfoMessage:
+            "*Clique sur le texte pour voir les détails",
           closeBtnMylearning: "Fermer",
           "No Comments Added": "Pas de commentaire ajouté",
           // booking info desc
@@ -1426,40 +1682,57 @@ i18n
           // -------------------------------------------------------------------
           // ----------------Registration errors--------------------------------
           "Should Not be empty": "Ne doit pas être vide",
-          "Address field should not be empty": "Le champ d'adresse ne doit pas être vide",
+          "Address field should not be empty":
+            "Le champ d'adresse ne doit pas être vide",
           "Email should be valid": "L'e-mail doit être valide",
           "Email alread exist": "Les e-mails existent déjà",
-          "Phone must be 10 digits": "Le téléphone doit être de minimum 10 caractères",
+          "Phone must be 10 digits":
+            "Le téléphone doit être composé de 10 chiffres",
           "Must be numeric": "Ce champ doit être uniquement numérique",
           "Password must contain only alphanumeric, special characters and must have a minimum length of 8":
             "Le mot de passe ne doit contenir que des caractères alphanumériques spéciaux et doit avoir une longueur minimale de 8",
           "Password did not match": "Le mot de passe ne correspond pas",
           "neph-length-error": "la longueur du néph doit être de 12 chiffres.",
           "neph-numeric-error": "neph doit être bénumérique uniquement.",
-          "should select this field to continue.": "devrait sélectionner ce champ pour continuer.",
+          "should select this field to continue.":
+            "devrait sélectionner ce champ pour continuer.",
           acceptManagerCondition: "Tu dois accepter les conditions générales.",
-          "Obtain date can not be future date.": "Obtenir la date ne peut pas être une date future.",
-          "Second phone should not be same": "Les téléphone ci-dessus ne doivent pas être identiques",
-          "Second email should not be same": "Le e-mails ci-dessus ne doit pas être le même",
-          "Above email should not be empty": "L'e-mail ci-dessus ne doit pas être vide",
-          "Above phone should not be empty": "Le téléphone ci-dessus ne doit pas être vide",
-          "You can not select future date": "Tu ne peux pas sélectionner une date dans le futur",
+          "Obtain date can not be future date.":
+            "Obtenir la date ne peut pas être une date future.",
+          "Second phone should not be same":
+            "Les téléphone ci-dessus ne doivent pas être identiques",
+          "Second email should not be same":
+            "Le e-mails ci-dessus ne doit pas être le même",
+          "Above email should not be empty":
+            "L'e-mail ci-dessus ne doit pas être vide",
+          "Above phone should not be empty":
+            "Le téléphone ci-dessus ne doit pas être vide",
+          "You can not select future date":
+            "Tu ne peux pas sélectionner une date dans le futur",
           futureDateRequiredError: "La date doit être la date future.",
           futureDateNotError: "Ne doit pas être une date dans le futur",
-          "Should not be past date": "La date d'expiration ne doit pas être dans le passé",
-          "Should not be future date": "Ne doit pas être une date dans le futur",
+          "Should not be past date":
+            "La date d'expiration ne doit pas être dans le passé",
+          "Should not be future date":
+            "Ne doit pas être une date dans le futur",
           pastExpireError: "La date d'expiration ne doit pas être antérieure.",
           kbis14digits: "Sirel doit comporter 14 chiffres.",
           "Vehicle Details": "Détails de ton/tes véhicule(s)",
-          validityDateErrorInstructor: "La date de validité ne peut être inférieure à la date d'obtention.",
-          "Date should not be future date.": "La date ne doit pas être une date future.",
-          "Date should not be future date": "La date ne doit pas être une date future.",
-          "You can't pick same date of Start date": "Tu ne peux pas choisir la même date que la date de début",
-          "You can't pick higher date of Start date": "Tu ne peux pas choisir une date supérieure à la date de début",
+          validityDateErrorInstructor:
+            "La date de validité ne peut être inférieure à la date d'obtention.",
+          "Date should not be future date.":
+            "La date ne doit pas être une date future.",
+          "Date should not be future date":
+            "La date ne doit pas être une date future.",
+          "You can't pick same date of Start date":
+            "Tu ne peux pas choisir la même date que la date de début",
+          "You can't pick higher date of Start date":
+            "Tu ne peux pas choisir une date supérieure à la date de début",
           "i-agree-instructor-final":
             "J'ai accepté et je certifie sur l'honneur que les informations ci-dessus sont véridiques et exactes et que j'ai vérifié leur contenu",
           "Forgot Passowrd": "Mot de passe oublié",
-          "valid-email-for-forgot-password": "Entre ton adresse e-mail valide pour recevoir tes mails",
+          "valid-email-for-forgot-password":
+            "Entre ton adresse e-mail valide pour recevoir tes mails",
           "Enter Password to update": "Entre le mot de passe à mettre à jour",
           "Postal Code": "Code postal",
           "accept-ds-text-page1-title": "Accepter CPF",
@@ -1477,14 +1750,16 @@ i18n
             "La plateforme pensée par les enseignants pour tous les professionnels du permis.\nRejoins-nous pour profiter d'un enseignement de la conduite de qualité.",
           packagetitle:
             "Lorem Ipsum is simply text the printing and typesetting standard industry. Onec Consequat sapien ut cursus rhoncus. Nullam dui mi, vulputate ac metus.",
-          "i-certify-neph": "Je certifie sur l'honneur que les informations ci-dessus sont vraies et j'ai obtenu le code.",
+          "i-certify-neph":
+            "Je certifie sur l'honneur que les informations ci-dessus sont vraies et j'ai obtenu le code.",
           "neph-confirm-error": "Tu dois sélectionner ce champ pour continuer.",
           "auto-complete-error": "Sélectionne les langues que tu sais parler",
           "which platform(s)?": "Quelle(s) plateforme(s)?",
           "Which platform(s)?": "Quelle(s) plateforme(s)?",
           "How much time will you give to the students of our platform?(hr/month)":
             "Combien de temps donneras-tu aux étudiants de notre plateforme?(heure/mois)",
-          "Are you working on another platform?": "Travailles-tu sur d'autre(s) plateforme(s)?",
+          "Are you working on another platform?":
+            "Travailles-tu sur d'autre(s) plateforme(s)?",
           "seperated by": "séparé par",
 
           // table headers
@@ -1501,52 +1776,72 @@ i18n
           // Compétence 1
           myLearningLesson1:
             "Connaître les principaux organes et commandes du véhicule, effectuer des vérifications intérieures et extérieures.",
-          myLearningLesson2: "Entrer, s’installer au poste de conduite et en sortir.",
-          myLearningLesson3: "Tenir, tourner le volant et maintenir la trajectoire.",
+          myLearningLesson2:
+            "Entrer, s’installer au poste de conduite et en sortir.",
+          myLearningLesson3:
+            "Tenir, tourner le volant et maintenir la trajectoire.",
           myLearningLesson4: "Démarrer et s’arrêter.",
-          myLearningLesson5: "Doser l’accélération et le freinage à diverses allures.",
+          myLearningLesson5:
+            "Doser l’accélération et le freinage à diverses allures.",
           myLearningLesson6: "Utiliser la boîte de vitesses.",
-          myLearningLesson7: "Diriger la voiture en avant en ligne droite et en courbe en adaptant allure et trajectoire.",
+          myLearningLesson7:
+            "Diriger la voiture en avant en ligne droite et en courbe en adaptant allure et trajectoire.",
           myLearningLesson8: "Regarder autour de soi et avertir.",
-          myLearningLesson9: "Effectuer une marche arrière et un demi-tour en sécurité.",
+          myLearningLesson9:
+            "Effectuer une marche arrière et un demi-tour en sécurité.",
           // Compétence 2
-          myLearningLesson10: "Entrer, s’installer au poste de conduite et en sortir.",
-          myLearningLesson11: "Rechercher la signalisation, les indices utiles et en tenir compte.",
-          myLearningLesson12: "Positionner le véhicule sur la chaussée et choisir la voie de circulation.",
+          myLearningLesson10:
+            "Entrer, s’installer au poste de conduite et en sortir.",
+          myLearningLesson11:
+            "Rechercher la signalisation, les indices utiles et en tenir compte.",
+          myLearningLesson12:
+            "Positionner le véhicule sur la chaussée et choisir la voie de circulation.",
           myLearningLesson13: "Adapter l’allure aux situations.",
           myLearningLesson14: "Tourner à droite et à gauche en agglomération.",
-          myLearningLesson15: "Détecter, identifier et franchir les intersections suivant le régime de priorité.",
-          myLearningLesson16: "Franchir les ronds-points et les carrefours à sens giratoire.",
-          myLearningLesson17: "S’arrêter et stationner en épi, en bataille et en créneau.",
+          myLearningLesson15:
+            "Détecter, identifier et franchir les intersections suivant le régime de priorité.",
+          myLearningLesson16:
+            "Franchir les ronds-points et les carrefours à sens giratoire.",
+          myLearningLesson17:
+            "S’arrêter et stationner en épi, en bataille et en créneau.",
           // Compétence 3
           myLearningLesson18: "Evaluer et maintenir les distances de sécurité.",
           myLearningLesson19: "Croiser, dépasser, être dépassé.",
           myLearningLesson20: "Passer des virages et conduire en déclivité.",
           myLearningLesson21:
             "Connaître les caractéristiques des autres usagers et savoir se comporter à leur égard avec respect et courtoisie.",
-          myLearningLesson22: "S’insérer, circuler et sortir d’une voie rapide.",
-          myLearningLesson23: "Conduire dans une file de véhicules et dans une circulation dense.",
-          myLearningLesson24: "Conduire quand l’adhérence et la visibilité sont réduites.",
+          myLearningLesson22:
+            "S’insérer, circuler et sortir d’une voie rapide.",
+          myLearningLesson23:
+            "Conduire dans une file de véhicules et dans une circulation dense.",
+          myLearningLesson24:
+            "Conduire quand l’adhérence et la visibilité sont réduites.",
           // Compétence 4
           myLearningLesson25: "Suivre un itinéraire de manière autonome.",
-          myLearningLesson26: "Préparer et effectuer un voyage « longue distance » en autonomie.",
-          myLearningLesson27: "Connaître les principaux facteurs de risque au volant et les recommandations à appliquer.",
-          myLearningLesson28: "Connaître les comportements à adopter en cas d’accident : protéger, alerter, secourir.",
+          myLearningLesson26:
+            "Préparer et effectuer un voyage « longue distance » en autonomie.",
+          myLearningLesson27:
+            "Connaître les principaux facteurs de risque au volant et les recommandations à appliquer.",
+          myLearningLesson28:
+            "Connaître les comportements à adopter en cas d’accident : protéger, alerter, secourir.",
           myLearningLesson29:
             "Faire l’expérience des aides à la conduite du véhicule (régulateur, limiteur de vitesse, ABS,aides à la navigation...).",
-          myLearningLesson30: "Avoir des notions sur l’entretien, le dépannage et les situations d’urgence.",
+          myLearningLesson30:
+            "Avoir des notions sur l’entretien, le dépannage et les situations d’urgence.",
           myLearningLesson31: "Pratiquer l’écoconduite.",
 
           // REGISTRATION INPUTS AND ERROR
           "SIRET Number": "N° de SIRET",
-          "The SIRET number must be 14 digits": "Le n° de SIRET doit comporter 14 chiffres",
+          "The SIRET number must be 14 digits":
+            "Le n° de SIRET doit comporter 14 chiffres",
           "Upload Scanned Green Card": "Télécharger la carte verte numérisée",
           "Driver's License Number": "N° de permis de conduire",
 
           // Login page modals
           "Please input your E-mail!": "Renseigne ton adresse mail stp!",
           "Please input your password!": "Renseigne ton mot de passe stp!",
-          "Choose your profile to register": "Choisis ton profil pour t'inscrire :",
+          "Choose your profile to register":
+            "Choisis ton profil pour t'inscrire :",
           "Log in": "Se connecter",
           "Forgot password": "Mot de passe oublié",
           Or: "Ou",
@@ -1554,7 +1849,8 @@ i18n
           Professional: "Professionnel",
           " Registration": "Inscription",
           "REGISTRATION AS A STUDENT": "INSCRIPTION EN TANT QU'ÉLÈVE",
-          "Rental Car Registration": "Inscription loueur de voitures double commande",
+          "Rental Car Registration":
+            "Inscription loueur de voitures double commande",
           "REGISTRATION AS A AUTO SCHOOL": "INSCRIPTION EN TANT QU'AUTO ÉCOLE",
           "REGISTRATION AS A TEACHER": "INSCRIPTION EN TANT QU'ENSEIGNANT",
           "REGISTRATION AS A DUAL ORDER CAR RENTAL AGENCY":
@@ -1571,25 +1867,37 @@ i18n
           "Select Hours": "Choisir l'heure",
           "Select Minutes": "Choisir les minutes",
           "Enter valid Time Range": "Entre une plage de temps valide",
-          "Vehicle field Cannot be empty": "Le champ véhicule ne peut pas être vide",
+          "Vehicle field Cannot be empty":
+            "Le champ véhicule ne peut pas être vide",
           "Meet up point cannot be blank. Add it from you profile page":
             "Le point de rendez-vous ne peut pas être vide. Ajoutes-le depuis ta page de profil",
           "Select Instructor": "Sélectionnes l'enseignant",
-          "Date field cannot be empty": "Le champ de date ne peut pas être vide",
+          "Date field cannot be empty":
+            "Le champ de date ne peut pas être vide",
 
           // Registration fields
-          "Upload your Driving License Front Side": "Téléchargez le recto de votre permis de conduire",
-          "Upload your driving license front side": "Téléchargez votre permis de conduire recto",
-          "Upload your Driving License Back Side": "Téléchargez le verso de votre permis de conduire",
-          "Upload your driving license back side": "Téléchargez le verso de votre permis de conduire",
-          "Upload your authorization front side": "Téléchargez votre autorisation au recto",
-          "Upload your authorization back side": "Téléchargez votre autorisation au verso",
-          "Upload your Authorization Front Side": "Téléchargez le recto de votre autorisation",
-          "Upload your Authorization Back Side": "Téléchargez le verso de votre autorisation",
+          "Upload your Driving License Front Side":
+            "Téléchargez votre permis de conduire recto",
+          "Upload your driving license front side":
+            "Téléchargez votre permis de conduire recto",
+          "Upload your Driving License Back Side":
+            "Téléchargez le verso de votre permis de conduire",
+          "Upload your driving license back side":
+            "Téléchargez le verso de votre permis de conduire",
+          "Upload your authorization front side":
+            "Téléchargez votre autorisation au recto",
+          "Upload your authorization back side":
+            "Téléchargez votre autorisation au verso",
+          "Upload your Authorization Front Side":
+            "Téléchargez votre autorisation au recto",
+          "Upload your Authorization Back Side":
+            "Téléchargez votre autorisation au verso",
           "Authorization Number": "Numéro d'autorisation",
-          "Duration should not be less than 1 hour": "La durée ne doit pas être inférieure à 1 heure",
+          "Duration should not be less than 1 hour":
+            "La durée ne doit pas être inférieure à 1 heure",
 
-          "You must accept the general conditions": "Vous devez accepter les conditions générales",
+          "You must accept the general conditions":
+            "Vous devez accepter les conditions générales",
           "Select option": "",
           "Select Brand": "Selectionner une marque",
           "Select Model": "Selectionner un modèle",
@@ -1608,11 +1916,13 @@ i18n
           "Update Vehicle": "Modifier le véhicule",
           Profile: "profil",
 
-          "Would you like to remove this availability?": "Souhaitez-vous supprimer cette disponibilité?",
+          "Would you like to remove this availability?":
+            "Souhaitez-vous supprimer cette disponibilité?",
           "CPF Accepted": "CPF Accepté",
 
           "Reason-Information to update": "Raison-Informations à mettre à jour",
-          "Your email or password is incorrect!": "Ton e-mail ou ton mot de passe est incorrect!",
+          "Your email or password is incorrect!":
+            "Ton e-mail ou ton mot de passe est incorrect!",
           "'Email' is not a valid email": "L'email est invalide!",
           "Email is invalid!": "L'email est invalide!",
           "Enter the email address associated with your account and we'll send you a link to reset your password":
@@ -1627,22 +1937,29 @@ i18n
           "Please input your email!": "Veuillez saisir votre email!",
           "Current Password": "Mot de passe actuel",
           "New Password": "nouveau mot de passe",
-          "Must be minimum 8 characters": "Doit comporter au moins 8 caractères",
-          "Please confirm your Password!": "Veuillez confirmer votre mot de passe!",
-          "Please input your New Password!": "Veuillez saisir votre nouveau mot de passe!",
-          "Please input your Current Password!": "Veuillez saisir votre mot de passe actuel!",
-          "The two passwords that you entered do not match!": "Les deux mots de passe que vous avez entrés ne correspondent pas!",
+          "Must be minimum 8 characters":
+            "Doit comporter au moins 8 caractères",
+          "Please confirm your Password!":
+            "Veuillez confirmer votre mot de passe!",
+          "Please input your New Password!":
+            "Veuillez saisir votre nouveau mot de passe!",
+          "Please input your Current Password!":
+            "Veuillez saisir votre mot de passe actuel!",
+          "The two passwords that you entered do not match!":
+            "Les deux mots de passe que vous avez entrés ne correspondent pas!",
           items: "Lignes",
-          "Would you like to delete this availability?": "Souhaitez-vous supprimer cette disponibilité?",
-          "Would you like to remove this Booking?": "Souhaitez-vous supprimer cette réservation ?",
+          "Would you like to delete this availability?":
+            "Souhaitez-vous supprimer cette disponibilité?",
+          "Would you like to remove this Booking?":
+            "Souhaitez-vous supprimer cette réservation ?",
           "Name Should not be empty": "Le nom ne doit pas être vide",
           "Email Should not be empty": "L'e-mail ne doit pas être vide",
           "Message Should not be empty": "Le message ne doit pas être vide",
           StudentComplete: "ÉlèveComplété",
           "My Calendar": "Mon calendrier",
 
-          "Yes": "Oui",
-          "No": "Non",
+          Yes: "Oui",
+          No: "Non",
 
           Block: "Bloquer",
           Unblock: "Débloquer",
@@ -1654,13 +1971,13 @@ i18n
 
           "You are blocked by": "Vous êtes bloqué",
 
-          "Are you want to re-activate your account": "Voulez-vous réactiver votre compte",
+          "Are you want to re-activate your account":
+            "Voulez-vous réactiver votre compte",
           "Select Package": "Sélectionnez le forfait",
           "Best Time Training": "Meilleur temps d'entraînement",
           "Enter email": "Entrez votre e-mail",
           Manaager: "Gestionnaire",
           Vaction: "Vacances",
-
         },
       },
     },

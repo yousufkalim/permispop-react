@@ -98,6 +98,8 @@ function ColorlibStepIcon(props) {
 }
 
 const Instructor = () => {
+  const [instructorForm, setInstructorForm] = React.useState({});
+  const [lng, setLng] = React.useState();
   const { i18n, t } = useTranslation();
   let history = useHistory();
 
@@ -1462,12 +1464,42 @@ const Instructor = () => {
         toast.error(t("Not Registered....Error Occured"), error);
       });
   };
+  React.useEffect(() => {
+    getInstructorForm();
+    setLng(localStorage.getItem("i18nextLng"));
+  }, [localStorage.getItem("i18nextLng")]);
+  const getInstructorForm = async () => {
+    await API("get", "CMS/GetPageData?page=register")
+      .then((getInstructorFormResponse) => {
+        console.log(
+          "🚀 ~ file: Instructor.js ~ line 1457 ~ .then ~ getInstructorFormResponse",
+          getInstructorFormResponse
+        );
+
+        const instructorFormData = getInstructorFormResponse.data.data.find(
+          (item) => item.sectionName === "Instructor"
+        );
+        setInstructorForm(instructorFormData);
+      })
+      .catch((error) => console.log("error------->", error));
+  };
   return (
     <React.Fragment>
       <RegisterHeader
-        title={t("Instructor Registration")}
-        subtitle1="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce varius justo et scelerisque varius. Nullam mollis augue et facilisis blandit. Morbi sollicitudin a eros sed cursus."
-        subtitle2="Quisque lobortis ultrices dolor, fringilla venenatis leo sodales at. Nam suscipit felis sit amet convallis."
+        title={
+          lng === "en"
+            ? instructorForm?.headingEnglish
+            : lng === "fr"
+            ? instructorForm?.headingFrench
+            : ""
+        }
+        subtitle1={
+          lng === "en"
+            ? instructorForm?.textEnglish
+            : lng === "fr"
+            ? instructorForm?.textFrench
+            : ""
+        }
       />
       <div
         style={{
@@ -1627,77 +1659,77 @@ const Instructor = () => {
                           ? handleSubmit
                           : handleNext
                       }
-                      // disabled={
-                      //   (activeStep === 1 &&
-                      //     step1Errors.Firstname === null &&
-                      //     step1Errors.Surname === null &&
-                      //     step1Errors.Address === null &&
-                      //     step1.Address.City != "" &&
-                      //     step1.Address.Zip != "" &&
-                      //     step1Errors.Dob === null &&
-                      //     step1Errors.Pob === null &&
-                      //     step1Errors.Gender === null &&
-                      //     step1Errors.Email === null &&
-                      //     step1Errors.Phone === null &&
-                      //     step1Errors.Password === "" &&
-                      //     step1Errors.ConfirmPassword === "" &&
-                      //     step1Errors.FrontImg === null &&
-                      //     step1Errors.BackImg === null) ||
-                      // && step1Errors.ProfileImg===null
-                      // && step1Errors.Language===null
-                      // && step1Errors.Complement===null
+                      disabled={
+                        (activeStep === 1 &&
+                          step1Errors.Firstname === null &&
+                          step1Errors.Surname === null &&
+                          step1Errors.Address === null &&
+                          step1.Address.City != "" &&
+                          step1.Address.Zip != "" &&
+                          step1Errors.Dob === null &&
+                          step1Errors.Pob === null &&
+                          step1Errors.Gender === null &&
+                          step1Errors.Email === null &&
+                          step1Errors.Phone === null &&
+                          step1Errors.Password === "" &&
+                          step1Errors.ConfirmPassword === "" &&
+                          step1Errors.FrontImg === null &&
+                          step1Errors.BackImg === null) ||
+                        // && step1Errors.ProfileImg===null
+                        // && step1Errors.Language===null
+                        // && step1Errors.Complement===null
 
-                      // && step1Errors.Noh===null
-                      // && step1Errors.Neph===null
+                        // && step1Errors.Noh===null
+                        // && step1Errors.Neph===null
 
-                      // && step1.checked===false
-                      // || step1Errors.OtherPlateform===null
-                      // && step1Errors.GiveTime===null
-                      // && step1Errors.Firstname===null
-                      // && step1Errors.Surname===null
-                      // && step1Errors.Address===null
-                      // && step1.Address.City != ""
-                      // && step1.Address.Zip != ""
-                      // && step1Errors.Dob===null
-                      // && step1Errors.Pob===null
-                      // && step1Errors.Gender===null
-                      // && step1Errors.Email===null
-                      // && step1Errors.Phone===null
-                      // && step1Errors.Password===''
-                      // && step1Errors.ConfirmPassword===''
-                      // && step1Errors.FrontImg===null
-                      // && step1Errors.BackImg===null
+                        // && step1.checked===false
+                        // || step1Errors.OtherPlateform===null
+                        // && step1Errors.GiveTime===null
+                        // && step1Errors.Firstname===null
+                        // && step1Errors.Surname===null
+                        // && step1Errors.Address===null
+                        // && step1.Address.City != ""
+                        // && step1.Address.Zip != ""
+                        // && step1Errors.Dob===null
+                        // && step1Errors.Pob===null
+                        // && step1Errors.Gender===null
+                        // && step1Errors.Email===null
+                        // && step1Errors.Phone===null
+                        // && step1Errors.Password===''
+                        // && step1Errors.ConfirmPassword===''
+                        // && step1Errors.FrontImg===null
+                        // && step1Errors.BackImg===null
 
-                      // && step1Errors.ProfileImg===null
-                      // && step1Errors.Complement===null
-                      // && step1Errors.Language===null
+                        // && step1Errors.ProfileImg===null
+                        // && step1Errors.Complement===null
+                        // && step1Errors.Language===null
 
-                      // && step1Errors.Noh===null
-                      // && step1Errors.Neph===null
+                        // && step1Errors.Noh===null
+                        // && step1Errors.Neph===null
 
-                      //   (activeStep === 2 &&
-                      //     step2Errors.obtainingdate === null &&
-                      //     step2Errors.validitiyDate === null &&
-                      //     step2Errors.DateAuthorization === null &&
-                      //     step2Errors.ExpirationDate === null &&
-                      //     step2Errors.licenceNo === null &&
-                      //     step2Errors.issuingAuthority === null &&
-                      //     step2Errors.AuthorizationNumber === null &&
-                      //     step2Errors.siretNo === null &&
-                      //     step2Errors.licensefront === null &&
-                      //     step2Errors.licenseback === null &&
-                      //     step2Errors.kbls === null &&
-                      //     step2Errors.Authorizationfront === null &&
-                      //     step2Errors.Authorizationback === null) ||
-                      //   (activeStep === 3 &&
-                      //     step3Errors.companyInsurer === null &&
-                      //     step3Errors.companyPoliceNum === null &&
-                      //     step3Errors.insuranceExpDate === null &&
-                      //     step3Errors.companyRC === null) ||
-                      //   (activeStep === 4 && vehicles.length > 0)
-                      //     ? false
-                      //     : true
-                      // }
+                        (activeStep === 2 &&
+                          step2Errors.obtainingdate === null &&
+                          step2Errors.validitiyDate === null &&
+                          step2Errors.DateAuthorization === null &&
+                          step2Errors.ExpirationDate === null &&
+                          step2Errors.licenceNo === null &&
+                          step2Errors.issuingAuthority === null &&
+                          step2Errors.AuthorizationNumber === null &&
+                          step2Errors.siretNo === null &&
+                          step2Errors.licensefront === null &&
+                          step2Errors.licenseback === null &&
+                          step2Errors.kbls === null &&
+                          step2Errors.Authorizationfront === null &&
+                          step2Errors.Authorizationback === null) ||
+                        (activeStep === 3 &&
+                          step3Errors.companyInsurer === null &&
+                          step3Errors.companyPoliceNum === null &&
+                          step3Errors.insuranceExpDate === null &&
+                          step3Errors.companyRC === null) ||
+                        (activeStep === 4 && vehicles.length > 0)
+                          ? false
+                          : true
+                      }
                     ></Button>
                   </Box>
                 </React.Fragment>
