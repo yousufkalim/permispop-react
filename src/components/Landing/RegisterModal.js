@@ -46,6 +46,7 @@ export default function RegisterModal(props) {
               <Card
                 className="card1"
                 sx={{
+                  height: "100%",
                   width: "90%",
                   padding: "6% 19% 6% 19%",
                   boxShadow: "0px 14px 53px rgba(0, 20, 49, 0.06)",
@@ -127,9 +128,9 @@ export default function RegisterModal(props) {
               <Card
                 className="card1"
                 sx={{
+                  // height: "100%",
                   width: "90%",
                   padding: "6% 19% 6% 19%",
-
                   boxShadow: "0px 14px 53px rgba(0, 20, 49, 0.06)",
                   borderRadius: "30px",
                   cursor: "pointer",
@@ -148,8 +149,7 @@ export default function RegisterModal(props) {
                     sx={{
                       mt: 3,
                       color: "#2F363D",
-                      fontSize: "15px",
-
+                      fontSize: "14px",
                       fontWeight: "500",
                     }}
                   >
@@ -183,6 +183,7 @@ export default function RegisterModal(props) {
                 <CardContent>
                   <CardMedia
                     className="RegisterImg"
+                    // sx={{ width: "100%", height: "100%" }}
                     component="img"
                     image={DrivingSchool}
                     alt="services"
@@ -192,8 +193,7 @@ export default function RegisterModal(props) {
                     sx={{
                       mt: 3,
                       color: "#2F363D",
-                      fontSize: "15px",
-
+                      fontSize: "14px",
                       fontWeight: "500",
                     }}
                   >
@@ -216,7 +216,6 @@ export default function RegisterModal(props) {
                 sx={{
                   width: "90%",
                   padding: "6% 19% 6% 19%",
-
                   color: "#2F363D",
                   boxShadow: "0px 14px 53px rgba(0, 20, 49, 0.06)",
                   borderRadius: "30px",
