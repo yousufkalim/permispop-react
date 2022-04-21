@@ -4,6 +4,7 @@ import StudentForm from "../../components/RegisterFroms/StudentForm";
 import Footer from "../../components/Landing/Footer";
 import { useTranslation } from "react-i18next";
 import API from "../../api/index";
+import StudentRegisterImg from "../../assets/images/Frame.svg";
 
 const Student = () => {
   const [studentForm, setStudentForm] = useState({});
@@ -40,6 +41,7 @@ const Student = () => {
             ? studentForm?.textFrench
             : ""
         }
+        src={StudentRegisterImg}
       />
       <StudentForm />
       <Footer />
