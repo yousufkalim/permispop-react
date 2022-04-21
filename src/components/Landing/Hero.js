@@ -28,7 +28,6 @@ const Hero = () => {
   };
   const handleRegisterOpen = () => setRegisteropen(true);
   const handleRegisterClose = () => setRegisteropen(false);
-  // console.log("qwqwqwqwweercdsfss", header);
   return (
     <div className="main_hero_container">
       <div className="second_hero_container">
