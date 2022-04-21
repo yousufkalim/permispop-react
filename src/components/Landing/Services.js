@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Typography from "@mui/material/Typography";
 import Divider from "../Common/Divider";
 import Card from "../Common/Card";
@@ -11,8 +11,31 @@ import CardImage1 from "../../assets/images/cardImg1.svg";
 import CardImage2 from "../../assets/images/cardImg2.svg";
 import { ReactComponent as NextIcon } from "../../assets/images/nextIcon.svg";
 import { useTranslation } from "react-i18next";
+import API from "../../api/index";
+
 const Services = () => {
-  const { i18n , t } = useTranslation();
+  const { i18n, t } = useTranslation();
+  const [card1, setCard1] = useState({});
+  const [card2, setCard2] = useState({});
+  const [card3, setCard3] = useState({});
+  const [lng, setLng] = useState("");
+  useEffect(() => {
+    setLng(localStorage.getItem("i18nextLng"));
+    getCardsData();
+  }, [localStorage.getItem("i18nextLng")]);
+
+  const getCardsData = async () => {
+    await API("get", "CMS/GetPageData?page=home")
+      .then((getCardsDataResponse) => {
+        const cardsData = getCardsDataResponse.data.data.filter(
+          (item) => item.sectionName === "Our Services"
+        );
+        setCard1(cardsData.find((item) => item.cardName === "Card 1"));
+        setCard2(cardsData.find((item) => item.cardName === "Card 2"));
+        setCard3(cardsData.find((item) => item.cardName === "Card 3"));
+      })
+      .catch((error) => console.log("error------->", error));
+  };
   return (
     <div className="main_services_container" id="services">
       <div className="second_services_container">
@@ -23,7 +46,9 @@ const Services = () => {
         </div>
         <div className="services_subtitle_div">
           <Typography variant="h2" align="center" className="services_subtitle">
-            {t("Quisque lobortis ultrices dolor, fringilla venenatis leo sodales at.")}
+            {t(
+              "Quisque lobortis ultrices dolor, fringilla venenatis leo sodales at."
+            )}
           </Typography>
         </div>
         {/*Service Card*/}
@@ -33,11 +58,20 @@ const Services = () => {
             <div className="card_container_inner">
               <img src={dot} alt="services" className="dot_img" />
               <Typography variant="h2" className="card_title">
-                {t("User Behaviour")}
+                {console.log("HAZAZAAZAAZAZAZ", card1)}
+                {lng === "en"
+                  ? card1?.headingEnglish
+                  : lng === "fr"
+                  ? card1?.headingFrench
+                  : ""}
               </Typography>
             </div>
             <Typography variant="h2" className="card_subtitle">
-              {t("Vestibulum eget augue consectetur, mattis turpis et, luctus eros.Aenean luctus varius lacus in imperdiet. Curabitur mi ligula,consequat")}
+              {lng === "en"
+                ? card1?.textEnglish
+                : lng === "fr"
+                ? card1?.textFrench
+                : ""}
             </Typography>
           </div>
           <div className="card_container_outer">
@@ -45,11 +79,19 @@ const Services = () => {
             <div className="card_container_inner">
               <img src={dot} alt="services" className="dot_img" />
               <Typography variant="h2" className="card_title">
-                {t("Best Time Training")}
+                {lng === "en"
+                  ? card2?.headingEnglish
+                  : lng === "fr"
+                  ? card2?.headingFrench
+                  : ""}
               </Typography>
             </div>
             <Typography variant="h2" className="card_subtitle">
-              {t("Vestibulum eget augue consectetur, mattis turpis et, luctus eros.Aenean luctus varius lacus in imperdiet. Curabitur mi ligula,consequat")}
+              {lng === "en"
+                ? card2?.textEnglish
+                : lng === "fr"
+                ? card2?.textFrench
+                : ""}
             </Typography>
           </div>
           <div className="card_container_outer">
@@ -57,11 +99,19 @@ const Services = () => {
             <div className="card_container_inner">
               <img src={dot} alt="services" className="dot_img" />
               <Typography variant="h2" className="card_title">
-                {t("Individual Approach")}
+                {lng === "en"
+                  ? card3?.headingEnglish
+                  : lng === "fr"
+                  ? card3?.headingFrench
+                  : ""}
               </Typography>
             </div>
             <Typography variant="h2" className="card_subtitle">
-              {t("Vestibulum eget augue consectetur, mattis turpis et, luctus eros.Aenean luctus varius lacus in imperdiet. Curabitur mi ligula,consequat")}
+              {lng === "en"
+                ? card3?.textEnglish
+                : lng === "fr"
+                ? card3?.textFrench
+                : ""}
             </Typography>
           </div>
         </div>
@@ -71,7 +121,9 @@ const Services = () => {
           <div className="code_card_main">
             <Card
               heading={t("Pop Code")}
-              subHeading={t("Online Training That Will Revolution Your Code and License")}
+              subHeading={t(
+                "Online Training That Will Revolution Your Code and permis"
+              )}
               image={CardImage1}
             ></Card>
             <Card

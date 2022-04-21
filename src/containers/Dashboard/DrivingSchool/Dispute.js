@@ -10,9 +10,8 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import { useTranslation } from "react-i18next";
 
-
 const Index = () => {
-  const { i18n , t } = useTranslation();
+  const { i18n, t } = useTranslation();
   const [dispute, setDispute] = useState([]);
   const [user, setUser] = useState();
 
@@ -23,13 +22,11 @@ const Index = () => {
   }, []);
 
   const getDisputes = async (userData) => {
-    console.log("s", userData);
     if (userData.role === "Student") {
       await API(
         "get",
         `Dispute/GetAllDisputeByStudentId/?id=${userData.id}`
       ).then((res) => {
-        console.log("res", res.data.data);
         setDispute(res.data.data);
       });
     } else {
@@ -37,7 +34,6 @@ const Index = () => {
         "get",
         `Dispute/GetAllDisputeByInstructorId/?id=${userData.id}`
       ).then((res) => {
-        console.log("res", res.data.data);
         setDispute(res.data.data);
       });
     }

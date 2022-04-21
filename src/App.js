@@ -6,6 +6,9 @@ import { ThemeProvider, createTheme } from "@mui/material/styles";
 import jwt_decode from "jwt-decode";
 import { Base64 } from "js-base64";
 import "./utils/i18n";
+import { useTranslation } from "react-i18next";
+import { changeLanguage } from "i18next";
+
 // Files
 import Index from "./routes/index";
 import "./css/index.css";
@@ -53,11 +56,12 @@ theme.shadows[25] = "0px 3px 6px rgba(0, 0, 0, 0.16)";
 
 // Component
 function App() {
+  const { i18n } = useTranslation();
   const [role, setRole] = React.useState("");
   const [loading, setLoading] = React.useState(true);
   useEffect(() => {
     const LocaleToken = localStorage.getItem("token");
-
+    i18n.changeLanguage("en");
     if (LocaleToken) {
       var decoded = jwt_decode(LocaleToken);
       let userdata = JSON.parse(Base64.decode(decoded.userData));

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Button from "../../components/Common/Button";
 import RegisterHeader from "../../components/RegisterFroms/registerHeader";
 import Footer from "../../components/Landing/Footer";
@@ -101,11 +101,12 @@ function ColorlibStepIcon(props) {
 const DrivingSchool = () => {
   // States and Variables
   let history = useHistory();
-  const { i18n, t } = useTranslation();
+  const { t } = useTranslation();
   const [vehicles, setVehicles] = React.useState([]);
   const [instructors, setInstructors] = React.useState([]);
   const [activeStep, setActiveStep] = React.useState(1);
-
+  const [drivingSchoolForm, setDrivingSchoolForm] = useState({});
+  const [lng, setLng] = useState();
   const [step1Errors, setStep1Errors] = React.useState({});
   const [step1, setStep1] = React.useState({
     TradeName: "",
@@ -346,6 +347,8 @@ const DrivingSchool = () => {
 
   const handleStep1 = (name, value) => {
     let errorMessage = "";
+    let phoneCheck = false;
+    let regex = /[^\s@]+@[^\s@]+\.[^\s@]+/;
     if (name === "Address") {
       errorMessage = validateSuggest1(name, value.Label);
     } else if (name === "Password") {
@@ -361,6 +364,67 @@ const DrivingSchool = () => {
         errorMessage = t("Password cannot be empty");
       }
     } else if (name == "OtherPlateform") {
+    } else if (name === "Email2") {
+      if (step1.Email == value) {
+        if (step1.Email === "" && value === "") {
+        } else {
+          errorMessage = t("Email 2 can’t be the same as the first email");
+        }
+      } else if (value.length === 0) {
+      } else if (regex.test(value)) {
+      } else if (regex.test(value) == null || regex.test(value) == "") {
+        errorMessage = t("Not a Valid Email");
+      }
+    } else if (name === "Phone") {
+      if (value.length > 10) {
+        phoneCheck = true;
+        if (value.length === 0) {
+          errorMessage = t("Phone can't be blank");
+        } else if (value[0] != "0") {
+          errorMessage = t("Phone number should start with 0");
+        } else if (value.length < 10 && value.length > 0) {
+          errorMessage = t("The phone must be at least 10 characters");
+        }
+      } else {
+        if (value.length === 0) {
+          errorMessage = t("Phone can't be blank");
+        } else if (value[0] != "0") {
+          errorMessage = t("Phone number should start with 0");
+        } else if (value.length < 10 && value.length > 0) {
+          errorMessage = t("The phone must be at least 10 characters");
+        }
+      }
+    } else if (name === "Phone2") {
+      if (value.length > 10) {
+        phoneCheck = true;
+        if (step1.Phone == value) {
+          if (step1.Phone === "" && value === "") {
+          } else {
+            errorMessage = t(
+              "The 2nd phone number cannot be the same as the 1st"
+            );
+          }
+        } else if (value.length === 0) {
+        } else if (value[0] != "0") {
+          errorMessage = t("Phone number should start with 0");
+        } else if (value.length < 10 && value.length > 0) {
+          errorMessage = t("The phone must be at least 10 characters");
+        }
+      } else {
+        if (step1.Phone == value) {
+          if (step1.Phone === "" && value === "") {
+          } else {
+            errorMessage = t(
+              "The 2nd phone number cannot be the same as the 1st"
+            );
+          }
+        } else if (value.length === 0) {
+        } else if (value[0] != "0") {
+          errorMessage = t("Phone number should start with 0");
+        } else if (value.length < 10 && value.length > 0) {
+          errorMessage = t("The phone must be at least 10 characters");
+        }
+      }
     } else {
       errorMessage = validateSuggest1(name, value);
     }
@@ -368,7 +432,10 @@ const DrivingSchool = () => {
       ...step1Errors,
       [name]: errorMessage,
     });
-    setStep1({ ...step1, [name]: value });
+    if (phoneCheck) {
+    } else {
+      setStep1({ ...step1, [name]: value });
+    }
   };
   const validateSuggest1 = (name, value) => {
     const obj = { [name]: value };
@@ -1548,6 +1615,8 @@ const DrivingSchool = () => {
 
   const handleStep6 = (name, value) => {
     let errorMessage = "";
+    let phoneCheck = false;
+    let regex = /[^\s@]+@[^\s@]+\.[^\s@]+/;
     if (name === "Address") {
       errorMessage = validateSuggest6(name, value.Label);
     } else if (name === "Password") {
@@ -1563,11 +1632,75 @@ const DrivingSchool = () => {
         errorMessage = t("Password cannot be empty");
       }
     } else if (name == "OtherPlateform") {
+    } else if (name === "Email2") {
+      if (step6.Email == value) {
+        if (step6.Email === "" && value === "") {
+        } else {
+          errorMessage = t("Email 2 can’t be the same as the first email");
+        }
+      } else if (value.length === 0) {
+      } else if (regex.test(value)) {
+      } else if (regex.test(value) == null || regex.test(value) == "") {
+        errorMessage = t("Not a Valid Email");
+      }
+    } else if (name === "Phone") {
+      if (value.length > 10) {
+        phoneCheck = true;
+        if (value.length === 0) {
+          errorMessage = t("Phone can't be blank");
+        } else if (value[0] != "0") {
+          errorMessage = t("Phone number should start with 0");
+        } else if (value.length < 10 && value.length > 0) {
+          errorMessage = t("The phone must be at least 10 characters");
+        }
+      } else {
+        if (value.length === 0) {
+          errorMessage = t("Phone can't be blank");
+        } else if (value[0] != "0") {
+          errorMessage = t("Phone number should start with 0");
+        } else if (value.length < 10 && value.length > 0) {
+          errorMessage = t("The phone must be at least 10 characters");
+        }
+      }
+    } else if (name === "Phone2") {
+      if (value.length > 10) {
+        phoneCheck = true;
+        if (step6.Phone == value) {
+          if (step6.Phone === "" && value === "") {
+          } else {
+            errorMessage = t(
+              "The 2nd phone number cannot be the same as the 1st"
+            );
+          }
+        } else if (value.length === 0) {
+        } else if (value[0] != "0") {
+          errorMessage = t("Phone number should start with 0");
+        } else if (value.length < 10 && value.length > 0) {
+          errorMessage = t("The phone must be at least 10 characters");
+        }
+      } else {
+        if (step6.Phone == value) {
+          if (step6.Phone === "" && value === "") {
+          } else {
+            errorMessage = t(
+              "The 2nd phone number cannot be the same as the 1st"
+            );
+          }
+        } else if (value.length === 0) {
+        } else if (value[0] != "0") {
+          errorMessage = t("Phone number should start with 0");
+        } else if (value.length < 10 && value.length > 0) {
+          errorMessage = t("The phone must be at least 10 characters");
+        }
+      }
     } else {
       errorMessage = validateSuggest6(name, value);
     }
     setStep6Errors({ ...step6Errors, [name]: errorMessage });
-    setStep6({ ...step6, [name]: value });
+    if (phoneCheck) {
+    } else {
+      setStep6({ ...step6, [name]: value });
+    }
   };
   const validateSuggest6 = (name, value) => {
     const obj = { [name]: value };
@@ -1577,7 +1710,15 @@ const DrivingSchool = () => {
     const { error } = Joi.validate(obj, schema);
     return error ? error.details[0].message : null;
   };
-  const steps = ["Identity", "Details", "Insurance", "Manaager", "Vehicle", "Instructor", "Done"];
+  const steps = [
+    t("Identity"),
+    t("Details"),
+    t("Insurance"),
+    t("Manaager"),
+    t("Vehicle"),
+    t("Instructor"),
+    t("Done"),
+  ];
 
   // FUNCTIONS
 
@@ -1657,44 +1798,63 @@ const DrivingSchool = () => {
 
                         let vehiclesRes = [];
                         vehicles.map(async (vehicle) => {
-                          let VehicleInsurancePromise = API("post", "VehicleInsurance", {
-                            endDate: vehicle.StartDate,
-                            greenCardImagePath: vehicle.GreenCard,
-                            insurer: vehicle.Insurer,
-                            policeNumber: vehicle.PoliceNumber,
-                            startDate: vehicle.EndDate,
-                          });
+                          let VehicleInsurancePromise = API(
+                            "post",
+                            "VehicleInsurance",
+                            {
+                              endDate: vehicle.StartDate,
+                              greenCardImagePath: vehicle.GreenCard,
+                              insurer: vehicle.Insurer,
+                              policeNumber: vehicle.PoliceNumber,
+                              startDate: vehicle.EndDate,
+                            }
+                          );
 
                           let TechnicalControlPromise = "";
                           if (step5.checked) {
-                            TechnicalControlPromise = API("post", "TechnicalControl", {
-                              dateofTechnicalControl: vehicle.TechControlDate,
-                              endData: vehicle.TechEndDate,
-                              endDateOfTechControl: vehicle.TechEndDate,
-                              startDateOfTech: vehicle.TechControlDate,
-                              technicalControlImagePath: vehicle.CTImg,
-                            });
+                            TechnicalControlPromise = API(
+                              "post",
+                              "TechnicalControl",
+                              {
+                                dateofTechnicalControl: vehicle.TechControlDate,
+                                endData: vehicle.TechEndDate,
+                                endDateOfTechControl: vehicle.TechEndDate,
+                                startDateOfTech: vehicle.TechControlDate,
+                                technicalControlImagePath: vehicle.CTImg,
+                              }
+                            );
                           }
                           let array = [];
                           if (step5.checked) {
-                            array = [VehicleInsurancePromise, TechnicalControlPromise];
+                            array = [
+                              VehicleInsurancePromise,
+                              TechnicalControlPromise,
+                            ];
                           } else {
                             array = [VehicleInsurancePromise];
                           }
                           vehiclesRes.push(
-                            Promise.all([VehicleInsurancePromise, TechnicalControlPromise]).then((e) => {
+                            Promise.all([
+                              VehicleInsurancePromise,
+                              TechnicalControlPromise,
+                            ]).then((e) => {
                               return API("post", "VehicleDetail", {
                                 brand: vehicle.Brand,
                                 color: vehicle.Color,
-                                dateOfFirstRegistration: vehicle.RegistrationDate,
+                                dateOfFirstRegistration:
+                                  vehicle.RegistrationDate,
                                 energy: vehicle.Energy,
                                 gearBox: vehicle.GearBox,
                                 model: vehicle.Model,
                                 numberPlate: vehicle.NumberPlate,
-                                technicalControlInfoID: e[1] ? e[1].data.data.id : "",
+                                technicalControlInfoID: e[1]
+                                  ? e[1].data.data.id
+                                  : "",
                                 vehichleInsuranceInfoId: e[0].data.data.id,
-                                vehicleRegistrationCertificatePhotoImagePath: vehicle.CertificateFrontImage,
-                                vehicleRegistrationCertificatePhotoImagePathBack: vehicle.CertificateBackImage,
+                                vehicleRegistrationCertificatePhotoImagePath:
+                                  vehicle.CertificateFrontImage,
+                                vehicleRegistrationCertificatePhotoImagePathBack:
+                                  vehicle.CertificateBackImage,
                                 vehicleePhotosImagePath: vehicle.CarImage,
                               });
                             })
@@ -1703,45 +1863,61 @@ const DrivingSchool = () => {
 
                         let instructorsRes = [];
                         instructors.map(async (instructor, index) => {
-                          let DSInstructorPersonalPromise = API("post", "Personal", {
-                            firstName: instructor.Firstname,
-                            surName: instructor.Surname,
-                            dob: instructor.Dob,
-                            placeOfBirth: instructor.Pob,
-                            gender: instructor.Gender,
-                            ContactEmail: instructor.Email,
-                            email: instructor.Email,
-                            secondEmail: instructor.Email2,
-                            phone: instructor.Phone,
-                            secondPhone: instructor.Phone2,
-                            complement: instructor.Complement,
-                            password: instructor.Password,
-                            photo: instructor.ProfileImg,
-                            SpokenLanguage: languageArray,
-                            address: instructor.Address.Label,
-                            zip: instructor.Address.Zip,
-                            city: instructor.Address.City,
-                            lat: instructor.Address.Lat,
-                            long: instructor.Address.Lat,
-                            Role: "DSInstructor",
-                          });
+                          let DSInstructorPersonalPromise = API(
+                            "post",
+                            "Personal",
+                            {
+                              firstName: instructor.Firstname,
+                              surName: instructor.Surname,
+                              dob: instructor.Dob,
+                              placeOfBirth: instructor.Pob,
+                              gender: instructor.Gender,
+                              ContactEmail: instructor.Email,
+                              email: instructor.Email,
+                              secondEmail: instructor.Email2,
+                              phone: instructor.Phone,
+                              secondPhone: instructor.Phone2,
+                              complement: instructor.Complement,
+                              password: instructor.Password,
+                              photo: instructor.ProfileImg,
+                              SpokenLanguage: languageArray,
+                              address: instructor.Address.Label,
+                              zip: instructor.Address.Zip,
+                              city: instructor.Address.City,
+                              lat: instructor.Address.Lat,
+                              long: instructor.Address.Lat,
+                              Role: "DSInstructor",
+                            }
+                          );
 
-                          let DrivingLisencePromise = API("post", "DrivingLisence", {
-                            drivingLisenceImagePath: instructor.DriverLicenseFrontImg,
-                            drivingLisenceImagePathBack: instructor.DriverLicenseBackImg,
-                            lisenceNumber: instructor.DriverLicenseNumber,
-                            obtainingDate: instructor.DriverLicenseStartDate,
-                            validityDate: instructor.DriverLicenseEndDate,
-                          });
+                          let DrivingLisencePromise = API(
+                            "post",
+                            "DrivingLisence",
+                            {
+                              drivingLisenceImagePath:
+                                instructor.DriverLicenseFrontImg,
+                              drivingLisenceImagePathBack:
+                                instructor.DriverLicenseBackImg,
+                              lisenceNumber: instructor.DriverLicenseNumber,
+                              obtainingDate: instructor.DriverLicenseStartDate,
+                              validityDate: instructor.DriverLicenseEndDate,
+                            }
+                          );
 
-                          let ExersiceAuthorizationPromise = API("post", "ExersiceAuthorization", {
-                            authorizationDate: instructor.ExcAuthStartDate,
-                            authorizationImagePath: instructor.ExcAuthFrontImg,
-                            authorizationImagePathBack: instructor.ExcAuthBackImg,
-                            authorizationNumber: instructor.ExcAuthNumber,
-                            expirationDate: instructor.ExcAuthEndDate,
-                            issuingAuthority: instructor.ExcAuthIssueAuth,
-                          });
+                          let ExersiceAuthorizationPromise = API(
+                            "post",
+                            "ExersiceAuthorization",
+                            {
+                              authorizationDate: instructor.ExcAuthStartDate,
+                              authorizationImagePath:
+                                instructor.ExcAuthFrontImg,
+                              authorizationImagePathBack:
+                                instructor.ExcAuthBackImg,
+                              authorizationNumber: instructor.ExcAuthNumber,
+                              expirationDate: instructor.ExcAuthEndDate,
+                              issuingAuthority: instructor.ExcAuthIssueAuth,
+                            }
+                          );
                           let BusinessPromise = API("post", "Business", {
                             siretNumber: "",
                           });
@@ -1772,7 +1948,8 @@ const DrivingSchool = () => {
                                 DrivingLisenceInfoId: e[1].data.data.id,
                                 ExersiceAuthorizationInfoId: e[2].data.data.id,
                                 BusinessInfoId: e[3].data.data.id,
-                                DrivingSchoolIdentityInfoId: DSPersonalRes.data.data.id,
+                                DrivingSchoolIdentityInfoId:
+                                  DSPersonalRes.data.data.id,
                                 Lat: instructor.Address.Lat,
                                 Long: instructor.Address.Lng,
                                 Role: "DSInstructor",
@@ -1790,30 +1967,42 @@ const DrivingSchool = () => {
                             };
                           });
                         });
-                        Promise.all(instructorsRes).then(async (instructors) => {
-                          await API("post", "Profile", {
-                            BusinessInfoId: BusinessRes.data.data.id,
-                            DrivingSchoolApprovalInfoId: DrivingSchoolApprovalRes.data.data.id,
-                            DrivingSchoolIdentityInfoId: DSPersonalRes.data.data.id,
-                            DrivingSchoolInstructorInfoId: JSON.stringify(finalInstructors),
-                            DrivingSchoolManagerInfoId: DrivingSchoolManagerRes.data.data.id,
-                            DrivingSchoolVehiclesInfoId: JSON.stringify(finalVehicles),
-                            InsuranceCompanyInfoId: InsuranceCompanyRes.data.data.id,
-                            Lat: step1.Address.Lat,
-                            Long: step1.Address.Lng,
-                            PersonalInfoId: DSPersonalRes.data.data.id,
-                            Role: "DrivingSchool",
-                            Status: "Active",
-                          })
-                            .then((dsProfileRes) => {
-                              history.push("/");
-                              toast.success(t("Driving School Registered Successfully"));
+                        Promise.all(instructorsRes).then(
+                          async (instructors) => {
+                            await API("post", "Profile", {
+                              BusinessInfoId: BusinessRes.data.data.id,
+                              DrivingSchoolApprovalInfoId:
+                                DrivingSchoolApprovalRes.data.data.id,
+                              DrivingSchoolIdentityInfoId:
+                                DSPersonalRes.data.data.id,
+                              DrivingSchoolInstructorInfoId:
+                                JSON.stringify(finalInstructors),
+                              DrivingSchoolManagerInfoId:
+                                DrivingSchoolManagerRes.data.data.id,
+                              DrivingSchoolVehiclesInfoId:
+                                JSON.stringify(finalVehicles),
+                              InsuranceCompanyInfoId:
+                                InsuranceCompanyRes.data.data.id,
+                              Lat: step1.Address.Lat,
+                              Long: step1.Address.Lng,
+                              PersonalInfoId: DSPersonalRes.data.data.id,
+                              Role: "DrivingSchool",
+                              Status: "Active",
                             })
-                            .catch((error) => {
-                              console.log(error);
-                              toast.error(t("Not Registered....Somethong went wrong"));
-                            });
-                        });
+                              .then((dsProfileRes) => {
+                                history.push("/");
+                                toast.success(
+                                  t("Driving School Registered Successfully")
+                                );
+                              })
+                              .catch((error) => {
+                                console.log(error);
+                                toast.error(
+                                  t("Not Registered....Somethong went wrong")
+                                );
+                              });
+                          }
+                        );
                       })
                       .catch((error) => {
                         console.log("DrivingSchoolManager Error", error);
@@ -1835,13 +2024,40 @@ const DrivingSchool = () => {
         console.log("Personal Response", error);
       });
   };
+  useEffect(() => {
+    getDrivingSchoolForm();
+    setLng(localStorage.getItem("i18nextLng"));
+  }, [localStorage.getItem("i18nextLng")]);
+  const getDrivingSchoolForm = async () => {
+    await API("get", "CMS/GetPageData?page=register")
+      .then((getDrivingSchoolFormResponse) => {
+        const DrivingSchoolFormData =
+          getDrivingSchoolFormResponse.data.data.find(
+            (item) => item.sectionName === "Driving school"
+          );
+        setDrivingSchoolForm(DrivingSchoolFormData);
+      })
+      .catch((error) => console.log("error------->", error));
+  };
 
   return (
     <React.Fragment>
       <RegisterHeader
-        title={t("Driving School Registration")}
-        subtitle1="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Fusce varius justo et scelerisque varius. Nullam mollis augue et facilisis blandit. Morbi sollicitudin a eros sed cursus."
-        subtitle2="Quisque lobortis ultrices dolor, fringilla venenatis leo sodales at. Nam suscipit felis sit amet convallis."
+        title={
+          lng === "en"
+            ? drivingSchoolForm?.headingEnglish
+            : lng === "fr"
+            ? drivingSchoolForm?.headingFrench
+            : ""
+        }
+        subtitle1={
+          lng === "en"
+            ? drivingSchoolForm?.textEnglish
+            : lng === "fr"
+            ? drivingSchoolForm?.textFrench
+            : ""
+        }
+        // subtitle2="Quisque lobortis ultrices dolor, fringilla venenatis leo sodales at. Nam suscipit felis sit amet convallis."
       />
 
       <div
@@ -1884,11 +2100,19 @@ const DrivingSchool = () => {
               ""
             )}
           </Typography>
-          <Stepper alternativeLabel activeStep={activeStep} connector={<ColorlibConnector />} className="stepper">
+          <Stepper
+            alternativeLabel
+            activeStep={activeStep}
+            connector={<ColorlibConnector />}
+            className="stepper"
+          >
             {steps.map((label, index) => (
               <Step key={label}>
                 <StepLabel StepIconComponent={ColorlibStepIcon}>
-                  <span className="steplabel" style={{ fontfamily: "Inter", color: "black" }}>
+                  <span
+                    className="steplabel"
+                    style={{ fontfamily: "Inter", color: "black" }}
+                  >
                     {t(label)}
                   </span>
                 </StepLabel>
@@ -1904,7 +2128,9 @@ const DrivingSchool = () => {
             <Box sx={{ width: "83%" }}>
               {activeStep === steps.length ? (
                 <React.Fragment>
-                  <Typography sx={{ mt: 2, mb: 1 }}>{t("All steps completed - you're finished")}</Typography>
+                  <Typography sx={{ mt: 2, mb: 1 }}>
+                    {t("All steps completed - you're finished")}
+                  </Typography>
                   <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
                     <Box sx={{ flex: "1 1 auto" }} />
                     <Button
@@ -1923,13 +2149,33 @@ const DrivingSchool = () => {
                 <React.Fragment>
                   <Typography sx={{ mt: 2, mb: 1 }}>
                     {activeStep === 1 ? (
-                      <Step1 step1={step1} setStep1={setStep1} onChange={handleStep1} step1Errors={step1Errors} />
+                      <Step1
+                        step1={step1}
+                        setStep1={setStep1}
+                        onChange={handleStep1}
+                        step1Errors={step1Errors}
+                      />
                     ) : activeStep === 2 ? (
-                      <Step2 step2={step2} setStep2={setStep2} onChange={handleStep2} step2Errors={step2Errors} />
+                      <Step2
+                        step2={step2}
+                        setStep2={setStep2}
+                        onChange={handleStep2}
+                        step2Errors={step2Errors}
+                      />
                     ) : activeStep === 3 ? (
-                      <Step3 step3={step3} setStep3={setStep3} onChange={handleStep3} step3Errors={step3Errors} />
+                      <Step3
+                        step3={step3}
+                        setStep3={setStep3}
+                        onChange={handleStep3}
+                        step3Errors={step3Errors}
+                      />
                     ) : activeStep === 4 ? (
-                      <Step4 step4={step4} setStep4={setStep4} onChange={handleStep4} step4Errors={step4Errors} />
+                      <Step4
+                        step4={step4}
+                        setStep4={setStep4}
+                        onChange={handleStep4}
+                        step4Errors={step4Errors}
+                      />
                     ) : activeStep === 5 ? (
                       <Step5
                         step5={step5}
@@ -1976,30 +2222,38 @@ const DrivingSchool = () => {
                     <Button
                       endIcon={<ArrowForwardIcon sx={{ color: "#fff" }} />}
                       type="submit"
-                      text={activeStep === steps.length - 1 ? t("Finish") : t("Next")}
+                      text={
+                        activeStep === steps.length - 1
+                          ? t("Finish")
+                          : t("Next")
+                      }
                       buttonLableStyle="btn_main"
                       style={{ marginTop: "24px" }}
                       width="10%"
                       customWidth1="100%"
                       height="48px"
                       height2="48px"
-                      onClick={activeStep === steps.length - 1 ? handleSubmit : handleNext}
-                      // disabled={
-                      //   (activeStep === 1 &&
-                      //     step1Errors.TradeName === null &&
-                      //     step1Errors.CompanyName === null &&
-                      //     step1Errors.Email === null &&
-                      //     step1Errors.Phone === null &&
-                      //     step1Errors.Password === "" &&
-                      //     step1Errors.Password2 === "" &&
-                      //     step1Errors.Address === null &&
-                      //     step1.Address.City != "" &&
-                      //     step1.Address.Zip != "" &&
-                          // && step1Errors.Language===null
-                          // && step1Errors.CPF===null
-                          // && step1Errors.Complement===null
-                          // && step1Errors.Email2===null
-                          // && step1Errors.Phone2===null
+                      onClick={
+                        activeStep === steps.length - 1
+                          ? handleSubmit
+                          : handleNext
+                      }
+                      disabled={
+                        (activeStep === 1 &&
+                          step1Errors.TradeName === null &&
+                          step1Errors.CompanyName === null &&
+                          step1Errors.Email === null &&
+                          step1Errors.Phone === null &&
+                          step1Errors.Password === "" &&
+                          step1Errors.Password2 === "" &&
+                          step1Errors.Address === null &&
+                          step1.Address.City != "" &&
+                          step1.Address.Zip != "") ||
+                        // && step1Errors.Language===null
+                        // && step1Errors.CPF===null
+                        // && step1Errors.Complement===null
+                        // && step1Errors.Email2===null
+                        // && step1Errors.Phone2===null
 
                         //   step1.OtherPlateform === false) ||
                         // (step1Errors.Platform === null &&
@@ -2019,33 +2273,34 @@ const DrivingSchool = () => {
                         // && step1Errors.Language===null
                         // && step1Errors.CPF===null
 
-                        // (activeStep === 2 &&
-                        //   step2Errors.Number === null &&
-                        //   step2Errors.IssuingAurh === null &&
-                        //   step2Errors.SiretNumber === null &&
-                        //   step2Errors.KBIS === null &&
-                        //   step2Errors.Approvaldate === null) ||
-                        // && step2Errors.RcProImg===null
-
-                      //   (activeStep === 3 &&
-                      //     step3Errors.insuranceCompany === null &&
-                      //     step3Errors.policeNumber === null &&
-                      //     step3Errors.RcPro === null &&
-                      //     step3Errors.dateInsurance === null) ||
-                      //   (activeStep === 4 &&
-                      //     step4Errors.Firstname === null &&
-                      //     step4Errors.Surname === null &&
-                      //     step4Errors.Pob === null &&
-                      //     step4Errors.Gender === null &&
-                      //     step4Errors.ProfileImg === null &&
-                      //     step4Errors.Dob === null &&
-                      //     step4Errors.Address === null &&
-                      //     step4.TermAndCondition === false) ||
-                      //   (activeStep === 5 && vehicles.length > 0) ||
-                      //   (activeStep === 6 && instructors.length > 0)
-                      //     ? false
-                      //     : true
-                      // }
+                        (activeStep === 2 &&
+                          step2Errors.Number === null &&
+                          step2Errors.IssuingAurh === null &&
+                          step2Errors.SiretNumber === null &&
+                          step2Errors.KBIS === null &&
+                          step2Errors.Approvaldate === null) ||
+                        step2Errors.RcProImg ===
+                          null(
+                            activeStep === 3 &&
+                              step3Errors.insuranceCompany === null &&
+                              step3Errors.policeNumber === null &&
+                              step3Errors.RcPro === null &&
+                              step3Errors.dateInsurance === null
+                          ) ||
+                        (activeStep === 4 &&
+                          step4Errors.Firstname === null &&
+                          step4Errors.Surname === null &&
+                          step4Errors.Pob === null &&
+                          step4Errors.Gender === null &&
+                          step4Errors.ProfileImg === null &&
+                          step4Errors.Dob === null &&
+                          step4Errors.Address === null &&
+                          step4.TermAndCondition === false) ||
+                        (activeStep === 5 && vehicles.length > 0) ||
+                        (activeStep === 6 && instructors.length > 0)
+                          ? false
+                          : true
+                      }
                     ></Button>
                   </Box>
                 </React.Fragment>

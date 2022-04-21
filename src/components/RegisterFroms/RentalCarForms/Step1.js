@@ -12,33 +12,32 @@ import axios from "axios";
 import moment from "moment";
 import { useTranslation } from "react-i18next";
 
-
 // import TextField from "@mui/material/TextField";
 
 const Step1 = ({ step1, setStep1, onChange, step1Errors }) => {
-  const { i18n , t } = useTranslation();
+  const { i18n, t } = useTranslation();
   const [Dob, setDob] = useState();
   const [Gender, setGender] = useState();
   const [addresses, setAddresses] = useState([]);
 
   const handleSelectAddress = (e) => {
     if (e) {
-    onChange("Address", {
-      Label: e.label,
-      Zip: e.PostalCode,
-      City: e.city,
-      Lat: e.lat,
-      Lng: e.lng,
-    });
-  } else {
-    onChange("Address", {
-      Label: "",
-      Zip: "",
-      City: "",
-      Lat: "",
-      Lng: "",
-    });
-  }
+      onChange("Address", {
+        Label: e.label,
+        Zip: e.PostalCode,
+        City: e.city,
+        Lat: e.lat,
+        Lng: e.lng,
+      });
+    } else {
+      onChange("Address", {
+        Label: "",
+        Zip: "",
+        City: "",
+        Lat: "",
+        Lng: "",
+      });
+    }
   };
   const handleAddress = async (e) => {
     if (e.target.value === "") {
@@ -52,28 +51,28 @@ const Step1 = ({ step1, setStep1, onChange, step1Errors }) => {
       setAddresses([]);
     } else {
       onChange("Address", { ...step1.Address, Label: e.target.value });
-    var config = {
-      method: "get",
-      url: `https://api-adresse.data.gouv.fr/search/?q=${e.target.value}&type=housenumber&autocomplete=1`,
-    };
-    await axios(config)
-      .then(function (res) {
-        let addressToSet = [];
+      var config = {
+        method: "get",
+        url: `https://api-adresse.data.gouv.fr/search/?q=${e.target.value}&type=housenumber&autocomplete=1`,
+      };
+      await axios(config)
+        .then(function (res) {
+          let addressToSet = [];
 
-        res.data.features.map((item) => {
-          addressToSet.push({
-            label: item.properties.label,
-            city: item.properties.city,
-            PostalCode: item.properties.postcode,
-            lat: item.geometry.coordinates[1],
-            lng: item.geometry.coordinates[0],
+          res.data.features.map((item) => {
+            addressToSet.push({
+              label: item.properties.label,
+              city: item.properties.city,
+              PostalCode: item.properties.postcode,
+              lat: item.geometry.coordinates[1],
+              lng: item.geometry.coordinates[0],
+            });
           });
+          setAddresses(addressToSet);
+        })
+        .catch(function (error) {
+          console.log(error);
         });
-        setAddresses(addressToSet);
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
     }
   };
 
@@ -113,8 +112,8 @@ const Step1 = ({ step1, setStep1, onChange, step1Errors }) => {
             onChange={(e) => {
               onChange(e.target.name, e.target.value);
             }}
-            error={step1Errors['FirstName']?true:false}
-            ErrorMsg={t(step1Errors['FirstName'])}
+            error={step1Errors["FirstName"] ? true : false}
+            ErrorMsg={t(step1Errors["FirstName"])}
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
@@ -126,12 +125,10 @@ const Step1 = ({ step1, setStep1, onChange, step1Errors }) => {
             placeholder="Cena"
             onChange={(e) => {
               onChange(e.target.name, e.target.value);
-
             }}
-            error={step1Errors['SurName']?true:false}
-            ErrorMsg={t(step1Errors['SurName'])}
-            ></TextField>
-          
+            error={step1Errors["SurName"] ? true : false}
+            ErrorMsg={t(step1Errors["SurName"])}
+          ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4} sx={{ marginTop: "9px" }}>
           <DatePicker
@@ -145,8 +142,8 @@ const Step1 = ({ step1, setStep1, onChange, step1Errors }) => {
             maxDate={moment()}
             padding="20px 0 0 0px !important"
             width="100% !important"
-            error={step1Errors['Dob']?true:false}
-            ErrorMsg={step1Errors['Dob']}
+            error={step1Errors["Dob"] ? true : false}
+            ErrorMsg={step1Errors["Dob"]}
           />
           <div className="borderbottom"></div>
 
@@ -166,10 +163,9 @@ const Step1 = ({ step1, setStep1, onChange, step1Errors }) => {
             placeholder="City, Country"
             onChange={(e) => {
               onChange(e.target.name, e.target.value);
-
             }}
-            error={step1Errors['Pob']?true:false}
-            ErrorMsg={t(step1Errors['Pob'])}
+            error={step1Errors["Pob"] ? true : false}
+            ErrorMsg={t(step1Errors["Pob"])}
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
@@ -183,8 +179,8 @@ const Step1 = ({ step1, setStep1, onChange, step1Errors }) => {
             onChangeAddress={(e) => {
               handleAddress(e);
             }}
-            error={step1Errors['Address']?true:false}
-            ErrorMsg={t(step1Errors['Address'])}
+            error={step1Errors["Address"] ? true : false}
+            ErrorMsg={t(step1Errors["Address"])}
             onAddressSelect={(e) => handleSelectAddress(e)}
           />
         </Grid>
@@ -203,8 +199,8 @@ const Step1 = ({ step1, setStep1, onChange, step1Errors }) => {
             onChange={(e) => {
               onChange("Gender", e.target.value);
             }}
-            error={step1Errors['Gender']?true:false}
-            ErrorMsg={step1Errors['Gender']}
+            error={step1Errors["Gender"] ? true : false}
+            ErrorMsg={step1Errors["Gender"]}
           ></DropDown>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
@@ -215,7 +211,6 @@ const Step1 = ({ step1, setStep1, onChange, step1Errors }) => {
             placeholder="TextField"
             onChange={(e) => {
               onChange(e.target.name, e.target.value);
-
             }}
             // error={step1Errors['Complement']?true:false}
             // ErrorMsg={step1Errors['Complement']}
@@ -260,10 +255,9 @@ const Step1 = ({ step1, setStep1, onChange, step1Errors }) => {
             placeholder="abc@xyz.com"
             onChange={(e) => {
               onChange(e.target.name, e.target.value);
-
             }}
-            error={step1Errors['Email']?true:false}
-            ErrorMsg={t(step1Errors['Email'])}
+            error={step1Errors["Email"] ? true : false}
+            ErrorMsg={t(step1Errors["Email"])}
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
@@ -274,10 +268,9 @@ const Step1 = ({ step1, setStep1, onChange, step1Errors }) => {
             placeholder="abc@xyz.com"
             onChange={(e) => {
               onChange(e.target.name, e.target.value);
-
             }}
-            // error={step1Errors['Email2']?true:false}
-            // ErrorMsg={step1Errors['Email2']}
+            error={step1Errors["Email2"] ? true : false}
+            ErrorMsg={t(step1Errors["Email2"])}
           ></TextField>
         </Grid>
 
@@ -287,13 +280,13 @@ const Step1 = ({ step1, setStep1, onChange, step1Errors }) => {
             required={true}
             name="Phone"
             type="number"
-            placeholder="1234567890"
+            placeholder="000000"
             onChange={(e) => {
               onChange(e.target.name, e.target.value);
-
             }}
-            error={step1Errors['Phone']?true:false}
-            ErrorMsg={t(step1Errors['Phone'])}
+            value={step1.Phone}
+            error={step1Errors["Phone"] ? true : false}
+            ErrorMsg={t(step1Errors["Phone"])}
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
@@ -301,13 +294,13 @@ const Step1 = ({ step1, setStep1, onChange, step1Errors }) => {
             label={t("Second Phone")}
             name="Phone2"
             type="number"
-            placeholder="1234567890"
+            placeholder="0000000"
+            value={step1.Phone2}
             onChange={(e) => {
               onChange(e.target.name, e.target.value);
-
             }}
-            // error={step1Errors['Phone2']?true:false}
-            // ErrorMsg={step1Errors['Phone2']}
+            error={step1Errors["Phone2"] ? true : false}
+            ErrorMsg={t(step1Errors["Phone2"])}
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
@@ -319,10 +312,9 @@ const Step1 = ({ step1, setStep1, onChange, step1Errors }) => {
             placeholder="******"
             onChange={(e) => {
               onChange(e.target.name, e.target.value);
-
             }}
-            error={step1Errors['Password']?true:false}
-            ErrorMsg={t(step1Errors['Password'])}
+            error={step1Errors["Password"] ? true : false}
+            ErrorMsg={t(step1Errors["Password"])}
           ></TextField>
         </Grid>
 
@@ -335,21 +327,21 @@ const Step1 = ({ step1, setStep1, onChange, step1Errors }) => {
             placeholder="******"
             onChange={(e) => {
               onChange(e.target.name, e.target.value);
-
             }}
-            error={step1Errors['ConfirmPassword']?true:false}
-            ErrorMsg={t(step1Errors['ConfirmPassword'])}
+            error={step1Errors["ConfirmPassword"] ? true : false}
+            ErrorMsg={t(step1Errors["ConfirmPassword"])}
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <TextField
-            label={t("How much time you will give to students of our platforms?")}
+            label={t(
+              "How much time you will give to students of our platforms?"
+            )}
             name="TimeOnPlatform"
             type="number"
             placeholder="1"
             onChange={(e) => {
               onChange(e.target.name, e.target.value);
-
             }}
             // error={step1Errors['TimeOnPlatform']?true:false}
             // ErrorMsg={step1Errors['TimeOnPlatform']}
@@ -361,36 +353,36 @@ const Step1 = ({ step1, setStep1, onChange, step1Errors }) => {
           <Grid item xs={12} sm={12} md={4}>
             <FilePicker
               title={t("Upload your authorization front side")}
-            required={true}
-            name="FrontSideimg"
+              required={true}
+              name="FrontSideimg"
               label="AuthFrontSide"
               value={step1.FrontSideimg}
               onChange={handleFileChange}
-              error={step1Errors['FrontSideimg']?true:false}
-            ErrorMsg={step1Errors['FrontSideimg']}
+              error={step1Errors["FrontSideimg"] ? true : false}
+              ErrorMsg={step1Errors["FrontSideimg"]}
             />
           </Grid>
           <Grid item xs={12} sm={12} md={4}>
             <FilePicker
               title={t("Upload your authorization back side")}
-            required={true}
-            name="BackSideimg"
+              required={true}
+              name="BackSideimg"
               label="AuthBackSide"
               value={step1.BackSideimg}
               onChange={handleFileChange}
-              error={step1Errors['BackSideimg']?true:false}
-            ErrorMsg={step1Errors['BackSideimg']}
+              error={step1Errors["BackSideimg"] ? true : false}
+              ErrorMsg={step1Errors["BackSideimg"]}
             />
           </Grid>
           <Grid item xs={12} sm={12} md={4}>
             <FilePicker
               title={t("Upload your Profile Picture")}
-            name="ProfileImg"
+              name="ProfileImg"
               label="ProfileImg"
               value={step1.ProfileImg}
               onChange={handleFileChange}
-              error={step1Errors['ProfileImg']?true:false}
-            ErrorMsg={step1Errors['ProfileImg']}
+              error={step1Errors["ProfileImg"] ? true : false}
+              ErrorMsg={step1Errors["ProfileImg"]}
             />
           </Grid>
         </Grid>

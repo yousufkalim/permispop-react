@@ -31,6 +31,8 @@ const Calendar = () => {
   const [events, setEvents] = useState([]);
   const [meetupPoints, setmeetupPoints] = useState([]);
   const [vehicles, setVehicles] = useState([]);
+  const [dsInstructors, setDsInstructors] = useState([]);
+  const [selectedDsInstructor, setSelectedDsInstructor] = useState({});
   const [selectedVehicle, setSelectedVehicle] = useState("");
   const [selectedMeetup, setSelectedMeetup] = useState("");
   const [selectedDate, setSelectedDate] = useState(new Date());
@@ -39,22 +41,26 @@ const Calendar = () => {
   const [selectedStartMins, setSelectedStartMins] = useState("");
   const [selectedEndMins, setSelectedEndMins] = useState("");
   const [description, setDescription] = useState("");
-  const [startDate, setStartDate] = useState(new Date());
-  const [endDate, setEndDate] = useState(new Date());
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
   const [selectedEvent, setSelectedEvent] = useState({});
   const [selectedBooking, setSelectedBooking] = useState({});
   const [disabled, setdisabled] = useState(false);
   const [value, setValue] = useState("Availability-page");
   const { i18n, t } = useTranslation();
+  const [lng, setLng] = useState();
 
   useEffect(() => {
     onNavigate(new Date(), "week");
-  }, []);
+    setLng(localStorage.getItem("i18nextLng"));
+  }, [localStorage.getItem("i18nextLng")]);
 
   useEffect(() => {
     const userData = JSON.parse(localStorage.getItem("user"));
     setUser(userData);
-    getAvailabilities(userData);
+    if (startDate != "" || endDate != "") {
+      getAvailabilities(userData);
+    }
   }, [update]);
 
   const getAvailabilities = async (userData) => {
@@ -62,16 +68,9 @@ const Calendar = () => {
       "get",
       `Availability/GetAvailabilityPlusBookingsSetForInstructor_New?id=${userData.id}&start=${startDate}&end=${endDate}`
     ).then((response) => {
-      let meetups = [];
       let allVehicles = [];
       let allAvailabilities = [];
-
-      response.data.data.instructorMeetupPointList.map((meetup) => {
-        meetups.push({
-          name: meetup.meetUp + " " + meetup.city + " " + meetup.zipCode,
-          value: meetup.id,
-        });
-      });
+      let allDsi = [];
 
       response.data.data.vehicleDetailList.map((e) => {
         allVehicles.push({
@@ -114,8 +113,22 @@ const Calendar = () => {
           allAvailabilities.push({
             id: availability.id,
             title: "Availability By " + availability.createdBy,
-            start: new Date(date[0], parseInt(date[1]) - 1, date[2], parseInt(start[0]) + j, startMin, 0),
-            end: new Date(date[0], parseInt(date[1]) - 1, date[2], endingHours, endingMins, 0),
+            start: new Date(
+              date[0],
+              parseInt(date[1]) - 1,
+              date[2],
+              parseInt(start[0]) + j,
+              startMin,
+              0
+            ),
+            end: new Date(
+              date[0],
+              parseInt(date[1]) - 1,
+              date[2],
+              endingHours,
+              endingMins,
+              0
+            ),
             status: availability.status,
             type: type,
           });
@@ -130,9 +143,31 @@ const Calendar = () => {
         allAvailabilities.push({
           id: booking.id,
           title: "Booking By " + booking.instructorQuestionFifth,
-          start: new Date(date[0], parseInt(date[1]) - 1, date[2], start[0], start[1], 0),
-          end: new Date(date[0], parseInt(date[1]) - 1, date[2], end[0], end[1], 0),
-          bookingTime: booking.startTime + " - " + booking.endTime,
+          start: new Date(
+            date[0],
+            parseInt(date[1]) - 1,
+            date[2],
+            parseInt(start[0]) + 5,
+            start[1],
+            0
+          ),
+          end: new Date(
+            date[0],
+            parseInt(date[1]) - 1,
+            date[2],
+            parseInt(end[0]) + 5,
+            end[1],
+            0
+          ),
+          bookingTime:
+            parseInt(start[0]) +
+            5 +
+            ":" +
+            start[1] +
+            " - " +
+            (parseInt(end[0]) + 5) +
+            ":" +
+            end[1],
           status: booking.status,
           meetingPlace: booking.meetingPlace,
           duration: booking.duration,
@@ -140,8 +175,13 @@ const Calendar = () => {
         });
       });
 
+      response.data.data.drivingSchoolInstructorList.map((ds) => {
+        let newDs = { name: ds.firstName + " " + ds.surName, value: ds };
+        allDsi.push(newDs);
+      });
+
       setEvents(allAvailabilities);
-      setmeetupPoints(meetups);
+      setDsInstructors(allDsi);
       setVehicles(allVehicles);
     });
   };
@@ -205,10 +245,8 @@ const Calendar = () => {
       second: 0,
       millisecond: 0,
     });
-
     var duration = moment.duration(endDate.diff(startDate));
     var minutes = duration.asMinutes();
-
     if (selectedVehicle === "") {
       toast.warning("Must select a vehicle to book!");
     } else if (selectedMeetup === "") {
@@ -225,10 +263,11 @@ const Calendar = () => {
       let vehicleData = vehicles.find((vehicle) => {
         return selectedVehicle === vehicle.value;
       });
-
       let meetupPointsData = meetupPoints.find((meetupPoint) => {
         return selectedMeetup === meetupPoint.value;
       });
+      let end = parseInt(selectedEndHours);
+      let start = parseInt(selectedStartHours);
 
       await API("post", "Availability", {
         VehicleId: vehicleData.name,
@@ -237,17 +276,22 @@ const Calendar = () => {
         date: moment(selectedDate).format("YYYY-MM-DD"),
         day: moment(selectedDate).format("ddd"),
         description: "",
-        endTime: selectedEndHours + ":" + selectedEndMins,
-        instructorId: user.id,
+        endTime: end + ":" + selectedEndMins,
+        instructorId: selectedDsInstructor.id,
         lat: user.lat,
         long: user.long,
         meetUp: meetupPointsData.name,
         meetupId: meetupPointsData.value,
-        startTime: selectedStartHours + ":" + selectedStartMins,
+        startTime: start + ":" + selectedStartMins,
         status: "Available",
+        drivingSchoolId: user.id,
       })
         .then((res) => {
-          toast.success(`Availabilty Added for date ${moment(selectedDate).format("YYYY-DD-MM")}`);
+          toast.success(
+            `Availabilty Added for date ${moment(selectedDate).format(
+              "YYYY-DD-MM"
+            )}`
+          );
           setUpdate(!update);
           setOpen(false);
         })
@@ -286,6 +330,8 @@ const Calendar = () => {
     } else if (minutes === 30) {
       toast.warning("Cannot create a availability for 30 minutes!");
     } else {
+      let end = parseInt(selectedEndHours);
+      let start = parseInt(selectedStartHours);
       await API("post", "Availability", {
         VehicleId: "",
         createdAt: new Date(),
@@ -293,16 +339,21 @@ const Calendar = () => {
         date: moment(selectedDate).format("YYYY-DD-MM"),
         day: moment().format("ddd"),
         description: description,
-        endTime: selectedEndHours + ":" + selectedEndMins,
-        instructorId: user.id,
+        endTime: end + ":" + selectedEndMins,
+        instructorId: selectedDsInstructor.id,
         lat: user.lat,
         long: user.long,
         meetUp: "",
         meetupId: "",
-        startTime: selectedStartHours + ":" + selectedStartMins,
+        startTime: start + ":" + selectedStartMins,
         status: "Unavailable",
+        drivingSchoolId: user.Id,
       }).then((res) => {
-        toast.success(`Unavailabilty Added for date ${moment(selectedDate).format("YYYY-DD-MM")}`);
+        toast.success(
+          `Unavailabilty Added for date ${moment(selectedDate).format(
+            "YYYY-DD-MM"
+          )}`
+        );
         setUpdate(!update);
         setDescription("");
         setOpen(false);
@@ -338,6 +389,8 @@ const Calendar = () => {
     } else if (minutes === 30) {
       toast.warning("Cannot create a availability for 30 minutes!");
     } else {
+      let end = parseInt(selectedEndHours);
+      let start = parseInt(selectedStartHours);
       await API("post", "Availability", {
         VehicleId: "",
         createdAt: new Date(),
@@ -345,16 +398,21 @@ const Calendar = () => {
         date: moment(selectedDate).format("YYYY-DD-MM"),
         day: moment().format("ddd"),
         description: description,
-        endTime: selectedEndHours + ":" + selectedEndMins,
-        instructorId: user.id,
+        endTime: end + ":" + selectedEndMins,
+        instructorId: selectedDsInstructor.id,
         lat: user.lat,
         long: user.long,
         meetUp: "",
         meetupId: "",
-        startTime: selectedStartHours + ":" + selectedStartMins,
+        startTime: start + ":" + selectedStartMins,
         status: "Personal",
+        drivingSchoolId: user.id,
       }).then((res) => {
-        toast.success(`Personal Event Added for date ${moment(selectedDate).format("YYYY-DD-MM")}`);
+        toast.success(
+          `Personal Event Added for date ${moment(selectedDate).format(
+            "YYYY-DD-MM"
+          )}`
+        );
         setUpdate(!update);
         setDescription("");
         setOpen(false);
@@ -363,11 +421,18 @@ const Calendar = () => {
   };
 
   const handleDeleteAvailability = async () => {
+    let start = moment(selectedEvent.start).format("HH:mm");
+    let end = moment(selectedEvent.end).format("HH:mm");
+
+    start = start.split(":");
+    end = end.split(":");
+
+    start = parseInt(start[0]) + ":" + start[1];
+    end = parseInt(end[0]) + ":" + end[1];
+
     await API(
       "delete",
-      `Availability/DeleteAvailability_New?AvailabilityId=${selectedEvent.id}&StartTime=${moment(selectedEvent.start).format(
-        "HH:mm"
-      )}&Endtime=${moment(selectedEvent.end).format("HH:mm")}&status=deleted`
+      `Availability/DeleteAvailability_New?AvailabilityId=${selectedEvent.id}&StartTime=${start}&Endtime=${end}&status=deleted`
     )
       .then((res) => {
         setUpdate(!update);
@@ -393,11 +458,19 @@ const Calendar = () => {
 
   const handleBookingDelete = async () => {
     setdisabled(true);
+
+    let start = moment(selectedBooking.start).format("HH:mm");
+    let end = moment(selectedBooking.end).format("HH:mm");
+
+    start = start.split(":");
+    end = end.split(":");
+
+    start = parseInt(start[0]) - 5 + ":" + start[1];
+    end = parseInt(end[0]) - 5 + ":" + end[1];
+
     await API(
       "delete",
-      `Bookings/DeleteBookingById_Neww?id=${selectedBooking.id}&StartTime=${moment(selectedBooking.start).format(
-        "HH:mm"
-      )}&Endtime=${moment(selectedBooking.end).format("HH:mm")}&status=deleted`
+      `Bookings/DeleteBookingById_Neww?id=${selectedBooking.id}&StartTime=${start}&Endtime=${end}&status=deleted`
     )
       .then((res) => {
         setUpdate(!update);
@@ -410,18 +483,34 @@ const Calendar = () => {
       });
   };
 
+  const handleDsiSelect = async (e) => {
+    let meetups = [];
+    e.instructorMeetupPointInfos.map((meetup) => {
+      meetups.push({
+        name: meetup.meetUp + " " + meetup.city + " " + meetup.zipCode,
+        value: meetup.id,
+      });
+    });
+    setmeetupPoints(meetups);
+
+    setSelectedDsInstructor(e);
+  };
+
   return (
     <>
       <CalendarComponent
         view={{ week: true, day: true }}
         events={events}
-        onSelectSlot={handleOpen}
+        // onSelectSlot={handleOpen}
+        role={user ? user.role : ""}
         onSelectEvent={handleEventClick}
         min={new Date(0, 0, 0, 6, 0, 0)}
         max={new Date(0, 0, 0, 22, 0, 0)}
         onNavigate={(e) => {
           onNavigate(e, Views.WEEK);
         }}
+        lng={lng}
+        onAddClick={handleOpen}
       />
       {/* Add availibility modal */}
 
@@ -438,12 +527,24 @@ const Calendar = () => {
 
         <TabContext value={value}>
           <TabList onChange={handleChange} className="tab-list">
-            <Tab className="tab" label={t("Add Availability")} value="Availability-page" />
+            <Tab
+              className="tab"
+              label={t("Add Availability")}
+              value="Availability-page"
+            />
             <Divider orientation="vertical" flexItem width="4px !important" />
-            <Tab label={t("Add Unavailability")} value="Unavailability-page" className="tab" />
+            <Tab
+              label={t("Add Unavailability")}
+              value="Unavailability-page"
+              className="tab"
+            />
             <Divider orientation="vertical" flexItem width="4px !important" />
 
-            <Tab className="tab" label={t("Add Personal Event")} value="PersonalEvent-page" />
+            <Tab
+              className="tab"
+              label={t("Add Personal Event")}
+              value="PersonalEvent-page"
+            />
           </TabList>
           {/* page 1 */}
           <div className="modal-content">
@@ -453,7 +554,7 @@ const Calendar = () => {
                   <Grid
                     xs={12}
                     sm={12}
-                    md={12}
+                    md={6}
                     style={{
                       display: "flex",
                       justifyContent: "flex-start",
@@ -462,15 +563,22 @@ const Calendar = () => {
                   >
                     <DatePicker
                       label="Date"
-                      disabled={true}
                       name="date"
                       value={selectedDate}
-                      // onChange={(e) =>
-                      //   setSelectedData(moment(e))
-                      // }
+                      onChange={(e) => setSelectedDate(moment(e))}
                       padding="20px 0 0 0px !important"
                       width="100% !important"
                     ></DatePicker>
+                  </Grid>
+                  <Grid xs={12} sm={12} md={6}>
+                    <DropDown
+                      label={t("Select Instructor")}
+                      placeholder={t("Select Instructor")}
+                      name="dsInstructors"
+                      value={selectedDsInstructor}
+                      MenuItem={dsInstructors}
+                      onChange={(e) => handleDsiSelect(e.target.value)}
+                    ></DropDown>
                   </Grid>
                   <Grid xs={12} sm={12} md={6}>
                     <DropDown
@@ -625,7 +733,6 @@ const Calendar = () => {
                   />
                   <Button
                     text={t("Confirm")}
-                    type="submit"
                     textColor="#FFFFFF !important"
                     width="110px !important"
                     color="#149E7A !important"
@@ -802,7 +909,6 @@ const Calendar = () => {
                   />
                   <Button
                     text={t("Confirm")}
-                    type="submit"
                     textColor="#FFFFFF !important"
                     width="110px !important"
                     color="#149E7A !important"
@@ -979,7 +1085,6 @@ const Calendar = () => {
                   />
                   <Button
                     text={t("Confirm")}
-                    type="submit"
                     textColor="#FFFFFF !important"
                     width="110px !important"
                     color="#149E7A !important"
@@ -1036,22 +1141,47 @@ const Calendar = () => {
         <div className="booking-content">
           <Grid container spacing={3}>
             <Grid xs={12} sm={12} md={6}>
-              <TextField label={t("User Info")} height="10px" value={selectedBooking.title} disabled={true} />
+              <TextField
+                label={t("User Info")}
+                height="10px"
+                value={selectedBooking.title}
+                disabled={true}
+              />
             </Grid>
             <Grid xs={12} sm={12} md={6}>
-              <TextField label={t("Booking Date")} disabled={true} value={moment(selectedBooking.start).format("DD-MM-YYYY")} />
+              <TextField
+                label={t("Booking Date")}
+                disabled={true}
+                value={moment(selectedBooking.start).format("DD-MM-YYYY")}
+              />
             </Grid>
             <Grid xs={12} sm={12} md={6}>
-              <TextField label={t("Booking Time")} disabled={true} value={selectedBooking.bookingTime} />
+              <TextField
+                label={t("Booking Time")}
+                disabled={true}
+                value={selectedBooking.bookingTime}
+              />
             </Grid>
             <Grid xs={12} sm={12} md={6}>
-              <TextField label={t("Duration")} disabled={true} value={selectedBooking.duration} />
+              <TextField
+                label={t("Duration")}
+                disabled={true}
+                value={selectedBooking.duration}
+              />
             </Grid>
             <Grid xs={12} sm={12} md={6}>
-              <TextField label={t("Vechicle")} disabled={true} value={selectedBooking.vehicleId} />
+              <TextField
+                label={t("Vechicle")}
+                disabled={true}
+                value={selectedBooking.vehicleId}
+              />
             </Grid>
             <Grid xs={12} sm={12} md={6}>
-              <TextField label={t("Meetup")} disabled={true} value={selectedBooking.meetingPlace} />
+              <TextField
+                label={t("Meetup")}
+                disabled={true}
+                value={selectedBooking.meetingPlace}
+              />
             </Grid>
           </Grid>
           <div className="booking-btn-div">

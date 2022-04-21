@@ -12,7 +12,7 @@ import ListItemText from "@mui/material/ListItemText";
 import MenuIcon from "@mui/icons-material/Menu";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-import Logo from "../../assets/images/logo.svg";
+import Logo from "../../assets/Logo/v.png";
 import PowerSettingsNewIcon from "@mui/icons-material/PowerSettingsNew";
 import Avatar_dumy from "../../assets/DrawerIcons/Avatar_dumy.svg";
 import flag_01 from "../../assets/DrawerIcons/flag_01.svg";
