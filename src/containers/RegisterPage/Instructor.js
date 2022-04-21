@@ -21,6 +21,8 @@ import { toast } from "react-toastify";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import Joi from "joi-browser";
 import { useTranslation } from "react-i18next";
+import InsRegisterImg from "../../assets/images/registerImg.svg";
+
 import { async } from "validate.js";
 
 const ColorlibConnector = withStyles({
@@ -1585,6 +1587,7 @@ const Instructor = () => {
   return (
     <React.Fragment>
       <RegisterHeader
+        src={InsRegisterImg}
         title={
           lng === "en"
             ? instructorForm?.headingEnglish

@@ -17,6 +17,22 @@ import { useHistory } from "react-router-dom";
 const Footer = () => {
   const history = useHistory();
   const { i18n, t } = useTranslation();
+  const [footer, setFooter] = useState({});
+  const [lng, setLng] = useState();
+  useEffect(() => {
+    setLng(localStorage.getItem("i18nextLng"));
+    getFooterData();
+  }, [localStorage.getItem("i18nextLng")]);
+  const getFooterData = async () => {
+    await API("get", "CMS/GetPageData?page=home")
+      .then((getFooterDataResponse) => {
+        const footerData = getFooterDataResponse.data.data.find(
+          (item) => item.sectionName === "Footer"
+        );
+        setFooter(footerData);
+      })
+      .catch((error) => console.log(error));
+  };
   return (
     <div className="main_footer_container">
       <div className="second_footer_container">
@@ -26,7 +42,11 @@ const Footer = () => {
         </div>
 
         <Typography align="center" className="footer_title">
-          {t("PERMISPOP")}
+          {lng === "en"
+            ? footer.headingEnglish
+            : lng === "fr"
+            ? footer.headingFrench
+            : ""}
         </Typography>
         <div className="footer_policy_container">
           <p
@@ -46,7 +66,11 @@ const Footer = () => {
             className={"divider"}
           />
           <Typography align="center" className="footer_policy footer_address">
-            500 N.Michigan Ave,Ste 600 Chicago, IL 60611
+            {lng === "en"
+              ? footer.textEnglish
+              : lng === "fr"
+              ? footer.textFrench
+              : ""}
           </Typography>
           <Divider
             orientation="vertical"

@@ -19,6 +19,8 @@ import { toast } from "react-toastify";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import Joi from "joi-browser";
 import { useTranslation } from "react-i18next";
+import CrRegisterImg from "../../assets/images/Frame2.svg";
+
 
 const ColorlibConnector = withStyles({
   alternativeLabel: {
@@ -1133,6 +1135,7 @@ const RentalCar = () => {
   return (
     <React.Fragment>
       <RegisterHeader
+        src={CrRegisterImg}
         title={
           lng === "en"
             ? rentalCarForm?.headingEnglish

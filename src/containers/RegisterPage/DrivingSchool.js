@@ -22,6 +22,7 @@ import { toast } from "react-toastify";
 import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import Joi from "joi-browser";
 import { useTranslation } from "react-i18next";
+import DSRegisterImg from "../../assets/images/Frame1.svg";
 
 const ColorlibConnector = withStyles({
   alternativeLabel: {
@@ -2047,12 +2048,13 @@ const DrivingSchool = () => {
           );
         setDrivingSchoolForm(DrivingSchoolFormData);
       })
-      .catch((error) => console.log("error------->", error));
+      .catch((error) => console.log(error));
   };
 
   return (
     <React.Fragment>
       <RegisterHeader
+          src={DSRegisterImg}
         title={
           lng === "en"
             ? drivingSchoolForm?.headingEnglish

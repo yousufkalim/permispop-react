@@ -229,7 +229,7 @@ const Maps = (props) => {
             icon={greyIcon}
           >
             <Popup>
-              <p className="pop_text">{typeof "Your Position"}</p>
+              <p className="pop_text">Your Position</p>
             </Popup>
           </Marker>
           {Object.keys(data).length > 0 &&

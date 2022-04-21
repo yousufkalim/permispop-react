@@ -100,6 +100,13 @@ svg {
   .Loginmodal {
     width: 47vw !important;
   }
+  .Login_text_field {
+    margin-top: 15px ;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    flex-direction: column !important ;
+  }
 }
 
 @media only screen and (max-width: 420px) {

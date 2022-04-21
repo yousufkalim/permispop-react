@@ -1,6 +1,5 @@
 import React from "react";
 import Header from "../Common/Header";
-import RegisterImg from "../../assets/images/registerImg.svg";
 import Typography from "@mui/material/Typography";
 
 const RegisterHeader = (props) => {
@@ -22,7 +21,7 @@ const RegisterHeader = (props) => {
               </Typography>
             </div>
           </div>
-          <img className="regsiter_img" src={RegisterImg} alt="" />
+          <img className="regsiter_img1" src={props.src} alt="" />
         </div>
       </div>
     </div>

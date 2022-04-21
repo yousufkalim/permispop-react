@@ -54,10 +54,22 @@
   line-height: 175.52% !important;
 }
 
-.regsiter_img {
-  width: 32%;
+.regsiter_img1 {
+  width: 25%;
   /* width: 520px; */
 }
+/* .regsiter_img2 {
+  width: 32%;
+  width: 520px;
+}
+.regsiter_img3 {
+  width: 32%;
+  width: 520px;
+}
+.regsiter_img4 {
+  width: 32%;
+  width: 520px;
+} */
 
 /* MEDIA QUERIES */
 
@@ -119,7 +131,7 @@
     text-align: center !important;
     font-size: 16px !important;
   }
-  .regsiter_img {
+  .regsiter_img1 {
     width: 90%;
     /* width: 520px; */
   }
