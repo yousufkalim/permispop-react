@@ -1102,19 +1102,21 @@ const StudentForm = (props) => {
               height2="48px"
               onClick={handleSubmit}
               disabled={
-                studentErrors.firstname === null &&
-                // && studentErrors.surname===null
-                // && studentErrors.Address===null
-                // && student.Address.city != ""
-                // && student.Address.zip != ""
-                // && studentErrors.password===''
-                // && studentErrors.confirmpassword===''
-                // && studentErrors.dob===null
-                // && studentErrors.pob===null
-                // && studentErrors.gender===null
-                // && studentErrors.email===null
-                // && studentErrors.phone===null
-                student.TermAndCondition === true
+                disable
+                  ? true
+                  : studentErrors.firstname === null &&
+                    // && studentErrors.surname===null
+                    // && studentErrors.Address===null
+                    // && student.Address.city != ""
+                    // && student.Address.zip != ""
+                    // && studentErrors.password===''
+                    // && studentErrors.confirmpassword===''
+                    // && studentErrors.dob===null
+                    // && studentErrors.pob===null
+                    // && studentErrors.gender===null
+                    // && studentErrors.email===null
+                    // && studentErrors.phone===null
+                    student.TermAndCondition === true
                   ? // && studentErrors.noh===null
                     // && studentErrors.neph===null
                     // && studentErrors.frontImage===null

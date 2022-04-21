@@ -34,6 +34,7 @@ const Hero = () => {
         <Header />
         <div className="hero_title_div">
           <Typography variant="h2" align="center" className="hero_title">
+            {console.log("qwertyurfghjk", lng)}
             {lng === "en"
               ? header.headingEnglish
               : lng === "fr"

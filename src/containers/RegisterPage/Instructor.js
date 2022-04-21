@@ -483,17 +483,18 @@ const Instructor = () => {
     } else if (name === "Phone2") {
       if (value.length > 10) {
         phoneCheck = true;
-        if (step1.Phone == value) {
-          if (step1.Phone === "" && value === "") {
+        let newVal = value.substring(0, 10);
+        if (step1.Phone == newVal) {
+          if (step1.Phone === "" && newVal === "") {
           } else {
             errorMessage = t(
-              "The 2nd phone number cannot be the same as the 1st"
+              "Phone 2 can’t be the same as the first phone number"
             );
           }
-        } else if (value.length === 0) {
-        } else if (value[0] != "0") {
+        } else if (newVal.length === 0) {
+        } else if (newVal[0] != "0") {
           errorMessage = t("Phone number should start with 0");
-        } else if (value.length < 10 && value.length > 0) {
+        } else if (newVal.length < 10 && newVal.length > 0) {
           errorMessage = t("The phone must be at least 10 characters");
         }
       } else {
@@ -501,7 +502,7 @@ const Instructor = () => {
           if (step1.Phone === "" && value === "") {
           } else {
             errorMessage = t(
-              "The 2nd phone number cannot be the same as the 1st"
+              "Phone 2 can’t be the same as the first phone number"
             );
           }
         } else if (value.length === 0) {
@@ -774,9 +775,31 @@ const Instructor = () => {
   };
 
   const handleStep2 = (name, value) => {
-    const errorMessage = validateSuggest2(name, value);
+    let errorMessage = "";
+    let seritCheck = false;
+    if (name === "siretNo") {
+      if (value.length > 14) {
+        seritCheck = true;
+        if (value.length === 0) {
+          errorMessage = "serit cant be empty";
+        } else if (value.length < 14 && value.length > 0) {
+          errorMessage = "Serit must be at least 10 characters";
+        }
+      } else {
+        if (value.length === 0) {
+          errorMessage = "serit cant be empty";
+        } else if (value.length < 14 && value.length > 0) {
+          errorMessage = "Serit must be at least 10 characters";
+        }
+      }
+    } else {
+      errorMessage = validateSuggest2(name, value);
+    }
     setStep2Errors({ ...step2Errors, [name]: errorMessage });
-    setStep2({ ...step2, [name]: value });
+    if (seritCheck) {
+    } else {
+      setStep2({ ...step2, [name]: value });
+    }
   };
 
   const validateSuggest2 = (name, value) => {
@@ -1552,11 +1575,6 @@ const Instructor = () => {
   const getInstructorForm = async () => {
     await API("get", "CMS/GetPageData?page=register")
       .then((getInstructorFormResponse) => {
-        console.log(
-          "🚀 ~ file: Instructor.js ~ line 1457 ~ .then ~ getInstructorFormResponse",
-          getInstructorFormResponse
-        );
-
         const instructorFormData = getInstructorFormResponse.data.data.find(
           (item) => item.sectionName === "Instructor"
         );
@@ -1747,47 +1765,19 @@ const Instructor = () => {
                           step1Errors.Address === null &&
                           step1.Address.City != "" &&
                           step1.Address.Zip != "" &&
-                          step1Errors.Dob === null &&
+                          step1Errors.Dob === "" &&
                           step1Errors.Pob === null &&
                           step1Errors.Gender === null &&
                           step1Errors.Email === null &&
-                          step1Errors.Phone === null &&
+                          step1Errors.Phone === "" &&
                           step1Errors.Password === "" &&
                           step1Errors.ConfirmPassword === "" &&
                           step1Errors.FrontImg === null &&
+                          (step1Errors.Phone2 === undefined ||
+                            step1Errors.Phone2 === "") &&
+                          (step1Errors.Email2 === undefined ||
+                            step1Errors.Email2 === "") &&
                           step1Errors.BackImg === null) ||
-                        // && step1Errors.ProfileImg===null
-                        // && step1Errors.Language===null
-                        // && step1Errors.Complement===null
-
-                        // && step1Errors.Noh===null
-                        // && step1Errors.Neph===null
-
-                        // && step1.checked===false
-                        // || step1Errors.OtherPlateform===null
-                        // && step1Errors.GiveTime===null
-                        // && step1Errors.Firstname===null
-                        // && step1Errors.Surname===null
-                        // && step1Errors.Address===null
-                        // && step1.Address.City != ""
-                        // && step1.Address.Zip != ""
-                        // && step1Errors.Dob===null
-                        // && step1Errors.Pob===null
-                        // && step1Errors.Gender===null
-                        // && step1Errors.Email===null
-                        // && step1Errors.Phone===null
-                        // && step1Errors.Password===''
-                        // && step1Errors.ConfirmPassword===''
-                        // && step1Errors.FrontImg===null
-                        // && step1Errors.BackImg===null
-
-                        // && step1Errors.ProfileImg===null
-                        // && step1Errors.Complement===null
-                        // && step1Errors.Language===null
-
-                        // && step1Errors.Noh===null
-                        // && step1Errors.Neph===null
-
                         (activeStep === 2 &&
                           step2Errors.obtainingdate === null &&
                           step2Errors.validitiyDate === null &&
@@ -1796,12 +1786,13 @@ const Instructor = () => {
                           step2Errors.licenceNo === null &&
                           step2Errors.issuingAuthority === null &&
                           step2Errors.AuthorizationNumber === null &&
-                          step2Errors.siretNo === null &&
+                          step2Errors.siretNo === "" &&
                           step2Errors.licensefront === null &&
                           step2Errors.licenseback === null &&
                           step2Errors.kbls === null &&
                           step2Errors.Authorizationfront === null &&
-                          step2Errors.Authorizationback === null) ||
+                          step2Errors.Authorizationback === null &&
+                          step2Errors.deliveryPlace === null) ||
                         (activeStep === 3 &&
                           step3Errors.companyInsurer === null &&
                           step3Errors.companyPoliceNum === null &&

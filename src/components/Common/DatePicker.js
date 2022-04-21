@@ -84,6 +84,7 @@ export default function BasicDatePicker(props) {
           )}
           {...props.datePickerProps}
         />
+        {console.log(props.ErrorMsg, "ErrorMsg")}
       </div>
     </LocalizationProvider>
   );
