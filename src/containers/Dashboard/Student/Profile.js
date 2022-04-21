@@ -18,6 +18,9 @@ import API from "../../../api";
 import { toast } from "react-toastify";
 import { useTranslation } from "react-i18next";
 import moment from "moment";
+import EditIcon from "@mui/icons-material/Edit";
+import IconButton from "@mui/material/IconButton";
+import Datepicker from "../../../components/Common/DatePicker";
 
 const Profile = (props) => {
   const style = {
@@ -38,23 +41,35 @@ const Profile = (props) => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [user, setUser] = useState();
   const [ratings, setRatings] = useState("");
+  const [neph, setNeph] = useState("");
+  const [Noofhours, setNoofhours] = useState("");
+  const [highwayCodeDate, setHighwayCodeDate] = useState("");
+  const [update, setUpdate] = useState(false);
+
+  const [editProfileModal, seteditProfileModal] = React.useState(false);
 
   const [openmodal, setOpenModal] = useState(false);
   const [disabled, setDisabled] = useState(false);
   const [openupdateprofilemodal, setOpenUpdateProfileModal] = useState(false);
-
   const [description, setDescription] = useState("");
   const [updatefield, SetUpdateField] = useState("");
   const [item, setItem] = React.useState("");
 
   const handleChange = (event) => {
-    setItem(event.target.value);
+    SetUpdateField(event.target.value);
   };
   useEffect(() => {
     const userData = JSON.parse(localStorage.getItem("user"));
-    setUser(userData);
-    getRatings(userData);
-  }, []);
+
+    getUserData(userData.id);
+  }, [update]);
+
+  const getUserData = async (id) => {
+    await API("get", `Personal/GetAllById/?id=${id}`).then((res) => {
+      setUser(res.data.data);
+      getRatings(res.data.data);
+    });
+  };
 
   const getRatings = async (userData) => {
     await API("get", `FeedBacks/GetAverageRating?id=${userData.id}`).then(
@@ -91,6 +106,7 @@ const Profile = (props) => {
   };
   const updateProfile = async () => {
     if (description !== "") {
+      console.log("updatefield", updatefield);
       await API("post", `Profile/updateByAdminRequest`, {
         Description: description,
         UpdateField: updatefield,
@@ -106,6 +122,54 @@ const Profile = (props) => {
       setDisabled(false);
     }
   };
+  const handleInformation = async () => {
+    await API("post", `Personal/UpdatePersonal`, {
+      NEPH: neph === "" ? user.neph : neph,
+      noOfHrsWanted: Noofhours === "" ? user.Noofhours : Noofhours,
+
+      highWayCodeDate:
+        highwayCodeDate === "" ? user.highwayCodeDate : highwayCodeDate,
+
+      RegistrationDate: user.registrationDate,
+      firstName: user.firstName,
+      surName: user.surName,
+      dob: user.dOB,
+      placeOfBirth: user.placeOfBirth,
+      gender: user.gender,
+      ContactEmail: user.email,
+      email: user.email,
+      secondEmail: user.secondEmail,
+      phone: user.phone,
+      secondPhone: user.secondPhone,
+      complement: user.complement,
+      password: user.password,
+      role: "Student",
+      id: user.id,
+      frontIdPhoto: user.frontIDPhoto,
+      backIdPhoto: user.backIDPhoto,
+      photo: user.profileImage,
+      highWayCodeImage: user.highWayCodeImage,
+      SpokenLanguage: user.spokenLanguage,
+      address: user.Address,
+      zip: user.zip,
+      city: user.city,
+      lat: user.lat,
+      long: user.lng,
+    }).then(async (updatePersonalres) => {
+      await API("get", `Personal/GetAllById/?id=${user.id}`).then(
+        (getPersonalres) => {
+          localStorage.setItem(
+            "user",
+            JSON.stringify(getPersonalres.data.data)
+          );
+          toast.success("Updated sucessfully");
+          seteditProfileModal(false);
+          setUpdate(!update);
+        }
+      );
+    });
+  };
+
   return (
     <React.Fragment>
       <Grid container spacing={1} className="maindiv">
@@ -176,8 +240,8 @@ const Profile = (props) => {
               </Grid>
               <Grid sx={12} sm={12} md={2} className="RoleInformation">
                 {user
-                  ? user.dOB
-                    ? moment(user.dOB).format("DD-MM-YYYY")
+                  ? user.dob
+                    ? moment(user.dob).format("DD-MM-YYYY")
                     : "N/A"
                   : ""}
               </Grid>
@@ -211,7 +275,7 @@ const Profile = (props) => {
                 {t("Postal Code")}:
               </Grid>
               <Grid sx={12} sm={12} md={2} className="RoleInformation">
-                {user ? (user.zIP ? user.zIP : "N/A") : ""}
+                {user ? (user.zip ? user.zip : "N/A") : ""}
               </Grid>
             </Grid>
             <Grid container spacing={1} className="formdata">
@@ -226,13 +290,20 @@ const Profile = (props) => {
 
             <Typography className="AboutHeading">
               {t("Contact Information")}
+              <IconButton>
+                <EditIcon
+                  color="secondary"
+                  sx={{ marginLeft: "5%" }}
+                  onClick={(e) => seteditProfileModal(!editProfileModal)}
+                />
+              </IconButton>
             </Typography>
             <Grid container spacing={1} className="formdata">
               <Grid sx={12} sm={12} md={2} className="Information">
                 {t("NEPH")}:
               </Grid>
               <Grid sx={12} sm={12} md={2} className="RoleInformation">
-                {user ? (user.nEPH ? user.nEPH : "N/A") : ""}
+                {user ? (user.neph ? user.neph : "N/A") : ""}
               </Grid>
             </Grid>
             <Grid container spacing={1} className="formdata">
@@ -250,7 +321,7 @@ const Profile = (props) => {
               <Grid sx={12} sm={12} md={2} className="RoleInformation">
                 {user
                   ? user.highWayCodeDate
-                    ? user.highWayCodeDate
+                    ? moment(user.highWayCodeDate).format("DD-MM-YYYY")
                     : "N/A"
                   : ""}
               </Grid>
@@ -348,32 +419,16 @@ const Profile = (props) => {
                   >
                     {t("Select the options")}
                   </MenuItem>
-                  <MenuItem
-                    value="FirstName"
-                    name=" FirstName"
-                    onChange={(e) => SetUpdateField(e.target.value)}
-                  >
+                  <MenuItem value="FirstName" name=" FirstName">
                     {t("First Name")}
                   </MenuItem>
-                  <MenuItem
-                    value="Surname"
-                    name="Surname"
-                    onChange={(e) => SetUpdateField(e.target.value)}
-                  >
+                  <MenuItem value="Surname" name="Surname">
                     {t("Surname")}
                   </MenuItem>
-                  <MenuItem
-                    value="Dateofbirth"
-                    name="Dateofbirth"
-                    onChange={(e) => SetUpdateField(e.target.value)}
-                  >
+                  <MenuItem value="Dateofbirth" name="Dateofbirth">
                     {t("Date of birth")}
                   </MenuItem>
-                  <MenuItem
-                    value="Meetuppoints"
-                    name="Meetuppoints"
-                    onChange={(e) => SetUpdateField(e.target.value)}
-                  >
+                  <MenuItem value="Meetuppoints" name="Meetuppoints">
                     {t("Meetup points")}
                   </MenuItem>
                 </Select>
@@ -396,6 +451,109 @@ const Profile = (props) => {
                   color="#149e7a"
                   borderRadius="10px"
                   onClick={updateProfile}
+                  disabled={disabled}
+                ></Button>
+              </div>
+            </Box>
+          </Modal>
+        </>
+        <>
+          <Modal
+            aria-labelledby="spring-modal-title"
+            aria-describedby="spring-modal-description"
+            open={editProfileModal}
+            onClose={() => seteditProfileModal(false)}
+            closeAfterTransition
+            BackdropComponent={Backdrop}
+            BackdropProps={{
+              timeout: 500,
+            }}
+          >
+            <Box sx={style}>
+              <TextField
+                label={t("NEPH")}
+                name="NEPH"
+                value={
+                  user
+                    ? user.neph === "" || user.neph === null
+                      ? neph
+                      : user.neph
+                    : ""
+                }
+                type="text"
+                disabled={
+                  user
+                    ? user.neph === "" || user.neph === null
+                      ? false
+                      : true
+                    : false
+                }
+                placeholder={t("NEPH")}
+                sx={{ marginBottom: "2% !important" }}
+                onChange={(e) => {
+                  setNeph(e.target.value);
+                }}
+              ></TextField>
+              <TextField
+                label={t("No of hours")}
+                name="Noofhours"
+                // value={Noofhours}
+                value={
+                  user
+                    ? user.noOfHrsWanted === "" || user.noOfHrsWanted === null
+                      ? Noofhours
+                      : user.noOfHrsWanted
+                    : ""
+                }
+                disabled={
+                  user
+                    ? user.noOfHrsWanted === "" || user.noOfHrsWanted === null
+                      ? false
+                      : true
+                    : false
+                }
+                type="text"
+                placeholder={t("No of hours")}
+                onChange={(e) => {
+                  setNoofhours(e.target.value);
+                }}
+              ></TextField>
+              <Datepicker
+                label={t("Date")}
+                name="highwayCodeDate"
+                value={
+                  user
+                    ? user.highWayCodeDate === "" ||
+                      user.highWayCodeDate === null
+                      ? highwayCodeDate
+                      : user.highWayCodeDate
+                    : ""
+                }
+                disabled={
+                  user
+                    ? user.highWayCodeDate === "" ||
+                      user.highWayCodeDate === null
+                      ? false
+                      : true
+                    : false
+                }
+                onChange={(e) => {
+                  setHighwayCodeDate(moment(e).format("YYYY-MM-DDThh:mm:ss"));
+                }}
+                padding="20px 0 0 0px !important"
+                width="100% !important"
+
+                //   error={studentErrors['highwayCodeDate']?true:false}
+                // ErrorMsg={studentErrors['highwayCodeDate']}
+              ></Datepicker>
+              <div className="borderbottom"></div>
+              <div style={{ marginTop: "2%" }}>
+                <Button
+                  text={t("Update")}
+                  width="95% !important"
+                  color="#149e7a"
+                  borderRadius="10px"
+                  onClick={handleInformation}
                   disabled={disabled}
                 ></Button>
               </div>
