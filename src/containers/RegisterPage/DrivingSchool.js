@@ -2288,15 +2288,13 @@ const DrivingSchool = () => {
                           step2Errors.IssuingAurh === null &&
                           step2Errors.SiretNumber === null &&
                           step2Errors.KBIS === null &&
-                          step2Errors.Approvaldate === null) ||
-                        step2Errors.RcProImg ===
-                          null(
-                            activeStep === 3 &&
-                              step3Errors.insuranceCompany === null &&
-                              step3Errors.policeNumber === null &&
-                              step3Errors.RcPro === null &&
-                              step3Errors.dateInsurance === null
-                          ) ||
+                          step2Errors.Approvaldate === null &&
+                          step2Errors.RcProImg === null) ||
+                        (activeStep === 3 &&
+                          step3Errors.insuranceCompany === null &&
+                          step3Errors.policeNumber === null &&
+                          step3Errors.RcPro === null &&
+                          step3Errors.dateInsurance === null) ||
                         (activeStep === 4 &&
                           step4Errors.Firstname === null &&
                           step4Errors.Surname === null &&
