@@ -1130,12 +1130,14 @@ const RentalCar = () => {
             ? rentalCarForm?.headingFrench
             : ""
         }
-        subtitle1={ lng === "en"
-        ? rentalCarForm?.textEnglish
-        : lng === "fr"
-        ? rentalCarForm?.textFrench
-        : ""}
-/>
+        subtitle1={
+          lng === "en"
+            ? rentalCarForm?.textEnglish
+            : lng === "fr"
+            ? rentalCarForm?.textFrench
+            : ""
+        }
+      />
       <div
         style={{
           display: "flex",
@@ -1295,17 +1297,15 @@ const RentalCar = () => {
                           step1Errors.Pob === null &&
                           step1Errors.Gender === null &&
                           step1Errors.Email === null &&
-                          step1Errors.Phone === null &&
+                          step1Errors.Phone === "" &&
                           step1Errors.Password === "" &&
                           step1Errors.ConfirmPassword === "" &&
                           step1Errors.FrontSideimg === null &&
+                          (step1Errors.Phone2 === undefined ||
+                            step1Errors.Phone2 === "") &&
+                          (step1Errors.Email2 === undefined ||
+                            step1Errors.Email2 === "") &&
                           step1Errors.BackSideimg === null) ||
-                        // && step1Errors.ProfileImg===null
-                        // && step1Errors.Phone2===null
-                        // && step1Errors.Email2===null
-                        // && step1Errors.Complement===null
-                        // && step1Errors.TimeOnPlatform===null
-
                         (activeStep === 2 &&
                           step2Errors.Siret === null &&
                           step2Errors.Kbls === null &&

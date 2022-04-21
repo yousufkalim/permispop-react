@@ -5,6 +5,7 @@ import { makeStyles } from "@mui/styles";
 import InputLabel from "@mui/material/InputLabel";
 import FormHelperText from "@mui/material/FormHelperText";
 import FormControl from "@mui/material/FormControl";
+import { useTranslation } from "react-i18next";
 
 const useStyles = makeStyles((theme) => ({
   formControl: {
@@ -56,6 +57,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 export default function ComboBox(props) {
   const classes = useStyles();
+  const { t } = useTranslation();
 
   return (
     <FormControl
@@ -70,7 +72,7 @@ export default function ComboBox(props) {
         shrink={true}
       >
         {props.label}
-        {props.required? <div style={{color:'red'}}> *</div>:''}
+        {props.required ? <div style={{ color: "red" }}> *</div> : ""}
       </InputLabel>
       <Autocomplete
         sx={{
@@ -80,6 +82,7 @@ export default function ComboBox(props) {
         getOptionLabel={(option) => option.label}
         disabled={props.disabled}
         options={props.options}
+        noOptionsText={t("No address found")}
         onChange={(event, value) => props.onAddressSelect(value)}
         renderInput={(params) => (
           <TextField

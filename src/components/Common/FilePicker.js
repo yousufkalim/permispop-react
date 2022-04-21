@@ -5,7 +5,7 @@ import { makeStyles } from "@mui/styles";
 import { useTranslation } from "react-i18next";
 
 export default function FilePicker(props) {
-  const { i18n , t } = useTranslation();
+  const { i18n, t } = useTranslation();
   const useStyles = makeStyles((theme) => ({
     container: {
       backgroundColor: "#F5F6F9",
@@ -90,8 +90,13 @@ export default function FilePicker(props) {
   return (
     <div>
       <Typography variant="h2" className={classes.title}>
-        {props.title}
-        {props.required? <div style={{color:'red'}}> *</div>:''}
+        {props.required ? (
+          <div>
+            {props.title} <span style={{ color: "red" }}>*</span>
+          </div>
+        ) : (
+          `${props.title}`
+        )}
       </Typography>
       <label htmlFor={`contained-button-file` + props.label}>
         <div className={classes.container}>
