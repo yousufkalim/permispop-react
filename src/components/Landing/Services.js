@@ -15,6 +15,7 @@ import API from "../../api/index";
 
 const Services = () => {
   const { i18n, t } = useTranslation();
+  const [general, setGeneral] = useState({});
   const [card1, setCard1] = useState({});
   const [card2, setCard2] = useState({});
   const [card3, setCard3] = useState({});
@@ -30,25 +31,32 @@ const Services = () => {
         const cardsData = getCardsDataResponse.data.data.filter(
           (item) => item.sectionName === "Our Services"
         );
+        setGeneral(cardsData.find((item) => item.cardName === "General"));
         setCard1(cardsData.find((item) => item.cardName === "Card 1"));
         setCard2(cardsData.find((item) => item.cardName === "Card 2"));
         setCard3(cardsData.find((item) => item.cardName === "Card 3"));
       })
-      .catch((error) => console.log("error------->", error));
+      .catch((error) => console.log(error));
   };
   return (
     <div className="main_services_container" id="services">
       <div className="second_services_container">
         <div className="services_title_div">
           <Typography variant="h2" align="center" className="services_title">
-            {t("Our Services")}
+            {lng === "en"
+              ? general?.headingEnglish
+              : lng === "fr"
+              ? general?.headingFrench
+              : ""}
           </Typography>
         </div>
         <div className="services_subtitle_div">
           <Typography variant="h2" align="center" className="services_subtitle">
-            {t(
-              "Quisque lobortis ultrices dolor, fringilla venenatis leo sodales at."
-            )}
+            {lng === "en"
+              ? general?.textEnglish
+              : lng === "fr"
+              ? general?.textFrench
+              : ""}
           </Typography>
         </div>
         {/*Service Card*/}
