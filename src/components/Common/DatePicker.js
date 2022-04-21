@@ -1,13 +1,33 @@
 import * as React from "react";
 import TextField from "@mui/material/TextField";
 import InputLabel from "@mui/material/InputLabel";
-import DateAdapter from "@mui/lab/AdapterMoment";
-import LocalizationProvider from "@mui/lab/LocalizationProvider";
-import DatePicker from "@mui/lab/DatePicker";
+import { AdapterDateFns } from "@mui/x-date-pickers/AdapterDateFns";
+import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
+import { useTranslation } from "react-i18next";
 import { makeStyles } from "@mui/styles";
 import FormHelperText from "@mui/material/FormHelperText";
+import frLocale from "date-fns/locale/fr";
+import enLocale from "date-fns/locale/en-US";
+
+const localeMap = {
+  en: enLocale,
+  fr: frLocale,
+};
+
+const maskMap = {
+  fr: "__/__/____",
+  en: "__/__/____",
+};
 
 export default function BasicDatePicker(props) {
+  const [lng, setLng] = React.useState();
+  const { i18n, t } = useTranslation();
+
+  React.useEffect(() => {
+    setLng(localStorage.getItem("i18nextLng"));
+  }, [localStorage.getItem("i18nextLng")]);
+
   const useStyles = makeStyles((theme) => ({
     TextField: {
       padding: props.padding,
@@ -18,7 +38,7 @@ export default function BasicDatePicker(props) {
   }));
   const classes = useStyles();
   return (
-    <LocalizationProvider dateAdapter={DateAdapter}>
+    <LocalizationProvider dateAdapter={AdapterDateFns} locale={localeMap[lng]}>
       <div>
         <DatePicker
           label={

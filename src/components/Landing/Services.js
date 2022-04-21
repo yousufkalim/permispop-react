@@ -58,7 +58,6 @@ const Services = () => {
             <div className="card_container_inner">
               <img src={dot} alt="services" className="dot_img" />
               <Typography variant="h2" className="card_title">
-                {console.log("HAZAZAAZAAZAZAZ", card1)}
                 {lng === "en"
                   ? card1?.headingEnglish
                   : lng === "fr"

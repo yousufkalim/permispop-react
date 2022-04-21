@@ -961,8 +961,18 @@ const RentalCar = () => {
   const [activeStep, setActiveStep] = React.useState(1);
   const [vehicles, setVehicles] = React.useState([]);
 
-  const handleNext = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+  const handleNext = async () => {
+    if (activeStep === 1) {
+      await API("get", `Personal/Email/?email=${step1.Email}`).then(
+        async (emailRes) => {
+          if (emailRes.data.data != null) {
+            toast.warning("Email already exists!");
+          } else {
+            setActiveStep((prevActiveStep) => prevActiveStep + 1);
+          }
+        }
+      );
+    }
   };
 
   const handleBack = () => {
