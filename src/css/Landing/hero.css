@@ -54,8 +54,8 @@ ul {
 }
 .list li a {
   text-decoration: none;
-  color: #9097a1;
-  font-weight: 300;
+  color: #737475;
+  font-weight: 500;
   font-size: 18px;
   font-family: "inter";
   white-space: nowrap !important;
@@ -238,7 +238,7 @@ ul {
     margin-left: -10px !important;
   }
   .home-logo {
-    width: 70% !important;
+    width: 80% !important;
     min-width: 12px !important;
   }
   .hero_subtitle_btn_div {
