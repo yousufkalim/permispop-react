@@ -21,6 +21,7 @@ import moment from "moment";
 import { useTranslation } from "react-i18next";
 
 import { Preview } from "@mui/icons-material";
+import { async } from "validate.js";
 
 const StudentForm = (props) => {
   const [checkbox1, setCheckbox1] = React.useState(false);
@@ -401,8 +402,6 @@ const StudentForm = (props) => {
     } else if (name === "dob") {
       let todayDate = moment().format("YYYY");
       let selectedDate = moment(value).format("YYYY");
-      console.log("todayDate", todayDate);
-      console.log("selectedDate", selectedDate);
       if (todayDate - selectedDate > 16) {
       } else {
         errorMessage = t("Student can’t be younger than 16 years old");
@@ -552,69 +551,75 @@ const StudentForm = (props) => {
   };
 
   const handleSubmit = async () => {
-    setDisable(true);
-
-    let languageArray = student.language.map((lang) => {
-      return lang.name;
-    });
-
-    await API("post", "Personal", {
-      RegistrationDate: new Date(),
-      firstName: student.firstname,
-      surName: student.surname,
-      dob: student.dob,
-      placeOfBirth: student.pob,
-      gender: student.gender,
-      ContactEmail: student.email,
-      email: student.email,
-      secondEmail: student.email2,
-      phone: student.phone,
-      secondPhone: student.phone2,
-      complement: student.complement,
-      password: student.password,
-      noOfHrsWanted: student.noh,
-      neph: student.neph,
-      role: "Student",
-      highWayCodeDate: student.highwayCodeDate,
-      id: "",
-      frontIdPhoto: student.frontImage,
-      backIdPhoto: student.backImage,
-      photo: student.profileImage,
-      highWayCodeImage: student.highwayCodeImg,
-      SpokenLanguage: languageArray,
-      address: student.Address.label,
-      zip: student.Address.zip,
-      city: student.Address.city,
-      lat: student.Address.lat,
-      long: student.Address.lng,
-    })
-      .then(async (res) => {
-        let personalInfoId = res.data.data.id;
-        await API("post", "Profile", {
-          businessInfoId: "",
-          drivingLisenceInfoId: "",
-          drivingSchoolApprovalInfoId: "",
-          drivingSchoolIdentityInfoId: "",
-          drivingSchoolManagerInfoId: "",
-          exersiceAuthorizationInfoId: "",
-          id: "",
-          insuranceCompanyInfoId: "",
-          lat: student.Address.lat,
-          long: student.Address.lng,
-          personalInfoId: personalInfoId,
-          role: "student",
-          status: "Active",
-        });
-      })
-      .then(() => {
-        history.push("/");
-        toast.success(t("Student Registered Successfully"));
-      })
-      .catch((error) => {
-        console.log(error);
-        toast.error(t("Not Registered....Somethong went wrong"));
-        setDisable(false);
-      });
+    await API("get", `Personal/Email/?email=${student.email}`).then(
+      async (emailRes) => {
+        if (emailRes.data.data != null) {
+          toast.warning("Email already exists!");
+        } else {
+          setDisable(true);
+          let languageArray = student.language.map((lang) => {
+            return lang.name;
+          });
+          await API("post", "Personal", {
+            RegistrationDate: new Date(),
+            firstName: student.firstname,
+            surName: student.surname,
+            dob: student.dob,
+            placeOfBirth: student.pob,
+            gender: student.gender,
+            ContactEmail: student.email,
+            email: student.email,
+            secondEmail: student.email2,
+            phone: student.phone,
+            secondPhone: student.phone2,
+            complement: student.complement,
+            password: student.password,
+            noOfHrsWanted: student.noh,
+            neph: student.neph,
+            role: "Student",
+            highWayCodeDate: student.highwayCodeDate,
+            id: "",
+            frontIdPhoto: student.frontImage,
+            backIdPhoto: student.backImage,
+            photo: student.profileImage,
+            highWayCodeImage: student.highwayCodeImg,
+            SpokenLanguage: languageArray,
+            address: student.Address.label,
+            zip: student.Address.zip,
+            city: student.Address.city,
+            lat: student.Address.lat,
+            long: student.Address.lng,
+          })
+            .then(async (res) => {
+              let personalInfoId = res.data.data.id;
+              await API("post", "Profile", {
+                businessInfoId: "",
+                drivingLisenceInfoId: "",
+                drivingSchoolApprovalInfoId: "",
+                drivingSchoolIdentityInfoId: "",
+                drivingSchoolManagerInfoId: "",
+                exersiceAuthorizationInfoId: "",
+                id: "",
+                insuranceCompanyInfoId: "",
+                lat: student.Address.lat,
+                long: student.Address.lng,
+                personalInfoId: personalInfoId,
+                role: "student",
+                status: "Active",
+              });
+            })
+            .then(() => {
+              history.push("/");
+              toast.success(t("Student Registered Successfully"));
+            })
+            .catch((error) => {
+              console.log(error);
+              toast.error(t("Not Registered....Somethong went wrong"));
+              setDisable(false);
+            });
+        }
+      }
+    );
   };
 
   const handleAddress = async (e) => {
@@ -966,10 +971,6 @@ const StudentForm = (props) => {
 
           <Grid container spacing={4} alignItems="flex-end">
             <Grid item xs={12} sm={12} md={4}>
-              {console.log(
-                "tes",
-                student.frontImage.split("_").slice(1).join("_")
-              )}
               <FilePicker
                 title={t("Upload front of your ID Card/Passport")}
                 label={t("front Image")}
@@ -1101,19 +1102,21 @@ const StudentForm = (props) => {
               height2="48px"
               onClick={handleSubmit}
               disabled={
-                studentErrors.firstname === null &&
-                // && studentErrors.surname===null
-                // && studentErrors.Address===null
-                // && student.Address.city != ""
-                // && student.Address.zip != ""
-                // && studentErrors.password===''
-                // && studentErrors.confirmpassword===''
-                // && studentErrors.dob===null
-                // && studentErrors.pob===null
-                // && studentErrors.gender===null
-                // && studentErrors.email===null
-                // && studentErrors.phone===null
-                student.TermAndCondition === true
+                disable
+                  ? true
+                  : studentErrors.firstname === null &&
+                    // && studentErrors.surname===null
+                    // && studentErrors.Address===null
+                    // && student.Address.city != ""
+                    // && student.Address.zip != ""
+                    // && studentErrors.password===''
+                    // && studentErrors.confirmpassword===''
+                    // && studentErrors.dob===null
+                    // && studentErrors.pob===null
+                    // && studentErrors.gender===null
+                    // && studentErrors.email===null
+                    // && studentErrors.phone===null
+                    student.TermAndCondition === true
                   ? // && studentErrors.noh===null
                     // && studentErrors.neph===null
                     // && studentErrors.frontImage===null

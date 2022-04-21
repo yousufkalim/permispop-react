@@ -683,47 +683,44 @@ const Step4 = (props) => {
               height="48px"
               height2="48px"
               onClick={isEdit ? handleSaveEditVehicle : handleAdd}
-              // disabled={
-              // props.step4Errors.FirstRegistration ===null
-              // && props.step4Errors.Brand===null
-              // && props.step4Errors.Model===null
-              // && props.step4Errors.NumPlate===null
-              // && props.step4Errors.Color===null
-              // && props.step4Errors.Energy===null
-              // && props.step4Errors.Gearbox===null
-              // && props.step4Errors.Insurer===null
-              // && props.step4Errors.PoliceNum===null
-              // && props.step4Errors.VehicleInsurerStartDate===null
-              // && props.step4Errors.VehicleInsurerEndDate===null
-              // && props.step4Errors.PhotoPath===null
-              // && props.step4Errors.RegCertificatefront===null
-              // && props.step4Errors.RegCertificateback===null
-              // && props.step4Errors.GreenCardImgPath===null
-
-              //   && props.step4.checked===false
-              //   || props.step4Errors.TechStartDate===null
-              //   && props.step4Errors.TechEndDate===null
-              //   && props.step4Errors.ControlTechImgPath===null
-              //   && props.step4Errors.FirstRegistration ===null
-              //   && props.step4Errors.Brand===null
-              //   && props.step4Errors.Model===null
-              //   && props.step4Errors.NumPlate===null
-              //   && props.step4Errors.Color===null
-              //   && props.step4Errors.Energy===null
-              //   && props.step4Errors.Gearbox===null
-              //   && props.step4Errors.Insurer===null
-              //   && props.step4Errors.PoliceNum===null
-              //   && props.step4Errors.VehicleInsurerStartDate===null
-              //   && props.step4Errors.VehicleInsurerEndDate===null
-              //   && props.step4Errors.PhotoPath===null
-              //   && props.step4Errors.RegCertificatefront===null
-              //   && props.step4Errors.RegCertificateback===null
-              //   && props.step4Errors.GreenCardImgPath===null
-
-              //     ?
-              //     false
-              //     : true
-              // }
+              disabled={
+                (props.step4Errors.FirstRegistration === null &&
+                  props.step4Errors.Brand === null &&
+                  props.step4Errors.Model === null &&
+                  props.step4Errors.NumPlate === null &&
+                  props.step4Errors.Color === null &&
+                  props.step4Errors.Energy === null &&
+                  props.step4Errors.Gearbox === null &&
+                  props.step4Errors.Insurer === null &&
+                  props.step4Errors.PoliceNum === null &&
+                  props.step4Errors.VehicleInsurerStartDate === null &&
+                  props.step4Errors.VehicleInsurerEndDate === null &&
+                  props.step4Errors.PhotoPath === null &&
+                  props.step4Errors.RegCertificatefront === null &&
+                  props.step4Errors.RegCertificateback === null &&
+                  props.step4Errors.GreenCardImgPath === null &&
+                  props.step4.checked === false) ||
+                (props.step4Errors.TechStartDate === null &&
+                  props.step4Errors.TechEndDate === null &&
+                  props.step4Errors.ControlTechImgPath === null &&
+                  props.step4Errors.FirstRegistration === null &&
+                  props.step4Errors.Brand === null &&
+                  props.step4Errors.Model === null &&
+                  props.step4Errors.NumPlate === null &&
+                  props.step4Errors.Color === null &&
+                  props.step4Errors.Energy === null &&
+                  props.step4Errors.Gearbox === null &&
+                  props.step4Errors.Insurer === null &&
+                  props.step4Errors.PoliceNum === null &&
+                  props.step4Errors.VehicleInsurerStartDate === null &&
+                  props.step4Errors.VehicleInsurerEndDate === null &&
+                  props.step4Errors.PhotoPath === null &&
+                  props.step4Errors.RegCertificatefront === null &&
+                  props.step4Errors.RegCertificateback === null &&
+                  props.step4Errors.GreenCardImgPath === null)
+                  ? false
+                  : true
+              }
             ></Button>
           </div>
         </Box>

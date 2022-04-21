@@ -963,8 +963,18 @@ const RentalCar = () => {
   const [activeStep, setActiveStep] = React.useState(1);
   const [vehicles, setVehicles] = React.useState([]);
 
-  const handleNext = () => {
-    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+  const handleNext = async () => {
+    if (activeStep === 1) {
+      await API("get", `Personal/Email/?email=${step1.Email}`).then(
+        async (emailRes) => {
+          if (emailRes.data.data != null) {
+            toast.warning("Email already exists!");
+          } else {
+            setActiveStep((prevActiveStep) => prevActiveStep + 1);
+          }
+        }
+      );
+    }
   };
 
   const handleBack = () => {
@@ -1300,17 +1310,15 @@ const RentalCar = () => {
                           step1Errors.Pob === null &&
                           step1Errors.Gender === null &&
                           step1Errors.Email === null &&
-                          step1Errors.Phone === null &&
+                          step1Errors.Phone === "" &&
                           step1Errors.Password === "" &&
                           step1Errors.ConfirmPassword === "" &&
                           step1Errors.FrontSideimg === null &&
+                          (step1Errors.Phone2 === undefined ||
+                            step1Errors.Phone2 === "") &&
+                          (step1Errors.Email2 === undefined ||
+                            step1Errors.Email2 === "") &&
                           step1Errors.BackSideimg === null) ||
-                        // && step1Errors.ProfileImg===null
-                        // && step1Errors.Phone2===null
-                        // && step1Errors.Email2===null
-                        // && step1Errors.Complement===null
-                        // && step1Errors.TimeOnPlatform===null
-
                         (activeStep === 2 &&
                           step2Errors.Siret === null &&
                           step2Errors.Kbls === null &&

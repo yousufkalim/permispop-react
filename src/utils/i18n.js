@@ -804,10 +804,20 @@ i18n
           "or you can send your non-verified documents":
             "or you can send your non-verified documents",
           "to admin on": "to admin on",
+          "No address found": "No address found",
+          "Phone must be 10 digits": "Phone must be 10 digits",
+          "Phone can't be blank": "Phone can't be blank",
+          "The phone must be at least 10 characters":
+            "The phone must be at least 10 characters",
+          "Phone 2 can’t be the same as the first phone number":
+            "Phone 2 can’t be the same as the first phone number",
         },
       },
       fr: {
         translations: {
+          "Phone 2 can’t be the same as the first phone number":
+            "Le 2ème numéro de téléphone ne peut pas être le même que le 1er",
+          "No address found": "Aucune adresse trouvée",
           "to admin on": "à admin sur ",
           "or you can send your non-verified documents":
             "ou vous pouvez envoyer vos documents non vérifiés",
@@ -861,9 +871,9 @@ i18n
           "SurName must be atleast 2 alphabets Longs!":
             "Le nom doit être de minimum 2 caractères",
           '"Siret" length must be 14 characters long':
-            "La longueur du N° Siret doit être de 14 caractères",
+            "Le n° de SIRET doit être de 14 caractères",
           '"Siret Number" length must be at least 14 characters long':
-            "La longueur du N° Siret doit être de 14 caractères",
+            "Le n° de SIRET doit être de 14 caractères",
           '"siret No." length must be 14 characters long':
             "Le n° de SIRET doit être de 14 caractères",
           "Not a Valid Email": "L’adresse mail n’est pas correcte",
@@ -2050,7 +2060,7 @@ i18n
       },
     },
     fallbackLng: "fr",
-    debug: true,
+    debug: false,
     // have a common namespace used around the full app
     ns: ["translations"],
     defaultNS: "translations",
