@@ -28,7 +28,7 @@ import jwt_decode from "jwt-decode";
 import { Base64 } from "js-base64";
 import { toast } from "react-toastify";
 import { frontUrl } from "../../config";
-
+import RegisterModal from "../Landing/RegisterModal";
 import { useTranslation } from "react-i18next";
 import flag_01 from "../../assets/DrawerIcons/flag_01.svg";
 import flag_02 from "../../assets/DrawerIcons/flag_02.svg";
@@ -36,7 +36,7 @@ import flag_02 from "../../assets/DrawerIcons/flag_02.svg";
 export default function Header(props) {
   const { i18n, t } = useTranslation();
   const [Loginopen, setLoginOpen] = React.useState(false);
-
+  const [Registeropen, setRegisteropen] = React.useState(false);
   const [email, setEmail] = React.useState("");
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -55,7 +55,11 @@ export default function Header(props) {
 
   const handleLoginOpen = () => setLoginOpen(true);
   const handleLoginClose = () => setLoginOpen(false);
-
+  const handleRegisterOpen = () => {
+    setLoginOpen(false);
+    setRegisteropen(true);
+  };
+  const handleRegisterClose = () => setRegisteropen(false);
   let data = {
     Email: email,
     Password: values.password,
@@ -72,15 +76,15 @@ export default function Header(props) {
             setRole(userdata.role);
 
             if (userdata.role === "DSInstructor") {
-              history.push("/DsInstructor/myprofile");
+              history.push("/DsInstructor/myProfile");
             } else if (userdata.role === "CarRentalAgent") {
-              history.push("/CarRental/myprofile");
+              history.push("/CarRental/myProfile");
             } else if (userdata.role === "Instructor") {
-              history.push("/Instructor/myprofile");
+              history.push("/Instructor/myProfile");
             } else if (userdata.role === "Student") {
-              history.push("student/myProfille");
+              history.push("student/myProfile");
             } else if (userdata.role === "DrivingSchool") {
-              history.push("/DrivingSchool/myprofile");
+              history.push("/DrivingSchool/myProfile");
             }
           }
           window.location.reload(false);
@@ -135,14 +139,33 @@ export default function Header(props) {
         </ul>
       </div>
       <div className="flex_rowAlign_spacebwt">
-        <Search></Search>
-        <Divider orientation="vertical" light={true} flexItem variant="middle" sx={{ margin: "10px" }} className={"divider"} />
-        <Button type="submit" text={t("Login")} buttonLableStyle="btn_main" width="50%" onClick={handleLoginOpen}></Button>
+        {/* <Search></Search> */}
+        {/* <Divider
+          orientation="vertical"
+          light={true}
+          flexItem
+          variant="middle"
+          sx={{ margin: "10px" }}
+          className={"divider"}
+        /> */}
+        <Button
+          type="submit"
+          text={t("Login")}
+          buttonLableStyle="btn_main"
+          width="20%"
+          onClick={handleLoginOpen}
+        ></Button>
 
-        <IconButton className="flag01" onClick={() => i18n.changeLanguage("en")}>
+        <IconButton
+          className="flag01"
+          onClick={() => i18n.changeLanguage("en")}
+        >
           <img alt="America" src={flag_01} className="flags-appbar langFlags" />
         </IconButton>
-        <IconButton className="flag02" onClick={() => i18n.changeLanguage("fr")}>
+        <IconButton
+          className="flag02"
+          onClick={() => i18n.changeLanguage("fr")}
+        >
           <img alt="Russia" src={flag_02} className="flags-appbar langFlags" />
         </IconButton>
 
@@ -201,7 +224,11 @@ export default function Header(props) {
                             onMouseDown={handleMouseDownPassword}
                             edge="end"
                           >
-                            {values.showPassword ? <VisibilityOff /> : <Visibility />}
+                            {values.showPassword ? (
+                              <VisibilityOff />
+                            ) : (
+                              <Visibility />
+                            )}
                           </IconButton>
                         </InputAdornment>
                       }
@@ -216,9 +243,17 @@ export default function Header(props) {
               </div>
             </Grid>
             <Grid className="termsConditionsCheckboxContainer1">
-              <Grid sx={12} sm={12} md={12} className="termsConditionsCheckbox1">
+              <Grid
+                sx={12}
+                sm={12}
+                md={12}
+                className="termsConditionsCheckbox1"
+              >
                 <Checkbox defaultChecked className="checkbox" />
-                <Typography variant="body1" className="termsConditionsCheckboxTitle1">
+                <Typography
+                  variant="body1"
+                  className="termsConditionsCheckboxTitle1"
+                >
                   {t("I read and agree to")}
                 </Typography>
                 <Link href="#" variant="body2" className="termsandconditions">
@@ -240,14 +275,19 @@ export default function Header(props) {
               <div className="account">
                 <Typography>{t("Don’t have an account?")}</Typography>
               </div>
-              <Link href="#" variant="body2">
+              <Link href="#" variant="body2" onClick={handleRegisterOpen}>
                 {t("Register now")}
               </Link>
             </Grid>
           </>
         </BasicModal>
         <div className="burger_btn">
-          <IconButton color="inherit" edge="start" aria-expanded={open ? "true" : undefined} onClick={handleClick}>
+          <IconButton
+            color="inherit"
+            edge="start"
+            aria-expanded={open ? "true" : undefined}
+            onClick={handleClick}
+          >
             <MenuIcon sx={{ fontSize: 40 }} />
           </IconButton>
         </div>
@@ -271,6 +311,14 @@ export default function Header(props) {
           <MenuItem onClick={handleClose}>{t("Contact Us")}</MenuItem>
         </Menu>
       </div>
+      <RegisterModal
+        open={Registeropen}
+        closebtn={true}
+        onClose={handleRegisterClose}
+        modalTitle={t("Register As")}
+        modalboxclassName="Register_modal"
+        modalTitleclassName="Register_title"
+      ></RegisterModal>
     </div>
   );
 }

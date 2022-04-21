@@ -15,30 +15,26 @@ import API from "../../api/index";
 
 const Services = () => {
   const { i18n, t } = useTranslation();
-  const [cards, setCards] = useState([]);
   const [card1, setCard1] = useState({});
   const [card2, setCard2] = useState({});
   const [card3, setCard3] = useState({});
-  const [lng, setLng] = useState();
+  const [lng, setLng] = useState("");
   useEffect(() => {
-    getCardsData();
     setLng(localStorage.getItem("i18nextLng"));
+    getCardsData();
   }, [localStorage.getItem("i18nextLng")]);
+
   const getCardsData = async () => {
     await API("get", "CMS/GetPageData?page=home")
       .then((getCardsDataResponse) => {
         const cardsData = getCardsDataResponse.data.data.filter(
           (item) => item.sectionName === "Our Services"
         );
-        setCards(cardsData);
+        setCard1(cardsData.find((item) => item.cardName === "Card 1"));
+        setCard2(cardsData.find((item) => item.cardName === "Card 2"));
+        setCard3(cardsData.find((item) => item.cardName === "Card 3"));
       })
       .catch((error) => console.log("error------->", error));
-    const card1Data = cards.find((item) => item.cardId === "1");
-    setCard1(card1Data);
-    const card2Data = cards.find((item) => item.cardId === "2");
-    setCard2(card2Data);
-    const card3Data = cards.find((item) => item.cardId === "3");
-    setCard3(card3Data);
   };
   return (
     <div className="main_services_container" id="services">
@@ -62,6 +58,7 @@ const Services = () => {
             <div className="card_container_inner">
               <img src={dot} alt="services" className="dot_img" />
               <Typography variant="h2" className="card_title">
+                {console.log("HAZAZAAZAAZAZAZ", card1)}
                 {lng === "en"
                   ? card1?.headingEnglish
                   : lng === "fr"
@@ -123,7 +120,7 @@ const Services = () => {
         <div className="code_card_container">
           <div className="code_card_main">
             <Card
-              heading={t("Code Pop")}
+              heading={t("Pop Code")}
               subHeading={t(
                 "Online Training That Will Revolution Your Code and permis"
               )}
