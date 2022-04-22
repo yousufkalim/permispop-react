@@ -661,7 +661,7 @@ const DrivingSchool = () => {
   const [step4, setStep4] = React.useState({
     Firstname: "",
     Surname: "",
-    Dob: new Date("01/01/2000"),
+    Dob: new Date("01/01/1999"),
     Pob: "",
     Address: {
       Label: "",
@@ -1163,7 +1163,7 @@ const DrivingSchool = () => {
   const [step6, setStep6] = React.useState({
     Firstname: "",
     Surname: "",
-    Dob: new Date("01/01/2000"),
+    Dob: new Date("01/01/1999"),
     Pob: "",
     Gender: "",
     Address: {
@@ -1734,6 +1734,8 @@ const DrivingSchool = () => {
           }
         }
       );
+    } else {
+      setActiveStep((prevActiveStep) => prevActiveStep + 1);
     }
   };
 
@@ -2054,7 +2056,7 @@ const DrivingSchool = () => {
   return (
     <React.Fragment>
       <RegisterHeader
-          src={DSRegisterImg}
+        src={DSRegisterImg}
         title={
           lng === "en"
             ? drivingSchoolForm?.headingEnglish

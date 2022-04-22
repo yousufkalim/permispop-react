@@ -74,7 +74,7 @@ const Step2 = ({ step2, setStep2, onChange,step2Errors }) => {
             name="Approvaldate"
             padding="20px 0 0 0px !important"
             width="100% !important"
-            maxDate={moment()}
+            maxDate={new Date()}
             // onChange={(e) => {
             //   onChange("Approvaldate", new Date(e));
             // }}

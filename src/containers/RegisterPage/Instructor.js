@@ -120,7 +120,7 @@ const Instructor = () => {
       Lat: "",
       Lng: "",
     },
-    Dob: "",
+    Dob: new Date("01-01-1999"),
     Pob: "",
     Gender: "",
     Email: "",
@@ -1355,6 +1355,8 @@ const Instructor = () => {
           }
         }
       );
+    } else {
+      setActiveStep((prevActiveStep) => prevActiveStep + 1);
     }
   };
 

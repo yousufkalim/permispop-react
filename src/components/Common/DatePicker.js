@@ -41,6 +41,7 @@ export default function BasicDatePicker(props) {
     <LocalizationProvider dateAdapter={AdapterDateFns} locale={localeMap[lng]}>
       <div>
         <DatePicker
+          mask={maskMap[lng]}
           label={
             props.required ? (
               <div style={{ display: "flex" }}>
@@ -84,7 +85,6 @@ export default function BasicDatePicker(props) {
           )}
           {...props.datePickerProps}
         />
-        {console.log(props.ErrorMsg, "ErrorMsg")}
       </div>
     </LocalizationProvider>
   );

@@ -65,7 +65,7 @@ const Step2 = (props) => {
             padding="20px 0 0 0px !important"
             width="100% !important"
             value={props.step2.obtainingdate}
-            maxDate={moment()}
+            maxDate={new Date()}
             onChange={(e) => {
               props.onChange(
                 "obtainingdate",
@@ -84,7 +84,7 @@ const Step2 = (props) => {
             padding="20px 0 0 0px !important"
             width="100% !important"
             value={props.step2.validitiyDate}
-            minDate={moment()}
+            minDate={new Date()}
             onChange={(e) => {
               props.onChange(
                 "validitiyDate",
@@ -140,7 +140,7 @@ const Step2 = (props) => {
             padding="20px 0 0 0px !important"
             width="100% !important"
             value={props.step2.DateAuthorization}
-            maxDate={moment()}
+            maxDate={new Date()}
             onChange={(e) => {
               props.onChange(
                 "DateAuthorization",
@@ -162,7 +162,7 @@ const Step2 = (props) => {
             padding="20px 0 0 0px !important"
             width="100% !important"
             value={props.step2.ExpirationDate}
-            minDate={moment()}
+            minDate={new Date()}
             onChange={(e) => {
               props.onChange(
                 "ExpirationDate",

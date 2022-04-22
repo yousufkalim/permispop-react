@@ -78,7 +78,7 @@ const Step1 = (props) => {
             padding="20px 0 0 0px !important"
             width="100% !important"
             value={props.step3.insuranceExpDate}
-            minDate={moment()}
+            minDate={new Date()}
             onChange={(e) => {
               props.onChange(
                 "insuranceExpDate",

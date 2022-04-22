@@ -32,7 +32,7 @@ const StudentForm = (props) => {
   const [student, setStudent] = React.useState({
     firstname: "",
     surname: "",
-    dob: "",
+    dob: new Date("01-01-2000"),
     pob: "",
     gender: "",
     email: "",
@@ -744,7 +744,7 @@ const StudentForm = (props) => {
                 disabled={disable}
                 name="dob"
                 value={student.dob}
-                maxDate={moment()}
+                maxDate={new Date()}
                 placeholder="19-10-1992"
                 onChange={(e) => {
                   handleStudent("dob", moment(e).format("YYYY-MM-DDThh:mm:ss"));

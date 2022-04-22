@@ -139,7 +139,7 @@ const Step1 = ({ step1, setStep1, onChange, step1Errors }) => {
             onChange={(e) => {
               onChange("Dob", moment(e).format("YYYY-MM-DDThh:mm:ss"));
             }}
-            maxDate={moment()}
+            maxDate={new Date()}
             padding="20px 0 0 0px !important"
             width="100% !important"
             error={step1Errors["Dob"] ? true : false}

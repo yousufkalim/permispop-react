@@ -12,10 +12,10 @@ import DropDown from "../../Common/DropDown";
 import AutoComplete from "../../Common/Autocomplete";
 import axios from "axios";
 import moment from "moment";
-import { useTranslation } from "react-i18next"
+import { useTranslation } from "react-i18next";
 
-const Step4 = ({ step4, setStep4, onChange, step4Errors}) => {
-  const { i18n , t } = useTranslation();
+const Step4 = ({ step4, setStep4, onChange, step4Errors }) => {
+  const { i18n, t } = useTranslation();
   const [addresses, setAddresses] = React.useState([]);
 
   const handleSelectAddress = (e) => {
@@ -103,8 +103,8 @@ const Step4 = ({ step4, setStep4, onChange, step4Errors}) => {
             onChange={(e) => {
               onChange(e.target.name, e.target.value);
             }}
-            error={step4Errors['Firstname']?true:false}
-            ErrorMsg={t(step4Errors['Firstname'])}
+            error={step4Errors["Firstname"] ? true : false}
+            ErrorMsg={t(step4Errors["Firstname"])}
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
@@ -117,8 +117,8 @@ const Step4 = ({ step4, setStep4, onChange, step4Errors}) => {
             onChange={(e) => {
               onChange(e.target.name, e.target.value);
             }}
-            error={step4Errors['Surname']?true:false}
-            ErrorMsg={t(step4Errors['Surname'])}
+            error={step4Errors["Surname"] ? true : false}
+            ErrorMsg={t(step4Errors["Surname"])}
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4} sx={{ marginTop: "9px" }}>
@@ -128,17 +128,17 @@ const Step4 = ({ step4, setStep4, onChange, step4Errors}) => {
             name="Dob"
             padding="20px 0 0 0px !important"
             width="100% !important"
-            maxDate={moment()}
+            maxDate={new Date()}
             // onChange={(e) => {
             //   onChange("Dob", new Date(e));
             // }}
-            
+
             onChange={(e) => {
               onChange("Dob", moment(e).format("YYYY-MM-DDThh:mm:ss"));
             }}
             value={step4.Dob}
-            error={step4Errors['Dob']?true:false}
-            ErrorMsg={step4Errors['Dob']}
+            error={step4Errors["Dob"] ? true : false}
+            ErrorMsg={step4Errors["Dob"]}
           ></DatePicker>
           <div className="borderbottom"></div>
         </Grid>
@@ -152,8 +152,8 @@ const Step4 = ({ step4, setStep4, onChange, step4Errors}) => {
             onChange={(e) => {
               onChange(e.target.name, e.target.value);
             }}
-            error={step4Errors['Pob']?true:false}
-            ErrorMsg={t(step4Errors['Pob'])}
+            error={step4Errors["Pob"] ? true : false}
+            ErrorMsg={t(step4Errors["Pob"])}
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
@@ -167,8 +167,8 @@ const Step4 = ({ step4, setStep4, onChange, step4Errors}) => {
             onChangeAddress={(e) => {
               handleAddress(e);
             }}
-            error={step4Errors['Address']?true:false}
-            ErrorMsg={t(step4Errors['Address'])}
+            error={step4Errors["Address"] ? true : false}
+            ErrorMsg={t(step4Errors["Address"])}
             onAddressSelect={(e) => handleSelectAddress(e)}
           />
         </Grid>
@@ -186,8 +186,8 @@ const Step4 = ({ step4, setStep4, onChange, step4Errors}) => {
             onChange={(e) => {
               onChange("Gender", e.target.value);
             }}
-            error={step4Errors['Gender']?true:false}
-            ErrorMsg={step4Errors['Gender']}
+            error={step4Errors["Gender"] ? true : false}
+            ErrorMsg={step4Errors["Gender"]}
           ></DropDown>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
@@ -232,23 +232,23 @@ const Step4 = ({ step4, setStep4, onChange, step4Errors}) => {
             type="file"
             value={step4.ProfileImg}
             onChange={handleFileChange}
-            error={step4Errors['ProfileImg']?true:false}
-            ErrorMsg={step4Errors['ProfileImg']}
+            error={step4Errors["ProfileImg"] ? true : false}
+            ErrorMsg={step4Errors["ProfileImg"]}
           />
         </Grid>
       </Grid>
       <Divider width="100%" borderColor="#D5E4E8" margin="2% 0px 2% 0px" />
       <div className="termsConditionsCheckboxContainer">
         <div className="termsConditionsCheckbox">
-          <Checkbox 
-            defaultChecked 
-            className="checkbox" 
+          <Checkbox
+            defaultChecked
+            className="checkbox"
             name="TermAndCondition"
-            value={step4.TermAndCondition} 
-            onClick={
-              ()=>setStep4({ ...step4, 'TermAndCondition': !step4.TermAndCondition })
+            value={step4.TermAndCondition}
+            onClick={() =>
+              setStep4({ ...step4, TermAndCondition: !step4.TermAndCondition })
             }
-            />
+          />
           <Typography variant="body1" className="termsConditionsCheckboxTitle">
             {t("Terms and Condition applied")}
           </Typography>

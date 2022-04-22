@@ -21,7 +21,6 @@ import Joi from "joi-browser";
 import { useTranslation } from "react-i18next";
 import CrRegisterImg from "../../assets/images/Frame2.svg";
 
-
 const ColorlibConnector = withStyles({
   alternativeLabel: {
     top: 23,
@@ -108,7 +107,7 @@ const RentalCar = () => {
   const [step1, setStep1] = React.useState({
     FirstName: "",
     SurName: "",
-    Dob: new Date("01/01/2000"),
+    Dob: new Date("01/01/1999"),
     Pob: "",
     Gender: "",
     Complement: "",
@@ -974,6 +973,8 @@ const RentalCar = () => {
           }
         }
       );
+    } else {
+      setActiveStep((prevActiveStep) => prevActiveStep + 1);
     }
   };
 

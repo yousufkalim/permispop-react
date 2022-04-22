@@ -146,7 +146,6 @@ const Step4 = (props) => {
         }
       })
       .catch((error) => {
-        console.log("UploadProfileImageResponce------>", error);
         toast.error(t("Image not Uploaded"));
       });
   };
@@ -307,7 +306,7 @@ const Step4 = (props) => {
                 padding="20px 0 0 0px !important"
                 width="100% !important"
                 value={props.step4.FirstRegistration}
-                maxDate={moment()}
+                maxDate={new Date()}
                 onChange={(e) => {
                   props.onChange(
                     "FirstRegistration",
@@ -442,7 +441,7 @@ const Step4 = (props) => {
                 padding="20px 0 0 0px !important"
                 width="100% !important"
                 value={props.step4.VehicleInsurerStartDate}
-                maxDate={moment()}
+                maxDate={new Date()}
                 onChange={(e) => {
                   props.onChange(
                     "VehicleInsurerStartDate",
@@ -465,7 +464,7 @@ const Step4 = (props) => {
                 padding="20px 0 0 0px !important"
                 width="100% !important"
                 value={props.step4.VehicleInsurerEndDate}
-                minDate={moment()}
+                minDate={new Date()}
                 onChange={(e) => {
                   props.onChange(
                     "VehicleInsurerEndDate",
@@ -491,7 +490,7 @@ const Step4 = (props) => {
                 padding="20px 0 0 0px !important"
                 width="100% !important"
                 value={props.step4.TechStartDate}
-                maxDate={moment()}
+                maxDate={new Date()}
                 onChange={(e) => {
                   props.onChange(
                     "TechStartDate",
@@ -510,7 +509,7 @@ const Step4 = (props) => {
                 padding="20px 0 0 0px !important"
                 width="100% !important"
                 value={props.step4.TechEndDate}
-                minDate={moment()}
+                minDate={new Date()}
                 onChange={(e) => {
                   props.onChange(
                     "TechEndDate",
@@ -618,7 +617,7 @@ const Step4 = (props) => {
                     padding="20px 0 0 0px !important"
                     width="100% !important"
                     value={props.step4.TechStartDate}
-                    maxDate={moment()}
+                    maxDate={new Date()}
                     onChange={(e) => {
                       props.onChange(
                         "TechStartDate",
@@ -637,7 +636,7 @@ const Step4 = (props) => {
                     padding="20px 0 0 0px !important"
                     width="100% !important"
                     value={props.step4.TechEndDate}
-                    minDate={moment()}
+                    minDate={new Date()}
                     onChange={(e) => {
                       props.onChange(
                         "TechEndDate",
