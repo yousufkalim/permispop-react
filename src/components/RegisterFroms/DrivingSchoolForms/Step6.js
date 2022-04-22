@@ -319,7 +319,7 @@ const Step6 = ({
                 padding="20px 0 0 0px !important"
                 width="100% !important"
                 value={step6.Dob}
-                maxDate={moment()}
+                maxDate={new Date()}
                 onChange={(e) => {
                   onChange("Dob", moment(e).format("YYYY-MM-DDThh:mm:ss"));
                 }}
@@ -544,7 +544,7 @@ const Step6 = ({
                 padding="20px 0 0 0px !important"
                 width="100% !important"
                 value={step6.DriverLicenseStartDate}
-                maxDate={moment()}
+                maxDate={new Date()}
                 onChange={(e) => {
                   onChange(
                     "DriverLicenseStartDate",
@@ -564,7 +564,7 @@ const Step6 = ({
                 padding="20px 0 0 0px !important"
                 width="100% !important"
                 value={step6.DriverLicenseEndDate}
-                minDate={moment()}
+                minDate={new Date()}
                 onChange={(e) => {
                   onChange(
                     "DriverLicenseEndDate",
@@ -617,7 +617,7 @@ const Step6 = ({
                 padding="20px 0 0 0px !important"
                 width="100% !important"
                 value={step6.ExcAuthStartDate}
-                maxDate={moment()}
+                maxDate={new Date()}
                 onChange={(e) => {
                   onChange(
                     "ExcAuthStartDate",
@@ -636,7 +636,7 @@ const Step6 = ({
                 name="ExcAuthEndDate"
                 padding="20px 0 0 0px !important"
                 width="100% !important"
-                minDate={moment()}
+                minDate={new Date()}
                 onChange={(e) => {
                   onChange(
                     "ExcAuthEndDate",

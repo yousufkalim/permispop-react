@@ -180,7 +180,7 @@ const Step1 = (props) => {
             name="Dob"
             required={true}
             value={props.step1.Dob}
-            maxDate={moment()}
+            maxDate={new Date()}
             // openTo={'01' | '01' | '2000'}
             // maxDate={moment("2000-01-01")}
             onChange={(e) => {

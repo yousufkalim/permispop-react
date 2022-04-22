@@ -48,7 +48,7 @@ const style = {
 };
 
 const Step3 = (props) => {
-  const { i18n , t } = useTranslation();
+  const { i18n, t } = useTranslation();
   const [FirstRegDate, setFirstRegDate] = React.useState(new Date());
   const [StartDate, setStartDate] = React.useState(new Date());
   const [EndDate, setEndDate] = React.useState(new Date());
@@ -98,7 +98,7 @@ const Step3 = (props) => {
   const handleAdd = () => {
     props.setVehicles((prev) => [...prev, props.step3]);
     setAddVehicle(false);
-    props.setStep3Errors({})
+    props.setStep3Errors({});
   };
 
   const handleDeleteVehicle = (index) => {
@@ -306,7 +306,7 @@ const Step3 = (props) => {
                 required={true}
                 value={props.step3.FristRegDate}
                 name="FristRegDate"
-                maxDate={moment()}
+                maxDate={new Date()}
                 onChange={(e) => {
                   props.onChange(
                     "FristRegDate",
@@ -315,8 +315,8 @@ const Step3 = (props) => {
                 }}
                 padding="20px 0 0 0px !important"
                 width="100% !important"
-                error={props.step3Errors['FristRegDate']?true:false}
-            ErrorMsg={props.step3Errors['FristRegDate']}
+                error={props.step3Errors["FristRegDate"] ? true : false}
+                ErrorMsg={props.step3Errors["FristRegDate"]}
               />
               <div className="borderbottom"></div>
             </Grid>
@@ -328,8 +328,8 @@ const Step3 = (props) => {
                 value={props.step3.Brand}
                 onChange={(e) => getExcludingMakes(e)}
                 MenuItem={allMakes}
-                error={props.step3Errors['Brand']?true:false}
-            ErrorMsg={props.step3Errors['Brand']}
+                error={props.step3Errors["Brand"] ? true : false}
+                ErrorMsg={props.step3Errors["Brand"]}
               ></DropDown>
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
@@ -343,8 +343,8 @@ const Step3 = (props) => {
                   props.onChange("Model", e.target.value);
                 }}
                 MenuItem={excludingMakes}
-                error={props.step3Errors['Model']?true:false}
-                ErrorMsg={props.step3Errors['Model']}
+                error={props.step3Errors["Model"] ? true : false}
+                ErrorMsg={props.step3Errors["Model"]}
               ></DropDown>
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
@@ -357,8 +357,8 @@ const Step3 = (props) => {
                 onChange={(e) => {
                   props.onChange(e.target.name, e.target.value);
                 }}
-                error={props.step3Errors['NumberPlate']?true:false}
-                ErrorMsg={t(props.step3Errors['NumberPlate'])}
+                error={props.step3Errors["NumberPlate"] ? true : false}
+                ErrorMsg={t(props.step3Errors["NumberPlate"])}
               ></TextField>
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
@@ -371,8 +371,8 @@ const Step3 = (props) => {
                 onChange={(e) => {
                   props.onChange(e.target.name, e.target.value);
                 }}
-                error={props.step3Errors['Color']?true:false}
-                ErrorMsg={t(props.step3Errors['Color'])}
+                error={props.step3Errors["Color"] ? true : false}
+                ErrorMsg={t(props.step3Errors["Color"])}
               ></TextField>
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
@@ -388,8 +388,8 @@ const Step3 = (props) => {
                 onChange={(e) => {
                   props.onChange("GearBox", e.target.value);
                 }}
-                error={props.step3Errors['GearBox']?true:false}
-                ErrorMsg={props.step3Errors['GearBox']}
+                error={props.step3Errors["GearBox"] ? true : false}
+                ErrorMsg={props.step3Errors["GearBox"]}
               ></DropDown>
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
@@ -410,8 +410,8 @@ const Step3 = (props) => {
                 onChange={(e) => {
                   props.onChange("Energy", e.target.value);
                 }}
-                error={props.step3Errors['Energy']?true:false}
-                ErrorMsg={props.step3Errors['Energy']}
+                error={props.step3Errors["Energy"] ? true : false}
+                ErrorMsg={props.step3Errors["Energy"]}
               ></DropDown>
             </Grid>
           </Grid>
@@ -424,25 +424,25 @@ const Step3 = (props) => {
               <Grid item xs={12} sm={12} md={4}>
                 <FilePicker
                   title={t("Upload your Image")}
-                required={true}
-                label="YourImg"
+                  required={true}
+                  label="YourImg"
                   name="VehicleImg"
                   value={props.step3.VehicleImg}
                   onChange={handleFileChange}
-                  error={props.step3Errors['VehicleImg']?true:false}
-                  ErrorMsg={props.step3Errors['VehicleImg']}
+                  error={props.step3Errors["VehicleImg"] ? true : false}
+                  ErrorMsg={props.step3Errors["VehicleImg"]}
                 />
               </Grid>
               <Grid item xs={12} sm={12} md={4}>
                 <FilePicker
                   title={t("Upload Vehicle Registration Certificate")}
                   label="RegCertificate"
-                required={true}
-                name="VehicleRegImg"
+                  required={true}
+                  name="VehicleRegImg"
                   value={props.step3.VehicleRegImg}
                   onChange={handleFileChange}
-                  error={props.step3Errors['VehicleRegImg']?true:false}
-                  ErrorMsg={props.step3Errors['VehicleRegImg']}
+                  error={props.step3Errors["VehicleRegImg"] ? true : false}
+                  ErrorMsg={props.step3Errors["VehicleRegImg"]}
                 />
               </Grid>
             </Grid>
@@ -461,8 +461,8 @@ const Step3 = (props) => {
                 onChange={(e) => {
                   props.onChange(e.target.name, e.target.value);
                 }}
-                error={props.step3Errors['VehicleInsurer']?true:false}
-            ErrorMsg={t(props.step3Errors['VehicleInsurer'])}
+                error={props.step3Errors["VehicleInsurer"] ? true : false}
+                ErrorMsg={t(props.step3Errors["VehicleInsurer"])}
               ></TextField>
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
@@ -475,8 +475,8 @@ const Step3 = (props) => {
                 onChange={(e) => {
                   props.onChange(e.target.name, e.target.value);
                 }}
-                error={props.step3Errors['PoliceNumber']?true:false}
-                ErrorMsg={t(props.step3Errors['PoliceNumber'])}
+                error={props.step3Errors["PoliceNumber"] ? true : false}
+                ErrorMsg={t(props.step3Errors["PoliceNumber"])}
               ></TextField>
             </Grid>
             <Grid item xs={12} sm={12} md={4} sx={{ marginTop: "9px" }}>
@@ -487,15 +487,15 @@ const Step3 = (props) => {
                 name="StartDate"
                 padding="20px 0 0 0px !important"
                 width="100% !important"
-                maxDate={moment()}
+                maxDate={new Date()}
                 onChange={(e) => {
                   props.onChange(
                     "StartDate",
                     moment(e).format("YYYY-MM-DDThh:mm:ss")
                   );
                 }}
-                error={props.step3Errors['StartDate']?true:false}
-                ErrorMsg={props.step3Errors['StartDate']}
+                error={props.step3Errors["StartDate"] ? true : false}
+                ErrorMsg={props.step3Errors["StartDate"]}
               />
               <div className="borderbottom"></div>
             </Grid>
@@ -507,15 +507,15 @@ const Step3 = (props) => {
                 value={props.step3.EndDate}
                 padding="20px 0 0 0px !important"
                 width="100% !important"
-                minDate={moment()}
+                minDate={new Date()}
                 onChange={(e) => {
                   props.onChange(
                     "EndDate",
                     moment(e).format("YYYY-MM-DDThh:mm:ss")
                   );
                 }}
-                error={props.step3Errors['EndDate']?true:false}
-                ErrorMsg={props.step3Errors['EndDate']}
+                error={props.step3Errors["EndDate"] ? true : false}
+                ErrorMsg={props.step3Errors["EndDate"]}
               />
               <div className="borderbottom"></div>
             </Grid>
@@ -525,94 +525,107 @@ const Step3 = (props) => {
               <Grid item xs={12} sm={12} md={4}>
                 <FilePicker
                   title={t("Upload Scanned Green Card")}
-                required={true}
-                label={t("GreenCard")}
+                  required={true}
+                  label={t("GreenCard")}
                   name="GreenCard"
                   value={props.step3.GreenCard}
                   onChange={handleFileChange}
-                  error={props.step3Errors['GreenCard']?true:false}
-                  ErrorMsg={props.step3Errors['GreenCard']}
+                  error={props.step3Errors["GreenCard"] ? true : false}
+                  ErrorMsg={props.step3Errors["GreenCard"]}
                 />
               </Grid>
             </Grid>
           </div>
-          
+
           <div className="termsConditionsCheckboxContainer">
-        <div className="termsConditionsCheckbox">
-          <Checkbox
-            name="TechnicalControlCheck"
-            className="checkbox"
-            onClick={(e) =>  props.onChange('checked', !props.step3.checked)}
-          />
-          <Typography variant="body1" className="termsConditionsCheckboxTitle">
-          {t("Technical Control if any?")}
-          </Typography>
-        </div>
-      </div>
-      {props.step3.checked ? (
-        <div>
-                    <Divider width="100%" borderColor="#D5E4E8" margin="2% 0px 2% 0px" />
-          <Typography className="Heading1">{t("Technical Control")}</Typography>
-          <Divider width="100%" borderColor="#D5E4E8" margin="2% 0px 2% 0px" />
-          <Grid container spacing={4}>
-            <Grid item xs={12} sm={12} md={4} sx={{ marginTop: "9px" }}>
-              <DatePicker
-                label={t("Date of Technical Control")}
-                value={props.step3.TechControlDate}
-                name="TechControlDate"
-                padding="20px 0 0 0px !important"
-                width="100% !important"
-                maxDate={moment()}
-                onChange={(e) => {
-                  props.onChange(
-                    "TechControlDate",
-                    moment(e).format("YYYY-MM-DDThh:mm:ss")
-                  );
-                }}
-                // error={props.step3Errors['TechControlDate']?true:false}
-                // ErrorMsg={props.step3Errors['TechControlDate']}
+            <div className="termsConditionsCheckbox">
+              <Checkbox
+                name="TechnicalControlCheck"
+                className="checkbox"
+                onClick={(e) => props.onChange("checked", !props.step3.checked)}
               />
-              <div className="borderbottom"></div>
-            </Grid>
-            <Grid item xs={12} sm={12} md={4} sx={{ marginTop: "9px" }}>
-              <DatePicker
-                label={t("End Date")}
-                value={props.step3.TechEndDate}
-                name="TechEndDate"
-                padding="20px 0 0 0px !important"
-                width="100% !important"
-                minDate={moment()}
-                onChange={(e) => {
-                  props.onChange(
-                    "TechEndDate",
-                    moment(e).format("YYYY-MM-DDThh:mm:ss")
-                  );
-                }}
-                // error={props.step3Errors['TechEndDate']?true:false}
-                // ErrorMsg={props.step3Errors['TechEndDate']}
-              />
-              <div className="borderbottom"></div>
-            </Grid>
-          </Grid>
-          <div className="VehicleInsurance">
-            <Grid container spacing={4}>
-              <Grid item xs={12} sm={12} md={4}>
-                <FilePicker
-                  title={t("Scan and upload your CT")}
-                  label="YourCt"
-                  name="CtImg"
-                  value={props.step3.CtImg}
-                  onChange={handleFileChange}
-            //                     error={props.step3Errors['CtImg']?true:false}
-            // ErrorMsg={props.step3Errors['CtImg']}
-                />
-              </Grid>
-            </Grid>
+              <Typography
+                variant="body1"
+                className="termsConditionsCheckboxTitle"
+              >
+                {t("Technical Control if any?")}
+              </Typography>
+            </div>
           </div>
-      </div>
-      ) : (
-        ""
-      )}
+          {props.step3.checked ? (
+            <div>
+              <Divider
+                width="100%"
+                borderColor="#D5E4E8"
+                margin="2% 0px 2% 0px"
+              />
+              <Typography className="Heading1">
+                {t("Technical Control")}
+              </Typography>
+              <Divider
+                width="100%"
+                borderColor="#D5E4E8"
+                margin="2% 0px 2% 0px"
+              />
+              <Grid container spacing={4}>
+                <Grid item xs={12} sm={12} md={4} sx={{ marginTop: "9px" }}>
+                  <DatePicker
+                    label={t("Date of Technical Control")}
+                    value={props.step3.TechControlDate}
+                    name="TechControlDate"
+                    padding="20px 0 0 0px !important"
+                    width="100% !important"
+                    maxDate={new Date()}
+                    onChange={(e) => {
+                      props.onChange(
+                        "TechControlDate",
+                        moment(e).format("YYYY-MM-DDThh:mm:ss")
+                      );
+                    }}
+                    // error={props.step3Errors['TechControlDate']?true:false}
+                    // ErrorMsg={props.step3Errors['TechControlDate']}
+                  />
+                  <div className="borderbottom"></div>
+                </Grid>
+                <Grid item xs={12} sm={12} md={4} sx={{ marginTop: "9px" }}>
+                  <DatePicker
+                    label={t("End Date")}
+                    value={props.step3.TechEndDate}
+                    name="TechEndDate"
+                    padding="20px 0 0 0px !important"
+                    width="100% !important"
+                    minDate={new Date()}
+                    onChange={(e) => {
+                      props.onChange(
+                        "TechEndDate",
+                        moment(e).format("YYYY-MM-DDThh:mm:ss")
+                      );
+                    }}
+                    // error={props.step3Errors['TechEndDate']?true:false}
+                    // ErrorMsg={props.step3Errors['TechEndDate']}
+                  />
+                  <div className="borderbottom"></div>
+                </Grid>
+              </Grid>
+              <div className="VehicleInsurance">
+                <Grid container spacing={4}>
+                  <Grid item xs={12} sm={12} md={4}>
+                    <FilePicker
+                      title={t("Scan and upload your CT")}
+                      label="YourCt"
+                      name="CtImg"
+                      value={props.step3.CtImg}
+                      onChange={handleFileChange}
+                      //                     error={props.step3Errors['CtImg']?true:false}
+                      // ErrorMsg={props.step3Errors['CtImg']}
+                    />
+                  </Grid>
+                </Grid>
+              </div>
+            </div>
+          ) : (
+            ""
+          )}
           <div
             style={{
               display: "flex",
@@ -630,42 +643,41 @@ const Step3 = (props) => {
               height2="48px"
               onClick={isEdit ? handleSaveEditVehicle : handleAdd}
               disabled={
-                           props.step3Errors.FristRegDate===null 
-                        && props.step3Errors.Brand===null 
-                        && props.step3Errors.Model===null 
-                        && props.step3Errors.NumberPlate===null 
-                        && props.step3Errors.Color===null 
-                        && props.step3Errors.GearBox===null 
-                        && props.step3Errors.Energy===null 
-                        && props.step3Errors.VehicleImg===null 
-                        && props.step3Errors.VehicleRegImg===null 
-                        && props.step3Errors.VehicleInsurer===null 
-                        && props.step3Errors.PoliceNumber===null 
-                        && props.step3Errors.StartDate===null 
-                        && props.step3Errors.EndDate===null 
-                        && props.step3Errors.GreenCard===null 
-
-                        && props.step3.checked===false
-
-                        || props.step3Errors.TechControlDate===null 
-                        && props.step3Errors.TechEndDate===null 
-                        && props.step3Errors.CtImg===null 
-                        && props.step3Errors.FristRegDate===null 
-                        && props.step3Errors.Brand===null 
-                        && props.step3Errors.Model===null 
-                        && props.step3Errors.NumberPlate===null 
-                        && props.step3Errors.Color===null 
-                        && props.step3Errors.GearBox===null 
-                        && props.step3Errors.Energy===null 
-                        && props.step3Errors.VehicleImg===null 
-                        && props.step3Errors.VehicleRegImg===null 
-                        && props.step3Errors.VehicleInsurer===null 
-                        && props.step3Errors.PoliceNumber===null 
-                        && props.step3Errors.StartDate===null 
-                        && props.step3Errors.EndDate===null 
-                        && props.step3Errors.GreenCard===null 
-                        ? false : true }
-              
+                (props.step3Errors.FristRegDate === null &&
+                  props.step3Errors.Brand === null &&
+                  props.step3Errors.Model === null &&
+                  props.step3Errors.NumberPlate === null &&
+                  props.step3Errors.Color === null &&
+                  props.step3Errors.GearBox === null &&
+                  props.step3Errors.Energy === null &&
+                  props.step3Errors.VehicleImg === null &&
+                  props.step3Errors.VehicleRegImg === null &&
+                  props.step3Errors.VehicleInsurer === null &&
+                  props.step3Errors.PoliceNumber === null &&
+                  props.step3Errors.StartDate === null &&
+                  props.step3Errors.EndDate === null &&
+                  props.step3Errors.GreenCard === null &&
+                  props.step3.checked === false) ||
+                (props.step3Errors.TechControlDate === null &&
+                  props.step3Errors.TechEndDate === null &&
+                  props.step3Errors.CtImg === null &&
+                  props.step3Errors.FristRegDate === null &&
+                  props.step3Errors.Brand === null &&
+                  props.step3Errors.Model === null &&
+                  props.step3Errors.NumberPlate === null &&
+                  props.step3Errors.Color === null &&
+                  props.step3Errors.GearBox === null &&
+                  props.step3Errors.Energy === null &&
+                  props.step3Errors.VehicleImg === null &&
+                  props.step3Errors.VehicleRegImg === null &&
+                  props.step3Errors.VehicleInsurer === null &&
+                  props.step3Errors.PoliceNumber === null &&
+                  props.step3Errors.StartDate === null &&
+                  props.step3Errors.EndDate === null &&
+                  props.step3Errors.GreenCard === null)
+                  ? false
+                  : true
+              }
             ></Button>
           </div>
         </Box>

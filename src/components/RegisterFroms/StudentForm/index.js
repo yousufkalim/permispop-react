@@ -744,7 +744,7 @@ const StudentForm = (props) => {
                 disabled={disable}
                 name="dob"
                 value={student.dob}
-                maxDate={moment()}
+                maxDate={new Date()}
                 placeholder="19-10-1992"
                 onChange={(e) => {
                   handleStudent("dob", moment(e).format("YYYY-MM-DDThh:mm:ss"));

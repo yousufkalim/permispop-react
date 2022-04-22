@@ -684,7 +684,6 @@ const Calendar = () => {
                   />
                   <Button
                     text={t("Confirm")}
-                    type="submit"
                     textColor="#FFFFFF !important"
                     width="110px !important"
                     color="#149E7A !important"
@@ -861,7 +860,6 @@ const Calendar = () => {
                   />
                   <Button
                     text={t("Confirm")}
-                    type="submit"
                     textColor="#FFFFFF !important"
                     width="110px !important"
                     color="#149E7A !important"
@@ -1038,7 +1036,6 @@ const Calendar = () => {
                   />
                   <Button
                     text={t("Confirm")}
-                    type="submit"
                     textColor="#FFFFFF !important"
                     width="110px !important"
                     color="#149E7A !important"
@@ -1074,7 +1071,6 @@ const Calendar = () => {
           />
           <Button
             text={t("Yes")}
-            type="submit"
             textColor="#FFFFFF !important"
             width="110px !important"
             color="#149E7A !important"
@@ -1150,7 +1146,6 @@ const Calendar = () => {
               />
               <Button
                 text={t("Delete")}
-                type="submit"
                 textColor="#FFFFFF !important"
                 width="110px !important"
                 color="#149E7A !important"

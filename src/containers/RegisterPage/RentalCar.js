@@ -21,7 +21,6 @@ import Joi from "joi-browser";
 import { useTranslation } from "react-i18next";
 import CrRegisterImg from "../../assets/images/Frame2.svg";
 
-
 const ColorlibConnector = withStyles({
   alternativeLabel: {
     top: 23,
@@ -974,6 +973,8 @@ const RentalCar = () => {
           }
         }
       );
+    } else {
+      setActiveStep((prevActiveStep) => prevActiveStep + 1);
     }
   };
 

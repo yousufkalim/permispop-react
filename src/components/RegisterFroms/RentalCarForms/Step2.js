@@ -11,8 +11,8 @@ import axios from "axios";
 import moment from "moment";
 import { useTranslation } from "react-i18next";
 
-const Step2 = ({ step2, setStep2, onChange,step2Errors }) => {
-  const { i18n , t } = useTranslation();
+const Step2 = ({ step2, setStep2, onChange, step2Errors }) => {
+  const { i18n, t } = useTranslation();
   const [InsuranceDateExp, setInsuranceDateExp] = useState();
 
   const handleExpirationDate = (newvalue) => {
@@ -55,8 +55,8 @@ const Step2 = ({ step2, setStep2, onChange,step2Errors }) => {
                 onChange={(e) => {
                   onChange(e.target.name, e.target.value);
                 }}
-                error={step2Errors['Siret']?true:false}
-            ErrorMsg={t(step2Errors['Siret'])}
+                error={step2Errors["Siret"] ? true : false}
+                ErrorMsg={t(step2Errors["Siret"])}
               ></TextField>
             </div>
           </Grid>
@@ -69,8 +69,8 @@ const Step2 = ({ step2, setStep2, onChange,step2Errors }) => {
                 name="Kbls"
                 value={step2.Kbls}
                 onChange={handleFileChange}
-                error={step2Errors['Kbls']?true:false}
-            ErrorMsg={step2Errors['Kbls']}
+                error={step2Errors["Kbls"] ? true : false}
+                ErrorMsg={step2Errors["Kbls"]}
               />
             </div>
           </Grid>
@@ -90,8 +90,8 @@ const Step2 = ({ step2, setStep2, onChange,step2Errors }) => {
             onChange={(e) => {
               onChange(e.target.name, e.target.value);
             }}
-            error={step2Errors['CompanyInsurer']?true:false}
-            ErrorMsg={t(step2Errors['CompanyInsurer'])}
+            error={step2Errors["CompanyInsurer"] ? true : false}
+            ErrorMsg={t(step2Errors["CompanyInsurer"])}
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
@@ -104,8 +104,8 @@ const Step2 = ({ step2, setStep2, onChange,step2Errors }) => {
             onChange={(e) => {
               onChange(e.target.name, e.target.value);
             }}
-            error={step2Errors['CompanyPoliceNumber']?true:false}
-            ErrorMsg={t(step2Errors['CompanyPoliceNumber'])}
+            error={step2Errors["CompanyPoliceNumber"] ? true : false}
+            ErrorMsg={t(step2Errors["CompanyPoliceNumber"])}
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4} sx={{ marginTop: "9px" }}>
@@ -118,15 +118,15 @@ const Step2 = ({ step2, setStep2, onChange,step2Errors }) => {
             name="InsuranceDateExp"
             required={true}
             value={step2.InsuranceDateExp}
-            minDate={moment()}
+            minDate={new Date()}
             onChange={(e) => {
               onChange(
                 "InsuranceDateExp",
                 moment(e).format("YYYY-MM-DDThh:mm:ss")
               );
             }}
-            error={step2Errors['InsuranceDateExp']?true:false}
-            ErrorMsg={step2Errors['InsuranceDateExp']}
+            error={step2Errors["InsuranceDateExp"] ? true : false}
+            ErrorMsg={step2Errors["InsuranceDateExp"]}
           />
           <div className="borderbottom"></div>
 
@@ -144,8 +144,8 @@ const Step2 = ({ step2, setStep2, onChange,step2Errors }) => {
             label="LicenseFront"
             value={step2.RcPro}
             onChange={handleFileChange}
-            error={step2Errors['RcPro']?true:false}
-            ErrorMsg={step2Errors['RcPro']}
+            error={step2Errors["RcPro"] ? true : false}
+            ErrorMsg={step2Errors["RcPro"]}
           />
         </Grid>
       </Grid>

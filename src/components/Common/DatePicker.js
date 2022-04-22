@@ -38,9 +38,10 @@ export default function BasicDatePicker(props) {
   }));
   const classes = useStyles();
   return (
-    <LocalizationProvider dateAdapter={AdapterDateFns} locale={localeMap[lng]}>
+    <LocalizationProvider dateAdapter={AdapterDateFns}>
       <div>
         <DatePicker
+          mask={maskMap[lng]}
           label={
             props.required ? (
               <div style={{ display: "flex" }}>
@@ -55,7 +56,7 @@ export default function BasicDatePicker(props) {
           value={props.value}
           disabled={props.disabled === true ? true : false}
           maxDate={props.maxDate}
-          minDate={props.minDate}
+          // minDate={props.minDate}
           shouldDisableDate={props.shouldDisableDate}
           shouldDisableYear={props.shouldDisableYear}
           onChange={props.onChange}
@@ -84,7 +85,6 @@ export default function BasicDatePicker(props) {
           )}
           {...props.datePickerProps}
         />
-        {console.log(props.ErrorMsg, "ErrorMsg")}
       </div>
     </LocalizationProvider>
   );

@@ -1734,6 +1734,8 @@ const DrivingSchool = () => {
           }
         }
       );
+    } else {
+      setActiveStep((prevActiveStep) => prevActiveStep + 1);
     }
   };
 
@@ -2054,7 +2056,7 @@ const DrivingSchool = () => {
   return (
     <React.Fragment>
       <RegisterHeader
-          src={DSRegisterImg}
+        src={DSRegisterImg}
         title={
           lng === "en"
             ? drivingSchoolForm?.headingEnglish

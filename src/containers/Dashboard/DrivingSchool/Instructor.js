@@ -1546,7 +1546,7 @@ const Index = () => {
                 padding="20px 0 0 0px !important"
                 width="100% !important"
                 value={instructorDetail.Dob}
-                maxDate={moment()}
+                maxDate={new Date()}
                 onChange={(e) => {
                   onChange("Dob", moment(e).format("YYYY-MM-DDThh:mm:ss"));
                 }}
@@ -1778,7 +1778,7 @@ const Index = () => {
                 padding="20px 0 0 0px !important"
                 width="100% !important"
                 value={instructorDetail.DriverLicenseStartDate}
-                maxDate={moment()}
+                maxDate={new Date()}
                 onChange={(e) => {
                   onChange(
                     "DriverLicenseStartDate",
@@ -1798,7 +1798,7 @@ const Index = () => {
                 padding="20px 0 0 0px !important"
                 width="100% !important"
                 value={instructorDetail.DriverLicenseEndDate}
-                minDate={moment()}
+                minDate={new Date()}
                 onChange={(e) => {
                   onChange(
                     "DriverLicenseEndDate",
@@ -1851,7 +1851,7 @@ const Index = () => {
                 padding="20px 0 0 0px !important"
                 width="100% !important"
                 value={instructorDetail.ExcAuthStartDate}
-                maxDate={moment()}
+                maxDate={new Date()}
                 onChange={(e) => {
                   onChange(
                     "ExcAuthStartDate",
@@ -1870,7 +1870,7 @@ const Index = () => {
                 name="ExcAuthEndDate"
                 padding="20px 0 0 0px !important"
                 width="100% !important"
-                minDate={moment()}
+                minDate={new Date()}
                 onChange={(e) => {
                   onChange(
                     "ExcAuthEndDate",
