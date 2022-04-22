@@ -16,7 +16,7 @@ import { useTranslation } from "react-i18next";
 import API from "../../../api";
 
 const InsuranceDetails = () => {
-  const { i18n , t } = useTranslation();
+  const { i18n, t } = useTranslation();
   const style = {
     position: "absolute",
     top: "50%",
@@ -192,9 +192,11 @@ const InsuranceDetails = () => {
               <input
                 placeholder="05/05/2012"
                 value={
-                  technicalcontrol.startDateOfTech
+                  technicalcontrol
                     ? technicalcontrol.startDateOfTech
-                    : ""
+                      ? technicalcontrol.startDateOfTech
+                      : "N/A"
+                    : "N/A"
                 }
                 disabled
               />
@@ -204,9 +206,11 @@ const InsuranceDetails = () => {
               <input
                 placeholder="05/05/2012"
                 value={
-                  technicalcontrol.endDateOfTechControl
+                  technicalcontrol
                     ? technicalcontrol.endDateOfTechControl
-                    : ""
+                      ? technicalcontrol.endDateOfTechControl
+                      : "N/A"
+                    : "N/A"
                 }
                 disabled
               />
