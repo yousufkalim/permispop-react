@@ -24,7 +24,7 @@ const Hero = () => {
         );
         setHeader(headerData);
       })
-      .catch((error) => console.log("error------->", error));
+      .catch((error) => console.log(error));
   };
   const handleRegisterOpen = () => setRegisteropen(true);
   const handleRegisterClose = () => setRegisteropen(false);
@@ -34,7 +34,6 @@ const Hero = () => {
         <Header />
         <div className="hero_title_div">
           <Typography variant="h2" align="center" className="hero_title">
-            {console.log("qwertyurfghjk", lng)}
             {lng === "en"
               ? header.headingEnglish
               : lng === "fr"
