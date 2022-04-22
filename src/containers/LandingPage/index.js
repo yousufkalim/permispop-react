@@ -3,6 +3,7 @@ import Hero from "../../components/Landing/Hero";
 import Services from "../../components/Landing/Services";
 import ContactUs from "../../components/Landing/ContactUs";
 import Footer from "../../components/Landing/Footer";
+import Cookies from "../../components/Landing/Cookies";
 
 const LandingPage = () => {
   return (
@@ -11,6 +12,7 @@ const LandingPage = () => {
       <Services />
       <ContactUs />
       <Footer />
+      <Cookies />
     </React.Fragment>
   );
 };
