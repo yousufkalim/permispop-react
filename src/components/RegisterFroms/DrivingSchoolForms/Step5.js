@@ -87,7 +87,7 @@ const Step5 = ({
 
   const handleOpenModal = () => {
     setStep5({
-      RegistrationDate: new Date(),
+      RegistrationDate: "",
       Brand: "",
       Model: "",
       NumberPlate: "",
@@ -99,17 +99,21 @@ const Step5 = ({
       CertificateBackImage: "",
       Insurer: "",
       PoliceNumber: "",
-      StartDate: new Date(),
-      EndDate: new Date(),
+      StartDate: "",
+      EndDate: "",
       GreenCard: "",
-      TechControlDate: new Date(),
-      TechEndDate: new Date(),
+      TechControlDate: "",
+      TechEndDate: "",
       CTImg: "",
       TechnicalControlCheck: "",
       checked: false,
     });
     setIsEdit(false);
     setAddVehicle(true);
+  };
+  const closeAddModal = () => {
+    setAddVehicle(false);
+    setStep5Errors({});
   };
 
   const handleAdd = () => {
@@ -281,7 +285,7 @@ const Step5 = ({
 
       <Modal
         open={addVehicle}
-        onClose={() => setAddVehicle(false)}
+        onClose={() => closeAddModal()}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
@@ -307,7 +311,6 @@ const Step5 = ({
                 error={step5Errors["RegistrationDate"] ? true : false}
                 ErrorMsg={step5Errors["RegistrationDate"]}
               ></DatePicker>
-              <div className="borderbottom"></div>
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
               <DropDown
@@ -499,7 +502,6 @@ const Step5 = ({
                 error={step5Errors["StartDate"] ? true : false}
                 ErrorMsg={step5Errors["StartDate"]}
               ></DatePicker>
-              <div className="borderbottom"></div>
             </Grid>
             <Grid item xs={12} sm={12} md={4} sx={{ marginTop: "9px" }}>
               <DatePicker
@@ -516,7 +518,6 @@ const Step5 = ({
                 error={step5Errors["EndDate"] ? true : false}
                 ErrorMsg={step5Errors["EndDate"]}
               ></DatePicker>
-              <div className="borderbottom"></div>
             </Grid>
           </Grid>
           <div className="VehicleInsurance">
@@ -584,7 +585,6 @@ const Step5 = ({
                     error={step5Errors["TechControlDate"] ? true : false}
                     ErrorMsg={step5Errors["TechControlDate"]}
                   ></DatePicker>
-                  <div className="borderbottom"></div>
                 </Grid>
                 <Grid item xs={12} sm={12} md={4} sx={{ marginTop: "9px" }}>
                   <DatePicker
@@ -603,7 +603,6 @@ const Step5 = ({
                     error={step5Errors["TechEndDate"] ? true : false}
                     ErrorMsg={step5Errors["TechEndDate"]}
                   ></DatePicker>
-                  <div className="borderbottom"></div>
                 </Grid>
               </Grid>
               <div className="VehicleInsurance">
@@ -641,45 +640,44 @@ const Step5 = ({
               height="48px"
               height2="48px"
               onClick={isEdit ? handleSaveEditVehicle : handleAdd}
-              // disabled={
-              //    step5Errors.RegistrationDate===null
-              // && step5Errors.Brand===null
-              // && step5Errors.Model===null
-              // && step5Errors.NumberPlate===null
-              // && step5Errors.GearBox===null
-              // && step5Errors.Color===null
-              // && step5Errors.Energy===null
-              // && step5Errors.CarImage===null
-              // && step5Errors.CertificateFrontImage===null
-              // && step5Errors.CertificateBackImage===null
-              // && step5Errors.Insurer===null
-              // && step5Errors.PoliceNumber===null
-              // && step5Errors.StartDate===null
-              // && step5Errors.EndDate===null
-              // && step5Errors.GreenCard===null
-
-              // && step5.checked===false
-
-              // || step5Errors.TechControlDate===null
-              // && step5Errors.TechEndDate===null
-              // && step5Errors.CTImg===null
-              // && step5Errors.RegistrationDate===null
-              // && step5Errors.Brand===null
-              // && step5Errors.Model===null
-              // && step5Errors.NumberPlate===null
-              // && step5Errors.GearBox===null
-              // && step5Errors.Color===null
-              // && step5Errors.Energy===null
-              // && step5Errors.CarImage===null
-              // && step5Errors.CertificateFrontImage===null
-              // && step5Errors.CertificateBackImage===null
-              // && step5Errors.Insurer===null
-              // && step5Errors.PoliceNumber===null
-              // && step5Errors.StartDate===null
-              // && step5Errors.EndDate===null
-              // && step5Errors.GreenCard===null
-
-              // ? false : true}
+              disabled={
+                (step5Errors.RegistrationDate === null &&
+                  step5Errors.Brand === null &&
+                  step5Errors.Model === null &&
+                  step5Errors.NumberPlate === null &&
+                  step5Errors.GearBox === null &&
+                  step5Errors.Color === null &&
+                  step5Errors.Energy === null &&
+                  step5Errors.CarImage === null &&
+                  step5Errors.CertificateFrontImage === null &&
+                  step5Errors.CertificateBackImage === null &&
+                  step5Errors.Insurer === null &&
+                  step5Errors.PoliceNumber === null &&
+                  step5Errors.StartDate === null &&
+                  step5Errors.EndDate === null &&
+                  step5Errors.GreenCard === null &&
+                  step5.checked === false) ||
+                (step5Errors.TechControlDate === null &&
+                  step5Errors.TechEndDate === null &&
+                  step5Errors.CTImg === null &&
+                  step5Errors.RegistrationDate === null &&
+                  step5Errors.Brand === null &&
+                  step5Errors.Model === null &&
+                  step5Errors.NumberPlate === null &&
+                  step5Errors.GearBox === null &&
+                  step5Errors.Color === null &&
+                  step5Errors.Energy === null &&
+                  step5Errors.CarImage === null &&
+                  step5Errors.CertificateFrontImage === null &&
+                  step5Errors.CertificateBackImage === null &&
+                  step5Errors.Insurer === null &&
+                  step5Errors.PoliceNumber === null &&
+                  step5Errors.StartDate === null &&
+                  step5Errors.EndDate === null &&
+                  step5Errors.GreenCard === null)
+                  ? false
+                  : true
+              }
             ></Button>
           </div>
         </Box>

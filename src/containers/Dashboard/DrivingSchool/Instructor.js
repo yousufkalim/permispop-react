@@ -1553,7 +1553,6 @@ const Index = () => {
                 error={step6Errors["Dob"] ? true : false}
                 ErrorMsg={step6Errors["Dob"]}
               ></DatePicker>
-              <div className="borderbottom"></div>
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
               <TextField
@@ -1788,7 +1787,6 @@ const Index = () => {
                 error={step6Errors["DriverLicenseStartDate"] ? true : false}
                 ErrorMsg={step6Errors["DriverLicenseStartDate"]}
               ></DatePicker>
-              <div className="borderbottom"></div>
             </Grid>
             <Grid item xs={12} sm={12} md={4} sx={{ marginTop: "9px" }}>
               <DatePicker
@@ -1808,7 +1806,6 @@ const Index = () => {
                 error={step6Errors["DriverLicenseEndDate"] ? true : false}
                 ErrorMsg={step6Errors["DriverLicenseEndDate"]}
               ></DatePicker>
-              <div className="borderbottom"></div>
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
               <FilePicker
@@ -1861,7 +1858,6 @@ const Index = () => {
                 error={step6Errors["ExcAuthStartDate"] ? true : false}
                 ErrorMsg={step6Errors["ExcAuthStartDate"]}
               ></DatePicker>
-              <div className="borderbottom"></div>
             </Grid>
             <Grid item xs={12} sm={12} md={4} sx={{ marginTop: "9px" }}>
               <DatePicker
@@ -1881,7 +1877,6 @@ const Index = () => {
                 ErrorMsg={step6Errors["ExcAuthEndDate"]}
                 value={instructorDetail.ExcAuthEndDate}
               ></DatePicker>
-              <div className="borderbottom"></div>
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
               <TextField

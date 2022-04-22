@@ -89,7 +89,12 @@
   width: 100% !important;
   background: #ebf3f5 !important;
 }
-.borderBottom:focus {
+.borderbottomError {
+  height: 1% !important;
+  width: 100% !important;
+  background: red !important;
+}
+.borderbottom:focus {
   background: green !important;
 }
 .makeStyles-chip-77 {

@@ -109,7 +109,6 @@ const Step2 = (props) => {
             error={props.step2Errors["deliveryPlace"] ? true : false}
             ErrorMsg={t(props.step2Errors["deliveryPlace"])}
           ></TextField>
-          <div className="borderbottom"></div>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <TextField
@@ -124,7 +123,6 @@ const Step2 = (props) => {
             error={props.step2Errors["issuingAuthority"] ? true : false}
             ErrorMsg={t(props.step2Errors["issuingAuthority"])}
           ></TextField>
-          <div className="borderbottom"></div>
         </Grid>
       </Grid>
       <Typography className="Heading1" sx={{ marginTop: "2%" }}>
@@ -150,7 +148,6 @@ const Step2 = (props) => {
             error={props.step2Errors["DateAuthorization"] ? true : false}
             ErrorMsg={props.step2Errors["DateAuthorization"]}
           ></Datepicker>
-          <div className="borderbottom"></div>
         </Grid>
 
         <Grid item xs={12} sm={12} md={4} sx={{ marginTop: "9px" }}>
@@ -172,7 +169,6 @@ const Step2 = (props) => {
             error={props.step2Errors["ExpirationDate"] ? true : false}
             ErrorMsg={props.step2Errors["ExpirationDate"]}
           ></Datepicker>
-          <div className="borderbottom"></div>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <TextField

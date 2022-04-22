@@ -562,7 +562,7 @@ const Profile = (props) => {
                 //   error={studentErrors['highwayCodeDate']?true:false}
                 // ErrorMsg={studentErrors['highwayCodeDate']}
               ></Datepicker>
-              <div className="borderbottom"></div>
+
               <div style={{ marginTop: "2%" }}>
                 <Button
                   text={t("Update")}

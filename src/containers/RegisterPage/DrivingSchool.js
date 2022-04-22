@@ -23,6 +23,7 @@ import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import Joi from "joi-browser";
 import { useTranslation } from "react-i18next";
 import DSRegisterImg from "../../assets/images/Frame1.svg";
+import moment from "moment";
 
 const ColorlibConnector = withStyles({
   alternativeLabel: {
@@ -104,6 +105,7 @@ const DrivingSchool = () => {
   let history = useHistory();
   const { t } = useTranslation();
   const [vehicles, setVehicles] = React.useState([]);
+  const [disable, setDisable] = React.useState(false);
   const [instructors, setInstructors] = React.useState([]);
   const [activeStep, setActiveStep] = React.useState(1);
   const [drivingSchoolForm, setDrivingSchoolForm] = useState({});
@@ -398,17 +400,18 @@ const DrivingSchool = () => {
     } else if (name === "Phone2") {
       if (value.length > 10) {
         phoneCheck = true;
-        if (step1.Phone == value) {
-          if (step1.Phone === "" && value === "") {
+        let newVal = value.substring(0, 10);
+        if (step1.Phone == newVal) {
+          if (step1.Phone === "" && newVal === "") {
           } else {
             errorMessage = t(
               "The 2nd phone number cannot be the same as the 1st"
             );
           }
-        } else if (value.length === 0) {
-        } else if (value[0] != "0") {
+        } else if (newVal.length === 0) {
+        } else if (newVal[0] != "0") {
           errorMessage = t("Phone number should start with 0");
-        } else if (value.length < 10 && value.length > 0) {
+        } else if (newVal.length < 10 && newVal.length > 0) {
           errorMessage = t("The phone must be at least 10 characters");
         }
       } else {
@@ -451,7 +454,7 @@ const DrivingSchool = () => {
   const [step2, setStep2] = React.useState({
     Number: "",
     IssuingAurh: "",
-    Approvaldate: new Date(),
+    Approvaldate: "",
     RcProImg: "",
     SiretNumber: "",
     KBIS: "",
@@ -552,9 +555,31 @@ const DrivingSchool = () => {
   };
 
   const handleStep2 = (name, value) => {
-    const errorMessage = validateSuggest2(name, value);
+    let errorMessage = "";
+    let seritCheck = false;
+    if (name === "SiretNumber") {
+      if (value.length > 14) {
+        seritCheck = true;
+        if (value.length === 0) {
+          errorMessage = t("Your SIRET number cannot be empty");
+        } else if (value.length < 14 && value.length > 0) {
+          errorMessage = t("Serit must be at least 14 characters");
+        }
+      } else {
+        if (value.length === 0) {
+          errorMessage = t("Your SIRET number cannot be empty");
+        } else if (value.length < 14 && value.length > 0) {
+          errorMessage = t("Your SIRET's length must be 14 characters long");
+        }
+      }
+    } else {
+      errorMessage = validateSuggest2(name, value);
+    }
     setStep2Errors({ ...step2Errors, [name]: errorMessage });
-    setStep2({ ...step2, [name]: value });
+    if (seritCheck) {
+    } else {
+      setStep2({ ...step2, [name]: value });
+    }
   };
 
   const validateSuggest2 = (name, value) => {
@@ -570,7 +595,7 @@ const DrivingSchool = () => {
   const [step3, setStep3] = React.useState({
     insuranceCompany: "",
     policeNumber: "",
-    dateInsurance: new Date(),
+    dateInsurance: "",
     RcPro: "",
   });
 
@@ -812,6 +837,14 @@ const DrivingSchool = () => {
     let errorMessage = "";
     if (name == "Address") {
       errorMessage = validateSuggest4(name, value.Label);
+    } else if (name === "Dob") {
+      let todayDate = moment().format("YYYY");
+      let selectedDate = moment(value).format("YYYY");
+      if (todayDate - selectedDate < 22) {
+        errorMessage = t("Driving School Manager must be 22 years or older");
+      } else if (selectedDate === "Invalid date") {
+        errorMessage = t("Enter a Valid Date");
+      }
     } else {
       errorMessage = validateSuggest4(name, value);
     }
@@ -830,7 +863,7 @@ const DrivingSchool = () => {
 
   const [step5Errors, setStep5Errors] = React.useState({});
   const [step5, setStep5] = React.useState({
-    RegistrationDate: new Date(),
+    RegistrationDate: "",
     Brand: "",
     Model: "",
     NumberPlate: "",
@@ -842,11 +875,11 @@ const DrivingSchool = () => {
     CertificateBackImage: "",
     Insurer: "",
     PoliceNumber: "",
-    StartDate: new Date(),
-    EndDate: new Date(),
+    StartDate: "",
+    EndDate: "",
     GreenCard: "",
-    TechControlDate: new Date(),
-    TechEndDate: new Date(),
+    TechControlDate: "",
+    TechEndDate: "",
     CTImg: "",
     checked: false,
     TechnicalControlCheck: "",
@@ -1182,14 +1215,14 @@ const DrivingSchool = () => {
     ConfirmPassword: "",
     ProfileImg: "",
     DriverLicenseNumber: "",
-    DriverLicenseStartDate: new Date(),
-    DriverLicenseEndDate: new Date(),
+    DriverLicenseStartDate: "",
+    DriverLicenseEndDate: "",
     DriverLicenseFrontImg: "",
     DriverLicenseBackImg: "",
     ExcAuthNumber: "",
     ExcAuthIssueAuth: "",
-    ExcAuthStartDate: new Date(),
-    ExcAuthEndDate: new Date(),
+    ExcAuthStartDate: "",
+    ExcAuthEndDate: "",
     ExcAuthFrontImg: "",
     ExcAuthBackImg: "",
     TypeContract: "",
@@ -1627,7 +1660,7 @@ const DrivingSchool = () => {
         errorMessage = t("Password cannot be empty");
       }
     } else if (name === "ConfirmPassword") {
-      if (step1.Password != value) {
+      if (step6.Password != value) {
         errorMessage = t("Password didn't match");
       } else if (value.length === 0) {
         errorMessage = t("Password cannot be empty");
@@ -1643,6 +1676,14 @@ const DrivingSchool = () => {
       } else if (regex.test(value)) {
       } else if (regex.test(value) == null || regex.test(value) == "") {
         errorMessage = t("Not a Valid Email");
+      }
+    } else if (name === "Dob") {
+      let todayDate = moment().format("YYYY");
+      let selectedDate = moment(value).format("YYYY");
+      if (todayDate - selectedDate < 22) {
+        errorMessage = t("Driving School Instructor must be 22 years or older");
+      } else if (selectedDate === "Invalid date") {
+        errorMessage = t("Enter a Valid Date");
       }
     } else if (name === "Phone") {
       if (value.length > 10) {
@@ -1748,6 +1789,7 @@ const DrivingSchool = () => {
   };
 
   const handleSubmit = async () => {
+    setDisable(true);
     let languageArray = step1.Language.map((lang) => {
       return lang.name;
     });
@@ -2010,6 +2052,7 @@ const DrivingSchool = () => {
                               })
                               .catch((error) => {
                                 console.log(error);
+                                setDisable(true);
                                 toast.error(
                                   t("Not Registered....Somethong went wrong")
                                 );
@@ -2019,21 +2062,26 @@ const DrivingSchool = () => {
                       })
                       .catch((error) => {
                         console.log("DrivingSchoolManager Error", error);
+                        setDisable(true);
                       });
                   })
                   .catch((error) => {
+                    setDisable(true);
                     console.log("InsuranceCompany Error", error);
                   });
               })
               .catch((error) => {
+                setDisable(true);
                 console.log("Business Error", error);
               });
           })
           .catch((error) => {
+            setDisable(true);
             console.log("DrivingSchoolApproval Error", error);
           });
       })
       .catch((error) => {
+        setDisable(true);
         console.log("Personal Response", error);
       });
   };
@@ -2253,63 +2301,45 @@ const DrivingSchool = () => {
                           : handleNext
                       }
                       disabled={
-                        (activeStep === 1 &&
-                          step1Errors.TradeName === null &&
-                          step1Errors.CompanyName === null &&
-                          step1Errors.Email === null &&
-                          step1Errors.Phone === null &&
-                          step1Errors.Password === "" &&
-                          step1Errors.Password2 === "" &&
-                          step1Errors.Address === null &&
-                          step1.Address.City != "" &&
-                          step1.Address.Zip != "") ||
-                        // && step1Errors.Language===null
-                        // && step1Errors.CPF===null
-                        // && step1Errors.Complement===null
-                        // && step1Errors.Email2===null
-                        // && step1Errors.Phone2===null
-
-                        //   step1.OtherPlateform === false) ||
-                        // (step1Errors.Platform === null &&
-                        //   step1Errors.Hours === null &&
-                        //   step1Errors.TradeName === null &&
-                        //   step1Errors.CompanyName === null &&
-                        //   step1Errors.Email === null &&
-                        //   step1Errors.Phone === null &&
-                        //   step1Errors.Password === "" &&
-                        //   step1Errors.Password2 === "" &&
-                        //   step1Errors.Address === null &&
-                        //   step1.Address.City != "" &&
-                        //   step1.Address.Zip != "") ||
-                        // && step1Errors.Complement===null
-                        // && step1Errors.Email2===null
-                        // && step1Errors.Phone2===null
-                        // && step1Errors.Language===null
-                        // && step1Errors.CPF===null
-
-                        (activeStep === 2 &&
-                          step2Errors.Number === null &&
-                          step2Errors.IssuingAurh === null &&
-                          step2Errors.SiretNumber === null &&
-                          step2Errors.KBIS === null &&
-                          step2Errors.Approvaldate === null &&
-                          step2Errors.RcProImg === null) ||
-                        (activeStep === 3 &&
-                          step3Errors.insuranceCompany === null &&
-                          step3Errors.policeNumber === null &&
-                          step3Errors.RcPro === null &&
-                          step3Errors.dateInsurance === null) ||
-                        (activeStep === 4 &&
-                          step4Errors.Firstname === null &&
-                          step4Errors.Surname === null &&
-                          step4Errors.Pob === null &&
-                          step4Errors.Gender === null &&
-                          step4Errors.ProfileImg === null &&
-                          step4Errors.Dob === null &&
-                          step4Errors.Address === null &&
-                          step4.TermAndCondition === false) ||
-                        (activeStep === 5 && vehicles.length > 0) ||
-                        (activeStep === 6 && instructors.length > 0)
+                        disable
+                          ? true
+                          : (activeStep === 1 &&
+                              step1Errors.TradeName === null &&
+                              step1Errors.CompanyName === null &&
+                              step1Errors.Email === null &&
+                              step1Errors.Phone === "" &&
+                              step1Errors.Password === "" &&
+                              step1Errors.Password2 === "" &&
+                              step1Errors.Address === null &&
+                              step1.Address.City != "" &&
+                              (step1Errors.Phone2 === undefined ||
+                                step1Errors.Phone2 === "") &&
+                              (step1Errors.Email2 === undefined ||
+                                step1Errors.Email2 === "") &&
+                              step1.Address.Zip != "") ||
+                            (activeStep === 2 &&
+                              step2Errors.Number === null &&
+                              step2Errors.IssuingAurh === null &&
+                              step2Errors.SiretNumber === "" &&
+                              step2Errors.KBIS === null &&
+                              step2Errors.Approvaldate === null &&
+                              step2Errors.RcProImg === null) ||
+                            (activeStep === 3 &&
+                              step3Errors.insuranceCompany === null &&
+                              step3Errors.policeNumber === null &&
+                              step3Errors.RcPro === null &&
+                              step3Errors.dateInsurance === null) ||
+                            (activeStep === 4 &&
+                              step4Errors.Firstname === null &&
+                              step4Errors.Surname === null &&
+                              step4Errors.Pob === null &&
+                              step4Errors.Gender === null &&
+                              step4Errors.ProfileImg === null &&
+                              step4Errors.Dob === "" &&
+                              step4Errors.Address === null &&
+                              step4.TermAndCondition === false) ||
+                            (activeStep === 5 && vehicles.length > 0) ||
+                            (activeStep === 6 && instructors.length > 0)
                           ? false
                           : true
                       }

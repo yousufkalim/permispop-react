@@ -19,6 +19,9 @@
   font-weight: 300 !important;
   
 }
+.css-1x51dt5-MuiInputBase-input-MuiInput-input {
+  color: black !important;
+}
 input::-webkit-outer-spin-button,
 input::-webkit-inner-spin-button {
   -webkit-appearance: none;

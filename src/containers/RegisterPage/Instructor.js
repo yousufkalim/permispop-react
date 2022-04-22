@@ -102,6 +102,7 @@ function ColorlibStepIcon(props) {
 
 const Instructor = () => {
   const [instructorForm, setInstructorForm] = React.useState({});
+  const [disable, setDisable] = React.useState(false);
   const [lng, setLng] = React.useState();
   const { i18n, t } = useTranslation();
   let history = useHistory();
@@ -448,9 +449,10 @@ const Instructor = () => {
     } else if (name === "Dob") {
       let todayDate = moment().format("YYYY");
       let selectedDate = moment(value).format("YYYY");
-      if (todayDate - selectedDate > 22) {
-      } else {
-        errorMessage = t("Instructor can’t be younger than 22 years old");
+      if (todayDate - selectedDate < 22) {
+        errorMessage = t("Instructor must be 22 years or older");
+      } else if (selectedDate === "Invalid date") {
+        errorMessage = t("Enter a Valid Date");
       }
     } else if (name === "Email2") {
       if (step1.Email == value) {
@@ -517,16 +519,6 @@ const Instructor = () => {
     } else {
       errorMessage = validateSuggest1(name, value);
     }
-    // else if (name === "Phone2") {
-    //   if (step1.Phone === value) {
-    //     errorMessage = t("Phone 2 can’t be the same as the first phone number");
-    //   } else {
-    //   }
-    //   console.log(errorMessage);
-    // }
-    //  else {
-    //   errorMessage = validateSuggest1(name, value);
-    // }
     setStep1Errors({ ...step1Errors, [name]: errorMessage });
     if (phoneCheck) {
     } else {
@@ -783,15 +775,15 @@ const Instructor = () => {
       if (value.length > 14) {
         seritCheck = true;
         if (value.length === 0) {
-          errorMessage = "serit cant be empty";
+          errorMessage = t("Your SIRET number cannot be empty");
         } else if (value.length < 14 && value.length > 0) {
-          errorMessage = "Serit must be at least 10 characters";
+          errorMessage = t("Serit must be at least 14 characters");
         }
       } else {
         if (value.length === 0) {
-          errorMessage = "serit cant be empty";
+          errorMessage = t("Your SIRET number cannot be empty");
         } else if (value.length < 14 && value.length > 0) {
-          errorMessage = "Serit must be at least 10 characters";
+          errorMessage = t("Your SIRET's length must be 14 characters long");
         }
       }
     } else {
@@ -994,7 +986,7 @@ const Instructor = () => {
 
   const [step4Errors, setStep4Errors] = React.useState({});
   const [step4, setStep4] = React.useState({
-    FirstRegistration: new Date(),
+    FirstRegistration: "",
     Brand: "",
     Model: "",
     NumPlate: "",
@@ -1133,7 +1125,7 @@ const Instructor = () => {
         return errors;
       }),
     Insurer: Joi.string()
-      .min(3)
+      .min(2)
       .required()
       .label("Insurer")
       .error((errors) => {
@@ -1367,6 +1359,8 @@ const Instructor = () => {
     setActiveStep(1);
   };
   const handleSubmit = async (e) => {
+    setDisable(true);
+
     let languageArray = step1.Language.map((lang) => {
       return lang.name;
     });
@@ -1549,27 +1543,33 @@ const Instructor = () => {
                           t("Not Registered....Error Occured"),
                           error
                         );
+                        setDisable(false);
+
                         console.log("InsuranceCompanyResponse", error);
                       });
                   })
                   .catch((error) => {
                     toast.error(t("Not Registered....Error Occured"), error);
+                    setDisable(false);
                     console.log("BusinessResponse", error);
                   });
               })
               .catch((error) => {
                 toast.error(t("Not Registered....Error Occured"), error);
+                setDisable(false);
                 console.log("ExersiceAuthorizationResponse", error);
               });
           })
           .catch((error) => {
             toast.error(t("Not Registered....Error Occured"), error);
+            setDisable(false);
             console.log("DrivingLisenceResponse", error);
           });
       })
       .catch((error) => {
         console.log("PersonalResponse", error);
         toast.error(t("Not Registered....Error Occured"), error);
+        setDisable(false);
       });
   };
   React.useEffect(() => {
@@ -1764,46 +1764,48 @@ const Instructor = () => {
                           : handleNext
                       }
                       disabled={
-                        (activeStep === 1 &&
-                          step1Errors.Firstname === null &&
-                          step1Errors.Surname === null &&
-                          step1Errors.Address === null &&
-                          step1.Address.City != "" &&
-                          step1.Address.Zip != "" &&
-                          step1Errors.Dob === "" &&
-                          step1Errors.Pob === null &&
-                          step1Errors.Gender === null &&
-                          step1Errors.Email === null &&
-                          step1Errors.Phone === "" &&
-                          step1Errors.Password === "" &&
-                          step1Errors.ConfirmPassword === "" &&
-                          step1Errors.FrontImg === null &&
-                          (step1Errors.Phone2 === undefined ||
-                            step1Errors.Phone2 === "") &&
-                          (step1Errors.Email2 === undefined ||
-                            step1Errors.Email2 === "") &&
-                          step1Errors.BackImg === null) ||
-                        (activeStep === 2 &&
-                          step2Errors.obtainingdate === null &&
-                          step2Errors.validitiyDate === null &&
-                          step2Errors.DateAuthorization === null &&
-                          step2Errors.ExpirationDate === null &&
-                          step2Errors.licenceNo === null &&
-                          step2Errors.issuingAuthority === null &&
-                          step2Errors.AuthorizationNumber === null &&
-                          step2Errors.siretNo === "" &&
-                          step2Errors.licensefront === null &&
-                          step2Errors.licenseback === null &&
-                          step2Errors.kbls === null &&
-                          step2Errors.Authorizationfront === null &&
-                          step2Errors.Authorizationback === null &&
-                          step2Errors.deliveryPlace === null) ||
-                        (activeStep === 3 &&
-                          step3Errors.companyInsurer === null &&
-                          step3Errors.companyPoliceNum === null &&
-                          step3Errors.insuranceExpDate === null &&
-                          step3Errors.companyRC === null) ||
-                        (activeStep === 4 && vehicles.length > 0)
+                        disable
+                          ? true
+                          : (activeStep === 1 &&
+                              step1Errors.Firstname === null &&
+                              step1Errors.Surname === null &&
+                              step1Errors.Address === null &&
+                              step1.Address.City != "" &&
+                              step1.Address.Zip != "" &&
+                              step1Errors.Dob === "" &&
+                              step1Errors.Pob === null &&
+                              step1Errors.Gender === null &&
+                              step1Errors.Email === null &&
+                              step1Errors.Phone === "" &&
+                              step1Errors.Password === "" &&
+                              step1Errors.ConfirmPassword === "" &&
+                              step1Errors.FrontImg === null &&
+                              (step1Errors.Phone2 === undefined ||
+                                step1Errors.Phone2 === "") &&
+                              (step1Errors.Email2 === undefined ||
+                                step1Errors.Email2 === "") &&
+                              step1Errors.BackImg === null) ||
+                            (activeStep === 2 &&
+                              step2Errors.obtainingdate === null &&
+                              step2Errors.validitiyDate === null &&
+                              step2Errors.DateAuthorization === null &&
+                              step2Errors.ExpirationDate === null &&
+                              step2Errors.licenceNo === null &&
+                              step2Errors.issuingAuthority === null &&
+                              step2Errors.AuthorizationNumber === null &&
+                              step2Errors.siretNo === "" &&
+                              step2Errors.licensefront === null &&
+                              step2Errors.licenseback === null &&
+                              step2Errors.kbls === null &&
+                              step2Errors.Authorizationfront === null &&
+                              step2Errors.Authorizationback === null &&
+                              step2Errors.deliveryPlace === null) ||
+                            (activeStep === 3 &&
+                              step3Errors.companyInsurer === null &&
+                              step3Errors.companyPoliceNum === null &&
+                              step3Errors.insuranceExpDate === null &&
+                              step3Errors.companyRC === null) ||
+                            (activeStep === 4 && vehicles.length > 0)
                           ? false
                           : true
                       }

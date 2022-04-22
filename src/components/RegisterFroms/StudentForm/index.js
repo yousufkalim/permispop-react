@@ -402,9 +402,10 @@ const StudentForm = (props) => {
     } else if (name === "dob") {
       let todayDate = moment().format("YYYY");
       let selectedDate = moment(value).format("YYYY");
-      if (todayDate - selectedDate > 16) {
-      } else {
-        errorMessage = t("Student can’t be younger than 16 years old");
+      if (todayDate - selectedDate < 16) {
+        errorMessage = t("Student must be 16 years or older");
+      } else if (selectedDate === "Invalid date") {
+        errorMessage = t("Enter a Valid Date");
       }
     } else if (name === "email2") {
       if (student.email == value) {
@@ -754,7 +755,6 @@ const StudentForm = (props) => {
                 error={studentErrors["dob"] ? true : false}
                 ErrorMsg={studentErrors["dob"]}
               ></Datepicker>
-              <div className="borderbottom"></div>
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
               <TextField
@@ -1064,7 +1064,6 @@ const StudentForm = (props) => {
                   //   error={studentErrors['highwayCodeDate']?true:false}
                   // ErrorMsg={studentErrors['highwayCodeDate']}
                 ></Datepicker>
-                <div className="borderbottom"></div>
               </Grid>
               <Grid item xs={12} sm={12} md={4} sx={{ marginLeft: "1%" }}>
                 <FilePicker
@@ -1105,51 +1104,23 @@ const StudentForm = (props) => {
                 disable
                   ? true
                   : studentErrors.firstname === null &&
-                    // && studentErrors.surname===null
-                    // && studentErrors.Address===null
-                    // && student.Address.city != ""
-                    // && student.Address.zip != ""
-                    // && studentErrors.password===''
-                    // && studentErrors.confirmpassword===''
-                    // && studentErrors.dob===null
-                    // && studentErrors.pob===null
-                    // && studentErrors.gender===null
-                    // && studentErrors.email===null
-                    // && studentErrors.phone===null
+                    studentErrors.surname === null &&
+                    studentErrors.Address === null &&
+                    student.Address.city != "" &&
+                    student.Address.zip != "" &&
+                    studentErrors.password === "" &&
+                    studentErrors.confirmpassword === "" &&
+                    studentErrors.dob === "" &&
+                    studentErrors.pob === null &&
+                    studentErrors.gender === null &&
+                    studentErrors.email === null &&
+                    studentErrors.phone === "" &&
+                    (studentErrors.phone2 === undefined ||
+                      studentErrors.phone2 === "") &&
+                    (studentErrors.email2 === undefined ||
+                      studentErrors.email2 === "") &&
                     student.TermAndCondition === true
-                  ? // && studentErrors.noh===null
-                    // && studentErrors.neph===null
-                    // && studentErrors.frontImage===null
-                    // && studentErrors.backImage===null
-                    // && studentErrors.profileImage===null
-                    // && studentErrors.language===null
-                    // && studentErrors.complement===null
-
-                    // && checkbox1===false
-                    // || studentErrors.highwayCodeDate===null
-                    // && studentErrors.highwayCodeImg===null
-                    // && studentErrors.firstname===null
-                    // && studentErrors.surname===null
-                    // && studentErrors.Address===null
-                    // && student.Address.city != ""
-                    // && student.Address.zip != ""
-                    // && studentErrors.password===''
-                    // && studentErrors.confirmpassword===''
-                    // && studentErrors.dob===null
-                    // && studentErrors.pob===null
-                    // && studentErrors.gender===null
-                    // && studentErrors.email===null
-                    // && studentErrors.phone===null
-                    // && student.TermAndCondition === true
-
-                    // && studentErrors.language===null
-                    // && studentErrors.complement===null
-                    // && studentErrors.noh===null
-                    // && studentErrors.neph===null
-                    // && studentErrors.frontImage===null
-                    // && studentErrors.backImage===null
-                    // && studentErrors.profileImage===null
-                    false
+                  ? false
                   : true
               }
             ></Button>

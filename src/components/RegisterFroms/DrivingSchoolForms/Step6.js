@@ -66,7 +66,7 @@ const Step6 = ({
     setStep6({
       Firstname: "",
       Surname: "",
-      Dob: new Date(),
+      Dob: new Date("01/01/1999"),
       Pob: "",
       Gender: "",
       Address: {
@@ -85,14 +85,14 @@ const Step6 = ({
       ConfirmPassword: "",
       ProfileImg: "",
       DriverLicenseNumber: "",
-      DriverLicenseStartDate: new Date(),
-      DriverLicenseEndDate: new Date(),
+      DriverLicenseStartDate: "",
+      DriverLicenseEndDate: "",
       DriverLicenseFrontImg: "",
       DriverLicenseBackImg: "",
       ExcAuthNumber: "",
       ExcAuthIssueAuth: "",
-      ExcAuthStartDate: new Date(),
-      ExcAuthEndDate: new Date(),
+      ExcAuthStartDate: "",
+      ExcAuthEndDate: "",
       ExcAuthFrontImg: "",
       ExcAuthBackImg: "",
       TypeContract: "",
@@ -100,7 +100,10 @@ const Step6 = ({
     setIsEdit(false);
     setAddInstructor(true);
   };
-
+  const closeAddModal = () => {
+    setAddInstructor(false);
+    setStep6Errors({});
+  };
   const handleAdd = () => {
     setInstructors((prev) => [...prev, step6]);
     setAddInstructor(false);
@@ -272,7 +275,7 @@ const Step6 = ({
 
       <Modal
         open={addInstructor}
-        onClose={() => setAddInstructor(false)}
+        onClose={() => closeAddModal()}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
@@ -326,7 +329,6 @@ const Step6 = ({
                 error={step6Errors["Dob"] ? true : false}
                 ErrorMsg={step6Errors["Dob"]}
               ></DatePicker>
-              <div className="borderbottom"></div>
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
               <TextField
@@ -554,7 +556,6 @@ const Step6 = ({
                 error={step6Errors["DriverLicenseStartDate"] ? true : false}
                 ErrorMsg={step6Errors["DriverLicenseStartDate"]}
               ></DatePicker>
-              <div className="borderbottom"></div>
             </Grid>
             <Grid item xs={12} sm={12} md={4} sx={{ marginTop: "9px" }}>
               <DatePicker
@@ -574,7 +575,6 @@ const Step6 = ({
                 error={step6Errors["DriverLicenseEndDate"] ? true : false}
                 ErrorMsg={step6Errors["DriverLicenseEndDate"]}
               ></DatePicker>
-              <div className="borderbottom"></div>
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
               <FilePicker
@@ -627,7 +627,6 @@ const Step6 = ({
                 error={step6Errors["ExcAuthStartDate"] ? true : false}
                 ErrorMsg={step6Errors["ExcAuthStartDate"]}
               ></DatePicker>
-              <div className="borderbottom"></div>
             </Grid>
             <Grid item xs={12} sm={12} md={4} sx={{ marginTop: "9px" }}>
               <DatePicker
@@ -647,7 +646,6 @@ const Step6 = ({
                 ErrorMsg={step6Errors["ExcAuthEndDate"]}
                 value={step6.ExcAuthEndDate}
               ></DatePicker>
-              <div className="borderbottom"></div>
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
               <TextField
@@ -750,37 +748,37 @@ const Step6 = ({
               height="48px"
               height2="48px"
               onClick={isEdit ? handleSaveEditInstructor : handleAdd}
-              // disabled={
-              //    step6Errors.Firstname===null
-              //           && step6Errors.Surname===null
-              //           && step6Errors.Pob===null
-              //           && step6Errors.Gender===null
-              //           && step6Errors.Email===null
-              //           && step6Errors.Phone===null
-              //           && step6Errors.Password===null
-              //           && step6Errors.ConfirmPassword===null
-              //           && step6Errors.DriverLicenseNumber===null
-              //           && step6Errors.DriverLicenseFrontImg===null
-              //           && step6Errors.DriverLicenseBackImg===null
-              //           && step6Errors.ExcAuthNumber===null
-              //           && step6Errors.ExcAuthIssueAuth===null
-              //           && step6Errors.ExcAuthFrontImg===null
-              //           && step6Errors.ExcAuthBackImg===null
-              //           && step6Errors.Dob===null
-              //           && step6Errors.DriverLicenseStartDate===null
-              //           && step6Errors.DriverLicenseEndDate===null
-              //           && step6Errors.ExcAuthStartDate===null
-              //           && step6Errors.ExcAuthEndDate===null
-              //           && step6Errors.Address===null
-              //           && step6.Address.City != ""
-              //           && step6.Address.Zip != ""
-
-              // && step6Errors.Complement===null
-              // && step6Errors.Email2===null
-              // && step6Errors.Phone2===null
-              // && step6Errors.ProfileImg===null
-              // && step6Errors.TypeContract===null
-              // ? false : true }
+              disabled={
+                step6Errors.Firstname === null &&
+                step6Errors.Surname === null &&
+                step6Errors.Pob === null &&
+                step6Errors.Gender === null &&
+                step6Errors.Email === null &&
+                step6Errors.Phone === "" &&
+                (step6Errors.Phone2 === undefined ||
+                  step6Errors.Phone2 === "") &&
+                (step6Errors.Email2 === undefined ||
+                  step6Errors.Email2 === "") &&
+                step6Errors.Password === "" &&
+                step6Errors.ConfirmPassword === "" &&
+                step6Errors.DriverLicenseNumber === null &&
+                step6Errors.DriverLicenseFrontImg === null &&
+                step6Errors.DriverLicenseBackImg === null &&
+                step6Errors.ExcAuthNumber === null &&
+                step6Errors.ExcAuthIssueAuth === null &&
+                step6Errors.ExcAuthFrontImg === null &&
+                step6Errors.ExcAuthBackImg === null &&
+                step6Errors.Dob === "" &&
+                step6Errors.DriverLicenseStartDate === null &&
+                step6Errors.DriverLicenseEndDate === null &&
+                step6Errors.ExcAuthStartDate === null &&
+                step6Errors.ExcAuthEndDate === null &&
+                step6Errors.Address === null &&
+                step6.Address.City != "" &&
+                step6.Address.Zip != ""
+                  ? false
+                  : true
+              }
             ></Button>
           </div>
         </Box>

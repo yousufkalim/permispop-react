@@ -49,28 +49,30 @@ const style = {
 
 const Step3 = (props) => {
   const { i18n, t } = useTranslation();
-  const [FirstRegDate, setFirstRegDate] = React.useState(new Date());
-  const [StartDate, setStartDate] = React.useState(new Date());
-  const [EndDate, setEndDate] = React.useState(new Date());
-  const [TechnicalControl, setTechnicalControl] = React.useState(new Date());
+  // const [FirstRegDate, setFirstRegDate] = React.useState(new Date());
+  // const [StartDate, setStartDate] = React.useState(new Date());
+  // const [EndDate, setEndDate] = React.useState(new Date());
+  // const [TechnicalControl, setTechnicalControl] = React.useState(new Date());
   const [addVehicle, setAddVehicle] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
   const [editIndex, setEditIndex] = useState("");
-  const [TechnicalControlEndDate, setTechnicalControlEndDate] = React.useState(
-    new Date()
-  );
+  // const [TechnicalControlEndDate, setTechnicalControlEndDate] = React.useState(
+  //   new Date()
+  // );
   const [allMakes, setAllMakes] = useState([]);
   const [excludingMakes, setExcludingMakes] = useState([]);
   const [allModels, setAllModels] = useState([]);
 
   useEffect(() => {
+    console.log("step3", props.step3);
+
     getAllMakes();
     getAllModels();
   }, []);
 
   const handleOpenModal = () => {
     props.setStep3({
-      FirstRegistration: new Date(),
+      FirstRegistration: "",
       Brand: "",
       Model: "",
       NumPlate: "",
@@ -79,10 +81,10 @@ const Step3 = (props) => {
       Gearbox: "",
       Insurer: "",
       PoliceNum: "",
-      VehicleInsurerStartDate: new Date(),
-      VehicleInsurerEndDate: new Date(),
-      TechControlDate: new Date(),
-      TechEndDate: new Date(),
+      VehicleInsurerStartDate: "",
+      VehicleInsurerEndDate: "",
+      TechControlDate: "",
+      TechEndDate: "",
       PhotoPath: "",
       RegCertificatefront: "",
       RegCertificateback: "",
@@ -93,6 +95,10 @@ const Step3 = (props) => {
     });
     setIsEdit(false);
     setAddVehicle(true);
+  };
+  const closeAddModal = () => {
+    setAddVehicle(false);
+    props.setStep3Errors({});
   };
 
   const handleAdd = () => {
@@ -281,7 +287,7 @@ const Step3 = (props) => {
 
       <Modal
         open={addVehicle}
-        onClose={() => setAddVehicle(false)}
+        onClose={() => closeAddModal()}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
@@ -318,7 +324,6 @@ const Step3 = (props) => {
                 error={props.step3Errors["FristRegDate"] ? true : false}
                 ErrorMsg={props.step3Errors["FristRegDate"]}
               />
-              <div className="borderbottom"></div>
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
               <DropDown
@@ -497,7 +502,6 @@ const Step3 = (props) => {
                 error={props.step3Errors["StartDate"] ? true : false}
                 ErrorMsg={props.step3Errors["StartDate"]}
               />
-              <div className="borderbottom"></div>
             </Grid>
             <Grid item xs={12} sm={12} md={4} sx={{ marginTop: "9px" }}>
               <DatePicker
@@ -517,7 +521,6 @@ const Step3 = (props) => {
                 error={props.step3Errors["EndDate"] ? true : false}
                 ErrorMsg={props.step3Errors["EndDate"]}
               />
-              <div className="borderbottom"></div>
             </Grid>
           </Grid>
           <div className="VehicleInsurance">
@@ -585,7 +588,6 @@ const Step3 = (props) => {
                     // error={props.step3Errors['TechControlDate']?true:false}
                     // ErrorMsg={props.step3Errors['TechControlDate']}
                   />
-                  <div className="borderbottom"></div>
                 </Grid>
                 <Grid item xs={12} sm={12} md={4} sx={{ marginTop: "9px" }}>
                   <DatePicker
@@ -604,7 +606,6 @@ const Step3 = (props) => {
                     // error={props.step3Errors['TechEndDate']?true:false}
                     // ErrorMsg={props.step3Errors['TechEndDate']}
                   />
-                  <div className="borderbottom"></div>
                 </Grid>
               </Grid>
               <div className="VehicleInsurance">
