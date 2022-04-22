@@ -15,7 +15,7 @@ import { toast } from "react-toastify";
 import { useTranslation } from "react-i18next";
 
 const InsuranceDetails = () => {
-  const { i18n , t } = useTranslation();
+  const { i18n, t } = useTranslation();
   const [businesstore, setBusinesStore] = useState({});
   const [vehicledetail, setVehicleDetail] = useState({});
   const [technicalcontrol, setTechnicalControl] = useState({});
@@ -163,9 +163,11 @@ const InsuranceDetails = () => {
               <input
                 placeholder="05/05/2012"
                 value={
-                  technicalcontrol.startDateOfTech
+                  technicalcontrol
                     ? technicalcontrol.startDateOfTech
-                    : ""
+                      ? technicalcontrol.startDateOfTech
+                      : "N/A"
+                    : "N/A"
                 }
               />
             </Grid>
@@ -174,9 +176,11 @@ const InsuranceDetails = () => {
               <input
                 placeholder="05/05/2012"
                 value={
-                  technicalcontrol.endDateOfTechControl
+                  technicalcontrol
                     ? technicalcontrol.endDateOfTechControl
-                    : ""
+                      ? technicalcontrol.endDateOfTechControl
+                      : "N/A"
+                    : "N/A"
                 }
               />
             </Grid>

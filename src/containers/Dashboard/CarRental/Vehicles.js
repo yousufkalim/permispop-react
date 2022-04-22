@@ -20,7 +20,6 @@ import AddCircleIcon from "@mui/icons-material/AddCircle";
 
 import API from "../../../api";
 import { Typography, Grid, Box, Checkbox, Paper, Modal } from "@mui/material";
-import { async } from "validate.js";
 import Joi from "joi-browser";
 import { useTranslation } from "react-i18next";
 
@@ -508,7 +507,9 @@ const Index = () => {
     setEditIndex(index);
     setIsEdit(true);
 
-    let technical = JSON.parse(tempArray[index].technicalControlInfoID);
+    let technical = tempArray[index].technicalControlInfoID
+      ? JSON.parse(tempArray[index].technicalControlInfoID)
+      : "";
     let vehicleIns = JSON.parse(tempArray[index].vehichleInsuranceInfoId);
 
     setSelectedTechnicalId(technical);
@@ -530,9 +531,9 @@ const Index = () => {
       StartDate: vehicleIns.startDate,
       EndDate: vehicleIns.endDate,
       GreenCard: vehicleIns.greenCardImagePath,
-      TechControlDate: technical.dateofTechnicalControl,
-      TechEndDate: technical.endDate,
-      CtImg: technical.technicalControlImagePath,
+      TechControlDate: technical != "" && technical.dateofTechnicalControl,
+      TechEndDate: technical != "" && technical.endDate,
+      CtImg: technical != "" && technical.technicalControlImagePath,
     });
     setIsEdit(true);
     setAddVehicle(true);
