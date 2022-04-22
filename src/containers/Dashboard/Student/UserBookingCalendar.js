@@ -289,7 +289,10 @@ const Calendar = () => {
 
   const handleAddBooking = async () => {
     setdisabled(true);
-
+    console.log(
+      "selectedAvailability.start",
+      moment(selectedAvailability.start).add(parseInt(duration), "hours")
+    );
     if (
       parseInt(selectedAvailability.startHour) + parseInt(duration) >=
       parseInt(selectedAvailability.endHour)
@@ -298,15 +301,15 @@ const Calendar = () => {
       setdisabled(false);
     } else {
       var endDate = moment(selectedAvailability.start).add(
-        parseInt(duration),
+        parseInt(duration) + 5,
         "hours"
       );
 
-      var startDate = moment(selectedAvailability.start).subtract(5, "hours");
+      var startDate = moment(selectedAvailability.start);
 
       await API("post", `Bookings`, {
         VehicleId: selectedAvailability.vehicle,
-        bookingDate: moment(selectedAvailability.start),
+        bookingDate: moment(selectedAvailability.start).add(5, "hours"),
         drivingSchoolId:
           selectedInstructor.role === "DrivingSchool"
             ? selectedInstructor.id
