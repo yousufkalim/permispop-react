@@ -58,71 +58,74 @@ const useStyles = makeStyles((theme) => ({
 
 export default function LanguageAutoComplete(props) {
   const classes = useStyles();
-const valHtml = props.value.map((option, index) => {
-  // This is to handle new options added by the user (allowed by freeSolo prop).
-  const label = option.name || option;
+  const valHtml = props.value.map((option, index) => {
+    // This is to handle new options added by the user (allowed by freeSolo prop).
+    const label = option.name || option;
+    return (
+      <Chip
+        key={label}
+        label={label}
+        deleteIcon={<RemoveIcon />}
+        onDelete={() => {
+          props.setVal(
+            props.name,
+            props.value.filter((entry) => entry !== option)
+          );
+        }}
+      />
+    );
+  });
+
   return (
-    <Chip
-      key={label}
-      label={label}
-      deleteIcon={<RemoveIcon />}
-      onDelete={() => {
-        props.setVal(props.name, props.value.filter((entry) => entry !== option));
-      }}
-    />
-  );
-});
-
-return (
-  <FormControl
-    className={classes.formControl}
-    error={props.error ? true : false}
-    variant={props.variant || "standard"}
-    {...props.FormControlProps}
-  >
-    <InputLabel
-      {...props.inputLabelProps}
-      className={[classes.inputLabels, props.inputLabelStyle].join(" ")}
-      shrink={true}
+    <FormControl
+      className={classes.formControl}
+      error={props.error ? true : false}
+      variant={props.variant || "standard"}
+      {...props.FormControlProps}
     >
-      {props.label}
-      {props.required? <div style={{color:'red'}}> *</div>:''}
-    </InputLabel>
-    <Autocomplete
-      multiple
-      filterSelectedOptions
-      getOptionLabel={(option) => option.name}
-      options={props.options}
-      disabled={props.disabled}
-      renderTags={() => {}}
-      value={props.value}
-      // onChange={(e, newValue) => props.setVal(newValue)}
-      onChange={(e, newValue) => props.setVal(props.name, newValue)}
-      renderInput={(params) => (
-        <TextField
-          {...params}
-          fullWidth
-          sx={{
-            width: "100% !important",
-            height: "72px !important",
-          }}
-          inputProps={{
-            ...params.inputProps,
-            className: classes.textfield,
-            Autocomplete: "##autoComplete",
-          }}
-          variant="standard"
-          placeholder="Language"
-        />
-      )}
-    />
+      <InputLabel
+        {...props.inputLabelProps}
+        className={[classes.inputLabels, props.inputLabelStyle].join(" ")}
+        shrink={true}
+      >
+        {props.label}
+        {props.required ? <div style={{ color: "red" }}> *</div> : ""}
+      </InputLabel>
+      <Autocomplete
+        multiple
+        filterSelectedOptions
+        getOptionLabel={(option) => option.name}
+        options={props.options}
+        disabled={props.disabled}
+        renderTags={() => {}}
+        value={props.value}
+        // onChange={(e, newValue) => props.setVal(newValue)}
+        onChange={(e, newValue) => props.setVal(props.name, newValue)}
+        renderInput={(params) => (
+          <TextField
+            {...params}
+            fullWidth
+            sx={{
+              width: "100% !important",
+              height: "72px !important",
+            }}
+            inputProps={{
+              ...params.inputProps,
+              className: classes.textfield,
+              Autocomplete: "##autoCompletelanguage",
+            }}
+            variant="standard"
+            placeholder="Language"
+          />
+        )}
+      />
 
-    <div style={{ position: "absolute", bottom: "-50px" }}>{valHtml}</div>
-    {props.error && (
-      <FormHelperText className={classes.helper} {...props.helperProps}>
-        {props.ErrorMsg}
-      </FormHelperText>
-    )}
-  </FormControl>
-);
+      <div style={{ position: "absolute", bottom: "-50px" }}>{valHtml}</div>
+      {props.error && (
+        <FormHelperText className={classes.helper} {...props.helperProps}>
+          {props.ErrorMsg}
+        </FormHelperText>
+      )}
+    </FormControl>
+  );
 }

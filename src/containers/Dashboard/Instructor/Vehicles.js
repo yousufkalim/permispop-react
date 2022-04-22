@@ -827,7 +827,6 @@ const Index = () => {
                 padding="20px 0 0 0px !important"
                 width="100% !important"
               />
-              <div className="borderbottom"></div>
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
               <DropDown
@@ -1011,7 +1010,6 @@ const Index = () => {
                 error={vehicleErrors["StartDate"] ? true : false}
                 ErrorMsg={vehicleErrors["StartDate"]}
               />
-              <div className="borderbottom"></div>
             </Grid>
             <Grid item xs={12} sm={12} md={4} sx={{ marginTop: "9px" }}>
               <DatePicker
@@ -1028,7 +1026,6 @@ const Index = () => {
                 error={vehicleErrors["EndDate"] ? true : false}
                 ErrorMsg={vehicleErrors["EndDate"]}
               />
-              <div className="borderbottom"></div>
             </Grid>
           </Grid>
           <div className="VehicleInsurance">
@@ -1093,7 +1090,6 @@ const Index = () => {
                     error={vehicleErrors["TechControlDate"] ? true : false}
                     ErrorMsg={vehicleErrors["TechControlDate"]}
                   />
-                  <div className="borderbottom"></div>
                 </Grid>
                 <Grid item xs={12} sm={12} md={4} sx={{ marginTop: "9px" }}>
                   <DatePicker
@@ -1112,7 +1108,6 @@ const Index = () => {
                     error={vehicleErrors["TechEndDate"] ? true : false}
                     ErrorMsg={vehicleErrors["TechEndDate"]}
                   />
-                  <div className="borderbottom"></div>
                 </Grid>
               </Grid>
               <div className="VehicleInsurance">

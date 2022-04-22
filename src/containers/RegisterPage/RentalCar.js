@@ -20,6 +20,7 @@ import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import Joi from "joi-browser";
 import { useTranslation } from "react-i18next";
 import CrRegisterImg from "../../assets/images/Frame2.svg";
+import moment from "moment";
 
 const ColorlibConnector = withStyles({
   alternativeLabel: {
@@ -98,6 +99,7 @@ function ColorlibStepIcon(props) {
 
 const RentalCar = () => {
   const { i18n, t } = useTranslation();
+  const [disable, setDisable] = React.useState(false);
   const [rentalCarForm, setRentalCarForm] = useState({});
   const [lng, setLng] = useState();
   let history = useHistory();
@@ -476,6 +478,14 @@ const RentalCar = () => {
           errorMessage = t("The phone must be at least 10 characters");
         }
       }
+    } else if (name === "Dob") {
+      let todayDate = moment().format("YYYY");
+      let selectedDate = moment(value).format("YYYY");
+      if (todayDate - selectedDate < 22) {
+        errorMessage = t("Car Rental Agent must be 22 years or older");
+      } else if (selectedDate === "Invalid date") {
+        errorMessage = t("Enter a Valid Date");
+      }
     } else {
       errorMessage = validateSuggest1(name, value);
     }
@@ -502,7 +512,7 @@ const RentalCar = () => {
     Kbls: "",
     CompanyInsurer: "",
     CompanyPoliceNumber: "",
-    InsuranceDateExp: new Date(),
+    InsuranceDateExp: "",
     RcPro: "",
   });
 
@@ -615,9 +625,32 @@ const RentalCar = () => {
       }),
   };
   const handleStep2 = (name, value) => {
-    const errorMessage = validateSuggest2(name, value);
+    let errorMessage = "";
+    let seritCheck = false;
+    if (name === "Siret") {
+      if (value.length > 14) {
+        seritCheck = true;
+        if (value.length === 0) {
+          errorMessage = t("Your SIRET number cannot be empty");
+        } else if (value.length < 14 && value.length > 0) {
+          errorMessage = t("Serit must be at least 14 characters");
+        }
+      } else {
+        if (value.length === 0) {
+          errorMessage = t("Your SIRET number cannot be empty");
+        } else if (value.length < 14 && value.length > 0) {
+          errorMessage = t("Your SIRET's length must be 14 characters long");
+        }
+      }
+    } else {
+      errorMessage = validateSuggest2(name, value);
+    }
     setStep2Errors({ ...step2Errors, [name]: errorMessage });
-    setStep2({ ...step2, [name]: value });
+
+    if (seritCheck) {
+    } else {
+      setStep2({ ...step2, [name]: value });
+    }
   };
 
   const validateSuggest2 = (name, value) => {
@@ -631,7 +664,7 @@ const RentalCar = () => {
 
   const [step3Errors, setStep3Errors] = React.useState({});
   const [step3, setStep3] = React.useState({
-    FristRegDate: new Date(),
+    FristRegDate: "",
     Brand: "",
     Model: "",
     NumberPlate: "",
@@ -642,11 +675,11 @@ const RentalCar = () => {
     VehicleRegImg: "",
     VehicleInsurer: "",
     PoliceNumber: "",
-    StartDate: new Date(),
-    EndDate: new Date(),
+    StartDate: "",
+    EndDate: "",
     GreenCard: "",
-    TechControlDate: new Date(),
-    TechEndDate: new Date(),
+    TechControlDate: "",
+    TechEndDate: "",
     CtImg: "",
     checked: true,
     TechnicalControlCheck: "",
@@ -987,6 +1020,8 @@ const RentalCar = () => {
   };
 
   const handleSubmit = async () => {
+    setDisable(true);
+
     await API("post", "Personal", {
       FirstName: step1.FirstName,
       SurName: step1.SurName,
@@ -1110,12 +1145,14 @@ const RentalCar = () => {
             });
           })
           .catch((error) => {
+            setDisable(false);
             console.log("Business Error", error);
           });
 
         console.log("personalResres", personalRes.data.data);
       })
       .catch((error) => {
+        setDisable(false);
         console.log("Personal Response", error);
       });
   };
@@ -1301,33 +1338,35 @@ const RentalCar = () => {
                           : handleNext
                       }
                       disabled={
-                        (activeStep === 1 &&
-                          step1Errors.Address === null &&
-                          step1.Address.City != "" &&
-                          step1.Address.Zip != "" &&
-                          step1Errors.FirstName === null &&
-                          step1Errors.SurName === null &&
-                          step1Errors.Dob === null &&
-                          step1Errors.Pob === null &&
-                          step1Errors.Gender === null &&
-                          step1Errors.Email === null &&
-                          step1Errors.Phone === "" &&
-                          step1Errors.Password === "" &&
-                          step1Errors.ConfirmPassword === "" &&
-                          step1Errors.FrontSideimg === null &&
-                          (step1Errors.Phone2 === undefined ||
-                            step1Errors.Phone2 === "") &&
-                          (step1Errors.Email2 === undefined ||
-                            step1Errors.Email2 === "") &&
-                          step1Errors.BackSideimg === null) ||
-                        (activeStep === 2 &&
-                          step2Errors.Siret === null &&
-                          step2Errors.Kbls === null &&
-                          step2Errors.CompanyInsurer === null &&
-                          step2Errors.CompanyPoliceNumber === null &&
-                          step2Errors.InsuranceDateExp === null &&
-                          step2Errors.RcPro === null) ||
-                        (activeStep === 3 && vehicles.length > 0)
+                        disable
+                          ? true
+                          : (activeStep === 1 &&
+                              step1Errors.Address === null &&
+                              step1.Address.City != "" &&
+                              step1.Address.Zip != "" &&
+                              step1Errors.FirstName === null &&
+                              step1Errors.SurName === null &&
+                              step1Errors.Dob === null &&
+                              step1Errors.Pob === null &&
+                              step1Errors.Gender === null &&
+                              step1Errors.Email === null &&
+                              step1Errors.Phone === "" &&
+                              step1Errors.Password === "" &&
+                              step1Errors.ConfirmPassword === "" &&
+                              step1Errors.FrontSideimg === null &&
+                              (step1Errors.Phone2 === undefined ||
+                                step1Errors.Phone2 === "") &&
+                              (step1Errors.Email2 === undefined ||
+                                step1Errors.Email2 === "") &&
+                              step1Errors.BackSideimg === null) ||
+                            (activeStep === 2 &&
+                              step2Errors.Siret === "" &&
+                              step2Errors.Kbls === null &&
+                              step2Errors.CompanyInsurer === null &&
+                              step2Errors.CompanyPoliceNumber === null &&
+                              step2Errors.InsuranceDateExp === null &&
+                              step2Errors.RcPro === null) ||
+                            (activeStep === 3 && vehicles.length > 0)
                           ? false
                           : true
                       }

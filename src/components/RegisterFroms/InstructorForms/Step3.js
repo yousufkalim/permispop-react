@@ -88,7 +88,6 @@ const Step1 = (props) => {
             error={props.step3Errors["insuranceExpDate"] ? true : false}
             ErrorMsg={props.step3Errors["insuranceExpDate"]}
           ></Datepicker>
-          <div className="borderbottom"></div>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <FilePicker
@@ -150,7 +149,6 @@ const Step1 = (props) => {
             error={props.step3Errors['vehicleDoOb']?true:false}
             ErrorMsg={props.step3Errors['vehicleDoOb'] && props.step3Errors['vehicleDoOb']}
           ></Datepicker>
-          <div className="borderbottom"></div>
         </Grid>
       </Grid> */}
       {/* <Grid container spacing={4} mt={2} className="InsuranceSection">
@@ -171,7 +169,6 @@ const Step1 = (props) => {
             error={props.step3Errors['ExpDateinsurance']?true:false}
             ErrorMsg={props.step3Errors['ExpDateinsurance'] && props.step3Errors['ExpDateinsurance']}
           ></Datepicker>
-          <div className="borderbottom"></div>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <FilePicker

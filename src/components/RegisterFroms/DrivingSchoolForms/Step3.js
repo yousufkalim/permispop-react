@@ -80,7 +80,6 @@ const Step3 = ({ step3, setStep3, onChange, step3Errors }) => {
             error={step3Errors["dateInsurance"] ? true : false}
             ErrorMsg={step3Errors["dateInsurance"]}
           ></DatePicker>
-          <div className="borderbottom"></div>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <FilePicker

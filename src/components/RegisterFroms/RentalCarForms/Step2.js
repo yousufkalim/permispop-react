@@ -51,6 +51,7 @@ const Step2 = ({ step2, setStep2, onChange, step2Errors }) => {
                 type="number"
                 required={true}
                 name="Siret"
+                value={step2.Siret}
                 placeholder={t("Must be 14 Digits")}
                 onChange={(e) => {
                   onChange(e.target.name, e.target.value);
@@ -128,7 +129,6 @@ const Step2 = ({ step2, setStep2, onChange, step2Errors }) => {
             error={step2Errors["InsuranceDateExp"] ? true : false}
             ErrorMsg={step2Errors["InsuranceDateExp"]}
           />
-          <div className="borderbottom"></div>
 
           {/* replaced  */}
           {/* <TextField

@@ -34,7 +34,9 @@ export default function BasicDatePicker(props) {
       width: props.width,
     },
 
-    helper: {},
+    helper: {
+      color: "red !important",
+    },
   }));
   const classes = useStyles();
   return (
@@ -52,6 +54,7 @@ export default function BasicDatePicker(props) {
               props.label
             )
           }
+          error={true}
           shrink={false}
           value={props.value}
           disabled={props.disabled === true ? true : false}
@@ -72,20 +75,18 @@ export default function BasicDatePicker(props) {
               }}
               error={props.error ? true : false}
               InputLabelProps={{ shrink: true }}
-            >
-              {props.error && (
-                <FormHelperText
-                  className={classes.helper}
-                  {...props.helperProps}
-                >
-                  {props.ErrorMsg}
-                </FormHelperText>
-              )}
-            </TextField>
+            />
           )}
           {...props.datePickerProps}
         />
       </div>
+      <div className={props.error ? "borderbottomError" : "borderbottom"}></div>
+
+      {props.error && (
+        <FormHelperText className={classes.helper} {...props.helperProps}>
+          {props.ErrorMsg}
+        </FormHelperText>
+      )}
     </LocalizationProvider>
   );
 }

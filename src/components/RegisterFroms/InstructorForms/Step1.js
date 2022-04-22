@@ -191,7 +191,6 @@ const Step1 = (props) => {
             error={props.step1Errors["Dob"] ? true : false}
             ErrorMsg={t(props.step1Errors["Dob"])}
           ></Datepicker>
-          <div className="borderbottom"></div>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <TextField
@@ -306,7 +305,7 @@ const Step1 = (props) => {
         <Grid item xs={12} sm={12} md={4}>
           <TextField
             label={t("Phone")}
-            // type="number"
+            type="number"
             required={true}
             placeholder="Phone"
             name="Phone"

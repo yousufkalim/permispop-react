@@ -62,7 +62,7 @@ const Step4 = (props) => {
 
   const handleOpenModal = () => {
     props.setStep4({
-      FirstRegistration: new Date(),
+      FirstRegistration: "",
       Brand: "",
       Model: "",
       NumPlate: "",
@@ -71,10 +71,10 @@ const Step4 = (props) => {
       Gearbox: "",
       Insurer: "",
       PoliceNum: "",
-      VehicleInsurerStartDate: new Date(),
-      VehicleInsurerEndDate: new Date(),
-      TechStartDate: new Date(),
-      TechEndDate: new Date(),
+      VehicleInsurerStartDate: "",
+      VehicleInsurerEndDate: "",
+      TechStartDate: "",
+      TechEndDate: "",
       PhotoPath: "",
       RegCertificatefront: "",
       RegCertificateback: "",
@@ -87,6 +87,10 @@ const Step4 = (props) => {
     setAddVehicle(true);
   };
 
+  const closeAddModal = () => {
+    setAddVehicle(false);
+    props.setStep4Errors({});
+  };
   const handleAdd = () => {
     props.setVehicles((prev) => [...prev, props.step4]);
     setAddVehicle(false);
@@ -291,7 +295,7 @@ const Step4 = (props) => {
 
       <Modal
         open={addVehicle}
-        onClose={() => setAddVehicle(false)}
+        onClose={() => closeAddModal()}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
@@ -453,7 +457,6 @@ const Step4 = (props) => {
                 }
                 ErrorMsg={props.step4Errors["VehicleInsurerStartDate"]}
               ></Datepicker>
-              <div className="borderbottom"></div>
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
               <Datepicker
@@ -476,7 +479,6 @@ const Step4 = (props) => {
                 }
                 ErrorMsg={props.step4Errors["VehicleInsurerEndDate"]}
               ></Datepicker>
-              <div className="borderbottom"></div>
             </Grid>
           </Grid>
           {/* <Divider width="100%" borderColor="#D5E4E8" margin="3% 0px 2% 0px" />
@@ -500,7 +502,6 @@ const Step4 = (props) => {
                 error={props.step4Errors["TechStartDate"] ? true : false}
                 ErrorMsg={props.step4Errors["TechStartDate"]}
               ></Datepicker>
-              <div className="borderbottom"></div>
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
               <Datepicker
@@ -519,7 +520,6 @@ const Step4 = (props) => {
                 error={props.step4Errors["TechEndDate"] ? true : false}
                 ErrorMsg={props.step4Errors["TechEndDate"]}
               ></Datepicker>
-              <div className="borderbottom"></div>
             </Grid>
           </Grid> */}
           <Divider width="100%" borderColor="#D5E4E8" margin="3% 0px 3% 0px" />
@@ -627,7 +627,6 @@ const Step4 = (props) => {
                     error={props.step4Errors["TechStartDate"] ? true : false}
                     ErrorMsg={props.step4Errors["TechStartDate"]}
                   ></Datepicker>
-                  <div className="borderbottom"></div>
                 </Grid>
                 <Grid item xs={12} sm={12} md={4}>
                   <Datepicker
@@ -646,7 +645,6 @@ const Step4 = (props) => {
                     error={props.step4Errors["TechEndDate"] ? true : false}
                     ErrorMsg={props.step4Errors["TechEndDate"]}
                   ></Datepicker>
-                  <div className="borderbottom"></div>
                 </Grid>
                 <Grid item xs={12} sm={12} md={4}>
                   <FilePicker

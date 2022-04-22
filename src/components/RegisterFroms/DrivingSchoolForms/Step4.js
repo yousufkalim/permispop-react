@@ -140,7 +140,6 @@ const Step4 = ({ step4, setStep4, onChange, step4Errors }) => {
             error={step4Errors["Dob"] ? true : false}
             ErrorMsg={step4Errors["Dob"]}
           ></DatePicker>
-          <div className="borderbottom"></div>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <TextField

@@ -53,7 +53,9 @@ const useStyles = makeStyles((theme) => ({
       },
     },
   },
-  helper: {},
+  helper: {
+    marginTop: "17px !important",
+  },
 }));
 export default function ComboBox(props) {
   const classes = useStyles();
@@ -110,7 +112,7 @@ export default function ComboBox(props) {
       />
       {props.error && (
         <FormHelperText className={classes.helper} {...props.helperProps}>
-          {props.ErrorMsg}
+          {t(props.ErrorMsg)}
         </FormHelperText>
       )}
     </FormControl>

@@ -630,7 +630,7 @@ i18n
             '"n° de siret" is not allowed to be empty',
 
           '"company Insurer" is not allowed to be empty':
-            '"company Insurer" is not allowed to be empty',
+            "Your company's insurer cannot be empty",
 
           '"Police Num" is not allowed to be empty':
             '"Police Num" is not allowed to be empty',
@@ -653,9 +653,9 @@ i18n
             '"Énergie" is not allowed to be empty',
 
           '"Insurer" is not allowed to be empty':
-            '"Insurer" is not allowed to be empty',
+            "Your insurer cannot be empty",
           '"Assureur" is not allowed to be empty':
-            '"Assureur" is not allowed to be empty',
+            "Your insurer cannot be empty",
 
           // car rental validation translation
 
@@ -743,7 +743,7 @@ i18n
           "First Name must be atleast 2 alphabets Longs!":
             "First Name must be atleast 2 alphabets Longs!",
           "Prénom must be atleast 2 alphabets Longs!":
-            "Prénom must be atleast 2 alphabets Longs!",
+            "First Name must be atleast 2 alphabets Longs!",
 
           "Surname must be atleast 2 alphabets Longs!":
             "Surname must be atleast 2 alphabets Longs!",
@@ -776,8 +776,8 @@ i18n
             '"Firstname" length must be at least 2 characters long',
           '"Surname" length must be at least 2 characters long':
             '"Surname" length must be at least 2 characters long',
-          '"Insurer" length must be at least 3 characters long':
-            '"Insurer" length must be at least 3 characters long',
+          '"Insurer" length must be at least 2 characters long':
+            '"Insurer" length must be at least 2 characters long',
           '"Email" is not allowed to be empty':
             '"Email" is not allowed to be empty',
           '"Email" must be a valid email': '"Email" must be a valid email',
@@ -811,10 +811,44 @@ i18n
             "The phone must be at least 10 characters",
           "Phone 2 can’t be the same as the first phone number":
             "Phone 2 can’t be the same as the first phone number",
+          "Instructor must be 22 years or older":
+            "Instructor must be 22 years or older",
+          "Driving School Manager must be 22 years or older":
+            "Driving School Manager must be 22 years or older",
+          "Driving School Instructor must be 22 years or older":
+            "Driving School Instructor must be 22 years or older",
+          "Car Rental Agent must be 22 years or older":
+            "Car Rental Agent must be 22 years or older",
+          "Student must be 16 years or older":
+            "Student must be 16 years or older",
+          "Enter a Valid Date": "Enter a Valid Date",
+          "Your SIRET number cannot be empty":
+            "Your SIRET number cannot be empty",
+          "Your SIRET's length must be 14 characters long":
+            "Your SIRET's length must be 14 characters long",
+          '"company Insurer" length must be at least 3 characters long':
+            "Your company insurer's length must be at least 3 characters long",
         },
       },
       fr: {
         translations: {
+          '"company Insurer" length must be at least 3 characters long':
+            "L'assureur de votre société doit être de minimum 3 caractères",
+          "Your SIRET's length must be 14 characters long":
+            "La longueur de votre SIRET doit être de 14 caractères",
+          "Your SIRET number cannot be empty":
+            "Votre N° SIRET ne peut pas être vide",
+          "Enter a Valid Date": "Entrez une date valide",
+          "Instructor must be 22 years or older":
+            "L'Responsable d'auto-école ne peut pas avoir moins de 22 ans",
+          "Driving School Manager must be 22 years or older":
+            "L'instructeur ne peut pas avoir moins de 22 ans",
+          "Driving School Instructor must be 22 years or older":
+            "L'Moniteur d'école de conduite ne peut pas avoir moins de 22 ans",
+          "Car Rental Agent must be 22 years or older":
+            "L'Agent de location de voitures ne peut pas avoir moins de 22 ans",
+          "Student must be 16 years or older":
+            "L'étudiant ne peut pas avoir moins de 16 ans",
           "Phone 2 can’t be the same as the first phone number":
             "Le 2ème numéro de téléphone ne peut pas être le même que le 1er",
           "No address found": "Aucune adresse trouvée",
@@ -847,7 +881,7 @@ i18n
             "L'e-mail ne doit pas être vide",
 
           '"Insurer" length must be at least 2 characters long':
-            "L’assureur ne peut pas être vide",
+            "La longueur du nom de l'assureur doit être d'au moins 2 caractères",
 
           '"Surname" length must be at least 2 characters long':
             "Le nom doit être de minimum 2 caractères",
@@ -988,9 +1022,9 @@ i18n
           "E-mail Field can't be empty!": "L'e-mail ne peut pas être vide",
 
           '"Insurer" is not allowed to be empty':
-            "L’assureur ne peut pas être vide",
+            "Votre assureur ne peut pas être vide",
           '"Assureur" is not allowed to be empty':
-            "L’assureur ne peut pas être vide",
+            "Votre assureur ne peut pas être vide",
 
           '"Energy" is not allowed to be empty':
             '"Énergie" est pas autorisé à être vide',
@@ -1009,7 +1043,7 @@ i18n
             "Le n° de police ne peut pas être vide",
 
           '"company Insurer" is not allowed to be empty':
-            "La compagnie s’assurance ne peut pas être vide",
+            "L'assureur de votre société ne peut pas être vide",
 
           '"siret No." is not allowed to be empty':
             "Le n° de SIRET ne peut pas être vide",

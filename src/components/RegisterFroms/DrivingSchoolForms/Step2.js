@@ -12,8 +12,8 @@ import DatePicker from "../../Common/DatePicker";
 import moment from "moment";
 import { useTranslation } from "react-i18next";
 
-const Step2 = ({ step2, setStep2, onChange,step2Errors }) => {
-  const { i18n , t } = useTranslation();
+const Step2 = ({ step2, setStep2, onChange, step2Errors }) => {
+  const { i18n, t } = useTranslation();
   const handleFileChange = async (e) => {
     const formdata = new FormData();
     formdata.append("file", e.target.files[0]);
@@ -48,8 +48,8 @@ const Step2 = ({ step2, setStep2, onChange,step2Errors }) => {
             onChange={(e) => {
               onChange(e.target.name, e.target.value);
             }}
-            error={step2Errors['Number']?true:false}
-            ErrorMsg={t(step2Errors['Number'])}
+            error={step2Errors["Number"] ? true : false}
+            ErrorMsg={t(step2Errors["Number"])}
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
@@ -62,13 +62,13 @@ const Step2 = ({ step2, setStep2, onChange,step2Errors }) => {
             onChange={(e) => {
               onChange(e.target.name, e.target.value);
             }}
-            error={step2Errors['IssuingAurh']?true:false}
-            ErrorMsg={t(step2Errors['IssuingAurh'])}
+            error={step2Errors["IssuingAurh"] ? true : false}
+            ErrorMsg={t(step2Errors["IssuingAurh"])}
           ></TextField>
         </Grid>
         <Grid item xs={12} sm={12} md={4} sx={{ marginTop: "9px" }}>
           <DatePicker
-          // minDate={new Date()}
+            // minDate={new Date()}
             label={t("Date of Approval")}
             required={true}
             name="Approvaldate"
@@ -81,11 +81,10 @@ const Step2 = ({ step2, setStep2, onChange,step2Errors }) => {
             onChange={(e) => {
               onChange("Approvaldate", moment(e).format("YYYY-MM-DDThh:mm:ss"));
             }}
-            error={step2Errors['Approvaldate']?true:false}
-            ErrorMsg={step2Errors['Approvaldate']}
+            error={step2Errors["Approvaldate"] ? true : false}
+            ErrorMsg={step2Errors["Approvaldate"]}
             value={step2.Approvaldate}
           ></DatePicker>
-          <div className="borderbottom"></div>
         </Grid>
         <Grid item xs={12} sm={12} md={4}>
           <FilePicker
@@ -109,16 +108,16 @@ const Step2 = ({ step2, setStep2, onChange,step2Errors }) => {
             <div className="DrivingSchool1">
               <TextField
                 label={t("SIRET Number")}
-            required={true}
-            placeholder="000000"
+                required={true}
+                placeholder="000000"
                 name="SiretNumber"
                 type="number"
                 value={step2.SiretNumber}
                 onChange={(e) => {
                   onChange(e.target.name, e.target.value);
                 }}
-                error={step2Errors['SiretNumber']?true:false}
-            ErrorMsg={t(step2Errors['SiretNumber'])}
+                error={step2Errors["SiretNumber"] ? true : false}
+                ErrorMsg={t(step2Errors["SiretNumber"])}
               ></TextField>
             </div>
           </Grid>
@@ -126,14 +125,14 @@ const Step2 = ({ step2, setStep2, onChange,step2Errors }) => {
             <div className="DrivingSchool2">
               <FilePicker
                 title={t("Upload your Kbls")}
-            required={true}
-            name="KBIS"
+                required={true}
+                name="KBIS"
                 label="Yourkbls"
                 type="file"
                 value={step2.KBIS}
                 onChange={handleFileChange}
-                error={step2Errors['KBIS']?true:false}
-            ErrorMsg={step2Errors['KBIS']}
+                error={step2Errors["KBIS"] ? true : false}
+                ErrorMsg={step2Errors["KBIS"]}
               />
             </div>
           </Grid>

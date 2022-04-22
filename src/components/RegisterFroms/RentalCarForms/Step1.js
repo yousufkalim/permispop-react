@@ -145,7 +145,6 @@ const Step1 = ({ step1, setStep1, onChange, step1Errors }) => {
             error={step1Errors["Dob"] ? true : false}
             ErrorMsg={step1Errors["Dob"]}
           />
-          <div className="borderbottom"></div>
 
           {/* replaced */}
           {/* <TextField
