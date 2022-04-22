@@ -32,7 +32,7 @@ const StudentForm = (props) => {
   const [student, setStudent] = React.useState({
     firstname: "",
     surname: "",
-    dob: "",
+    dob: new Date("01-01-2000"),
     pob: "",
     gender: "",
     email: "",
