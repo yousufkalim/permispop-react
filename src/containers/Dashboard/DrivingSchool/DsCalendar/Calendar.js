@@ -110,9 +110,10 @@ const Calendar = () => {
             }
             endingMins = end[1];
           }
+
           allAvailabilities.push({
             id: availability.id,
-            title: "Availability By " + availability.createdBy,
+            title: availability.status + " By " + availability.createdBy,
             start: new Date(
               date[0],
               parseInt(date[1]) - 1,
@@ -131,49 +132,51 @@ const Calendar = () => {
             ),
             status: availability.status,
             type: type,
+            meetUp: availability.meetUp,
+            vehicleId: availability.vehicleId,
           });
         }
       });
 
-      response.data.data.bookings.map((booking) => {
-        let date = booking.bookingDate.split("-");
-        let start = booking.startTime.split(":");
-        let end = booking.endTime.split(":");
+      // response.data.data.bookings.map((booking) => {
+      //   let date = booking.bookingDate.split("-");
+      //   let start = booking.startTime.split(":");
+      //   let end = booking.endTime.split(":");
 
-        allAvailabilities.push({
-          id: booking.id,
-          title: "Booking By " + booking.instructorQuestionFifth,
-          start: new Date(
-            date[0],
-            parseInt(date[1]) - 1,
-            date[2],
-            parseInt(start[0]) + 5,
-            start[1],
-            0
-          ),
-          end: new Date(
-            date[0],
-            parseInt(date[1]) - 1,
-            date[2],
-            parseInt(end[0]) + 5,
-            end[1],
-            0
-          ),
-          bookingTime:
-            parseInt(start[0]) +
-            5 +
-            ":" +
-            start[1] +
-            " - " +
-            (parseInt(end[0]) + 5) +
-            ":" +
-            end[1],
-          status: booking.status,
-          meetingPlace: booking.meetingPlace,
-          duration: booking.duration,
-          vehicleId: booking.vehicleId,
-        });
-      });
+      //   allAvailabilities.push({
+      //     id: booking.id,
+      //     title: "Booking By " + booking.instructorQuestionFifth,
+      //     start: new Date(
+      //       date[0],
+      //       parseInt(date[1]) - 1,
+      //       date[2],
+      //       parseInt(start[0]) + 5,
+      //       start[1],
+      //       0
+      //     ),
+      //     end: new Date(
+      //       date[0],
+      //       parseInt(date[1]) - 1,
+      //       date[2],
+      //       parseInt(end[0]) + 5,
+      //       end[1],
+      //       0
+      //     ),
+      //     bookingTime:
+      //       parseInt(start[0]) +
+      //       5 +
+      //       ":" +
+      //       start[1] +
+      //       " - " +
+      //       (parseInt(end[0]) + 5) +
+      //       ":" +
+      //       end[1],
+      //     status: booking.status,
+      //     meetingPlace: booking.meetingPlace,
+      //     duration: booking.duration,
+      //     vehicleId: booking.vehicleId,
+      //   });
+      // });
 
       response.data.data.drivingSchoolInstructorList.map((ds) => {
         let newDs = { name: ds.firstName + " " + ds.surName, value: ds };
@@ -268,6 +271,12 @@ const Calendar = () => {
       });
       let end = parseInt(selectedEndHours);
       let start = parseInt(selectedStartHours);
+      if (start < 10) {
+        start = "0" + start;
+      }
+      if (end < 10) {
+        end = "0" + end;
+      }
 
       await API("post", "Availability", {
         VehicleId: vehicleData.name,
@@ -332,6 +341,14 @@ const Calendar = () => {
     } else {
       let end = parseInt(selectedEndHours);
       let start = parseInt(selectedStartHours);
+
+      if (start < 10) {
+        start = "0" + start;
+      }
+      if (end < 10) {
+        end = "0" + end;
+      }
+
       await API("post", "Availability", {
         VehicleId: "",
         createdAt: new Date(),
@@ -391,6 +408,14 @@ const Calendar = () => {
     } else {
       let end = parseInt(selectedEndHours);
       let start = parseInt(selectedStartHours);
+
+      if (start < 10) {
+        start = "0" + start;
+      }
+      if (end < 10) {
+        end = "0" + end;
+      }
+
       await API("post", "Availability", {
         VehicleId: "",
         createdAt: new Date(),
@@ -1155,17 +1180,25 @@ const Calendar = () => {
               />
             </Grid>
             <Grid xs={12} sm={12} md={6}>
+              {console.log("selectedBooking", selectedBooking)}
               <TextField
                 label={t("Booking Time")}
                 disabled={true}
-                value={selectedBooking.bookingTime}
+                value={
+                  moment(selectedBooking.start).format("HH:mm") +
+                  " - " +
+                  moment(selectedBooking.end).format("HH:mm")
+                }
               />
             </Grid>
             <Grid xs={12} sm={12} md={6}>
               <TextField
                 label={t("Duration")}
                 disabled={true}
-                value={selectedBooking.duration}
+                value={
+                  parseInt(moment(selectedBooking.end).format("HH")) -
+                  parseInt(moment(selectedBooking.start).format("HH"))
+                }
               />
             </Grid>
             <Grid xs={12} sm={12} md={6}>
@@ -1179,7 +1212,7 @@ const Calendar = () => {
               <TextField
                 label={t("Meetup")}
                 disabled={true}
-                value={selectedBooking.meetingPlace}
+                value={selectedBooking.meetUp}
               />
             </Grid>
           </Grid>
