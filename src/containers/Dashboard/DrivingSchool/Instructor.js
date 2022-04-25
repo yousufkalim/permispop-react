@@ -1744,7 +1744,9 @@ const Index = () => {
                 type="file"
                 label="ProfileImg"
                 name="ProfileImg"
-                value={instructorDetail.ProfileImg}
+                value={instructorDetail.ProfileImg.split("_")
+                  .slice(1)
+                  .join("_")}
                 onChange={handleFileChange}
                 // error={step6Errors['ProfileImg']?true:false}
                 // ErrorMsg={step6Errors['ProfileImg']}
@@ -1814,7 +1816,9 @@ const Index = () => {
                 name="DriverLicenseFrontImg"
                 type="file"
                 label="DriverLicenseFrontImg"
-                value={instructorDetail.DriverLicenseFrontImg}
+                value={instructorDetail.DriverLicenseFrontImg.split("_")
+                  .slice(1)
+                  .join("_")}
                 onChange={handleFileChange}
                 error={step6Errors["DriverLicenseFrontImg"] ? true : false}
                 ErrorMsg={step6Errors["DriverLicenseFrontImg"]}
@@ -1827,7 +1831,9 @@ const Index = () => {
                 name="DriverLicenseBackImg"
                 type="file"
                 label="DriverLicenseBackImg"
-                value={instructorDetail.DriverLicenseBackImg}
+                value={instructorDetail.DriverLicenseBackImg.split("_")
+                  .slice(1)
+                  .join("_")}
                 onChange={handleFileChange}
                 error={step6Errors["DriverLicenseBackImg"] ? true : false}
                 ErrorMsg={step6Errors["DriverLicenseBackImg"]}
@@ -1916,7 +1922,9 @@ const Index = () => {
                   label="ExcAuthFrontImg"
                   name="ExcAuthFrontImg"
                   type="file"
-                  value={instructorDetail.ExcAuthFrontImg}
+                  value={instructorDetail.ExcAuthFrontImg.split("_")
+                    .slice(1)
+                    .join("_")}
                   onChange={handleFileChange}
                   error={step6Errors["ExcAuthFrontImg"] ? true : false}
                   ErrorMsg={step6Errors["ExcAuthFrontImg"]}
@@ -1929,7 +1937,9 @@ const Index = () => {
                   required={true}
                   name="ExcAuthBackImg"
                   type="file"
-                  value={instructorDetail.ExcAuthBackImg}
+                  value={instructorDetail.ExcAuthBackImg.split("_")
+                    .slice(1)
+                    .join("_")}
                   onChange={handleFileChange}
                   error={step6Errors["ExcAuthBackImg"] ? true : false}
                   ErrorMsg={step6Errors["ExcAuthBackImg"]}

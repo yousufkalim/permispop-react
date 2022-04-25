@@ -950,7 +950,7 @@ const Index = () => {
                   label="RegCertificate"
                   required={true}
                   name="VehicleRegImg"
-                  value={vehicleDet.VehicleRegImg}
+                  value={vehicleDet.VehicleRegImg.split("_").slice(1).join("_")}
                   onChange={handleFileChange}
                   error={vehicleErrors["VehicleRegImg"] ? true : false}
                   ErrorMsg={vehicleErrors["VehicleRegImg"]}
@@ -1036,7 +1036,7 @@ const Index = () => {
                   label="GreenCard"
                   name="GreenCard"
                   required={true}
-                  value={vehicleDet.GreenCard}
+                  value={vehicleDet.GreenCard.split("_").slice(1).join("_")}
                   onChange={handleFileChange}
                   error={vehicleErrors["GreenCard"] ? true : false}
                   ErrorMsg={vehicleErrors["GreenCard"]}
@@ -1117,7 +1117,7 @@ const Index = () => {
                       title={t("Scan and upload your CT")}
                       label="YourCt"
                       name="CtImg"
-                      value={vehicleDet.CtImg}
+                      value={vehicleDet.CtImg.split("_").slice(1).join("_")}
                       onChange={handleFileChange}
                       error={vehicleErrors["CtImg"] ? true : false}
                       ErrorMsg={vehicleErrors["CtImg"]}
