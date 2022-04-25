@@ -120,7 +120,17 @@ export default function LanguageAutoComplete(props) {
         )}
       />
 
-      <div style={{ position: "absolute", bottom: "-50px" }}>{valHtml}</div>
+      <div
+        style={{
+          position: "absolute",
+          bottom: "-45px",
+          maxWidth: "100%",
+          overflow: "scroll",
+          whiteSpace: "nowrap",
+        }}
+      >
+        {valHtml}
+      </div>
       {props.error && (
         <FormHelperText className={classes.helper} {...props.helperProps}>
           {props.ErrorMsg}

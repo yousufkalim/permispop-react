@@ -207,7 +207,7 @@ const Step1 = (props) => {
             ErrorMsg={t(props.step1Errors["Pob"])}
           ></TextField>
         </Grid>
-        <Grid item xs={12} sm={12} md={4}>
+        <Grid item xs={12} sm={12} md={4} style={{ marginBottom: "20px" }}>
           <LanguageAutoComplete
             name="Language"
             label={t("Spoken Language")}
