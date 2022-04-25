@@ -57,41 +57,43 @@ const Calendar = () => {
       await API("get", `Bookings/GetBookingsByStudent?id=${userData.id}`).then(
         async (res) => {
           res.data.data.map((booking) => {
-            let date = moment(booking.bookingDate).format("YYYY-MM-DD");
-            date = date.split("-");
-            let start = booking.startTime.split(":");
-            let end = moment(booking.endTime).format("HH:mm");
-            end = end.split(":");
-            allEvents.push({
-              id: booking.id,
-              title: "Booking By " + booking.instructorQuestionFifth,
-              start: new Date(
-                date[0],
-                parseInt(date[1]) - 1,
-                date[2],
-                parseInt(start[0]),
-                start[1],
-                0
-              ),
-              end: new Date(
-                date[0],
-                parseInt(date[1]) - 1,
-                date[2],
-                end[0],
-                end[1],
-                0
-              ),
-              bookingTime:
-                parseInt(start[0]) +
-                ":" +
-                start[1] +
-                " - " +
-                moment(booking.endTime).format("HH:mm"),
-              status: booking.status,
-              meetingPlace: booking.meetingPlace,
-              duration: booking.duration,
-              vehicleId: booking.vehicleId,
-            });
+            if (booking.drivingSchoolId === "") {
+              let date = moment(booking.bookingDate).format("YYYY-MM-DD");
+              date = date.split("-");
+              let start = booking.startTime.split(":");
+              let end = moment(booking.endTime).format("HH:mm");
+              end = end.split(":");
+              allEvents.push({
+                id: booking.id,
+                title: "Booking By " + booking.instructorQuestionFifth,
+                start: new Date(
+                  date[0],
+                  parseInt(date[1]) - 1,
+                  date[2],
+                  parseInt(start[0]),
+                  start[1],
+                  0
+                ),
+                end: new Date(
+                  date[0],
+                  parseInt(date[1]) - 1,
+                  date[2],
+                  parseInt(end[0]) - 5,
+                  end[1],
+                  0
+                ),
+                bookingTime:
+                  parseInt(start[0]) +
+                  ":" +
+                  start[1] +
+                  " - " +
+                  moment(booking.endTime).format("HH:mm"),
+                status: booking.status,
+                meetingPlace: booking.meetingPlace,
+                duration: booking.duration,
+                vehicleId: booking.vehicleId,
+              });
+            }
           });
         }
       );
@@ -119,39 +121,40 @@ const Calendar = () => {
           } else {
             title = "Booking By " + availability.createdBy;
           }
-
-          if (availability.status === "Available") {
-            if (end[0] - 12 != start[0]) {
-              allEvents.push({
-                id: availability.id,
-                title: title,
-                start: new Date(
-                  date[0],
-                  parseInt(date[1]) - 1,
-                  date[2],
-                  parseInt(start[0]),
-                  start[1],
-                  0
-                ),
-                end: new Date(
-                  date[0],
-                  parseInt(date[1]) - 1,
-                  date[2],
-                  end[0],
-                  end[1],
-                  0
-                ),
-                startHour: start[0],
-                endHour: end[0],
-                status: availability.status,
-                type: type,
-                meetUp: availability.meetUp,
-                vehicle: availability.vehicleId,
-                instructorId: availability.instructorId,
-                createdBy: availability.createdBy,
-              });
-            }
+          if (availability.status != "Available") {
           }
+          // if (availability.status === "Available") {
+          if (end[0] - 12 != start[0]) {
+            allEvents.push({
+              id: availability.id,
+              title: title,
+              start: new Date(
+                date[0],
+                parseInt(date[1]) - 1,
+                date[2],
+                parseInt(start[0]),
+                start[1],
+                0
+              ),
+              end: new Date(
+                date[0],
+                parseInt(date[1]) - 1,
+                date[2],
+                end[0],
+                end[1],
+                0
+              ),
+              startHour: start[0],
+              endHour: end[0],
+              status: availability.status,
+              type: type,
+              meetUp: availability.meetUp,
+              vehicle: availability.vehicleId,
+              instructorId: availability.instructorId,
+              createdBy: availability.createdBy,
+            });
+          }
+          // }
         });
         setBookings(allEvents);
       });
@@ -161,8 +164,10 @@ const Calendar = () => {
         `Availability/GetAvailabilitySetForInstructor/?id=${selectedInstructor.id}&stuid=${userData.id}&lat=${userData.lat}&lng=${userData.lng}&radius=30&distancematch=false`
       ).then((InsAvailabilitiesRes) => {
         InsAvailabilitiesRes.data.data.map((availability) => {
-          let date = moment(availability.date).format("YYYY-MM-DD");
+          let date = availability.date.split("T");
+          date = date[0];
           date = date.split("-");
+
           let start = availability.startTime.split(":");
           let end = availability.endTime.split(":");
           let type = "";
@@ -211,7 +216,6 @@ const Calendar = () => {
             });
           }
         });
-
         setBookings(allEvents);
       });
     }
@@ -267,8 +271,8 @@ const Calendar = () => {
     let end = moment(selectedBooking.end).format("HH:mm");
     start = start.split(":");
     end = end.split(":");
-    start = parseInt(start[0]) - 5 + ":" + start[1];
-    end = parseInt(end[0]) - 5 + ":" + end[1];
+    start = parseInt(start[0]) + ":" + start[1];
+    end = parseInt(end[0]) + ":" + end[1];
 
     await API(
       "delete",
@@ -288,10 +292,6 @@ const Calendar = () => {
 
   const handleAddBooking = async () => {
     setdisabled(true);
-    console.log(
-      "selectedAvailability.start",
-      moment(selectedAvailability.start).add(parseInt(duration), "hours")
-    );
     if (
       parseInt(selectedAvailability.startHour) + parseInt(duration) >=
       parseInt(selectedAvailability.endHour)
@@ -299,16 +299,16 @@ const Calendar = () => {
       toast.warning("Booking time cannot exceed availability end time!");
       setdisabled(false);
     } else {
-      var endDate = moment(selectedAvailability.start).add(
-        parseInt(duration) + 5,
-        "hours"
+      var startDate = moment(selectedAvailability.start).set(
+        "hour",
+        selectedHours
       );
 
-      var startDate = moment(selectedAvailability.start);
+      var endDate = moment(startDate).add(parseInt(duration) + 5, "hours");
 
       await API("post", `Bookings`, {
         VehicleId: selectedAvailability.vehicle,
-        bookingDate: moment(selectedAvailability.start).add(5, "hours"),
+        bookingDate: moment(startDate).add(5, "hours"),
         drivingSchoolId:
           selectedInstructor.role === "DrivingSchool"
             ? selectedInstructor.id
