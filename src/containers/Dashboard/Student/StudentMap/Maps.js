@@ -128,7 +128,14 @@ const Maps = (props) => {
   return (
     <div className="main-div">
       <Grid container spacing={1}>
-        <Grid sx={4} sm={4} md={2} className="filter_div">
+        <Grid
+          sx={4}
+          sm={6}
+          md={3.3}
+          lg={2.2}
+          xl={1.5}
+          className="filter_div filter_div1"
+        >
           <FormControl>
             <label style={{ fontWeight: 500 }}>{t("Gearbox")}</label>
             <Select
@@ -150,7 +157,7 @@ const Maps = (props) => {
           </FormControl>
         </Grid>
 
-        <Grid sx={4} sm={4} md={2} className="filter_div">
+        <Grid sx={4} sm={6} md={3.3} lg={2.2} xl={1.5} className="filter_div">
           <FormControl>
             <label style={{ fontWeight: 500 }}>{t("Gender")}</label>
             <Select
@@ -174,7 +181,7 @@ const Maps = (props) => {
             </Select>
           </FormControl>
         </Grid>
-        <Grid sx={4} sm={4} md={2} className="filter_div">
+        <Grid sx={4} sm={6} md={3.3} lg={2.2} xl={1.5} className="filter_div">
           <FormControl>
             <label style={{ fontWeight: 500 }}>{t("Role")}</label>
             <Select
@@ -198,7 +205,7 @@ const Maps = (props) => {
             </Select>
           </FormControl>
         </Grid>
-        <Grid sx={4} sm={4} md={2} className="filter_div">
+        <Grid sx={4} sm={6} md={3.3} lg={2.2} xl={1.5} className="filter_div">
           <Button
             text={t("Apply")}
             color="#149e7a !important"
