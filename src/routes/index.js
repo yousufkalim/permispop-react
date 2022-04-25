@@ -78,16 +78,52 @@ const Index = (props) => {
                 path="/carRental"
                 render={(props) => <CarRentalLayout {...props} />}
               />
+
               {props.role === "DSInstructor" ? (
-                <Redirect from="/" to={window.location.pathname} />
+                <Redirect
+                  from="/"
+                  to={
+                    window.location.pathname != "/"
+                      ? window.location.pathname
+                      : "/dsInstructor/myProfile"
+                  }
+                />
               ) : props.role === "Student" ? (
-                <Redirect from="/" to={window.location.pathname} />
+                <Redirect
+                  from="/"
+                  to={
+                    window.location.pathname != "/"
+                      ? window.location.pathname
+                      : "/student/myProfile"
+                  }
+                />
               ) : props.role === "CarRentalAgent" ? (
-                <Redirect from="/" to={window.location.pathname} />
+                <Redirect
+                  from="/"
+                  to={
+                    window.location.pathname != "/"
+                      ? window.location.pathname
+                      : "/CarRental/myProfile"
+                  }
+                />
               ) : props.role === "DrivingSchool" ? (
-                <Redirect from="/" to={window.location.pathname} />
+                <Redirect
+                  from="/"
+                  to={
+                    window.location.pathname != "/"
+                      ? window.location.pathname
+                      : "/DrivingSchool/myProfile"
+                  }
+                />
               ) : props.role === "Instructor" ? (
-                <Redirect from="/" to={window.location.pathname} />
+                <Redirect
+                  from="/"
+                  to={
+                    window.location.pathname != "/"
+                      ? window.location.pathname
+                      : "/instructor/myProfile"
+                  }
+                />
               ) : (
                 <Redirect from="/" to="/" />
               )}
