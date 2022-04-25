@@ -1346,7 +1346,7 @@ const RentalCar = () => {
                               step1.Address.Zip != "" &&
                               step1Errors.FirstName === null &&
                               step1Errors.SurName === null &&
-                              step1Errors.Dob === null &&
+                              step1Errors.Dob === "" &&
                               step1Errors.Pob === null &&
                               step1Errors.Gender === null &&
                               step1Errors.Email === null &&
