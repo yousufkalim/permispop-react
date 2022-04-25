@@ -1727,10 +1727,10 @@ const DrivingSchool = () => {
     if (activeStep === 1) {
       await API("get", `Personal/Email/?email=${step1.Email}`).then(
         async (emailRes) => {
-          if (emailRes.data.data != null) {
-            toast.warning("Email already exists!");
-          } else {
+          if (emailRes.data.data === null || emailRes.data.data === "") {
             setActiveStep((prevActiveStep) => prevActiveStep + 1);
+          } else if (emailRes.data.data) {
+            toast.warning("Email already exists!");
           }
         }
       );

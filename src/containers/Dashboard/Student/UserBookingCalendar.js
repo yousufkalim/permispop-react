@@ -69,7 +69,7 @@ const Calendar = () => {
                 date[0],
                 parseInt(date[1]) - 1,
                 date[2],
-                parseInt(start[0]) + 5,
+                parseInt(start[0]),
                 start[1],
                 0
               ),
@@ -83,7 +83,6 @@ const Calendar = () => {
               ),
               bookingTime:
                 parseInt(start[0]) +
-                5 +
                 ":" +
                 start[1] +
                 " - " +

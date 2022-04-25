@@ -553,9 +553,7 @@ const StudentForm = (props) => {
   const handleSubmit = async () => {
     await API("get", `Personal/Email/?email=${student.email}`).then(
       async (emailRes) => {
-        if (emailRes.data.data != null) {
-          toast.warning("Email already exists!");
-        } else {
+        if (emailRes.data.data === null || emailRes.data.data === "") {
           setDisable(true);
           let languageArray = student.language.map((lang) => {
             return lang.name;
@@ -617,6 +615,8 @@ const StudentForm = (props) => {
               toast.error(t("Not Registered....Somethong went wrong"));
               setDisable(false);
             });
+        } else if (emailRes.data.data) {
+          toast.warning("Email already exists!");
         }
       }
     );
