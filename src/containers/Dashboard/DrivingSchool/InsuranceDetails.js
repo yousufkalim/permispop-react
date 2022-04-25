@@ -55,6 +55,7 @@ const InsuranceDetails = () => {
           "get",
           `Business/GetBusinessStoreByIdAsync?id=${DSprofileRes.data.data.businessInfoId}`
         ).then((Businessstoreres) => {
+          console.log("Businessstoreres", Businessstoreres.data.data);
           setBusinesStore(Businessstoreres.data.data);
         });
         await API(
@@ -72,6 +73,8 @@ const InsuranceDetails = () => {
           "get",
           `VehicleDetail/GetVehicleDetailByIdAsync?id=${vehicle1Id}`
         ).then(async (VehicelDetailres) => {
+          console.log("VehicelDetailres", VehicelDetailres.data.data);
+
           setVehicleDetail(VehicelDetailres.data.data);
 
           let technicalId = JSON.parse(
@@ -86,6 +89,7 @@ const InsuranceDetails = () => {
             "get",
             `TechnicalControl/GetTechnicalControlByIdAsync?id=${technicalId}`
           ).then((Technicalcontrolres) => {
+            console.log("Technicalcontrolres", Technicalcontrolres);
             setTechnicalControl(Technicalcontrolres.data.data);
           });
           await API(

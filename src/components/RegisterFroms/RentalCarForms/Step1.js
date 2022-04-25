@@ -355,7 +355,7 @@ const Step1 = ({ step1, setStep1, onChange, step1Errors }) => {
               required={true}
               name="FrontSideimg"
               label="AuthFrontSide"
-              value={step1.FrontSideimg}
+              value={step1.FrontSideimg.split("_").slice(1).join("_")}
               onChange={handleFileChange}
               error={step1Errors["FrontSideimg"] ? true : false}
               ErrorMsg={step1Errors["FrontSideimg"]}
@@ -367,7 +367,7 @@ const Step1 = ({ step1, setStep1, onChange, step1Errors }) => {
               required={true}
               name="BackSideimg"
               label="AuthBackSide"
-              value={step1.BackSideimg}
+              value={step1.BackSideimg.split("_").slice(1).join("_")}
               onChange={handleFileChange}
               error={step1Errors["BackSideimg"] ? true : false}
               ErrorMsg={step1Errors["BackSideimg"]}
@@ -378,7 +378,7 @@ const Step1 = ({ step1, setStep1, onChange, step1Errors }) => {
               title={t("Upload your Profile Picture")}
               name="ProfileImg"
               label="ProfileImg"
-              value={step1.ProfileImg}
+              value={step1.ProfileImg.split("_").slice(1).join("_")}
               onChange={handleFileChange}
               error={step1Errors["ProfileImg"] ? true : false}
               ErrorMsg={step1Errors["ProfileImg"]}

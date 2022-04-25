@@ -92,7 +92,7 @@ const Step2 = ({ step2, setStep2, onChange, step2Errors }) => {
             label="YourCertificate"
             name="RcProImg"
             type="file"
-            value={step2.RcProImg}
+            value={step2.RcProImg.split("_").slice(1).join("_")}
             onChange={handleFileChange}
             // error={step2Errors['RcProImg']?true:false}
             // ErrorMsg={step2Errors['RcProImg']}
@@ -129,7 +129,7 @@ const Step2 = ({ step2, setStep2, onChange, step2Errors }) => {
                 name="KBIS"
                 label="Yourkbls"
                 type="file"
-                value={step2.KBIS}
+                value={step2.KBIS.split("_").slice(1).join("_")}
                 onChange={handleFileChange}
                 error={step2Errors["KBIS"] ? true : false}
                 ErrorMsg={step2Errors["KBIS"]}
