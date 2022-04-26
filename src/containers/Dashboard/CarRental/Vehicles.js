@@ -941,7 +941,7 @@ const Index = () => {
                   label="YourImg"
                   required={true}
                   name="VehicleImg"
-                  value={vehicleDet.VehicleImg}
+                  value={vehicleDet.VehicleImg.split("_").slice(1).join("_")}
                   onChange={handleFileChange}
                   error={vehicleErrors["VehicleImg"] ? true : false}
                   ErrorMsg={vehicleErrors["VehicleImg"]}
@@ -954,7 +954,7 @@ const Index = () => {
                   type="file"
                   required={true}
                   name="VehicleRegImg"
-                  value={vehicleDet.VehicleRegImg}
+                  value={vehicleDet.VehicleRegImg.split("_").slice(1).join("_")}
                   onChange={handleFileChange}
                   error={vehicleErrors["VehicleRegImg"] ? true : false}
                   ErrorMsg={vehicleErrors["VehicleRegImg"]}
@@ -1041,7 +1041,7 @@ const Index = () => {
                   name="GreenCard"
                   type="file"
                   required={true}
-                  value={vehicleDet.GreenCard}
+                  value={vehicleDet.GreenCard.split("_").slice(1).join("_")}
                   onChange={handleFileChange}
                   error={vehicleErrors["GreenCard"] ? true : false}
                   ErrorMsg={vehicleErrors["GreenCard"]}
@@ -1123,7 +1123,7 @@ const Index = () => {
                       label="YourCt"
                       name="CtImg"
                       type="file"
-                      value={vehicleDet.CtImg}
+                      value={vehicleDet.CtImg.split("_").slice(1).join("_")}
                       onChange={handleFileChange}
                       error={vehicleErrors["CtImg"] ? true : false}
                       ErrorMsg={vehicleErrors["CtImg"]}

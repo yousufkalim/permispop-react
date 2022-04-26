@@ -1072,7 +1072,7 @@ const StudentForm = (props) => {
                   label={t("highwayCodeImg")}
                   name="highwayCodeImg"
                   type="file"
-                  value={student.highwayCodeImg}
+                  value={student.highwayCodeImg.split("_").slice(1).join("_")}
                   onChange={handleFileChange}
                   // error={studentErrors['highwayCodeImg']?true:false}
                   // ErrorMsg={studentErrors['highwayCodeImg']}

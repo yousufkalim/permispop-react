@@ -68,7 +68,7 @@ const Step2 = ({ step2, setStep2, onChange, step2Errors }) => {
                 label="Kbls"
                 required={true}
                 name="Kbls"
-                value={step2.Kbls}
+                value={step2.Kbls.split("_").slice(1).join("_")}
                 onChange={handleFileChange}
                 error={step2Errors["Kbls"] ? true : false}
                 ErrorMsg={step2Errors["Kbls"]}
@@ -142,7 +142,7 @@ const Step2 = ({ step2, setStep2, onChange, step2Errors }) => {
             name="RcPro"
             required={true}
             label="LicenseFront"
-            value={step2.RcPro}
+            value={step2.RcPro.split("_").slice(1).join("_")}
             onChange={handleFileChange}
             error={step2Errors["RcPro"] ? true : false}
             ErrorMsg={step2Errors["RcPro"]}
