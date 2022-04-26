@@ -35,6 +35,8 @@ const Profile = () => {
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [update, setUpdate] = useState(false);
+
   const [user, setUser] = useState();
   const [ratings, setRatings] = useState("");
   const [openmodal, setOpenModal] = useState(false);
@@ -55,7 +57,7 @@ const Profile = () => {
     setUser(userData);
     getRatings(userData);
     getMeetupPoints(userData);
-  }, []);
+  }, [update]);
 
   const getRatings = async (userData) => {
     await API("get", `FeedBacks/GetAverageRating?id=${userData.id}`).then(
@@ -114,12 +116,67 @@ const Profile = () => {
       setDisabled(false);
     }
   };
+  const updateProfileImage = async (e) => {
+    const formdata = new FormData();
+
+    formdata.append("file", e.target.files[0]);
+
+    await API("post", "Personal/UploadProfileImage", formdata).then(
+      async (res) => {
+        await API("post", `Personal/UpdatePersonal`, {
+          absentEndDate: user.absentEndDate,
+          address: user.address,
+          backIDPhoto: user.backIDPhoto,
+          city: user.city,
+          complement: user.complement,
+          contactEmail: user.contactEmail,
+          cpfAccept: user.cpfAccept,
+          T19: user.T19,
+          documentTested: user.documentTested,
+          drivingSchoolID: user.drivingSchoolID,
+          firstName: user.firstName,
+          frontIDPhoto: user.frontIDPhoto,
+          gender: user.gender,
+          giveOurPlatformTime: user.giveOurPlatformTime,
+          highWayCodeDate: user.highWayCodeDate,
+          highWayCodeImage: user.highWayCodeImage,
+          id: user.id,
+          instructorMeetupPointInfos: user.instructorMeetupPointInfos,
+          isOnline: user.isOnline,
+          lastActiveTime: user.lastActiveTime,
+          lastSeen: user.lastSeen,
+          lat: user.lat,
+          long: user.long,
+          noOfHrsWanted: user.noOfHrsWanted,
+          paid: user.paid,
+          password: user.password,
+          phone: user.phone,
+          photo: res.data.message === "" ? user.photo : res.data.message,
+          registrationDate: user.registrationDate,
+          role: user.role,
+          secondEmail: user.secondEmail,
+          secondPhone: user.secondPhone,
+          spokenLanguage: user.spokenLanguage,
+          surName: user.surName,
+          whichPlatform: user.whichPlatform,
+          workWithOther: user.workWithOther,
+          zip: user.zip,
+        }).then((e) => {
+          toast.success("Profile Image Changed successfully!");
+          setUpdate(!update);
+        });
+      }
+    );
+  };
   return (
     <>
       <Grid container spacing={1} className="maindiv">
         <Grid md={3} className="leftprofilediv">
           <ProfileImage
             src={user ? (user.photo ? user.photo : Studentprofile) : ""}
+            onChange={(e) => updateProfileImage(e)}
+            label="photo"
+            name="photo"
           ></ProfileImage>
         </Grid>
 
@@ -331,14 +388,17 @@ const Profile = () => {
                   onChange={handleChange}
                   sx={{
                     width: "500px",
-                    fontSize: "18px",
+                    fontSize: "16px",
                     color: "#110000",
                   }}
                 >
                   <MenuItem
                     value={0}
                     disabled
-                    sx={{ paddingTop: "0px !important" }}
+                    sx={{
+                      paddingTop: "0px !important",
+                      fontSize: "5px !important",
+                    }}
                   >
                     {t("Select the options")}
                   </MenuItem>
@@ -378,10 +438,10 @@ const Profile = () => {
               <TextareaAutosize
                 aria-label="minimum height"
                 minRows={5}
-                placeholder={t("Minimum 3 rows")}
+                placeholder={t("Description")}
                 name="description"
                 onChange={(e) => setDescription(e.target.name)}
-                style={{ width: "100%", borderRadius: "5px" }}
+                style={{ width: "100%", borderRadius: "5px", padding: "2%" }}
               />
               <div style={{ marginTop: "2%" }}>
                 <Button
