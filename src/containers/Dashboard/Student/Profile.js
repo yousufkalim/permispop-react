@@ -490,7 +490,7 @@ const Profile = (props) => {
                   onChange={handleChange}
                   sx={{
                     width: "500px",
-                    fontSize: "18px",
+                    fontSize: "16px",
                     color: "#110000",
                   }}
                 >
@@ -521,10 +521,10 @@ const Profile = (props) => {
               <TextareaAutosize
                 aria-label="minimum height"
                 minRows={5}
-                placeholder={t("Minimum 3 rows")}
+                placeholder={t("Description")}
                 name="description"
                 onChange={(e) => setDescription(e.target.name)}
-                style={{ width: "100%", borderRadius: "5px" }}
+                style={{ width: "100%", borderRadius: "5px", padding: "2%" }}
               />
               <div style={{ marginTop: "2%" }}>
                 <Button
