@@ -10,6 +10,7 @@ import DatePicker from "../../../components/Common/DatePicker";
 import MobileViewFilters from "../../../components/Common/MobileViewFilters";
 import Divider from "../../../components/Common/Divider";
 import API from "../../../api";
+import moment from "moment";
 import { useTranslation } from "react-i18next";
 
 function createData(bookingwith, date, startTime, duration, status, id) {
@@ -66,7 +67,7 @@ const Index = () => {
           allBookings.map((booking) => {
             return createData(
               booking.studentData.firstName + " " + booking.studentData.surName,
-              booking.bookingDate,
+              moment(booking.bookingDate).format("DD/MM/YYYY"),
               booking.startTime,
               booking.duration,
               booking.status,
@@ -101,13 +102,21 @@ const Index = () => {
             </Typography>
           </Grid>
           <Grid xs={3} sm={3} md={2}>
-            <MultipleSelectPlaceholder value={[t("All")]}></MultipleSelectPlaceholder>
+            <MultipleSelectPlaceholder
+              value={[t("All")]}
+            ></MultipleSelectPlaceholder>
           </Grid>
           <Grid xs={3} sm={3} md={2}>
-            <MultipleSelectPlaceholder value={[t("Filter by receiver")]}></MultipleSelectPlaceholder>
+            <MultipleSelectPlaceholder
+              value={[t("Filter by receiver")]}
+            ></MultipleSelectPlaceholder>
           </Grid>
           <Grid xs={12} sm={6} md={2}>
-            <DatePicker label={t("Start Date")} value={Startvalue} onChange={handleStartdate}></DatePicker>
+            <DatePicker
+              label={t("Start Date")}
+              value={Startvalue}
+              onChange={handleStartdate}
+            ></DatePicker>
           </Grid>
 
           <Grid xs={12} sm={6} md={2}>
@@ -122,7 +131,11 @@ const Index = () => {
       </div>
       <Divider width="100%" borderColor="#D5E4E8" margin="2% 0px 2% 0px" />
 
-      <DataTable data={pendingRequestsrows} columns={Historycolumns} user={user}></DataTable>
+      <DataTable
+        data={pendingRequestsrows}
+        columns={Historycolumns}
+        user={user}
+      ></DataTable>
     </>
   );
 };
