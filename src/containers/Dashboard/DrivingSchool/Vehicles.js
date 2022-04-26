@@ -346,7 +346,7 @@ const Index = () => {
     overflowX: "scroll",
     bgcolor: "background.paper",
     boxShadow: 24,
-    p: 4,
+    p: 7,
     mt: 3,
     borderRadius: "4px",
     overflowX: "hidden",
@@ -806,18 +806,13 @@ const Index = () => {
       >
         <Box component="form" noValidate sx={style}>
           <Grid container spacing={4}>
-            <Divider
-              width="100%"
-              borderColor="#D5E4E8"
-              margin="2% 0px 2% 0px"
-            />
             <Typography style={{ marginLeft: "30px" }} className="Heading1">
               {t("Vehicle Details")}
             </Typography>
             <Divider
               width="100%"
               borderColor="#D5E4E8"
-              margin="2% 0px 2% 0px"
+              margin="2% 0px 2% 0px !important"
             />
             <Grid item xs={12} sm={12} md={4} sx={{ marginTop: "9px" }}>
               <DatePicker
@@ -967,9 +962,17 @@ const Index = () => {
               </Grid>
             </Grid>
           </div>
-          <Divider width="100%" borderColor="#D5E4E8" margin="2% 0px 2% 0px" />
+          <Divider
+            width="100%"
+            borderColor="#D5E4E8"
+            margin="2% 0px 2% 0px !important"
+          />
           <Typography className="Heading1">{t("Vehicle Insurance")}</Typography>
-          <Divider width="100%" borderColor="#D5E4E8" margin="2% 0px 2% 0px" />
+          <Divider
+            width="100%"
+            borderColor="#D5E4E8"
+            margin="2% 0px 2% 0px !important"
+          />
           <Grid container spacing={4}>
             <Grid item xs={12} sm={12} md={4}>
               <TextField
