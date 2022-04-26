@@ -42,6 +42,8 @@ const Profile = (props) => {
   const [user, setUser] = useState();
   const [ratings, setRatings] = useState("");
   const [neph, setNeph] = useState("");
+  const [updateProfileImg, setUpdateProfileImg] = useState("");
+
   const [Noofhours, setNoofhours] = useState("");
   const [highwayCodeDate, setHighwayCodeDate] = useState("");
   const [update, setUpdate] = useState(false);
@@ -185,13 +187,77 @@ const Profile = (props) => {
       );
     });
   };
+  const updateProfileImage = async (e) => {
+    const formdata = new FormData();
 
+    formdata.append("file", e.target.files[0]);
+
+    await API("post", "Personal/UploadProfileImage", formdata).then(
+      async (res) => {
+        await API("post", `Personal/UpdatePersonal`, {
+          NEPH: user.neph,
+          noOfHrsWanted: user.noOfHrsWanted,
+          highWayCodeDate: user.highWayCodeDate,
+
+          absentEndDate: user.absentEndDate,
+          absentStartDate: user.absentStartDate,
+          address: user.address,
+          backIDPhoto: user.backIDPhoto,
+          city: user.city,
+          complement: user.complement,
+          contactEmail: user.contactEmail,
+          cpfAccept: user.cpfAccept,
+          dob: user.dob,
+          documentTested: user.documentTested,
+          drivingSchoolID: user.drivingSchoolID,
+          duplicate_id: user.duplicate_id,
+          email: user.email,
+          emailSent: user.emailSent,
+          firstName: user.firstName,
+          frontIDPhoto: user.frontIDPhoto,
+          gender: user.gender,
+          giveOurPlatformTime: user.giveOurPlatformTime,
+          highWayCodeImage: user.highWayCodeImage,
+          id: user.id,
+          instructorMeetupPointInfos: user.instructorMeetupPointInfos,
+          isOnline: user.isOnline,
+          lastActiveTime: user.lastActiveTime,
+          lastSeen: user.lastSeen,
+          lat: user.lat,
+          long: user.long,
+          msgMailCount: user.msgMailCount,
+          paid: user.paid,
+          password: user.password,
+          phone: user.phone,
+          photo: res.data.message === "" ? user.photo : res.data.message,
+
+          placeOfBirth: user.placeOfBirth,
+          profileInfo: user.profileInfo,
+          registrationDate: user.registrationDate,
+          role: user.role,
+          secondEmail: user.secondEmail,
+          secondPhone: user.secondPhone,
+          spokenLanguage: user.spokenLanguage,
+          surName: user.surName,
+          whichPlatform: user.whichPlatform,
+          workWithOther: user.workWithOther,
+          zip: user.zip,
+        }).then((e) => {
+          toast.success("Profile Image Changed successfully!");
+          setUpdate(!update);
+        });
+      }
+    );
+  };
   return (
     <React.Fragment>
       <Grid container spacing={1} className="maindiv">
         <Grid md={3} className="leftprofilediv">
           <ProfileImage
             src={user ? (user.photo ? user.photo : Studentprofile) : ""}
+            onChange={(e) => updateProfileImage(e)}
+            label="photo"
+            name="photo"
           ></ProfileImage>
         </Grid>
 
@@ -424,7 +490,7 @@ const Profile = (props) => {
                   onChange={handleChange}
                   sx={{
                     width: "500px",
-                    fontSize: "18px",
+                    fontSize: "16px",
                     color: "#110000",
                   }}
                 >
@@ -455,10 +521,10 @@ const Profile = (props) => {
               <TextareaAutosize
                 aria-label="minimum height"
                 minRows={5}
-                placeholder={t("Minimum 3 rows")}
+                placeholder={t("Description")}
                 name="description"
                 onChange={(e) => setDescription(e.target.name)}
-                style={{ width: "100%", borderRadius: "5px" }}
+                style={{ width: "100%", borderRadius: "5px", padding: "2%" }}
               />
               <div style={{ marginTop: "2%" }}>
                 <Button

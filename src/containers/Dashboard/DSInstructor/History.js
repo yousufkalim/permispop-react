@@ -9,6 +9,7 @@ import MobileViewFilters from "../../../components/Common/MobileViewFilters";
 import Divider from "../../../components/Common/Divider";
 import API from "../../../api";
 import { useTranslation } from "react-i18next";
+import moment from "moment";
 
 function createData(bookingwith, date, startTime, duration, status, id) {
   return { bookingwith, date, startTime, duration, status, id };
@@ -64,7 +65,8 @@ const Index = () => {
           allBookings.map((booking) => {
             return createData(
               booking.studentData.firstName + " " + booking.studentData.surName,
-              booking.bookingDate,
+              moment(booking.bookingDate).format("DD/MM/YYYY"),
+
               booking.startTime,
               booking.duration,
               booking.status,
@@ -128,7 +130,11 @@ const Index = () => {
       </div>
       <Divider width="100%" borderColor="#D5E4E8" margin="2% 0px 2% 0px" />
 
-      <DataTable data={pendingRequestsrows} columns={Historycolumns} user={user}></DataTable>
+      <DataTable
+        data={pendingRequestsrows}
+        columns={Historycolumns}
+        user={user}
+      ></DataTable>
     </>
   );
 };

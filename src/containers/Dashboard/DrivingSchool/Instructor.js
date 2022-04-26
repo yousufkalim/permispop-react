@@ -60,9 +60,10 @@ const Index = () => {
     overflowX: "scroll",
     bgcolor: "background.paper",
     boxShadow: 24,
-    p: 4,
+    p: 6,
     mt: 3,
     borderRadius: "4px",
+    overflowX: "hidden",
   };
 
   const [instructorData, setInstructorData] = useState([]);
@@ -1753,9 +1754,17 @@ const Index = () => {
               />
             </Grid>
           </Grid>
-          <Divider width="100%" borderColor="#D5E4E8" margin="2% 0px 2% 0px" />
+          <Divider
+            width="100%"
+            borderColor="#D5E4E8"
+            margin="2% 0px 2% 0px !important"
+          />
           <Typography className="Heading1">Driver’s License</Typography>
-          <Divider width="100%" borderColor="#D5E4E8" margin="2% 0px 2% 0px" />
+          <Divider
+            width="100%"
+            borderColor="#D5E4E8"
+            margin="2% 0px 2% 0px !important"
+          />
           <Grid container spacing={4}>
             <Grid item xs={12} sm={12} md={4}>
               <TextField
@@ -1840,11 +1849,19 @@ const Index = () => {
               />
             </Grid>
           </Grid>
-          <Divider width="100%" borderColor="#D5E4E8" margin="2% 0px 2% 0px" />
+          <Divider
+            width="100%"
+            borderColor="#D5E4E8"
+            margin="2% 0px 2% 0px !important"
+          />
           <Typography className="Heading1">
             Authorization to Exercise
           </Typography>
-          <Divider width="100%" borderColor="#D5E4E8" margin="2% 0px 2% 0px" />
+          <Divider
+            width="100%"
+            borderColor="#D5E4E8"
+            margin="2% 0px 2% 0px !important"
+          />
           <Grid container spacing={4}>
             <Grid item xs={12} sm={12} md={4} sx={{ marginTop: "9px" }}>
               <DatePicker
@@ -1947,7 +1964,11 @@ const Index = () => {
               </Grid>
             </Grid>
           </div>
-          <Divider width="100%" borderColor="#D5E4E8" margin="2% 0px 2% 0px" />
+          <Divider
+            width="100%"
+            borderColor="#D5E4E8"
+            margin="2% 0px 2% 0px !important"
+          />
           <Typography className="Heading1">
             Type Of Contract With Driving School
           </Typography>
@@ -1971,7 +1992,11 @@ const Index = () => {
               />
             </RadioGroup>
           </Typography>
-          <Divider width="100%" borderColor="#D5E4E8" margin="2% 0px 2% 0px" />
+          <Divider
+            width="100%"
+            borderColor="#D5E4E8"
+            margin="2% 0px 2% 0px !important"
+          />
 
           <div
             style={{

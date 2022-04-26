@@ -13,6 +13,7 @@ import Backdrop from "@mui/material/Backdrop";
 import { toast } from "react-toastify";
 import API from "../../../api";
 import { useTranslation } from "react-i18next";
+import moment from "moment";
 
 const InsuranceDetails = () => {
   const { i18n, t } = useTranslation();
@@ -170,7 +171,9 @@ const InsuranceDetails = () => {
             <input
               placeholder="invalid date"
               value={
-                companyinsurance.startDate ? companyinsurance.startDate : ""
+                companyinsurance.startDate
+                  ? moment(companyinsurance.startDate).format("DD/MM/YYYY")
+                  : ""
               }
               disabled
             />
@@ -179,7 +182,11 @@ const InsuranceDetails = () => {
             <label>{t("End Date")}</label>
             <input
               placeholder="30/05/2021"
-              value={companyinsurance.endDate ? companyinsurance.endDate : ""}
+              value={
+                companyinsurance.endDate
+                  ? moment(companyinsurance.endDate).format("DD/MM/YYYY")
+                  : ""
+              }
               disabled
             />
           </Grid>
@@ -220,7 +227,9 @@ const InsuranceDetails = () => {
             <input
               placeholder="05/02/2021"
               value={
-                vehicleInsurance.startDate ? vehicleInsurance.startDate : ""
+                vehicleInsurance.startDate
+                  ? moment(vehicleInsurance.startDate).format("DD/MM/YYYY")
+                  : ""
               }
               disabled
             />
@@ -229,7 +238,11 @@ const InsuranceDetails = () => {
             <label>{t("End Date")}</label>
             <input
               placeholder="05/05/2012"
-              value={vehicleInsurance.endDate ? vehicleInsurance.endDate : ""}
+              value={
+                vehicleInsurance.endDate
+                  ? moment(vehicleInsurance.endDate).format("DD/MM/YYYY")
+                  : ""
+              }
               disabled
             />
           </Grid>
@@ -252,7 +265,9 @@ const InsuranceDetails = () => {
               placeholder="05/07/2021"
               value={
                 vehicledetail.dateOfFirstRegistration
-                  ? vehicledetail.dateOfFirstRegistration
+                  ? moment(vehicledetail.dateOfFirstRegistration).format(
+                      "DD/MM/YYYY"
+                    )
                   : ""
               }
               disabled
@@ -309,7 +324,9 @@ const InsuranceDetails = () => {
                 value={
                   technicalcontrol
                     ? technicalcontrol.startDateOfTech
-                      ? technicalcontrol.startDateOfTech
+                      ? moment(technicalcontrol.startDateOfTech).format(
+                          "DD/MM/YYYY"
+                        )
                       : "N/A"
                     : "N/A"
                 }
@@ -323,7 +340,9 @@ const InsuranceDetails = () => {
                 value={
                   technicalcontrol
                     ? technicalcontrol.endDateOfTechControl
-                      ? technicalcontrol.endDateOfTechControl
+                      ? moment(technicalcontrol.endDateOfTechControl).format(
+                          "DD/MM/YYYY"
+                        )
                       : "N/A"
                     : "N/A"
                 }

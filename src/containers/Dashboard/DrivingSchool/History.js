@@ -9,14 +9,15 @@ import DatePicker from "../../../components/Common/DatePicker";
 import MobileViewFilters from "../../../components/Common/MobileViewFilters";
 import Divider from "../../../components/Common/Divider";
 import API from "../../../api";
-import { useTranslation } from "react-i18next";
+import moment from "moment";
 
+import { useTranslation } from "react-i18next";
 
 function createData(bookingwith, date, startTime, duration, status, id) {
   return { bookingwith, date, startTime, duration, status, id };
 }
 const Index = () => {
-  const { i18n , t } = useTranslation();
+  const { i18n, t } = useTranslation();
   const [Startvalue, setStartValue] = useState(new Date());
   const [Endvalue, setEndValue] = useState(new Date());
   const [pendingRequestsrows, setPendingRequestsrows] = useState([]);
@@ -61,7 +62,7 @@ const Index = () => {
           allBookings.map((booking) => {
             return createData(
               booking.studentData.firstName + " " + booking.studentData.surName,
-              booking.bookingDate,
+              moment(booking.bookingDate).format("DD/MM/YYYY"),
               booking.startTime,
               booking.duration,
               booking.status,
