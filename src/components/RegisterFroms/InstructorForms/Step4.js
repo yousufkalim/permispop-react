@@ -377,18 +377,26 @@ const Step4 = (props) => {
               ></TextField>
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
-              <TextField
+              <DropDown
                 required={true}
                 label={t("Energy")}
+                placeholder="Select"
                 name="Energy"
-                placeholder="712333"
                 value={props.step4.Energy}
+                MenuItem={[
+                  { name: "Diesel", value: "Diesel" },
+                  { name: "Petrol", value: "Petrol" },
+                  { name: "Hybrid", value: "Hybrid" },
+                  { name: "Electric", value: "Electric" },
+                  { name: "GPL", value: "GPL" },
+                  { name: "Others", value: "Others" },
+                ]}
                 onChange={(e) => {
                   props.onChange(e.target.name, e.target.value);
                 }}
                 error={props.step4Errors["Energy"] ? true : false}
                 ErrorMsg={t(props.step4Errors["Energy"])}
-              ></TextField>
+              ></DropDown>
             </Grid>
             <Grid item xs={12} sm={12} md={4}>
               <DropDown

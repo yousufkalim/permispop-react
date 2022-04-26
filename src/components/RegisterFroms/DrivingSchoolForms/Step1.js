@@ -293,7 +293,7 @@ const Step1 = ({ step1, setStep1, onChange, step1Errors }) => {
             ErrorMsg={t(step1Errors["Password2"])}
           ></TextField>
         </Grid>
-        <Grid item xs={12} sm={12} md={4}>
+        <Grid item xs={12} sm={12} md={4} style={{ marginBottom: "20px" }}>
           <LanguageAutoComplete
             name="Language"
             label={t("Spoken Language")}
