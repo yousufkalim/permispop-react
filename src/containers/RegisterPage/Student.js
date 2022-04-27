@@ -22,7 +22,7 @@ const Student = () => {
         );
         setStudentForm(studentFormData);
       })
-      .catch((error) => console.log("error------->", error));
+      .catch((error) => console.log(error));
   };
   return (
     <React.Fragment>
