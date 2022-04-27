@@ -370,7 +370,7 @@ export default function DataTable(props) {
           </Table>
         </TableContainer>
       </Paper>
-      <Pagination
+      {/* <Pagination
         count={10}
         color="secondary"
         shape="rounded"
@@ -380,7 +380,7 @@ export default function DataTable(props) {
           justifyContent: "center",
           alignContent: "center",
         }}
-      />
+      /> */}
     </div>
   );
 }
