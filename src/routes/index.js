@@ -83,7 +83,7 @@ const Index = (props) => {
                 <Redirect
                   from="/"
                   to={
-                    window.location.pathname != "/"
+                    window.location.pathname !== "/"
                       ? window.location.pathname
                       : "/dsInstructor/myProfile"
                   }
@@ -92,7 +92,7 @@ const Index = (props) => {
                 <Redirect
                   from="/"
                   to={
-                    window.location.pathname != "/"
+                    window.location.pathname !== "/"
                       ? window.location.pathname
                       : "/student/myProfile"
                   }
@@ -101,7 +101,7 @@ const Index = (props) => {
                 <Redirect
                   from="/"
                   to={
-                    window.location.pathname != "/"
+                    window.location.pathname !== "/"
                       ? window.location.pathname
                       : "/CarRental/myProfile"
                   }
@@ -110,7 +110,7 @@ const Index = (props) => {
                 <Redirect
                   from="/"
                   to={
-                    window.location.pathname != "/"
+                    window.location.pathname !== "/"
                       ? window.location.pathname
                       : "/DrivingSchool/myProfile"
                   }
@@ -119,7 +119,7 @@ const Index = (props) => {
                 <Redirect
                   from="/"
                   to={
-                    window.location.pathname != "/"
+                    window.location.pathname !== "/"
                       ? window.location.pathname
                       : "/instructor/myProfile"
                   }
