@@ -12,6 +12,7 @@ import Divider from "../../../components/Common/Divider";
 import API from "../../../api";
 import moment from "moment";
 import { useTranslation } from "react-i18next";
+import { useHistory } from "react-router-dom";
 
 function createData(bookingwith, date, startTime, duration, status, id) {
   return { bookingwith, date, startTime, duration, status, id };
@@ -23,6 +24,7 @@ const Index = () => {
   const [pendingRequestsrows, setPendingRequestsrows] = useState([]);
   const [allBookingsWithUser, setAllBookingsWithUser] = useState([]);
   const [user, setUser] = useState();
+  const history = useHistory();
 
   const handleStartdate = (newValue) => {
     setStartValue(newValue);
@@ -78,6 +80,11 @@ const Index = () => {
       });
     });
   };
+
+  const handleReBook = async (e) => {
+    history.push("/carRental/mycalendar");
+  };
+
   return (
     <>
       {/* <MobileViewFilters title={t("History")} /> */}
@@ -101,7 +108,7 @@ const Index = () => {
               {t("History")}
             </Typography>
           </Grid>
-          <Grid xs={3} sm={3} md={2}>
+          {/* <Grid xs={3} sm={3} md={2}>
             <MultipleSelectPlaceholder
               value={[t("All")]}
             ></MultipleSelectPlaceholder>
@@ -126,7 +133,7 @@ const Index = () => {
               value={Endvalue}
               onChange={handleEnddate}
             ></DatePicker>
-          </Grid>
+          </Grid> */}
         </Grid>
       </div>
       <Divider width="100%" borderColor="#D5E4E8" margin="2% 0px 2% 0px" />
@@ -135,6 +142,7 @@ const Index = () => {
         data={pendingRequestsrows}
         columns={Historycolumns}
         user={user}
+        handleReBook={handleReBook}
       ></DataTable>
     </>
   );

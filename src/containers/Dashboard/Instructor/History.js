@@ -9,8 +9,8 @@ import MobileViewFilters from "../../../components/Common/MobileViewFilters";
 import Divider from "../../../components/Common/Divider";
 import API from "../../../api";
 import moment from "moment";
-
 import { useTranslation } from "react-i18next";
+import { useHistory } from "react-router-dom";
 
 function createData(bookingwith, date, startTime, duration, status, id) {
   return { bookingwith, date, startTime, duration, status, id };
@@ -22,6 +22,7 @@ const Index = () => {
   const [pendingRequestsrows, setPendingRequestsrows] = useState([]);
   const [allBookingsWithUser, setAllBookingsWithUser] = useState([]);
   const [user, setUser] = useState();
+  const history = useHistory();
 
   const handleStartdate = (newValue) => {
     setStartValue(newValue);
@@ -76,6 +77,10 @@ const Index = () => {
         );
       });
     });
+  };
+
+  const handleReBook = async (e) => {
+    history.push("/instructor/mycalendar");
   };
 
   return (
@@ -139,6 +144,7 @@ const Index = () => {
         data={pendingRequestsrows}
         columns={Historycolumns}
         user={user}
+        handleReBook={handleReBook}
       ></DataTable>
     </>
   );
