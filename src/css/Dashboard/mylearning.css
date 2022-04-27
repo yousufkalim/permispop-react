@@ -14,7 +14,17 @@
   font-style: normal !important;
   font-weight: 500 !important;
   font-size: 18px !important;
-
+  color: #2b3135;
+}
+.comment_box_textarea {
+  Width: 190px;
+  background-color: #e8ebe9;
+}
+.MylearningComponent_heading {
+  font-family: Inter !important;
+  font-style: normal !important;
+  font-weight: 500 !important;
+  font-size: 16px !important;
   color: #2b3135;
 }
 .Learning_table {
@@ -27,6 +37,9 @@
 }
 .MyProcedureWording {
   font-size: 17px;
+}
+.My_Learning_Component_Wording {
+  font-size: 14px;
 }
 .Headingsdiv {
   border-bottom: 1px solid rgba(0, 0, 0, 0.08) !important;
