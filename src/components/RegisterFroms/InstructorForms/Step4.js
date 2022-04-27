@@ -392,7 +392,7 @@ const Step4 = (props) => {
                   { name: "Others", value: "Others" },
                 ]}
                 onChange={(e) => {
-                  props.onChange(e.target.name, e.target.value);
+                  props.onChange("Energy", e.target.value);
                 }}
                 error={props.step4Errors["Energy"] ? true : false}
                 ErrorMsg={t(props.step4Errors["Energy"])}
