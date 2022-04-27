@@ -62,7 +62,6 @@ const Profile = (props) => {
   };
   useEffect(() => {
     const userData = JSON.parse(localStorage.getItem("user"));
-
     getUserData(userData.id);
   }, [update]);
 
@@ -253,6 +252,7 @@ const Profile = (props) => {
     <React.Fragment>
       <Grid container spacing={1} className="maindiv">
         <Grid md={3} className="leftprofilediv">
+          {console.log("user.photo ", user && user.photo)}
           <ProfileImage
             src={user ? (user.photo ? user.photo : Studentprofile) : ""}
             onChange={(e) => updateProfileImage(e)}

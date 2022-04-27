@@ -51,12 +51,19 @@ const Profile = () => {
   const handleChange = (event) => {
     setItem(event.target.value);
   };
+
   useEffect(() => {
     const userData = JSON.parse(localStorage.getItem("user"));
-    setUser(userData);
-    getRatings(userData);
-    getMeetupPoints(userData);
+    getUser(userData);
   }, [update]);
+
+  const getUser = async (userData) => {
+    await API("get", `Personal/GetAllById?id=${userData.id}`).then((res) => {
+      setUser(res.data.data);
+      getRatings(res.data.data);
+      getMeetupPoints(res.data.data);
+    });
+  };
 
   const getRatings = async (userData) => {
     await API("get", `FeedBacks/GetAverageRating?id=${userData.id}`).then(
@@ -65,6 +72,7 @@ const Profile = () => {
       }
     );
   };
+
   const getMeetupPoints = async (userData) => {
     await API(
       "get",
@@ -73,6 +81,7 @@ const Profile = () => {
       setInstructorMeetupPointInfos(res.data.data);
     });
   };
+
   const changePassword = async () => {
     setDisabled(true);
 
@@ -125,6 +134,10 @@ const Profile = () => {
     await API("post", "Personal/UploadProfileImage", formdata).then(
       async (res) => {
         await API("post", `Personal/UpdatePersonal`, {
+          photo: res.data.message === "" ? user.photo : res.data.message,
+          NEPH: user.neph,
+          noOfHrsWanted: user.noOfHrsWanted,
+          highWayCodeDate: user.highWayCodeDate,
           absentEndDate: user.absentEndDate,
           absentStartDate: user.absentStartDate,
           address: user.address,
@@ -143,8 +156,6 @@ const Profile = () => {
           frontIDPhoto: user.frontIDPhoto,
           gender: user.gender,
           giveOurPlatformTime: user.giveOurPlatformTime,
-
-          highWayCodeDate: user.highWayCodeDate,
           highWayCodeImage: user.highWayCodeImage,
           id: user.id,
           instructorMeetupPointInfos: user.instructorMeetupPointInfos,
@@ -154,12 +165,9 @@ const Profile = () => {
           lat: user.lat,
           long: user.long,
           msgMailCount: user.msgMailCount,
-          neph: user.neph,
-          noOfHrsWanted: user.noOfHrsWanted,
           paid: user.paid,
           password: user.password,
           phone: user.phone,
-          photo: res.data.message === "" ? user.photo : res.data.message,
           placeOfBirth: user.placeOfBirth,
           profileInfo: user.profileInfo,
           registrationDate: user.registrationDate,
@@ -265,7 +273,7 @@ const Profile = () => {
               {t("CDF Accepted")}:
             </Grid>
             <Grid sx={12} sm={12} md={2} className="RoleInformation">
-              {user ? (user.cPFAccept ? user.cPFAccept : "N/A") : ""}
+              {user ? (user.cpfAccept ? user.cpfAccept : "N/A") : ""}
             </Grid>
           </Grid>
         </Grid>

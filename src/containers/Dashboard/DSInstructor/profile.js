@@ -52,12 +52,19 @@ const Profile = () => {
   const handleChange = (event) => {
     setItem(event.target.value);
   };
+
   useEffect(() => {
     const userData = JSON.parse(localStorage.getItem("user"));
-    setUser(userData);
-    getRatings(userData);
-    getMeetupPoints(userData);
+    getUser(userData);
   }, [update]);
+
+  const getUser = async (userData) => {
+    await API("get", `Personal/GetAllById?id=${userData.id}`).then((res) => {
+      setUser(res.data.data);
+      getRatings(res.data.data);
+      getMeetupPoints(res.data.data);
+    });
+  };
 
   const getRatings = async (userData) => {
     await API("get", `FeedBacks/GetAverageRating?id=${userData.id}`).then(
@@ -126,22 +133,21 @@ const Profile = () => {
     await API("post", "Personal/UploadProfileImage", formdata).then(
       async (res) => {
         await API("post", `Personal/UpdatePersonal`, {
+          photo: res.data.message === "" ? user.photo : res.data.message,
           NEPH: user.neph,
           noOfHrsWanted: user.noOfHrsWanted,
           highWayCodeDate: user.highWayCodeDate,
-
           absentEndDate: user.absentEndDate,
           absentStartDate: user.absentStartDate,
           address: user.address,
           backIDPhoto: user.backIDPhoto,
           city: user.city,
-          drivingSchoolID: user.drivingSchoolID,
-
           complement: user.complement,
           contactEmail: user.contactEmail,
           cpfAccept: user.cpfAccept,
           dob: user.dob,
           documentTested: user.documentTested,
+          drivingSchoolID: user.drivingSchoolID,
           duplicate_id: user.duplicate_id,
           email: user.email,
           emailSent: user.emailSent,
@@ -161,8 +167,6 @@ const Profile = () => {
           paid: user.paid,
           password: user.password,
           phone: user.phone,
-          photo: res.data.message === "" ? user.photo : res.data.message,
-
           placeOfBirth: user.placeOfBirth,
           profileInfo: user.profileInfo,
           registrationDate: user.registrationDate,
@@ -251,8 +255,8 @@ const Profile = () => {
             </Grid>
             <Grid sx={12} sm={12} md={2} className="RoleInformation">
               {user
-                ? user.dOB
-                  ? moment(user.dOB).format("DD-MM-YYYY")
+                ? user.dob
+                  ? moment(user.dob).format("DD-MM-YYYY")
                   : "N/A"
                 : ""}
             </Grid>
@@ -286,7 +290,7 @@ const Profile = () => {
               {t("Zip Code")}:
             </Grid>
             <Grid sx={12} sm={12} md={2} className="RoleInformation">
-              {user ? (user.zIP ? user.zIP : "N/A") : ""}
+              {user ? (user.zip ? user.zip : "N/A") : ""}
             </Grid>
           </Grid>
           <Grid container spacing={1} className="formdata">
