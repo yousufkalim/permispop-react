@@ -799,7 +799,7 @@ const Index = () => {
             <Divider
               width="100%"
               borderColor="#D5E4E8"
-              margin="2% 0px 2% 0px"
+              margin="2% 0px 2% 0px !important"
             />
             <Typography style={{ marginLeft: "30px" }} className="Heading1">
               {t("Vehicle Details")}
@@ -807,7 +807,7 @@ const Index = () => {
             <Divider
               width="100%"
               borderColor="#D5E4E8"
-              margin="2% 0px 2% 0px"
+              margin="2% 0px 2% 0px !important"
             />
             <Grid item xs={12} sm={12} md={4} sx={{ marginTop: "9px" }}>
               <DatePicker
@@ -950,7 +950,7 @@ const Index = () => {
                   label="RegCertificate"
                   required={true}
                   name="VehicleRegImg"
-                  value={vehicleDet.VehicleRegImg}
+                  value={vehicleDet.VehicleRegImg.split("_").slice(1).join("_")}
                   onChange={handleFileChange}
                   error={vehicleErrors["VehicleRegImg"] ? true : false}
                   ErrorMsg={vehicleErrors["VehicleRegImg"]}
@@ -960,7 +960,11 @@ const Index = () => {
           </div>
           <Divider width="100%" borderColor="#D5E4E8" margin="2% 0px 2% 0px" />
           <Typography className="Heading1">{t("Vehicle Insurance")}</Typography>
-          <Divider width="100%" borderColor="#D5E4E8" margin="2% 0px 2% 0px" />
+          <Divider
+            width="100%"
+            borderColor="#D5E4E8"
+            margin="2% 0px 2% 0px !important"
+          />
           <Grid container spacing={4}>
             <Grid item xs={12} sm={12} md={4}>
               <TextField
@@ -1036,7 +1040,7 @@ const Index = () => {
                   label="GreenCard"
                   name="GreenCard"
                   required={true}
-                  value={vehicleDet.GreenCard}
+                  value={vehicleDet.GreenCard.split("_").slice(1).join("_")}
                   onChange={handleFileChange}
                   error={vehicleErrors["GreenCard"] ? true : false}
                   ErrorMsg={vehicleErrors["GreenCard"]}
@@ -1062,7 +1066,7 @@ const Index = () => {
               <Divider
                 width="100%"
                 borderColor="#D5E4E8"
-                margin="2% 0px 2% 0px"
+                margin="2% 0px 2% 0px !important"
               />
               <Typography className="Heading1">
                 {t("Technical Control")}
@@ -1070,7 +1074,7 @@ const Index = () => {
               <Divider
                 width="100%"
                 borderColor="#D5E4E8"
-                margin="2% 0px 2% 0px"
+                margin="2% 0px 2% 0px !important"
               />
               <Grid container spacing={4}>
                 <Grid item xs={12} sm={12} md={4} sx={{ marginTop: "9px" }}>
@@ -1117,7 +1121,7 @@ const Index = () => {
                       title={t("Scan and upload your CT")}
                       label="YourCt"
                       name="CtImg"
-                      value={vehicleDet.CtImg}
+                      value={vehicleDet.CtImg.split("_").slice(1).join("_")}
                       onChange={handleFileChange}
                       error={vehicleErrors["CtImg"] ? true : false}
                       ErrorMsg={vehicleErrors["CtImg"]}

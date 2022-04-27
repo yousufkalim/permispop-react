@@ -60,9 +60,10 @@ const Index = () => {
     overflowX: "scroll",
     bgcolor: "background.paper",
     boxShadow: 24,
-    p: 4,
+    p: 6,
     mt: 3,
     borderRadius: "4px",
+    overflowX: "hidden",
   };
 
   const [instructorData, setInstructorData] = useState([]);
@@ -1744,16 +1745,26 @@ const Index = () => {
                 type="file"
                 label="ProfileImg"
                 name="ProfileImg"
-                value={instructorDetail.ProfileImg}
+                value={instructorDetail.ProfileImg.split("_")
+                  .slice(1)
+                  .join("_")}
                 onChange={handleFileChange}
                 // error={step6Errors['ProfileImg']?true:false}
                 // ErrorMsg={step6Errors['ProfileImg']}
               />
             </Grid>
           </Grid>
-          <Divider width="100%" borderColor="#D5E4E8" margin="2% 0px 2% 0px" />
+          <Divider
+            width="100%"
+            borderColor="#D5E4E8"
+            margin="2% 0px 2% 0px !important"
+          />
           <Typography className="Heading1">Driver’s License</Typography>
-          <Divider width="100%" borderColor="#D5E4E8" margin="2% 0px 2% 0px" />
+          <Divider
+            width="100%"
+            borderColor="#D5E4E8"
+            margin="2% 0px 2% 0px !important"
+          />
           <Grid container spacing={4}>
             <Grid item xs={12} sm={12} md={4}>
               <TextField
@@ -1814,7 +1825,9 @@ const Index = () => {
                 name="DriverLicenseFrontImg"
                 type="file"
                 label="DriverLicenseFrontImg"
-                value={instructorDetail.DriverLicenseFrontImg}
+                value={instructorDetail.DriverLicenseFrontImg.split("_")
+                  .slice(1)
+                  .join("_")}
                 onChange={handleFileChange}
                 error={step6Errors["DriverLicenseFrontImg"] ? true : false}
                 ErrorMsg={step6Errors["DriverLicenseFrontImg"]}
@@ -1827,18 +1840,28 @@ const Index = () => {
                 name="DriverLicenseBackImg"
                 type="file"
                 label="DriverLicenseBackImg"
-                value={instructorDetail.DriverLicenseBackImg}
+                value={instructorDetail.DriverLicenseBackImg.split("_")
+                  .slice(1)
+                  .join("_")}
                 onChange={handleFileChange}
                 error={step6Errors["DriverLicenseBackImg"] ? true : false}
                 ErrorMsg={step6Errors["DriverLicenseBackImg"]}
               />
             </Grid>
           </Grid>
-          <Divider width="100%" borderColor="#D5E4E8" margin="2% 0px 2% 0px" />
+          <Divider
+            width="100%"
+            borderColor="#D5E4E8"
+            margin="2% 0px 2% 0px !important"
+          />
           <Typography className="Heading1">
             Authorization to Exercise
           </Typography>
-          <Divider width="100%" borderColor="#D5E4E8" margin="2% 0px 2% 0px" />
+          <Divider
+            width="100%"
+            borderColor="#D5E4E8"
+            margin="2% 0px 2% 0px !important"
+          />
           <Grid container spacing={4}>
             <Grid item xs={12} sm={12} md={4} sx={{ marginTop: "9px" }}>
               <DatePicker
@@ -1916,7 +1939,9 @@ const Index = () => {
                   label="ExcAuthFrontImg"
                   name="ExcAuthFrontImg"
                   type="file"
-                  value={instructorDetail.ExcAuthFrontImg}
+                  value={instructorDetail.ExcAuthFrontImg.split("_")
+                    .slice(1)
+                    .join("_")}
                   onChange={handleFileChange}
                   error={step6Errors["ExcAuthFrontImg"] ? true : false}
                   ErrorMsg={step6Errors["ExcAuthFrontImg"]}
@@ -1929,7 +1954,9 @@ const Index = () => {
                   required={true}
                   name="ExcAuthBackImg"
                   type="file"
-                  value={instructorDetail.ExcAuthBackImg}
+                  value={instructorDetail.ExcAuthBackImg.split("_")
+                    .slice(1)
+                    .join("_")}
                   onChange={handleFileChange}
                   error={step6Errors["ExcAuthBackImg"] ? true : false}
                   ErrorMsg={step6Errors["ExcAuthBackImg"]}
@@ -1937,7 +1964,11 @@ const Index = () => {
               </Grid>
             </Grid>
           </div>
-          <Divider width="100%" borderColor="#D5E4E8" margin="2% 0px 2% 0px" />
+          <Divider
+            width="100%"
+            borderColor="#D5E4E8"
+            margin="2% 0px 2% 0px !important"
+          />
           <Typography className="Heading1">
             Type Of Contract With Driving School
           </Typography>
@@ -1961,7 +1992,11 @@ const Index = () => {
               />
             </RadioGroup>
           </Typography>
-          <Divider width="100%" borderColor="#D5E4E8" margin="2% 0px 2% 0px" />
+          <Divider
+            width="100%"
+            borderColor="#D5E4E8"
+            margin="2% 0px 2% 0px !important"
+          />
 
           <div
             style={{

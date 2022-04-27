@@ -1825,8 +1825,8 @@ const DrivingSchool = () => {
         })
           .then(async (DrivingSchoolApprovalRes) => {
             await API("post", "Business", {
-              siratImagePath: step2.SiretNumber,
-              siretNumber: step2.KBIS,
+              siratImagePath: step2.KBIS,
+              siretNumber: step2.SiretNumber,
             })
               .then(async (BusinessRes) => {
                 await API("post", "InsuranceCompany", {

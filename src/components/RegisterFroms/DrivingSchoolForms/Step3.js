@@ -88,7 +88,7 @@ const Step3 = ({ step3, setStep3, onChange, step3Errors }) => {
             label="YourRCpro"
             name="RcPro"
             type="file"
-            value={step3.RcPro}
+            value={step3.RcPro.split("_").slice(1).join("_")}
             onChange={handleFileChange}
             error={step3Errors["RcPro"] ? true : false}
             ErrorMsg={step3Errors["RcPro"]}

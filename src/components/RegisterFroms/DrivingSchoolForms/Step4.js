@@ -229,7 +229,7 @@ const Step4 = ({ step4, setStep4, onChange, step4Errors }) => {
             name="ProfileImg"
             label="ProfileImg"
             type="file"
-            value={step4.ProfileImg}
+            value={step4.ProfileImg.split("_").slice(1).join("_")}
             onChange={handleFileChange}
             error={step4Errors["ProfileImg"] ? true : false}
             ErrorMsg={step4Errors["ProfileImg"]}
