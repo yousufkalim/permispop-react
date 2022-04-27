@@ -192,8 +192,8 @@ const Calendar = () => {
   const handleOpen = (e) => {
     setSelectedStartHours(moment(e.start).format("HH"));
     setSelectedEndHours(moment(e.end).format("HH"));
-    setSelectedStartMins(moment(e.start).format("mm"));
-    setSelectedEndMins(moment(e.end).format("mm"));
+    setSelectedStartMins("00");
+    setSelectedEndMins("00");
 
     setSelectedDate(e.start);
 
@@ -248,9 +248,13 @@ const Calendar = () => {
       second: 0,
       millisecond: 0,
     });
+
     var duration = moment.duration(endDate.diff(startDate));
     var minutes = duration.asMinutes();
-    if (selectedVehicle === "") {
+
+    if (moment(startDate).isBefore(moment())) {
+      toast.warning("Cannot create availability before current time!");
+    } else if (selectedVehicle === "") {
       toast.warning("Must select a vehicle to book!");
     } else if (selectedMeetup === "") {
       toast.warning("Must select a meetup point!");
