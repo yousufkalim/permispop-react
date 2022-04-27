@@ -10,17 +10,10 @@ import ForumIcon from "@mui/icons-material/Forum";
 import TableContainer from "@mui/material/TableContainer";
 import Box from "@mui/material/Box";
 import Modal from "@mui/material/Modal";
-import Radio from "@mui/material/Radio";
 import Paper from "@mui/material/Paper";
-import { pink } from "@mui/material/colors";
 import API from "../../../api/index";
 import moment from "moment";
-// import RadioGroup from "@mui/material/RadioGroup";
-// import FormControlLabel from "@mui/material/FormControlLabel";
-// import FormControl from "@mui/material/FormControl";
-// import FormLabel from "@mui/material/FormLabel";
-
-// import RadioGroup from "@mui/material/RadioGroup";
+import RadioButton from "../../../components/Common/RadioButton";
 
 const style = {
   position: "absolute",
@@ -35,10 +28,8 @@ const style = {
   boxShadow: 24,
   p: 4,
 };
-const label = { inputProps: { "aria-label": "Checkbox demo" } };
-function createData(wording, comments) {
-  return { wording, comments };
-}
+
+const user = JSON.parse(localStorage.getItem("user"));
 
 function Mylearning() {
   const [comments, setComments] = useState([]);
@@ -75,10 +66,9 @@ function Mylearning() {
         handleSetStep4(e[0]);
       }
     });
-  }, [update]);
+  }, [update, step]);
 
   const Booklet = async () => {
-    const user = JSON.parse(localStorage.getItem("user"));
     return API("get", `Booklet/GetAllByStudentId/?id=${user.id}`).then(
       (GetAllBookletResponse) => {
         let array = GetAllBookletResponse?.data?.data?.map((e) => {
@@ -108,7 +98,6 @@ function Mylearning() {
   };
 
   const BookletComments = async () => {
-    const user = JSON.parse(localStorage.getItem("user"));
     await API(
       "get",
       `Booklet/GetAllBookletComments/?studentId=${user.id}&bookletItemId=all`
@@ -132,19 +121,11 @@ function Mylearning() {
     setStep(1);
     let level = {};
     let newRows = rows.map((row, index) => {
-      if (commentLevel.length > 0) {
-        level = commentLevel.find((p) => {
-          if (parseInt(p.bookletItemId) === index + 1) {
-            return p;
-          }
-        });
-      } else {
-        level = e.find((p) => {
-          if (parseInt(p.bookletItemId) === index + 1) {
-            return p;
-          }
-        });
-      }
+      level = e.find((p) => {
+        if (parseInt(p.bookletItemId) === index + 1) {
+          return p;
+        }
+      });
 
       return { row, level };
     });
@@ -154,29 +135,13 @@ function Mylearning() {
   // step 2
   const handleSetStep2 = (e) => {
     setStep(2);
-
-    // let level = {};
-    // let newRows = rows2.map((row, index) => {
-    //   level = commentLevel.find(
-    //     (p) => parseInt(p.bookletItemId) === index + 10
-    //   );
-    //   return { row, level };
-    // });
     let level = {};
     let newRows = rows2.map((row, index) => {
-      if (commentLevel.length > 0) {
-        level = commentLevel.find((p) => {
-          if (parseInt(p.bookletItemId) === index + 10) {
-            return p;
-          }
-        });
-      } else {
-        level = e.find((p) => {
-          if (parseInt(p?.bookletItemId) === index + 10) {
-            return p;
-          }
-        });
-      }
+      level = e.find((p) => {
+        if (parseInt(p.bookletItemId) === index + 10) {
+          return p;
+        }
+      });
 
       return { row, level };
     });
@@ -188,61 +153,30 @@ function Mylearning() {
     setStep(3);
     let level = {};
     let newRows = rows3.map((row, index) => {
-      if (commentLevel.length > 0) {
-        level = commentLevel.find((p) => {
-          if (parseInt(p.bookletItemId) === index + 18) {
-            return p;
-          }
-        });
-      } else {
-        level = e.find((p) => {
-          if (parseInt(p?.bookletItemId) === index + 18) {
-            return p;
-          }
-        });
-      }
+      level = e.find((p) => {
+        if (parseInt(p.bookletItemId) === index + 18) {
+          return p;
+        }
+      });
 
       return { row, level };
     });
-    // let level = {};
-    // let newRows = rows3.map((row, index) => {
-    //   level = commentLevel.find(
-    //     (p) => parseInt(p.bookletItemId) === index + 18
-    //   );
-    //   return { row, level };
-    // });
     setCheckingLevel3(newRows);
   };
 
   // step 4
-  // step 3
   const handleSetStep4 = (e) => {
     setStep(4);
     let level = {};
     let newRows = rows4.map((row, index) => {
-      if (commentLevel.length > 0) {
-        level = commentLevel.find((p) => {
-          if (parseInt(p.bookletItemId) === index + 25) {
-            return p;
-          }
-        });
-      } else {
-        level = e.find((p) => {
-          if (parseInt(p?.bookletItemId) === index + 25) {
-            return p;
-          }
-        });
-      }
+      level = e.find((p) => {
+        if (parseInt(p.bookletItemId) === index + 25) {
+          return p;
+        }
+      });
 
       return { row, level };
     });
-    // let level = {};
-    // let newRows = rows4.map((row, index) => {
-    //   level = commentLevel.find(
-    //     (p) => parseInt(p.bookletItemId) === index + 25
-    //   );
-    //   return { row, level };
-    // });
     setCheckingLevel4(newRows);
   };
   return (
@@ -285,13 +219,13 @@ function Mylearning() {
                 })}
               </div>
             ) : (
-              <h1 style={{ color: "gray" }}>Not Found </h1>
+              <h1 style={{ color: "gray" }}>Not Found</h1>
             )}
           </Typography>
         </Box>
       </Modal>
 
-      <Typography className="Mylearning_title"> My Learning</Typography>
+      <Typography className="Mylearning_title">My Learning</Typography>
       <Divider
         width="100%"
         borderColor="#D5E4E8"
@@ -383,71 +317,37 @@ function Mylearning() {
                         return (
                           <tr key="">
                             <td align="center">
-                              <Radio
-                                checked={
+                              <RadioButton
+                                checked1={
                                   row.level ? row?.level?.level === "1" : true
                                 }
-                                value="1"
-                                name="radio-buttons"
-                                onChange={(e) =>
-                                  HandleChangeRadio(
-                                    e,
-                                    row?.level?.level,
-                                    index + 1
-                                  )
-                                }
-                                sx={{
-                                  color: pink[800],
-
-                                  "&.Mui-checked": {
-                                    color: pink[600],
-                                  },
-                                }}
-                                inputProps={{ "aria-label": "1" }}
-                              />
-                              <Radio
-                                checked={
+                                checked2={
                                   row.level ? row?.level?.level === "2" : false
                                 }
-                                value="2"
-                                name="radio-buttons"
-                                onChange={(e) =>
-                                  HandleChangeRadio(
-                                    e,
-                                    row?.level?.level,
-                                    index + 1
-                                  )
-                                }
-                                sx={{
-                                  color: "#FFA333",
-
-                                  "&.Mui-checked": {
-                                    color: "#FFA333",
-                                  },
-                                }}
-                                inputProps={{ "aria-label": "2" }}
-                              />
-                              <Radio
-                                checked={
+                                checked3={
                                   row.level ? row?.level?.level === "3" : false
                                 }
-                                value="3"
-                                name="radio-buttons"
-                                onChange={(e) =>
+                                onChange1={(e) =>
                                   HandleChangeRadio(
                                     e,
                                     row?.level?.level,
                                     index + 1
                                   )
                                 }
-                                sx={{
-                                  color: "#149E7A",
-
-                                  "&.Mui-checked": {
-                                    color: "#149E7A",
-                                  },
-                                }}
-                                inputProps={{ "aria-label": "3" }}
+                                onChange2={(e) =>
+                                  HandleChangeRadio(
+                                    e,
+                                    row?.level?.level,
+                                    index + 1
+                                  )
+                                }
+                                onChange3={(e) =>
+                                  HandleChangeRadio(
+                                    e,
+                                    row?.level?.level,
+                                    index + 1
+                                  )
+                                }
                               />
                             </td>
                             <td align="start" className="MyProcedureWording">
@@ -496,68 +396,37 @@ function Mylearning() {
                       return (
                         <tr key="">
                           <td align="center">
-                            <Radio
-                              checked={
+                            <RadioButton
+                              checked1={
                                 row.level ? row?.level?.level === "1" : true
                               }
-                              value="1"
-                              name="radio-buttons"
-                              onChange={(e) =>
-                                HandleChangeRadio(
-                                  e,
-                                  row?.level?.level,
-                                  index + 10
-                                )
-                              }
-                              sx={{
-                                color: pink[800],
-
-                                "&.Mui-checked": {
-                                  color: pink[600],
-                                },
-                              }}
-                            />
-                            <Radio
-                              checked={
+                              checked2={
                                 row.level ? row?.level?.level === "2" : false
                               }
-                              value="2"
-                              name="radio-buttons"
-                              onChange={(e) =>
-                                HandleChangeRadio(
-                                  e,
-                                  row?.level?.level,
-                                  index + 10
-                                )
-                              }
-                              sx={{
-                                color: "#FFA333",
-
-                                "&.Mui-checked": {
-                                  color: "#FFA333",
-                                },
-                              }}
-                            />
-                            <Radio
-                              checked={
+                              checked3={
                                 row.level ? row?.level?.level === "3" : false
                               }
-                              value="3"
-                              name="radio-buttons"
-                              onChange={(e) =>
+                              onChange1={(e) =>
                                 HandleChangeRadio(
                                   e,
                                   row?.level?.level,
                                   index + 10
                                 )
                               }
-                              sx={{
-                                color: "#149E7A",
-
-                                "&.Mui-checked": {
-                                  color: "#149E7A",
-                                },
-                              }}
+                              onChange2={(e) =>
+                                HandleChangeRadio(
+                                  e,
+                                  row?.level?.level,
+                                  index + 10
+                                )
+                              }
+                              onChange3={(e) =>
+                                HandleChangeRadio(
+                                  e,
+                                  row?.level?.level,
+                                  index + 10
+                                )
+                              }
                             />
                           </td>
                           <td align="start" className="MyProcedureWording">
@@ -607,67 +476,37 @@ function Mylearning() {
                         <tr key="">
                           <td align="center">
                             <>
-                              <Radio
-                                checked={
+                              <RadioButton
+                                checked1={
                                   row.level ? row?.level?.level === "1" : true
                                 }
-                                value="1"
-                                name="radio-buttons"
-                                onChange={(e) =>
-                                  HandleChangeRadio(
-                                    e,
-                                    row?.level?.level,
-                                    index + 18
-                                  )
-                                }
-                                sx={{
-                                  color: pink[800],
-
-                                  "&.Mui-checked": {
-                                    color: pink[600],
-                                  },
-                                }}
-                              />
-                              <Radio
-                                checked={
+                                checked2={
                                   row.level ? row?.level?.level === "2" : false
                                 }
-                                value="2"
-                                name="radio-buttons"
-                                onChange={(e) =>
-                                  HandleChangeRadio(
-                                    e,
-                                    row?.level?.level,
-                                    index + 18
-                                  )
-                                }
-                                sx={{
-                                  color: "#FFA333",
-                                  "&.Mui-checked": {
-                                    color: "#FFA333",
-                                  },
-                                }}
-                              />
-                              <Radio
-                                checked={
+                                checked3={
                                   row.level ? row?.level?.level === "3" : false
                                 }
-                                value="3"
-                                name="radio-buttons"
-                                onChange={(e) =>
+                                onChange1={(e) =>
                                   HandleChangeRadio(
                                     e,
                                     row?.level?.level,
                                     index + 18
                                   )
                                 }
-                                sx={{
-                                  color: "#149E7A",
-
-                                  "&.Mui-checked": {
-                                    color: "#149E7A",
-                                  },
-                                }}
+                                onChange2={(e) =>
+                                  HandleChangeRadio(
+                                    e,
+                                    row?.level?.level,
+                                    index + 18
+                                  )
+                                }
+                                onChange3={(e) =>
+                                  HandleChangeRadio(
+                                    e,
+                                    row?.level?.level,
+                                    index + 18
+                                  )
+                                }
                               />
                             </>
                           </td>
@@ -719,68 +558,37 @@ function Mylearning() {
                         <tr key="">
                           <td align="center">
                             <>
-                              <Radio
-                                checked={
+                              <RadioButton
+                                checked1={
                                   row.level ? row?.level?.level === "1" : true
                                 }
-                                value="1"
-                                name="radio-buttons"
-                                onChange={(e) =>
-                                  HandleChangeRadio(
-                                    e,
-                                    row?.level?.level,
-                                    index + 25
-                                  )
-                                }
-                                sx={{
-                                  color: pink[800],
-
-                                  "&.Mui-checked": {
-                                    color: pink[600],
-                                  },
-                                }}
-                              />
-                              <Radio
-                                checked={
+                                checked2={
                                   row.level ? row?.level?.level === "2" : false
                                 }
-                                value="2"
-                                name="radio-buttons"
-                                onChange={(e) =>
-                                  HandleChangeRadio(
-                                    e,
-                                    row?.level?.level,
-                                    index + 25
-                                  )
-                                }
-                                sx={{
-                                  color: "#FFA333",
-
-                                  "&.Mui-checked": {
-                                    color: "#FFA333",
-                                  },
-                                }}
-                              />
-                              <Radio
-                                checked={
+                                checked3={
                                   row.level ? row?.level?.level === "3" : false
                                 }
-                                value="3"
-                                name="radio-buttons"
-                                onChange={(e) =>
+                                onChange1={(e) =>
                                   HandleChangeRadio(
                                     e,
                                     row?.level?.level,
                                     index + 25
                                   )
                                 }
-                                sx={{
-                                  color: "#149E7A",
-
-                                  "&.Mui-checked": {
-                                    color: "#149E7A",
-                                  },
-                                }}
+                                onChange2={(e) =>
+                                  HandleChangeRadio(
+                                    e,
+                                    row?.level?.level,
+                                    index + 25
+                                  )
+                                }
+                                onChange3={(e) =>
+                                  HandleChangeRadio(
+                                    e,
+                                    row?.level?.level,
+                                    index + 25
+                                  )
+                                }
                               />
                             </>
                           </td>

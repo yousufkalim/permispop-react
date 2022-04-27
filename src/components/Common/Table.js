@@ -14,6 +14,10 @@ import IconButton from "@mui/material/IconButton";
 import Select from "@mui/material/Select";
 import FormControl from "@mui/material/FormControl";
 import BasicModal from "../../components/Common/BasicModal";
+import { ReactComponent as Comment } from "../../assets/images/ChatIcon.svg";
+import { ReactComponent as Profile } from "../../assets/images/Profile.svg";
+import { ReactComponent as Book } from "../../assets/images/Book.svg";
+
 import { useTranslation } from "react-i18next";
 
 export default function DataTable(props) {
@@ -345,13 +349,13 @@ export default function DataTable(props) {
                                 ) : (
                                   <TableCell align="center">
                                     <IconButton>
-                                      <MoreVertIcon />
+                                      <Profile style={{ width: "1.8rem" }} />
                                     </IconButton>
                                     <IconButton>
-                                      <MoreVertIcon />
+                                      <Book style={{ width: "1.3rem" }} />
                                     </IconButton>
                                     <IconButton>
-                                      <MoreVertIcon />
+                                      <Comment style={{ width: "1.8rem" }} />
                                     </IconButton>
                                   </TableCell>
                                 )}

@@ -3,7 +3,7 @@ import DataTable from "../../../components/Common/Table";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import { PendingRequestcolumns } from "../../../utils/tableHeads";
-import MultipleSelectPlaceholder from "../../../components/Common/SelectField";
+import AddCommentModel from "../../../components/Common/AddCommentModel";
 import DatePicker from "../../../components/Common/DatePicker";
 import MobileViewFilters from "../../../components/Common/MobileViewFilters";
 import Divider from "../../../components/Common/Divider";
@@ -28,7 +28,7 @@ function createData(bookingwith, date, startTime, duration, status, id) {
 }
 const Index = () => {
   const { i18n, t } = useTranslation();
-  const style = {
+  const style1 = {
     position: "absolute",
     top: "50%",
     left: "50%",
@@ -71,6 +71,7 @@ const Index = () => {
       "get",
       `Bookings/GetBookingsByIdForAllUsers_New?id=${userData.id}&role=${userData.role}&sortvalue=FirstName&sortorder=ascend&QuerySearch.firstName=&pageSize=10&pageNumber=1&startDate=&endDate=`
     ).then(async (GetBookingres) => {
+      console.log(GetBookingres, "GetBookingres");
       let studentRes = GetBookingres.data.data.map((booking) => {
         if (userData.id === booking.instructionId) {
           return API("get", `Personal/GetAllById/?id=${booking.studentId}`);
@@ -140,7 +141,6 @@ const Index = () => {
           : "",
         studentID: user.role === "Student" ? user.id : selectedUserData.id,
       }).then((disputeres) => {
-        console.log("data", disputeres.data.data);
         toast.success(t("Dispute is created sucessfully"));
         SetUpdateField("");
         setComment("");
@@ -220,7 +220,7 @@ const Index = () => {
           timeout: 500,
         }}
       >
-        <Box sx={style}>
+        <Box sx={style1}>
           <FormControl>
             <FormLabel
               id="demo-radio-buttons-group-label"
@@ -284,6 +284,7 @@ const Index = () => {
           </div>
         </Box>
       </Modal>
+      <AddCommentModel />
     </>
   );
 };
