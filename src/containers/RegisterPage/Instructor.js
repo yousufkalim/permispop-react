@@ -23,8 +23,6 @@ import Joi from "joi-browser";
 import { useTranslation } from "react-i18next";
 import InsRegisterImg from "../../assets/images/registerImg.svg";
 
-import { async } from "validate.js";
-
 const ColorlibConnector = withStyles({
   alternativeLabel: {
     top: 23,
@@ -1338,15 +1336,16 @@ const Instructor = () => {
 
   const handleNext = async () => {
     if (activeStep === 1) {
-      await API("get", `Personal/Email/?email=${step1.Email}`).then(
-        async (emailRes) => {
-          if (emailRes.data.data === null || emailRes.data.data === "") {
-            setActiveStep((prevActiveStep) => prevActiveStep + 1);
-          } else if (emailRes.data.data) {
-            toast.warning("Email already exists!");
-          }
+      await API(
+        "get",
+        `Personal/Email?Email=${step1.Email}&phn=${step1.Phone}&SecondPhn=${step1.Phone2}&SecondEmail=${step1.Email2}`
+      ).then(async (emailRes) => {
+        if (emailRes.data.data === null || emailRes.data.data === "") {
+          setActiveStep((prevActiveStep) => prevActiveStep + 1);
+        } else if (emailRes.data.data) {
+          toast.warning(emailRes.data.data);
         }
-      );
+      });
     } else {
       setActiveStep((prevActiveStep) => prevActiveStep + 1);
     }

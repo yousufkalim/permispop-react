@@ -505,6 +505,7 @@ const StudentForm = (props) => {
       }
     });
   };
+
   const handleLanguage = async (e) => {
     var config = {
       method: "get",
@@ -528,9 +529,11 @@ const StudentForm = (props) => {
         console.log(error);
       });
   };
+
   useEffect(() => {
     handleLanguage();
   }, []);
+
   const handleSelectAddress = (e) => {
     if (e) {
       handleStudent("Address", {
@@ -552,75 +555,76 @@ const StudentForm = (props) => {
   };
 
   const handleSubmit = async () => {
-    await API("get", `Personal/Email/?email=${student.email}`).then(
-      async (emailRes) => {
-        if (emailRes.data.data === null || emailRes.data.data === "") {
-          setDisable(true);
-          let languageArray = student.language.map((lang) => {
-            return lang.name;
-          });
-          await API("post", "Personal", {
-            RegistrationDate: new Date(),
-            firstName: student.firstname,
-            surName: student.surname,
-            dob: student.dob,
-            placeOfBirth: student.pob,
-            gender: student.gender,
-            ContactEmail: student.email,
-            email: student.email,
-            secondEmail: student.email2,
-            phone: student.phone,
-            secondPhone: student.phone2,
-            complement: student.complement,
-            password: student.password,
-            noOfHrsWanted: student.noh,
-            neph: student.neph,
-            role: "Student",
-            highWayCodeDate: student.highwayCodeDate,
-            id: "",
-            frontIdPhoto: student.frontImage,
-            backIdPhoto: student.backImage,
-            photo: student.profileImage,
-            highWayCodeImage: student.highwayCodeImg,
-            SpokenLanguage: languageArray,
-            address: student.Address.label,
-            zip: student.Address.zip,
-            city: student.Address.city,
-            lat: student.Address.lat,
-            long: student.Address.lng,
-          })
-            .then(async (res) => {
-              let personalInfoId = res.data.data.id;
-              await API("post", "Profile", {
-                businessInfoId: "",
-                drivingLisenceInfoId: "",
-                drivingSchoolApprovalInfoId: "",
-                drivingSchoolIdentityInfoId: "",
-                drivingSchoolManagerInfoId: "",
-                exersiceAuthorizationInfoId: "",
-                id: "",
-                insuranceCompanyInfoId: "",
-                lat: student.Address.lat,
-                long: student.Address.lng,
-                personalInfoId: personalInfoId,
-                role: "student",
-                status: "Active",
-              });
-            })
-            .then(() => {
-              history.push("/");
-              toast.success(t("Student Registered Successfully"));
-            })
-            .catch((error) => {
-              console.log(error);
-              toast.error(t("Not Registered....Somethong went wrong"));
-              setDisable(false);
+    await API(
+      "get",
+      `Personal/Email?Email=${student.email}&phn=${student.phone}&SecondPhn=${student.phone2}&SecondEmail=${student.email2}`
+    ).then(async (emailRes) => {
+      if (emailRes.data.data === null || emailRes.data.data === "") {
+        setDisable(true);
+        let languageArray = student.language.map((lang) => {
+          return lang.name;
+        });
+        await API("post", "Personal", {
+          RegistrationDate: new Date(),
+          firstName: student.firstname,
+          surName: student.surname,
+          dob: student.dob,
+          placeOfBirth: student.pob,
+          gender: student.gender,
+          ContactEmail: student.email,
+          email: student.email,
+          secondEmail: student.email2,
+          phone: student.phone,
+          secondPhone: student.phone2,
+          complement: student.complement,
+          password: student.password,
+          noOfHrsWanted: student.noh,
+          neph: student.neph,
+          role: "Student",
+          highWayCodeDate: student.highwayCodeDate,
+          id: "",
+          frontIdPhoto: student.frontImage,
+          backIdPhoto: student.backImage,
+          photo: student.profileImage,
+          highWayCodeImage: student.highwayCodeImg,
+          SpokenLanguage: languageArray,
+          address: student.Address.label,
+          zip: student.Address.zip,
+          city: student.Address.city,
+          lat: student.Address.lat,
+          long: student.Address.lng,
+        })
+          .then(async (res) => {
+            let personalInfoId = res.data.data.id;
+            await API("post", "Profile", {
+              businessInfoId: "",
+              drivingLisenceInfoId: "",
+              drivingSchoolApprovalInfoId: "",
+              drivingSchoolIdentityInfoId: "",
+              drivingSchoolManagerInfoId: "",
+              exersiceAuthorizationInfoId: "",
+              id: "",
+              insuranceCompanyInfoId: "",
+              lat: student.Address.lat,
+              long: student.Address.lng,
+              personalInfoId: personalInfoId,
+              role: "student",
+              status: "Active",
             });
-        } else if (emailRes.data.data) {
-          toast.warning("Email already exists!");
-        }
+          })
+          .then(() => {
+            history.push("/");
+            toast.success(t("Student Registered Successfully"));
+          })
+          .catch((error) => {
+            console.log(error);
+            toast.error(t("Not Registered....Somethong went wrong"));
+            setDisable(false);
+          });
+      } else if (emailRes.data.data) {
+        toast.warning(emailRes.data.data);
       }
-    );
+    });
   };
 
   const handleAddress = async (e) => {
