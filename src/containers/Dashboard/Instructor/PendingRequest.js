@@ -69,7 +69,7 @@ const Index = () => {
     let allBookings = [];
     await API(
       "get",
-      `Bookings/GetBookingsByIdForAllUsers_New?id=${userData.id}&role=${userData.role}&sortvalue=FirstName&sortorder=ascend&QuerySearch.firstName=&pageSize=10&pageNumber=1&startDate=&endDate=`
+      `Bookings/GetBookingsByIdForAllUsers_New?id=${userData.id}&role=${userData.role}&sortvalue=FirstName&sortorder=ascend&QuerySearch.firstName=&pageSize=100&pageNumber=1&startDate=&endDate=`
     ).then(async (GetBookingres) => {
       console.log(GetBookingres, "GetBookingres");
       let studentRes = GetBookingres.data.data.map((booking) => {
