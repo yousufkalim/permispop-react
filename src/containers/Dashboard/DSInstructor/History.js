@@ -11,6 +11,7 @@ import API from "../../../api";
 import { useTranslation } from "react-i18next";
 import moment from "moment";
 import { useHistory } from "react-router-dom";
+import Loader from "../../../components/Common/FullScreenLoader";
 
 function createData(bookingwith, date, startTime, duration, status, id) {
   return { bookingwith, date, startTime, duration, status, id };
@@ -23,6 +24,7 @@ const Index = () => {
   const [allBookingsWithUser, setAllBookingsWithUser] = useState([]);
   const [user, setUser] = useState();
   const history = useHistory();
+  const [loading, setLoading] = useState(true);
 
   const handleStartdate = (newValue) => {
     setStartValue(newValue);
@@ -76,6 +78,7 @@ const Index = () => {
             );
           })
         );
+        setLoading(false);
       });
     });
   };
@@ -136,13 +139,16 @@ const Index = () => {
         </Grid>
       </div>
       <Divider width="100%" borderColor="#D5E4E8" margin="2% 0px 2% 0px" />
-
-      <DataTable
-        data={pendingRequestsrows}
-        columns={Historycolumns}
-        user={user}
-        handleReBook={handleReBook}
-      ></DataTable>
+      {loading ? (
+        <Loader></Loader>
+      ) : (
+        <DataTable
+          data={pendingRequestsrows}
+          columns={Historycolumns}
+          user={user}
+          handleReBook={handleReBook}
+        ></DataTable>
+      )}
     </>
   );
 };

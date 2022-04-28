@@ -20,6 +20,7 @@ import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormLabel from "@mui/material/FormLabel";
 import moment from "moment";
+import Loader from "../../../components/Common/FullScreenLoader";
 
 import { useTranslation } from "react-i18next";
 
@@ -43,7 +44,7 @@ const Index = () => {
   const [pendingRequestsrows, setPendingRequestsrows] = useState([]);
   const [allBookingsWithUser, setAllBookingsWithUser] = useState([]);
   const [selectedUserData, setSelectedUserData] = useState([]);
-
+  const [loading, setLoading] = useState(true);
   const [Startvalue, setStartValue] = useState(new Date());
   const [openDisputeModal, setOpenDisputeModal] = useState(false);
   const [comment, setComment] = useState("");
@@ -99,6 +100,7 @@ const Index = () => {
             );
           })
         );
+        setLoading(false);
       });
     });
   };
@@ -202,13 +204,18 @@ const Index = () => {
         </Grid>
       </div>
       <Divider width="100%" borderColor="#D5E4E8" margin="2% 0px 2% 0px" />
-      <DataTable
-        updateStatus={updateStatus}
-        data={pendingRequestsrows}
-        columns={PendingRequestcolumns}
-        SetUpdateField={SetUpdateField}
-        user={user}
-      />
+
+      {loading ? (
+        <Loader></Loader>
+      ) : (
+        <DataTable
+          updateStatus={updateStatus}
+          data={pendingRequestsrows}
+          columns={PendingRequestcolumns}
+          SetUpdateField={SetUpdateField}
+          user={user}
+        />
+      )}
 
       <Modal
         aria-labelledby="spring-modal-title"

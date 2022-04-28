@@ -20,6 +20,7 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import FormLabel from "@mui/material/FormLabel";
 import API from "../../../api";
 import moment from "moment";
+import Loader from "../../../components/Common/FullScreenLoader";
 
 import { toast } from "react-toastify";
 import { useTranslation } from "react-i18next";
@@ -48,6 +49,7 @@ const Index = () => {
   const [selectedUserData, setSelectedUserData] = useState([]);
   const [openDisputeModal, setOpenDisputeModal] = useState(false);
   const [comment, setComment] = useState("");
+  const [loading, setLoading] = useState(true);
 
   const handleStartdate = (newValue) => {
     setStartValue(newValue);
@@ -99,6 +101,7 @@ const Index = () => {
             );
           })
         );
+        setLoading(false);
       });
     });
   };
@@ -204,14 +207,17 @@ const Index = () => {
         </Grid>
       </div>
       <Divider width="100%" borderColor="#D5E4E8" margin="2% 0px 2% 0px" />
-
-      <DataTable
-        updateStatus={updateStatus}
-        data={pendingRequestsrows}
-        columns={PendingRequestcolumns}
-        SetUpdateField={SetUpdateField}
-        user={user}
-      ></DataTable>
+      {loading ? (
+        <Loader></Loader>
+      ) : (
+        <DataTable
+          updateStatus={updateStatus}
+          data={pendingRequestsrows}
+          columns={PendingRequestcolumns}
+          SetUpdateField={SetUpdateField}
+          user={user}
+        ></DataTable>
+      )}
       <Modal
         aria-labelledby="spring-modal-title"
         aria-describedby="spring-modal-description"

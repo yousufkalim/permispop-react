@@ -21,10 +21,12 @@ import API from "../../../api";
 import moment from "moment";
 import { toast } from "react-toastify";
 import { useTranslation } from "react-i18next";
+import Loader from "../../../components/Common/FullScreenLoader";
 
 function createData(bookingwith, date, startTime, duration, status, id) {
   return { bookingwith, date, startTime, duration, status, id };
 }
+
 const Index = () => {
   const { i18n, t } = useTranslation();
   const style = {
@@ -44,6 +46,7 @@ const Index = () => {
   const [allBookingsWithUser, setAllBookingsWithUser] = useState([]);
   const [selectedUserData, setSelectedUserData] = useState([]);
   const [openDisputeModal, setOpenDisputeModal] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [comment, setComment] = useState("");
   const [user, setUser] = useState();
 
@@ -99,6 +102,7 @@ const Index = () => {
             );
           })
         );
+        setLoading(false);
       });
     });
   };
@@ -210,14 +214,17 @@ const Index = () => {
 
       <Divider width="100%" borderColor="#D5E4E8" margin="2% 0px 2% 0px" />
 
-      <DataTable
-        updateStatus={updateStatus}
-        data={pendingRequestsrows}
-        columns={PendingRequestcolumns}
-        SetUpdateField={SetUpdateField}
-        user={user}
-      ></DataTable>
-
+      {loading ? (
+        <Loader></Loader>
+      ) : (
+        <DataTable
+          updateStatus={updateStatus}
+          data={pendingRequestsrows}
+          columns={PendingRequestcolumns}
+          SetUpdateField={SetUpdateField}
+          user={user}
+        ></DataTable>
+      )}
       <Modal
         aria-labelledby="spring-modal-title"
         aria-describedby="spring-modal-description"

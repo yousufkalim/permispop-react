@@ -17,12 +17,11 @@ import Models from "../../../assets/makesModels/Models.xml";
 import Button from "../../../components/Common/Button";
 import { toast } from "react-toastify";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
-
 import API from "../../../api";
 import { Typography, Grid, Box, Checkbox, Paper, Modal } from "@mui/material";
-import { async } from "validate.js";
 import Joi from "joi-browser";
 import { useTranslation } from "react-i18next";
+import Loader from "../../../components/Common/FullScreenLoader";
 
 function createData(dateofregistration, brand, model, color, noplate, gearbox) {
   return { dateofregistration, brand, model, color, noplate, gearbox };
@@ -50,6 +49,7 @@ const Index = () => {
   const handleEnddate = (newValue) => {
     setEndValue(newValue);
   };
+  const [loading, setLoading] = useState(true);
 
   const handleOpenModal = () => {
     setVehicleDet({
@@ -379,6 +379,7 @@ const Index = () => {
             vehicles.push(veh.data.data);
           });
           setVehicleData(vehicles);
+          setLoading(false);
         });
       }
     );
@@ -791,12 +792,16 @@ const Index = () => {
           onClick={handleOpenModal}
         />
       </div>
-      <DataTable
-        data={vehicleData}
-        columns={Vehiclescolumns}
-        open={handleEditVehicle}
-        handleDeleteVehicle={handleDeleteVehicle}
-      ></DataTable>
+      {loading ? (
+        <Loader></Loader>
+      ) : (
+        <DataTable
+          data={vehicleData}
+          columns={Vehiclescolumns}
+          open={handleEditVehicle}
+          handleDeleteVehicle={handleDeleteVehicle}
+        ></DataTable>
+      )}
 
       <Modal
         open={addVehicle}

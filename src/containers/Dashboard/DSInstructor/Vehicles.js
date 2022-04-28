@@ -18,10 +18,9 @@ import Button from "../../../components/Common/Button";
 import { toast } from "react-toastify";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import { useTranslation } from "react-i18next";
-
 import API from "../../../api";
 import { Typography, Grid, Box, Checkbox, Paper, Modal } from "@mui/material";
-import { async } from "validate.js";
+import Loader from "../../../components/Common/FullScreenLoader";
 
 function createData(dateofregistration, brand, model, color, noplate, gearbox) {
   return { dateofregistration, brand, model, color, noplate, gearbox };
@@ -48,6 +47,7 @@ const Index = () => {
   const handleEnddate = (newValue) => {
     setEndValue(newValue);
   };
+  const [loading, setLoading] = useState(true);
 
   const handleOpenModal = () => {
     setVehicleDet({
@@ -115,13 +115,21 @@ const Index = () => {
 
   const getVehicleData = async (userData) => {
     let allVehicles = [];
-    await API("get", `Profile/GetProfileByPersonalId?id=${userData.id}`).then(async (DSInsprofileRes) => {
-      await API("get", `Profile/GetProfileByPersonalId?id=${DSInsprofileRes.data.data.drivingSchoolIdentityInfoId}`).then(
-        (DSInsPerprofileRes) => {
-          let vehicleId = JSON.parse(DSInsPerprofileRes.data.data.drivingSchoolVehiclesInfoId);
+    await API("get", `Profile/GetProfileByPersonalId?id=${userData.id}`).then(
+      async (DSInsprofileRes) => {
+        await API(
+          "get",
+          `Profile/GetProfileByPersonalId?id=${DSInsprofileRes.data.data.drivingSchoolIdentityInfoId}`
+        ).then((DSInsPerprofileRes) => {
+          let vehicleId = JSON.parse(
+            DSInsPerprofileRes.data.data.drivingSchoolVehiclesInfoId
+          );
 
           allVehicles = Object.entries(vehicleId).map(([key, value]) => {
-            return API("get", `VehicleDetail/GetVehicleDetailByIdAsync?id=${value}`);
+            return API(
+              "get",
+              `VehicleDetail/GetVehicleDetailByIdAsync?id=${value}`
+            );
           });
           Promise.all(allVehicles).then((res) => {
             let vehicles = [];
@@ -129,10 +137,11 @@ const Index = () => {
               vehicles.push(veh.data.data);
             });
             setVehicleData(vehicles);
+            setLoading(false);
           });
-        }
-      );
-    });
+        });
+      }
+    );
   };
   const onChange = (name, value) => {
     setVehicleDet({ ...vehicleDet, [name]: value });
@@ -142,7 +151,11 @@ const Index = () => {
     <>
       {/* <MobileViewFilters title={t("Vehicles")} /> */}
       <div className="Filters">
-        <Grid container spacing={1} sx={{ marginTop: "30px", marginLeft: "70px" }}>
+        <Grid
+          container
+          spacing={1}
+          sx={{ marginTop: "30px", marginLeft: "70px" }}
+        >
           <Grid xs={12} sm={12} md={3}>
             <Typography
               sx={{
@@ -190,8 +203,11 @@ const Index = () => {
         </Grid>
       </div>
       <Divider width="100%" borderColor="#D5E4E8" />
-
-      <DataTable data={vehicleData} columns={DsVehiclescolumns}></DataTable>
+      {loading ? (
+        <Loader></Loader>
+      ) : (
+        <DataTable data={vehicleData} columns={DsVehiclescolumns}></DataTable>
+      )}
     </>
   );
 };

@@ -21,6 +21,8 @@ import PrivacyPolicy from "../containers/LandingPage/Privacy&Policy";
 import TermsCondition from "../containers/LandingPage/Terms&condition";
 import jwt_decode from "jwt-decode";
 import { Base64 } from "js-base64";
+import Loader from "../components/Common/FullScreenLoader";
+
 const queryParams = new URLSearchParams(window.location.search);
 const FromNative = queryParams.get("FromNative");
 const NativeRedirect = queryParams.get("NativeRedirect");
@@ -49,125 +51,128 @@ const Index = (props) => {
     }
   }, []);
   return (
-    <Switch>
-      {update && (
-        <Switch>
-          {inNative === true ? (
-            <>
-              <Route exact path="/NativeMap" component={NativeMap} />
-            </>
-          ) : props.role ? (
-            <>
-              <Route
-                path="/instructor"
-                render={(props) => <InstructorLayout {...props} />}
-              />
-              <Route
-                path="/student"
-                render={(props) => <StudentLayout {...props} />}
-              />
-              <Route
-                path="/dsInstructor"
-                render={(props) => <DsInstructorLayout {...props} />}
-              />
-              <Route
-                path="/drivingSchool"
-                render={(props) => <DrivingSchoolLayout {...props} />}
-              />
-              <Route
-                path="/carRental"
-                render={(props) => <CarRentalLayout {...props} />}
-              />
+    <>
+      <Switch>
+        {update && (
+          <Switch>
+            {inNative === true ? (
+              <>
+                <Route exact path="/NativeMap" component={NativeMap} />
+              </>
+            ) : props.role ? (
+              <>
+                <Route
+                  path="/instructor"
+                  render={(props) => <InstructorLayout {...props} />}
+                />
+                <Route
+                  path="/student"
+                  render={(props) => <StudentLayout {...props} />}
+                />
+                <Route
+                  path="/dsInstructor"
+                  render={(props) => <DsInstructorLayout {...props} />}
+                />
+                <Route
+                  path="/drivingSchool"
+                  render={(props) => <DrivingSchoolLayout {...props} />}
+                />
+                <Route
+                  path="/carRental"
+                  render={(props) => <CarRentalLayout {...props} />}
+                />
 
-              {props.role === "DSInstructor" ? (
-                <Redirect
-                  from="/"
-                  to={
-                    window.location.pathname !== "/"
-                      ? window.location.pathname
-                      : "/dsInstructor/myProfile"
-                  }
+                {props.role === "DSInstructor" ? (
+                  <Redirect
+                    from="/"
+                    to={
+                      window.location.pathname !== "/"
+                        ? window.location.pathname
+                        : "/dsInstructor/myProfile"
+                    }
+                  />
+                ) : props.role === "Student" ? (
+                  <Redirect
+                    from="/"
+                    to={
+                      window.location.pathname !== "/"
+                        ? window.location.pathname
+                        : "/student/myProfile"
+                    }
+                  />
+                ) : props.role === "CarRentalAgent" ? (
+                  <Redirect
+                    from="/"
+                    to={
+                      window.location.pathname !== "/"
+                        ? window.location.pathname
+                        : "/CarRental/myProfile"
+                    }
+                  />
+                ) : props.role === "DrivingSchool" ? (
+                  <Redirect
+                    from="/"
+                    to={
+                      window.location.pathname !== "/"
+                        ? window.location.pathname
+                        : "/DrivingSchool/myProfile"
+                    }
+                  />
+                ) : props.role === "Instructor" ? (
+                  <Redirect
+                    from="/"
+                    to={
+                      window.location.pathname !== "/"
+                        ? window.location.pathname
+                        : "/instructor/myProfile"
+                    }
+                  />
+                ) : (
+                  <Redirect from="/" to="/" />
+                )}
+              </>
+            ) : (
+              <>
+                <Route exact path="/" component={Home} />
+                <Route
+                  exact
+                  path="/register/student"
+                  component={StudentRegister}
                 />
-              ) : props.role === "Student" ? (
-                <Redirect
-                  from="/"
-                  to={
-                    window.location.pathname !== "/"
-                      ? window.location.pathname
-                      : "/student/myProfile"
-                  }
+                <Route
+                  exact
+                  path="/register/instructor"
+                  component={InstructorRegister}
                 />
-              ) : props.role === "CarRentalAgent" ? (
-                <Redirect
-                  from="/"
-                  to={
-                    window.location.pathname !== "/"
-                      ? window.location.pathname
-                      : "/CarRental/myProfile"
-                  }
+                <Route
+                  exact
+                  path="/register/drivingSchool"
+                  component={DrivingSchoolRegister}
                 />
-              ) : props.role === "DrivingSchool" ? (
-                <Redirect
-                  from="/"
-                  to={
-                    window.location.pathname !== "/"
-                      ? window.location.pathname
-                      : "/DrivingSchool/myProfile"
-                  }
+                <Route
+                  exact
+                  path="/register/carRental"
+                  component={RentalCarRegister}
                 />
-              ) : props.role === "Instructor" ? (
-                <Redirect
-                  from="/"
-                  to={
-                    window.location.pathname !== "/"
-                      ? window.location.pathname
-                      : "/instructor/myProfile"
-                  }
+                <Route exact path="/register" component={StudentRegister} />
+                <Route
+                  exact
+                  path="/home/terms&condition"
+                  component={TermsCondition}
                 />
-              ) : (
+                <Route
+                  exact
+                  path="/home/privacy&policy"
+                  component={PrivacyPolicy}
+                />
                 <Redirect from="/" to="/" />
-              )}
-            </>
-          ) : (
-            <>
-              <Route exact path="/" component={Home} />
-              <Route
-                exact
-                path="/register/student"
-                component={StudentRegister}
-              />
-              <Route
-                exact
-                path="/register/instructor"
-                component={InstructorRegister}
-              />
-              <Route
-                exact
-                path="/register/drivingSchool"
-                component={DrivingSchoolRegister}
-              />
-              <Route
-                exact
-                path="/register/carRental"
-                component={RentalCarRegister}
-              />
-              <Route exact path="/register" component={StudentRegister} />
-              <Route
-                exact
-                path="/home/terms&condition"
-                component={TermsCondition}
-              />
-              <Route
-                exact
-                path="/home/privacy&policy"
-                component={PrivacyPolicy}
-              />
-              <Redirect from="/" to="/" />
-            </>
-          )}
-        </Switch>
-      )}
-    </Switch>
+              </>
+            )}
+          </Switch>
+        )}
+      </Switch>
+      {!update && <Loader></Loader>}
+    </>
   );
 };
 
