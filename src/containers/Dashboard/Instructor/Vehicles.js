@@ -52,7 +52,7 @@ const Index = () => {
 
   const handleOpenModal = () => {
     setVehicleDet({
-      FristRegDate: new Date(),
+      FristRegDate: "",
       Brand: "",
       Model: "",
       NumberPlate: "",
@@ -63,11 +63,11 @@ const Index = () => {
       VehicleRegImg: "",
       VehicleInsurer: "",
       PoliceNumber: "",
-      StartDate: new Date(),
-      EndDate: new Date(),
+      StartDate: "",
+      EndDate: "",
       GreenCard: "",
-      TechControlDate: new Date(),
-      TechEndDate: new Date(),
+      TechControlDate: "",
+      TechEndDate: "",
       CtImg: "",
       checkbox1: false,
     });
@@ -81,7 +81,7 @@ const Index = () => {
   const [vehicleErrors, setVehicleErrors] = useState({});
 
   const [vehicleDet, setVehicleDet] = React.useState({
-    FristRegDate: new Date(),
+    FristRegDate: "",
     Brand: "",
     Model: "",
     NumberPlate: "",
@@ -92,11 +92,11 @@ const Index = () => {
     VehicleRegImg: "",
     VehicleInsurer: "",
     PoliceNumber: "",
-    StartDate: new Date(),
-    EndDate: new Date(),
+    StartDate: "",
+    EndDate: "",
     GreenCard: "",
-    TechControlDate: new Date(),
-    TechEndDate: new Date(),
+    TechControlDate: "",
+    TechEndDate: "",
     CtImg: "",
   });
 
@@ -379,6 +379,9 @@ const Index = () => {
         Promise.all(allVehicles).then((res) => {
           let vehicles = [];
           res.map((veh) => {
+            veh.data.data.dateOfFirstRegistration = moment(
+              veh.data.data.dateOfFirstRegistration
+            ).format("DD/MM/YYYY");
             vehicles.push(veh.data.data);
           });
           setVehicleData(vehicles);
@@ -637,6 +640,7 @@ const Index = () => {
           }).then(async (Technicalres) => {
             await API("post", "VehicleDetail", {
               DateOfFirstRegistration: vehicleDet.FristRegDate,
+
               Brand: vehicleDet.Brand,
               Model: vehicleDet.Model,
               Color: vehicleDet.Color,

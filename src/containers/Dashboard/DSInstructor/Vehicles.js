@@ -134,6 +134,9 @@ const Index = () => {
           Promise.all(allVehicles).then((res) => {
             let vehicles = [];
             res.map((veh) => {
+              veh.data.data.dateOfFirstRegistration = moment(
+                veh.data.data.dateOfFirstRegistration
+              ).format("DD/MM/YYYY");
               vehicles.push(veh.data.data);
             });
             setVehicleData(vehicles);
