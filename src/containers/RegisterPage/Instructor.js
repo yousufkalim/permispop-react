@@ -1737,7 +1737,6 @@ const Instructor = () => {
                       text={t("Back")}
                       buttonLableStyle="btn_main"
                       style={{ marginTop: "24px", marginRight: "10px" }}
-                      width="10%"
                       customWidth1="100%"
                       height="48px"
                       height2="48px"
@@ -1752,7 +1751,6 @@ const Instructor = () => {
                       }
                       buttonLableStyle="btn_main"
                       style={{ marginTop: "24px" }}
-                      width="10%"
                       customWidth1="100%"
                       height="48px"
                       height2="48px"
