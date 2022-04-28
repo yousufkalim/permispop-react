@@ -176,7 +176,7 @@ function ResponsiveDrawer(props) {
               <BasicAvatar
                 showActiveStatus={true}
                 online={true}
-                src={user.photo}
+                src={user && user.photo}
                 avatarclassName="navbar_avatar"
               />
             </IconButton>
