@@ -39,6 +39,8 @@ const Profile = () => {
   const [ratings, setRatings] = useState("");
   const [openmodal, setOpenModal] = useState(false);
   const [disabled, setDisabled] = useState(false);
+  const [update, setUpdate] = useState(false);
+
   const [instructorMeetupPointInfos, setInstructorMeetupPointInfos] =
     useState("");
   const [openupdateprofilemodal, setOpenUpdateProfileModal] = useState(false);
@@ -50,12 +52,19 @@ const Profile = () => {
   const handleChange = (event) => {
     setItem(event.target.value);
   };
+
   useEffect(() => {
     const userData = JSON.parse(localStorage.getItem("user"));
-    setUser(userData);
-    getRatings(userData);
-    getMeetupPoints(userData);
-  }, []);
+    getUser(userData);
+  }, [update]);
+
+  const getUser = async (userData) => {
+    await API("get", `Personal/GetAllById?id=${userData.id}`).then((res) => {
+      setUser(res.data.data);
+      getRatings(res.data.data);
+      getMeetupPoints(res.data.data);
+    });
+  };
 
   const getRatings = async (userData) => {
     await API("get", `FeedBacks/GetAverageRating?id=${userData.id}`).then(
@@ -115,12 +124,74 @@ const Profile = () => {
       setDisabled(false);
     }
   };
+
+  const updateProfileImage = async (e) => {
+    const formdata = new FormData();
+
+    formdata.append("file", e.target.files[0]);
+
+    await API("post", "Personal/UploadProfileImage", formdata).then(
+      async (res) => {
+        await API("post", `Personal/UpdatePersonal`, {
+          photo: res.data.message === "" ? user.photo : res.data.message,
+          NEPH: user.neph,
+          noOfHrsWanted: user.noOfHrsWanted,
+          highWayCodeDate: user.highWayCodeDate,
+          absentEndDate: user.absentEndDate,
+          absentStartDate: user.absentStartDate,
+          address: user.address,
+          backIDPhoto: user.backIDPhoto,
+          city: user.city,
+          complement: user.complement,
+          contactEmail: user.contactEmail,
+          cpfAccept: user.cpfAccept,
+          dob: user.dob,
+          documentTested: user.documentTested,
+          drivingSchoolID: user.drivingSchoolID,
+          duplicate_id: user.duplicate_id,
+          email: user.email,
+          emailSent: user.emailSent,
+          firstName: user.firstName,
+          frontIDPhoto: user.frontIDPhoto,
+          gender: user.gender,
+          giveOurPlatformTime: user.giveOurPlatformTime,
+          highWayCodeImage: user.highWayCodeImage,
+          id: user.id,
+          instructorMeetupPointInfos: user.instructorMeetupPointInfos,
+          isOnline: user.isOnline,
+          lastActiveTime: user.lastActiveTime,
+          lastSeen: user.lastSeen,
+          lat: user.lat,
+          long: user.long,
+          msgMailCount: user.msgMailCount,
+          paid: user.paid,
+          password: user.password,
+          phone: user.phone,
+          placeOfBirth: user.placeOfBirth,
+          profileInfo: user.profileInfo,
+          registrationDate: user.registrationDate,
+          role: user.role,
+          secondEmail: user.secondEmail,
+          secondPhone: user.secondPhone,
+          spokenLanguage: user.spokenLanguage,
+          surName: user.surName,
+          whichPlatform: user.whichPlatform,
+          workWithOther: user.workWithOther,
+          zip: user.zip,
+        }).then((e) => {
+          toast.success("Profile Image Changed successfully!");
+          setUpdate(!update);
+        });
+      }
+    );
+  };
   return (
     <>
       <Grid container spacing={1} className="maindiv">
         <Grid md={3} className="leftprofilediv">
           <ProfileImage
             src={user ? (user.photo ? user.photo : Studentprofile) : ""}
+            onChange={(e) => updateProfileImage(e)}
           ></ProfileImage>
         </Grid>
 
@@ -184,8 +255,8 @@ const Profile = () => {
             </Grid>
             <Grid sx={12} sm={12} md={2} className="RoleInformation">
               {user
-                ? user.dOB
-                  ? moment(user.dOB).format("DD-MM-YYYY")
+                ? user.dob
+                  ? moment(user.dob).format("DD-MM-YYYY")
                   : "N/A"
                 : ""}
             </Grid>
@@ -219,7 +290,7 @@ const Profile = () => {
               {t("Zip Code")}:
             </Grid>
             <Grid sx={12} sm={12} md={2} className="RoleInformation">
-              {user ? (user.zIP ? user.zIP : "N/A") : ""}
+              {user ? (user.zip ? user.zip : "N/A") : ""}
             </Grid>
           </Grid>
           <Grid container spacing={1} className="formdata">
@@ -332,7 +403,7 @@ const Profile = () => {
                   onChange={handleChange}
                   sx={{
                     width: "500px",
-                    fontSize: "18px",
+                    fontSize: "16px",
                     color: "#110000",
                   }}
                 >
@@ -379,10 +450,10 @@ const Profile = () => {
               <TextareaAutosize
                 aria-label="minimum height"
                 minRows={5}
-                placeholder={t("Minimum 3 rows")}
+                placeholder={t("Description")}
                 name="description"
                 onChange={(e) => setDescription(e.target.name)}
-                style={{ width: "100%", borderRadius: "5px" }}
+                style={{ width: "100%", borderRadius: "5px", padding: "2%" }}
               />
               <div style={{ marginTop: "2%" }}>
                 <Button

@@ -20,6 +20,7 @@ import FormLabel from "@mui/material/FormLabel";
 import API from "../../../api";
 import { toast } from "react-toastify";
 import { useTranslation } from "react-i18next";
+import moment from "moment";
 
 function createData(bookingwith, date, startTime, duration, status, id) {
   return { bookingwith, date, startTime, duration, status, id };
@@ -66,7 +67,7 @@ const Index = () => {
     let allBookings = [];
     await API(
       "get",
-      `Bookings/GetBookingsByIdForAllUsers_New?id=${userData.id}&role=${userData.role}&sortvalue=FirstName&sortorder=ascend&QuerySearch.firstName=&pageSize=10&pageNumber=1&startDate=&endDate=`
+      `Bookings/GetBookingsByIdForAllUsers_New?id=${userData.id}&role=${userData.role}&sortvalue=FirstName&sortorder=ascend&QuerySearch.firstName=&pageSize=100&pageNumber=1&startDate=&endDate=`
     ).then(async (GetBookingres) => {
       let studentRes = GetBookingres.data.data.map((booking) => {
         if (userData.id === booking.instructionId) {
@@ -87,7 +88,7 @@ const Index = () => {
           allBookings.map((booking) => {
             return createData(
               booking.studentData.firstName + " " + booking.studentData.surName,
-              booking.bookingDate,
+              moment(booking.bookingDate).format("DD/MM/YYYY"),
               booking.startTime,
               booking.duration,
               booking.status,
@@ -106,7 +107,10 @@ const Index = () => {
       }
     });
     if (status == t("Complete") || status == t("In progress")) {
-      await API("get", `Bookings/UpdateBookingsStatus?id=${id}&status=${status}`).then((res) => {
+      await API(
+        "get",
+        `Bookings/UpdateBookingsStatus?id=${id}&status=${status}`
+      ).then((res) => {
         getPendingRequestData(user);
         toast.success(t("Status is updated successful"));
       });
@@ -126,8 +130,12 @@ const Index = () => {
         instructorName: user.firstName ? user.firstName : "",
         DisputingFrom: user.role ? user.role : "",
         feedBackDate: new Date(),
-        studentName: selectedUserData.firstName ? selectedUserData.firstName : "",
-        studentName: selectedUserData.firstName ? selectedUserData.firstName : "",
+        studentName: selectedUserData.firstName
+          ? selectedUserData.firstName
+          : "",
+        studentName: selectedUserData.firstName
+          ? selectedUserData.firstName
+          : "",
         studentID: user.role === "Student" ? user.id : selectedUserData.id,
       }).then((disputeres) => {
         console.log("data", disputeres.data.data);
@@ -164,13 +172,21 @@ const Index = () => {
             </Typography>
           </Grid>
           <Grid xs={3} sm={3} md={2}>
-            <MultipleSelectPlaceholder value={[t("All")]}></MultipleSelectPlaceholder>
+            <MultipleSelectPlaceholder
+              value={[t("All")]}
+            ></MultipleSelectPlaceholder>
           </Grid>
           <Grid xs={3} sm={3} md={2}>
-            <MultipleSelectPlaceholder value={[t("Filter by receiver")]}></MultipleSelectPlaceholder>
+            <MultipleSelectPlaceholder
+              value={[t("Filter by receiver")]}
+            ></MultipleSelectPlaceholder>
           </Grid>
           <Grid xs={12} sm={6} md={2}>
-            <DatePicker label={t("Start Date")} value={Startvalue} onChange={handleStartdate}></DatePicker>
+            <DatePicker
+              label={t("Start Date")}
+              value={Startvalue}
+              onChange={handleStartdate}
+            ></DatePicker>
           </Grid>
 
           <Grid xs={12} sm={6} md={2}>
@@ -203,7 +219,10 @@ const Index = () => {
       >
         <Box sx={style}>
           <FormControl>
-            <FormLabel id="demo-radio-buttons-group-label" sx={{ fontWeight: "550" }}>
+            <FormLabel
+              id="demo-radio-buttons-group-label"
+              sx={{ fontWeight: "550" }}
+            >
               {t("Give disputes")}
             </FormLabel>
             <RadioGroup>
@@ -246,10 +265,10 @@ const Index = () => {
           <TextareaAutosize
             aria-label="minimum height"
             minRows={5}
-            placeholder={t("Minimum 3 rows")}
+            placeholder={t("Comments")}
             name="comment"
             onChange={(e) => setComment(e.target.name)}
-            style={{ width: "100%", borderRadius: "5px" }}
+            style={{ width: "100%", borderRadius: "5px", padding: "2%" }}
           />
           <div style={{ marginTop: "2%" }}>
             <Button

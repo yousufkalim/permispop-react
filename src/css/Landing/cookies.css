@@ -1,0 +1,24 @@
+.cookies_main_div{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: 2147483645;
+    width: 100%;
+    background-color: rgba(12, 90, 70, 0.75);
+}
+.cookies_div2{
+    padding:1rem 2.5rem 1rem 2.5rem ;
+    display: flex ;
+    align-items: center ; 
+    justify-content: space-between ;
+}
+.cookies_heading_text {
+    font-size: 17.5px;
+    font-weight: 500;
+    color: white;
+}
+.cookies_body_text {
+    font-size: 14px !important;
+    font-weight: 300 !important;
+    color: white;
+}

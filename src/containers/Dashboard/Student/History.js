@@ -3,7 +3,6 @@ import DataTable from "../../../components/Common/Table";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import { Historycolumns } from "../../../utils/tableHeads";
-import { pendingRequestsrows } from "../../../utils/tablerows";
 import MultipleSelectPlaceholder from "../../../components/Common/SelectField";
 import DatePicker from "../../../components/Common/DatePicker";
 import MobileViewFilters from "../../../components/Common/MobileViewFilters";
@@ -11,6 +10,8 @@ import Divider from "../../../components/Common/Divider";
 import API from "../../../api";
 import { toast } from "react-toastify";
 import { useTranslation } from "react-i18next";
+import moment from "moment";
+import { useHistory } from "react-router-dom";
 
 function createData(bookingwith, date, startTime, duration, status, id) {
   return { bookingwith, date, startTime, duration, status, id };
@@ -23,6 +24,7 @@ const Index = () => {
   const [allBookingsWithUser, setAllBookingsWithUser] = useState([]);
   const [user, setUser] = useState();
   const [selectedUserData, setSelectedUserData] = useState([]);
+  const history = useHistory();
 
   const handleStartdate = (newValue) => {
     setStartValue(newValue);
@@ -41,7 +43,7 @@ const Index = () => {
     let allBookings = [];
     await API(
       "get",
-      `Bookings/GetBookingsByIdForAllUsers_New?id=${userData.id}&role=${userData.role}&sortvalue=FirstName&sortorder=ascend&QuerySearch.firstName=&pageSize=10&pageNumber=1&startDate=&endDate=`
+      `Bookings/GetBookingsByIdForAllUsers_New?id=${userData.id}&role=${userData.role}&sortvalue=FirstName&sortorder=ascend&QuerySearch.firstName=&pageSize=100&pageNumber=1&startDate=&endDate=`
     ).then(async (GetBookingres) => {
       let studentRes = GetBookingres.data.data.map((booking) => {
         if (userData.id === booking.instructionId) {
@@ -51,32 +53,57 @@ const Index = () => {
         }
       });
       Promise.all(studentRes).then((res) => {
-        res.map((student) => {
-          GetBookingres.data.data.map((booking) => {
-            if (booking.studentId === student.data.data.id) {
-              booking["studentData"] = student.data.data;
-              allBookings.push(booking);
-            } else if (booking.instructionId === student.data.data.id) {
-              booking["studentData"] = student.data.data;
-              allBookings.push(booking);
+        GetBookingres.data.data.map((booking) => {
+          let userdata = res.find((user) => {
+            if (booking.studentId === user.data.data.id) {
+              return user;
+            } else if (booking.instructionId === user.data.data.id) {
+              return user;
             }
           });
+          booking["studentData"] = userdata.data.data;
+          allBookings.push(booking);
         });
+
         setAllBookingsWithUser(allBookings);
+
+        let temp = allBookings.filter((booking) => {
+          if (booking.status != "In progress") {
+            return booking;
+          }
+        });
+
         setPendingRequestsrows(
-          allBookings.map((booking) => {
+          temp.map((booking) => {
             return createData(
               booking.studentData.firstName + " " + booking.studentData.surName,
-              booking.bookingDate,
+              moment(booking.bookingDate).format("DD/MM/YYYY"),
+
               booking.startTime,
               booking.duration,
               booking.status,
-              booking.id
+              booking.id,
+              booking.drivingSchoolId
+                ? booking.drivingSchoolId
+                : booking.instructionId
             );
           })
         );
       });
     });
+  };
+
+  const handleReBook = async (e) => {
+    let selectedBooking = allBookingsWithUser.find((booking) => {
+      if (booking.id === e.id) {
+        return booking;
+      }
+    });
+    localStorage.setItem(
+      "selectedInstructor",
+      JSON.stringify(selectedBooking.studentData)
+    );
+    history.push("/student/InstructorBooking");
   };
 
   return (
@@ -132,8 +159,14 @@ const Index = () => {
       </div>
 
       <Divider width="100%" borderColor="#D5E4E8" margin="2% 0px 2% 0px" />
-
-      <DataTable data={pendingRequestsrows} columns={Historycolumns} user={user}></DataTable>
+      {pendingRequestsrows.length > 0 && (
+        <DataTable
+          data={pendingRequestsrows}
+          columns={Historycolumns}
+          user={user}
+          handleReBook={handleReBook}
+        ></DataTable>
+      )}
     </>
   );
 };

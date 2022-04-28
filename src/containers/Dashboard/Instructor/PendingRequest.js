@@ -3,7 +3,7 @@ import DataTable from "../../../components/Common/Table";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import { PendingRequestcolumns } from "../../../utils/tableHeads";
-import MultipleSelectPlaceholder from "../../../components/Common/SelectField";
+import AddCommentModel from "../../../components/Common/AddCommentModel";
 import DatePicker from "../../../components/Common/DatePicker";
 import MobileViewFilters from "../../../components/Common/MobileViewFilters";
 import Divider from "../../../components/Common/Divider";
@@ -19,6 +19,8 @@ import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormLabel from "@mui/material/FormLabel";
+import moment from "moment";
+
 import { useTranslation } from "react-i18next";
 
 function createData(bookingwith, date, startTime, duration, status, id) {
@@ -26,7 +28,7 @@ function createData(bookingwith, date, startTime, duration, status, id) {
 }
 const Index = () => {
   const { i18n, t } = useTranslation();
-  const style = {
+  const style1 = {
     position: "absolute",
     top: "50%",
     left: "50%",
@@ -67,8 +69,9 @@ const Index = () => {
     let allBookings = [];
     await API(
       "get",
-      `Bookings/GetBookingsByIdForAllUsers_New?id=${userData.id}&role=${userData.role}&sortvalue=FirstName&sortorder=ascend&QuerySearch.firstName=&pageSize=10&pageNumber=1&startDate=&endDate=`
+      `Bookings/GetBookingsByIdForAllUsers_New?id=${userData.id}&role=${userData.role}&sortvalue=FirstName&sortorder=ascend&QuerySearch.firstName=&pageSize=100&pageNumber=1&startDate=&endDate=`
     ).then(async (GetBookingres) => {
+      console.log(GetBookingres, "GetBookingres");
       let studentRes = GetBookingres.data.data.map((booking) => {
         if (userData.id === booking.instructionId) {
           return API("get", `Personal/GetAllById/?id=${booking.studentId}`);
@@ -88,7 +91,7 @@ const Index = () => {
           allBookings.map((booking) => {
             return createData(
               booking.studentData.firstName + " " + booking.studentData.surName,
-              booking.bookingDate,
+              moment(booking.bookingDate).format("DD/MM/YYYY"),
               booking.startTime,
               booking.duration,
               booking.status,
@@ -107,7 +110,10 @@ const Index = () => {
       }
     });
     if (status == t("Complete") || status == t("In progress")) {
-      await API("get", `Bookings/UpdateBookingsStatus?id=${id}&status=${status}`).then((res) => {
+      await API(
+        "get",
+        `Bookings/UpdateBookingsStatus?id=${id}&status=${status}`
+      ).then((res) => {
         getPendingRequestData(user);
         toast.success(t("Status is updated successful"));
       });
@@ -127,11 +133,14 @@ const Index = () => {
         instructorName: user.firstName ? user.firstName : "",
         feedBackDate: new Date(),
         DisputingFrom: user.role ? user.role : "",
-        studentName: selectedUserData.firstName ? selectedUserData.firstName : "",
-        studentName: selectedUserData.firstName ? selectedUserData.firstName : "",
+        studentName: selectedUserData.firstName
+          ? selectedUserData.firstName
+          : "",
+        studentName: selectedUserData.firstName
+          ? selectedUserData.firstName
+          : "",
         studentID: user.role === "Student" ? user.id : selectedUserData.id,
       }).then((disputeres) => {
-        console.log("data", disputeres.data.data);
         toast.success(t("Dispute is created sucessfully"));
         SetUpdateField("");
         setComment("");
@@ -211,9 +220,12 @@ const Index = () => {
           timeout: 500,
         }}
       >
-        <Box sx={style}>
+        <Box sx={style1}>
           <FormControl>
-            <FormLabel id="demo-radio-buttons-group-label" sx={{ fontWeight: "550" }}>
+            <FormLabel
+              id="demo-radio-buttons-group-label"
+              sx={{ fontWeight: "550" }}
+            >
               {t("Give disputes")}
             </FormLabel>
             <RadioGroup>
@@ -259,7 +271,7 @@ const Index = () => {
             placeholder={t("Minimum 3 rows")}
             name="comment"
             onChange={(e) => setComment(e.target.name)}
-            style={{ width: "100%", borderRadius: "5px" }}
+            style={{ width: "100%", borderRadius: "5px", padding: "2%" }}
           />
           <div style={{ marginTop: "2%" }}>
             <Button
@@ -272,6 +284,7 @@ const Index = () => {
           </div>
         </Box>
       </Modal>
+      <AddCommentModel />
     </>
   );
 };

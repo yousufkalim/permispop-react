@@ -323,43 +323,44 @@ const Step1 = ({ step1, setStep1, onChange, step1Errors }) => {
             {t("Are you working on other platform?")}
           </Typography>
         </div>
-        {step1.OtherPlateform ? (
-          <Grid container spacing={2}>
-            <Grid item xs={12} sm={12} md={5} sx={{ marginRight: "1%" }}>
-              <TextField
-                name="Platform"
-                label={t("Which platform(s)?")}
-                placeholder="Platform name"
-                type="text"
-                value={step1.Platform}
-                onChange={(e) => {
-                  onChange(e.target.name, e.target.value);
-                }}
-                // error={step1Errors['Platform']?true:false}
-                // ErrorMsg={step1Errors['Platform']}
-              ></TextField>
-            </Grid>
-            <Grid item xs={12} sm={12} md={5}>
-              <TextField
-                label={t(
-                  "How much time will you give to the students of our platform?(hr/month)"
-                )}
-                placeholder="No. of hours"
-                name="Hours"
-                type="text"
-                value={step1.Hours}
-                onChange={(e) => {
-                  onChange(e.target.name, e.target.value);
-                }}
-                // error={step1Errors['Hours']?true:false}
-                // ErrorMsg={step1Errors['Hours']}
-              ></TextField>
-            </Grid>
-          </Grid>
-        ) : (
-          ""
-        )}
       </div>
+      {step1.OtherPlateform ? (
+        <Grid container spacing={1}>
+          <Grid item xs={12} sm={12} md={5} sx={{ marginRight: "0%" }}>
+            <TextField
+              name="Platform"
+              label={t("Which platform(s)?")}
+              placeholder="Platform name"
+              type="text"
+              value={step1.Platform}
+              onChange={(e) => {
+                onChange(e.target.name, e.target.value);
+              }}
+              // error={step1Errors['Platform']?true:false}
+              // ErrorMsg={step1Errors['Platform']}
+            ></TextField>
+          </Grid>
+          <Grid item xs={12} sm={12} md={7}>
+            <TextField
+              label={t(
+                "How much time will you give to the students of our platform?(hr/month)"
+              )}
+              placeholder="No. of hours"
+              name="Hours"
+              type="text"
+              value={step1.Hours}
+              onChange={(e) => {
+                onChange(e.target.name, e.target.value);
+              }}
+              // error={step1Errors['Hours']?true:false}
+              // ErrorMsg={step1Errors['Hours']}
+            ></TextField>
+          </Grid>
+        </Grid>
+      ) : (
+        ""
+      )}
+
       <div className="termsConditionsCheckbox">
         <Checkbox
           className="checkbox"

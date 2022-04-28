@@ -8,6 +8,7 @@ import { Base64 } from "js-base64";
 import "./utils/i18n";
 import { useTranslation } from "react-i18next";
 import { changeLanguage } from "i18next";
+import Cookies from "./components/Landing/Cookies";
 
 // Files
 import Index from "./routes/index";
@@ -84,6 +85,7 @@ function App() {
           <Index role={role} />
         </div>
       )}
+      <Cookies />
     </ThemeProvider>
   );
 }

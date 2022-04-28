@@ -56,6 +56,9 @@
 .ProfileDivider {
   margin-top: 30px !important;
 }
+.MuiMenuItem-root{
+  font-size: 12px !important;
+}
 @media only screen and (max-width: 1300px) {
   .formdata {
     margin-right: 0px !important;

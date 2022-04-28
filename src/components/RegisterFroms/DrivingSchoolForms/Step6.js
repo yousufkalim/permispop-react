@@ -13,6 +13,7 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import moment from "moment";
 import { useTranslation } from "react-i18next";
+import { toast } from "react-toastify";
 
 import {
   Typography,
@@ -104,10 +105,19 @@ const Step6 = ({
     setAddInstructor(false);
     setStep6Errors({});
   };
-  const handleAdd = () => {
-    setInstructors((prev) => [...prev, step6]);
-    setAddInstructor(false);
-    setStep6Errors({});
+  const handleAdd = async () => {
+    await API(
+      "get",
+      `Personal/Email?Email=${step6.Email}&phn=${step6.Phone}&SecondPhn=${step6.Phone2}&SecondEmail=${step6.Email2}`
+    ).then(async (emailRes) => {
+      if (emailRes.data.data === null || emailRes.data.data === "") {
+        setInstructors((prev) => [...prev, step6]);
+        setAddInstructor(false);
+        setStep6Errors({});
+      } else if (emailRes.data.data) {
+        toast.warning(emailRes.data.data);
+      }
+    });
   };
 
   const handleDeleteInstructor = (index) => {

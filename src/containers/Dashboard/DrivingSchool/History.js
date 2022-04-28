@@ -9,19 +9,22 @@ import DatePicker from "../../../components/Common/DatePicker";
 import MobileViewFilters from "../../../components/Common/MobileViewFilters";
 import Divider from "../../../components/Common/Divider";
 import API from "../../../api";
-import { useTranslation } from "react-i18next";
+import moment from "moment";
+import { useHistory } from "react-router-dom";
 
+import { useTranslation } from "react-i18next";
 
 function createData(bookingwith, date, startTime, duration, status, id) {
   return { bookingwith, date, startTime, duration, status, id };
 }
 const Index = () => {
-  const { i18n , t } = useTranslation();
+  const { i18n, t } = useTranslation();
   const [Startvalue, setStartValue] = useState(new Date());
   const [Endvalue, setEndValue] = useState(new Date());
   const [pendingRequestsrows, setPendingRequestsrows] = useState([]);
   const [allBookingsWithUser, setAllBookingsWithUser] = useState([]);
   const [user, setUser] = useState();
+  const history = useHistory();
 
   const handleStartdate = (newValue) => {
     setStartValue(newValue);
@@ -40,7 +43,7 @@ const Index = () => {
     let allBookings = [];
     await API(
       "get",
-      `Bookings/GetBookingsByIdForAllUsers_New?id=${userData.id}&role=${userData.role}&sortvalue=FirstName&sortorder=ascend&QuerySearch.firstName=&pageSize=10&pageNumber=1&startDate=&endDate=`
+      `Bookings/GetBookingsByIdForAllUsers_New?id=${userData.id}&role=${userData.role}&sortvalue=FirstName&sortorder=ascend&QuerySearch.firstName=&pageSize=100&pageNumber=1&startDate=&endDate=`
     ).then(async (GetBookingres) => {
       let studentRes = GetBookingres.data.data.map((booking) => {
         if (userData.id === booking.drivingSchoolId) {
@@ -61,7 +64,7 @@ const Index = () => {
           allBookings.map((booking) => {
             return createData(
               booking.studentData.firstName + " " + booking.studentData.surName,
-              booking.bookingDate,
+              moment(booking.bookingDate).format("DD/MM/YYYY"),
               booking.startTime,
               booking.duration,
               booking.status,
@@ -71,6 +74,10 @@ const Index = () => {
         );
       });
     });
+  };
+
+  const handleReBook = async (e) => {
+    history.push("/DrivingSchool/mycalendar");
   };
 
   return (
@@ -130,6 +137,7 @@ const Index = () => {
         data={pendingRequestsrows}
         columns={Historycolumns}
         user={user}
+        handleReBook={handleReBook}
       ></DataTable>
     </>
   );
