@@ -5,11 +5,11 @@ let chatUrl = "";
 if (window.location.host === "permispop.fr") {
   frontUrl = "https://permispop.fr";
   baseUrl = "https://api.permispop.fr/api/";
-  chatUrl = "https://chat.permispop.fr";
+  chatUrl = "https://permispop-chat.falconit.com.pk";
 } else if (window.location.host === "permispop-demo.web.app") {
   frontUrl = "https://permispop-demo.web.app";
   baseUrl = "https://permispop.falconit.com.pk/api/";
-  chatUrl = "https://chat.permispop.fr";
+  chatUrl = "https://permispop-chat.falconit.com.pk";
 } else {
   frontUrl = "http://localhost:3000/";
   baseUrl = "http://160.153.244.127:9090/api/";
