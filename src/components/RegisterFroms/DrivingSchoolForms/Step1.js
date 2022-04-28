@@ -326,7 +326,7 @@ const Step1 = ({ step1, setStep1, onChange, step1Errors }) => {
       </div>
       {step1.OtherPlateform ? (
         <Grid container spacing={1}>
-          <Grid item xs={12} sm={12} md={5} sx={{ marginRight: "0%" }}>
+          <Grid item xs={12} sm={12} md={4} sx={{ marginRight: "0%" }}>
             <TextField
               name="Platform"
               label={t("Which platform(s)?")}
@@ -340,7 +340,7 @@ const Step1 = ({ step1, setStep1, onChange, step1Errors }) => {
               // ErrorMsg={step1Errors['Platform']}
             ></TextField>
           </Grid>
-          <Grid item xs={12} sm={12} md={7}>
+          <Grid item xs={12} sm={12} md={8}>
             <TextField
               label={t(
                 "How much time will you give to the students of our platform?(hr/month)"

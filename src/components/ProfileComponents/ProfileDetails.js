@@ -15,7 +15,7 @@ import API from "../../api";
 import { useTranslation } from "react-i18next";
 
 const ProfileDetails = (props) => {
-  const { i18n , t } = useTranslation();
+  const { i18n, t } = useTranslation();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const [editProfile, seteditProfile] = React.useState(false);
   const [openmodal, setOpenModal] = React.useState(false);
@@ -56,81 +56,67 @@ const ProfileDetails = (props) => {
         }}
       />
       <Grid container className="ButtonSection">
-        <Grid xs={12} sm={12} md={2} className="ProfileButtonGrid">
-          <Button
-            className="LanguageButton"
-            text={t("Languages")}
-            variant="outlined"
-            margin="0px 10px 0px 0px !important"
-            borderRadius="10px"
-            width="95% !important"
-            textColor="#149e7a"
-            color="white"
-            aria-expanded={open ? "true" : undefined}
-            onClick={handleClick}
-          ></Button>
-          <Menu
-            id="basic-menu"
-            anchorEl={anchorEl}
-            open={open}
-            onClose={handleClose}
-            MenuListProps={{
-              "aria-labelledby": "basic-button",
-            }}
-          >
-            {props.languages && props.languages.length > 0 ? (
-              props.languages.map((language) => {
-                return <MenuItem onClick={handleClose}> {language}</MenuItem>;
-              })
-            ) : (
-              <MenuItem disabled={true}>{t("No Language/s selected")}</MenuItem>
-            )}
-          </Menu>
-        </Grid>
-        <Grid
-          xs={12}
-          sm={12}
-          md={2}
-          className="ProfileButtonGrid"
-          sx={{ marginRight: "1%" }}
+        <Button
+          className="LanguageButton"
+          text={t("Languages")}
+          variant="outlined"
+          margin="0px 10px 1% 0px !important"
+          borderRadius="10px"
+          textColor="#149e7a"
+          color="white"
+          aria-expanded={open ? "true" : undefined}
+          onClick={handleClick}
+        ></Button>
+        <Menu
+          id="basic-menu"
+          anchorEl={anchorEl}
+          open={open}
+          onClose={handleClose}
+          MenuListProps={{
+            "aria-labelledby": "basic-button",
+          }}
         >
-          <Button
-            startIcon={<Editprofile />}
-            className="ProfileButton"
-            text={t("Edit Profile")}
-            borderRadius="10px"
-            width="100% !important"
-            color="#149e7a  !important"
-            sx={{ padding: "0 !important" }}
-            onClick={(e) => seteditProfile(!editProfile)}
-          ></Button>
-        </Grid>
+          {props.languages && props.languages.length > 0 ? (
+            props.languages.map((language) => {
+              return <MenuItem onClick={handleClose}> {language}</MenuItem>;
+            })
+          ) : (
+            <MenuItem disabled={true}>{t("No Language/s selected")}</MenuItem>
+          )}
+        </Menu>
+
+        <Button
+          startIcon={<Editprofile />}
+          className="ProfileButton"
+          text={t("Edit Profile")}
+          borderRadius="10px"
+          color="#149e7a  !important"
+          margin="0 1% 1% 0 !important"
+          onClick={(e) => seteditProfile(!editProfile)}
+        ></Button>
         {editProfile ? (
           <>
             <Vector className="VectorIcon"></Vector>
-            <Grid xs={12} sm={6} md={3}>
-              <Button
-                text={t("Request Profile Update")}
-                variant="outlined"
-                borderRadius="10px"
-                width="95% !important"
-                textColor="#149e7a  !important"
-                color="white !important"
-                className="LanguageButton"
-                onClick={(e) => props.openProfileUpdate(true)}
-              ></Button>
-            </Grid>
-            <Grid xs={12} sm={6} md={3}>
-              <Button
-                text={t("Change Password")}
-                variant="outlined"
-                width="95% !important"
-                color="white !important"
-                borderRadius="10px"
-                textColor="#149e7a"
-                onClick={(e) => props.openPasswordModal(true)}
-              ></Button>
-            </Grid>{" "}
+            <Button
+              text={t("Request Profile Update")}
+              variant="outlined"
+              borderRadius="10px"
+              margin="0 1% 0 0 !important"
+              textColor="#149e7a  !important"
+              color="white !important"
+              sx={{ marginRight: "2% !important" }}
+              className="LanguageButton"
+              onClick={(e) => props.openProfileUpdate(true)}
+            ></Button>
+
+            <Button
+              text={t("Change Password")}
+              variant="outlined"
+              color="white !important"
+              borderRadius="10px"
+              textColor="#149e7a"
+              onClick={(e) => props.openPasswordModal(true)}
+            ></Button>
           </>
         ) : (
           ""
