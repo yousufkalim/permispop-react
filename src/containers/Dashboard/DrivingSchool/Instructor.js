@@ -18,9 +18,7 @@ import moment from "moment";
 import DropDown from "../../../components/Common/DropDown";
 import FilePicker from "../../../components/Common/FilePicker";
 import { useTranslation } from "react-i18next";
-
 import API from "../../../api";
-
 import {
   Typography,
   Grid,
@@ -38,7 +36,8 @@ import {
   RadioGroup,
   FormControlLabel,
 } from "@mui/material";
-import { async } from "validate.js";
+import Loader from "../../../components/Common/FullScreenLoader";
+
 const Index = () => {
   const { i18n, t } = useTranslation();
   // const [Startvalue, setStartValue] = useState(new Date());
@@ -78,7 +77,7 @@ const Index = () => {
   const [studentErrors, setStudentErrors] = useState({});
   const [addresses, setAddresses] = React.useState([]);
   const [user, setUser] = useState();
-
+  const [loading, setLoading] = useState(true);
   const [address, setAddress] = React.useState({
     zip: "",
     label: "",
@@ -653,6 +652,7 @@ const Index = () => {
               }
             });
             setInstructorData(items);
+            setLoading(false);
           });
         });
       }
@@ -1429,15 +1429,18 @@ const Index = () => {
           onClick={handleOpenModal}
         />
       </div>
-
-      <DataTable
-        data={instructorData}
-        columns={Instructorcolumns}
-        open={setOPenMeetupModal}
-        detachInstructor={detachInstructor}
-        deleteInstructor={deleteInstructor}
-        user={user}
-      ></DataTable>
+      {loading ? (
+        <Loader></Loader>
+      ) : (
+        <DataTable
+          data={instructorData}
+          columns={Instructorcolumns}
+          open={setOPenMeetupModal}
+          detachInstructor={detachInstructor}
+          deleteInstructor={deleteInstructor}
+          user={user}
+        ></DataTable>
+      )}
       <Modal
         aria-labelledby="spring-modal-title"
         aria-describedby="spring-modal-description"

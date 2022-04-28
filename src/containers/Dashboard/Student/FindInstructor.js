@@ -21,6 +21,7 @@ import LocationOnIcon from "@mui/icons-material/LocationOn";
 // import "../../css/Dashboard/Student/instructor.css";
 import "../../../css/Dashboard/Student/instructor.css";
 import { useTranslation } from "react-i18next";
+import Loader from "../../../components/Common/FullScreenLoader";
 
 // component
 const Index = () => {
@@ -38,6 +39,8 @@ const Index = () => {
   });
   const [instructors, setInstructors] = useState([]);
   const [profileModal, setProfileModal] = useState(false);
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     getInstructors();
   }, []);
@@ -54,15 +57,23 @@ const Index = () => {
       .then((FindInstructorsResponse) => {
         let Profile = FindInstructorsResponse.data.map((item) => {
           if (item.role === "CarRentalAgent" || item.role === "Instructor") {
-            return API("get", `Bookings/GetBookingsByInstructor?id=${item.id}`).then((GetBookingsByInstructor) => {
+            return API(
+              "get",
+              `Bookings/GetBookingsByInstructor?id=${item.id}`
+            ).then((GetBookingsByInstructor) => {
               let newProfile = item;
-              newProfile["BookingLength"] = GetBookingsByInstructor.data.data.length;
+              newProfile["BookingLength"] =
+                GetBookingsByInstructor.data.data.length;
               return newProfile;
             });
           } else if (item.role === "DrivingSchool") {
-            return API("get", `Bookings/GetBookingsByDrivingSchool?id=${item.id}`).then((GetBookingsByDrivingSchool) => {
+            return API(
+              "get",
+              `Bookings/GetBookingsByDrivingSchool?id=${item.id}`
+            ).then((GetBookingsByDrivingSchool) => {
               let newProfile = item;
-              newProfile["BookingLength"] = GetBookingsByDrivingSchool.data.data.length;
+              newProfile["BookingLength"] =
+                GetBookingsByDrivingSchool.data.data.length;
               return newProfile;
             });
           }
@@ -70,20 +81,24 @@ const Index = () => {
 
         Promise.all(Profile).then(async (e) => {
           let newnewProfile = e.map((pro) => {
-            return API("get", `FeedBacks/GetAverageRating?id=${pro.id}`).then((GetAverageRatingResponse) => {
-              let newProfile = pro;
+            return API("get", `FeedBacks/GetAverageRating?id=${pro.id}`).then(
+              (GetAverageRatingResponse) => {
+                let newProfile = pro;
 
-              newProfile["Rating"] = GetAverageRatingResponse.data.data;
-              return newProfile;
-            });
+                newProfile["Rating"] = GetAverageRatingResponse.data.data;
+                return newProfile;
+              }
+            );
           });
           Promise.all(newnewProfile).then((n) => {
             setInstructors(n);
+            setLoading(false);
           });
         });
       })
       .catch((error) => {
         console.log(error);
+        setLoading(false);
       });
   };
 
@@ -211,11 +226,15 @@ const Index = () => {
         </div>
         <div style={{ marginLeft: "2%" }}>
           <FormControl className="MobileView">
-            <label style={{ fontWeight: 500, marginBottom: -5 }}>{t("Start date")}</label>
+            <label style={{ fontWeight: 500, marginBottom: -5 }}>
+              {t("Start date")}
+            </label>
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <DatePicker
                 value={filters.startDate}
-                onChange={(newValue) => handleFilterChange("startDate", newValue)}
+                onChange={(newValue) =>
+                  handleFilterChange("startDate", newValue)
+                }
                 renderInput={(params) => (
                   <TextField
                     {...params}
@@ -230,7 +249,9 @@ const Index = () => {
         </div>
         <div className="filter-container">
           <FormControl className="MobileView">
-            <label style={{ fontWeight: 500, marginBottom: -5 }}>{t("End date")}</label>
+            <label style={{ fontWeight: 500, marginBottom: -5 }}>
+              {t("End date")}
+            </label>
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <DatePicker
                 value={filters.endDate}
@@ -261,22 +282,35 @@ const Index = () => {
           onClick={getInstructors}
         />
       </div>
-
-      <DataTable
-        data={instructors}
-        columns={FindInstructorcolumns}
-        user={user}
-        handleReservation={handleReservation}
-        handleChat={handleChat}
-        handleProfile={handleProfile}
-      />
-      <BasicModal open={profileModal} onClose={handleClose} modalboxclassName="profile_modal">
+      {loading ? (
+        <Loader></Loader>
+      ) : (
+        <DataTable
+          data={instructors}
+          columns={FindInstructorcolumns}
+          user={user}
+          handleReservation={handleReservation}
+          handleChat={handleChat}
+          handleProfile={handleProfile}
+        />
+      )}
+      <BasicModal
+        open={profileModal}
+        onClose={handleClose}
+        modalboxclassName="profile_modal"
+      >
         {instructors.map((item) => {
           return (
             <div>
               <div className="profile_img_div">
                 <img
-                  src={item?.photo ? item?.photo : item.photo === "null" || "undefined" ? Image : item.photo}
+                  src={
+                    item?.photo
+                      ? item?.photo
+                      : item.photo === "null" || "undefined"
+                      ? Image
+                      : item.photo
+                  }
                   alt=""
                   className="profile_img"
                 />
@@ -301,7 +335,9 @@ const Index = () => {
               </div>
 
               <div className="profile_text_div">
-                <p className="profile_text_right">{moment(item.dob).format("DD/MM/YYYY")}</p>
+                <p className="profile_text_right">
+                  {moment(item.dob).format("DD/MM/YYYY")}
+                </p>
               </div>
               <div className="profile_text_div">
                 <p className="profile_text_right">{item.placeOfBirth}</p>
@@ -325,7 +361,9 @@ const Index = () => {
                     <img src={Rating} alt="" />
                   </div>
                   <div>
-                    <p className="icons_text1">{item.Rating != "NaN" ? item.Rating : "N/A"}</p>
+                    <p className="icons_text1">
+                      {item.Rating != "NaN" ? item.Rating : "N/A"}
+                    </p>
                     <p className="icons_text2">Ratings</p>
                   </div>
                 </div>

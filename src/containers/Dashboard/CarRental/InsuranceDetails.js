@@ -12,6 +12,7 @@ import Modal from "@mui/material/Modal";
 import Backdrop from "@mui/material/Backdrop";
 import { toast } from "react-toastify";
 import { useTranslation } from "react-i18next";
+import Loader from "../../../components/Common/FullScreenLoader";
 
 import API from "../../../api";
 
@@ -39,6 +40,7 @@ const InsuranceDetails = () => {
   const [user, setUser] = useState();
   const [item, setItem] = React.useState("");
   const [disabled, setDisabled] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   const handleChange = (event) => {
     setItem(event.target.value);
@@ -90,6 +92,7 @@ const InsuranceDetails = () => {
         ).then((Businessstoreres) => {
           setBusinesStore(Businessstoreres.data.data);
         });
+        setLoading(false);
       }
     );
   };
@@ -123,80 +126,218 @@ const InsuranceDetails = () => {
         ></Button>
       </Grid>
       <Divider />
-
-      <Grid container paddingTop={3}>
-        <Grid xs={12} md={12} lg={5.6} className="vehicleGrid">
-          <Typography
-            className="GridTitle"
-            paddingTop={2}
-            paddingLeft={3}
-            fontSize={20}
-          >
-            {t("Insurance Company")}
-          </Typography>
-          <Divider />
-          <Grid item xs={12} md={12} className="textdiv">
-            <label>{t("Insurer")}</label>
-            <input
-              className="placeH"
-              placeholder="EFU"
-              value={companyinsurance.insurer ? companyinsurance.insurer : ""}
-              disabled
-            />
-          </Grid>
-          <Grid item xs={12} md={12} className="textdiv">
-            <label>{t("Police Number")}</label>
-            <input
-              placeholder="3222222"
-              value={
-                companyinsurance.policeNumber
-                  ? companyinsurance.policeNumber
-                  : ""
-              }
-              disabled
-            />
-          </Grid>
-          <Grid item xs={12} md={12} className="textdiv">
-            <label>{t("Start Date")}</label>
-            <input
-              placeholder={t("invalid date")}
-              value={
-                companyinsurance.startDate ? companyinsurance.startDate : ""
-              }
-              disabled
-            />
-          </Grid>
-          <Grid item xs={12} md={12} className="textdiv">
-            <label>{t("End Date")}</label>
-            <input
-              placeholder="30/05/2021"
-              value={companyinsurance.endDate ? companyinsurance.endDate : ""}
-              disabled
-            />
-          </Grid>
-        </Grid>
-
-        <Grid xs={12} md={12} lg={5.8}>
-          <Grid xs={12} md={12} lg={12} className="vehicleGrid">
+      {loading ? (
+        <Loader></Loader>
+      ) : (
+        <Grid container paddingTop={3}>
+          <Grid xs={12} md={12} lg={5.6} className="vehicleGrid">
             <Typography
               className="GridTitle"
               paddingTop={2}
               paddingLeft={3}
               fontSize={20}
             >
-              {t("Technical Control")}
+              {t("Insurance Company")}
+            </Typography>
+            <Divider />
+            <Grid item xs={12} md={12} className="textdiv">
+              <label>{t("Insurer")}</label>
+              <input
+                className="placeH"
+                placeholder="EFU"
+                value={companyinsurance.insurer ? companyinsurance.insurer : ""}
+                disabled
+              />
+            </Grid>
+            <Grid item xs={12} md={12} className="textdiv">
+              <label>{t("Police Number")}</label>
+              <input
+                placeholder="3222222"
+                value={
+                  companyinsurance.policeNumber
+                    ? companyinsurance.policeNumber
+                    : ""
+                }
+                disabled
+              />
+            </Grid>
+            <Grid item xs={12} md={12} className="textdiv">
+              <label>{t("Start Date")}</label>
+              <input
+                placeholder={t("invalid date")}
+                value={
+                  companyinsurance.startDate ? companyinsurance.startDate : ""
+                }
+                disabled
+              />
+            </Grid>
+            <Grid item xs={12} md={12} className="textdiv">
+              <label>{t("End Date")}</label>
+              <input
+                placeholder="30/05/2021"
+                value={companyinsurance.endDate ? companyinsurance.endDate : ""}
+                disabled
+              />
+            </Grid>
+          </Grid>
+
+          <Grid xs={12} md={12} lg={5.8}>
+            <Grid xs={12} md={12} lg={12} className="vehicleGrid">
+              <Typography
+                className="GridTitle"
+                paddingTop={2}
+                paddingLeft={3}
+                fontSize={20}
+              >
+                {t("Technical Control")}
+              </Typography>
+              <Divider />
+              <Grid item md={12} className="textdiv">
+                <label>{t("Start Date")}</label>
+                <input
+                  placeholder="05/05/2012"
+                  value={
+                    technicalcontrol
+                      ? technicalcontrol.startDateOfTech
+                        ? technicalcontrol.startDateOfTech
+                        : "N/A"
+                      : "N/A"
+                  }
+                  disabled
+                />
+              </Grid>
+              <Grid item md={12} className="textdiv">
+                <label>{t("End Date")}</label>
+                <input
+                  placeholder="05/05/2012"
+                  value={
+                    technicalcontrol
+                      ? technicalcontrol.endDateOfTechControl
+                        ? technicalcontrol.endDateOfTechControl
+                        : "N/A"
+                      : "N/A"
+                  }
+                  disabled
+                />
+              </Grid>
+            </Grid>
+
+            <Grid xs={12} md={12} lg={12} marginTop={3} className="vehicleGrid">
+              <Typography
+                className="GridTitle"
+                paddingTop={2}
+                paddingLeft={3}
+                fontSize={20}
+              >
+                {t("Business Store")}
+              </Typography>
+              <Divider />
+              <Grid item md={12} className="textdiv">
+                <label>{t("Serial Number")}</label>
+                <input
+                  placeholder="xxxxxxxxxx"
+                  value={
+                    businesstore.siretNumber ? businesstore.siretNumber : ""
+                  }
+                  disabled
+                />
+              </Grid>
+            </Grid>
+          </Grid>
+
+          <Grid xs={12} md={12} lg={5.6} className="vehicleGrid">
+            <Typography
+              className="GridTitle"
+              paddingTop={2}
+              paddingLeft={3}
+              fontSize={20}
+            >
+              {t("Vehicle Details")}
+            </Typography>
+            <Divider />
+            <Grid item xs={12} md={12} className="textdiv">
+              <label>{t("Registration Date")}</label>
+              <input
+                className="placeH"
+                placeholder="05/07/2021"
+                value={
+                  vehicledetail.dateOfFirstRegistration
+                    ? vehicledetail.dateOfFirstRegistration
+                    : ""
+                }
+                disabled
+              />
+            </Grid>
+            <Grid item xs={12} md={12} className="textdiv">
+              <label>{t("Brand")}</label>
+              <input
+                placeholder="BMW"
+                value={vehicledetail.brand ? vehicledetail.brand : ""}
+                disabled
+              />
+            </Grid>
+            <Grid item xs={12} md={12} className="textdiv">
+              <label>{t("Color")}</label>
+              <input
+                placeholder="Red"
+                value={vehicledetail.color ? vehicledetail.color : ""}
+                disabled
+              />
+            </Grid>
+            <Grid item xs={12} md={12} className="textdiv">
+              <label>{t("Model")}</label>
+              <input
+                placeholder="X6 M Competition"
+                value={vehicledetail.model ? vehicledetail.model : ""}
+                disabled
+              />
+            </Grid>
+            <Grid item xs={12} md={12} className="textdiv">
+              <label>{t("Gearbox")}</label>
+              <input
+                placeholder="Auto"
+                value={vehicledetail.gearBox ? vehicledetail.gearBox : ""}
+                disabled
+              />
+            </Grid>
+          </Grid>
+
+          <Grid xs={12} md={12} lg={5.6} className="vehicleGrid">
+            <Typography
+              className="GridTitle"
+              paddingTop={2}
+              paddingLeft={3}
+              fontSize={20}
+            >
+              {t("Vehicle Insurance")}
             </Typography>
             <Divider />
             <Grid item md={12} className="textdiv">
+              <label>{t("Insurer")}</label>
+              <input
+                placeholder="Honda"
+                value={vehicleInsurance.insurer ? vehicleInsurance.insurer : ""}
+                disabled
+              />
+            </Grid>
+            <Grid item md={12} className="textdiv">
+              <label>{t("Police Number")}</label>
+              <input
+                placeholder="15"
+                value={
+                  vehicleInsurance.policeNumber
+                    ? vehicleInsurance.policeNumber
+                    : ""
+                }
+                disabled
+              />
+            </Grid>
+            <Grid item md={12} className="textdiv">
               <label>{t("Start Date")}</label>
               <input
-                placeholder="05/05/2012"
+                placeholder="05/02/2021"
                 value={
-                  technicalcontrol
-                    ? technicalcontrol.startDateOfTech
-                      ? technicalcontrol.startDateOfTech
-                      : "N/A"
-                    : "N/A"
+                  vehicleInsurance.startDate ? vehicleInsurance.startDate : ""
                 }
                 disabled
               />
@@ -205,250 +346,121 @@ const InsuranceDetails = () => {
               <label>{t("End Date")}</label>
               <input
                 placeholder="05/05/2012"
-                value={
-                  technicalcontrol
-                    ? technicalcontrol.endDateOfTechControl
-                      ? technicalcontrol.endDateOfTechControl
-                      : "N/A"
-                    : "N/A"
-                }
+                value={vehicleInsurance.endDate ? vehicleInsurance.endDate : ""}
                 disabled
               />
             </Grid>
           </Grid>
-
-          <Grid xs={12} md={12} lg={12} marginTop={3} className="vehicleGrid">
-            <Typography
-              className="GridTitle"
-              paddingTop={2}
-              paddingLeft={3}
-              fontSize={20}
+          <>
+            <Modal
+              aria-labelledby="spring-modal-title"
+              aria-describedby="spring-modal-description"
+              open={openupdateprofilemodal}
+              onClose={() => setOpenUpdateProfileModal(false)}
+              closeAfterTransition
+              BackdropComponent={Backdrop}
+              BackdropProps={{
+                timeout: 500,
+              }}
             >
-              {t("Business Store")}
-            </Typography>
-            <Divider />
-            <Grid item md={12} className="textdiv">
-              <label>{t("Serial Number")}</label>
-              <input
-                placeholder="xxxxxxxxxx"
-                value={businesstore.siretNumber ? businesstore.siretNumber : ""}
-                disabled
-              />
-            </Grid>
-          </Grid>
-        </Grid>
-
-        <Grid xs={12} md={12} lg={5.6} className="vehicleGrid">
-          <Typography
-            className="GridTitle"
-            paddingTop={2}
-            paddingLeft={3}
-            fontSize={20}
-          >
-            {t("Vehicle Details")}
-          </Typography>
-          <Divider />
-          <Grid item xs={12} md={12} className="textdiv">
-            <label>{t("Registration Date")}</label>
-            <input
-              className="placeH"
-              placeholder="05/07/2021"
-              value={
-                vehicledetail.dateOfFirstRegistration
-                  ? vehicledetail.dateOfFirstRegistration
-                  : ""
-              }
-              disabled
-            />
-          </Grid>
-          <Grid item xs={12} md={12} className="textdiv">
-            <label>{t("Brand")}</label>
-            <input
-              placeholder="BMW"
-              value={vehicledetail.brand ? vehicledetail.brand : ""}
-              disabled
-            />
-          </Grid>
-          <Grid item xs={12} md={12} className="textdiv">
-            <label>{t("Color")}</label>
-            <input
-              placeholder="Red"
-              value={vehicledetail.color ? vehicledetail.color : ""}
-              disabled
-            />
-          </Grid>
-          <Grid item xs={12} md={12} className="textdiv">
-            <label>{t("Model")}</label>
-            <input
-              placeholder="X6 M Competition"
-              value={vehicledetail.model ? vehicledetail.model : ""}
-              disabled
-            />
-          </Grid>
-          <Grid item xs={12} md={12} className="textdiv">
-            <label>{t("Gearbox")}</label>
-            <input
-              placeholder="Auto"
-              value={vehicledetail.gearBox ? vehicledetail.gearBox : ""}
-              disabled
-            />
-          </Grid>
-        </Grid>
-
-        <Grid xs={12} md={12} lg={5.6} className="vehicleGrid">
-          <Typography
-            className="GridTitle"
-            paddingTop={2}
-            paddingLeft={3}
-            fontSize={20}
-          >
-            {t("Vehicle Insurance")}
-          </Typography>
-          <Divider />
-          <Grid item md={12} className="textdiv">
-            <label>{t("Insurer")}</label>
-            <input
-              placeholder="Honda"
-              value={vehicleInsurance.insurer ? vehicleInsurance.insurer : ""}
-              disabled
-            />
-          </Grid>
-          <Grid item md={12} className="textdiv">
-            <label>{t("Police Number")}</label>
-            <input
-              placeholder="15"
-              value={
-                vehicleInsurance.policeNumber
-                  ? vehicleInsurance.policeNumber
-                  : ""
-              }
-              disabled
-            />
-          </Grid>
-          <Grid item md={12} className="textdiv">
-            <label>{t("Start Date")}</label>
-            <input
-              placeholder="05/02/2021"
-              value={
-                vehicleInsurance.startDate ? vehicleInsurance.startDate : ""
-              }
-              disabled
-            />
-          </Grid>
-          <Grid item md={12} className="textdiv">
-            <label>{t("End Date")}</label>
-            <input
-              placeholder="05/05/2012"
-              value={vehicleInsurance.endDate ? vehicleInsurance.endDate : ""}
-              disabled
-            />
-          </Grid>
-        </Grid>
-        <>
-          <Modal
-            aria-labelledby="spring-modal-title"
-            aria-describedby="spring-modal-description"
-            open={openupdateprofilemodal}
-            onClose={() => setOpenUpdateProfileModal(false)}
-            closeAfterTransition
-            BackdropComponent={Backdrop}
-            BackdropProps={{
-              timeout: 500,
-            }}
-          >
-            <Box sx={style}>
-              <Typography sx={{ color: "#110000" }}>
-                {t("Profile Update Request")}
-              </Typography>
-              <FormControl variant="" sx={{ ml: "-3%" }} className="MobileView">
-                <Select
-                  labelId="demo-simple-select-standard-label"
-                  id="demo-simple-select-standard"
-                  //   value={item}
-                  defaultValue={0}
-                  onChange={handleChange}
-                  sx={{
-                    width: "500px",
-                    fontSize: "18px",
-                    color: "#110000",
-                  }}
+              <Box sx={style}>
+                <Typography sx={{ color: "#110000" }}>
+                  {t("Profile Update Request")}
+                </Typography>
+                <FormControl
+                  variant=""
+                  sx={{ ml: "-3%" }}
+                  className="MobileView"
                 >
-                  <MenuItem
-                    value={0}
-                    disabled
-                    sx={{ paddingTop: "0px !important" }}
+                  <Select
+                    labelId="demo-simple-select-standard-label"
+                    id="demo-simple-select-standard"
+                    //   value={item}
+                    defaultValue={0}
+                    onChange={handleChange}
+                    sx={{
+                      width: "500px",
+                      fontSize: "18px",
+                      color: "#110000",
+                    }}
                   >
-                    {t("Select the options")}
-                  </MenuItem>
-                  <MenuItem
-                    value="InsuranceCompany"
-                    name=" InsuranceCompany"
-                    onChange={(e) => SetUpdateField(e.target.value)}
-                  >
-                    {t("Insurance Company")}
-                  </MenuItem>
-                  <MenuItem
-                    value="DrivingLicense"
-                    name="DrivingLicense"
-                    onChange={(e) => SetUpdateField(e.target.value)}
-                  >
-                    {t("Driving License")}
-                  </MenuItem>
-                  <MenuItem
-                    value="ExerciseAuthorization"
-                    name="ExerciseAuthorization"
-                    onChange={(e) => SetUpdateField(e.target.value)}
-                  >
-                    {t("Exercise Authorization")}
-                  </MenuItem>
-                  <MenuItem
-                    value="BusinessDetails"
-                    name="BusinessDetails"
-                    onChange={(e) => SetUpdateField(e.target.value)}
-                  >
-                    {t("Business Details")}
-                  </MenuItem>
-                  <MenuItem
-                    value="Vehicleinsurance"
-                    name="Vehicleinsurance"
-                    onChange={(e) => SetUpdateField(e.target.value)}
-                  >
-                    {t("Vehicle insurance")}
-                  </MenuItem>
-                  <MenuItem
-                    value="TechnicalControl"
-                    name="TechnicalControl"
-                    onChange={(e) => SetUpdateField(e.target.value)}
-                  >
-                    {t("Technical Control")}
-                  </MenuItem>
-                </Select>
-              </FormControl>
-              <Typography sx={{ color: "#110000", marginBottom: "3px" }}>
-                {t("Reason-Information to update")}
-              </Typography>
-              <TextareaAutosize
-                aria-label="minimum height"
-                minRows={5}
-                placeholder="Minimum 3 rows"
-                name="description"
-                onChange={(e) => setDescription(e.target.name)}
-                style={{ width: "100%", borderRadius: "5px" }}
-              />
-              <div style={{ marginTop: "2%" }}>
-                <Button
-                  text="Update Profile"
-                  width="95% !important"
-                  color="#149e7a"
-                  borderRadius="10px"
-                  onClick={updateProfile}
-                  disabled={disabled}
-                ></Button>
-              </div>
-            </Box>
-          </Modal>
-        </>
-      </Grid>
+                    <MenuItem
+                      value={0}
+                      disabled
+                      sx={{ paddingTop: "0px !important" }}
+                    >
+                      {t("Select the options")}
+                    </MenuItem>
+                    <MenuItem
+                      value="InsuranceCompany"
+                      name=" InsuranceCompany"
+                      onChange={(e) => SetUpdateField(e.target.value)}
+                    >
+                      {t("Insurance Company")}
+                    </MenuItem>
+                    <MenuItem
+                      value="DrivingLicense"
+                      name="DrivingLicense"
+                      onChange={(e) => SetUpdateField(e.target.value)}
+                    >
+                      {t("Driving License")}
+                    </MenuItem>
+                    <MenuItem
+                      value="ExerciseAuthorization"
+                      name="ExerciseAuthorization"
+                      onChange={(e) => SetUpdateField(e.target.value)}
+                    >
+                      {t("Exercise Authorization")}
+                    </MenuItem>
+                    <MenuItem
+                      value="BusinessDetails"
+                      name="BusinessDetails"
+                      onChange={(e) => SetUpdateField(e.target.value)}
+                    >
+                      {t("Business Details")}
+                    </MenuItem>
+                    <MenuItem
+                      value="Vehicleinsurance"
+                      name="Vehicleinsurance"
+                      onChange={(e) => SetUpdateField(e.target.value)}
+                    >
+                      {t("Vehicle insurance")}
+                    </MenuItem>
+                    <MenuItem
+                      value="TechnicalControl"
+                      name="TechnicalControl"
+                      onChange={(e) => SetUpdateField(e.target.value)}
+                    >
+                      {t("Technical Control")}
+                    </MenuItem>
+                  </Select>
+                </FormControl>
+                <Typography sx={{ color: "#110000", marginBottom: "3px" }}>
+                  {t("Reason-Information to update")}
+                </Typography>
+                <TextareaAutosize
+                  aria-label="minimum height"
+                  minRows={5}
+                  placeholder="Minimum 3 rows"
+                  name="description"
+                  onChange={(e) => setDescription(e.target.name)}
+                  style={{ width: "100%", borderRadius: "5px" }}
+                />
+                <div style={{ marginTop: "2%" }}>
+                  <Button
+                    text="Update Profile"
+                    width="95% !important"
+                    color="#149e7a"
+                    borderRadius="10px"
+                    onClick={updateProfile}
+                    disabled={disabled}
+                  ></Button>
+                </div>
+              </Box>
+            </Modal>
+          </>
+        </Grid>
+      )}
     </>
   );
 };

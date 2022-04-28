@@ -21,6 +21,7 @@ import { useTranslation } from "react-i18next";
 import API from "../../../api";
 import { Typography, Grid, Box, Checkbox, Paper, Modal } from "@mui/material";
 import Joi from "joi-browser";
+import Loader from "../../../components/Common/FullScreenLoader";
 
 function createData(dateofregistration, brand, model, color, noplate, gearbox) {
   return { dateofregistration, brand, model, color, noplate, gearbox };
@@ -47,6 +48,7 @@ const Index = () => {
   const handleEnddate = (newValue) => {
     setEndValue(newValue);
   };
+  const [loading, setLoading] = useState(true);
 
   const handleOpenModal = () => {
     setVehicleDet({
@@ -97,6 +99,7 @@ const Index = () => {
     TechEndDate: new Date(),
     CtImg: "",
   });
+
   const vehicleSchema = {
     FristRegDate: Joi.string()
       .required()
@@ -320,11 +323,13 @@ const Index = () => {
         return errors;
       }),
   };
+
   const onChange = (name, value) => {
     const errorMessage = validateSuggest(name, value);
     setVehicleErrors({ ...vehicleErrors, [name]: errorMessage });
     setVehicleDet({ ...vehicleDet, [name]: value });
   };
+
   const validateSuggest = (name, value) => {
     const obj = { [name]: value };
     const schema = {
@@ -333,7 +338,9 @@ const Index = () => {
     const { error } = Joi.validate(obj, schema);
     return error ? error.details[0].message : null;
   };
+
   var XMLParser = require("react-xml-parser");
+
   const style = {
     position: "absolute",
     top: "50%",
@@ -349,12 +356,13 @@ const Index = () => {
     borderRadius: "4px",
     overflowX: "hidden",
   };
+
   useEffect(() => {
     const userData = JSON.parse(localStorage.getItem("user"));
-    getVehicleData(userData);
-    setUser(userData);
     getAllMakes();
     getAllModels();
+    getVehicleData(userData);
+    setUser(userData);
   }, []);
 
   const getVehicleData = async (userData) => {
@@ -374,6 +382,7 @@ const Index = () => {
             vehicles.push(veh.data.data);
           });
           setVehicleData(vehicles);
+          setLoading(false);
         });
       }
     );
@@ -781,13 +790,16 @@ const Index = () => {
           onClick={handleOpenModal}
         />
       </div>
-      <DataTable
-        data={vehicleData}
-        columns={Vehiclescolumns}
-        open={handleEditVehicle}
-        handleDeleteVehicle={handleDeleteVehicle}
-      ></DataTable>
-
+      {loading ? (
+        <Loader></Loader>
+      ) : (
+        <DataTable
+          data={vehicleData}
+          columns={Vehiclescolumns}
+          open={handleEditVehicle}
+          handleDeleteVehicle={handleDeleteVehicle}
+        ></DataTable>
+      )}
       <Modal
         open={addVehicle}
         onClose={() => setAddVehicle(false)}

@@ -17,6 +17,7 @@ import Models from "../../../assets/makesModels/Models.xml";
 import Button from "../../../components/Common/Button";
 import { toast } from "react-toastify";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
+import Loader from "../../../components/Common/FullScreenLoader";
 
 import API from "../../../api";
 import { Typography, Grid, Box, Checkbox, Paper, Modal } from "@mui/material";
@@ -48,6 +49,7 @@ const Index = () => {
   const handleEnddate = (newValue) => {
     setEndValue(newValue);
   };
+  const [loading, setLoading] = useState(true);
 
   const handleOpenModal = () => {
     setVehicleDet({
@@ -369,13 +371,12 @@ const Index = () => {
           );
         });
         Promise.all(allVehicles).then((res) => {
-          console.log("allVehicles", res);
           let vehicles = [];
           res.map((veh) => {
             vehicles.push(veh.data.data);
           });
-          console.log("res", vehicles);
           setVehicleData(vehicles);
+          setLoading(false);
         });
       }
     );
@@ -784,12 +785,16 @@ const Index = () => {
           onClick={handleOpenModal}
         />
       </div>
-      <DataTable
-        data={vehicleData}
-        columns={Vehiclescolumns}
-        open={handleEditVehicle}
-        handleDeleteVehicle={handleDeleteVehicle}
-      ></DataTable>
+      {loading ? (
+        <Loader></Loader>
+      ) : (
+        <DataTable
+          data={vehicleData}
+          columns={Vehiclescolumns}
+          open={handleEditVehicle}
+          handleDeleteVehicle={handleDeleteVehicle}
+        ></DataTable>
+      )}
       <Modal
         open={addVehicle}
         onClose={() => setAddVehicle(false)}

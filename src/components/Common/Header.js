@@ -37,6 +37,7 @@ export default function Header(props) {
   const { i18n, t } = useTranslation();
   const [Loginopen, setLoginOpen] = React.useState(false);
   const [Registeropen, setRegisteropen] = React.useState(false);
+  const [disable, setDisable] = React.useState(false);
   const [email, setEmail] = React.useState("");
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
@@ -66,6 +67,7 @@ export default function Header(props) {
   };
 
   const handleLogin = async () => {
+    setDisable(true);
     const response = await API("post", "Personal/Login", data)
       .then(async (response) => {
         if (response.data.data !== null) {
@@ -76,24 +78,32 @@ export default function Header(props) {
             setRole(userdata.role);
 
             if (userdata.role === "DSInstructor") {
+              setDisable(false);
               history.push("/DsInstructor/myProfile");
             } else if (userdata.role === "CarRentalAgent") {
+              setDisable(false);
               history.push("/CarRental/myProfile");
             } else if (userdata.role === "Instructor") {
+              setDisable(false);
               history.push("/Instructor/myProfile");
             } else if (userdata.role === "Student") {
+              setDisable(false);
               history.push("student/myProfile");
             } else if (userdata.role === "DrivingSchool") {
+              setDisable(false);
               history.push("/DrivingSchool/myProfile");
             }
           }
+          setDisable(false);
           window.location.reload(false);
         } else {
           // localStorage.removeItem("token");
+          setDisable(false);
           toast.error(t("Email or Password is not correct"));
         }
       })
       .catch((error) => {
+        setDisable(false);
         console.log(error);
         toast.error(t("Something Went Wrong"));
       });
@@ -269,6 +279,7 @@ export default function Header(props) {
                 padding="0 30% 0 30% !important"
                 height="50px"
                 onClick={handleLogin}
+                disabled={disable}
               ></Button>
             </div>
             <Grid item className="Register_now">
