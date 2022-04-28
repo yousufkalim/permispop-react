@@ -62,7 +62,7 @@ const Index = () => {
         </Grid>
       </div>
 
-      <Divider width="100%" borderColor="#D5E4E8" margin="1% 0px 2% 0px" />
+      <Divider width="100%" borderColor="#D5E4E8" margin="2% 0px 2% 0px" />
 
       <Grid container spacing={1} sx={{ margin: "30px" }}>
         <Grid xs={12}>
@@ -82,7 +82,7 @@ const Index = () => {
                   </Typography>
                   <LinkIcon fontSize="large" />
                 </div>
-                <Divider />
+                <Divider margin="none" />
               </>
             );
           })}
