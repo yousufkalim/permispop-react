@@ -68,6 +68,7 @@ const Profile = (props) => {
   const getUserData = async (id) => {
     await API("get", `Personal/GetAllById/?id=${id}`).then((res) => {
       setUser(res.data.data);
+      localStorage.setItem("user", JSON.stringify(res.data.data));
       getRatings(res.data.data);
     });
   };
@@ -243,7 +244,8 @@ const Profile = (props) => {
           zip: user.zip,
         }).then((e) => {
           toast.success("Profile Image Changed successfully!");
-          setUpdate(!update);
+          localStorage.setItem("user", JSON.stringify(e.data.data));
+          window.location.reload();
         });
       }
     );
