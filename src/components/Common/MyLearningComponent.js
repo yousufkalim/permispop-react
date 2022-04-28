@@ -15,13 +15,17 @@ import API from "../../api/index";
 import moment from "moment";
 import RadioButton from "./RadioButton";
 import TextareaAutosize from "@mui/material/TextareaAutosize";
+import Fab from "@mui/material/Fab";
+import SendVector from "../../assets/images/SendVector.png";
+import { x } from "joi";
+import { toast } from "react-toastify";
 
 const style = {
   position: "absolute",
   top: "50%",
   left: "50%",
   height: "80%",
-  overflow: "scroll",
+  overflowX: "scroll",
   transform: "translate(-50%, -50%)",
   width: 800,
   bgcolor: "background.paper",
@@ -37,17 +41,23 @@ function MyLearningComponent(props) {
   const [commentLevel, setCommentLevel] = useState([]);
   const [objomment, setObjComment] = useState([]);
   const [saveindx, setSaveindex] = useState();
+
   const [valueRadio, setValueRadio] = useState();
   const [valueRadioStudent, setValueRadioStudent] = useState();
   const [updateRadioValue, setupdateRadioValue] = useState();
+
+  const [state, setstate] = useState();
   const [step, setStep] = useState(1);
   const [selectedValue, setSelectedValue] = useState("a");
   const [open, setOpen] = React.useState(false);
+
   const [checkingLevel, setCheckingLevel] = useState([]);
   const [checkingLevel2, setCheckingLevel2] = useState([]);
   const [checkingLevel3, setCheckingLevel3] = useState([]);
   const [checkingLevel4, setCheckingLevel4] = useState([]);
   const [update, setUpdate] = useState(false);
+  const [message, setMessage] = useState("");
+  const [currentIndex, setCurrentIndex] = useState("");
 
   useEffect(() => {
     BookletComments();
@@ -66,60 +76,61 @@ function MyLearningComponent(props) {
   }, [update, step]);
 
   const Booklet = async () => {
-    return API("get", `Booklet/GetAllByStudentId/?id=${user.id}`).then(
-      (GetAllBookletResponse) => {
-        let array = GetAllBookletResponse?.data?.data?.map((e) => {
-          return e.bookletItemId;
-        });
+    return API(
+      "get",
+      `Booklet/GetAllByStudentId/?id=${props.commentsData.id}`
+    ).then((GetAllBookletResponse) => {
+      let array = GetAllBookletResponse?.data?.data?.map((e) => {
+        return e.bookletItemId;
+      });
 
-        setCommentLevel(GetAllBookletResponse?.data?.data);
-        return GetAllBookletResponse?.data?.data;
-      }
-    );
+      setCommentLevel(GetAllBookletResponse?.data?.data);
+      return GetAllBookletResponse?.data?.data;
+    });
   };
 
   const HandleChangeRadio = async (e, obj, index) => {
     setSaveindex(index);
-    const user = JSON.parse(localStorage.getItem("user"));
     setValueRadio(e.target.value);
     await API("post", `Booklet/UpdateBooklet`, {
       bookletItemId: obj?.bookletItemId || index,
       instructorId: user.id,
       level: e.target.value,
-      //   studentId: ,
+      studentId: props.commentsData.id,
       timeStamp: new Date(),
     }).then((UpdateBookletReponse) => {
       setupdateRadioValue(UpdateBookletReponse);
       setUpdate(!update);
     });
   };
-
   const BookletComments = async () => {
     await API(
       "get",
-      `Booklet/GetAllBookletComments/?studentId=${user.id}&bookletItemId=all`
+      `Booklet/GetAllBookletComments/?studentId=${props.commentsData.id}&bookletItemId=all`
     ).then((GetAllBookletCommentsResponse) => {
       setComments(GetAllBookletCommentsResponse.data.data);
     });
   };
-  const UpdateBookletComments = async () => {
+  const AddComments = async () => {
     await API("post", `Booklet/UpdateBookletComments`, {
-      bookletItemId: "1",
-      comments: "jdbvjsbvsjbvsjbv",
-      instructorId: "626255c1bcd4df12dc3acc16",
-      instructorName: "Instructor test",
-      studentId: "62625b3dbcd4df12dc3acc5f",
-      timeStamp: "2022-04-27T07:26:58Z",
-    });
+      bookletItemId: currentIndex,
+      comments: message,
+      instructorId: user.id,
+      instructorName: `${user.firstName}${user.surName}`,
+      studentId: props.commentsData.id,
+      timeStamp: new Date(),
+    }).then((UpdateBookletCommentsResponce) => {});
   };
 
   const handleOpen = (index) => {
-    setOpen(true);
+    setCurrentIndex(index);
+    BookletComments();
     const IndexId = index;
     const FindCommentId = comments.filter(
       (p) => parseInt(p.bookletItemId) === IndexId
-    );
-    setObjComment(FindCommentId);
+      );
+      setObjComment(FindCommentId);
+      setOpen(true);
   };
 
   const handleClose = () => setOpen(false);
@@ -186,6 +197,17 @@ function MyLearningComponent(props) {
     });
     setCheckingLevel4(newRows);
   };
+  const handleKeypress = (e) => {
+    if (e.key === "Enter") {
+      onClick();
+    }
+  };
+  const onClick = () => {
+    setOpen(false);
+    AddComments(currentIndex, message);
+    setMessage("");
+    toast.success("Comment added successfully")
+  };
   return (
     <div style={{ padding: "0% 5% 5% 5%" }}>
       <Modal
@@ -198,7 +220,10 @@ function MyLearningComponent(props) {
           <Typography id="modal-modal-title" variant="h6" component="h2">
             Comments
           </Typography>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+          <Typography
+            id="modal-modal-description"
+            sx={{ mt: 2, overflowY: "scroll", height: "80%" }}
+          >
             {objomment?.length ? (
               <div>
                 {objomment.map((items, index) => {
@@ -229,9 +254,34 @@ function MyLearningComponent(props) {
               <h1 style={{ color: "gray" }}>Not Found</h1>
             )}
           </Typography>
+
+          <div className="MessageDiv">
+            <div className="MessageText">
+              <input
+                placeholder="Type a Comment here to Add"
+                className="ChatBoxTypingField"
+                value={message}
+                onChange={(e) => {
+                  setMessage(e.target.value);
+                }}
+                onKeyPress={handleKeypress}
+              />
+            </div>
+            <div className="MessageRight" onClick={onClick}>
+              <Fab
+                size="small"
+                color="secondary"
+                aria-label="add"
+                sx={{ margin: "10px" }}
+              >
+                <img src={SendVector} />
+              </Fab>
+            </div>
+          </div>
         </Box>
       </Modal>
 
+      <Typography className="Mylearning_title">My Learning</Typography>
       <Divider
         width="100%"
         borderColor="#D5E4E8"
@@ -363,10 +413,6 @@ function MyLearningComponent(props) {
                               {index + 1}.{row?.row?.wording}
                             </td>
                             <td align="center">
-                              <TextareaAutosize
-                                minRows={2}
-                                className="comment_box_textarea"
-                              />
                               <ForumIcon
                                 onClick={() => handleOpen(index + 1)}
                                 style={{ fill: "#149E7A", marginLeft: 8 }}
@@ -449,14 +495,12 @@ function MyLearningComponent(props) {
                             {index + 10}.{row?.row?.wording}
                           </td>
                           <td align="center">
-                            <TextareaAutosize
-                              minRows={2}
-                              className="comment_box_textarea"
-                            />
-                            <ForumIcon
-                              onClick={() => handleOpen(index + 10)}
-                              style={{ fill: "#149E7A", marginLeft: 8 }}
-                            ></ForumIcon>
+                            <td align="center">
+                              <ForumIcon
+                                onClick={() => handleOpen(index + 1)}
+                                style={{ fill: "#149E7A", marginLeft: 8 }}
+                              ></ForumIcon>
+                            </td>
                           </td>
                         </tr>
                       );
@@ -537,14 +581,12 @@ function MyLearningComponent(props) {
                             {index + 18}.{row?.row?.wording}
                           </td>
                           <td align="center">
-                            <TextareaAutosize
-                              minRows={2}
-                              className="comment_box_textarea"
-                            />
-                            <ForumIcon
-                              onClick={() => handleOpen(index + 18)}
-                              style={{ fill: "#149E7A", marginLeft: 8 }}
-                            ></ForumIcon>
+                            <td align="center">
+                              <ForumIcon
+                                onClick={() => handleOpen(index + 1)}
+                                style={{ fill: "#149E7A", marginLeft: 8 }}
+                              ></ForumIcon>
+                            </td>
                           </td>
                         </tr>
                       );
@@ -626,14 +668,12 @@ function MyLearningComponent(props) {
                             {index + 25}.{row.row.wording}
                           </td>
                           <td align="center">
-                            <TextareaAutosize
-                              minRows={2}
-                              className="comment_box_textarea"
-                            />
-                            <ForumIcon
-                              onClick={() => handleOpen(index + 25)}
-                              style={{ fill: "#149E7A", marginLeft: 8 }}
-                            ></ForumIcon>
+                            <td align="center">
+                              <ForumIcon
+                                onClick={() => handleOpen(index + 1)}
+                                style={{ fill: "#149E7A", marginLeft: 8 }}
+                              ></ForumIcon>
+                            </td>
                           </td>
                         </tr>
                       );
