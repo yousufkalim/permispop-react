@@ -255,7 +255,7 @@ function MyLearningComponent(props) {
             )}
           </Typography>
 
-          <div className="MessageDiv">
+          <div className="CommentDiv">
             <div className="MessageText">
               <input
                 placeholder="Type a Comment here to Add"
