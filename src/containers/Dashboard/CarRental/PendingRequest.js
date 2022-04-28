@@ -3,32 +3,38 @@ import DataTable from "../../../components/Common/Table";
 import Grid from "@mui/material/Grid";
 import Typography from "@mui/material/Typography";
 import { PendingRequestcolumns } from "../../../utils/tableHeads";
-// import { pendingRequestsrows } from "../../../utils/tablerows";
-import MultipleSelectPlaceholder from "../../../components/Common/SelectField";
-import DatePicker from "../../../components/Common/DatePicker";
-import MobileViewFilters from "../../../components/Common/MobileViewFilters";
 import Divider from "../../../components/Common/Divider";
+import API from "../../../api";
+import { toast } from "react-toastify";
 import Button from "../../../components/Common/Button";
 import FormControl from "@mui/material/FormControl";
 import Modal from "@mui/material/Modal";
+import Backdrop from "@mui/material/Backdrop";
 import Box from "@mui/material/Box";
 import TextareaAutosize from "@mui/material/TextareaAutosize";
 import Radio from "@mui/material/Radio";
 import RadioGroup from "@mui/material/RadioGroup";
 import FormControlLabel from "@mui/material/FormControlLabel";
 import FormLabel from "@mui/material/FormLabel";
-import API from "../../../api";
-import { toast } from "react-toastify";
-import { useTranslation } from "react-i18next";
 import moment from "moment";
 import Loader from "../../../components/Common/FullScreenLoader";
+
+import LocationOnIcon from "@mui/icons-material/LocationOn";
+import BasicModal from "../../../components/Common/BasicModal";
+import { useTranslation } from "react-i18next";
+import Project from "../../../assets/images/form.svg";
+import Rating from "../../../assets/images/path2006.svg";
+import MyLearningComponent from "../../../components/Common/MyLearningComponent";
+import { useHistory } from "react-router-dom";
 
 function createData(bookingwith, date, startTime, duration, status, id) {
   return { bookingwith, date, startTime, duration, status, id };
 }
+const userData = JSON.parse(localStorage.getItem("user"));
+
 const Index = () => {
   const { i18n, t } = useTranslation();
-  const style = {
+  const style1 = {
     position: "absolute",
     top: "50%",
     left: "50%",
@@ -39,25 +45,41 @@ const Index = () => {
     borderRadius: "10px",
     p: 4,
   };
+  const style2 = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: "85%",
+    bgcolor: "background.paper",
+    boxShadow: 20,
+    borderRadius: "10px",
+    p: 3,
+  };
+
   const [pendingRequestsrows, setPendingRequestsrows] = useState([]);
-  const [Startvalue, setStartValue] = useState(new Date());
-  const [updatefield, SetUpdateField] = useState("");
   const [allBookingsWithUser, setAllBookingsWithUser] = useState([]);
   const [selectedUserData, setSelectedUserData] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [Startvalue, setStartValue] = useState(new Date());
   const [openDisputeModal, setOpenDisputeModal] = useState(false);
   const [comment, setComment] = useState("");
-  const [loading, setLoading] = useState(true);
+  const [profileModal, setProfileModal] = useState(false);
+  const [commentModal, setCommentModal] = useState(false);
+  const [profileData, setProfileData] = useState("");
+  const [commentsData, setCommentsData] = useState("");
+  const [chatData, setChatData] = useState("");
 
+  const [updatefield, SetUpdateField] = useState("");
+  const history = useHistory();
   const handleStartdate = (newValue) => {
     setStartValue(newValue);
   };
   const [Endvalue, setEndValue] = useState(new Date());
   const [user, setUser] = useState();
-
   const handleEnddate = (newValue) => {
     setEndValue(newValue);
   };
-  const [bookings, setBooking] = useState([]);
 
   useEffect(() => {
     const userData = JSON.parse(localStorage.getItem("user"));
@@ -121,18 +143,16 @@ const Index = () => {
       openDisputeModal = setOpenDisputeModal(true);
     }
   };
-  const createDispute = async (id) => {
-    console.log("setSelectedUserData", user.role);
 
-    const userID = JSON.parse(localStorage.getItem("user"));
+  const createDispute = async (id) => {
     if (updatefield != "" && comment != "") {
       await API("post", `Dispute`, {
         Dispute: updatefield,
         comment: comment,
         InstructorID: user.role === "Student" ? selectedUserData.id : user.id,
         instructorName: user.firstName ? user.firstName : "",
-        DisputingFrom: user.role ? user.role : "",
         feedBackDate: new Date(),
+        DisputingFrom: user.role ? user.role : "",
         studentName: selectedUserData.firstName
           ? selectedUserData.firstName
           : "",
@@ -141,7 +161,6 @@ const Index = () => {
           : "",
         studentID: user.role === "Student" ? user.id : selectedUserData.id,
       }).then((disputeres) => {
-        console.log("data", disputeres.data.data);
         toast.success(t("Dispute is created sucessfully"));
         SetUpdateField("");
         setComment("");
@@ -151,9 +170,58 @@ const Index = () => {
       toast.error(t("Field cannot be empty"));
     }
   };
+  const handleProfileModalClose = () => setProfileModal(false);
+  const handleCommentModalClose = () => setCommentModal(false);
+  const handleProfile = (e) => {
+    console.log("profile");
+    let selectedBooking = allBookingsWithUser.find((booking) => {
+      if (booking.id === e.id) {
+        return booking;
+      }
+    });
+    setProfileData(selectedBooking.studentData);
+    setProfileModal(true);
+  };
+  const handleComment = (e) => {
+    console.log("comments");
+
+    let selectedBooking = allBookingsWithUser.find((booking) => {
+      if (booking.id === e.id) {
+        return booking;
+      }
+    });
+    setCommentsData(selectedBooking.studentData);
+    setCommentModal(true);
+  };
+  const handleChat = (e) => {
+    let selectedBooking = allBookingsWithUser.find((booking) => {
+      if (booking.id === e.id) {
+        return booking;
+      }
+    });
+    setChatData(selectedBooking.studentData.id);
+    handleChatRoom();
+  };
+  const handleChatRoom = async () => {
+    await API(
+      "get",
+      `Chat/getorcreatechatroom?userA=${userData.id}&userB=${chatData}`
+    )
+      .then((ChatroomResponse) => {
+        console.log("qwerty", ChatroomResponse);
+
+        localStorage.setItem(
+          "ChatroomId",
+          JSON.stringify(ChatroomResponse.data.data.id)
+        );
+        history.push(`/Instructor/chat`);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
   return (
     <>
-      {/* <MobileViewFilters title={t("Pending Request")} /> */}
       <div className="Filters">
         <Grid container spacing={1} sx={{ marginTop: "30px" }}>
           <Grid xs={12} sm={12} md={3}>
@@ -166,43 +234,16 @@ const Index = () => {
                 fontWeight: 400,
                 fontSize: "24px",
                 lineHight: "34px",
-                /* identical to box height */
-
                 color: "#2A3235",
               }}
             >
-              {t("Pending Request")}
+              {t("Pending request")}
             </Typography>
-          </Grid>
-          <Grid xs={3} sm={3} md={2}>
-            <MultipleSelectPlaceholder
-              value={[t("All")]}
-            ></MultipleSelectPlaceholder>
-          </Grid>
-          <Grid xs={3} sm={3} md={2}>
-            <MultipleSelectPlaceholder
-              value={[t("Filter by receiver")]}
-            ></MultipleSelectPlaceholder>
-          </Grid>
-          <Grid xs={12} sm={6} md={2}>
-            <DatePicker
-              label={t("Start Date")}
-              value={Startvalue}
-              onChange={handleStartdate}
-            ></DatePicker>
-          </Grid>
-
-          <Grid xs={12} sm={6} md={2}>
-            <DatePicker
-              label={t("End Date")}
-              // label={["date"]}
-              value={Endvalue}
-              onChange={handleEnddate}
-            ></DatePicker>
           </Grid>
         </Grid>
       </div>
       <Divider width="100%" borderColor="#D5E4E8" margin="2% 0px 2% 0px" />
+
       {loading ? (
         <Loader></Loader>
       ) : (
@@ -212,8 +253,12 @@ const Index = () => {
           columns={PendingRequestcolumns}
           SetUpdateField={SetUpdateField}
           user={user}
-        ></DataTable>
+          handleProfile={handleProfile}
+          handleChat={handleChat}
+          handleComment={handleComment}
+        />
       )}
+
       <Modal
         aria-labelledby="spring-modal-title"
         aria-describedby="spring-modal-description"
@@ -224,7 +269,7 @@ const Index = () => {
           timeout: 500,
         }}
       >
-        <Box sx={style}>
+        <Box sx={style1}>
           <FormControl>
             <FormLabel
               id="demo-radio-buttons-group-label"
@@ -272,7 +317,7 @@ const Index = () => {
           <TextareaAutosize
             aria-label="minimum height"
             minRows={5}
-            placeholder={t("Comments")}
+            placeholder={t("Minimum 3 rows")}
             name="comment"
             onChange={(e) => setComment(e.target.name)}
             style={{ width: "100%", borderRadius: "5px", padding: "2%" }}
@@ -288,6 +333,101 @@ const Index = () => {
           </div>
         </Box>
       </Modal>
+      <Modal
+        aria-labelledby="spring-modal-title"
+        aria-describedby="spring-modal-description"
+        open={commentModal}
+        onClose={handleCommentModalClose}
+        closeAfterTransition
+        BackdropProps={{
+          timeout: 500,
+        }}
+      >
+        <Box sx={style2}>
+          <MyLearningComponent commentsData={commentsData} />
+        </Box>
+      </Modal>
+      <BasicModal
+        open={profileModal}
+        onClose={handleProfileModalClose}
+        modalboxclassName="profile_modal"
+      >
+        <div>
+          <div className="profile_img_div">
+            <img
+              src={
+                profileData?.photo
+                  ? profileData?.photo
+                  : profileData.photo === "null" || "undefined"
+                  ? profileData
+                  : profileData.photo
+              }
+              alt=""
+              className="profile_img"
+            />
+          </div>
+          <div className="profile_text_div">
+            <p className="profile_text_left">
+              {profileData.firstName} {profileData.surName}
+            </p>
+          </div>
+          <div className="profile_text_div">
+            <p
+              className="profile_text_right"
+              style={{
+                display: "flex",
+                alignItems: "flex-start",
+                justifyContent: "flex-start",
+              }}
+            >
+              <LocationOnIcon style={{ marginTop: -5, marginLeft: 10 }} />
+              {profileData.address}
+              {profileData.zip} {profileData.city}
+            </p>
+          </div>
+          <div className="profile_text_div">
+            <p className="profile_text_right">{profileData.contactEmail}</p>
+          </div>
+          <div className="profile_text_div">
+            <p className="profile_text_right">{profileData.gender}</p>
+          </div>
+
+          <div className="profile_text_div">
+            <p className="profile_text_right">
+              {moment(profileData.dob).format("DD/MM/YYYY")}
+            </p>
+          </div>
+          <div className="profile_text_div">
+            <p className="profile_text_right">{profileData.placeOfBirth}</p>
+          </div>
+          <div className="profile_text_div">
+            <p className="profile_text_right">{profileData.complement} </p>
+          </div>
+
+          <div className="icons">
+            <div className="profile_icons_div">
+              <div className="icon_style_div">
+                <img src={Project} alt="" />
+              </div>
+              <div className="popup_text">
+                {/* <p className="icons_text1">{profileData.BookingLength}</p> */}
+                <p className="icons_text2">Bookings</p>
+              </div>
+            </div>
+            <div className="profile_icons_div">
+              <div className="icon_style_div">
+                <img src={Rating} alt="" />
+              </div>
+              <div>
+                <p className="icons_text1">
+                  {/* {profileData.Rating != "NaN" ? profileData.Rating : "N/A"} */}
+                </p>
+                <p className="icons_text2">Ratings</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </BasicModal>
     </>
   );
 };
