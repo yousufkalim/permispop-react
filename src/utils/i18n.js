@@ -51,7 +51,8 @@ i18n
           "Find Instructure": "Find Instructure",
           "Find Instructor": "Find Instructure",
           Chat: "Chat",
-          "Can only select your bookings": "Can only select your bookings",
+          "Can only select your bookings":
+            "You can only select your own bookings",
           "Cannot Book after time": "Cannot Book after time",
           "No connection to server yet.": "No connection to server yet.",
           "can not select past event": "can not select past event",
@@ -298,7 +299,7 @@ i18n
             "Upload Vehicle Registration Certificate",
           "Upload your Image": "Upload your Image",
           Energy: "Energy",
-          "Number Plate": "Number Plate",
+          "Number Plate": "Your number plate",
           "Date of the 1st Registration": "Date of the 1st Registration",
           Brand: "Brand",
           Model: "Model",
@@ -594,7 +595,7 @@ i18n
             '"Address" is not allowed to be empty',
 
           '"pob" is not allowed to be empty':
-            '"pob" is not allowed to be empty',
+            "Your place of birth cannot be empty",
 
           "Email Field can't be empty!": "Email Field can't be empty!",
           "E-mail Field can't be empty!": "Email Field can't be empty!",
@@ -605,7 +606,7 @@ i18n
             '"Téléphone" is not allowed to be empty',
 
           '"licence No." is not allowed to be empty':
-            '"licence No." is not allowed to be empty',
+            "Licence number cannot be empty",
           '"Numéro de licence" is not allowed to be empty':
             '"Numéro de licence" is not allowed to be empty',
 
@@ -642,13 +643,11 @@ i18n
           '"Plaque d immatriculation" is not allowed to be empty':
             '"Plaque d immatriculation" is not allowed to be empty',
 
-          '"Color" is not allowed to be empty':
-            '"Color" is not allowed to be empty',
+          '"Color" is not allowed to be empty': "Color cannot be empty",
           '"Couleur" is not allowed to be empty':
             '"Couleur" is not allowed to be empty',
 
-          '"Energy" is not allowed to be empty':
-            '"Energy" is not allowed to be empty',
+          '"Energy" is not allowed to be empty': "Energy cannot be empty",
           '"Énergie" is not allowed to be empty':
             '"Énergie" is not allowed to be empty',
 
@@ -663,7 +662,7 @@ i18n
             '"SurName" is not allowed to be empty',
 
           '"Pob" is not allowed to be empty':
-            '"Pob" is not allowed to be empty',
+            "Your place of birth cannot be empty",
 
           '"Siret" is not allowed to be empty':
             '"Siret" is not allowed to be empty',
@@ -672,9 +671,9 @@ i18n
             '"CompanyInsurer" is not allowed to be empty',
 
           '"Company Police Number" is not allowed to be empty':
-            '"Company Police Number" is not allowed to be empty',
+            "Company's police number cannot be empty",
           '"Numéro de police de l entreprise" is not allowed to be empty':
-            '"Numéro de police de l entreprise" is not allowed to be empty',
+            "Company's police number cannot be empty",
 
           '"VehicleInsurer" is not allowed to be empty':
             '"VehicleInsurer" is not allowed to be empty',
@@ -687,7 +686,7 @@ i18n
           // Driving School validation translation
 
           '"Trade Name" is not allowed to be empty':
-            '"Trade Name" is not allowed to be empty',
+            "Your company's trade name cannot be empty",
           '"Nom commercial" is not allowed to be empty':
             '"Nom commercial" is not allowed to be empty',
 
@@ -712,12 +711,12 @@ i18n
             '"Numéro de Siret" is not allowed to be empty',
 
           '"Insurance Company" is not allowed to be empty':
-            '"Insurance Company" is not allowed to be empty',
+            "Insurance company cannot be empty",
           '"Compagnie d assurance" is not allowed to be empty':
-            '"Compagnie d assurance" is not allowed to be empty',
+            "Insurance company cannot be empty",
 
           '"Police Number" is not allowed to be empty':
-            '"Police Number" is not allowed to be empty',
+            "Police number cannot be empty",
 
           '"Firstname" is not allowed to be empty':
             '"Firstname" is not allowed to be empty',
@@ -753,29 +752,29 @@ i18n
           "Not a Valid Email": "Not a Valid Email",
           "Not a Valid E-mail": "Not a Valid E-mail",
           '"Phone" length must be 10 characters long':
-            '"Phone" length must be 10 characters long',
+            "Your phone number's length must be 10 characters long",
           "Trade Name must be atleast 3 alphabets Longs!":
-            "Trade Name must be atleast 3 alphabets Longs!",
+            "Your company's trade name must be at least 3 characters long",
           '"siret No." length must be 14 characters long':
-            '"Siret No." length must be 14 characters long',
+            "Your SIRET's length must be 14 characters long",
           '"Siret" length must be 14 characters long':
-            '"Siret" length must be 14 characters long',
+            "Your SIRET's length must be 14 characters long",
           "SurName must be atleast 2 alphabets Longs!":
             "SurName must be atleast 2 alphabets Longs!",
           '"CompanyInsurer" length must be at least 3 characters long':
-            '"CompanyInsurer" length must be at least 3 characters long',
+            "Your company insurer's length must be at least 3 characters long",
           '"VehicleInsurer" length must be at least 3 characters long':
-            '"VehicleInsurer" length must be at least 3 characters long',
+            "Your vehicle insurer's length must be at least 3 characters long",
           '"Téléphone" length must be 10 characters long':
             '"Téléphone" length must be 10 characters long',
           '"Siret Number" length must be at least 14 characters long':
             '"Siret Number" length must be at least 14 characters long',
           '"Insurance Company" length must be at least 3 characters long':
-            '"Insurance Company" length must be at least 3 characters long',
+            "Your insurance company's name's length must be at least 3 characters long",
           '"Firstname" length must be at least 2 characters long':
-            '"Firstname" length must be at least 2 characters long',
+            "Your firstname's length must be at least 2 characters long",
           '"Surname" length must be at least 2 characters long':
-            '"Surname" length must be at least 2 characters long',
+            "Your surname's length must be at least 2 characters long",
           '"Insurer" length must be at least 2 characters long':
             '"Insurer" length must be at least 2 characters long',
           '"Email" is not allowed to be empty':
@@ -806,7 +805,7 @@ i18n
           "to admin on": "to admin on",
           "No address found": "No address found",
           "Phone must be 10 digits": "Phone must be 10 digits",
-          "Phone can't be blank": "Phone can't be blank",
+          "Phone can't be blank": "Phone number cannot be empty",
           "The phone must be at least 10 characters":
             "The phone must be at least 10 characters",
           "Phone 2 can’t be the same as the first phone number":
@@ -835,7 +834,7 @@ i18n
           '"company Insurer" length must be at least 3 characters long':
             "L'assureur de votre société doit être de minimum 3 caractères",
           "Your SIRET's length must be 14 characters long":
-            "La longueur de votre SIRET doit être de 14 caractères",
+            "La longueur du N° SIRET doit être de 14 caractères",
           "Your SIRET number cannot be empty":
             "Votre N° SIRET ne peut pas être vide",
           "Enter a Valid Date": "Entrez une date valide",
@@ -873,7 +872,7 @@ i18n
           "Old password": "Ancien mot de passe",
           "New password": "Nouveau mot de passe",
           "Enter password": "Entrer le mot de passe",
-          "Confirm password": "Confirmez le mot de passe",
+          "Confirm password": "Confirmer le mot de passe",
 
           '"Email" must be a valid email':
             "L'e-mail doit être un e-mail valide",
@@ -884,32 +883,32 @@ i18n
             "La longueur du nom de l'assureur doit être d'au moins 2 caractères",
 
           '"Surname" length must be at least 2 characters long':
-            "Le nom doit être de minimum 2 caractères",
+            "Votre nom doit être de minimum 2 caractères",
 
           '"Firstname" length must be at least 2 characters long':
-            "Le prénom doit être de minimum 2 caractères",
+            "Votre prénom doit être de minimum 2 caractères",
           '"Insurance Company" length must be at least 3 characters long':
-            "La longueur de la compagnie d'assurance doit comporter au moins 3 caractères",
+            "La longueur de la compagnie d'assurance doit être de minimum 3 caractères",
           '"Téléphone" length must be 10 characters long':
-            "Le téléphone doit être de minimum 10 caractères",
+            "La longueur de votre téléphone doit être de 10 chiffres",
           "The phone must be at least 10 characters":
-            "Le téléphone doit être de minimum 10 caractères",
+            "La longueur de votre téléphone doit être de 10 chiffres",
           '"Phone" length must be 10 characters long':
-            "Le téléphone doit être de minimum 10 caractères",
+            "La longueur de votre téléphone doit être de 10 chiffres",
           "Trade Name must be atleast 3 alphabets Longs!":
-            "Le nom commercial doit comporter au moins 3 lettres de l'alphabet Longs !",
+            "Le nom commercial de votre société doit être de minimum 3 caractères",
           '"VehicleInsurer" length must be at least 3 characters long':
-            "La longueur de l'assureur du véhicule doit comporter au moins 3 caractères",
+            "L'assureur de votre véhicule doit être de minimum 3 caractères",
           '"CompanyInsurer" length must be at least 3 characters long':
-            "La longueur de l'assureur de la société doit comporter au moins 3 caractères",
+            "L'assureur de votre société doit être de minimum 3 caractères",
           "SurName must be atleast 2 alphabets Longs!":
             "Le nom doit être de minimum 2 caractères",
           '"Siret" length must be 14 characters long':
-            "Le n° de SIRET doit être de 14 caractères",
+            "La longueur du N° SIRET doit être de 14 caractères",
           '"Siret Number" length must be at least 14 characters long':
-            "Le n° de SIRET doit être de 14 caractères",
+            "La longueur du N° SIRET doit être de 14 caractères",
           '"siret No." length must be 14 characters long':
-            "Le n° de SIRET doit être de 14 caractères",
+            "La longueur du N° SIRET doit être de 14 caractères",
           "Not a Valid Email": "L’adresse mail n’est pas correcte",
           "Not a Valid E-mail": "L’adresse mail n’est pas correcte",
           // Driving School validation translation
@@ -951,14 +950,14 @@ i18n
             "Le prénom ne peut pas être vide",
 
           '"Police Number" is not allowed to be empty':
-            '"Numéro de police" est pas autorisé à être vide',
+            "Le numéro de police ne peut pas être vide",
           '"Numéro de police" is not allowed to be empty':
-            '"Numéro de police" est pas autorisé à être vide',
+            "Le numéro de police ne peut pas être vide",
 
           '"Insurance Company" is not allowed to be empty':
-            '"Compagnie d assurance" est pas autorisé à être vide',
+            "La compagnie d'assurance ne peut pas être vide",
           '"Compagnie d assurance" is not allowed to be empty':
-            '"Compagnie d assurance" est pas autorisé à être vide',
+            "La compagnie d'assurance ne peut pas être vide",
 
           '"Siret Number" is not allowed to be empty':
             '"Numéro de Siret" est pas autorisé à être vide',
@@ -981,9 +980,9 @@ i18n
             '"Nom de la société" est pas autorisé à être vide',
 
           '"Trade Name" is not allowed to be empty':
-            '"Nom commercial" est pas autorisé à être vide',
+            "Le nom commercial de votre société ne peut pas être vide",
           '"Nom commercial" is not allowed to be empty':
-            '"Nom commercial" est pas autorisé à être vide',
+            "Le nom commercial de votre société ne peut pas être vide",
 
           // car rental validation translation
 
@@ -991,14 +990,14 @@ i18n
             '"Numéro de police" est pas autorisé à être vide',
 
           '"VehicleInsurer" is not allowed to be empty':
-            '"Assureur du véhicule" est pas autorisé à être vide',
+            "L'assureur de votre véhicule ne peut pas être vide",
           '"Assureur du véhicule" is not allowed to be empty':
-            '"Assureur du véhicule" est pas autorisé à être vide',
+            "L'assureur de votre véhicule ne peut pas être vide",
 
           '"Company Police Number" is not allowed to be empty':
-            '"Numéro de police de l entreprise" est pas autorisé à être vide',
+            "Le numéro de police de l'entreprise ne peut pas être vide",
           '"Numéro de police de l entreprise" is not allowed to be empty':
-            '"Numéro de police de l entreprise" est pas autorisé à être vide',
+            "Le numéro de police de l'entreprise ne peut pas être vide",
 
           '"CompanyInsurer" is not allowed to be empty':
             '"Compagnie Assureur" est pas autorisé à être vide',
@@ -1011,15 +1010,15 @@ i18n
             '"n° de siret" est pas autorisé à être vide',
 
           '"Pob" is not allowed to be empty':
-            "Lieu de naissance est pas autorisé à être vide",
+            "Votre lieu de naissance ne peut pas être vide",
 
           '"SurName" is not allowed to be empty':
             "Le nom ne peut pas être vide",
           '"Nom" is not allowed to be empty': "Le nom ne peut pas être vide",
 
           //instructor  validation translation
-          "Email Field can't be empty!": "L'e-mail ne peut pas être vide",
-          "E-mail Field can't be empty!": "L'e-mail ne peut pas être vide",
+          "Email Field can't be empty!": "L'email ne peut pas être vide",
+          "E-mail Field can't be empty!": "L'email ne peut pas être vide",
 
           '"Insurer" is not allowed to be empty':
             "Votre assureur ne peut pas être vide",
@@ -1027,14 +1026,14 @@ i18n
             "Votre assureur ne peut pas être vide",
 
           '"Energy" is not allowed to be empty':
-            '"Énergie" est pas autorisé à être vide',
+            "Carburant ne peut pas être vide",
           '"Énergie" is not allowed to be empty':
-            '"Énergie" est pas autorisé à être vide',
+            "Énergie ne peut pas être vide",
 
           '"Color" is not allowed to be empty':
             "La couleur ne peut pas être vide",
           '"Couleur" is not allowed to be empty':
-            '"Couleur" est pas autorisé à être vide',
+            "La couleur ne peut pas être vide",
 
           '"NumPlate" is not allowed to be empty':
             "La plaque d’immatriculation ne peut pas être vide",
@@ -1059,22 +1058,22 @@ i18n
             '"Autorité de délivrance" est pas autorisé à être vide',
 
           '"licence No." is not allowed to be empty':
-            "Le numéro de permis de conduire ne peut pas être vide",
+            "Le n° de permis de conduire ne peut pas être vide",
           '"adresse de livraison" is not allowed to be empty':
             '"adresse de livraison" est pas autorisé à être vide',
 
           '"delivery Place" is not allowed to be empty':
-            "L’autorité de délivrance ne peut pas être vide",
+            "Numéro de licence ne peut pas être vide",
           '"Numéro de licence" is not allowed to be empty':
-            '"Numéro de licence" est pas autorisé à être vide',
-          "Phone can't be blank": "Le téléphone ne peut pas être vide",
+            "Numéro de licence ne peut pas être vide",
+          "Phone can't be blank": "Le n° de téléphone ne peut pas être vide",
           '"Phone" is not allowed to be empty':
-            "Le téléphone ne peut pas être vide",
+            "Le n° de téléphone ne peut pas être vide",
           '"Téléphone" is not allowed to be empty':
-            "Le téléphone ne peut pas être vide",
+            "Le n° de téléphone ne peut pas être vide",
 
           '"pob" is not allowed to be empty':
-            "Lieu de naissance est pas autorisé à être vide",
+            "Votre lieu de naissance ne peut pas être vide",
 
           '"Surname" is not allowed to be empty':
             "Le nom ne peut pas être vide",
@@ -1091,7 +1090,7 @@ i18n
           "Password cannot be empty": "Le mot de passe ne peut pas être vide",
           "Password must be atleast 8 char long":
             "Le mot de passe doit comporter au moins 8 caractères",
-          "Instructor Name": "Nom de l'instructeur",
+          "Instructor Name": "Nom de l'enseignant",
           Picture: "Image",
           "Booking with": "Réservation avec",
           "Date of registration": "Date d'enregistrement",
@@ -1103,20 +1102,21 @@ i18n
           "Exercise Authorization": "Autorisation d'exercice",
           "Gear Box": "Boîte de vitesses",
           "invalid date": "date invalide",
-          "Minimum 3 rows": "Minimum 3 rangées",
+          "Minimum 3 rows": "Minimum 3 lignes",
           Rankings: "Évaluations",
-          "Instructure On Map": "Instructure sur la carte",
-          "Instructor On Map": "Instructeur sur carte",
-          "Find Instructure": "Trouver une structure",
-          "Find Instructor": "Trouver un instructeur",
+          "Instructure On Map": "Enseignant  sur la carte",
+          "Instructor On Map": "Enseignant sur la carte",
+          "Find Instructure": "Trouver une enseignant",
+          "Find Instructor": "Trouver un enseignant",
           Chat: "Chat",
           "Can only select your bookings":
-            "Ne peut sélectionner que vos réservations",
+            "Vous ne pouvez sélectionner que vos réservations",
           "Cannot Book after time": "Impossible de réserver après l'heure",
-          "No connection to server yet.": "Pas encore de connexion au serveur.",
+          "No connection to server yet.": "Problème de connexion au serveur",
           "can not select past event":
-            "impossible de sélectionner un événement passé",
-          "can not select past time": "ne peut pas sélectionner le temps passé",
+            "Vous ne pouvez pas sélectionner un événement passé",
+          "can not select past time":
+            "Vous ne pouvez pas sélectionner le temps passé",
           "Vehicle added scuccessfully": "Véhicule ajouté avec succès",
           "Vehicle deleted scuccessfully": "Véhicule supprimé avec succès",
           "Vehicle detail updated sucessfully":
@@ -1124,46 +1124,47 @@ i18n
           "Password updated Successfully":
             "Mot de passe mis à jour avec succès",
           "New password does not match Confirm password":
-            "Le nouveau mot de passe ne correspond pas Confirmer le mot de passe",
+            "Votre nouveau mot de passe ne correspond pas, confirmez votre mot de passe",
           "Cannot accept empty fields":
             "Impossible d'accepter les champs vides",
           "Field cannot be empty": "Le champ ne peut pas être vide",
-          "Dispute is created sucessfully": "Le litige est créé avec succès",
+          "Dispute is created sucessfully": "Le litige a été créé avec succès",
           "Status is updated successful":
-            "Le statut est mis à jour avec succès",
+            "Le statut a été mis à jour avec succès",
           "Description cannot be empty": "La description ne peut pas être vide",
           "Request is created for profile update":
-            "La demande est créée pour la mise à jour du profil",
-          "Image not Uploaded": "Image non téléchargée",
-          "Something Went Wrong": "Quelque chose s'est mal passé",
+            "La demande de mise à jour du profil a été créée",
+          "Image not Uploaded": "L'image n'a pas été téléchargée",
+          "Something Went Wrong": "Une erreur s'est produite",
           "Email or Password is not correct":
-            "L'e-mail ou le mot de passe n'est pas correct",
+            "Votre email ou votre mot de passe n'est pas correct",
           name: "Nom",
           photo: "photo",
           historyActions: "actionHistorique",
-          "Student Registered Successfully": "Étudiant inscrit avec succès",
+          "Student Registered Successfully":
+            "Votre profil étudiant a été créé avec succès",
           "Rental Car Registered Successfully":
-            "Voiture de location enregistrée avec succès",
+            "Votre profil d'agent de location de voiture a été créé avec succès",
           "Not Registered....Error Occured":
             "Non enregistré.... Une erreur s'est produite",
           "Not Registered....Somethong went wrong":
             "Non enregistré....Quelque chose s'est mal passé",
           "Driving School Registered Successfully":
-            "Auto-école enregistrée avec succès",
-          "No data found": "Aucune donnée disponible",
+            "Votre profil auto-école a été créé avec succès",
+          "No data found": "Aucune donnée trouvée",
           "Enter value": "Entrez la valeur",
           "No value found": "Aucune valeur trouvée",
-          "Availability Auto": "Disponibilité Automatique",
-          "Availablity Manual": "Manuel de disponibilité",
+          "Availability Auto": "Disponibilité boîte automatique",
+          "Availablity Manual": "Disponibilité boîte manuelle",
           "Add Availibity": "Ajouter une disponibilité",
-          Week: "La semaine",
-          "Meetup point": "Point de rencontre",
-          "Meetup points": "Points de rencontre",
+          Week: "Semaine",
+          "Meetup point": "Point de rendez-vous",
+          "Meetup points": "Points de rendez-vous",
           "Serial Number": "Numéro de série",
           "Insurance Details": "Détails de l'assurance",
           "Would like to delete your availability?":
-            "Vous souhaitez supprimer votre disponibilité ?",
-          Description: "La description",
+            "Souhaitez-vous supprimer votre disponibilité ?",
+          Description: "Description",
           "Add Unavailability": "Ajouter une indisponibilité",
           "Enter username": "Saisissez votre nom d'utilisateur",
           "Add booking date": "Ajouter une date de réservation",
@@ -1171,15 +1172,15 @@ i18n
           "Enter duration of booking": "Entrez la durée de la réservation",
           Vechicle: "Véhicule",
           "Select vechicle type": "Sélectionnez le type de véhicule",
-          "Enter Meet-UP point": "Entrer dans le point Meet-UP",
+          "Enter Meet-UP point": "Entrer dans le point de rendez-vous",
           "Add Booking": "Ajouter une réservation",
-          Ratings: "Notes",
+          Ratings: "Evaluations",
           "Type a message here": "Tapez un message ici",
           "Recent chat": "Chat récent",
-          "Submit Rating": "Soumettre une note",
+          "Submit Rating": "Soumettre une évaluation",
           "Not Now": "Pas maintenant",
           Reservations: "Réservations",
-          reservations: "réservations",
+          reservations: "Réservations",
           "Interval /KM": "Intervalle /KM",
           Others: "Autres",
           others: "Autres",
@@ -1203,20 +1204,20 @@ i18n
           "Master the handling of the vehicle in light or no traffic":
             "Maîtriser la tenue de route du véhicule en circulation faible ou nulle",
           "Drive the handling of the vehicle in light or no traffic":
-            "Conduire la conduite du véhicule dans un trafic léger ou nul",
+            "Conduire le véhicule dans un trafic léger ou nul",
           "Apprehend the handling of the vehicle in light or no traffic":
             "Appréhender le comportement du véhicule en trafic faible ou nul",
           Accquired: "Acquis",
           "Practice the handling of the vehicle in light or no traffic":
             "Pratiquer la conduite du véhicule dans un trafic léger ou nul",
-          "IV - Master": "IV - Maître",
+          "IV - Master": "IV - Maîtrise",
           "III - Driving": "III - Conduite",
           "II - Apprehend": "II - Appréhender",
-          "I - Practice": "I - Entraine toi",
+          "I - Practice": "I - Entraînement",
           "No Language/s selected": "Aucune langue/s sélectionnée",
           "Edit Profile": "Mettre à jour mon profil",
-          About: "Sur",
-          "Contact Information": "Informations",
+          About: "A propos",
+          "Contact Information": "Coordonnées",
           Finish: "Finir",
           "No file choosen.": "Aucun fichier choisi.",
           "Type Of Contract With Driving School":
@@ -1231,19 +1232,19 @@ i18n
           "Driving School Registration": "Inscription à l'école de conduite",
           "Date of 1st Registration": "Date de 1ère inscription",
           "Upload Vehicle Registration Certificate Back":
-            "Télécharger le certificat d'immatriculation du véhicule Retour",
+            "Télécharger le verso du certificat d'immatriculation du véhicule",
           "Upload Vehicle Registration Certificate Front":
-            "Télécharger le certificat d'immatriculation du véhicule avant",
+            "Télécharger le recto du certificat d'immatriculation du véhicule",
           "Driver’s License": "Permis de conduire",
           "Date of Authorization to Excersice":
             "Date d'autorisation d'exercice",
-          "Driving License Number": "Numéro de permis de conduire",
+          "Driving License Number": "Votre numéro de permis de conduire",
           "Are you working on other platform?":
             "Travaillez-vous sur une autre plateforme ?",
           "Which plateforms": "Quelles plateformes",
           "All steps completed - you're finished":
-            "Toutes les étapes sont terminées - vous avez terminé",
-          "Instructor Registration": "Inscription des instructeurs",
+            "Toutes les étapes ont été complétées - vous avez terminé",
+          "Instructor Registration": "Inscription des enseignants",
           "Technical Control if any?": "Contrôle technique s'il y a lieu ?",
           "Upload your Image": "Téléchargez votre image",
           "No Vehicle Added.": "Aucun véhicule ajouté.",
@@ -1286,7 +1287,7 @@ i18n
           "User Behaviour": "Comportement de l'utilisateur",
           "Register As": "S'inscrire en tant que",
           "Play Video": "Lire la vidéo",
-          "Join Now": "Inscrivez-vous",
+          "Join Now": "Adhérer maintenant",
           "Join us to enjoy quality driving education":
             "Rejoignez-nous pour profiter d'une formation à la conduite de qualité",
           "The Revolutionary platform for true Driving education freelancers.":
@@ -1294,10 +1295,10 @@ i18n
           "Don’t have an account?": "Vous n'avez pas de compte ?",
           "I read and agree to": "J'ai lu et j'accepte",
           "Login to your account": "Connectez-vous à votre compte",
-          "Impossible de supprimer les anciennes disponibilités.":
-            "Unable to delete old availabilities.",
-          "Souhaitez-vous supprimer cette disponibilité?":
-            "Would you like to remove this availability?",
+          "Unable to delete old availabilities.":
+            "Impossible de supprimer les anciennes disponibilités.",
+          // "Souhaitez-vous supprimer cette disponibilité?":
+          //   "Would you like to remove this availability?",
           "Student Identity": "Mon identité",
           // "Vehicle Details": "Détails du véhicule",
           "No file chosen": "Aucun fichier sélectionné",
@@ -1309,7 +1310,7 @@ i18n
           Languages: "Langues",
           Language: "Langue",
           Available: "Disponible",
-          Meetup: "Point de rencontre",
+          Meetup: "Point de rendez-vous",
           Automatic: "Automatique",
           // Manual: "Manuel",
           "Vehicles not Found": "Véhicule(s) non Trouvé(s) ",
@@ -1362,12 +1363,12 @@ i18n
           "Remember me": "Souviens-toi de moi",
           "Forget Password": "Mot de passe oublié",
           password: "Mot de passe",
-          "Confirm Password": "Confirme ton mot de passe",
+          "Confirm Password": "Confirme votre mot de passe",
           "Estimated number of hours you want to take":
             "Combien d'heures de conduite penses-tu prendre?",
           "NEPH Number": "Numéro NEPH",
           "Highway code obtained": "Code obtenu",
-          "Click me if you had": "Clique ici si t'as obtenu ton code",
+          "Click me if you had": "Clique ici si t'as obtenu votre code",
           "Terms & Conditions Applied":
             "J'accepte les termes et conditions appliqués",
           "Terms & Conditions": "Termes et conditions",
@@ -1476,7 +1477,7 @@ i18n
           "Upload your Kbls": "Télécharge ton KBIS",
           "Upload your KBLS": "Télécharge ton KBIS",
           "Insurance Company": "Compagnie d'assurance",
-          Insurer: "Assureur",
+          Insurer: "Assurance",
           "Police Number": "N° de Police",
           "Upload your RC Pro": "Télécharge ton assurance RC Pro",
           "Expiration date of your Insurance":
@@ -1493,8 +1494,8 @@ i18n
           "Date of the 1st Registration": "Date de 1ère immatriculation",
           Brand: "Marque",
           // "Upload Image": "Télécharge une photo de ton véhicule",
-          "Upload Image": "Télécharger l'Image",
-          "Upload Images": "Télécharger l'Images",
+          "Upload Image": "Téléchargez une photo de votre véhicule",
+          "Upload Images": "Téléchargez une photo de votre véhicule",
           Model: "Modèle",
           Color: "Couleur",
           "Upload Vehicle Registration Certificate":
@@ -1518,7 +1519,7 @@ i18n
           Approval: "Agrément",
           // "Number":"Numéro de l'agrément",
           // "Issuing Authority":""
-          "Upload your Certification": "Télécharge ton agrément",
+          "Upload your Certification": "Téléchargez votre agrément",
           "Date of Approval": "Date de délivrance de l'agrément",
           // "Manager Identity": "Identité du manager",
           Vehicles: "Véhicule(s)",
@@ -1565,7 +1566,7 @@ i18n
           instructorAgeError: "L'instructeur doit être âgé de 20 ans.",
           //-------------------------------------------------text paragraph
           "Student-Reg-para1":
-            "T'es là pour t'inscrire sur PermisPop en tant qu'élève ? Pas de problème! L'inscription se fait en une seule étape!\nT'es posé OKLM avec tes potes et un d'entre eux vient de te parler de PermisPop ? T'as vu notre pub ou entendu parler de nous mais t'es en cours ou à l'extérieur ? Ne t'en va pas!\nTu peux fournir tous tes documents et ton numéro NEPH après validation de ton profil ! C'est génial non ? Alors c'est parti, remplis le formulaire et valide-le !",
+            "Vous êtes là pour vous inscrire sur PermisPop en tant qu'élève ? Pas de problème! L'inscription se fait en une seule étape!\nVous êtes posé OKLM avec vos amis et l'un d'entre eux vient de vous parler de PermisPop ? Vous avez vu notre pub ou entendu parler de nous mais vous êtes en cours ou à l'extérieur ? Ne vous en allez pas!\nVous pouvez fournir tous vos documents et votre numéro NEPH après validation de votre profil ! C'est génial non ? Alors c'est parti, remplissez le formulaire et validez-le !",
           "Instructor-Reg-para1":
             "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.",
           "DrivingSchool-Reg-para1":
@@ -1621,9 +1622,9 @@ i18n
           "Cutomer Service": "Service Clients",
           "Where we are": "Où sommes-nous",
           "Contact Info": "Informations de contact",
-          What: "Quoi",
-          We: "Nous",
-          Do: "Faire",
+          What: "Que",
+          We: "Faisons",
+          Do: "Nous",
           Asked: "A demander",
           Frequently: "Fréquemment",
           "Customer Service": "Service Clients",
@@ -1674,7 +1675,7 @@ i18n
           All: "Tout",
           Apply: "Filtrer",
           Independent: "Indépendant",
-          "Your Disputes": "Tes litiges",
+          "Your Disputes": "Vos litiges",
           "No Dispute Found": "Aucun litige trouvé",
           "My Learning Booklet": "Mon livret d'apprentissage",
           Acquired: "Acquis",
@@ -1696,7 +1697,7 @@ i18n
           // end of my learing lesson description
           "Legal Information": "Information légale",
           "*Click on text to open popup details.":
-            "*Clique sur le texte pour voir les détails",
+            "*Cliquez sur le texte pour voir les détails",
           "Why better learn?": "Pourquoi mieux apprendre?",
           "What is the use of your learning booklet?":
             "Quelle est l'utilité de ton livret d'apprentissage?",
@@ -1726,8 +1727,8 @@ i18n
           "Picked DateTime": "Heure de début",
 
           "No Meetup Point. Add from you profile section":
-            "Pas de point de rencontre. Ajoute le dans ton profil",
-          "Add Meetup Point": "Ajouter un point de rencontre",
+            "Pas de point de rendez-vous renseigné. Ajoutez-le dans votre profil",
+          "Add Meetup Point": "Ajouter un point de rendez-vous",
           Confirm: "Ajouter",
           Duration: "Durée",
           "Meetup Point": "Point de rencontre",
@@ -1742,14 +1743,14 @@ i18n
           "Booking Date": "Date de réservation",
           "Booking Time": "Heure de réservation",
           "License Number": "Numéro de licence",
-          "Obtain Date": "Obtenir la date",
+          "Obtain Date": "Date d'obtention",
           "Driving License": "Permis de conduire",
           "Authorization Date": "DATE D'AUTORISATION",
           Sirat: "Kbis",
           "Auth Certificate": "AUTORISATION D'EXERCICE",
           "Exersice Authorization": "Autorisation d'exercice",
           "Expiry Date": "Date d'expiration",
-          "Vehicle Detail": "Détails de ton/tes véhicule(s)",
+          "Vehicle Detail": "Détails de votre/tes véhicule(s)",
           "Registration Date": "Date d'inscription",
           "Business Store": "Ma société",
           "Technical Control": "Contrôle technique",
@@ -1793,13 +1794,18 @@ i18n
 
           // -------------------------------------------------------------------
           // ----------------Registration errors--------------------------------
-          "Should Not be empty": "Ne doit pas être vide",
+          "Should Not be empty": "Ne peut pas être vide",
           "Address field should not be empty":
-            "Le champ d'adresse ne doit pas être vide",
+            "L'adresse ne peut pas être vide",
           "Email should be valid": "L'e-mail doit être valide",
           "Email alread exist": "Les e-mails existent déjà",
           "Phone must be 10 digits":
-            "Le téléphone doit être de minimum 10 caractères",
+            "Le téléphone doit être composé de 10 chiffres",
+          "NEPH number must be 12 digits": "Le n°NEPH doit être de 12 chiffres",
+          "NEPH number must be numeric only":
+            "Le n°NEPH doit être numérique uniquement",
+          "An account has already been created with this email":
+            "Un compte a déjà été créé avec cet e-mail",
           "Must be numeric": "Ce champ doit être uniquement numérique",
           "Password must contain only alphanumeric, special characters and must have a minimum length of 8":
             "Le mot de passe ne doit contenir que des caractères alphanumériques spéciaux et doit avoir une longueur minimale de 8",
@@ -1847,6 +1853,7 @@ i18n
             "Entre ton adresse e-mail valide pour recevoir tes mails",
           "Enter Password to update": "Entre le mot de passe à mettre à jour",
           "Postal Code": "Code postal",
+          "I accept financing by CPF": "J'accepte le financement par CPF",
           "accept-ds-text-page1-title": "Accepter CPF",
           "accept-ds-text-page1": "J'accepte le financement par CPF",
           "Sign up": "S'inscrire",
@@ -1950,14 +1957,14 @@ i18n
           "Driver's License Number": "N° de permis de conduire",
 
           // Login page modals
-          "Please input your E-mail!": "Renseigne ton adresse mail stp!",
-          "Please input your password!": "Renseigne ton mot de passe stp!",
+          "Please input your E-mail!": "Renseignez votre adresse mail",
+          "Please input your password!": "Renseignez votre mot de passe",
           "Choose your profile to register":
-            "Choisis ton profil pour t'inscrire :",
+            "Choisissez votre profil pour vous inscrire :",
           "Log in": "Se connecter",
           "Forgot password": "Mot de passe oublié",
           Or: "Ou",
-          " register now!": " bien inscris toi maintenant!",
+          " register now!": " Inscrivez-vous maintenant!",
           Professional: "Professionnel",
           " Registration": "Inscription",
           "REGISTRATION AS A STUDENT": "INSCRIPTION EN TANT QU'ÉLÈVE",
@@ -1976,43 +1983,41 @@ i18n
           "Add Personal Event": "Ajouter un rendez-vous personnel",
           "Add Availability": "Ajouter une disponibilité",
           "Delete Availability": "Supprimer la disponibilité",
-          "Select Hours": "Choisir l'heure",
-          "Select Minutes": "Choisir les minutes",
+          "Select Hours": "Sélection de l'heure",
+          "Select Minutes": "Sélection des minutes",
           "Enter valid Time Range": "Entre une plage de temps valide",
-          "Vehicle field Cannot be empty":
-            "Le champ véhicule ne peut pas être vide",
+          "Vehicle field Cannot be empty": "Le véhicule ne peut pas être vide",
           "Meet up point cannot be blank. Add it from you profile page":
-            "Le point de rendez-vous ne peut pas être vide. Ajoutes-le depuis ta page de profil",
+            "Le point de rendez-vous ne peut pas être vide. Ajoutez-le depuis votre page de profil",
           "Select Instructor": "Sélectionnes l'enseignant",
-          "Date field cannot be empty":
-            "Le champ de date ne peut pas être vide",
+          "Date field cannot be empty": "La date ne peut pas être vide",
 
           // Registration fields
           "Upload your Driving License Front Side":
             "Téléchargez le recto de votre permis de conduire",
           "Upload your driving license front side":
-            "Téléchargez votre permis de conduire recto",
+            "Téléchargez le recto de votre permis de conduire",
           "Upload your Driving License Back Side":
             "Téléchargez le verso de votre permis de conduire",
           "Upload your driving license back side":
             "Téléchargez le verso de votre permis de conduire",
           "Upload your authorization front side":
-            "Téléchargez votre autorisation au recto",
+            "Téléchargez le recto de votre autorisation d'exercise",
           "Upload your authorization back side":
-            "Téléchargez votre autorisation au verso",
+            "Téléchargez le verso de votre autorisation d'exercise",
           "Upload your Authorization Front Side":
-            "Téléchargez le recto de votre autorisation",
+            "Téléchargez le recto de votre autorisation d'exercise",
           "Upload your Authorization Back Side":
-            "Téléchargez le verso de votre autorisation",
-          "Authorization Number": "Numéro d'autorisation",
+            "Téléchargez le verso de votre autorisation d'exercise",
+          "Authorization Number": "Numéro d'autorisation d'exercice",
           "Duration should not be less than 1 hour":
-            "La durée ne doit pas être inférieure à 1 heure",
+            "La durée ne peut pas être inférieure à 1 heure",
 
           "You must accept the general conditions":
-            "Vous devez accepter les conditions générales",
-          "Select option": "",
-          "Select Brand": "Selectionner une marque",
-          "Select Model": "Selectionner un modèle",
+            "Vous devez accepter les CGU / CGV",
+          "Select option": "Selection d'une option",
+          "Select Brand": "Selection de la marque",
+          "Select Model": "Selection du modèle",
           "Re-Book": "Re-réserver",
           GEARBOX: "BOÎTE DE VITESSES",
           GearBox: "Boîte de vitesses",
@@ -2023,34 +2028,34 @@ i18n
           CarRentalAgent: "Agent de location de voitures",
           "View larger map": "Agrandir le plan",
 
-          "Change Password": "Changer mon mot de passe",
+          "Change Password": "Changer de mot de passe",
           "Request Profile Update": "Demander la mise à jour de mon profil",
-          "Update Vehicle": "Modifier le véhicule",
-          Profile: "profil",
+          "Update Vehicle": "Mettre à jour le véhicule",
+          Profile: "Profil",
 
           "Would you like to remove this availability?":
             "Souhaitez-vous supprimer cette disponibilité?",
           "CPF Accepted": "CPF Accepté",
 
-          "Reason-Information to update": "Raison-Informations à mettre à jour",
+          "Reason-Information to update":
+            "Raison ou informations à mettre à jour",
           "Your email or password is incorrect!":
-            "Ton e-mail ou ton mot de passe est incorrect!",
-          "'Email' is not a valid email": "Votre email n'est valide",
-          "Email is invalid!": "Votre email n'est valide",
+            "Votre e-mail ou votre mot de passe est incorrect!",
+          "'Email' is not a valid email": "L'email n'est pas valide",
+          "Email is invalid!": "L'email n'est pas valide",
           "Enter the email address associated with your account and we'll send you a link to reset your password":
-            "Entre l'adresse e-mail associée à ton compte et nous t'enverrons un lien pour réinitialiser ton mot de passe",
-          "Return to sign in": "Revenir pour se connecter",
-          "Reset your password": "Réinitialise ton mot de passe",
+            "Entrez l'adresse e-mail associée à votre compte et nous vous enverrons un lien pour réinitialiser votre mot de passe",
+          "Return to sign in": "Retour pour se connecter",
+          "Reset your password": "Réinitialiser mon mot de passe",
           "Update Query Request": "Demande de mise à jour",
-          "select meetup": "Sélectionner le point de rencontre",
-          "Select Meetup": "Sélectionner le point de rencontre",
-          "search rating from": "Rechercher la note de",
+          "select meetup": "Sélection du point de rendez-vous",
+          "Select Meetup": "Sélection du point de rendez-vous",
+          "search rating from": "Rechercher l'évaluation de",
           "upload image": "Télécharger une image",
           "Please input your email!": "Veuillez saisir votre email!",
           "Current Password": "Mot de passe actuel",
           "New Password": "nouveau mot de passe",
-          "Must be minimum 8 characters":
-            "Doit comporter au moins 8 caractères",
+          "Must be minimum 8 characters": "doit être de minimum 8 caractères",
           "Please confirm your Password!":
             "Veuillez confirmer votre mot de passe!",
           "Please input your New Password!":
@@ -2064,9 +2069,9 @@ i18n
             "Souhaitez-vous supprimer cette disponibilité?",
           "Would you like to remove this Booking?":
             "Souhaitez-vous supprimer cette réservation ?",
-          "Name Should not be empty": "Le nom ne doit pas être vide",
+          "Name Should not be empty": "Le nom ne peut pas être vide",
           "Email Should not be empty": "L'e-mail ne doit pas être vide",
-          "Message Should not be empty": "Le message ne doit pas être vide",
+          "Message Should not be empty": "Le message ne peut pas être vide",
           StudentComplete: "ÉlèveComplété",
           "My Calendar": "Mon calendrier",
 
@@ -2079,9 +2084,9 @@ i18n
           offline: "hors ligne",
           online: "en ligne",
 
-          "You blocked": "Tu as bloqué",
+          "You blocked": "Vous êtes bloqué",
 
-          "You are blocked by": "Vous êtes bloqué",
+          "You are blocked by": "Vous avez été bloqué par",
 
           "Are you want to re-activate your account":
             "Voulez-vous réactiver votre compte",
@@ -2090,6 +2095,26 @@ i18n
           "Enter email": "Entrez votre e-mail",
           Manaager: "Gestionnaire",
           Vaction: "Vacances",
+          // -------Added from list-------------
+          "Your address cannot be empty": "Votre adresse ne peut pas être vide",
+          "Excercice authorization number cannot be empty":
+            "Votre numéro d'autorisation ne peut pas être vide",
+          "Excercice authorization issuer cannot be empty":
+            "Votre autorité de délivrance ne peut pas être vide",
+          "Your driving license's number cannot be empty":
+            "Votre numéro de permis de conduire ne peut pas être vide",
+          "Your number plate cannot be empty":
+            "Votre plaque d'immatriculation ne peut pas être vide",
+          '"Number" cannot be empty': "Numéro ne peut pas être vide",
+          '"Numéro" cannot be empty': "Numéro ne peut pas être vide",
+          "Your company's name cannot be empty":
+            "Le nom de votre société ne peut pas être vide",
+          "My identity": "Mon identité",
+          "My company's information": "Informations de ma société",
+          "Driving license": "Permis de conduire",
+          "The teacher must be 20 years old":
+            "L'enseignant doit être âgé de 20 ans",
+          "Best driving lessons": "Meilleurs cours de conduite",
         },
       },
     },
