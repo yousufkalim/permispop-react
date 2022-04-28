@@ -730,7 +730,7 @@ const Index = () => {
       handleInstructorData("Address", { ...address, label: e.target.value });
       var config = {
         method: "get",
-        url: `https://api-adresse.data.gouv.fr/search/?q=${e.target.value}&type=housenumber&autocomplete=1`,
+        url: `https://api-adresse.data.gouv.fr/search/?q=${e.target.value}&autocomplete=1`,
       };
       axios.defaults.headers = null;
       await axios(config)
@@ -801,7 +801,7 @@ const Index = () => {
       });
       var config = {
         method: "get",
-        url: `https://api-adresse.data.gouv.fr/search/?q=${e.target.value}&type=housenumber&autocomplete=1`,
+        url: `https://api-adresse.data.gouv.fr/search/?q=${e.target.value}&autocomplete=1`,
       };
       axios.defaults.headers = null;
 

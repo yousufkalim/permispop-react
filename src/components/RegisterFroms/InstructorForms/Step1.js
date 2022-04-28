@@ -56,7 +56,7 @@ const Step1 = (props) => {
       });
       var config = {
         method: "get",
-        url: `https://api-adresse.data.gouv.fr/search/?q=${e.target.value}&type=housenumber&autocomplete=1`,
+        url: `https://api-adresse.data.gouv.fr/search/?q=${e.target.value}&autocomplete=1`,
       };
       await axios(config)
         .then((res) => {
