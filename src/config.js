@@ -5,7 +5,7 @@ let chatUrl = "";
 if (window.location.host === "permispop.fr") {
   frontUrl = "https://permispop.fr";
   baseUrl = "https://api.permispop.fr/api/";
-  chatUrl = "https://permispop-chat.falconit.com.pk";
+  chatUrl = "https://chat.permispop.fr";
 } else if (window.location.host === "permispop-demo.web.app") {
   frontUrl = "https://permispop-demo.web.app";
   baseUrl = "https://permispop.falconit.com.pk/api/";

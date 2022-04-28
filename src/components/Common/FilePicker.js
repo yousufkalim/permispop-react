@@ -102,7 +102,7 @@ export default function FilePicker(props) {
         <div className={classes.container}>
           <input
             className={classes.input}
-            accept="image/*"
+            accept="image/*,application/pdf"
             id={`contained-button-file` + props.label}
             name={props.name}
             type="file"
