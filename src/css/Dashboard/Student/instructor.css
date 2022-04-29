@@ -36,6 +36,7 @@
     align-items: center;
   }
 .instructor-dropdown-div {
+  padding: 2% !important;
     margin-bottom: 10px !important;
     display: grid;
     grid-template-columns:repeat(7,minmax(0,1fr));

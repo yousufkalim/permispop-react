@@ -16,7 +16,7 @@ import { Grid } from "@mui/material";
 import { useTranslation } from "react-i18next";
 
 const MapNative = (props) => {
-  const { i18n , t } = useTranslation();
+  const { i18n, t } = useTranslation();
   const studentData = JSON.parse(localStorage.getItem("user"));
   const history = useHistory();
   const [data, setData] = useState([]);
@@ -104,7 +104,7 @@ const MapNative = (props) => {
   });
 
   return (
-    <div className="main-div">
+    <div className="main-div_">
       <Grid container spacing={1} style={{ margin: "10px 0 10px 25px" }}>
         <Grid xs={5} sm={5} style={{ margin: "3px" }}>
           <Select

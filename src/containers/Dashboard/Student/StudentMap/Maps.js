@@ -126,7 +126,7 @@ const Maps = (props) => {
   });
 
   return (
-    <div className="main-div">
+    <div className="main-div_">
       <Grid container spacing={1}>
         <Grid
           sx={4}

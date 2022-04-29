@@ -316,7 +316,7 @@ function Mylearning() {
                       checkingLevel?.map((row, index) => {
                         return (
                           <tr key="">
-                            <td align="center">
+                            <td align="center" style={{ display: "flex" }}>
                               <RadioButton
                                 checked1={
                                   row.level ? row?.level?.level === "1" : true
@@ -395,7 +395,7 @@ function Mylearning() {
                     {checkingLevel2.map((row, index) => {
                       return (
                         <tr key="">
-                          <td align="center">
+                          <td align="center" style={{ display: "flex" }}>
                             <RadioButton
                               checked1={
                                 row.level ? row?.level?.level === "1" : true
@@ -474,7 +474,7 @@ function Mylearning() {
                     {checkingLevel3.map((row, index) => {
                       return (
                         <tr key="">
-                          <td align="center">
+                          <td align="center" style={{ display: "flex" }}>
                             <>
                               <RadioButton
                                 checked1={
@@ -556,7 +556,7 @@ function Mylearning() {
                     {checkingLevel4.map((row, index) => {
                       return (
                         <tr key="">
-                          <td align="center">
+                          <td align="center" style={{ display: "flex" }}>
                             <>
                               <RadioButton
                                 checked1={

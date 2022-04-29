@@ -128,9 +128,9 @@ function MyLearningComponent(props) {
     const IndexId = index;
     const FindCommentId = comments.filter(
       (p) => parseInt(p.bookletItemId) === IndexId
-      );
-      setObjComment(FindCommentId);
-      setOpen(true);
+    );
+    setObjComment(FindCommentId);
+    setOpen(true);
   };
 
   const handleClose = () => setOpen(false);
@@ -206,7 +206,7 @@ function MyLearningComponent(props) {
     setOpen(false);
     AddComments(currentIndex, message);
     setMessage("");
-    toast.success("Comment added successfully")
+    toast.success("Comment added successfully");
   };
   return (
     <div style={{ padding: "0% 5% 5% 5%" }}>
@@ -372,7 +372,7 @@ function MyLearningComponent(props) {
                       checkingLevel?.map((row, index) => {
                         return (
                           <tr key="">
-                            <td align="center">
+                            <td align="center" style={{ display: "flex" }}>
                               <RadioButton
                                 checked1={
                                   row.level ? row?.level?.level === "1" : true
@@ -454,7 +454,7 @@ function MyLearningComponent(props) {
                     {checkingLevel2.map((row, index) => {
                       return (
                         <tr key="">
-                          <td align="center">
+                          <td align="center" style={{ display: "flex" }}>
                             <RadioButton
                               checked1={
                                 row.level ? row?.level?.level === "1" : true
@@ -538,7 +538,7 @@ function MyLearningComponent(props) {
                     {checkingLevel3.map((row, index) => {
                       return (
                         <tr key="">
-                          <td align="center">
+                          <td align="center" style={{ display: "flex" }}>
                             <>
                               <RadioButton
                                 checked1={
@@ -625,7 +625,7 @@ function MyLearningComponent(props) {
                     {checkingLevel4.map((row, index) => {
                       return (
                         <tr key="">
-                          <td align="center">
+                          <td align="center" style={{ display: "flex" }}>
                             <>
                               <RadioButton
                                 checked1={

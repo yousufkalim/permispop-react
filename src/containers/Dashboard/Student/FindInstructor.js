@@ -127,7 +127,7 @@ const Index = () => {
 
   // jsx
   return (
-    <div className="main-div">
+    <div className="main-div_">
       <div className="instructor-dropdown-div">
         <div className="filter-container">
           <FormControl className="MobileView">
@@ -287,7 +287,7 @@ const Index = () => {
           height4="60px"
           width="150px !important"
           color="#149e7a  !important"
-          margin="0 0 2px 5% !important"
+          margin="3% 0 2px 5% !important"
           onClick={getInstructors}
         />
       </div>
