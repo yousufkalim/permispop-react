@@ -24,6 +24,7 @@ import Joi from "joi-browser";
 import { useTranslation } from "react-i18next";
 import DSRegisterImg from "../../assets/images/Frame1.svg";
 import moment from "moment";
+import CircularProgress from "@mui/material/CircularProgress";
 
 const ColorlibConnector = withStyles({
   alternativeLabel: {
@@ -111,6 +112,8 @@ const DrivingSchool = () => {
   const [drivingSchoolForm, setDrivingSchoolForm] = useState({});
   const [lng, setLng] = useState();
   const [step1Errors, setStep1Errors] = React.useState({});
+  const [loading, setLoading] = React.useState(false);
+
   const [step1, setStep1] = React.useState({
     TradeName: "",
     CompanyName: "",
@@ -1791,6 +1794,8 @@ const DrivingSchool = () => {
 
   const handleSubmit = async () => {
     setDisable(true);
+    setLoading(true);
+
     let languageArray = step1.Language.map((lang) => {
       return lang.name;
     });
@@ -2053,7 +2058,9 @@ const DrivingSchool = () => {
                               })
                               .catch((error) => {
                                 console.log(error);
-                                setDisable(true);
+                                setDisable(false);
+                                setLoading(false);
+
                                 toast.error(
                                   t("Not Registered....Somethong went wrong")
                                 );
@@ -2063,29 +2070,35 @@ const DrivingSchool = () => {
                       })
                       .catch((error) => {
                         console.log("DrivingSchoolManager Error", error);
-                        setDisable(true);
+                        setDisable(false);
+                        setLoading(false);
                       });
                   })
                   .catch((error) => {
-                    setDisable(true);
+                    setDisable(false);
+                    setLoading(false);
                     console.log("InsuranceCompany Error", error);
                   });
               })
               .catch((error) => {
-                setDisable(true);
+                setDisable(false);
+                setLoading(false);
                 console.log("Business Error", error);
               });
           })
           .catch((error) => {
-            setDisable(true);
+            setDisable(false);
+            setLoading(false);
             console.log("DrivingSchoolApproval Error", error);
           });
       })
       .catch((error) => {
-        setDisable(true);
+        setDisable(false);
+        setLoading(false);
         console.log("Personal Response", error);
       });
   };
+
   useEffect(() => {
     getDrivingSchoolForm();
     setLng(localStorage.getItem("i18nextLng"));
@@ -2343,6 +2356,19 @@ const DrivingSchool = () => {
                           : true
                       }
                     ></Button>
+                    {loading && activeStep === steps.length - 1 ? (
+                      <Box
+                        sx={{
+                          display: "flex",
+                          marginTop: "20px",
+                          marginLeft: "30px",
+                        }}
+                      >
+                        <CircularProgress />
+                      </Box>
+                    ) : (
+                      ""
+                    )}
                   </Box>
                 </React.Fragment>
               )}

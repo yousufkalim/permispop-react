@@ -19,14 +19,13 @@ import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import Joi from "joi-browser";
 import moment from "moment";
 import { useTranslation } from "react-i18next";
-
-import { Preview } from "@mui/icons-material";
-import { async } from "validate.js";
+import CircularProgress from "@mui/material/CircularProgress";
 
 const StudentForm = (props) => {
   const [checkbox1, setCheckbox1] = React.useState(false);
   const { i18n, t } = useTranslation();
   const [disable, setDisable] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [studentErrors, setStudentErrors] = useState({});
   const [addresses, setAddresses] = React.useState([]);
   const [student, setStudent] = React.useState({
@@ -555,6 +554,7 @@ const StudentForm = (props) => {
   };
 
   const handleSubmit = async () => {
+    setLoading(true);
     await API(
       "get",
       `Personal/Email?Email=${student.email}&phn=${student.phone}&SecondPhn=${student.phone2}&SecondEmail=${student.email2}`
@@ -620,6 +620,7 @@ const StudentForm = (props) => {
             console.log(error);
             toast.error(t("Not Registered....Somethong went wrong"));
             setDisable(false);
+            setLoading(false);
           });
       } else if (emailRes.data.data) {
         toast.warning(emailRes.data.data);
@@ -1127,6 +1128,13 @@ const StudentForm = (props) => {
                   : true
               }
             ></Button>
+            {loading && (
+              <Box
+                sx={{ display: "flex", marginTop: "20px", marginLeft: "30px" }}
+              >
+                <CircularProgress />
+              </Box>
+            )}
           </Grid>
         </Box>
       </div>

@@ -21,6 +21,7 @@ import Joi from "joi-browser";
 import { useTranslation } from "react-i18next";
 import CrRegisterImg from "../../assets/images/Frame2.svg";
 import moment from "moment";
+import CircularProgress from "@mui/material/CircularProgress";
 
 const ColorlibConnector = withStyles({
   alternativeLabel: {
@@ -102,6 +103,7 @@ const RentalCar = () => {
   const [disable, setDisable] = React.useState(false);
   const [rentalCarForm, setRentalCarForm] = useState({});
   const [lng, setLng] = useState();
+  const [loading, setLoading] = React.useState(false);
   let history = useHistory();
   const steps = ["Identity", "Details", "Vehicle", "Done"];
 
@@ -1022,6 +1024,7 @@ const RentalCar = () => {
 
   const handleSubmit = async () => {
     setDisable(true);
+    setLoading(true);
 
     await API("post", "Personal", {
       FirstName: step1.FirstName,
@@ -1144,6 +1147,7 @@ const RentalCar = () => {
           })
           .catch((error) => {
             setDisable(false);
+            setLoading(false);
             console.log("Business Error", error);
           });
 
@@ -1151,6 +1155,7 @@ const RentalCar = () => {
       })
       .catch((error) => {
         setDisable(false);
+        setLoading(false);
         console.log("Personal Response", error);
       });
   };
@@ -1367,6 +1372,19 @@ const RentalCar = () => {
                           : true
                       }
                     ></Button>
+                    {loading && activeStep === steps.length - 1 ? (
+                      <Box
+                        sx={{
+                          display: "flex",
+                          marginTop: "20px",
+                          marginLeft: "30px",
+                        }}
+                      >
+                        <CircularProgress />
+                      </Box>
+                    ) : (
+                      ""
+                    )}
                   </Box>
                 </React.Fragment>
               )}
