@@ -67,9 +67,11 @@
 .account {
   margin-right: 10px !important;
 }
-svg {
+
+/* Affects the loader UI */
+/* svg {
   height: 30px !important;
-}
+} */
 
 @media only screen and (max-width: 1440px) {
   .Loginmodal {
@@ -101,7 +103,7 @@ svg {
     width: 47vw !important;
   }
   .Login_text_field {
-    margin-top: 15px ;
+    margin-top: 15px;
     display: flex !important;
     align-items: center !important;
     justify-content: center !important;

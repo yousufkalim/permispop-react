@@ -22,6 +22,7 @@ import { useHistory } from "react-router-dom/cjs/react-router-dom.min";
 import Joi from "joi-browser";
 import { useTranslation } from "react-i18next";
 import InsRegisterImg from "../../assets/images/registerImg.svg";
+import CircularProgress from "@mui/material/CircularProgress";
 
 const ColorlibConnector = withStyles({
   alternativeLabel: {
@@ -104,6 +105,7 @@ const Instructor = () => {
   const [lng, setLng] = React.useState();
   const { i18n, t } = useTranslation();
   let history = useHistory();
+  const [loading, setLoading] = React.useState(false);
 
   const [activeStep, setActiveStep] = React.useState(1);
   const [vehicles, setVehicles] = React.useState([]);
@@ -1359,6 +1361,7 @@ const Instructor = () => {
   };
   const handleSubmit = async (e) => {
     setDisable(true);
+    setLoading(true);
 
     let languageArray = step1.Language.map((lang) => {
       return lang.name;
@@ -1543,6 +1546,7 @@ const Instructor = () => {
                           error
                         );
                         setDisable(false);
+                        setLoading(false);
 
                         console.log("InsuranceCompanyResponse", error);
                       });
@@ -1550,18 +1554,24 @@ const Instructor = () => {
                   .catch((error) => {
                     toast.error(t("Not Registered....Error Occured"), error);
                     setDisable(false);
+                    setLoading(false);
+
                     console.log("BusinessResponse", error);
                   });
               })
               .catch((error) => {
                 toast.error(t("Not Registered....Error Occured"), error);
                 setDisable(false);
+                setLoading(false);
+
                 console.log("ExersiceAuthorizationResponse", error);
               });
           })
           .catch((error) => {
             toast.error(t("Not Registered....Error Occured"), error);
             setDisable(false);
+            setLoading(false);
+
             console.log("DrivingLisenceResponse", error);
           });
       })
@@ -1569,6 +1579,7 @@ const Instructor = () => {
         console.log("PersonalResponse", error);
         toast.error(t("Not Registered....Error Occured"), error);
         setDisable(false);
+        setLoading(false);
       });
   };
   React.useEffect(() => {
@@ -1807,6 +1818,19 @@ const Instructor = () => {
                           : true
                       }
                     ></Button>
+                    {loading && activeStep === steps.length - 1 ? (
+                      <Box
+                        sx={{
+                          display: "flex",
+                          marginTop: "20px",
+                          marginLeft: "30px",
+                        }}
+                      >
+                        <CircularProgress />
+                      </Box>
+                    ) : (
+                      ""
+                    )}
                   </Box>
                 </React.Fragment>
               )}

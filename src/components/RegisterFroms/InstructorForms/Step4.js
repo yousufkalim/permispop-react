@@ -29,8 +29,9 @@ import {
   Paper,
   Modal,
 } from "@mui/material";
-var XMLParser = require("react-xml-parser");
+import CircularProgress from "@mui/material/CircularProgress";
 
+var XMLParser = require("react-xml-parser");
 const style = {
   position: "absolute",
   top: "50%",
@@ -54,6 +55,7 @@ const Step4 = (props) => {
   const [addVehicle, setAddVehicle] = useState(false);
   const [isEdit, setIsEdit] = useState(false);
   const [editIndex, setEditIndex] = useState("");
+  const [loading, setLoading] = React.useState(true);
 
   useEffect(() => {
     getAllMakes();
@@ -91,6 +93,7 @@ const Step4 = (props) => {
     setAddVehicle(false);
     props.setStep4Errors({});
   };
+
   const handleAdd = () => {
     props.setVehicles((prev) => [...prev, props.step4]);
     setAddVehicle(false);
@@ -209,9 +212,11 @@ const Step4 = (props) => {
             });
           });
         });
+        setLoading(false);
         setAllModels({ allModels: allArr, loading: false });
       })
       .catch(function (error) {
+        setLoading(false);
         console.log(error);
       });
   };
@@ -228,71 +233,86 @@ const Step4 = (props) => {
 
   return (
     <>
-      <div
-        style={{
-          display: "flex",
-          width: "100%",
-          justifyContent: "flex-end",
-          marginTop: "70px",
-        }}
-      >
-        <AddCircleIcon
+      {loading ? (
+        <Box
           sx={{
-            color: "#149e7a",
-            transform: "Scale(2)",
+            display: "flex",
+            marginTop: "20px",
+            marginLeft: "30px",
           }}
-          onClick={handleOpenModal}
-        />
-      </div>
+        >
+          <CircularProgress />
+        </Box>
+      ) : (
+        <>
+          <div
+            style={{
+              display: "flex",
+              width: "100%",
+              justifyContent: "flex-end",
+              marginTop: "70px",
+            }}
+          >
+            <AddCircleIcon
+              sx={{
+                color: "#149e7a",
+                transform: "Scale(2)",
+              }}
+              onClick={handleOpenModal}
+            />
+          </div>
 
-      <TableContainer sx={{ mt: "30px" }} component={Paper}>
-        <Table sx={{ minWidth: "650px" }} aria-label="simple table">
-          <TableBody>
-            {props.vehicles.length > 0 ? (
-              props.vehicles.map((vehicle, index) => {
-                return (
+          <TableContainer sx={{ mt: "30px" }} component={Paper}>
+            <Table sx={{ minWidth: "650px" }} aria-label="simple table">
+              <TableBody>
+                {props.vehicles.length > 0 ? (
+                  props.vehicles.map((vehicle, index) => {
+                    return (
+                      <TableRow
+                        key={index}
+                        sx={{
+                          "&:last-child td, &:last-child th": { border: 0 },
+                        }}
+                      >
+                        <TableCell align="left">
+                          <div style={{ display: "flex" }}>
+                            <div style={{ marginRight: "20px" }}>
+                              {vehicle.Brand}
+                            </div>
+                            <div> {vehicle.Model} </div>
+                          </div>
+                        </TableCell>
+
+                        <TableCell align="right">
+                          <EditIcon
+                            sx={{
+                              color: "#149e7a",
+                              marginRight: "10px",
+                            }}
+                            onClick={() => handleEditVehicle(index)}
+                          />
+                          <DeleteIcon
+                            sx={{
+                              color: "red",
+                            }}
+                            onClick={() => handleDeleteVehicle(index)}
+                          />
+                        </TableCell>
+                      </TableRow>
+                    );
+                  })
+                ) : (
                   <TableRow
-                    key={index}
                     sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
                   >
-                    <TableCell align="left">
-                      <div style={{ display: "flex" }}>
-                        <div style={{ marginRight: "20px" }}>
-                          {vehicle.Brand}
-                        </div>
-                        <div> {vehicle.Model} </div>
-                      </div>
-                    </TableCell>
-
-                    <TableCell align="right">
-                      <EditIcon
-                        sx={{
-                          color: "#149e7a",
-                          marginRight: "10px",
-                        }}
-                        onClick={() => handleEditVehicle(index)}
-                      />
-                      <DeleteIcon
-                        sx={{
-                          color: "red",
-                        }}
-                        onClick={() => handleDeleteVehicle(index)}
-                      />
-                    </TableCell>
+                    <TableCell align="left">{t("No Vehicle Added.")}</TableCell>
                   </TableRow>
-                );
-              })
-            ) : (
-              <TableRow
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-              >
-                <TableCell align="left">{t("No Vehicle Added.")}</TableCell>
-              </TableRow>
-            )}
-          </TableBody>
-        </Table>
-      </TableContainer>
-
+                )}
+              </TableBody>
+            </Table>
+          </TableContainer>
+        </>
+      )}
       <Modal
         open={addVehicle}
         onClose={() => closeAddModal()}
