@@ -63,6 +63,7 @@ const Index = () => {
               return user;
             }
           });
+
           booking["studentData"] = userdata.data.data;
           allBookings.push(booking);
         });

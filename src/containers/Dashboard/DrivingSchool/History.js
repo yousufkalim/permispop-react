@@ -52,14 +52,19 @@ const Index = () => {
         }
       });
       Promise.all(studentRes).then((res) => {
-        res.map((student) => {
-          GetBookingres.data.data.map((booking) => {
-            if (booking.studentId === student.data.data.id) {
-              booking["studentData"] = student.data.data;
-              allBookings.push(booking);
+        GetBookingres.data.data.map((booking) => {
+          let userdata = res.find((user) => {
+            if (booking.studentId === user.data.data.id) {
+              return user;
+            } else if (booking.instructionId === user.data.data.id) {
+              return user;
             }
           });
+
+          booking["studentData"] = userdata.data.data;
+          allBookings.push(booking);
         });
+
         setAllBookingsWithUser(allBookings);
         setPendingRequestsrows(
           allBookings.map((booking) => {
