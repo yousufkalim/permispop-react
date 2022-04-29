@@ -2,6 +2,7 @@
 .Profile-img {
   width: 100% !important;
   margin-top: 30px !important;
+  object-fit: contain !important;
 }
 .uppersection {
   display: flex !important;

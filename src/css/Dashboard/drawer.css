@@ -84,6 +84,9 @@
   height: 40px !important;
   margin-top: 2px !important;
 }
+.css-1pqm26d-MuiAvatar-img {
+  object-fit: contain !important;
+}
 
 @media only screen and (max-width: 1366px) {
   .drawer-list-text {
