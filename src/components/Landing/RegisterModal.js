@@ -114,6 +114,8 @@ export default function RegisterModal(props) {
                       color: "#2F363D",
                       fontSize: "20px",
                       fontWeight: "500",
+                      display: "flex",
+                      justifyContent: "center",
                     }}
                   >
                     {t("Professional")}
