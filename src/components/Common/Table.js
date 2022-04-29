@@ -17,7 +17,6 @@ import BasicModal from "../../components/Common/BasicModal";
 import { ReactComponent as Comment } from "../../assets/images/ChatIcon.svg";
 import { ReactComponent as Profile } from "../../assets/images/Profile.svg";
 import { ReactComponent as Book } from "../../assets/images/Book.svg";
-
 import { useTranslation } from "react-i18next";
 
 export default function DataTable(props) {
@@ -190,14 +189,14 @@ export default function DataTable(props) {
                                       <MenuItem
                                         value={
                                           row.status === "In progress"
-                                            ? props.user.role === t("Student")
+                                            ? props.user.role === "Student"
                                               ? t("Closed")
                                               : t("Complete")
                                             : row.status
                                         }
                                         name={
                                           row.status === "In progress"
-                                            ? props.user.role === t("Student")
+                                            ? props.user.role === "Student"
                                               ? t("Closed")
                                               : t("Complete")
                                             : row.status
@@ -209,7 +208,7 @@ export default function DataTable(props) {
                                         }}
                                       >
                                         {row.status === "In progress"
-                                          ? props.user.role === t("Student")
+                                          ? props.user.role === "Student"
                                             ? t("Closed")
                                             : t("Complete")
                                           : row.status}
@@ -227,23 +226,6 @@ export default function DataTable(props) {
                                         {t("Dispute")}
                                       </MenuItem>
                                     </Select>
-                                    {/* <Modal
-                                        // aria-labelledby="spring-modal-title"
-                                        // aria-describedby="spring-modal-description"
-                                        // closeAfterTransition
-                                        // BackdropComponent={Backdrop}
-                                        // BackdropProps={{
-                                        //   timeout: 500,
-                                        // }}
-                                        open={openDisputeModal}
-                                        onClose={() =>
-                                          setOpenDisputeModal(false)
-                                        }
-                                        component={
-                                          // <CreateDisputeModal userID={row.id} />
-                                          <handleProfile>xyz</handleProfile>
-                                        }
-                                      /> */}
                                   </FormControl>
                                 </TableCell>
                               ) : column.id === "historyActions" ? (
@@ -366,13 +348,21 @@ export default function DataTable(props) {
                                 </TableCell>
                               ) : (
                                 <TableCell align="center">
-                                  <IconButton>
+                                  <IconButton
+                                    onClick={() => props.handleProfile(row)}
+                                  >
                                     <Profile style={{ width: "1.8rem" }} />
                                   </IconButton>
-                                  <IconButton>
-                                    <Book style={{ width: "1.3rem" }} />
+                                  <IconButton
+                                    onClick={() => props.handleComment(row)}
+                                  >
+                                    {props.user.role !== "Student" && (
+                                      <Book style={{ width: "1.3rem" }} />
+                                    )}
                                   </IconButton>
-                                  <IconButton>
+                                  <IconButton
+                                    onClick={() => props.handleChat(row)}
+                                  >
                                     <Comment style={{ width: "1.8rem" }} />
                                   </IconButton>
                                 </TableCell>

@@ -53,7 +53,7 @@ const Step1 = ({ step1, setStep1, onChange, step1Errors }) => {
       onChange("Address", { ...step1.Address, Label: e.target.value });
       var config = {
         method: "get",
-        url: `https://api-adresse.data.gouv.fr/search/?q=${e.target.value}&type=housenumber&autocomplete=1`,
+        url: `https://api-adresse.data.gouv.fr/search/?q=${e.target.value}&autocomplete=1`,
       };
       await axios(config)
         .then(function (res) {

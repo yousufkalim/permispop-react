@@ -63,6 +63,7 @@ const Profile = () => {
       setUser(res.data.data);
       getRatings(res.data.data);
       getMeetupPoints(res.data.data);
+      localStorage.setItem("user", JSON.stringify(res.data.data));
     });
   };
 
@@ -178,7 +179,8 @@ const Profile = () => {
           zip: user.zip,
         }).then((e) => {
           toast.success("Profile Image Changed successfully!");
-          setUpdate(!update);
+          localStorage.setItem("user", JSON.stringify(e.data.data));
+          window.location.reload();
         });
       }
     );

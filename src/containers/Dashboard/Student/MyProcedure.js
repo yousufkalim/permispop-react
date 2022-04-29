@@ -82,7 +82,7 @@ const Index = () => {
                   </Typography>
                   <LinkIcon fontSize="large" />
                 </div>
-                <Divider />
+                <Divider margin="none" />
               </>
             );
           })}
