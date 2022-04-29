@@ -50,6 +50,7 @@ export default function Header(props) {
     password: "",
     showPassword: false,
   });
+
   const handleClose = () => {
     setAnchorEl(null);
   };
@@ -317,9 +318,24 @@ export default function Header(props) {
             horizontal: "left",
           }}
         >
-          <MenuItem onClick={handleClose}>{t("Home")}</MenuItem>
-          <MenuItem onClick={handleClose}>{t("Services")}</MenuItem>
-          <MenuItem onClick={handleClose}>{t("Contact Us")}</MenuItem>
+          <MenuItem>
+            <a href={frontUrl + "#home"} style={{ textDecoration: "none" }}>
+              {t("Home")}
+            </a>
+          </MenuItem>
+          <MenuItem>
+            <a href={frontUrl + "#services"} style={{ textDecoration: "none" }}>
+              {t("Services")}
+            </a>
+          </MenuItem>
+          <MenuItem>
+            <a
+              href={frontUrl + "#contactUs"}
+              style={{ textDecoration: "none" }}
+            >
+              {t("Contact Us")}
+            </a>
+          </MenuItem>
         </Menu>
       </div>
       <RegisterModal
