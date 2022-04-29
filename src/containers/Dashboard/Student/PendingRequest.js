@@ -350,7 +350,7 @@ const Index = () => {
           />
           <div style={{ marginTop: "2%" }}>
             <Button
-              text={t("Update Profile")}
+              text={t("Create Dispute")}
               width="95% !important"
               color="#149e7a"
               borderRadius="10px"
