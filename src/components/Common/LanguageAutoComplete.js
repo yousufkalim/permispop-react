@@ -34,15 +34,15 @@ const useStyles = makeStyles((theme) => ({
     },
   },
   textfield: {
-    height: "62px !important",
+    // height: "62px !important",
     borderBottom: "none !important",
     fontFamily: "Inter !important",
     fontStyle: "normal !important",
     fontSize: "18px !important",
-    lineHeight: "151.02% !important",
+    // lineHeight: "151.02% !important",
     color: "black !important",
     fontWeight: "300 !important",
-    marginTop: "10px !important",
+    // marginTop: "10px !important",
 
     "@media (max-width:992px)": {
       fontSize: "16px !important",
@@ -123,6 +123,7 @@ export default function LanguageAutoComplete(props) {
             sx={{
               width: "100% !important",
               height: "72px !important",
+              marginTop: "13.5% !important",
             }}
             inputProps={{
               ...params.inputProps,
