@@ -68,6 +68,7 @@ const Index = () => {
   const [profileData, setProfileData] = useState("");
   const [commentsData, setCommentsData] = useState("");
   const [chatData, setChatData] = useState("");
+  const [updateBookingId, SetUpdateBookingId] = useState("");
 
   const [updatefield, SetUpdateField] = useState("");
   const history = useHistory();
@@ -135,7 +136,7 @@ const Index = () => {
         setSelectedUserData(booking.studentData);
       }
     });
-    if (status == t("Complete") || status == t("In progress")) {
+    if (status == "Complete" || status == "In progress") {
       await API(
         "get",
         `Bookings/UpdateBookingsStatus?id=${id}&status=${status}`
@@ -144,7 +145,9 @@ const Index = () => {
         toast.success(t("Status is updated successful"));
       });
     } else {
-      openDisputeModal = setOpenDisputeModal(true);
+      SetUpdateBookingId(id);
+
+      setOpenDisputeModal(true);
     }
   };
 
@@ -164,11 +167,18 @@ const Index = () => {
           ? selectedUserData.firstName
           : "",
         studentID: user.role === "Student" ? user.id : selectedUserData.id,
-      }).then((disputeres) => {
-        toast.success(t("Dispute is created sucessfully"));
-        SetUpdateField("");
-        setComment("");
-        setOpenDisputeModal(false);
+      }).then(async (disputeres) => {
+        await API(
+          "get",
+          `Bookings/UpdateBookingsStatus?id=${updateBookingId}&status=Dispute`
+        ).then((res) => {
+          getPendingRequestData(user);
+          toast.success(t("Dispute is created sucessfully"));
+
+          SetUpdateField("");
+          setComment("");
+          setOpenDisputeModal(false);
+        });
       });
     } else {
       toast.error(t("Field cannot be empty"));
