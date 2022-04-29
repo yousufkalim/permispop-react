@@ -108,17 +108,17 @@ export default function DataTable(props) {
                           const value = row[column.id];
                           return (
                             <>
-                              {column.id !== t("options") &&
-                              column.id !== t("action") &&
-                              column.id !== t("Vaction") &&
-                              column.id !== t("historyActions") &&
-                              column.id !== t("actions") &&
-                              column.id !== t("photo") &&
-                              column.id !== t("name") &&
-                              column.id !== t("position") &&
-                              column.id !== t("reservations") &&
-                              column.id !== t("profile") &&
-                              column.id !== t("cat") ? (
+                              {column.id !== "options" &&
+                              column.id !== "action" &&
+                              column.id !== "Vaction" &&
+                              column.id !== "historyActions" &&
+                              column.id !== "actions" &&
+                              column.id !== "photo" &&
+                              column.id !== "name" &&
+                              column.id !== "position" &&
+                              column.id !== "reservations" &&
+                              column.id !== "profile" &&
+                              column.id !== "cat" ? (
                                 <TableCell
                                   sx={{
                                     fontFamily: "Inter !important",
@@ -151,9 +151,9 @@ export default function DataTable(props) {
                                       id="demo-simple-select-standard"
                                       value={row.status}
                                       disabled={
-                                        row.status === t("Dispute") ||
-                                        row.status === t("Complete") ||
-                                        row.status === t("Closed")
+                                        row.status === "Dispute" ||
+                                        row.status === "Complete" ||
+                                        row.status === "Closed"
                                           ? true
                                           : false
                                       }
@@ -183,22 +183,22 @@ export default function DataTable(props) {
                                           justifyContent: "center",
                                         }}
                                       >
-                                        {t("In Progress")}
+                                        In Progress
                                       </MenuItem>
 
                                       <MenuItem
                                         value={
                                           row.status === "In progress"
                                             ? props.user.role === "Student"
-                                              ? t("Closed")
-                                              : t("Complete")
+                                              ? "Closed"
+                                              : "Complete"
                                             : row.status
                                         }
                                         name={
                                           row.status === "In progress"
                                             ? props.user.role === "Student"
-                                              ? t("Closed")
-                                              : t("Complete")
+                                              ? "Closed"
+                                              : "Complete"
                                             : row.status
                                         }
                                         sx={{
@@ -209,8 +209,8 @@ export default function DataTable(props) {
                                       >
                                         {row.status === "In progress"
                                           ? props.user.role === "Student"
-                                            ? t("Closed")
-                                            : t("Complete")
+                                            ? "Closed"
+                                            : "Complete"
                                           : row.status}
                                       </MenuItem>
 
@@ -223,7 +223,7 @@ export default function DataTable(props) {
                                           justifyContent: "center",
                                         }}
                                       >
-                                        {t("Dispute")}
+                                        Dispute
                                       </MenuItem>
                                     </Select>
                                   </FormControl>
