@@ -205,7 +205,11 @@ const Index = () => {
           </Grid> */}
         </Grid>
       </div>
-      <Divider width="100%" borderColor="#D5E4E8" />
+      <Divider
+        width="100%"
+        borderColor="#D5E4E8"
+        margin="0px 0px 0px 0px !important"
+      />
       {loading ? (
         <Loader></Loader>
       ) : (
