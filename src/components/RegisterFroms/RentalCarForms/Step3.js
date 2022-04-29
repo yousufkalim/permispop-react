@@ -432,7 +432,11 @@ const Step3 = (props) => {
                   required={true}
                   label="YourImg"
                   name="VehicleImg"
-                  value={props.step3.VehicleImg.split("_").slice(1).join("_")}
+                  value={
+                    props.step3.VehicleImg
+                      ? props.step3.VehicleImg.split("_").slice(1).join("_")
+                      : ""
+                  }
                   onChange={handleFileChange}
                   error={props.step3Errors["VehicleImg"] ? true : false}
                   ErrorMsg={props.step3Errors["VehicleImg"]}
@@ -444,9 +448,11 @@ const Step3 = (props) => {
                   label="RegCertificate"
                   required={true}
                   name="VehicleRegImg"
-                  value={props.step3.VehicleRegImg.split("_")
-                    .slice(1)
-                    .join("_")}
+                  value={
+                    props.step3.VehicleRegImg
+                      ? props.step3.VehicleRegImg.split("_").slice(1).join("_")
+                      : ""
+                  }
                   onChange={handleFileChange}
                   error={props.step3Errors["VehicleRegImg"] ? true : false}
                   ErrorMsg={props.step3Errors["VehicleRegImg"]}
@@ -533,7 +539,11 @@ const Step3 = (props) => {
                   required={true}
                   label={t("GreenCard")}
                   name="GreenCard"
-                  value={props.step3.GreenCard.split("_").slice(1).join("_")}
+                  value={
+                    props.step3.GreenCard
+                      ? props.step3.GreenCard.split("_").slice(1).join("_")
+                      : ""
+                  }
                   onChange={handleFileChange}
                   error={props.step3Errors["GreenCard"] ? true : false}
                   ErrorMsg={props.step3Errors["GreenCard"]}
@@ -617,7 +627,11 @@ const Step3 = (props) => {
                       title={t("Scan and upload your CT")}
                       label="YourCt"
                       name="CtImg"
-                      value={props.step3.CtImg.split("_").slice(1).join("_")}
+                      value={
+                        props.step3.CtImg
+                          ? props.step3.CtImg.split("_").slice(1).join("_")
+                          : ""
+                      }
                       onChange={handleFileChange}
                       //                     error={props.step3Errors['CtImg']?true:false}
                       // ErrorMsg={props.step3Errors['CtImg']}

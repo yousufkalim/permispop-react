@@ -364,6 +364,7 @@ const Index = () => {
     await API("get", `Profile/GetProfileByPersonalId?id=${userData.id}`).then(
       (InsprofileRes) => {
         let vehicleId = JSON.parse(InsprofileRes.data.data.vehicleDetailInfoId);
+        console.log("vehicleId", vehicleId);
         allVehicles = Object.entries(vehicleId).map(([key, value]) => {
           return API(
             "get",
@@ -371,8 +372,13 @@ const Index = () => {
           );
         });
         Promise.all(allVehicles).then((res) => {
+          console.log("allVehicles", res);
+
           let vehicles = [];
           res.map((veh) => {
+            veh.data.data.dateOfFirstRegistration = moment(
+              veh.data.data.dateOfFirstRegistration
+            ).format("DD/MM/YYYY");
             vehicles.push(veh.data.data);
           });
           setVehicleData(vehicles);
@@ -740,7 +746,7 @@ const Index = () => {
               {t("Vehicles")}
             </Typography>
           </Grid>
-          <Grid xs={3} sm={3} md={2}>
+          {/* <Grid xs={3} sm={3} md={2}>
             <MultipleSelectPlaceholder
               value={[t("All")]}
             ></MultipleSelectPlaceholder>
@@ -765,7 +771,7 @@ const Index = () => {
               value={Endvalue}
               onChange={handleEnddate}
             ></DatePicker>
-          </Grid>
+          </Grid> */}
         </Grid>
       </div>
       <Divider width="100%" borderColor="#D5E4E8" />

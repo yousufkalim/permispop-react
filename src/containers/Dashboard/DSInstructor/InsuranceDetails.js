@@ -13,6 +13,8 @@ import Modal from "@mui/material/Modal";
 import Backdrop from "@mui/material/Backdrop";
 import { toast } from "react-toastify";
 import { useTranslation } from "react-i18next";
+import moment from "moment";
+
 import Loader from "../../../components/Common/FullScreenLoader";
 
 const InsuranceDetails = () => {
@@ -73,9 +75,9 @@ const InsuranceDetails = () => {
           ).then(async (VehicelDetailres) => {
             setVehicleDetail(VehicelDetailres.data.data);
 
-            let technicalId = JSON.parse(
-              VehicelDetailres.data.data.technicalControlInfoID
-            ).id;
+            let technicalId = VehicelDetailres.data.data.technicalControlInfoID
+              ? JSON.parse(VehicelDetailres.data.data.technicalControlInfoID).id
+              : "";
 
             let vehicleInsuranceId = JSON.parse(
               VehicelDetailres.data.data.vehichleInsuranceInfoId
@@ -171,7 +173,9 @@ const InsuranceDetails = () => {
                   value={
                     technicalcontrol
                       ? technicalcontrol.startDateOfTech
-                        ? technicalcontrol.startDateOfTech
+                        ? moment(technicalcontrol.startDateOfTech).format(
+                            "DD/MM/YYYY"
+                          )
                         : "N/A"
                       : "N/A"
                   }
@@ -184,7 +188,9 @@ const InsuranceDetails = () => {
                   value={
                     technicalcontrol
                       ? technicalcontrol.endDateOfTechControl
-                        ? technicalcontrol.endDateOfTechControl
+                        ? moment(technicalcontrol.endDateOfTechControl).format(
+                            "DD/MM/YYYY"
+                          )
                         : "N/A"
                       : "N/A"
                   }
@@ -210,7 +216,9 @@ const InsuranceDetails = () => {
                 placeholder="05/07/2021"
                 value={
                   vehicledetail.dateOfFirstRegistration
-                    ? vehicledetail.dateOfFirstRegistration
+                    ? moment(vehicledetail.dateOfFirstRegistration).format(
+                        "DD/MM/YYYY"
+                      )
                     : ""
                 }
               />
@@ -278,7 +286,9 @@ const InsuranceDetails = () => {
               <input
                 placeholder="05/02/2021"
                 value={
-                  vehicleInsurance.startDate ? vehicleInsurance.startDate : ""
+                  vehicleInsurance.startDate
+                    ? moment(vehicleInsurance.startDate).format("DD/MM/YYYY")
+                    : ""
                 }
               />
             </Grid>
@@ -286,7 +296,11 @@ const InsuranceDetails = () => {
               <label>{t("End Date")}</label>
               <input
                 placeholder="05/05/2012"
-                value={vehicleInsurance.endDate ? vehicleInsurance.endDate : ""}
+                value={
+                  vehicleInsurance.endDate
+                    ? moment(vehicleInsurance.endDate).format("DD/MM/YYYY")
+                    : ""
+                }
               />
             </Grid>
           </Grid>
