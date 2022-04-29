@@ -208,13 +208,13 @@ var InstructorRoutes = [
     component: InsDispute,
     layout: "/instructor",
   },
-  {
-    path: "/faq's",
-    name: "FAQ'S",
-    icon: <QuizOutlinedIcon className="drawer-icons" />,
-    component: InsFaq,
-    layout: "/instructor",
-  },
+  // {
+  //   path: "/faq's",
+  //   name: "FAQ'S",
+  //   icon: <QuizOutlinedIcon className="drawer-icons" />,
+  //   component: InsFaq,
+  //   layout: "/instructor",
+  // },
 ];
 // Driving School Instructor Routes
 
@@ -277,13 +277,13 @@ var DsInstructorRoutes = [
     component: DsInsDispute,
     layout: "/DsInstructor",
   },
-  {
-    path: "/faq's",
-    name: "FAQ'S",
-    icon: <QuizOutlinedIcon className="drawer-icons" />,
-    // component: ,
-    layout: "/DsInstructor",
-  },
+  // {
+  //   path: "/faq's",
+  //   name: "FAQ'S",
+  //   icon: <QuizOutlinedIcon className="drawer-icons" />,
+  //   // component: ,
+  //   layout: "/DsInstructor",
+  // },
 ];
 // Driving School routes
 var DrivingSchoolRoutes = [

@@ -32,28 +32,47 @@ const Calendar = () => {
   }, [update]);
 
   const getBookingData = (userData) => {
-    API("get", `Bookings/GetBookingsByStudent?id=${userData.id}`).then((res) => {
-      let allBookings = [];
-      res.data.data.map((booking) => {
-        let date = moment(booking.bookingDate).format("YYYY-MM-DD");
-        date = date.split("-");
-        let start = booking.startTime.split(":");
-        let end = moment(booking.endTime).format("HH:mm");
-        end = end.split(":");
-        allBookings.push({
-          id: booking.id,
-          title: "Booking By " + booking.instructorQuestionFifth,
-          start: new Date(date[0], parseInt(date[1]) - 1, date[2], parseInt(start[0]) + 5, start[1], 0),
-          end: new Date(date[0], parseInt(date[1]) - 1, date[2], end[0], end[1], 0),
-          bookingTime: booking.startTime + " - " + moment(booking.endTime).format("HH:mm"),
-          status: booking.status,
-          meetingPlace: booking.meetingPlace,
-          duration: booking.duration,
-          vehicleId: booking.vehicleId,
+    API("get", `Bookings/GetBookingsByStudent?id=${userData.id}`).then(
+      (res) => {
+        let allBookings = [];
+        res.data.data.map((booking) => {
+          let date = moment(booking.bookingDate).format("YYYY-MM-DD");
+          date = date.split("-");
+          let start = booking.startTime.split(":");
+          let end = moment(booking.endTime).format("HH:mm");
+          end = end.split(":");
+          allBookings.push({
+            id: booking.id,
+            title: "Booking By " + booking.instructorQuestionFifth,
+            start: new Date(
+              date[0],
+              parseInt(date[1]) - 1,
+              date[2],
+              parseInt(start[0]) + 5,
+              start[1],
+              0
+            ),
+            end: new Date(
+              date[0],
+              parseInt(date[1]) - 1,
+              date[2],
+              end[0],
+              end[1],
+              0
+            ),
+            bookingTime:
+              booking.startTime +
+              " - " +
+              moment(booking.endTime).format("HH:mm"),
+            status: booking.status,
+            meetingPlace: booking.meetingPlace,
+            duration: booking.duration,
+            vehicleId: booking.vehicleId,
+          });
         });
-      });
-      setBookings(allBookings);
-    });
+        setBookings(allBookings);
+      }
+    );
   };
 
   //Add booking modal handles
@@ -131,23 +150,90 @@ const Calendar = () => {
       >
         <div className="booking-content">
           <Grid container spacing={3}>
-            <Grid xs={12} sm={12} md={6}>
-              <TextField label={t("User Info")} height="10px" value={selectedBooking.title} disabled={true} />
+            <Grid
+              xs={12}
+              sm={12}
+              md={6}
+              style={{
+                padding: "10px",
+              }}
+            >
+              <TextField
+                label={t("User Info")}
+                height="10px"
+                value={selectedBooking.title}
+                disabled={true}
+              />
             </Grid>
-            <Grid xs={12} sm={12} md={6}>
-              <TextField label={t("Booking Date")} disabled={true} value={moment(selectedBooking.start).format("DD-MM-YYYY")} />
+            <Grid
+              xs={12}
+              sm={12}
+              md={6}
+              style={{
+                padding: "10px",
+              }}
+            >
+              <TextField
+                label={t("Booking Date")}
+                disabled={true}
+                value={moment(selectedBooking.start).format("DD-MM-YYYY")}
+              />
             </Grid>
-            <Grid xs={12} sm={12} md={6}>
-              <TextField label={t("Booking Time")} disabled={true} value={selectedBooking.bookingTime} />
+            <Grid
+              xs={12}
+              sm={12}
+              md={6}
+              style={{
+                padding: "10px",
+              }}
+            >
+              <TextField
+                label={t("Booking Time")}
+                disabled={true}
+                value={selectedBooking.bookingTime}
+              />
             </Grid>
-            <Grid xs={12} sm={12} md={6}>
-              <TextField label={t("Duration")} disabled={true} value={selectedBooking.duration} />
+            <Grid
+              xs={12}
+              sm={12}
+              md={6}
+              style={{
+                padding: "10px",
+              }}
+            >
+              <TextField
+                label={t("Duration")}
+                disabled={true}
+                value={selectedBooking.duration}
+              />
             </Grid>
-            <Grid xs={12} sm={12} md={6}>
-              <TextField label={t("Vechicle")} disabled={true} value={selectedBooking.vehicleId} />
+            <Grid
+              xs={12}
+              sm={12}
+              md={6}
+              style={{
+                padding: "10px",
+              }}
+            >
+              <TextField
+                label={t("Vechicle")}
+                disabled={true}
+                value={selectedBooking.vehicleId}
+              />
             </Grid>
-            <Grid xs={12} sm={12} md={6}>
-              <TextField label={t("Meetup")} disabled={true} value={selectedBooking.meetingPlace} />
+            <Grid
+              xs={12}
+              sm={12}
+              md={6}
+              style={{
+                padding: "10px",
+              }}
+            >
+              <TextField
+                label={t("Meetup")}
+                disabled={true}
+                value={selectedBooking.meetingPlace}
+              />
             </Grid>
           </Grid>
           <div className="booking-btn-div">
@@ -183,32 +269,74 @@ const Calendar = () => {
         modalMainTitle="Add Booking"
         modalboxclassName="booking-modal"
       >
-        <Divider width="100% !important" />
+        <Divider width="100% !important" margin="2% 0px 2% 0px" />
 
         <div className="booking-content">
           <Grid container spacing={3}>
-            <Grid xs={12} sm={12} md={6}>
+             <Grid
+                    xs={12}
+                    sm={12}
+                    md={6}
+                    style={{
+                      padding: "10px",
+                    }}
+                  >
               <TextField label={t("User Info")} placeholder={t("Enter username")} />
             </Grid>
-            <Grid xs={12} sm={12} md={6}>
+             <Grid
+                    xs={12}
+                    sm={12}
+                    md={6}
+                    style={{
+                      padding: "10px",
+                    }}
+                  >
               <TextField label={t("Booking Date")} placeholder={t("Add booking date")} />
             </Grid>
-            <Grid xs={12} sm={12} md={6}>
+             <Grid
+                    xs={12}
+                    sm={12}
+                    md={6}
+                    style={{
+                      padding: "10px",
+                    }}
+                  >
               <TextField
                 label={t("Booking Time")}
                 placeholder="Select booking time"
               />
             </Grid>
-            <Grid xs={12} sm={12} md={6}>
+             <Grid
+                    xs={12}
+                    sm={12}
+                    md={6}
+                    style={{
+                      padding: "10px",
+                    }}
+                  >
               <TextField
                 label={t("Duration")}
                 placeholder={t("Enter duration of booking")}
               />
             </Grid>
-            <Grid xs={12} sm={12} md={6}>
+             <Grid
+                    xs={12}
+                    sm={12}
+                    md={6}
+                    style={{
+                      padding: "10px",
+                    }}
+                  >
               <TextField label={t("Vechicle")} placeholder={t("Select vechicle type")} />
             </Grid>
-            <Grid xs={12} sm={12} md={6}>
+             <Grid
+                    xs={12}
+                    sm={12}
+                    md={6}
+                    style={{
+                      padding: "10px",
+                    }}
+                  >
               <TextField label={t("Meetup")} placeholder={t("Enter Meet-UP point")} />
             </Grid>
           </Grid>

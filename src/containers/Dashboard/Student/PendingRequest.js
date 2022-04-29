@@ -22,10 +22,17 @@ import moment from "moment";
 import { toast } from "react-toastify";
 import { useTranslation } from "react-i18next";
 import Loader from "../../../components/Common/FullScreenLoader";
+import { useHistory } from "react-router-dom";
+import LocationOnIcon from "@mui/icons-material/LocationOn";
+import BasicModal from "../../../components/Common/BasicModal";
+import Project from "../../../assets/images/form.svg";
+import Rating from "../../../assets/images/path2006.svg";
 
 function createData(bookingwith, date, startTime, duration, status, id) {
   return { bookingwith, date, startTime, duration, status, id };
 }
+
+const userData = JSON.parse(localStorage.getItem("user"));
 
 const Index = () => {
   const { i18n, t } = useTranslation();
@@ -49,6 +56,12 @@ const Index = () => {
   const [loading, setLoading] = useState(true);
   const [comment, setComment] = useState("");
   const [user, setUser] = useState();
+  const [profileModal, setProfileModal] = useState(false);
+  const [commentModal, setCommentModal] = useState(false);
+  const [profileData, setProfileData] = useState("");
+  const [commentsData, setCommentsData] = useState("");
+  const [chatData, setChatData] = useState("");
+  const history = useHistory();
 
   const handleStartdate = (newValue) => {
     setStartValue(newValue);
@@ -108,7 +121,6 @@ const Index = () => {
   };
 
   const updateStatus = async (id, status) => {
-    console.log();
     allBookingsWithUser.map((booking) => {
       if (id === booking.id) {
         setSelectedUserData(booking.studentData);
@@ -132,8 +144,6 @@ const Index = () => {
   };
 
   const createDispute = async (id) => {
-    console.log("setSelectedUserData", user.role);
-
     const userID = JSON.parse(localStorage.getItem("user"));
     if (updatefield != "" && comment != "") {
       await API("post", `Dispute`, {
@@ -151,7 +161,6 @@ const Index = () => {
           : "",
         studentID: user.role === "Student" ? user.id : selectedUserData.id,
       }).then((disputeres) => {
-        console.log("data", disputeres.data.data);
         toast.success(t("Dispute is created sucessfully"));
         SetUpdateField("");
         setComment("");
@@ -161,6 +170,54 @@ const Index = () => {
       toast.error(t("Field cannot be empty"));
     }
   };
+
+  const handleProfileModalClose = () => setProfileModal(false);
+  const handleCommentModalClose = () => setCommentModal(false);
+
+  const handleProfile = (e) => {
+    let selectedBooking = allBookingsWithUser.find((booking) => {
+      if (booking.id === e.id) {
+        return booking;
+      }
+    });
+    setProfileData(selectedBooking.studentData);
+    setProfileModal(true);
+  };
+  const handleComment = (e) => {
+    let selectedBooking = allBookingsWithUser.find((booking) => {
+      if (booking.id === e.id) {
+        return booking;
+      }
+    });
+    setCommentsData(selectedBooking.studentData);
+    setCommentModal(true);
+  };
+  const handleChat = (e) => {
+    let selectedBooking = allBookingsWithUser.find((booking) => {
+      if (booking.id === e.id) {
+        return booking;
+      }
+    });
+    setChatData(selectedBooking.studentData.id);
+    handleChatRoom();
+  };
+  const handleChatRoom = async () => {
+    await API(
+      "get",
+      `Chat/getorcreatechatroom?userA=${userData.id}&userB=${chatData}`
+    )
+      .then((ChatroomResponse) => {
+        localStorage.setItem(
+          "ChatroomId",
+          JSON.stringify(ChatroomResponse.data.data.id)
+        );
+        history.push(`/Instructor/chat`);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   return (
     <>
       {/* <MobileViewFilters title={t("Pending requests")} /> */}
@@ -223,6 +280,9 @@ const Index = () => {
           columns={PendingRequestcolumns}
           SetUpdateField={SetUpdateField}
           user={user}
+          handleProfile={handleProfile}
+          handleChat={handleChat}
+          handleComment={handleComment}
         ></DataTable>
       )}
       <Modal
@@ -299,6 +359,87 @@ const Index = () => {
           </div>
         </Box>
       </Modal>
+      <BasicModal
+        open={profileModal}
+        onClose={handleProfileModalClose}
+        modalboxclassName="profile_modal"
+      >
+        <div>
+          <div className="profile_img_div">
+            <img
+              src={
+                profileData?.photo
+                  ? profileData?.photo
+                  : profileData.photo === "null" || "undefined"
+                  ? profileData
+                  : profileData.photo
+              }
+              alt=""
+              className="profile_img"
+            />
+          </div>
+          <div className="profile_text_div">
+            <p className="profile_text_left">
+              {profileData.firstName} {profileData.surName}
+            </p>
+          </div>
+          <div className="profile_text_div">
+            <p
+              className="profile_text_right"
+              style={{
+                display: "flex",
+                alignItems: "flex-start",
+                justifyContent: "flex-start",
+              }}
+            >
+              <LocationOnIcon style={{ marginTop: -5, marginLeft: 10 }} />
+              {profileData.address}
+              {profileData.zip} {profileData.city}
+            </p>
+          </div>
+          <div className="profile_text_div">
+            <p className="profile_text_right">{profileData.contactEmail}</p>
+          </div>
+          <div className="profile_text_div">
+            <p className="profile_text_right">{profileData.gender}</p>
+          </div>
+
+          <div className="profile_text_div">
+            <p className="profile_text_right">
+              {moment(profileData.dob).format("DD/MM/YYYY")}
+            </p>
+          </div>
+          <div className="profile_text_div">
+            <p className="profile_text_right">{profileData.placeOfBirth}</p>
+          </div>
+          <div className="profile_text_div">
+            <p className="profile_text_right">{profileData.complement} </p>
+          </div>
+
+          <div className="icons">
+            <div className="profile_icons_div">
+              <div className="icon_style_div">
+                <img src={Project} alt="" />
+              </div>
+              <div className="popup_text">
+                {/* <p className="icons_text1">{profileData.BookingLength}</p> */}
+                <p className="icons_text2">Bookings</p>
+              </div>
+            </div>
+            <div className="profile_icons_div">
+              <div className="icon_style_div">
+                <img src={Rating} alt="" />
+              </div>
+              <div>
+                <p className="icons_text1">
+                  {/* {profileData.Rating != "NaN" ? profileData.Rating : "N/A"} */}
+                </p>
+                <p className="icons_text2">Ratings</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </BasicModal>
     </>
   );
 };

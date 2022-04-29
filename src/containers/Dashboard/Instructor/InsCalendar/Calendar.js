@@ -481,7 +481,7 @@ const Calendar = () => {
         modalTitleProps={{ align: "left" }}
         modalboxclassName="availability-modal"
       >
-        <Divider width="100% !important" />
+        <Divider width="100% !important" margin="2% 0px 2% 0px" />
 
         <TabContext value={value}>
           <TabList onChange={handleChange} className="tab-list">
@@ -531,7 +531,14 @@ const Calendar = () => {
                       width="100% !important"
                     ></DatePicker>
                   </Grid>
-                  <Grid xs={12} sm={12} md={6}>
+                  <Grid
+                    xs={12}
+                    sm={12}
+                    md={6}
+                    style={{
+                      padding: "10px",
+                    }}
+                  >
                     <DropDown
                       label={t("Select Instructor")}
                       placeholder="Start Hours"
@@ -568,7 +575,14 @@ const Calendar = () => {
                       views={["hours"]}
                     /> */}
                   </Grid>
-                  <Grid xs={12} sm={12} md={6}>
+                  <Grid
+                    xs={12}
+                    sm={12}
+                    md={6}
+                    style={{
+                      padding: "10px",
+                    }}
+                  >
                     <DropDown
                       label={t("Start Minutes")}
                       placeholder="Start Minutes"
@@ -591,7 +605,14 @@ const Calendar = () => {
                       views={["minutes"]}
                     /> */}
                   </Grid>
-                  <Grid xs={12} sm={12} md={6}>
+                  <Grid
+                    xs={12}
+                    sm={12}
+                    md={6}
+                    style={{
+                      padding: "10px",
+                    }}
+                  >
                     <DropDown
                       label={t("End Hours")}
                       placeholder={t("End Hours")}
@@ -629,7 +650,14 @@ const Calendar = () => {
                       views={["hours"]}
                     /> */}
                   </Grid>
-                  <Grid xs={12} sm={12} md={6}>
+                  <Grid
+                    xs={12}
+                    sm={12}
+                    md={6}
+                    style={{
+                      padding: "10px",
+                    }}
+                  >
                     <DropDown
                       label={t("End Minutes")}
                       placeholder={t("End Minutes")}
@@ -651,7 +679,14 @@ const Calendar = () => {
                       views={["minutes"]}
                     /> */}
                   </Grid>
-                  <Grid xs={12} sm={12} md={6}>
+                  <Grid
+                    xs={12}
+                    sm={12}
+                    md={6}
+                    style={{
+                      padding: "10px",
+                    }}
+                  >
                     <DropDown
                       label={t("Select Vehicle")}
                       placeholder="vehicle"
@@ -661,7 +696,14 @@ const Calendar = () => {
                       onChange={(e) => setSelectedVehicle(e.target.value)}
                     ></DropDown>
                   </Grid>
-                  <Grid xs={12} sm={12} md={6}>
+                  <Grid
+                    xs={12}
+                    sm={12}
+                    md={6}
+                    style={{
+                      padding: "10px",
+                    }}
+                  >
                     <DropDown
                       label={t("Meetup")}
                       placeholder={t("Meetup")}
@@ -718,7 +760,14 @@ const Calendar = () => {
                       width="100% !important"
                     ></DatePicker>
                   </Grid>
-                  <Grid xs={12} sm={12} md={6}>
+                  <Grid
+                    xs={12}
+                    sm={12}
+                    md={6}
+                    style={{
+                      padding: "10px",
+                    }}
+                  >
                     <DropDown
                       label={t("Start Hours")}
                       placeholder={t("Start Hours")}
@@ -755,7 +804,14 @@ const Calendar = () => {
                       views={["hours"]}
                     /> */}
                   </Grid>
-                  <Grid xs={12} sm={12} md={6}>
+                  <Grid
+                    xs={12}
+                    sm={12}
+                    md={6}
+                    style={{
+                      padding: "10px",
+                    }}
+                  >
                     <DropDown
                       label={t("Start Minutes")}
                       placeholder={t("Start Minutes")}
@@ -778,7 +834,14 @@ const Calendar = () => {
                       views={["minutes"]}
                     /> */}
                   </Grid>
-                  <Grid xs={12} sm={12} md={6}>
+                  <Grid
+                    xs={12}
+                    sm={12}
+                    md={6}
+                    style={{
+                      padding: "10px",
+                    }}
+                  >
                     <DropDown
                       label="End Hours"
                       placeholder="End Hours"
@@ -816,7 +879,14 @@ const Calendar = () => {
                       views={["hours"]}
                     /> */}
                   </Grid>
-                  <Grid xs={12} sm={12} md={6}>
+                  <Grid
+                    xs={12}
+                    sm={12}
+                    md={6}
+                    style={{
+                      padding: "10px",
+                    }}
+                  >
                     <DropDown
                       label={t("End Minutes")}
                       placeholder={t("End Minutes")}
@@ -894,7 +964,14 @@ const Calendar = () => {
                       width="100% !important"
                     ></DatePicker>
                   </Grid>
-                  <Grid xs={12} sm={12} md={6}>
+                  <Grid
+                    xs={12}
+                    sm={12}
+                    md={6}
+                    style={{
+                      padding: "10px",
+                    }}
+                  >
                     <DropDown
                       label={t("Start Hours")}
                       placeholder={t("Start Hours")}
@@ -931,7 +1008,14 @@ const Calendar = () => {
                       views={["hours"]}
                     /> */}
                   </Grid>
-                  <Grid xs={12} sm={12} md={6}>
+                  <Grid
+                    xs={12}
+                    sm={12}
+                    md={6}
+                    style={{
+                      padding: "10px",
+                    }}
+                  >
                     <DropDown
                       label={t("Start Minutes")}
                       placeholder={t("Start Minutes")}
@@ -954,7 +1038,14 @@ const Calendar = () => {
                       views={["minutes"]}
                     /> */}
                   </Grid>
-                  <Grid xs={12} sm={12} md={6}>
+                  <Grid
+                    xs={12}
+                    sm={12}
+                    md={6}
+                    style={{
+                      padding: "10px",
+                    }}
+                  >
                     <DropDown
                       label={t("End Hours")}
                       placeholder={t("End Hours")}
@@ -992,7 +1083,14 @@ const Calendar = () => {
                       views={["hours"]}
                     /> */}
                   </Grid>
-                  <Grid xs={12} sm={12} md={6}>
+                  <Grid
+                    xs={12}
+                    sm={12}
+                    md={6}
+                    style={{
+                      padding: "10px",
+                    }}
+                  >
                     <DropDown
                       label={t("End Minutes")}
                       placeholder={t("End Minutes")}
@@ -1088,7 +1186,14 @@ const Calendar = () => {
       >
         <div className="booking-content">
           <Grid container spacing={3}>
-            <Grid xs={12} sm={12} md={6}>
+            <Grid
+              xs={12}
+              sm={12}
+              md={6}
+              style={{
+                padding: "10px",
+              }}
+            >
               <TextField
                 label={t("User Info")}
                 height="10px"
@@ -1096,35 +1201,70 @@ const Calendar = () => {
                 disabled={true}
               />
             </Grid>
-            <Grid xs={12} sm={12} md={6}>
+            <Grid
+              xs={12}
+              sm={12}
+              md={6}
+              style={{
+                padding: "10px",
+              }}
+            >
               <TextField
                 label={t("Booking Date")}
                 disabled={true}
                 value={moment(selectedBooking.start).format("DD-MM-YYYY")}
               />
             </Grid>
-            <Grid xs={12} sm={12} md={6}>
+            <Grid
+              xs={12}
+              sm={12}
+              md={6}
+              style={{
+                padding: "10px",
+              }}
+            >
               <TextField
                 label={t("Booking Time")}
                 disabled={true}
                 value={selectedBooking.bookingTime}
               />
             </Grid>
-            <Grid xs={12} sm={12} md={6}>
+            <Grid
+              xs={12}
+              sm={12}
+              md={6}
+              style={{
+                padding: "10px",
+              }}
+            >
               <TextField
                 label={t("Duration")}
                 disabled={true}
                 value={selectedBooking.duration}
               />
             </Grid>
-            <Grid xs={12} sm={12} md={6}>
+            <Grid
+              xs={12}
+              sm={12}
+              md={6}
+              style={{
+                padding: "10px",
+              }}
+            >
               <TextField
                 label={t("Vechicle")}
                 disabled={true}
                 value={selectedBooking.vehicleId}
               />
             </Grid>
-            <Grid xs={12} sm={12} md={6}>
+            <Grid
+              xs={12}
+              sm={12}
+              md={6}
+              style={{
+                padding: "10px",
+              }}
+            >
               <TextField
                 label={t("Meetup")}
                 disabled={true}
