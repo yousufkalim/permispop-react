@@ -72,6 +72,7 @@ export default function LanguageAutoComplete(props) {
             props.value.filter((entry) => entry !== option)
           );
         }}
+        sx={{ marginRight: "5px" }}
       />
     );
   });
@@ -89,8 +90,22 @@ export default function LanguageAutoComplete(props) {
         shrink={true}
       >
         {props.label}
+
         {props.required ? <div style={{ color: "red" }}> *</div> : ""}
+        <div
+          className="Scrollbar"
+          style={{
+            display: "flex",
+            marginLeft: "10px",
+            maxWidth: "100%",
+            whiteSpace: "nowrap",
+            marginTop: "3px",
+          }}
+        >
+          {valHtml}
+        </div>
       </InputLabel>
+
       <Autocomplete
         multiple
         filterSelectedOptions
@@ -115,22 +130,11 @@ export default function LanguageAutoComplete(props) {
               Autocomplete: "##autoCompletelanguage",
             }}
             variant="standard"
-            placeholder="Language"
+            // placeholder="Language"
           />
         )}
       />
 
-      <div
-        style={{
-          position: "absolute",
-          bottom: "-45px",
-          maxWidth: "100%",
-          overflow: "scroll",
-          whiteSpace: "nowrap",
-        }}
-      >
-        {valHtml}
-      </div>
       {props.error && (
         <FormHelperText className={classes.helper} {...props.helperProps}>
           {props.ErrorMsg}
