@@ -376,6 +376,9 @@ const Index = () => {
         Promise.all(allVehicles).then((res) => {
           let vehicles = [];
           res.map((veh) => {
+            veh.data.data.dateOfFirstRegistration = moment(
+              veh.data.data.dateOfFirstRegistration
+            ).format("DD/MM/YYYY");
             vehicles.push(veh.data.data);
           });
           setVehicleData(vehicles);
@@ -518,9 +521,14 @@ const Index = () => {
 
     setSelectedTechnicalId(technical);
     setSelectedInsuranceId(vehicleIns);
-
+    console.log(
+      "tempArray[index].dateOfFirstRegistration",
+      tempArray[index].dateOfFirstRegistration,
+      new Date(tempArray[index].dateOfFirstRegistration)
+    );
     setVehicleDet({
-      FristRegDate: tempArray[index].dateOfFirstRegistration,
+      FristRegDate: new Date(tempArray[index].dateOfFirstRegistration),
+
       Brand: tempArray[index].brand,
       Model: tempArray[index].model,
       NumberPlate: tempArray[index].numberPlate,
