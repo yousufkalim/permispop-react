@@ -133,11 +133,6 @@ const Index = () => {
                 </TableHead>
               )}
             </TableBody>
-            <Divider
-              width="100%"
-              borderColor="#D5E4E8"
-              margin="2% 0px 2% 0px"
-            />
           </Table>
         )}
       </TableContainer>

@@ -18,7 +18,6 @@ import FormControlLabel from "@mui/material/FormControlLabel";
 import FormLabel from "@mui/material/FormLabel";
 import moment from "moment";
 import Loader from "../../../components/Common/FullScreenLoader";
-
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import BasicModal from "../../../components/Common/BasicModal";
 import { useTranslation } from "react-i18next";
@@ -173,7 +172,6 @@ const Index = () => {
   const handleProfileModalClose = () => setProfileModal(false);
   const handleCommentModalClose = () => setCommentModal(false);
   const handleProfile = (e) => {
-    console.log("profile");
     let selectedBooking = allBookingsWithUser.find((booking) => {
       if (booking.id === e.id) {
         return booking;
@@ -183,8 +181,6 @@ const Index = () => {
     setProfileModal(true);
   };
   const handleComment = (e) => {
-    console.log("comments");
-
     let selectedBooking = allBookingsWithUser.find((booking) => {
       if (booking.id === e.id) {
         return booking;
@@ -208,8 +204,6 @@ const Index = () => {
       `Chat/getorcreatechatroom?userA=${userData.id}&userB=${chatData}`
     )
       .then((ChatroomResponse) => {
-        console.log("qwerty", ChatroomResponse);
-
         localStorage.setItem(
           "ChatroomId",
           JSON.stringify(ChatroomResponse.data.data.id)

@@ -255,7 +255,7 @@ export default function DataTable(props) {
                                   ></Button>
                                   <Button
                                     type="submit"
-                                    text={t("Details")}
+                                    text={t("Delete")}
                                     color="#149E7A !important"
                                     width="60% !important"
                                     margin="0px 0px 10px 0px !important"
@@ -332,7 +332,7 @@ export default function DataTable(props) {
                                     width="100% !important"
                                     margin="0px 0px 10px 0px !important"
                                     height="50px !important"
-                                    onClick={props.handleProfile}
+                                    onClick={() => props.handleProfile(row)}
                                   />
                                 </TableCell>
                               ) : column.id === "chat" ? (
