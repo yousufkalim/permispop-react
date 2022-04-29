@@ -380,7 +380,14 @@ const Calendar = () => {
       >
         <div className="booking-content">
           <Grid container spacing={3}>
-            <Grid xs={12} sm={12} md={6}>
+            <Grid
+              xs={12}
+              sm={12}
+              md={6}
+              style={{
+                padding: "10px",
+              }}
+            >
               <TextField
                 label="User Info"
                 height="10px"
@@ -388,14 +395,28 @@ const Calendar = () => {
                 disabled={true}
               />
             </Grid>
-            <Grid xs={12} sm={12} md={6}>
+            <Grid
+              xs={12}
+              sm={12}
+              md={6}
+              style={{
+                padding: "10px",
+              }}
+            >
               <TextField
                 label="Booking Date"
                 disabled={true}
                 value={moment(selectedBooking.start).format("DD-MM-YYYY")}
               />
             </Grid>
-            <Grid xs={12} sm={12} md={6}>
+            <Grid
+              xs={12}
+              sm={12}
+              md={6}
+              style={{
+                padding: "10px",
+              }}
+            >
               <TextField
                 label="Booking Time"
                 disabled={true}
@@ -409,7 +430,14 @@ const Calendar = () => {
                 }
               />
             </Grid>
-            <Grid xs={12} sm={12} md={6}>
+            <Grid
+              xs={12}
+              sm={12}
+              md={6}
+              style={{
+                padding: "10px",
+              }}
+            >
               <TextField
                 label="Duration"
                 disabled={true}
@@ -422,7 +450,14 @@ const Calendar = () => {
                 }
               />
             </Grid>
-            <Grid xs={12} sm={12} md={6}>
+            <Grid
+              xs={12}
+              sm={12}
+              md={6}
+              style={{
+                padding: "10px",
+              }}
+            >
               <TextField
                 label="Vechicle"
                 disabled={true}
@@ -434,7 +469,14 @@ const Calendar = () => {
                 }
               />
             </Grid>
-            <Grid xs={12} sm={12} md={6}>
+            <Grid
+              xs={12}
+              sm={12}
+              md={6}
+              style={{
+                padding: "10px",
+              }}
+            >
               <TextField
                 label="Meetup"
                 disabled={true}
@@ -470,11 +512,18 @@ const Calendar = () => {
         modalMainTitle="Add Booking"
         modalboxclassName="booking-modal"
       >
-        <Divider width="100% !important" />
+        <Divider width="100% !important" margin="2% 0px 2% 0px" />
 
         <div className="booking-content">
           <Grid container spacing={3}>
-            <Grid xs={12} sm={12} md={6}>
+            <Grid
+              xs={12}
+              sm={12}
+              md={6}
+              style={{
+                padding: "10px",
+              }}
+            >
               <DropDown
                 label="Select Hours"
                 placeholder="Select Hours"
@@ -484,7 +533,14 @@ const Calendar = () => {
                 onChange={(e) => setSelectedHours(e.target.value)}
               ></DropDown>
             </Grid>
-            <Grid xs={12} sm={12} md={6}>
+            <Grid
+              xs={12}
+              sm={12}
+              md={6}
+              style={{
+                padding: "10px",
+              }}
+            >
               <DropDown
                 label="Select Minutes"
                 placeholder="Select Minutes"
@@ -497,7 +553,14 @@ const Calendar = () => {
                 onChange={(e) => setSelectedMins(e.target.value)}
               ></DropDown>
             </Grid>
-            <Grid xs={12} sm={12} md={6}>
+            <Grid
+              xs={12}
+              sm={12}
+              md={6}
+              style={{
+                padding: "10px",
+              }}
+            >
               <TextField
                 label="Booking Date"
                 value={
@@ -507,7 +570,14 @@ const Calendar = () => {
                 disabled={true}
               />
             </Grid>
-            <Grid xs={12} sm={12} md={6}>
+            <Grid
+              xs={12}
+              sm={12}
+              md={6}
+              style={{
+                padding: "10px",
+              }}
+            >
               <DropDown
                 label="Duration"
                 placeholder="Enter duration of booking"
@@ -522,14 +592,28 @@ const Calendar = () => {
                 onChange={(e) => setDuration(e.target.value)}
               ></DropDown>
             </Grid>
-            <Grid xs={12} sm={12} md={6}>
+            <Grid
+              xs={12}
+              sm={12}
+              md={6}
+              style={{
+                padding: "10px",
+              }}
+            >
               <TextField
                 label="Vechicle"
                 value={selectedAvailability && selectedAvailability.vehicle}
                 disabled={true}
               />
             </Grid>
-            <Grid xs={12} sm={12} md={6}>
+            <Grid
+              xs={12}
+              sm={12}
+              md={6}
+              style={{
+                padding: "10px",
+              }}
+            >
               <TextField
                 label="Meetup"
                 value={selectedAvailability && selectedAvailability.meetUp}

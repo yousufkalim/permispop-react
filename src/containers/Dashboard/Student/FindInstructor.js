@@ -28,6 +28,8 @@ const Index = () => {
   const { i18n, t } = useTranslation();
   const user = JSON.parse(localStorage.getItem("user"));
   const history = useHistory();
+  const [profileData, setProfileData] = useState("");
+
   // states
   const [filters, setFilters] = useState({
     Gearbox: "All",
@@ -110,8 +112,15 @@ const Index = () => {
     history.push("/student/chat");
   };
 
-  const handleProfile = () => {
-    console.log("In Profile");
+  const handleProfileModalClose = () => setProfileModal(false);
+
+  const handleProfile = (e) => {
+    let selectedBooking = instructors.find((instructor) => {
+      if (instructor.id === e.id) {
+        return instructor;
+      }
+    });
+    setProfileData(selectedBooking);
     setProfileModal(true);
   };
   const handleClose = () => setProfileModal(false);
@@ -296,81 +305,84 @@ const Index = () => {
       )}
       <BasicModal
         open={profileModal}
-        onClose={handleClose}
+        onClose={handleProfileModalClose}
         modalboxclassName="profile_modal"
       >
-        {instructors.map((item) => {
-          return (
-            <div>
-              <div className="profile_img_div">
-                <img
-                  src={
-                    item?.photo
-                      ? item?.photo
-                      : item.photo === "null" || "undefined"
-                      ? Image
-                      : item.photo
-                  }
-                  alt=""
-                  className="profile_img"
-                />
-              </div>
-              <div className="profile_text_div">
-                <p className="profile_text_left">
-                  {item.firstName} {item.surName}
-                </p>
-              </div>
-              <div className="profile_text_div">
-                <p className="profile_text_right">
-                  <LocationOnIcon style={{ marginRight: 5 }} />
-                  {item.address}
-                  {item.zip} {item.city}
-                </p>
-              </div>
-              <div className="profile_text_div">
-                <p className="profile_text_right">{item.contactEmail}</p>
-              </div>
-              <div className="profile_text_div">
-                <p className="profile_text_right">{item.gender}</p>
-              </div>
+        <div>
+          <div className="profile_img_div">
+            <img
+              src={
+                profileData?.photo
+                  ? profileData?.photo
+                  : profileData.photo === "null" || "undefined"
+                  ? profileData
+                  : profileData.photo
+              }
+              alt=""
+              className="profile_img"
+            />
+          </div>
+          <div className="profile_text_div">
+            <p className="profile_text_left">
+              {profileData.firstName} {profileData.surName}
+            </p>
+          </div>
+          <div className="profile_text_div">
+            <p
+              className="profile_text_right"
+              style={{
+                display: "flex",
+                alignItems: "flex-start",
+                justifyContent: "flex-start",
+              }}
+            >
+              <LocationOnIcon style={{ marginTop: -5, marginLeft: 10 }} />
+              {profileData.address}
+              {profileData.zip} {profileData.city}
+            </p>
+          </div>
+          <div className="profile_text_div">
+            <p className="profile_text_right">{profileData.contactEmail}</p>
+          </div>
+          <div className="profile_text_div">
+            <p className="profile_text_right">{profileData.gender}</p>
+          </div>
 
-              <div className="profile_text_div">
-                <p className="profile_text_right">
-                  {moment(item.dob).format("DD/MM/YYYY")}
-                </p>
-              </div>
-              <div className="profile_text_div">
-                <p className="profile_text_right">{item.placeOfBirth}</p>
-              </div>
-              <div className="profile_text_div">
-                <p className="profile_text_right">{item.complement} </p>
-              </div>
+          <div className="profile_text_div">
+            <p className="profile_text_right">
+              {moment(profileData.dob).format("DD/MM/YYYY")}
+            </p>
+          </div>
+          <div className="profile_text_div">
+            <p className="profile_text_right">{profileData.placeOfBirth}</p>
+          </div>
+          <div className="profile_text_div">
+            <p className="profile_text_right">{profileData.complement} </p>
+          </div>
 
-              <div className="icons">
-                <div className="profile_icons_div">
-                  <div className="icon_style_div">
-                    <img src={Project} alt="" />
-                  </div>
-                  <div className="popup_text">
-                    <p className="icons_text1">{item.BookingLength}</p>
-                    <p className="icons_text2">Bookings</p>
-                  </div>
-                </div>
-                <div className="profile_icons_div">
-                  <div className="icon_style_div">
-                    <img src={Rating} alt="" />
-                  </div>
-                  <div>
-                    <p className="icons_text1">
-                      {item.Rating != "NaN" ? item.Rating : "N/A"}
-                    </p>
-                    <p className="icons_text2">Ratings</p>
-                  </div>
-                </div>
+          <div className="icons">
+            <div className="profile_icons_div">
+              <div className="icon_style_div">
+                <img src={Project} alt="" />
+              </div>
+              <div className="popup_text">
+                {/* <p className="icons_text1">{profileData.BookingLength}</p> */}
+                <p className="icons_text2">Bookings</p>
               </div>
             </div>
-          );
-        })}
+            <div className="profile_icons_div">
+              <div className="icon_style_div">
+                <img src={Rating} alt="" />
+              </div>
+              <div>
+                <p className="icons_text1">
+                  {/* {profileData.Rating != "NaN" ? profileData.Rating : "N/A"} */}
+                </p>
+                <p className="icons_text2">Ratings</p>
+              </div>
+            </div>
+          </div>
+        </div>
       </BasicModal>
     </div>
   );

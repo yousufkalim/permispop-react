@@ -30,8 +30,7 @@ const Index = () => {
         `Dispute/GetAllDisputeByStudentId/?id=${userData.id}`
       ).then((res) => {
         setDispute(res.data.data);
-
-        setDispute(res.data.data);
+        setLoading(false);
       });
     } else {
       await API(
@@ -39,8 +38,7 @@ const Index = () => {
         `Dispute/GetAllDisputeByInstructorId/?id=${userData.id}`
       ).then((res) => {
         setDispute(res.data.data);
-
-        setDispute(res.data.data);
+        setLoading(false);
       });
     }
   };
@@ -135,11 +133,6 @@ const Index = () => {
                 </TableHead>
               )}
             </TableBody>
-            <Divider
-              width="100%"
-              borderColor="#D5E4E8"
-              margin="2% 0px 2% 0px"
-            />
           </Table>
         )}
       </TableContainer>
