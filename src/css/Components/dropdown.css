@@ -31,7 +31,17 @@
     background-color: #fff !important;
   }
 
+  .Scrollbar{
   
+    overflow-x: auto;
+    
+    /* hide scrollbar for IE, Edge and Firefox */
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+  .Scrollbar::-webkit-scrollbar {
+    display: none;
+  }
   @media (max-width:992px) {
     .MuiInputLabel-formControl {
         font-size: 20px !important;

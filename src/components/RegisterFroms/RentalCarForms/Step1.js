@@ -331,7 +331,7 @@ const Step1 = ({ step1, setStep1, onChange, step1Errors }) => {
             ErrorMsg={t(step1Errors["ConfirmPassword"])}
           ></TextField>
         </Grid>
-        <Grid item xs={12} sm={12} md={6}>
+        <Grid item xs={12} sm={12} md={7}>
           <TextField
             label={t(
               "How much time you will give to students of our platforms?"

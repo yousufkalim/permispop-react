@@ -462,7 +462,7 @@ const Step1 = (props) => {
               // ErrorMsg={props.step1Errors['OtherPlateform']}
             ></TextField>
           </Grid>
-          <Grid item xs={12} sm={12} md={6}>
+          <Grid item xs={12} sm={12} md={8}>
             <TextField
               label={t(
                 "How much time will you give to the students of our platform?(hr/month)"

@@ -163,7 +163,7 @@ export default function Header(props) {
           type="submit"
           text={t("Login")}
           buttonLableStyle="btn_main"
-          width="20%"
+          // width="20%"
           onClick={handleLoginOpen}
         ></Button>
 

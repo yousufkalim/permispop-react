@@ -1099,7 +1099,6 @@ const StudentForm = (props) => {
               text={t("Register")}
               buttonLableStyle="btn_main"
               style={{ marginTop: "24px" }}
-              width="10%"
               customWidth1="100%"
               height="48px"
               height2="48px"

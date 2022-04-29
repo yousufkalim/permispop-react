@@ -71,6 +71,11 @@ const InsuranceDetails = () => {
         let vehicle1Id = JSON.parse(
           DSprofileRes.data.data.drivingSchoolVehiclesInfoId
         ).Vehicle1;
+        console.log("vehicle1Id", vehicle1Id);
+        console.log(
+          "DSprofileRes.data.data.drivingSchoolVehiclesInfoId",
+          DSprofileRes.data.data.drivingSchoolVehiclesInfoId
+        );
 
         await API(
           "get",
@@ -80,9 +85,15 @@ const InsuranceDetails = () => {
 
           setVehicleDetail(VehicelDetailres.data.data);
 
-          let technicalId = JSON.parse(
+          let technicalId = VehicelDetailres.data.data.technicalControlInfoID
+            ? JSON.parse(VehicelDetailres.data.data.technicalControlInfoID).id
+            : "";
+          console.log("technicalId", technicalId);
+
+          console.log(
+            " VehicelDetailres.data.data.technicalControlInfoID",
             VehicelDetailres.data.data.technicalControlInfoID
-          ).id;
+          );
 
           let vehicleInsuranceId = JSON.parse(
             VehicelDetailres.data.data.vehichleInsuranceInfoId
@@ -95,6 +106,7 @@ const InsuranceDetails = () => {
             console.log("Technicalcontrolres", Technicalcontrolres);
             setTechnicalControl(Technicalcontrolres.data.data);
           });
+
           await API(
             "get",
             `VehicleInsurance/GetVehicleInsuranceByIdAsync?id=${vehicleInsuranceId}`
