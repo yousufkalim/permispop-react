@@ -136,13 +136,13 @@ export default function Header(props) {
           <li>
             <ul>
               <li>
-                <a href={frontUrl}> {t("Home")} </a>
+                <a href={frontUrl + "#home"}> {t("Home")} </a>
               </li>
               <li>
-                <a href={frontUrl}> {t("Services")} </a>
+                <a href={frontUrl + "#services"}> {t("Services")} </a>
               </li>
               <li>
-                <a href={frontUrl}> {t("Contact Us")} </a>
+                <a href={frontUrl + "#contactUs"}> {t("Contact Us")} </a>
               </li>
             </ul>
           </li>
