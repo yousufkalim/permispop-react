@@ -1,6 +1,7 @@
 import React from "react";
 import Typography from "@mui/material/Typography";
 import ChatAvatar from "./BasicAvatar";
+import moment from "moment";
 
 const Chatlist = (props) => {
   return (
@@ -42,7 +43,7 @@ const Chatlist = (props) => {
             </Typography>
           </div>
         </div>
-        {/* <div className="NewMsgHeaderRight">
+        <div className="NewMsgHeaderRight">
           <Typography
             className="NewMsgHeaderRightText"
             sx={{
@@ -51,9 +52,9 @@ const Chatlist = (props) => {
               color: "#B3B5C2",
             }}
           >
-            1 minute ago
+            Last Online{moment(props.item.last_activeTime).format(" hh:mm")}
           </Typography>
-        </div> */}
+        </div>
       </div>
       <div className="NewMsgTextDiv">
         <div className="NewMsgTextLeft">
