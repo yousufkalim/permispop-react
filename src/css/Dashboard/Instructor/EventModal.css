@@ -9,10 +9,10 @@
 }
 .availability-modal {
   background-color: #ffffff !important;
-  height: 640px !important;
-  width: 888px !important;
+  width: 70% !important;
+  margin-top: 2% !important;
+  height: 90% !important;
   border-radius: 15px !important;
-  overflow: hidden !important;
 }
 .tab-list {
 }
@@ -38,7 +38,7 @@
   justify-content: flex-end !important;
 }
 .booking-modal {
-  width: 840px !important;
+  width: 70% !important;
   border-radius: 15px !important;
   overflow: hidden !important;
   margin-bottom: 24px !important;
