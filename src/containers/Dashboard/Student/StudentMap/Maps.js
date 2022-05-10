@@ -95,7 +95,6 @@ const Maps = (props) => {
       `Chat/getorcreatechatroom?userA=${studentData.id}&userB=${instructorData.id}`
     )
       .then((ChatroomResponse) => {
-        console.log(ChatroomResponse.data.data.id);
         localStorage.setItem(
           "ChatroomId",
           JSON.stringify(ChatroomResponse.data.data.id)
