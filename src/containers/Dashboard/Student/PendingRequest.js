@@ -27,6 +27,7 @@ import LocationOnIcon from "@mui/icons-material/LocationOn";
 import BasicModal from "../../../components/Common/BasicModal";
 import Project from "../../../assets/images/form.svg";
 import Rating from "../../../assets/images/path2006.svg";
+import Ratings from "../../../components/Common/Rating";
 
 function createData(bookingwith, date, startTime, duration, status, id) {
   return { bookingwith, date, startTime, duration, status, id };
@@ -47,8 +48,23 @@ const Index = () => {
     borderRadius: "10px",
     p: 4,
   };
+  const style3 = {
+    position: "absolute",
+    top: "55%",
+    left: "50%",
+    width: "30%",
+    height: "80%",
+    overflow: "scroll",
+    transform: "translate(-50%, -50%)",
+    bgcolor: "background.paper",
+    boxShadow: 24,
+    borderRadius: "10px",
+    p: 4,
+  };
   const [pendingRequestsrows, setPendingRequestsrows] = useState([]);
   const [Startvalue, setStartValue] = useState(new Date());
+  const [selectedBooking, setSelectedBooking] = useState([]);
+  const [lowRating, setLowRating] = useState(false);
   const [updatefield, SetUpdateField] = useState("");
   const [allBookingsWithUser, setAllBookingsWithUser] = useState([]);
   const [selectedUserData, setSelectedUserData] = useState([]);
@@ -62,7 +78,10 @@ const Index = () => {
   const [commentsData, setCommentsData] = useState("");
   const [chatData, setChatData] = useState("");
   const [updateBookingId, SetUpdateBookingId] = useState("");
+  const [selectedRatingValue, setSelectedRatingValue] = useState("");
+  const [reminder, setReminder] = useState("");
 
+  const [openRatingModal, setOpenRatingModal] = useState(false);
   const history = useHistory();
 
   const handleStartdate = (newValue) => {
@@ -127,6 +146,7 @@ const Index = () => {
     allBookingsWithUser.map((booking) => {
       if (id === booking.id) {
         setSelectedUserData(booking.studentData);
+        setSelectedBooking(booking);
       }
     });
     if (status == "Complete" || status == "In progress" || status == "Closed") {
@@ -136,6 +156,7 @@ const Index = () => {
       ).then((res) => {
         getPendingRequestData(user);
         toast.success(t("Status is updated successful"));
+        setOpenRatingModal(true);
       });
     } else {
       SetUpdateBookingId(id);
@@ -225,7 +246,38 @@ const Index = () => {
         console.log(error);
       });
   };
+  const handleRatingValue = (e) => {
+    if (e.target.value <= 3) {
+      setLowRating(true);
+    } else {
+      setLowRating(false);
+    }
+    setSelectedRatingValue(e.target.value);
+  };
 
+  const handleRating = async () => {
+    await API("post", `FeedBacks/AddFeedback`, {
+      bookingId: selectedBooking.id,
+      fromId: user.id,
+      id: "",
+      comment: comment,
+      rating: selectedRatingValue,
+      ratingFrom: user.role,
+      toId: selectedUserData.id,
+      lRateReason: updatefield ? updatefield : "",
+      feedBackDate: new Date(),
+    }).then(async (fedbackres) => {
+      console.log("fedbackres", fedbackres.data.data);
+      await API("post", `FeedBacks/SaveBookingReminder`, {
+        BookingId: selectedBooking.id,
+        ReminderComment: reminder,
+      }).then((reminderres) => {
+        console.log("reminderres", reminderres);
+        toast.success("Rating submitted successfully");
+        setOpenRatingModal(false);
+      });
+    });
+  };
   return (
     <>
       {/* <MobileViewFilters title={t("Pending requests")} /> */}
@@ -353,7 +405,7 @@ const Index = () => {
             minRows={5}
             placeholder={t("Comments")}
             name="comment"
-            onChange={(e) => setComment(e.target.name)}
+            onChange={(e) => setComment(e.target.value)}
             style={{ width: "100%", borderRadius: "5px", padding: "2%" }}
           />
           <div style={{ marginTop: "2%" }}>
@@ -448,6 +500,151 @@ const Index = () => {
           </div>
         </div>
       </BasicModal>
+      <Modal
+        aria-labelledby="spring-modal-title"
+        aria-describedby="spring-modal-description"
+        open={openRatingModal}
+        onClose={() => setOpenRatingModal(false)}
+        closeAfterTransition
+        BackdropProps={{
+          timeout: 500,
+        }}
+      >
+        <Box sx={style3} className="Scrollbar">
+          {/* <FormControl>
+            <FormLabel
+              id="demo-radio-buttons-group-label"
+              sx={{ fontWeight: "550" }}
+            ></FormLabel>
+          </FormControl> */}
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              marginBottom: "4%",
+            }}
+          >
+            <Typography
+              sx={{ fontSize: "32px", fontWeight: "600", color: "#49544F" }}
+            >
+              Give Feedback
+            </Typography>
+          </div>
+          <div style={{ display: "flex", justifyContent: "center" }}>
+            <img
+              src={selectedUserData.photo}
+              className="profile_img"
+              style={{ marginBottom: "4%" }}
+            />
+          </div>
+          <Grid sx={{ display: "flex", justifyContent: "center" }}>
+            <Typography
+              sx={{ fontSize: "28px", fontWeight: "600", color: "#49544F" }}
+            >
+              {selectedUserData.firstName}
+            </Typography>
+          </Grid>
+          <div style={{ display: "flex", justifyContent: "center" }}>
+            <Typography
+              sx={{ fontSize: "20px", fontWeight: "500", color: "#49544F" }}
+            >
+              Learn Car Driving with Permispop
+            </Typography>
+          </div>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              marginTop: "-13px",
+            }}
+          >
+            <Ratings onChange={(e) => handleRatingValue(e)}></Ratings>
+          </div>
+
+          <TextareaAutosize
+            aria-label="minimum height"
+            minRows={5}
+            placeholder={t("Rating Reminder")}
+            name="comment"
+            onChange={(e) => setReminder(e.target.value)}
+            style={{
+              width: "100%",
+              borderRadius: "5px",
+              padding: "2%",
+              border: "none",
+              background: "#FAFAFA",
+              marginTop: "10%",
+            }}
+          />
+
+          {lowRating && (
+            <div>
+              <RadioGroup>
+                <FormControlLabel
+                  value="Latedelivery"
+                  control={<Radio />}
+                  label={t("Late delivery")}
+                  onChange={(e) => SetUpdateField(e.target.value)}
+                />
+                <FormControlLabel
+                  value="Payment issue"
+                  control={<Radio />}
+                  label={t("Payment issue")}
+                  onChange={(e) => SetUpdateField(e.target.value)}
+                />
+                <FormControlLabel
+                  value="Harrasment"
+                  control={<Radio />}
+                  label={t("Harrasment")}
+                  onChange={(e) => SetUpdateField(e.target.value)}
+                />
+                <FormControlLabel
+                  value="AbusingLanguage"
+                  control={<Radio />}
+                  label={t("Abusing Language")}
+                  onChange={(e) => SetUpdateField(e.target.value)}
+                />
+              </RadioGroup>
+              <TextareaAutosize
+                aria-label="minimum height"
+                minRows={5}
+                placeholder={t("Description")}
+                name="comment"
+                onChange={(e) => setComment(e.target.value)}
+                style={{
+                  width: "100%",
+                  borderRadius: "5px",
+                  padding: "2%",
+                  border: "none",
+                  background: "#FAFAFA",
+                }}
+              />
+            </div>
+          )}
+          <Grid container spacing={1} sx={{ marginTop: "8%" }}>
+            <Grid sx={6} sm={6} md={6}>
+              <Button
+                text={t("Not Now")}
+                width="95% !important"
+                variant="outlined"
+                color="#fff"
+                textColor="black"
+                borderRadius="10px"
+                onClick={(e) => setOpenRatingModal(false)}
+              ></Button>
+            </Grid>
+            <Grid sx={6} sm={6} md={6}>
+              <Button
+                text={t("Submit Rating")}
+                width="95% !important"
+                color="#149e7a"
+                borderRadius="10px"
+                onClick={(e) => handleRating(e)}
+              ></Button>
+            </Grid>
+          </Grid>
+        </Box>
+      </Modal>
     </>
   );
 };
