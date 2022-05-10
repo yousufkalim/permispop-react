@@ -17,6 +17,7 @@ import { toast } from "react-toastify";
 import { useHistory } from "react-router-dom";
 import { chatUrl } from "../../../../config";
 import { useTranslation } from "react-i18next";
+import NoMessage from "../../../../components/Common/NoMessage.js";
 
 const user = JSON.parse(localStorage.getItem("user"));
 const Index = (props) => {
@@ -35,7 +36,10 @@ const Index = (props) => {
 
   useEffect(() => {
     ChatList(user);
-    const newConnection = new HubConnectionBuilder().withUrl(`${chatUrl}/chathub`).withAutomaticReconnect().build();
+    const newConnection = new HubConnectionBuilder()
+      .withUrl(`${chatUrl}/chathub`)
+      .withAutomaticReconnect()
+      .build();
     setConnection(newConnection);
   }, []);
   useEffect(() => {
@@ -61,63 +65,69 @@ const Index = (props) => {
   }, [connection]);
 
   const ChatList = async (user) => {
-    await API("get", `Chat/GetChatList/?id=${user.id}`).then((GetChatListResponse) => {
-      let array = [];
-      GetChatListResponse.data.data.map((item) => {
-        let A = JSON.parse(item.userA);
-        let B = JSON.parse(item.userB);
-        if (A.id === user.id) {
-          array.push({
-            chatroom_id: item.id,
-            chatroom_label: `${B.firstName} ${B.surName}`,
-            user_role: B.role,
-            reciever: B.id,
-            isOnline: B.isOnline,
-            lastSeen: B.lastSeen,
-            block: item.block,
-            blockBy: item.blockBy,
-            last_activeTime: B.lastActiveTime,
-            profile_photo: B.photo,
-            lastMessage: item.lastMessage,
-          });
-        } else if (B.id === user.id) {
-          array.push({
-            chatroom_id: item.id,
-            chatroom_label: `${A.firstName} ${A.surName}`,
-            user_role: A.role,
-            reciever: A.id,
-            isOnline: A.isOnline,
-            lastSeen: A.lastSeen,
-            block: item.block,
-            blockBy: item.blockBy,
-            last_activeTime: A.lastActiveTime,
-            profile_photo: A.photo,
-            lastMessage: item.lastMessage,
-          });
-        }
-      });
-      setUserData(array);
-      setFilteredUserData(array);
-    });
+    await API("get", `Chat/GetChatList/?id=${user.id}`).then(
+      (GetChatListResponse) => {
+        let array = [];
+        GetChatListResponse.data.data.map((item) => {
+          let A = JSON.parse(item?.userA);
+          let B = JSON.parse(item?.userB);
+          if (A?.id != null && B?.id != null) {
+            if (A?.id === user.id) {
+              array.push({
+                chatroom_id: item.id,
+                chatroom_label: `${B.firstName} ${B.surName}`,
+                user_role: B.role,
+                reciever: B.id,
+                isOnline: B.isOnline,
+                lastSeen: B.lastSeen,
+                block: item.block,
+                blockBy: item.blockBy,
+                last_activeTime: B.lastActiveTime,
+                profile_photo: B.photo,
+                lastMessage: item.lastMessage,
+              });
+            } else if (B?.id === user.id) {
+              array.push({
+                chatroom_id: item.id,
+                chatroom_label: `${A.firstName} ${A.surName}`,
+                user_role: A.role,
+                reciever: A.id,
+                isOnline: A.isOnline,
+                lastSeen: A.lastSeen,
+                block: item.block,
+                blockBy: item.blockBy,
+                last_activeTime: A.lastActiveTime,
+                profile_photo: A.photo,
+                lastMessage: item.lastMessage,
+              });
+            }
+          }
+        });
+        setUserData(array);
+        setFilteredUserData(array);
+      }
+    );
   };
   // get Messages api
   const GetMessages = async (item) => {
     setSelectedChat(item);
-    await API("get", `Chat/GetMessages/?chatId=${item.chatroom_id}`).then((GetMessagesResponse) => {
-      let chatArray = [];
-      GetMessagesResponse.data.data.messages.map((item) => {
-        let msg = JSON.parse(item);
-        chatArray.push({
-          sender: msg.sender,
-          reciever: msg.reciever,
-          message: msg.message,
-          timeStamp: msg.timeStamp,
-          readMsg: msg.readMsg,
-          id: msg.id,
+    await API("get", `Chat/GetMessages/?chatId=${item.chatroom_id}`).then(
+      (GetMessagesResponse) => {
+        let chatArray = [];
+        GetMessagesResponse.data.data.messages.map((item) => {
+          let msg = JSON.parse(item);
+          chatArray.push({
+            sender: msg.sender,
+            reciever: msg.reciever,
+            message: msg.message,
+            timeStamp: msg.timeStamp,
+            readMsg: msg.readMsg,
+            id: msg.id,
+          });
         });
-      });
-      setChatMessages(chatArray);
-    });
+        setChatMessages(chatArray);
+      }
+    );
   };
   // sending message method
   const sendMessage = async (message) => {
@@ -159,9 +169,11 @@ const Index = (props) => {
       setFilteredUserData(userData);
     }
   };
-  const LastOnline = moment(selectedChat.lastSeen).format("hh:mm / DD-MM-YYYY");
+  const LastOnline = moment(selectedChat.last_activeTime).format(
+    "hh:mm / DD-MM-YYYY"
+  );
   const scrollToBottom = () => {
-    messagesEndRef.current.scrollIntoView({ block: "end" });
+    messagesEndRef?.current?.scrollIntoView({ block: "end" });
   };
   const handleKeypress = (e) => {
     if (e.key === "Enter") {
@@ -177,7 +189,9 @@ const Index = (props) => {
               <div>
                 <Typography className="ChatHeading">{t("Chats")}</Typography>
                 <div className="ChatListVector">
-                  <Typography className="ChatVector">{t("Recent chat")}</Typography>
+                  <Typography className="ChatVector">
+                    {t("Recent chat")}
+                  </Typography>
                 </div>
               </div>
             </div>
@@ -185,176 +199,236 @@ const Index = (props) => {
             <div className="SearchDiv">
               <div className="SearchText">
                 <img src={SearchIcon} />
-                <input placeholder={t("Search")} className="SearchBoxTypingField" value={search} onChange={handleSearch} />
+                <input
+                  placeholder={t("Search")}
+                  className="SearchBoxTypingField"
+                  value={search}
+                  onChange={handleSearch}
+                />
               </div>
             </div>
 
-            <div className="ListScroller">
-              {filteredUserData.map((item) => {
-                return <Chatlist item={item} GetMessages={GetMessages} />;
-              })}
-            </div>
+            {filteredUserData.length !== 0 ? (
+              <div className="ListScroller">
+                {filteredUserData.map((item) => {
+                  return <Chatlist item={item} GetMessages={GetMessages} />;
+                })}
+              </div>
+            ) : (
+              <div
+                style={{
+                  marginTop: "30%",
+                }}
+              >
+                <NoMessage msgText={"No Message"} />
+              </div>
+            )}
           </Grid>
           <div style={{ width: "20px" }}></div>
-          <Grid
-            xs={10}
-            sm={10}
-            md={10}
-            lg={6}
-            sx={{
-              backgroundColor: "white",
-              marginLeft: "15px",
-              padding: "30px",
-              height: "fit-content",
-              marginTop: "20px",
-              borderRadius: "10px",
-            }}
-          >
-            <div className="ChatBoxHeader">
-              <div className="ChatBoxAvatar">
-                <ChatAvatar
-                  className="AvatarClass"
-                  sx={{ marginTop: "20px" }}
-                  src={selectedChat.profile_photo}
-                  showActiveStatus={true}
-                  online={selectedChat.isOnline}
-                />
-                <div>
-                  <Typography
-                    sx={{
-                      marginTop: "10px",
-                      paddingLeft: "10px",
-                      fontFamily: "Inter",
-                      fontStyle: " normal",
-                      fontWeight: 500,
-                      fontSize: "18px",
-                      lineHight: "34px",
-                      color: "#2A3235",
-                    }}
-                  >
-                    {selectedChat ? selectedChat.chatroom_label : ""}
-                  </Typography>
-                  <Typography
-                    sx={{
-                      paddingLeft: "12px",
+          {Object.keys(selectedChat).length !== 0 ? (
+            <Grid
+              xs={10}
+              sm={10}
+              md={10}
+              lg={6}
+              sx={{
+                backgroundColor: "white",
+                marginLeft: "15px",
+                padding: "30px",
+                height: "fit-content",
+                marginTop: "20px",
+                borderRadius: "10px",
+                display: filteredUserData.length === 0 ? "none" : "",
+              }}
+            >
+              <div className="ChatBoxHeader">
+                <div className="ChatBoxAvatar">
+                  <ChatAvatar
+                    className="AvatarClass"
+                    sx={{ marginTop: "20px" }}
+                    src={selectedChat.profile_photo}
+                    showActiveStatus={true}
+                    online={selectedChat.isOnline}
+                  />
+                  <div>
+                    <Typography
+                      sx={{
+                        marginTop: "10px",
+                        paddingLeft: "10px",
+                        fontFamily: "Inter",
+                        fontStyle: " normal",
+                        fontWeight: 500,
+                        fontSize: "18px",
+                        lineHight: "34px",
+                        color: "#2A3235",
+                      }}
+                    >
+                      {selectedChat ? selectedChat.chatroom_label : ""}
+                    </Typography>
+                    <Typography
+                      sx={{
+                        paddingLeft: "12px",
 
-                      fontFamily: "Inter",
-                      fontStyle: " normal",
-                      fontWeight: 600,
-                      fontSize: "14px",
-                      lineHight: "15px",
-                      color: "#149E7A",
-                    }}
-                  >
-                    {selectedChat.isOnline === false
-                      ? LastOnline !== "Invalid date"
-                        ? `Last seen at ${LastOnline}`
-                        : "N/A"
-                      : selectedChat.isOnline === true
-                      ? "Online"
-                      : `Last seen at ${LastOnline}`}
-                  </Typography>
+                        fontFamily: "Inter",
+                        fontStyle: " normal",
+                        fontWeight: 600,
+                        fontSize: "14px",
+                        lineHight: "15px",
+                        color: "#149E7A",
+                      }}
+                    >
+                      {selectedChat.isOnline === false
+                        ? LastOnline !== "Invalid date"
+                          ? `Last seen at ${LastOnline}`
+                          : "N/A"
+                        : selectedChat.isOnline === true
+                        ? "Online"
+                        : `Last seen at ${LastOnline}`}
+                    </Typography>
+                  </div>
                 </div>
+                {/* <div>
+                  <button
+                    type="submit"
+                    className="ChatButton"
+                    style={{ backgroundColor: "#FFA333" }}
+                    onClick={() => history.push("/student/booking")}
+                  >
+                    {t("Book Me")}
+                  </button>
+                </div> */}
               </div>
-              <div>
-                <button
-                  type="submit"
-                  className="ChatButton"
-                  style={{ backgroundColor: "#FFA333" }}
-                  onClick={() => history.push("/student/booking")}
-                >
-                  {t("Book Me")}
-                </button>
-              </div>
-            </div>
-            <Divider width="100%" borderColor="#D5E4E8" margin="2% 0px 2% 0px" />
-            <div className="ChatboxScroller">
-              {chatMessages.map((item, index) => {
-                return item.reciever === user.id ? (
-                  <div className="ChatReceived">
-                    <div className="AvatarClass">
-                      <ChatAvatar className="AvatarClass" src={selectedChat.profile_photo} showActiveStatus={false} />
+              <Divider
+                width="100%"
+                borderColor="#D5E4E8"
+                margin="2% 0px 2% 0px"
+              />
+              <div className="ChatboxScroller">
+                {chatMessages.map((item, index) => {
+                  return item.reciever === user.id ? (
+                    <div className="ChatReceived">
+                      <div className="AvatarClass">
+                        <ChatAvatar
+                          className="AvatarClass"
+                          src={selectedChat.profile_photo}
+                          showActiveStatus={false}
+                        />
+                      </div>
+                      <div className="ReceivedText">
+                        <div className="ReceivedDots">
+                          <Typography
+                            sx={{
+                              wordBreak: "break-all",
+                              padding: "18px",
+                              margin: "4px",
+                              fontFamily: "Inter",
+                              width: "fit-content",
+                              borderRadius: "0px 10px 10px 10px",
+                              fontStyle: "normal",
+                              fontWeight: 500,
+                              fontSize: "14px",
+                              lineHight: "15px",
+                              color: "#EAFFEB",
+                              backgroundColor: "#149E7A",
+                            }}
+                          >
+                            {item.message}
+                          </Typography>
+                        </div>
+                      </div>
                     </div>
-                    <div className="ReceivedText">
-                      <div className="ReceivedDots">
+                  ) : item.sender === user.id ? (
+                    <div className="SentDiv">
+                      <div
+                        id={chatMessages.length === index + 1 ? "lastMsg" : ""}
+                        className="SentText"
+                      >
                         <Typography
                           sx={{
-                            wordBreak: "break-all",
-                            padding: "18px",
-                            margin: "4px",
+                            padding: "15px",
+                            marginBottom: "4px",
                             fontFamily: "Inter",
-                            width: "fit-content",
-                            borderRadius: "0px 10px 10px 10px",
-                            fontStyle: "normal",
+                            maxWidth: "fit-content",
+                            border: "1px solid #F0F0F0",
+                            borderRadius: "10px 10px 0px 10px",
+                            fontStyle: " normal",
                             fontWeight: 500,
                             fontSize: "14px",
                             lineHight: "15px",
-                            color: "#EAFFEB",
-                            backgroundColor: "#149E7A",
+                            color: "#2A3235",
                           }}
                         >
                           {item.message}
                         </Typography>
+
+                        {item.readMsg === "Delivered" ? (
+                          <DoubleTick
+                            style={{ color: "#d2d7d9", margin: "7px" }}
+                          />
+                        ) : item.readMsg === "Seen" ? (
+                          <DoubleTick
+                            style={{ color: "#79d8f2", margin: "7px" }}
+                          />
+                        ) : (
+                          <SingleTick
+                            style={{ color: "#d2d7d9", margin: "7px" }}
+                          />
+                        )}
                       </div>
                     </div>
-                  </div>
-                ) : item.sender === user.id ? (
-                  <div className="SentDiv">
-                    <div id={chatMessages.length === index + 1 ? "lastMsg" : ""} className="SentText">
-                      <Typography
-                        sx={{
-                          padding: "15px",
-                          marginBottom: "4px",
-                          fontFamily: "Inter",
-                          maxWidth: "fit-content",
-                          border: "1px solid #F0F0F0",
-                          borderRadius: "10px 10px 0px 10px",
-                          fontStyle: " normal",
-                          fontWeight: 500,
-                          fontSize: "14px",
-                          lineHight: "15px",
-                          color: "#2A3235",
-                        }}
-                      >
-                        {item.message}
-                      </Typography>
-
-                      {item.readMsg === "Delivered" ? (
-                        <DoubleTick style={{ color: "#d2d7d9", margin: "7px" }} />
-                      ) : item.readMsg === "Seen" ? (
-                        <DoubleTick style={{ color: "#79d8f2", margin: "7px" }} />
-                      ) : (
-                        <SingleTick style={{ color: "#d2d7d9", margin: "7px" }} />
-                      )}
-                    </div>
-                  </div>
-                ) : (
-                  ""
-                );
-              })}
-              <div ref={messagesEndRef} />
-            </div>
-            <Divider width="100%" borderColor="#D5E4E8" margin="2% 0px 2% 0px" className="MessageDivider" />
-
-            <div className="MessageDiv">
-              <div className="MessageText">
-                <input
-                  placeholder={t("Type a message here")}
-                  className="ChatBoxTypingField"
-                  onKeyPress={handleKeypress}
-                  value={message}
-                  onChange={(e) => {
-                    setMessage(e.target.value);
-                  }}
-                />
+                  ) : (
+                    ""
+                  );
+                })}
+                <div ref={messagesEndRef} />
               </div>
-              <div className="MessageRight" onClick={onClick}>
-                <Fab size="small" color="secondary" aria-label="add" sx={{ margin: "10px" }}>
-                  <img src={SendVector} />
-                </Fab>
+              <Divider
+                width="100%"
+                borderColor="#D5E4E8"
+                margin="2% 0px 2% 0px"
+                className="MessageDivider"
+              />
+
+              <div className="MessageDiv">
+                <div className="MessageText">
+                  <input
+                    placeholder={t("Type a message here")}
+                    className="ChatBoxTypingField"
+                    onKeyPress={handleKeypress}
+                    value={message}
+                    onChange={(e) => {
+                      setMessage(e.target.value);
+                    }}
+                  />
+                </div>
+                <div className="MessageRight" onClick={onClick}>
+                  <Fab
+                    size="small"
+                    color="secondary"
+                    aria-label="add"
+                    sx={{ margin: "10px" }}
+                  >
+                    <img src={SendVector} />
+                  </Fab>
+                </div>
               </div>
-            </div>
-          </Grid>
+            </Grid>
+          ) : (
+            <Grid
+              xs={10}
+              sm={10}
+              md={10}
+              lg={6}
+              sx={{
+                marginLeft: "15px",
+                padding: "30px",
+                height: "fit-content",
+                marginTop: "15%",
+              }}
+            >
+              <NoMessage msgText={"No Chat Selected"} />
+            </Grid>
+          )}
         </Grid>
       </div>
     </>
