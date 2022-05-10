@@ -1,0 +1,15 @@
+.no_message_div{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.no_message{
+    margin-top: 15px;
+    font-weight: 600 !important;
+    color: #C8CFD0;
+}
+.no_message_icons{
+    margin-bottom: 10px;
+    width: 6.5rem;
+}
