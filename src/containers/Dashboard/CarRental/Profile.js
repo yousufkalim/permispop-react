@@ -18,6 +18,11 @@ import API from "../../../api";
 import { toast } from "react-toastify";
 import { useTranslation } from "react-i18next";
 import moment from "moment";
+import Ratings from "../../../components/Common/Rating";
+import Radio from "@mui/material/Radio";
+import RadioGroup from "@mui/material/RadioGroup";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import CircularProgress from "@mui/material/CircularProgress";
 
 const Profile = () => {
   const { i18n, t } = useTranslation();
@@ -32,6 +37,22 @@ const Profile = () => {
     borderRadius: "10px",
     p: 4,
   };
+  const style1 = {
+    position: "absolute",
+    top: "55%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: "65%",
+    height: "88%",
+    bgcolor: "background.paper",
+    boxShadow: 24,
+    overflowY: "scroll",
+    borderRadius: "10px",
+    paddingLeft: 4,
+    paddingRight: 4,
+    paddingBottom: 2,
+    paddingTop: 2,
+  };
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -41,6 +62,15 @@ const Profile = () => {
   const [openupdateprofilemodal, setOpenUpdateProfileModal] = useState(false);
   const [item, setItem] = React.useState("");
   const [disabled, setDisabled] = useState(false);
+  const [feedbackData, setFeedbackData] = useState([]);
+  const [selectedFeedback, setSelectedFeedback] = useState("");
+  const [comment, setComment] = useState("");
+  const [reminder, setReminder] = useState("");
+  const [lowRating, setLowRating] = useState(false);
+  const [selectedRatingValue, setSelectedRatingValue] = useState("");
+  const [ratingModal, setRatingModal] = React.useState(false);
+  const [updateFeedback, setUpdateFeedback] = useState(false);
+  const [loading, setLoading] = useState(false);
   const [instructorMeetupPointInfos, setInstructorMeetupPointInfos] =
     useState("");
   const [description, setDescription] = useState("");
@@ -56,6 +86,93 @@ const Profile = () => {
     getUser(userData);
   }, [update]);
 
+  useEffect(() => {
+    const userData = JSON.parse(localStorage.getItem("user"));
+    getUserToRate(userData.id);
+  }, [updateFeedback]);
+
+  const getUserToRate = async (id) => {
+    await API("get", `FeedBacks/GetAllUsersToRate/?id=${id}`).then((res) => {
+      if (res.data.data.length > 0) {
+        let newData = res.data.data.map(async (feedback) => {
+          return await API(
+            "get",
+            `Personal/GetAllById/?id=${feedback.toId}`
+          ).then(async (personalresponse) => {
+            return await API(
+              "get",
+              `bookings/GetBookingById/?id=${feedback.bookingId}`
+            ).then((bookingres) => {
+              feedback.toId = personalresponse.data.data;
+              feedback.bookingId = bookingres.data.data;
+              return feedback;
+            });
+          });
+        });
+
+        Promise.all(newData).then((res) => {
+          console.log("ress", res);
+          setRatingModal(true);
+          setFeedbackData(res);
+        });
+      } else {
+        setFeedbackData([]);
+        setRatingModal(false);
+      }
+    });
+  };
+
+  const handleRating = async (feedback) => {
+    if (selectedRatingValue === "" || selectedRatingValue === 0) {
+      toast.warning("Rating cannot be zero");
+    } else if (reminder === "") {
+      toast.warning("Reminder cannot be empty");
+    } else {
+      setLoading(true);
+
+      await API("post", `FeedBacks/UpdateFeedbacks`, {
+        bookingId: feedback.bookingId.id,
+        fromId: user.id,
+        id: feedback.id,
+        comment: comment,
+        rating: selectedRatingValue,
+        ratingFrom: user.role,
+        toId: feedback.toId.id,
+        lRateReason: updatefield ? updatefield : "",
+        feedBackDate: new Date(),
+      })
+        .then(async (fedbackres) => {
+          await API("post", `FeedBacks/SaveBookingReminder`, {
+            BookingId: feedback.bookingId.id,
+            ReminderComment: reminder,
+          })
+            .then((reminderres) => {
+              toast.success("Rating submitted successfully");
+              setUpdateFeedback(!updateFeedback);
+              setLoading(false);
+            })
+            .catch((e) => {
+              console.log("Error", e);
+              setLoading(false);
+            });
+        })
+        .catch((e) => {
+          console.log("Error", e);
+          setLoading(false);
+        });
+    }
+  };
+
+  // FeedBacks / UpdateFeedbacks;
+  const handleRatingValue = (e, feedback) => {
+    if (e.target.value <= 3) {
+      setLowRating(true);
+    } else {
+      setLowRating(false);
+    }
+    setSelectedRatingValue(e.target.value);
+    setSelectedFeedback(feedback.id);
+  };
   const getUser = async (userData) => {
     await API("get", `Personal/GetAllById?id=${userData.id}`).then((res) => {
       setUser(res.data.data);
@@ -451,7 +568,7 @@ const Profile = () => {
                 minRows={5}
                 placeholder={t("Description")}
                 name="description"
-                onChange={(e) => setDescription(e.target.name)}
+                onChange={(e) => setDescription(e.target.value)}
                 style={{ width: "100%", borderRadius: "5px", padding: "2%" }}
               />
               <div style={{ marginTop: "2%" }}>
@@ -463,6 +580,180 @@ const Profile = () => {
                   onClick={updateProfile}
                   disabled={disabled}
                 ></Button>
+              </div>
+            </Box>
+          </Modal>
+          <Modal
+            aria-labelledby="spring-modal-title"
+            aria-describedby="spring-modal-description"
+            open={ratingModal}
+            onClose={() => setRatingModal(false)}
+            closeAfterTransition
+            BackdropComponent={Backdrop}
+            BackdropProps={{
+              timeout: 500,
+            }}
+          >
+            <Box sx={style1} className="Scrollbar">
+              <div>
+                <div style={{ display: "flex", justifyContent: "center" }}>
+                  <Typography
+                    sx={{
+                      fontSize: "28px",
+                      fontWeight: "600",
+                      color: "#49544F",
+                    }}
+                  >
+                    Give Feedback
+                  </Typography>
+                </div>
+
+                {feedbackData.map((feedback) => {
+                  return (
+                    <Grid container spacing={1} sx={{ marginTop: "3%" }}>
+                      <Grid sx={12} sm={12} md={3}>
+                        <Typography
+                          sx={{
+                            fontSize: "20px",
+                            fontWeight: "600",
+                            color: "#149E7A",
+                          }}
+                        >
+                          {feedback.toId.firstName +
+                            " " +
+                            feedback.toId.surName}
+                        </Typography>
+                        <Typography
+                          sx={{
+                            fontSize: "16px",
+                            fontWeight: "400",
+                            color: "#49544F",
+                          }}
+                        >
+                          {feedback.toId.role}
+                        </Typography>
+                        <Typography
+                          sx={{
+                            fontSize: "16px",
+                            fontWeight: "400",
+                            color: "#49544F",
+                          }}
+                        >
+                          Booking Date:
+                        </Typography>
+                        <Typography
+                          sx={{
+                            fontSize: "15px",
+                            fontWeight: "400",
+                            color: "#49544F",
+                          }}
+                        >
+                          {moment(feedback.bookingId.bookingDate).format(
+                            "DD/MM/YYYY"
+                          )}
+                        </Typography>
+                        <div>
+                          <Ratings
+                            onChange={(e) => handleRatingValue(e, feedback)}
+                          ></Ratings>
+                        </div>
+                      </Grid>
+                      <Grid sx={12} sm={12} md={1}>
+                        <Divider
+                          orientation="vertical"
+                          sx={{ margin: "0px !important" }}
+                        />
+                      </Grid>
+
+                      <Grid sx={12} sm={12} md={8}>
+                        <TextareaAutosize
+                          aria-label="minimum height"
+                          minRows={5}
+                          placeholder={t("Description")}
+                          name="comment"
+                          onChange={(e) => setReminder(e.target.value)}
+                          style={{
+                            width: "100%",
+                            borderRadius: "5px",
+                            padding: "2%",
+                            borderColor: "#FFC107",
+                            background: "#FAFAFA",
+                          }}
+                        />
+                        {lowRating && selectedFeedback == feedback.id && (
+                          <div>
+                            <RadioGroup>
+                              <FormControlLabel
+                                value="Latedelivery"
+                                control={<Radio />}
+                                label={t("Late delivery")}
+                                onChange={(e) => SetUpdateField(e.target.value)}
+                              />
+                              <FormControlLabel
+                                value="Payment issue"
+                                control={<Radio />}
+                                label={t("Payment issue")}
+                                onChange={(e) => SetUpdateField(e.target.value)}
+                              />
+                              <FormControlLabel
+                                value="Harrasment"
+                                control={<Radio />}
+                                label={t("Harrasment")}
+                                onChange={(e) => SetUpdateField(e.target.value)}
+                              />
+                              <FormControlLabel
+                                value="AbusingLanguage"
+                                control={<Radio />}
+                                label={t("Abusing Language")}
+                                onChange={(e) => SetUpdateField(e.target.value)}
+                              />
+                            </RadioGroup>
+                            <TextareaAutosize
+                              aria-label="minimum height"
+                              minRows={5}
+                              placeholder={t("Description")}
+                              name="comment"
+                              onChange={(e) => setComment(e.target.value)}
+                              style={{
+                                width: "100%",
+                                borderRadius: "5px",
+                                padding: "2%",
+                                border: "none",
+                                background: "#FAFAFA",
+                              }}
+                            />
+                          </div>
+                        )}
+                        <div
+                          style={{
+                            display: "flex",
+                            justifyContent: "flex-end",
+                          }}
+                        >
+                          <Button
+                            text={t("Send Rating")}
+                            width="20% !important"
+                            height="2%"
+                            textColor="#149e7a"
+                            variant="outlined"
+                            color="#fff"
+                            onClick={(e) => handleRating(feedback)}
+                            borderRadius="2px"
+                            disabled={disabled}
+                          ></Button>
+                          {loading ? <CircularProgress /> : ""}
+                        </div>
+                      </Grid>
+
+                      <Divider
+                        sx={{
+                          width: "100% !important",
+                          margin: "2% 0 0 0 !important",
+                        }}
+                      ></Divider>
+                    </Grid>
+                  );
+                })}
               </div>
             </Box>
           </Modal>
