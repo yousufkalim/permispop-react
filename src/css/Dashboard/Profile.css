@@ -59,6 +59,22 @@
 .MuiMenuItem-root{
   font-size: 12px !important;
 }
+.responsiveModal{
+  
+  overflow-x: auto;
+  
+  /* hide scrollbar for IE, Edge and Firefox */
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.responsiveModal::-webkit-scrollbar {
+  display: none;
+}
+@media only screen and (max-width: 1440px){
+  .responsiveModal{
+    height: 55% !important;
+  }
+}
 @media only screen and (max-width: 1300px) {
   .formdata {
     margin-right: 0px !important;
@@ -68,6 +84,9 @@
   }
   .RoleInformation {
     margin-left: 5% !important;
+  }
+  .responsiveModal{
+    height: 55% !important;
   }
 }
 @media only screen and (max-width: 768px) {
@@ -107,5 +126,8 @@
   .formdata {
     flex-direction: column !important;
     margin-left: 0px !important;
+  }
+    .responsiveModal{
+    width: 75% !important;
   }
 }
