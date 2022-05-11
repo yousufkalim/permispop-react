@@ -103,7 +103,6 @@ const Profile = () => {
               "get",
               `bookings/GetBookingById/?id=${feedback.bookingId}`
             ).then((bookingres) => {
-              console.log("bookingres.data.data", bookingres.data.data);
               feedback.toId = personalresponse.data.data;
               feedback.bookingId = bookingres.data.data;
               return feedback;
@@ -141,13 +140,11 @@ const Profile = () => {
         feedBackDate: new Date(),
       })
         .then(async (fedbackres) => {
-          console.log("fedbackres", fedbackres.data.data);
           await API("post", `FeedBacks/SaveBookingReminder`, {
             BookingId: feedback.bookingId.id,
             ReminderComment: reminder,
           })
             .then((reminderres) => {
-              console.log("reminderres", reminderres);
               toast.success("Rating submitted successfully");
               setUpdateFeedback(!updateFeedback);
             })
@@ -172,7 +169,6 @@ const Profile = () => {
     }
     setSelectedRatingValue(e.target.value);
     setSelectedFeedback(feedback.id);
-    console.log("feedback.id", feedback.id);
   };
 
   const getUser = async (userData) => {

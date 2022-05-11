@@ -111,7 +111,6 @@ const Profile = () => {
         });
 
         Promise.all(newData).then((res) => {
-          console.log("ress", res);
           setRatingModal(true);
           setFeedbackData(res);
         });
