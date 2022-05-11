@@ -266,27 +266,33 @@ const Index = () => {
   };
 
   const handleRating = async () => {
-    await API("post", `FeedBacks/AddFeedback`, {
-      bookingId: selectedBooking.id,
-      fromId: user.id,
-      id: "",
-      comment: comment,
-      rating: selectedRatingValue,
-      ratingFrom: user.role,
-      toId: selectedUserData.id,
-      lRateReason: updatefield ? updatefield : "",
-      feedBackDate: new Date(),
-    }).then(async (fedbackres) => {
-      console.log("fedbackres", fedbackres.data.data);
-      await API("post", `FeedBacks/SaveBookingReminder`, {
-        BookingId: selectedBooking.id,
-        ReminderComment: reminder,
-      }).then((reminderres) => {
-        console.log("reminderres", reminderres);
-        toast.success("Rating submitted successfully");
-        setOpenRatingModal(false);
+    if (selectedRatingValue === "" || selectedRatingValue === 0) {
+      toast.warning("Rating cannot be zero");
+    } else if (reminder === "") {
+      toast.warning("Reminder cannot be empty");
+    } else {
+      await API("post", `FeedBacks/AddFeedback`, {
+        bookingId: selectedBooking.id,
+        fromId: user.id,
+        id: "",
+        comment: comment,
+        rating: selectedRatingValue,
+        ratingFrom: user.role,
+        toId: selectedUserData.id,
+        lRateReason: updatefield ? updatefield : "",
+        feedBackDate: new Date(),
+      }).then(async (fedbackres) => {
+        console.log("fedbackres", fedbackres.data.data);
+        await API("post", `FeedBacks/SaveBookingReminder`, {
+          BookingId: selectedBooking.id,
+          ReminderComment: reminder,
+        }).then((reminderres) => {
+          console.log("reminderres", reminderres);
+          toast.success("Rating submitted successfully");
+          setOpenRatingModal(false);
+        });
       });
-    });
+    }
   };
   return (
     <>
@@ -506,7 +512,7 @@ const Index = () => {
           timeout: 500,
         }}
       >
-        <Box sx={style3} className="Scrollbar">
+        <Box sx={style3} className="responsiveModal">
           {/* <FormControl>
             <FormLabel
               id="demo-radio-buttons-group-label"
@@ -570,6 +576,7 @@ const Index = () => {
               background: "#FAFAFA",
               marginTop: "10%",
             }}
+            onChange={(e) => setReminder(e.target.value)}
           />
 
           {lowRating && (
