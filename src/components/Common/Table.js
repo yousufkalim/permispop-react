@@ -95,7 +95,7 @@ export default function DataTable(props) {
             <TableBody>
               {props.data.length > 0 ? (
                 props.data
-                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                  // .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                   .map((row, index) => {
                     return (
                       <TableRow
