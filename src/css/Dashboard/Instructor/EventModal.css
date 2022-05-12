@@ -8,17 +8,16 @@
   margin-bottom: 10px !important;
 }
 .availability-modal {
-  background-color: #ffffff !important;
-  height: 640px !important;
-  width: 888px !important;
+  /* background-color: 1px solid #ffffff !important; */
+  width: 50% !important;
   border-radius: 15px !important;
   overflow: hidden !important;
 }
-.tab-list {
-}
+
 .tab {
-  font-weight: 700 !important;
+  font-weight: 600 !important;
   color: #8f9b96 !important;
+  font-size: 1rem !important;
 }
 .tab-list .css-17vx6qt-MuiTabs-indicator {
   display: none !important;
@@ -76,3 +75,4 @@
 .delete-availability-btn-div {
   margin-top: 100px !important;
 }
+
