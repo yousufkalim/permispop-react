@@ -2,6 +2,9 @@
     margin-left: 2%;
     width: 150px;
 }
+.modal_chat_icon{
+  color: #149E7A !important;
+}
 .profile_text_left{
     display: flex;
     align-items: center;
@@ -22,8 +25,8 @@
   }
   .profile_modal{
       overflow: hidden;
-      width: 25% !important;
-      height: 58% !important;
+      width: 30% !important;
+      height: 70% !important;
   }
 
 .instructor-dropdown{
@@ -53,7 +56,6 @@
         font-size: 0.9rem
       }
       .profile_modal{
-          height: 50% !important;
           width: 38% !important;
       }
 }
@@ -69,7 +71,6 @@
         font-size: 0.8rem
       }
       .profile_modal{
-          height: 48% !important;
           width: 50% !important;
       }
 }
@@ -85,7 +86,6 @@
         font-size: 0.8rem
       }
       .profile_modal{
-          height: 50% !important;
           width: 60% !important;
       }
 }
@@ -100,7 +100,12 @@
         font-size: 0.7rem
       }
       .profile_modal{
-          height: 45% !important;
-          width: 70% !important;
+          width: 80% !important;
       }
+}
+@media only screen and (max-width: 450px) {
+
+    .profile_modal{
+        width: 95% !important;
+    }
 }

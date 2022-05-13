@@ -85,7 +85,6 @@ const Index = () => {
     lat: "",
     lng: "",
   });
-
   const [instructorDetail, setInstructorDetail] = useState({
     Firstname: "",
     Surname: "",
@@ -828,12 +827,15 @@ const Index = () => {
   const addMeetUp = async () => {
     await API("post", `InstructorMeetupPoints`, {
       Address: address.label,
-      zip: address.zip,
+      zipCode: address.zip,
       city: address.city,
       lat: address.lat,
-      lng: address.lng,
+      long: address.lng,
       instructorId: user.id,
+      meetUp: address.label,
+      personalInfos: "",
     }).then((res) => {
+      console.log("ressssss", res);
       toast.success("Meetup points added successfully");
       setOPenMeetupModal(false);
     });

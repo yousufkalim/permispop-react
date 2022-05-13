@@ -22,11 +22,13 @@ import LocationOnIcon from "@mui/icons-material/LocationOn";
 import "../../../css/Dashboard/Student/instructor.css";
 import { useTranslation } from "react-i18next";
 import Loader from "../../../components/Common/FullScreenLoader";
+import { ReactComponent as Chatsvg } from "../../../assets/images/ChatIcon.svg";
 
 // component
 const Index = () => {
   const { i18n, t } = useTranslation();
   const user = JSON.parse(localStorage.getItem("user"));
+
   const history = useHistory();
   const [profileData, setProfileData] = useState("");
 
@@ -379,6 +381,19 @@ const Index = () => {
                   {/* {profileData.Rating != "NaN" ? profileData.Rating : "N/A"} */}
                 </p>
                 <p className="icons_text2">Ratings</p>
+              </div>
+            </div>
+            <div className="profile_icons_div" onClick={handleChat}>
+              <div className="icon_style_div">
+                <Chatsvg className="modal_chat_icon" />
+              </div>
+              <div>
+                <p className="icons_text1">
+                  {/* {profileData.Rating != "NaN" ? profileData.Rating : "N/A"} */}
+                </p>
+                <p className="icons_text2" style={{ cursor: "pointer" }}>
+                  Chat
+                </p>
               </div>
             </div>
           </div>

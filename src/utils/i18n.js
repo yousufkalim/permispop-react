@@ -161,7 +161,7 @@ i18n
           Detach: "Detach",
           Details: "Details",
           "Add Meetup Point": "Add Meetup Point",
-          Profile: "Profil",
+          Profile: "Profile",
           "In Progress": "In Progress",
           "Interval /KM": "Interval /KM",
           Manual: "Manual",
