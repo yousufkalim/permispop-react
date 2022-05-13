@@ -118,7 +118,7 @@ export default function DataTable(props) {
                               column.id !== "position" &&
                               column.id !== "reservations" &&
                               column.id !== "profile" &&
-                              column.id !== "cat" ? (
+                              column.id !== "chat" ? (
                                 <TableCell
                                   sx={{
                                     fontFamily: "Inter !important",
@@ -339,7 +339,7 @@ export default function DataTable(props) {
                                 <TableCell align="center">
                                   <Button
                                     text={t("Chat")}
-                                    color="#fda333 !important"
+                                    color="#149E7A !important"
                                     width="100% !important"
                                     margin="0px 0px 10px 0px !important"
                                     height="50px !important"
