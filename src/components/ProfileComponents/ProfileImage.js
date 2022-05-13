@@ -34,7 +34,7 @@ const ProfileImage = (props) => {
                 className="Profile-img"
                 src={props.src}
                 alt=""
-                style={{ height: "280px", width: "200px" }}
+                style={{ height: "240px", width: "300px" }}
               />
             </label>
           </div>

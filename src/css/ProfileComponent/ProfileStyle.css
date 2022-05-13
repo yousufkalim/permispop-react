@@ -1,6 +1,6 @@
 /* ProfileImage*/
 .Profile-img {
-  width: 100% !important;
+  /* width: 100% !important; */
   margin-top: 30px !important;
   object-fit: contain !important;
 }
