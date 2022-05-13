@@ -111,7 +111,7 @@ const RentalCar = () => {
   const [step1, setStep1] = React.useState({
     FirstName: "",
     SurName: "",
-    Dob: new Date("01/01/1999"),
+    Dob: "",
     Pob: "",
     Gender: "",
     Complement: "",

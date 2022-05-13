@@ -121,7 +121,7 @@ const Instructor = () => {
       Lat: "",
       Lng: "",
     },
-    Dob: new Date("01-01-1999"),
+    Dob: "",
     Pob: "",
     Gender: "",
     Email: "",
@@ -1531,7 +1531,8 @@ const Instructor = () => {
                               lat: step1.Address.Lat,
                               long: step1.Address.Lng,
                               meetup: step1.Address.Label,
-                            }).then(() => {
+                            }).then((meetupres) => {
+                              console.log("meetupres", meetupres);
                               history.push("/");
                               toast.success(
                                 t("Instructor Registered Successfully")
