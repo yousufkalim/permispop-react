@@ -188,8 +188,8 @@ export default function Header(props) {
           modalTitleProps={{
             align: "left",
             // marginTop: "10px",
-            // marginBottom: "5px",
-            marginLeft: "50px",
+            marginBottom: "3%",
+            marginLeft: "25px",
             color: "#2F363D",
             fontWeight: 600,
             fontSize: "25px",
@@ -279,6 +279,7 @@ export default function Header(props) {
                 buttonLableStyle="btn_main"
                 padding="0 30% 0 30% !important"
                 height="50px"
+                width="100%"
                 onClick={handleLogin}
                 disabled={disable}
               ></Button>

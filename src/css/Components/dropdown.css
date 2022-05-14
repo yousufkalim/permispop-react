@@ -42,6 +42,9 @@
   .Scrollbar::-webkit-scrollbar {
     display: none;
   }
+  .css-aejfx7-MuiPaper-root-MuiMenu-paper-MuiPaper-root-MuiPopover-paper{
+    max-height: 50%  !important;
+  }
   @media (max-width:992px) {
     .MuiInputLabel-formControl {
         font-size: 20px !important;

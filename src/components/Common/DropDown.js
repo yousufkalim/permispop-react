@@ -7,7 +7,7 @@ import { makeStyles } from "@mui/styles";
 import { useTranslation } from "react-i18next";
 
 export default function DropDown(props) {
-  const { i18n , t } = useTranslation();
+  const { i18n, t } = useTranslation();
 
   // const useStyles = makeStyles((theme) => ({
   //   formControl: {
@@ -60,7 +60,11 @@ export default function DropDown(props) {
   return (
     <div>
       <FormControl
-        sx={{ minWidth: 120, paddingTop: "1px !important" }}
+        sx={{
+          minWidth: 120,
+          paddingTop: "1px !important",
+          minHeight: "50px !important",
+        }}
         className="formControl"
         error={props.error ? true : false}
         variant={props.variant || "standard"}
@@ -75,11 +79,11 @@ export default function DropDown(props) {
             color: "#363557 !important",
           }}
           shrink={true}
-          className={["inputLabelsDD",props.inputLabelStyle].join(" ")}
+          className={["inputLabelsDD", props.inputLabelStyle].join(" ")}
           {...props.inputLabelProps}
         >
           {props.label}
-          {props.required? <div style={{color:'red'}}> *</div>:''}
+          {props.required ? <div style={{ color: "red" }}> *</div> : ""}
         </InputLabel>
         <Select
           labelId="demo-simple-select-standard-label"
@@ -87,12 +91,20 @@ export default function DropDown(props) {
           onChange={props.onChange}
           value={props.value}
           defaultValue={0}
+
           // renderValue={(value) => (props.value ? props.value : "France")}
         >
           {props.MenuItem ? (
             props.MenuItem.length > 0 ? (
               props.MenuItem.map((item) => {
-                return <MenuItem value={item.value}>{item.name}</MenuItem>;
+                return (
+                  <MenuItem
+                    value={item.value}
+                    sx={{ height: "50% !important" }}
+                  >
+                    {item.name}
+                  </MenuItem>
+                );
               })
             ) : (
               <MenuItem value={0} disabled={true}>

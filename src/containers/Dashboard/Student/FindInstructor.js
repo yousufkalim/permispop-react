@@ -154,6 +154,7 @@ const Index = () => {
               value={filters.Gearbox}
               onChange={(e) => handleFilterChange("Gearbox", e.target.value)}
               className="instructor-dropdown"
+              sx={{ width: "70% !important" }}
             >
               <MenuItem value="All" name="All">
                 {t("All")}
@@ -177,6 +178,7 @@ const Index = () => {
               value={filters.Gender}
               onChange={(e) => handleFilterChange("Gender", e.target.value)}
               className="instructor-dropdown"
+              sx={{ width: "70% !important" }}
             >
               <MenuItem value="All" name="All">
                 {t("All")}
@@ -203,6 +205,7 @@ const Index = () => {
               value={filters.Radius}
               onChange={(e) => handleFilterChange("Radius", e.target.value)}
               className="instructor-dropdown"
+              sx={{ width: "70% !important" }}
             >
               <MenuItem value="5" name="5">
                 5
@@ -248,7 +251,7 @@ const Index = () => {
             </Select>
           </FormControl>
         </div>
-        <div style={{ marginLeft: "2%" }}>
+        <div style={{ marginLeft: "" }}>
           <FormControl className="MobileView">
             <label style={{ fontWeight: 500, marginBottom: -5 }}>
               {t("Start date")}
@@ -264,6 +267,7 @@ const Index = () => {
                     {...params}
                     style={{
                       borderRadius: 10,
+                      paddingRight: "30px",
                     }}
                   />
                 )}
@@ -285,6 +289,7 @@ const Index = () => {
                     {...params}
                     style={{
                       borderRadius: 10,
+                      paddingRight: "30px",
                     }}
                   />
                 )}
@@ -300,9 +305,9 @@ const Index = () => {
           height2="60px"
           height3="60px"
           height4="60px"
-          width="150px !important"
+          width="70% !important"
           color="#149e7a  !important"
-          margin="3% 0 2px 5% !important"
+          margin="3% 0 2px 20% !important"
           onClick={getInstructors}
         />
       </div>
