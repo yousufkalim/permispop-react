@@ -11,6 +11,8 @@ import moment from "moment";
 import { toast } from "react-toastify";
 import { Views } from "react-big-calendar";
 import { useTranslation } from "react-i18next";
+import Box from "@mui/material/Box";
+import CircularProgress from "@mui/material/CircularProgress";
 
 const Calendar = () => {
   const currentDate = moment();
@@ -19,6 +21,7 @@ const Calendar = () => {
   const [disabled, setdisabled] = useState(false);
   const [bookings, setBookings] = React.useState([]);
   const [selectedBooking, setSelectedBooking] = useState({});
+  const [loading, setLoading] = React.useState(false);
 
   const { i18n, t } = useTranslation();
 
@@ -103,6 +106,7 @@ const Calendar = () => {
 
   const handleBookingDelete = async () => {
     setdisabled(true);
+    setLoading(true);
 
     let start = moment(selectedBooking.start).format("HH:mm");
     let end = moment(selectedBooking.end).format("HH:mm");
@@ -123,6 +127,7 @@ const Calendar = () => {
       .catch((err) => {
         console.log("err", err);
         setdisabled(false);
+        setLoading(false);
       });
   };
 
@@ -256,6 +261,19 @@ const Calendar = () => {
                 onClick={handleBookingDelete}
                 disabled={disabled}
               />
+              {loading ? (
+                <Box
+                  sx={{
+                    display: "flex",
+                    marginTop: "20px",
+                    marginLeft: "30px",
+                  }}
+                >
+                  <CircularProgress />
+                </Box>
+              ) : (
+                ""
+              )}
             </Grid>
           </div>
         </div>
