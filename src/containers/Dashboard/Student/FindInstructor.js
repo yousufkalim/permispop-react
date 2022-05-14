@@ -120,7 +120,8 @@ const Index = () => {
           "ChatroomId",
           JSON.stringify(ChatroomResponse.data.data.id)
         );
-        history.push("/student/chat");
+        // history.push("/student/chat");
+        window.location = "/student/chat";
       })
       .catch((error) => {
         console.log(error);
