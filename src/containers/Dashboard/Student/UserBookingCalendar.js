@@ -11,7 +11,10 @@ import { toast } from "react-toastify";
 import { Views } from "react-big-calendar";
 import DropDown from "../../../components/Common/DropDown";
 import { useTranslation } from "react-i18next";
-
+import Box from "@mui/material/Box";
+import CircularProgress from "@mui/material/CircularProgress";
+import LoadingButton from "@mui/lab/LoadingButton";
+import SaveIcon from "@mui/icons-material/Save";
 const Calendar = () => {
   const currentDate = moment();
   const { i18n, t } = useTranslation();
@@ -33,6 +36,7 @@ const Calendar = () => {
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [lng, setLng] = useState();
+  const [loading, setLoading] = React.useState(false);
 
   useEffect(() => {
     onNavigate(new Date(), "week");
@@ -265,6 +269,8 @@ const Calendar = () => {
   };
 
   const handleBookingDelete = async () => {
+    setLoading(true);
+
     setdisabled(true);
 
     let start = moment(selectedBooking.start).format("HH:mm");
@@ -283,6 +289,7 @@ const Calendar = () => {
         handleBookingClose();
         setdisabled(false);
         toast.success("Booking Deleted successfully!");
+        setLoading(false);
       })
       .catch((err) => {
         console.log("err", err);
@@ -292,6 +299,8 @@ const Calendar = () => {
 
   const handleAddBooking = async () => {
     setdisabled(true);
+    setLoading(true);
+
     if (
       parseInt(selectedAvailability.startHour) + parseInt(duration) >=
       parseInt(selectedAvailability.endHour)
@@ -336,6 +345,7 @@ const Calendar = () => {
           toast.success("Booking Added successfully!");
           handleBookingClose();
           setdisabled(false);
+          setLoading(false);
         })
         .catch((err) => {
           console.log("err", err);
@@ -491,14 +501,28 @@ const Calendar = () => {
           </Grid>
           <div className="booking-btn-div">
             <Grid align="right">
-              <Button
+              {/* <Button
                 text="Delete"
                 textColor="#FFFFFF !important"
                 width="110px !important"
                 color="#149E7A !important"
                 onClick={handleBookingDelete}
                 disabled={disabled}
-              />
+              /> */}
+              <LoadingButton
+                loading={loading}
+                loadingPosition="start"
+                onClick={handleBookingDelete}
+                sx={{
+                  color: "#FFFFFF",
+                  background: "#149E7A",
+                  width: "150px",
+                  height: "50px",
+                }}
+                className="LoadingButton"
+              >
+                Delete
+              </LoadingButton>
             </Grid>
           </div>
         </div>
@@ -623,15 +647,20 @@ const Calendar = () => {
           </Grid>
           <div className="booking-btn-div">
             <Grid align="right">
-              <Button
-                text="Add Booking"
-                type="submit"
-                textColor="#FFFFFF !important"
-                width="150px !important"
-                color="#149E7A !important"
+              <LoadingButton
+                loading={loading}
+                loadingPosition="start"
                 onClick={(e) => handleAddBooking(e)}
-                disabled={disabled}
-              />
+                sx={{
+                  color: "#FFFFFF",
+                  background: "#149E7A",
+                  width: "150px",
+                  height: "50px",
+                }}
+                className="LoadingButton"
+              >
+                Add Booking
+              </LoadingButton>
             </Grid>
           </div>
         </div>

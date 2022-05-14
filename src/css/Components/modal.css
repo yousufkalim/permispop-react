@@ -47,6 +47,9 @@
   color: black !important;
   font-weight: 300 !important;
 }
+.LoadingButton:hover{
+  background: #149E7A  !important;
+}
 @media only screen and (max-width: 1366px) {
   .box {
     padding: 0.5rem !important;
