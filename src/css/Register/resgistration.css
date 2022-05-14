@@ -1,3 +1,10 @@
+/* card media */
+.MuiCardMedia-img{
+height: 120px !important;
+width: 100% !important;
+object-fit: contain !important;
+}
+
 .Heading1 {
   font-family: Inter !important;
   font-style: normal !important;

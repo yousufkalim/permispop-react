@@ -184,8 +184,6 @@ export default function RegisterModal(props) {
               >
                 <CardContent>
                   <CardMedia
-                    className="RegisterImg"
-                    sx={{ height: "70px", objectFit: "contain" }}
                     component="img"
                     image={DrivingSchool}
                     alt="services"
@@ -227,13 +225,7 @@ export default function RegisterModal(props) {
                 onClick={handleRentalCarRegister}
               >
                 <CardContent>
-                  <CardMedia
-                    className="RegisterImg"
-                    component="img"
-                    sx={{ height: "70px", objectFit: "contain" }}
-                    image={RentalCar}
-                    alt="services"
-                  />
+                  <CardMedia component="img" image={RentalCar} alt="services" />
                   <Typography
                     className="Text_content1"
                     sx={{
