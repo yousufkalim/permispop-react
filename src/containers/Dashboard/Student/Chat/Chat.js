@@ -34,6 +34,10 @@ const Index = (props) => {
   latestChat.current = chatMessages;
   const messagesEndRef = useRef(null);
   const [chatroomId, setChatroomId] = useState("");
+  const [online, setOnline] = useState({
+    userId: "",
+    flag: false,
+  });
 
   useEffect(() => {
     ChatList(user);
@@ -69,6 +73,7 @@ const Index = (props) => {
             console.log("chat", chat);
             updatedChat.push(message);
             setChatMessages(updatedChat);
+            toast.success("New Message Received");
           });
         })
         .catch((e) => console.log("Connection failed: ", e));
@@ -76,7 +81,7 @@ const Index = (props) => {
   }, [connection]);
 
   const ChatList = async (user) => {
-    await API("get", `Chat/GetChatList/?id=${user.id}`).then(
+    await API("get", `Chat/GetChatList/?id=${user?.id}`).then(
       (GetChatListResponse) => {
         let array = [];
         GetChatListResponse.data.data.map((item) => {
@@ -85,12 +90,16 @@ const Index = (props) => {
           if (A?.id != null && B?.id != null) {
             if (A?.id === user.id) {
               array.push({
+                id: B.id,
+                lat: B.lat,
+                lng: B.long,
                 chatroom_id: item.id,
                 chatroom_label: `${B.firstName} ${B.surName}`,
                 user_role: B.role,
                 reciever: B.id,
                 isOnline: B.isOnline,
                 lastSeen: B.lastSeen,
+                // unread: false,
                 block: item.block,
                 blockBy: item.blockBy,
                 last_activeTime: B.lastActiveTime,
@@ -99,10 +108,14 @@ const Index = (props) => {
               });
             } else if (B?.id === user.id) {
               array.push({
+                id: A.id,
+                lat: A.lat,
+                lng: A.long,
                 chatroom_id: item.id,
                 chatroom_label: `${A.firstName} ${A.surName}`,
                 user_role: A.role,
                 reciever: A.id,
+                // unread: false,
                 isOnline: A.isOnline,
                 lastSeen: A.lastSeen,
                 block: item.block,
@@ -124,12 +137,8 @@ const Index = (props) => {
   // get Messages api
   const GetMessages = async (item) => {
     setSelectedChat(item);
-    await API("get", `Chat/GetMessages/?chatId=${item.chatroom_id}`).then(
+    await API("get", `Chat/GetMessages/?chatId=${item?.chatroom_id}`).then(
       (GetMessagesResponse) => {
-        // console.log(
-        //   "🚀 ~ file: Chat.js ~ line 120 ~ GetMessages ~ GetMessagesResponse",
-        //   GetMessagesResponse
-        // );
         let chatArray = [];
         GetMessagesResponse.data.data.messages.map((item) => {
           let msg = JSON.parse(item);
@@ -146,6 +155,37 @@ const Index = (props) => {
       }
     );
   };
+  // checking user is online or not
+  if (connection) {
+    connection.on("checkIsOnline", (userId, isOnline, lastSeen, status) => {
+      console.log("user is online now", userId, isOnline, lastSeen, status);
+      console.log("------>", connection);
+      setOnline({
+        userId: userId,
+        flag: isOnline,
+      });
+      var item = filteredUserData.find(
+        (item) => userId === item.reciever
+      ).chatroom_id;
+      API("get", `Chat/GetMessages/?chatId=${item}`).then(
+        (GetMessagesResponse) => {
+          let chatArray = [];
+          GetMessagesResponse.data.data.messages.map((item) => {
+            let msg = JSON.parse(item);
+            chatArray.push({
+              sender: msg.sender,
+              reciever: msg.reciever,
+              message: msg.message,
+              timeStamp: msg.timeStamp,
+              readMsg: msg.readMsg,
+              id: msg.id,
+            });
+          });
+          setChatMessages(chatArray);
+        }
+      );
+    });
+  }
   // sending message method
   const sendMessage = async (message) => {
     const info = {
@@ -186,7 +226,7 @@ const Index = (props) => {
       setFilteredUserData(userData);
     }
   };
-  const LastOnline = moment(selectedChat.last_activeTime).format(
+  const LastOnline = moment(selectedChat?.last_activeTime).format(
     "hh:mm / DD-MM-YYYY"
   );
   const scrollToBottom = () => {
@@ -196,6 +236,13 @@ const Index = (props) => {
     if (e.key === "Enter") {
       onClick();
     }
+  };
+  const HandleInstructorBooking = (selectedChat) => {
+    var item = filteredUserData.find(
+      (item) => item.id === selectedChat.reciever
+    );
+    localStorage.setItem("selectedInstructor", JSON.stringify(item));
+    history.push("/student/InstructorBooking");
   };
   return (
     <>
@@ -227,7 +274,13 @@ const Index = (props) => {
             {filteredUserData.length !== 0 ? (
               <div className="ListScroller">
                 {filteredUserData.map((item) => {
-                  return <Chatlist item={item} GetMessages={GetMessages} />;
+                  return (
+                    <Chatlist
+                      item={item}
+                      GetMessages={GetMessages}
+                      online={online}
+                    />
+                  );
                 })}
               </div>
             ) : (
@@ -307,7 +360,7 @@ const Index = (props) => {
                     type="submit"
                     className="ChatButton"
                     style={{ backgroundColor: "#FFA333" }}
-                    onClick={() => history.push("/student/booking")}
+                    onClick={() => HandleInstructorBooking(selectedChat)}
                   >
                     {t("Book Me")}
                   </button>
@@ -375,7 +428,6 @@ const Index = (props) => {
                         >
                           {item.message}
                         </Typography>
-
                         {item.readMsg === "Delivered" ? (
                           <DoubleTick
                             style={{ color: "#d2d7d9", margin: "7px" }}
