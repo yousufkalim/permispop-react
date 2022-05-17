@@ -291,7 +291,7 @@ export default function DataTable(props) {
                                     margin="0px 0px 10px 0px !important"
                                     height="50px !important"
                                     onClick={(e) =>
-                                      props.handleDeleteVehicle(index)
+                                      props.handleBookingDeleteModal(index)
                                     }
                                   ></Button>
                                 </TableCell>
