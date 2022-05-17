@@ -18,11 +18,14 @@ import Button from "../../../components/Common/Button";
 import { toast } from "react-toastify";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import Loader from "../../../components/Common/FullScreenLoader";
+import CancelOutlinedIcon from "@mui/icons-material/CancelOutlined";
+import Backdrop from "@mui/material/Backdrop";
 
 import API from "../../../api";
 import { Typography, Grid, Box, Checkbox, Paper, Modal } from "@mui/material";
 import Joi from "joi-browser";
 import { useTranslation } from "react-i18next";
+const userData = JSON.parse(localStorage.getItem("user"));
 
 function createData(dateofregistration, brand, model, color, noplate, gearbox) {
   return { dateofregistration, brand, model, color, noplate, gearbox };
@@ -38,6 +41,10 @@ const Index = () => {
   const [editIndex, setEditIndex] = useState("");
   const [selectedTechnicalId, setSelectedTechnicalId] = useState([]);
   const [selectedInsuranceId, setSelectedInsuranceId] = useState([]);
+  const [vehicalId, setVehicleId] = useState();
+  const [indexOfDeleteVehicle, setIndexOfDeleteVehicle] = useState();
+  const [bookingDeleted, setBookingDeleted] = useState(false);
+  const [openBookingDeleteModal, setOpenBookingDeleteModal] = useState(false);
 
   const [vehicleData, setVehicleData] = useState([]);
   const [user, setUser] = useState();
@@ -97,6 +104,20 @@ const Index = () => {
     TechEndDate: new Date(),
     CtImg: "",
   });
+  const style1 = {
+    position: "absolute",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    width: "30%",
+    height: "25%",
+    bgcolor: "background.paper",
+    boxShadow: 24,
+    borderRadius: "10px",
+    // paddingLeft: "3%",
+    display: "flex",
+    flexDirection: "column",
+  };
   const vehicleSchema = {
     FristRegDate: Joi.string()
       .required()
@@ -351,20 +372,22 @@ const Index = () => {
     overflowX: "hidden",
   };
   useEffect(() => {
-    const userData = JSON.parse(localStorage.getItem("user"));
     getVehicleData(userData);
     handleDeleteVehicle(userData);
     setUser(userData);
     getAllMakes();
     getAllModels();
   }, []);
+  // useEffect(() => {
+  //
+  // }, []);
 
   const getVehicleData = async (userData) => {
     let allVehicles = [];
     await API("get", `Profile/GetProfileByPersonalId?id=${userData.id}`).then(
       (InsprofileRes) => {
+        // vehicleDetailInfoId
         let vehicleId = JSON.parse(InsprofileRes.data.data.vehicleDetailInfoId);
-        console.log("vehicleId", vehicleId);
         allVehicles = Object.entries(vehicleId).map(([key, value]) => {
           return API(
             "get",
@@ -372,8 +395,6 @@ const Index = () => {
           );
         });
         Promise.all(allVehicles).then((res) => {
-          console.log("allVehicles", res);
-
           let vehicles = [];
           res.map((veh) => {
             veh.data.data.dateOfFirstRegistration = moment(
@@ -470,23 +491,26 @@ const Index = () => {
 
   const handleSaveEditVehicle = async () => {
     await API("put", "VehicleInsurance", {
-      Insurer: vehicleDet.VehicleInsurer,
+      Insurer: vehicleDet?.VehicleInsurer,
       PoliceNumber: vehicleDet.PoliceNumber,
       StartDate: vehicleDet.StartDate,
       EndDate: vehicleDet.EndDate,
       GreenCardImagePath: vehicleDet.GreenCard,
-      id: selectedInsuranceId.id,
+      id: selectedInsuranceId?.id,
     }).then(async (vehicleinsRes) => {
-      await API("put", "TechnicalControl", {
-        DateofTechnicalControl: vehicleDet.TechControlDate,
-        startDateOfTech: vehicleDet.TechControlDate,
+      await API("post", "TechnicalControl", {
+        DateofTechnicalControl: vehicleDet.TechControlDate
+          ? vehicleDet.TechControlDate
+          : "",
+        startDateOfTech: vehicleDet.TechControlDate
+          ? vehicleDet.TechControlDate
+          : "",
         endDateOfTechControl: vehicleDet.TechEndDate
           ? vehicleDet.TechEndDate
           : "",
-        TechnicalControlImagePath: vehicleDet.CtImg,
-        id: selectedTechnicalId.id,
+        TechnicalControlImagePath: vehicleDet.CtImg ? vehicleDet.CtImg : "",
       }).then(async (Technicalres) => {
-        await API("put", "VehicleDetail", {
+        await API("post", "VehicleDetail", {
           DateOfFirstRegistration: vehicleDet.FristRegDate,
           Brand: vehicleDet.Brand,
           Model: vehicleDet.Model,
@@ -497,13 +521,33 @@ const Index = () => {
           VehicleRegistrationCertificatePhotoImagePath:
             vehicleDet.VehicleRegImg,
           VehicleePhotosImagePath: vehicleDet.VehicleImg,
-          vehichleInsuranceInfoId: vehicleinsRes.data.data.id,
-          technicalControlInfoID: Technicalres.data.data.id,
-        }).then(() => {
-          toast.success(t("Vehicle detail updated sucessfully"));
-          setAddVehicle(false);
-          setIsEdit(false);
-          getVehicleData(user);
+          vehichleInsuranceInfoId: vehicleinsRes?.data?.data?.id,
+          technicalControlInfoID: Technicalres.data.data.id
+            ? Technicalres.data.data.id
+            : "",
+        }).then(async (vehicledetres) => {
+          await API("put", `VehicleDetail`, {
+            DateOfFirstRegistration: vehicleDet.FristRegDate,
+            Brand: vehicleDet.Brand,
+            Model: vehicleDet.Model,
+            Color: vehicleDet.Color,
+            Energy: vehicleDet.Energy,
+            GearBox: vehicleDet.GearBox,
+            NumberPlate: vehicleDet.NumberPlate,
+            VehicleRegistrationCertificatePhotoImagePath:
+              vehicleDet.VehicleRegImg,
+            VehicleePhotosImagePath: vehicleDet.VehicleImg,
+            vehichleInsuranceInfoId: vehicleinsRes.data.data.id,
+            technicalControlInfoID: Technicalres?.data?.data?.id
+              ? Technicalres.data.data.id
+              : "",
+            id: vehicalId,
+          }).then((editres) => {
+            toast.success(t("Vehicle detail updated sucessfully"));
+            setAddVehicle(false);
+            setIsEdit(false);
+            getVehicleData(user);
+          });
         });
       });
     });
@@ -521,6 +565,7 @@ const Index = () => {
 
     setSelectedTechnicalId(technical);
     setSelectedInsuranceId(vehicleIns);
+    setVehicleId(tempArray[index].id);
 
     setVehicleDet({
       FristRegDate: tempArray[index].dateOfFirstRegistration,
@@ -532,15 +577,15 @@ const Index = () => {
       Energy: tempArray[index].energy,
       VehicleImg: tempArray[index].vehicleePhotosImagePath,
       VehicleRegImg:
-        tempArray[index].vehicleRegistrationCertificatePhotoImagePath,
-      VehicleInsurer: vehicleIns.insurer,
-      PoliceNumber: vehicleIns.policeNumber,
-      StartDate: vehicleIns.startDate,
-      EndDate: vehicleIns.endDate,
-      GreenCard: vehicleIns.greenCardImagePath,
-      TechControlDate: technical != "" && technical.dateofTechnicalControl,
-      TechEndDate: technical != "" && technical.endDate,
-      CtImg: technical != "" && technical.technicalControlImagePath,
+        tempArray[index]?.vehicleRegistrationCertificatePhotoImagePath,
+      VehicleInsurer: vehicleIns?.insurer,
+      PoliceNumber: vehicleIns?.policeNumber,
+      StartDate: vehicleIns?.startDate,
+      EndDate: vehicleIns?.endDate,
+      GreenCard: vehicleIns?.greenCardImagePath,
+      TechControlDate: technical != "" && technical?.dateofTechnicalControl,
+      TechEndDate: technical != "" && technical?.endDate,
+      CtImg: technical != "" && technical?.technicalControlImagePath,
     });
     setIsEdit(true);
     setAddVehicle(true);
@@ -554,7 +599,7 @@ const Index = () => {
 
         let allVehicles = {};
         Object.entries(vehicleId).map(([key, value], i) => {
-          if (tempArray[index].id === value) {
+          if (tempArray[index]?.id === value) {
           } else {
             allVehicles = {
               ...allVehicles,
@@ -565,7 +610,7 @@ const Index = () => {
 
         await API(
           "get",
-          `VehicleDetail/UpdateVehicleDetail/?id=${tempArray[index].id}`
+          `VehicleDetail/UpdateVehicleDetail/?id=${tempArray[index].id}&Deleted=${bookingDeleted}`
         ).then(async (vehicleres) => {
           await API("post", `Profile/UpdateProfile`, {
             banDate: InsprofileRes.data.data.banDate,
@@ -606,6 +651,7 @@ const Index = () => {
           }).then((updateprofileres) => {
             toast.success(t("Vehicle deleted scuccessfully"));
             getVehicleData(user);
+            setOpenBookingDeleteModal(false);
           });
         });
       }
@@ -718,7 +764,10 @@ const Index = () => {
     });
     setExcludingMakes(result);
   };
-
+  const handleBookingDeleteModal = (item) => {
+    setIndexOfDeleteVehicle(item);
+    setOpenBookingDeleteModal(true);
+  };
   return (
     <>
       {/* <MobileViewFilters title={t("Vehicles")} /> */}
@@ -802,7 +851,7 @@ const Index = () => {
           data={vehicleData}
           columns={Vehiclescolumns}
           open={handleEditVehicle}
-          handleDeleteVehicle={handleDeleteVehicle}
+          handleBookingDeleteModal={handleBookingDeleteModal}
         ></DataTable>
       )}
       <Modal
@@ -1142,7 +1191,7 @@ const Index = () => {
                       label="YourCt"
                       name="CtImg"
                       type="file"
-                      value={vehicleDet.CtImg.split("_").slice(1).join("_")}
+                      value={vehicleDet.CtImg}
                       onChange={handleFileChange}
                       error={vehicleErrors["CtImg"] ? true : false}
                       ErrorMsg={vehicleErrors["CtImg"]}
@@ -1170,29 +1219,93 @@ const Index = () => {
               height="48px"
               height2="48px"
               onClick={isEdit ? handleSaveEditVehicle : handleAddVehicle}
-              disabled={
-                (vehicleErrors.FristRegDate === null &&
-                  vehicleErrors.Brand === null &&
-                  vehicleErrors.Model === null &&
-                  vehicleErrors.NumberPlate === null &&
-                  vehicleErrors.Color === null &&
-                  vehicleErrors.GearBox === null &&
-                  vehicleErrors.Energy === null &&
-                  vehicleErrors.VehicleImg === null &&
-                  vehicleErrors.VehicleRegImg === null &&
-                  vehicleErrors.VehicleInsurer === null &&
-                  vehicleErrors.PoliceNumber === null &&
-                  vehicleErrors.StartDate === null &&
-                  vehicleErrors.EndDate === null &&
-                  vehicleErrors.GreenCard === null &&
-                  checkbox1 === false) ||
-                (vehicleErrors.TechControlDate === null &&
-                  vehicleErrors.TechEndDate === null &&
-                  vehicleErrors.CtImg === null)
-                  ? false
-                  : true
-              }
+              // disabled={
+              //   (vehicleErrors.FristRegDate === null &&
+              //     vehicleErrors.Brand === null &&
+              //     vehicleErrors.Model === null &&
+              //     vehicleErrors.NumberPlate === null &&
+              //     vehicleErrors.Color === null &&
+              //     vehicleErrors.GearBox === null &&
+              //     vehicleErrors.Energy === null &&
+              //     vehicleErrors.VehicleImg === null &&
+              //     vehicleErrors.VehicleRegImg === null &&
+              //     vehicleErrors.VehicleInsurer === null &&
+              //     vehicleErrors.PoliceNumber === null &&
+              //     vehicleErrors.StartDate === null &&
+              //     vehicleErrors.EndDate === null &&
+              //     vehicleErrors.GreenCard === null &&
+              //     checkbox1 === false) ||
+              //   (vehicleErrors.TechControlDate === null &&
+              //     vehicleErrors.TechEndDate === null &&
+              //     vehicleErrors.CtImg === null)
+              //     ? false
+              //     : true
+              // }
             ></Button>
+          </div>
+        </Box>
+      </Modal>
+      <Modal
+        aria-labelledby="spring-modal-title"
+        aria-describedby="spring-modal-description"
+        open={openBookingDeleteModal}
+        onClose={() => setOpenBookingDeleteModal(false)}
+        closeAfterTransition
+        BackdropComponent={Backdrop}
+        BackdropProps={{
+          timeout: 500,
+        }}
+      >
+        <Box sx={style1}>
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "flex-end",
+              margin: "1%",
+            }}
+          >
+            <CancelOutlinedIcon
+              sx={{ cursor: "pointer" }}
+              onClick={() => setOpenBookingDeleteModal(false)}
+            />
+          </div>
+          <div style={{ paddingTop: "10%" }}>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+            >
+              <Typography>
+                {t("Do you want to delete booking of this vehicle?")}
+              </Typography>
+            </div>
+
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                marginTop: "2%",
+              }}
+            >
+              <Button
+                text={t("Yes")}
+                onClick={() => {
+                  setBookingDeleted(true);
+                  handleDeleteVehicle(indexOfDeleteVehicle);
+                }}
+                width="20%"
+                margin="0 1% 0 0"
+              ></Button>
+              <Button
+                text={t("No")}
+                width="20%"
+                onClick={() => handleDeleteVehicle(indexOfDeleteVehicle)}
+              ></Button>
+            </div>
           </div>
         </Box>
       </Modal>
