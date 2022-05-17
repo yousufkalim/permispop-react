@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Calendar, momentLocalizer, Views } from "react-big-calendar";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import moment from "moment";
@@ -10,6 +10,7 @@ import AddIcon from "@mui/icons-material/Add";
 import { useTranslation } from "react-i18next";
 import "moment/locale/fr";
 import "moment/locale/en-gb";
+import i18n from "../../utils/i18n";
 
 moment.locale("fr");
 moment.locale("es-es", {
@@ -48,17 +49,17 @@ const messagesFrench = {
 };
 
 const messagesEnglish = {
-  allDay: "journée",
-  previous: "précédent",
-  next: "suivant",
-  today: "aujourd'hui",
-  month: "mois",
-  week: "semaine",
-  day: "jour",
+  allDay: "All Day",
+  previous: "Previous",
+  next: "Next",
+  today: "Today",
+  month: "Month",
+  week: "Week",
+  day: "Day",
   agenda: "Agenda",
-  date: "date",
-  time: "heure",
-  event: "événement", // Or anything you want
+  date: "Date",
+  time: "Time",
+  event: "Event", // Or anything you want
   showMore: (total) => `+ ${total} événement(s) supplémentaire(s)`,
 };
 
@@ -89,7 +90,10 @@ const eventsStyle = (event) => {
 };
 const CalendarComponent = (props) => {
   const { i18n, t } = useTranslation();
-
+  const [language, setLanguage] = useState();
+  useEffect(() => {
+    setLanguage(localStorage.getItem("i18nextLng"));
+  }, [localStorage.getItem("i18nextLng")]);
   return (
     <div className="main-div">
       <div className="calendar-head">
@@ -189,9 +193,15 @@ const CalendarComponent = (props) => {
           min={props.min}
           max={props.max}
           onNavigate={props.onNavigate}
-          culture={props.lng}
+          culture={language}
           formats={formats}
-          messages={props.lng === "fr" && messagesFrench}
+          messages={
+            language === "fr"
+              ? messagesFrench
+              : language === "en"
+              ? messagesEnglish
+              : ""
+          }
         />
       </div>
     </div>

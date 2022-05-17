@@ -13,6 +13,7 @@ import { Views } from "react-big-calendar";
 import { useTranslation } from "react-i18next";
 import Box from "@mui/material/Box";
 import CircularProgress from "@mui/material/CircularProgress";
+const CurrentLanguage = localStorage.getItem("i18nextLng");
 
 const Calendar = () => {
   const currentDate = moment();
@@ -26,7 +27,6 @@ const Calendar = () => {
   const { i18n, t } = useTranslation();
 
   const [bookingModal, setBookingModal] = React.useState(false);
-  const [AddBookingModal, setAddBookingModal] = React.useState(false);
 
   useEffect(() => {
     const userData = JSON.parse(localStorage.getItem("user"));
@@ -79,17 +79,17 @@ const Calendar = () => {
   };
 
   //Add booking modal handles
-  const handleOnSelectSlot = (e) => {
-    if (moment(e.start).isAfter(currentDate)) {
-      setAddBookingModal(true);
-    } else {
-      toast.error(t("Cannot Book after time"));
-    }
-  };
+  // const handleOnSelectSlot = (e) => {
+  //   if (moment(e.start).isAfter(currentDate)) {
+  //     setAddBookingModal(true);
+  //   } else {
+  //     toast.error(t("Cannot Book after time"));
+  //   }
+  // };
 
-  const handleAddBookingClose = (e) => {
-    setAddBookingModal(false);
-  };
+  // const handleAddBookingClose = (e) => {
+  //   setAddBookingModal(false);
+  // };
   //handle Event click
   const handleEventClick = (e) => {
     if (e.status === "booking") {
@@ -278,108 +278,6 @@ const Calendar = () => {
           </div>
         </div>
       </BasicModal>
-
-      {/* add booking modal */}
-      {/* <BasicModal
-        open={AddBookingModal}
-        onClose={handleBookingClose}
-        closebtn={true}
-        modalMainTitle="Add Booking"
-        modalboxclassName="booking-modal"
-      >
-        <Divider width="100% !important" margin="2% 0px 2% 0px" />
-
-        <div className="booking-content">
-          <Grid container spacing={3}>
-             <Grid
-                    xs={12}
-                    sm={12}
-                    md={6}
-                    style={{
-                      padding: "10px",
-                    }}
-                  >
-              <TextField label={t("User Info")} placeholder={t("Enter username")} />
-            </Grid>
-             <Grid
-                    xs={12}
-                    sm={12}
-                    md={6}
-                    style={{
-                      padding: "10px",
-                    }}
-                  >
-              <TextField label={t("Booking Date")} placeholder={t("Add booking date")} />
-            </Grid>
-             <Grid
-                    xs={12}
-                    sm={12}
-                    md={6}
-                    style={{
-                      padding: "10px",
-                    }}
-                  >
-              <TextField
-                label={t("Booking Time")}
-                placeholder="Select booking time"
-              />
-            </Grid>
-             <Grid
-                    xs={12}
-                    sm={12}
-                    md={6}
-                    style={{
-                      padding: "10px",
-                    }}
-                  >
-              <TextField
-                label={t("Duration")}
-                placeholder={t("Enter duration of booking")}
-              />
-            </Grid>
-             <Grid
-                    xs={12}
-                    sm={12}
-                    md={6}
-                    style={{
-                      padding: "10px",
-                    }}
-                  >
-              <TextField label={t("Vechicle")} placeholder={t("Select vechicle type")} />
-            </Grid>
-             <Grid
-                    xs={12}
-                    sm={12}
-                    md={6}
-                    style={{
-                      padding: "10px",
-                    }}
-                  >
-              <TextField label={t("Meetup")} placeholder={t("Enter Meet-UP point")} />
-            </Grid>
-          </Grid>
-          <div className="booking-btn-div">
-            <Grid align="right">
-              <Button
-                text={t("Close")}
-                onClick={handleAddBookingClose}
-                variant="outlined"
-                width="110px !important"
-                textColor="#363557 !important"
-                margin="10px !important"
-                borderColor="black !important"
-              />
-              <Button
-                text={t("Add Booking")}
-                type="submit"
-                textColor="#FFFFFF !important"
-                width="150px !important"
-                color="#149E7A !important"
-              />
-            </Grid>
-          </div>
-        </div>
-      </BasicModal> */}
     </>
   );
 };

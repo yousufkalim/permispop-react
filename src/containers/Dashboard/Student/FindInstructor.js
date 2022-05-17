@@ -107,8 +107,9 @@ const Index = () => {
       });
   };
 
-  const handleReservation = () => {
-    history.push("/student/booking");
+  const handleReservation = (item) => {
+    localStorage.setItem("selectedInstructor", JSON.stringify(item));
+    history.push("/student/InstructorBooking");
   };
 
   const handleChat = async (instructorData) => {
