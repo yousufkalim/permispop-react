@@ -99,7 +99,8 @@ const Maps = (props) => {
           "ChatroomId",
           JSON.stringify(ChatroomResponse.data.data.id)
         );
-        history.push("/student/chat");
+        // history.push("/student/chat");
+        window.location = "/student/chat";
       })
       .catch((error) => {
         console.log(error);
@@ -219,16 +220,19 @@ const Maps = (props) => {
         className="markercluster-map"
         center={[studentData.lat, studentData.long]}
         zoom={14}
-        maxZoom={19}
+        maxZoom={20}
         attributionControl={true}
         zoomControl={true}
         doubleClickZoom={true}
         scrollWheelZoom={true}
         dragging={true}
-        animate={true}
+        // animate={true}
         easeLinearity={0.5}
       >
-        <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+        <TileLayer
+          url="https://tiles.stadiamaps.com/tiles/osm_bright/{z}/{x}/{y}{r}.png"
+          attribution='&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
+        />
         <MarkerClusterGroup showCoverageOnHover={true}>
           <Marker
             position={[studentData.lat, studentData.long]}
