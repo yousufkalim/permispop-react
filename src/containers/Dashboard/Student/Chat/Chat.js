@@ -50,12 +50,14 @@ const Index = (props) => {
       GetMessages(SelectedChatroom);
       localStorage.removeItem("ChatroomId");
     }
+  }, [chatroomId]);
+  useEffect(() => {
     const newConnection = new HubConnectionBuilder()
       .withUrl(`${chatUrl}/chathub`)
       .withAutomaticReconnect()
       .build();
     setConnection(newConnection);
-  }, [chatroomId]);
+  }, []);
 
   useEffect(() => {
     scrollToBottom();
@@ -66,14 +68,13 @@ const Index = (props) => {
       connection
         .start()
         .then((result) => {
-          console.log("Connected! / above receiver");
+          console.log("--------> Connected!");
           connection.on("ReceiveMessage", (message, chat) => {
             const updatedChat = [...latestChat.current];
-            console.log("message", chatMessages);
+            console.log("message", message);
             console.log("chat", chat);
             updatedChat.push(message);
             setChatMessages(updatedChat);
-            toast.success("New Message Received");
           });
         })
         .catch((e) => console.log("Connection failed: ", e));
@@ -233,7 +234,9 @@ const Index = (props) => {
     messagesEndRef?.current?.scrollIntoView({ block: "end" });
   };
   const handleKeypress = (e) => {
-    if (e.key === "Enter") {
+    if (e.key === "Enter" && e.target.value === "") {
+      toast.error("Cannot Send Empty Message");
+    } else if (e.key === "Enter" && e.target.value !== "") {
       onClick();
     }
   };
