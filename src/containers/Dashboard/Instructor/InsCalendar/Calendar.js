@@ -18,6 +18,8 @@ import TextField from "../../../../components/Common/TextField";
 import Button from "../../../../components/Common/Button";
 import TimePicker from "../../../../components/Common/TimePicker";
 import API from "../../../../api/index";
+import LoadingButton from "@mui/lab/LoadingButton";
+
 import { useTranslation } from "react-i18next";
 
 const Calendar = () => {
@@ -46,6 +48,7 @@ const Calendar = () => {
   const [disabled, setdisabled] = useState(false);
   const [value, setValue] = useState("Availability-page");
   const { i18n, t } = useTranslation();
+  const [loading, setLoading] = React.useState(false);
 
   const [lng, setLng] = useState();
 
@@ -260,6 +263,7 @@ const Calendar = () => {
       let meetupPointsData = meetupPoints.find((meetupPoint) => {
         return selectedMeetup === meetupPoint.value;
       });
+      setLoading(true);
 
       await API("post", "Availability", {
         VehicleId: vehicleData.name,
@@ -285,10 +289,12 @@ const Calendar = () => {
           );
           setUpdate(!update);
           setOpen(false);
+          setLoading(false);
         })
         .catch((err) => {
           toast.warning(`Availabilty already exists for this time slot!`);
           console.log("err", err);
+          setLoading(false);
         });
     }
   };
@@ -321,6 +327,8 @@ const Calendar = () => {
     } else if (minutes === 30) {
       toast.warning("Cannot create a availability for 30 minutes!");
     } else {
+      setLoading(true);
+
       await API("post", "Availability", {
         VehicleId: "",
         createdAt: new Date(),
@@ -345,6 +353,7 @@ const Calendar = () => {
         setUpdate(!update);
         setDescription("");
         setOpen(false);
+        setLoading(false);
       });
     }
   };
@@ -377,6 +386,7 @@ const Calendar = () => {
     } else if (minutes === 30) {
       toast.warning("Cannot create a availability for 30 minutes!");
     } else {
+      setLoading(true);
       await API("post", "Availability", {
         VehicleId: "",
         createdAt: new Date(),
@@ -401,11 +411,13 @@ const Calendar = () => {
         setUpdate(!update);
         setDescription("");
         setOpen(false);
+        setLoading(false);
       });
     }
   };
 
   const handleDeleteAvailability = async () => {
+    setLoading(true);
     await API(
       "delete",
       `Availability/DeleteAvailability_New?AvailabilityId=${
@@ -418,6 +430,7 @@ const Calendar = () => {
         setUpdate(!update);
         setEventDeleteModal(false);
         setdisabled(false);
+        setLoading(false);
       })
       .catch((err) => {
         console.log("err", err);
@@ -437,6 +450,7 @@ const Calendar = () => {
   };
 
   const handleBookingDelete = async () => {
+    setLoading(true);
     setdisabled(true);
     await API(
       "delete",
@@ -450,6 +464,7 @@ const Calendar = () => {
         setUpdate(!update);
         handleBookingClose();
         setdisabled(false);
+        setLoading(false);
       })
       .catch((err) => {
         console.log("err", err);
@@ -727,16 +742,22 @@ const Calendar = () => {
                     margin=" 10px 10px 0 0"
                     color="white"
                   />
-                  <Button
-                    text={t("Confirm")}
+
+                  <LoadingButton
+                    loading={loading}
+                    loadingPosition="start"
                     onClick={handleAddAvailability}
-                    borderRadius="7px"
-                    borderColor="#363557"
-                    textColor="#FFFFFF"
-                    width="15%"
-                    color="#149E7A !important"
-                    margin=" 10px 10px 0 0"
-                  />
+                    sx={{
+                      color: "#FFFFFF",
+                      background: "#149E7A",
+                      width: "110px",
+                      height: "55px",
+                      borderRadius: "30px",
+                    }}
+                    className="LoadingButton"
+                  >
+                    {t("Confirm")}
+                  </LoadingButton>
                 </Grid>
               </form>
             </TabPanel>
@@ -937,16 +958,22 @@ const Calendar = () => {
                     margin=" 10px 10px 0 0"
                     color="white"
                   />
-                  <Button
-                    text={t("Confirm")}
+
+                  <LoadingButton
+                    loading={loading}
+                    loadingPosition="start"
                     onClick={handleAddUnavailability}
-                    borderRadius="7px"
-                    borderColor="#363557"
-                    textColor="#FFFFFF"
-                    width="15%"
-                    color="#149E7A !important"
-                    margin=" 10px 10px 0 0"
-                  />
+                    sx={{
+                      color: "#FFFFFF",
+                      background: "#149E7A",
+                      width: "110px",
+                      height: "55px",
+                      borderRadius: "30px",
+                    }}
+                    className="LoadingButton"
+                  >
+                    {t("Confirm")}
+                  </LoadingButton>
                 </Grid>
               </form>
             </TabPanel>
@@ -1147,16 +1174,22 @@ const Calendar = () => {
                     margin=" 10px 10px 0 0"
                     color="white"
                   />
-                  <Button
-                    text={t("Confirm")}
+
+                  <LoadingButton
+                    loading={loading}
+                    loadingPosition="start"
                     onClick={handleAddPersonal}
-                    borderRadius="7px"
-                    borderColor="#363557"
-                    textColor="#FFFFFF"
-                    width="15%"
-                    color="#149E7A !important"
-                    margin=" 10px 10px 0 0"
-                  />
+                    sx={{
+                      color: "#FFFFFF",
+                      background: "#149E7A",
+                      width: "110px",
+                      height: "55px",
+                      borderRadius: "30px",
+                    }}
+                    className="LoadingButton"
+                  >
+                    {t("Confirm")}
+                  </LoadingButton>
                 </Grid>
               </form>
             </TabPanel>
@@ -1189,17 +1222,22 @@ const Calendar = () => {
             color="white"
             height="3rem"
           />
-          <Button
-            text={t("Yes")}
+
+          <LoadingButton
+            loading={loading}
+            loadingPosition="start"
             onClick={(e) => handleDeleteAvailability(e)}
-            borderRadius="7px"
-            borderColor="#363557"
-            textColor="#FFFFFF"
-            height="3rem"
-            width="18%"
-            color="#149E7A !important"
-            margin=" 10px 10px 0 0"
-          />
+            sx={{
+              color: "#FFFFFF",
+              background: "#149E7A",
+              width: "110px",
+              height: "55px",
+              borderRadius: "30px",
+            }}
+            className="LoadingButton"
+          >
+            {t("Yes")}
+          </LoadingButton>
         </Grid>
       </BasicModal>
       {/* View Booking modal */}
@@ -1312,17 +1350,22 @@ const Calendar = () => {
                 margin=" 10px 10px 0 0"
                 color="white"
               />
-              <Button
-                text={t("Delete")}
+
+              <LoadingButton
+                loading={loading}
+                loadingPosition="start"
                 onClick={handleBookingDelete}
-                disabled={disabled}
-                borderRadius="7px"
-                borderColor="#363557"
-                textColor="#FFFFFF"
-                width="15%"
-                color="#149E7A !important"
-                margin=" 10px 10px 0 0"
-              />
+                sx={{
+                  color: "#FFFFFF",
+                  background: "#149E7A",
+                  width: "110px",
+                  height: "55px",
+                  borderRadius: "30px",
+                }}
+                className="LoadingButton"
+              >
+                {t("Delete")}
+              </LoadingButton>
             </Grid>
           </div>
         </div>
