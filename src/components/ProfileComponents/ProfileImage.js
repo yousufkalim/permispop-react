@@ -34,7 +34,11 @@ const ProfileImage = (props) => {
                 className="Profile-img"
                 src={props.src}
                 alt=""
-                style={{ height: "240px", width: "300px" }}
+                style={{
+                  height: "240px",
+                  width: "100%",
+                  objectFit: "cover !important",
+                }}
               />
             </label>
           </div>
