@@ -555,7 +555,7 @@ const Calendar = () => {
                     }}
                   >
                     <DropDown
-                      label={t("Select Instructor")}
+                      label={t("Start Hours")}
                       placeholder="Start Hours"
                       name="selectedStartHours"
                       value={selectedStartHours}
@@ -735,9 +735,12 @@ const Calendar = () => {
                     text={t("Cancel")}
                     onClick={handleClose}
                     variant="outlined"
-                    width="110px !important"
-                    textColor="#363557 !important"
-                    margin="10px !important"
+                    borderRadius="7px"
+                    borderColor="#363557"
+                    width="15%"
+                    textColor="#363557"
+                    margin=" 10px 10px 0 0"
+                    color="white"
                   />
 
                   <LoadingButton
@@ -948,9 +951,12 @@ const Calendar = () => {
                     text={t("Cancel")}
                     onClick={handleClose}
                     variant="outlined"
-                    width="110px !important"
-                    textColor="#363557 !important"
-                    margin="10px !important"
+                    borderRadius="7px"
+                    borderColor="#363557"
+                    width="15%"
+                    textColor="#363557"
+                    margin=" 10px 10px 0 0"
+                    color="white"
                   />
 
                   <LoadingButton
@@ -1158,12 +1164,15 @@ const Calendar = () => {
 
                 <Grid align="right">
                   <Button
-                    text={t("Cancel")}
                     onClick={handleClose}
+                    text={t("Cancel")}
                     variant="outlined"
-                    width="110px !important"
-                    textColor="#363557 !important"
-                    margin="10px !important"
+                    borderRadius="7px"
+                    borderColor="#363557"
+                    width="15%"
+                    textColor="#363557"
+                    margin=" 10px 10px 0 0"
+                    color="white"
                   />
 
                   <LoadingButton
@@ -1205,9 +1214,13 @@ const Calendar = () => {
             text={t("No")}
             onClick={handleDeleteClose}
             variant="outlined"
-            width="110px !important"
-            textColor="#363557 !important"
-            margin="10px !important"
+            borderRadius="7px"
+            borderColor="#363557"
+            width="18%"
+            textColor="#363557"
+            margin=" 10px 10px 0 0"
+            color="white"
+            height="3rem"
           />
 
           <LoadingButton
@@ -1328,11 +1341,14 @@ const Calendar = () => {
               <Button
                 text={t("Close")}
                 onClick={handleBookingClose}
-                variant="outlined"
-                width="110px !important"
-                textColor="#363557 !important"
-                margin="10px !important"
                 disabled={disabled}
+                variant="outlined"
+                borderRadius="7px"
+                borderColor="#363557"
+                width="15%"
+                textColor="#363557"
+                margin=" 10px 10px 0 0"
+                color="white"
               />
 
               <LoadingButton

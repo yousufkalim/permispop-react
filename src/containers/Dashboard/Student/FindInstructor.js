@@ -54,6 +54,7 @@ const Index = () => {
   };
 
   const getInstructors = async () => {
+    setLoading(true);
     await API(
       "get",
       `Profile/GetNearbyProfiles_New/?lat=${user.lat}&log=${user.long}&radius=${filters.Radius}&gearbox=${filters.Gearbox}&gender=${filters.Gender}&role=${filters.Role}&startdate=${filters.startDate}&enddate=${filters.endDate}`
@@ -110,8 +111,22 @@ const Index = () => {
     history.push("/student/booking");
   };
 
-  const handleChat = () => {
-    history.push("/student/chat");
+  const handleChat = async (instructorData) => {
+    await API(
+      "get",
+      `Chat/getorcreatechatroom?userA=${user.id}&userB=${instructorData.id}`
+    )
+      .then((ChatroomResponse) => {
+        localStorage.setItem(
+          "ChatroomId",
+          JSON.stringify(ChatroomResponse.data.data.id)
+        );
+        // history.push("/student/chat");
+        window.location = "/student/chat";
+      })
+      .catch((error) => {
+        console.log(error);
+      });
   };
 
   const handleProfileModalClose = () => setProfileModal(false);
@@ -373,7 +388,7 @@ const Index = () => {
                 <img src={Project} alt="" />
               </div>
               <div className="popup_text">
-                {/* <p className="icons_text1">{profileData.BookingLength}</p> */}
+                <p className="icons_text1">{profileData.BookingLength}</p>
                 <p className="icons_text2">Bookings</p>
               </div>
             </div>
@@ -383,7 +398,7 @@ const Index = () => {
               </div>
               <div>
                 <p className="icons_text1">
-                  {/* {profileData.Rating != "NaN" ? profileData.Rating : "N/A"} */}
+                  {profileData.Rating != "NaN" ? profileData.Rating : "N/A"}
                 </p>
                 <p className="icons_text2">Ratings</p>
               </div>
@@ -393,9 +408,6 @@ const Index = () => {
                 <Chatsvg className="modal_chat_icon" />
               </div>
               <div>
-                <p className="icons_text1">
-                  {/* {profileData.Rating != "NaN" ? profileData.Rating : "N/A"} */}
-                </p>
                 <p className="icons_text2" style={{ cursor: "pointer" }}>
                   Chat
                 </p>

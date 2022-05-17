@@ -302,7 +302,7 @@ const Calendar = () => {
     setLoading(true);
 
     if (
-      parseInt(selectedAvailability.startHour) + parseInt(duration) >=
+      parseInt(selectedAvailability.startHour) + parseInt(duration) >
       parseInt(selectedAvailability.endHour)
     ) {
       toast.warning("Booking time cannot exceed availability end time!");
