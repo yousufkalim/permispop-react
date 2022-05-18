@@ -597,77 +597,72 @@ const Index = () => {
   };
 
   const handleDeleteVehicle = async (index) => {
-    if (index.length > 1) {
-      const tempArray = [...vehicleData];
-      await API("get", `Profile/GetProfileByPersonalId?id=${user.id}`).then(
-        async (InsprofileRes) => {
-          let vehicleId = JSON.parse(
-            InsprofileRes.data.data.drivingSchoolVehiclesInfoId
-          );
+    const tempArray = [...vehicleData];
+    await API("get", `Profile/GetProfileByPersonalId?id=${user.id}`).then(
+      async (InsprofileRes) => {
+        let vehicleId = JSON.parse(
+          InsprofileRes.data.data.drivingSchoolVehiclesInfoId
+        );
 
-          let allVehicles = {};
-          Object.entries(vehicleId).map(([key, value], i) => {
-            if (tempArray[index].id === value) {
-            } else {
-              allVehicles = {
-                ...allVehicles,
-                ["Vehicle" + (Object.keys(allVehicles).length + 1)]: value,
-              };
-            }
-          });
+        let allVehicles = {};
+        Object.entries(vehicleId).map(([key, value], i) => {
+          if (tempArray[index].id === value) {
+          } else {
+            allVehicles = {
+              ...allVehicles,
+              ["Vehicle" + (Object.keys(allVehicles).length + 1)]: value,
+            };
+          }
+        });
 
-          await API(
-            "get",
-            `VehicleDetail/UpdateVehicleDetail/?id=${tempArray[index].id}&Deleted=${bookingDeleted}`
-          ).then(async (vehicleres) => {
-            await API("post", `Profile/UpdateProfile`, {
-              banDate: InsprofileRes.data.data.banDate,
-              banStatus: InsprofileRes.data.data.banDate,
-              id: InsprofileRes.data.data.id,
-              businessInfoId: InsprofileRes.data.data.businessInfoId,
-              drivingLisenceInfoId:
-                InsprofileRes.data.data.drivingLisenceInfoId,
-              drivingSchoolApprovalInfoId:
-                InsprofileRes.data.data.drivingSchoolApprovalInfoId,
-              drivingSchoolIdentityInfoId:
-                InsprofileRes.data.data.drivingSchoolIdentityInfoId,
-              drivingSchoolInstructorInfoId:
-                InsprofileRes.data.data.drivingSchoolInstructorInfoId,
-              drivingSchoolManagerInfoId:
-                InsprofileRes.data.data.drivingSchoolManagerInfoId,
-              drivingSchoolVehiclesInfoId:
-                InsprofileRes.data.data.drivingSchoolVehiclesInfoId,
-              exersiceAuthorizationInfoId:
-                InsprofileRes.data.data.exersiceAuthorizationInfoId,
-              insuranceCompanyInfoId:
-                InsprofileRes.data.data.insuranceCompanyInfoId,
-              isAdminBan: InsprofileRes.data.data.isAdminBan,
-              isEmailSent: InsprofileRes.data.data.isEmailSent,
-              lat: InsprofileRes.data.data.lat,
-              long: InsprofileRes.data.data.long,
-              personalInfoId: InsprofileRes.data.data.personalInfoId,
-              personalInfos: InsprofileRes.data.data.personalInfos,
-              role: InsprofileRes.data.data.role,
-              status: InsprofileRes.data.data.status,
-              technicalControlInfoId:
-                InsprofileRes.data.data.technicalControlInfoId,
-              vehicleInsuranceInfoId:
-                InsprofileRes.data.data.vehicleInsuranceInfoId,
-              drivingSchoolVehiclesInfoId:
-                Object.keys(allVehicles).length > 0
-                  ? JSON.stringify(allVehicles)
-                  : "",
-            }).then((updateprofileres) => {
-              toast.success(t("Vehicle deleted scuccessfully"));
-              setOpenBookingDeleteModal(false);
-              getVehicleData(user);
-            });
+        await API(
+          "get",
+          `VehicleDetail/UpdateVehicleDetail/?id=${tempArray[index].id}&Deleted=${bookingDeleted}`
+        ).then(async (vehicleres) => {
+          await API("post", `Profile/UpdateProfile`, {
+            banDate: InsprofileRes.data.data.banDate,
+            banStatus: InsprofileRes.data.data.banDate,
+            id: InsprofileRes.data.data.id,
+            businessInfoId: InsprofileRes.data.data.businessInfoId,
+            drivingLisenceInfoId: InsprofileRes.data.data.drivingLisenceInfoId,
+            drivingSchoolApprovalInfoId:
+              InsprofileRes.data.data.drivingSchoolApprovalInfoId,
+            drivingSchoolIdentityInfoId:
+              InsprofileRes.data.data.drivingSchoolIdentityInfoId,
+            drivingSchoolInstructorInfoId:
+              InsprofileRes.data.data.drivingSchoolInstructorInfoId,
+            drivingSchoolManagerInfoId:
+              InsprofileRes.data.data.drivingSchoolManagerInfoId,
+            drivingSchoolVehiclesInfoId:
+              InsprofileRes.data.data.drivingSchoolVehiclesInfoId,
+            exersiceAuthorizationInfoId:
+              InsprofileRes.data.data.exersiceAuthorizationInfoId,
+            insuranceCompanyInfoId:
+              InsprofileRes.data.data.insuranceCompanyInfoId,
+            isAdminBan: InsprofileRes.data.data.isAdminBan,
+            isEmailSent: InsprofileRes.data.data.isEmailSent,
+            lat: InsprofileRes.data.data.lat,
+            long: InsprofileRes.data.data.long,
+            personalInfoId: InsprofileRes.data.data.personalInfoId,
+            personalInfos: InsprofileRes.data.data.personalInfos,
+            role: InsprofileRes.data.data.role,
+            status: InsprofileRes.data.data.status,
+            technicalControlInfoId:
+              InsprofileRes.data.data.technicalControlInfoId,
+            vehicleInsuranceInfoId:
+              InsprofileRes.data.data.vehicleInsuranceInfoId,
+            drivingSchoolVehiclesInfoId:
+              Object.keys(allVehicles).length > 0
+                ? JSON.stringify(allVehicles)
+                : "",
+          }).then((updateprofileres) => {
+            toast.success(t("Vehicle deleted scuccessfully"));
+            setOpenBookingDeleteModal(false);
+            getVehicleData(user);
           });
-        }
-      );
-    } else {
-      toast.error("Vehicle cannot be deleted");
-    }
+        });
+      }
+    );
   };
 
   const handleAddVehicle = async () => {
