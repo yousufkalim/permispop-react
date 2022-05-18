@@ -46,7 +46,7 @@ const ProfileDetails = (props) => {
         readOnly={true}
         value={props.ratings}
         showLabel={true}
-        precision="0.5"
+        precision="1"
         fontWeight="900"
         disabled={false}
         highlightSelectedOnly={false}
