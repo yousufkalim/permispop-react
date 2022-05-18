@@ -46,8 +46,9 @@
     max-height: 50%  !important;
   }
   .css-1bi8eur{
-    max-height: 50%  !important;
+    height: 45%  !important;
   }
+ 
   @media (max-width:992px) {
     .MuiInputLabel-formControl {
         font-size: 20px !important;
