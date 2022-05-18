@@ -22,6 +22,7 @@ i18n
           "Date of registration": "Date of registration",
           Unavailability: "Unavailability",
           Disputes: "Disputes",
+          yes: "yes",
           "Pending Requests": "Pending Requests",
           "My Calendar": "My Calendar",
           "Pending request": "Pending Request",
@@ -398,6 +399,8 @@ i18n
           "Don’t have an account?": "Don’t have an account?",
           "I read and agree to": "I read and agree to",
           "Login to your account": "Login to your account",
+          "Do you want to delete booking of this vehicle?":
+            "Do you want to delete booking of this vehicle?",
 
           "Email (2nd email)": "Second Email",
           "Phone (2nd phone)": "Second Phone",
@@ -2021,12 +2024,14 @@ i18n
           "Re-Book": "Re-réserver",
           GEARBOX: "BOÎTE DE VITESSES",
           GearBox: "Boîte de vitesses",
-
+          "Do you want to delete booking of this vehicle?":
+            "Voulez-vous supprimer la réservation de ce véhicule ?",
           Cancel: "Annuler",
           "Car Rental Agent": "Agent de location de voitures",
           "Rental Car Agent": "Agent de location de voitures",
           CarRentalAgent: "Agent de location de voitures",
           "View larger map": "Agrandir le plan",
+          yes: "oui",
 
           "Change Password": "Changer de mot de passe",
           "Request Profile Update": "Demander la mise à jour de mon profil",
