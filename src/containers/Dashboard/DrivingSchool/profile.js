@@ -320,7 +320,13 @@ const Profile = () => {
             languages={
               user ? (user.spokenLanguage ? user.spokenLanguage : []) : []
             }
-            ratings={ratings ? (ratings === "NaN" ? t("N/A") : ratings) : ""}
+            ratings={
+              ratings
+                ? ratings === "NaN"
+                  ? t("N/A")
+                  : Math.round(ratings)
+                : ""
+            }
           ></ProfileDetails>
           <Grid className="ProfileDetails">
             <Typography className="Abouttitlle">{t("About")}</Typography>
