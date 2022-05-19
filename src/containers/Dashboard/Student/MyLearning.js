@@ -53,6 +53,10 @@ function Mylearning() {
   const [update, setUpdate] = useState(false);
 
   useEffect(() => {
+    const user = JSON.parse(localStorage.getItem("user"));
+    if (!user) window.location.reload();
+  }, []);
+  useEffect(() => {
     BookletComments();
     let checklevel = Booklet();
     Promise.all([checklevel]).then((e) => {
