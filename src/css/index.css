@@ -63,6 +63,7 @@ input:-webkit-autofill:active {
 
 .leaflet-div-icon{
   border-radius: 50px;
+  border: 2px solid rgb(150, 148, 148);
 }
 /* address */
 
