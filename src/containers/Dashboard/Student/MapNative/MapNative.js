@@ -94,13 +94,15 @@ const MapNative = (props) => {
   };
 
   const url = "https://www.nbrc.com.au/images/avatar-placeholder.png";
-  const profileImg = studentData.role ? studentData.photo : url;
+  const profileImg =
+    studentData.photo !== null || undefined ? studentData.photo : url;
 
   var greyIcon = new L.Icon({
-    iconUrl: url,
+    iconUrl: profileImg,
     iconSize: [60, 65],
     iconAnchor: [12, 41],
     popupAnchor: [16, -38],
+    className: "leaflet-div-icon",
   });
 
   return (
@@ -199,7 +201,10 @@ const MapNative = (props) => {
         animate={true}
         easeLinearity={0.5}
       >
-        <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+        <TileLayer
+          url="https://tiles.stadiamaps.com/tiles/osm_bright/{z}/{x}/{y}{r}.png?api_key=b51367d1-7f98-4edc-ad6e-4ec7471e0ee8"
+          attribution='&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
+        />
         <MarkerClusterGroup showCoverageOnHover={true}>
           <Marker
             position={[studentData.lat, studentData.long]}
@@ -344,12 +349,3 @@ const MapNative = (props) => {
 };
 
 export default MapNative;
-
-const greyIcon = (photo) =>
-  new L.Icon({
-    iconUrl: "https://www.nbrc.com.au/images/avatar-placeholder.png",
-    iconSize: [60, 65],
-    iconAnchor: [12, 41],
-    popupAnchor: [1, -34],
-  });
-export { greyIcon };
