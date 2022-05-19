@@ -383,7 +383,13 @@ const Profile = (props) => {
             languages={
               user ? (user.spokenLanguage ? user.spokenLanguage : []) : []
             }
-            ratings={ratings ? (ratings === "NaN" ? t("N/A") : ratings) : ""}
+            ratings={
+              ratings
+                ? ratings === "NaN"
+                  ? t("N/A")
+                  : Math.round(ratings)
+                : ""
+            }
           ></ProfileDetails>
           <div>
             <Grid className="ProfileDetails">
