@@ -279,7 +279,6 @@ export default function Header(props) {
                 buttonLableStyle="btn_main"
                 padding="0 30% 0 30% !important"
                 height="50px"
-                width="100%"
                 onClick={handleLogin}
                 disabled={disable}
               ></Button>
