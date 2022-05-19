@@ -94,6 +94,7 @@ export default function Header(props) {
               setDisable(false);
               history.push("/DrivingSchool/myProfile");
             }
+            localStorage.setItem("user", JSON.stringify(userdata));
           }
           setDisable(false);
           window.location.reload(false);
