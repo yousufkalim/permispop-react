@@ -307,6 +307,7 @@ const Calendar = () => {
     ) {
       toast.warning("Booking time cannot exceed availability end time!");
       setdisabled(false);
+      setLoading(false);
     } else {
       var startDate = moment(selectedAvailability.start).set(
         "hour",
