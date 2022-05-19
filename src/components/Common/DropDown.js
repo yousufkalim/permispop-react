@@ -5,6 +5,7 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import { makeStyles } from "@mui/styles";
 import { useTranslation } from "react-i18next";
+import { Menu } from "@mui/material";
 
 export default function DropDown(props) {
   const { i18n, t } = useTranslation();
@@ -65,6 +66,7 @@ export default function DropDown(props) {
           paddingTop: "1px !important",
           minHeight: "50px !important",
         }}
+        // size="small"
         className="formControl"
         error={props.error ? true : false}
         variant={props.variant || "standard"}
@@ -91,6 +93,7 @@ export default function DropDown(props) {
           onChange={props.onChange}
           value={props.value}
           defaultValue={0}
+          MenuProps={{ PaperProps: { sx: { maxHeight: 200 } } }}
 
           // renderValue={(value) => (props.value ? props.value : "France")}
         >
@@ -100,7 +103,7 @@ export default function DropDown(props) {
                 return (
                   <MenuItem
                     value={item.value}
-                    sx={{ height: "50% !important" }}
+                    sx={{ maxHeight: "50% !important" }}
                   >
                     {item.name}
                   </MenuItem>

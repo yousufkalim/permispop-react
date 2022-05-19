@@ -4,7 +4,6 @@ import Button from "../Common/Button";
 import API from "../../api/index";
 import { useTranslation } from "react-i18next";
 
-
 const Cookies = () => {
   const { i18n, t } = useTranslation();
   const [cookies, setCookies] = useState({});
@@ -36,7 +35,7 @@ const Cookies = () => {
       {cookieValue === "true" ? (
         <div className="cookies_main_div">
           <div className="cookies_div2">
-            <div style={{ width: "50%" }}>
+            <div style={{ width: "95%" }}>
               <Typography className="cookies_heading_text">
                 {lng === "en"
                   ? cookies.headingEnglish
@@ -54,6 +53,7 @@ const Cookies = () => {
             </div>
             <Button
               text="Accept all Cookies"
+              width="15%"
               onClick={() => {
                 localStorage.setItem("Cookies Accepted", false);
                 setCookieValue(false);

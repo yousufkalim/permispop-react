@@ -63,7 +63,7 @@ function App() {
   const [loading, setLoading] = React.useState(true);
   useEffect(() => {
     const LocaleToken = localStorage.getItem("token");
-    i18n.changeLanguage("en");
+    i18n.changeLanguage("fr");
     if (LocaleToken) {
       var decoded = jwt_decode(LocaleToken);
       let userdata = JSON.parse(Base64.decode(decoded.userData));
