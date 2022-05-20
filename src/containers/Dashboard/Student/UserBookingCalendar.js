@@ -517,8 +517,10 @@ const Calendar = () => {
                 sx={{
                   color: "#FFFFFF",
                   background: "#149E7A",
-                  width: "150px",
-                  height: "50px",
+                  width: "120px",
+                  height: "55px",
+                  marginTop: "10px",
+                  borderRadius: "10px",
                 }}
                 className="LoadingButton"
               >
@@ -655,8 +657,10 @@ const Calendar = () => {
                 sx={{
                   color: "#FFFFFF",
                   background: "#149E7A",
-                  width: "150px",
-                  height: "50px",
+                  width: "120px",
+                  height: "55px",
+                  marginTop: "10px",
+                  borderRadius: "10px",
                 }}
                 className="LoadingButton"
               >
