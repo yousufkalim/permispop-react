@@ -29,6 +29,7 @@ i18n
           "pending request": "Pending Request",
           "pending Request": "Pending Request",
           "Pending Request": "Pending Request",
+
           "test data for heading": "test data for heading",
           "test data for headingtest data for heading":
             "test data for headingtest data for heading",
@@ -307,6 +308,7 @@ i18n
           Color: "Color",
           Gearbox: "Gearbox",
           GearBox: "GearBox",
+          Welcome: "Welcome",
           "Vehicle Details": "Vehicle Details",
           "No Vehicle Added.": "No Vehicle Added.",
           "Must be 14 Digits": "Must be 14 Digits",
@@ -1554,6 +1556,7 @@ i18n
           Vehicle: "Véhicule",
           Manager: "Directeur",
           Done: "Terminé",
+          Welcome: "Bienvenue",
           // --------------------------------
           "Get Register": "S'inscrire",
           Registeration: " - Formulaire d'inscription",
