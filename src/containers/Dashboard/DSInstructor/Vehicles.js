@@ -121,27 +121,32 @@ const Index = () => {
           "get",
           `Profile/GetProfileByPersonalId?id=${DSInsprofileRes.data.data.drivingSchoolIdentityInfoId}`
         ).then((DSInsPerprofileRes) => {
-          let vehicleId = JSON.parse(
-            DSInsPerprofileRes.data.data.drivingSchoolVehiclesInfoId
-          );
-
-          allVehicles = Object.entries(vehicleId).map(([key, value]) => {
-            return API(
-              "get",
-              `VehicleDetail/GetVehicleDetailByIdAsync?id=${value}`
+          console.log("DSInsPerprofileRes", DSInsPerprofileRes);
+          if (DSInsPerprofileRes.data.data.drivingSchoolVehiclesInfoId) {
+            let vehicleId = JSON.parse(
+              DSInsPerprofileRes.data.data.drivingSchoolVehiclesInfoId
             );
-          });
-          Promise.all(allVehicles).then((res) => {
-            let vehicles = [];
-            res.map((veh) => {
-              veh.data.data.dateOfFirstRegistration = moment(
-                veh.data.data.dateOfFirstRegistration
-              ).format("DD/MM/YYYY");
-              vehicles.push(veh.data.data);
+
+            allVehicles = Object.entries(vehicleId).map(([key, value]) => {
+              return API(
+                "get",
+                `VehicleDetail/GetVehicleDetailByIdAsync?id=${value}`
+              );
             });
-            setVehicleData(vehicles);
+            Promise.all(allVehicles).then((res) => {
+              let vehicles = [];
+              res.map((veh) => {
+                veh.data.data.dateOfFirstRegistration = moment(
+                  veh.data.data.dateOfFirstRegistration
+                ).format("DD/MM/YYYY");
+                vehicles.push(veh.data.data);
+              });
+              setVehicleData(vehicles);
+              setLoading(false);
+            });
+          } else {
             setLoading(false);
-          });
+          }
         });
       }
     );
