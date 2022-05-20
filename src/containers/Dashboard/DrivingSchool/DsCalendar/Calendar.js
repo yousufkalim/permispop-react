@@ -424,7 +424,7 @@ const Calendar = () => {
       if (end < 10) {
         end = "0" + end;
       }
-
+      setLoading(true);
       await API("post", "Availability", {
         VehicleId: "",
         createdAt: new Date(),
@@ -450,6 +450,7 @@ const Calendar = () => {
         setUpdate(!update);
         setDescription("");
         setOpen(false);
+        setLoading(false);
       });
     }
   };
@@ -503,7 +504,7 @@ const Calendar = () => {
 
     start = parseInt(start[0]) - 5 + ":" + start[1];
     end = parseInt(end[0]) - 5 + ":" + end[1];
-
+    setLoading(true);
     await API(
       "delete",
       `Bookings/DeleteBookingById_Neww?id=${selectedBooking.id}&StartTime=${start}&Endtime=${end}&status=deleted`
@@ -516,6 +517,7 @@ const Calendar = () => {
       .catch((err) => {
         console.log("err", err);
         setdisabled(false);
+        setLoading(false);
       });
   };
 
@@ -827,9 +829,10 @@ const Calendar = () => {
                     sx={{
                       color: "#FFFFFF",
                       background: "#149E7A",
-                      width: "110px",
+                      width: "120px",
                       height: "55px",
-                      borderRadius: "30px",
+                      marginTop: "10px",
+                      borderRadius: "10px",
                     }}
                     className="LoadingButton"
                   >
@@ -1042,9 +1045,10 @@ const Calendar = () => {
                     sx={{
                       color: "#FFFFFF",
                       background: "#149E7A",
-                      width: "110px",
+                      width: "120px",
                       height: "55px",
-                      borderRadius: "30px",
+                      marginTop: "10px",
+                      borderRadius: "10px",
                     }}
                     className="LoadingButton"
                   >
@@ -1302,9 +1306,10 @@ const Calendar = () => {
             sx={{
               color: "#FFFFFF",
               background: "#149E7A",
-              width: "110px",
+              width: "120px",
               height: "55px",
-              borderRadius: "30px",
+              marginTop: "10px",
+              borderRadius: "10px",
             }}
             className="LoadingButton"
           >
@@ -1430,17 +1435,22 @@ const Calendar = () => {
                 color="white"
                 disabled={disabled}
               />
-              <Button
-                text={t("Delete")}
-                borderRadius="7px"
-                borderColor="#363557"
-                textColor="#FFFFFF"
-                width="15%"
-                color="#149E7A !important"
-                margin=" 10px 10px 0 0"
+              <LoadingButton
+                loading={loading}
+                loadingPosition="start"
                 onClick={handleBookingDelete}
-                disabled={disabled}
-              />
+                sx={{
+                  color: "#FFFFFF",
+                  background: "#149E7A",
+                  width: "120px",
+                  height: "55px",
+                  marginTop: "10px",
+                  borderRadius: "10px",
+                }}
+                className="LoadingButton"
+              >
+                {t("Delete")}
+              </LoadingButton>
             </Grid>
           </div>
         </div>
