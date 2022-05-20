@@ -125,6 +125,9 @@ const InsuranceDetails = () => {
           className="insuranceBtn"
           text={t("Update Profile")}
           onClick={(e) => setOpenUpdateProfileModal(true)}
+          borderRadius="10px"
+          height="20% !important"
+          margin="0 0 1% 0"
         ></Button>
       </Grid>
       <Divider />
