@@ -330,7 +330,9 @@ const Maps = (props) => {
                             </div>
                             <div>
                               <p className="icons_text1">
-                                {item.Rating != "NaN" ? item.Rating : "N/A"}
+                                {item.Rating != "NaN"
+                                  ? Math.round(item.Rating * 10) / 10
+                                  : "N/A"}
                               </p>
                               <p className="icons_text2">{t("Ratings")}</p>
                             </div>
