@@ -151,7 +151,7 @@ function ResponsiveDrawer(props) {
             />
           </span>
           <Typography variant="h7" component="div" className="logo-title">
-            PERMISPOP.
+            PERMISPOP
           </Typography>
           <Box className="Avatar-appbar">
             <IconButton onClick={HandleLogout} sx={{ paddingTop: "15px" }}>

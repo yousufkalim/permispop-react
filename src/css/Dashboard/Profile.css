@@ -70,6 +70,12 @@
 .responsiveModal::-webkit-scrollbar {
   display: none;
 }
+.toast-bar{
+  margin-top:  16%;
+  border-radius: 5px;
+  background-color: #149e7a;
+  font-weight: 600;
+}
 @media only screen and (max-width: 1440px){
   .responsiveModal{
     height: 55% !important;

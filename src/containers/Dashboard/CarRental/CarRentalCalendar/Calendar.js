@@ -424,6 +424,7 @@ const Calendar = () => {
         setUpdate(!update);
         setEventDeleteModal(false);
         setdisabled(false);
+        setLoading(false);
       })
       .catch((err) => {
         console.log("err", err);
@@ -745,9 +746,10 @@ const Calendar = () => {
                     sx={{
                       color: "#FFFFFF",
                       background: "#149E7A",
-                      width: "110px",
+                      width: "120px",
                       height: "55px",
-                      borderRadius: "30px",
+                      marginTop: "10px",
+                      borderRadius: "10px",
                     }}
                     className="LoadingButton"
                   >
@@ -960,9 +962,10 @@ const Calendar = () => {
                     sx={{
                       color: "#FFFFFF",
                       background: "#149E7A",
-                      width: "110px",
+                      width: "120px",
                       height: "55px",
-                      borderRadius: "30px",
+                      marginTop: "10px",
+                      borderRadius: "10px",
                     }}
                     className="LoadingButton"
                   >
@@ -1214,13 +1217,16 @@ const Calendar = () => {
           <LoadingButton
             loading={loading}
             loadingPosition="start"
+            variant="outlined"
             onClick={(e) => handleDeleteAvailability(e)}
             sx={{
               color: "#FFFFFF",
               background: "#149E7A",
               width: "110px",
-              height: "55px",
-              borderRadius: "30px",
+              height: "50px",
+              borderRadius: "7px",
+              borderColor: "#363557",
+              margin: " 10px 10px 0 0",
             }}
             className="LoadingButton"
           >
@@ -1333,7 +1339,7 @@ const Calendar = () => {
                 variant="outlined"
                 borderRadius="7px"
                 borderColor="#363557"
-                width="15%"
+                width="10%"
                 textColor="#363557"
                 margin=" 10px 10px 0 0"
                 color="white"
@@ -1346,9 +1352,10 @@ const Calendar = () => {
                 sx={{
                   color: "#FFFFFF",
                   background: "#149E7A",
-                  width: "110px",
+                  width: "120px",
                   height: "55px",
-                  borderRadius: "30px",
+                  marginTop: "10px",
+                  borderRadius: "10px",
                 }}
                 className="LoadingButton"
               >

@@ -97,6 +97,7 @@ export default function Header(props) {
             localStorage.setItem("user", JSON.stringify(userdata));
           }
           setDisable(false);
+          localStorage.setItem("1stLogin", true);
           window.location.reload(false);
         } else {
           // localStorage.removeItem("token");

@@ -85,6 +85,17 @@ const Profile = () => {
   useEffect(() => {
     const userData = JSON.parse(localStorage.getItem("user"));
     getUser(userData);
+    // toast.success("welcome");
+    if (localStorage.getItem("1stLogin") == "true") {
+      toast.success(
+        t("Welcome") + " " + userData.firstName + " " + userData.surName,
+        {
+          position: toast.POSITION.TOP_RIGHT,
+          className: "toast-bar",
+        }
+      );
+      localStorage.removeItem("1stLogin");
+    }
   }, [update]);
   useEffect(() => {
     const userData = JSON.parse(localStorage.getItem("user"));
@@ -326,7 +337,7 @@ const Profile = () => {
               ratings
                 ? ratings === "NaN"
                   ? t("N/A")
-                  : Math.round(ratings)
+                  : Math.round(ratings * 10) / 10
                 : ""
             }
           ></ProfileDetails>

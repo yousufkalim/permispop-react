@@ -513,7 +513,7 @@ const Index = () => {
           timeout: 500,
         }}
       >
-        <Box sx={style3} className="Scrollbar">
+        <Box sx={style3} className="responsiveModal">
           {/* <FormControl>
             <FormLabel
               id="demo-radio-buttons-group-label"
