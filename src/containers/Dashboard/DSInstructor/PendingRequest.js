@@ -62,7 +62,7 @@ const Index = () => {
     top: "55%",
     left: "50%",
     width: "30%",
-    height: "80%",
+    height: "70% !important",
     overflow: "scroll",
     transform: "translate(-50%, -50%)",
     bgcolor: "background.paper",
