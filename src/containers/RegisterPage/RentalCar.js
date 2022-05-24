@@ -1036,7 +1036,7 @@ const RentalCar = () => {
       BackIDPhoto: step1.BackSideimg,
       Address: step1.Address.Label,
       Complement: step1.Complement,
-      ZIP: step1.Address.Zip,
+      zip: step1.Address.Zip,
       City: step1.Address.City,
       Photo: step1.ProfileImg,
       Password: step1.Password,
@@ -1129,14 +1129,17 @@ const RentalCar = () => {
                     vehicles[0].data.data.technicalControlInfoID,
                   BusinessInfoId: BusinessRes.data.data.id,
                   InsuranceCompanyInfoId: InsuranceCompanyRes.data.data.id,
+                  lat: step1.Address.Lat,
+                  long: step1.Address.Lng,
+                  status: "Active",
                 }).then(async (Profileres) => {
                   await API("post", "InstructorMeetupPoints", {
                     instructorId: personalRes.data.data.id,
-                    MeetUp: step1.Address.Label,
-                    ZIP: step1.Address.Zip,
-                    City: step1.Address.City,
-                    Lat: step1.Address.Lat,
-                    Long: step1.Address.Lng,
+                    meetUp: step1.Address.Label,
+                    zipCode: step1.Address.Zip,
+                    city: step1.Address.City,
+                    lat: step1.Address.Lat,
+                    long: step1.Address.Lng,
                   }).then((e) => {
                     history.push("/");
                     toast.success(t("Rental Car Registered Successfully"));
