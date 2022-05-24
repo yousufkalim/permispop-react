@@ -44,6 +44,7 @@ const Index = () => {
   const [instructors, setInstructors] = useState([]);
   const [profileModal, setProfileModal] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [isSelected, setIsSelected] = useState("");
 
   useEffect(() => {
     getInstructors();
@@ -130,7 +131,10 @@ const Index = () => {
       });
   };
 
-  const handleProfileModalClose = () => setProfileModal(false);
+  const handleProfileModalClose = () => {
+    setIsSelected("");
+    setProfileModal(false);
+  };
 
   const handleProfile = (e) => {
     let selectedBooking = instructors.find((instructor) => {
@@ -324,6 +328,8 @@ const Index = () => {
           handleReservation={handleReservation}
           handleChat={handleChat}
           handleProfile={handleProfile}
+          isSelected={isSelected}
+          setIsSelected={setIsSelected}
         />
       )}
       <BasicModal
