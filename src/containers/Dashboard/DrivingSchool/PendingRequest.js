@@ -88,6 +88,8 @@ const Index = () => {
   const [selectedRatingValue, setSelectedRatingValue] = useState("");
   const [openRatingModal, setOpenRatingModal] = useState(false);
   const [reminder, setReminder] = useState("");
+  const [isSelected, setIsSelected] = useState("");
+  const [isSelectedBook, setIsSelectedBook] = useState("");
 
   const history = useHistory();
   const handleStartdate = (newValue) => {
@@ -193,8 +195,15 @@ const Index = () => {
       toast.error(t("Field cannot be empty"));
     }
   };
-  const handleProfileModalClose = () => setProfileModal(false);
-  const handleCommentModalClose = () => setCommentModal(false);
+  const handleProfileModalClose = () => {
+    setIsSelected("");
+    setProfileModal(false);
+  };
+  const handleCommentModalClose = () => {
+    setIsSelectedBook("");
+
+    setCommentModal(false);
+  };
   const handleProfile = (e) => {
     let selectedBooking = allBookingsWithUser.find((booking) => {
       if (booking.id === e.id) {
@@ -307,6 +316,10 @@ const Index = () => {
           handleProfile={handleProfile}
           handleChat={handleChat}
           handleComment={handleComment}
+          isSelected={isSelected}
+          setIsSelected={setIsSelected}
+          isSelectedBook={isSelectedBook}
+          setIsSelectedBook={setIsSelectedBook}
         />
       )}
 
