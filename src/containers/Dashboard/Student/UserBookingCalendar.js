@@ -45,9 +45,7 @@ const Calendar = () => {
 
   useEffect(() => {
     const userData = JSON.parse(localStorage.getItem("user"));
-    const selectedInstructor = JSON.parse(
-      localStorage.getItem("selectedInstructor")
-    );
+    const selectedInstructor = JSON.parse(localStorage.getItem("selectedInstructor"));
     setUser(userData);
     setSelectedInstructor(selectedInstructor);
     if (startDate != "" || endDate != "") {
@@ -58,49 +56,28 @@ const Calendar = () => {
   const getBookingData = async (userData, selectedInstructor) => {
     let allEvents = [];
     if (selectedInstructor.role === "DrivingSchool") {
-      await API("get", `Bookings/GetBookingsByStudent?id=${userData.id}`).then(
-        async (res) => {
-          res.data.data.map((booking) => {
-            if (booking.drivingSchoolId === "") {
-              let date = moment(booking.bookingDate).format("YYYY-MM-DD");
-              date = date.split("-");
-              let start = booking.startTime.split(":");
-              let end = moment(booking.endTime).format("HH:mm");
-              end = end.split(":");
-              allEvents.push({
-                id: booking.id,
-                title: "Booking By " + booking.instructorQuestionFifth,
-                start: new Date(
-                  date[0],
-                  parseInt(date[1]) - 1,
-                  date[2],
-                  parseInt(start[0]),
-                  start[1],
-                  0
-                ),
-                end: new Date(
-                  date[0],
-                  parseInt(date[1]) - 1,
-                  date[2],
-                  parseInt(end[0]) - 5,
-                  end[1],
-                  0
-                ),
-                bookingTime:
-                  parseInt(start[0]) +
-                  ":" +
-                  start[1] +
-                  " - " +
-                  moment(booking.endTime).format("HH:mm"),
-                status: booking.status,
-                meetingPlace: booking.meetingPlace,
-                duration: booking.duration,
-                vehicleId: booking.vehicleId,
-              });
-            }
-          });
-        }
-      );
+      await API("get", `Bookings/GetBookingsByStudent?id=${userData.id}`).then(async (res) => {
+        res.data.data.map((booking) => {
+          if (booking.drivingSchoolId === "") {
+            let date = moment(booking.bookingDate).format("YYYY-MM-DD");
+            date = date.split("-");
+            let start = booking.startTime.split(":");
+            let end = moment(booking.endTime).format("HH:mm");
+            end = end.split(":");
+            allEvents.push({
+              id: booking.id,
+              title: "Booking By " + booking.instructorQuestionFifth,
+              start: new Date(date[0], parseInt(date[1]) - 1, date[2], parseInt(start[0]), start[1], 0),
+              end: new Date(date[0], parseInt(date[1]) - 1, date[2], parseInt(end[0]) - 5, end[1], 0),
+              bookingTime: parseInt(start[0]) + ":" + start[1] + " - " + moment(booking.endTime).format("HH:mm"),
+              status: booking.status,
+              meetingPlace: booking.meetingPlace,
+              duration: booking.duration,
+              vehicleId: booking.vehicleId,
+            });
+          }
+        });
+      });
 
       await API(
         "get",
@@ -132,22 +109,8 @@ const Calendar = () => {
             allEvents.push({
               id: availability.id,
               title: title,
-              start: new Date(
-                date[0],
-                parseInt(date[1]) - 1,
-                date[2],
-                parseInt(start[0]),
-                start[1],
-                0
-              ),
-              end: new Date(
-                date[0],
-                parseInt(date[1]) - 1,
-                date[2],
-                end[0],
-                end[1],
-                0
-              ),
+              start: new Date(date[0], parseInt(date[1]) - 1, date[2], parseInt(start[0]), start[1], 0),
+              end: new Date(date[0], parseInt(date[1]) - 1, date[2], end[0], end[1], 0),
               startHour: start[0],
               endHour: end[0],
               status: availability.status,
@@ -193,22 +156,8 @@ const Calendar = () => {
             allEvents.push({
               id: availability.id,
               title: title,
-              start: new Date(
-                date[0],
-                parseInt(date[1]) - 1,
-                date[2],
-                parseInt(start[0]),
-                start[1],
-                0
-              ),
-              end: new Date(
-                date[0],
-                parseInt(date[1]) - 1,
-                date[2],
-                end[0],
-                end[1],
-                0
-              ),
+              start: new Date(date[0], parseInt(date[1]) - 1, date[2], parseInt(start[0]), start[1], 0),
+              end: new Date(date[0], parseInt(date[1]) - 1, date[2], end[0], end[1], 0),
               startHour: start[0],
               endHour: end[0],
               status: availability.status,
@@ -301,28 +250,19 @@ const Calendar = () => {
     setdisabled(true);
     setLoading(true);
 
-    if (
-      parseInt(selectedAvailability.startHour) + parseInt(duration) >
-      parseInt(selectedAvailability.endHour)
-    ) {
+    if (parseInt(selectedAvailability.startHour) + parseInt(duration) > parseInt(selectedAvailability.endHour)) {
       toast.warning("Booking time cannot exceed availability end time!");
       setdisabled(false);
       setLoading(false);
     } else {
-      var startDate = moment(selectedAvailability.start).set(
-        "hour",
-        selectedHours
-      );
+      var startDate = moment(selectedAvailability.start).set("hour", selectedHours);
 
       var endDate = moment(startDate).add(parseInt(duration) + 5, "hours");
 
       await API("post", `Bookings`, {
         VehicleId: selectedAvailability.vehicle,
         bookingDate: moment(startDate).add(5, "hours"),
-        drivingSchoolId:
-          selectedInstructor.role === "DrivingSchool"
-            ? selectedInstructor.id
-            : "",
+        drivingSchoolId: selectedInstructor.role === "DrivingSchool" ? selectedInstructor.id : "",
         duration: duration,
         endTime: endDate,
         instructionId: selectedAvailability.instructorId,
@@ -399,12 +339,7 @@ const Calendar = () => {
                 padding: "10px",
               }}
             >
-              <TextField
-                label="User Info"
-                height="10px"
-                value={selectedBooking.title}
-                disabled={true}
-              />
+              <TextField label="User Info" height="10px" value={selectedBooking.title} disabled={true} />
             </Grid>
             <Grid
               xs={12}
@@ -414,11 +349,7 @@ const Calendar = () => {
                 padding: "10px",
               }}
             >
-              <TextField
-                label="Booking Date"
-                disabled={true}
-                value={moment(selectedBooking.start).format("DD-MM-YYYY")}
-              />
+              <TextField label="Booking Date" disabled={true} value={moment(selectedBooking.start).format("DD-MM-YYYY")} />
             </Grid>
             <Grid
               xs={12}
@@ -432,12 +363,9 @@ const Calendar = () => {
                 label="Booking Time"
                 disabled={true}
                 value={
-                  selectedInstructor &&
-                  selectedInstructor.role === "DrivingSchool"
+                  selectedInstructor && selectedInstructor.role === "DrivingSchool"
                     ? selectedBooking.bookingTime
-                    : selectedBooking.startHour +
-                      " - " +
-                      selectedBooking.endHour
+                    : selectedBooking.startHour + " - " + selectedBooking.endHour
                 }
               />
             </Grid>
@@ -453,11 +381,9 @@ const Calendar = () => {
                 label="Duration"
                 disabled={true}
                 value={
-                  selectedInstructor &&
-                  selectedInstructor.role === "DrivingSchool"
+                  selectedInstructor && selectedInstructor.role === "DrivingSchool"
                     ? selectedBooking.duration
-                    : parseInt(selectedBooking.endHour) -
-                      parseInt(selectedBooking.startHour)
+                    : parseInt(selectedBooking.endHour) - parseInt(selectedBooking.startHour)
                 }
               />
             </Grid>
@@ -473,8 +399,7 @@ const Calendar = () => {
                 label="Vechicle"
                 disabled={true}
                 value={
-                  selectedInstructor &&
-                  selectedInstructor.role === "DrivingSchool"
+                  selectedInstructor && selectedInstructor.role === "DrivingSchool"
                     ? selectedBooking.vehicleId
                     : selectedBooking.vehicle
                 }
@@ -492,8 +417,7 @@ const Calendar = () => {
                 label="Meetup"
                 disabled={true}
                 value={
-                  selectedInstructor &&
-                  selectedInstructor.role === "DrivingSchool"
+                  selectedInstructor && selectedInstructor.role === "DrivingSchool"
                     ? selectedBooking.meetingPlace
                     : selectedBooking.meetUp
                 }
@@ -524,7 +448,7 @@ const Calendar = () => {
                 }}
                 className="LoadingButton"
               >
-                Delete
+                {t("Delete")}
               </LoadingButton>
             </Grid>
           </div>
@@ -590,10 +514,7 @@ const Calendar = () => {
             >
               <TextField
                 label="Booking Date"
-                value={
-                  selectedAvailability &&
-                  moment(selectedAvailability.start).format("YYYY-MM-DD")
-                }
+                value={selectedAvailability && moment(selectedAvailability.start).format("YYYY-MM-DD")}
                 disabled={true}
               />
             </Grid>
@@ -627,11 +548,7 @@ const Calendar = () => {
                 padding: "10px",
               }}
             >
-              <TextField
-                label="Vechicle"
-                value={selectedAvailability && selectedAvailability.vehicle}
-                disabled={true}
-              />
+              <TextField label="Vechicle" value={selectedAvailability && selectedAvailability.vehicle} disabled={true} />
             </Grid>
             <Grid
               xs={12}
@@ -641,11 +558,7 @@ const Calendar = () => {
                 padding: "10px",
               }}
             >
-              <TextField
-                label="Meetup"
-                value={selectedAvailability && selectedAvailability.meetUp}
-                disabled={true}
-              />
+              <TextField label="Meetup" value={selectedAvailability && selectedAvailability.meetUp} disabled={true} />
             </Grid>
           </Grid>
           <div className="booking-btn-div">
@@ -664,7 +577,7 @@ const Calendar = () => {
                 }}
                 className="LoadingButton"
               >
-                Add Booking
+                {t("Add Booking")}
               </LoadingButton>
             </Grid>
           </div>
