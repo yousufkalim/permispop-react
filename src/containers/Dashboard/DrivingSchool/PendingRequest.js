@@ -80,7 +80,7 @@ const Index = () => {
   const [commentModal, setCommentModal] = useState(false);
   const [profileData, setProfileData] = useState("");
   const [commentsData, setCommentsData] = useState("");
-  const [chatData, setChatData] = useState("");
+  // const [chatData, setChatData] = useState("");
   const [updatefield, SetUpdateField] = useState("");
   const [updateBookingId, SetUpdateBookingId] = useState("");
   const [selectedBooking, setSelectedBooking] = useState([]);
@@ -156,10 +156,7 @@ const Index = () => {
       }
     });
     if (status == "Complete" || status == "In progress") {
-      await API(
-        "get",
-        `Bookings/UpdateBookingsStatus?id=${id}&status=${status}`
-      ).then((res) => {
+      await API("get", `Bookings/UpdateBookingsStatus?id=${id}&status=${status}`).then((res) => {
         getPendingRequestData(user);
         toast.success(t("Status is updated successful"));
         setOpenRatingModal(true);
@@ -179,18 +176,11 @@ const Index = () => {
         instructorName: user.firstName ? user.firstName : "",
         feedBackDate: new Date(),
         DisputingFrom: user.role ? user.role : "",
-        studentName: selectedUserData.firstName
-          ? selectedUserData.firstName
-          : "",
-        studentName: selectedUserData.firstName
-          ? selectedUserData.firstName
-          : "",
+        studentName: selectedUserData.firstName ? selectedUserData.firstName : "",
+        studentName: selectedUserData.firstName ? selectedUserData.firstName : "",
         studentID: user.role === "Student" ? user.id : selectedUserData.id,
       }).then(async (disputeres) => {
-        await API(
-          "get",
-          `Bookings/UpdateBookingsStatus?id=${updateBookingId}&status=Dispute`
-        ).then((res) => {
+        await API("get", `Bookings/UpdateBookingsStatus?id=${updateBookingId}&status=Dispute`).then((res) => {
           getPendingRequestData(user);
           toast.success(t("Dispute is created sucessfully"));
 
@@ -206,7 +196,6 @@ const Index = () => {
   const handleProfileModalClose = () => setProfileModal(false);
   const handleCommentModalClose = () => setCommentModal(false);
   const handleProfile = (e) => {
-    console.log("profile");
     let selectedBooking = allBookingsWithUser.find((booking) => {
       if (booking.id === e.id) {
         return booking;
@@ -216,8 +205,6 @@ const Index = () => {
     setProfileModal(true);
   };
   const handleComment = (e) => {
-    console.log("comments");
-
     let selectedBooking = allBookingsWithUser.find((booking) => {
       if (booking.id === e.id) {
         return booking;
@@ -232,22 +219,15 @@ const Index = () => {
         return booking;
       }
     });
-    setChatData(selectedBooking.studentData.id);
-    handleChatRoom();
+    handleChatRoom(selectedBooking.studentData.id);
   };
-  const handleChatRoom = async () => {
-    await API(
-      "get",
-      `Chat/getorcreatechatroom?userA=${userData.id}&userB=${chatData}`
-    )
+  const handleChatRoom = async (userB) => {
+    await API("get", `Chat/getorcreatechatroom?userA=${userData.id}&userB=${userB}`)
       .then((ChatroomResponse) => {
         console.log("qwerty", ChatroomResponse);
 
-        localStorage.setItem(
-          "ChatroomId",
-          JSON.stringify(ChatroomResponse.data.data.id)
-        );
-        history.push(`/Instructor/chat`);
+        localStorage.setItem("ChatroomId", JSON.stringify(ChatroomResponse.data.data.id));
+        history.push(`/DrivingSchool/chat`);
       })
       .catch((error) => {
         console.log(error);
@@ -342,10 +322,7 @@ const Index = () => {
       >
         <Box sx={style1}>
           <FormControl>
-            <FormLabel
-              id="demo-radio-buttons-group-label"
-              sx={{ fontWeight: "550" }}
-            >
+            <FormLabel id="demo-radio-buttons-group-label" sx={{ fontWeight: "550" }}>
               {t("Give disputes")}
             </FormLabel>
             <RadioGroup>
@@ -418,11 +395,7 @@ const Index = () => {
           <MyLearningComponent commentsData={commentsData} />
         </Box>
       </Modal>
-      <BasicModal
-        open={profileModal}
-        onClose={handleProfileModalClose}
-        modalboxclassName="profile_modal"
-      >
+      <BasicModal open={profileModal} onClose={handleProfileModalClose} modalboxclassName="profile_modal">
         <div>
           <div className="profile_img_div">
             <img
@@ -464,9 +437,7 @@ const Index = () => {
           </div>
 
           <div className="profile_text_div">
-            <p className="profile_text_right">
-              {moment(profileData.dob).format("DD/MM/YYYY")}
-            </p>
+            <p className="profile_text_right">{moment(profileData.dob).format("DD/MM/YYYY")}</p>
           </div>
           <div className="profile_text_div">
             <p className="profile_text_right">{profileData.placeOfBirth}</p>
@@ -490,9 +461,7 @@ const Index = () => {
                 <img src={Rating} alt="" />
               </div>
               <div>
-                <p className="icons_text1">
-                  {/* {profileData.Rating != "NaN" ? profileData.Rating : "N/A"} */}
-                </p>
+                <p className="icons_text1">{/* {profileData.Rating != "NaN" ? profileData.Rating : "N/A"} */}</p>
                 <p className="icons_text2">Ratings</p>
               </div>
             </div>
@@ -523,30 +492,16 @@ const Index = () => {
               marginBottom: "4%",
             }}
           >
-            <Typography
-              sx={{ fontSize: "32px", fontWeight: "600", color: "#49544F" }}
-            >
-              Give Feedback
-            </Typography>
+            <Typography sx={{ fontSize: "32px", fontWeight: "600", color: "#49544F" }}>Give Feedback</Typography>
           </div>
           <div style={{ display: "flex", justifyContent: "center" }}>
-            <img
-              src={selectedUserData.photo}
-              className="profile_img"
-              style={{ marginBottom: "4%" }}
-            />
+            <img src={selectedUserData.photo} className="profile_img" style={{ marginBottom: "4%" }} />
           </div>
           <Grid sx={{ display: "flex", justifyContent: "center" }}>
-            <Typography
-              sx={{ fontSize: "28px", fontWeight: "600", color: "#49544F" }}
-            >
-              {selectedUserData.firstName}
-            </Typography>
+            <Typography sx={{ fontSize: "28px", fontWeight: "600", color: "#49544F" }}>{selectedUserData.firstName}</Typography>
           </Grid>
           <div style={{ display: "flex", justifyContent: "center" }}>
-            <Typography
-              sx={{ fontSize: "20px", fontWeight: "500", color: "#49544F" }}
-            >
+            <Typography sx={{ fontSize: "20px", fontWeight: "500", color: "#49544F" }}>
               Learn Car Driving with Permispop
             </Typography>
           </div>
