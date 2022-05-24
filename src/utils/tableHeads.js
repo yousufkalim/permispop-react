@@ -31,7 +31,7 @@ export const PendingRequestcolumns = [
   {
     id: "options",
     label: "Options",
-    minWidth: 170,
+    minWidth: 210,
     align: "center",
     format: (value) => value.toLocaleString("en-US"),
   },
