@@ -19,20 +19,7 @@ import Fab from "@mui/material/Fab";
 import SendVector from "../../assets/images/SendVector.png";
 import { x } from "joi";
 import { toast } from "react-toastify";
-
-const style = {
-  position: "absolute",
-  top: "50%",
-  left: "50%",
-  height: "80%",
-  overflowX: "scroll",
-  transform: "translate(-50%, -50%)",
-  width: 800,
-  bgcolor: "background.paper",
-  border: "2px solid #000",
-  boxShadow: 24,
-  p: 4,
-};
+import CommentsModal from "./CommentsModal";
 
 const user = JSON.parse(localStorage.getItem("user"));
 
@@ -192,7 +179,6 @@ function MyLearningComponent(props) {
           return p;
         }
       });
-
       return { row, level };
     });
     setCheckingLevel4(newRows);
@@ -210,76 +196,15 @@ function MyLearningComponent(props) {
   };
   return (
     <div style={{ padding: "0% 5% 5% 5%" }}>
-      <Modal
+      <CommentsModal
+        objomment={objomment}
+        message={message}
+        setMessage={setMessage}
+        handleKeypress={handleKeypress}
+        handleClose={handleClose}
+        onClick={onClick}
         open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box sx={style}>
-          <Typography id="modal-modal-title" variant="h6" component="h2">
-            Comments
-          </Typography>
-          <Typography
-            id="modal-modal-description"
-            sx={{ mt: 2, overflowY: "scroll", height: "80%" }}
-          >
-            {objomment?.length ? (
-              <div>
-                {objomment.map((items, index) => {
-                  return (
-                    <div className="comment-box">
-                      <div className="comment-box-inner">
-                        {" "}
-                        {items?.comments === "" ||
-                        items?.comments === null ||
-                        objomment?.length === 0 ? (
-                          <h5 style={{ color: "red" }}>Comment is Empty</h5>
-                        ) : (
-                          <p>
-                            <h4>{items?.instructorName}</h4> <br></br>{" "}
-                            {items?.comments}{" "}
-                          </p>
-                        )}
-                      </div>
-                      <div className="triangle-comment"></div>
-                      <p className="comment-date">
-                        {moment(items?.timeStamp).format("DD/MM/YYYY HH:mm")}
-                      </p>
-                    </div>
-                  );
-                })}
-              </div>
-            ) : (
-              <h1 style={{ color: "gray" }}>Not Found</h1>
-            )}
-          </Typography>
-
-          <div className="CommentDiv">
-            <div className="MessageText">
-              <input
-                placeholder="Type a Comment here to Add"
-                className="ChatBoxTypingField"
-                value={message}
-                onChange={(e) => {
-                  setMessage(e.target.value);
-                }}
-                onKeyPress={handleKeypress}
-              />
-            </div>
-            <div className="MessageRight" onClick={onClick}>
-              <Fab
-                size="small"
-                color="secondary"
-                aria-label="add"
-                sx={{ margin: "10px" }}
-              >
-                <img src={SendVector} />
-              </Fab>
-            </div>
-          </div>
-        </Box>
-      </Modal>
+      />
 
       <Typography className="Mylearning_title">My Learning</Typography>
       <Divider
@@ -297,7 +222,7 @@ function MyLearningComponent(props) {
             margin="0px 10px 0px 0px !important"
             borderRadius="30px !important"
             width="80% !important"
-            onClick={(e) => handleSetStep()}
+            onClick={(e) => handleSetStep(e)}
           ></Button>
         </Grid>
         <Grid sx={6} sm={6} md={3} className="Buttonsec">
@@ -309,7 +234,7 @@ function MyLearningComponent(props) {
             textColor={step === 2 ? "#fff !important" : "#333"}
             borderRadius="30px !important"
             width="80% !important"
-            onClick={(e) => handleSetStep2()}
+            onClick={(e) => handleSetStep2(e)}
           ></Button>
         </Grid>
         <Grid sx={6} sm={6} md={3} className="Buttonsec">
@@ -321,7 +246,7 @@ function MyLearningComponent(props) {
             textColor={step === 3 ? "#fff !important" : "#333"}
             borderRadius="30px !important"
             width="80% !important"
-            onClick={(e) => handleSetStep3()}
+            onClick={(e) => handleSetStep3(e)}
           ></Button>
         </Grid>
         <Grid sx={6} sm={6} md={3} className="Buttonsec">
@@ -334,7 +259,7 @@ function MyLearningComponent(props) {
             borderRadius="30px !important"
             width="80% !important"
             // onClick={(e) => setStep(4)}
-            onClick={(e) => handleSetStep4()}
+            onClick={(e) => handleSetStep4(e)}
           ></Button>
         </Grid>
         <Divider
@@ -415,7 +340,11 @@ function MyLearningComponent(props) {
                             <td align="center">
                               <ForumIcon
                                 onClick={() => handleOpen(index + 1)}
-                                style={{ fill: "#149E7A", marginLeft: 8 }}
+                                style={{
+                                  fill: "#149E7A",
+                                  marginLeft: 8,
+                                  cursor: "pointer",
+                                }}
                               ></ForumIcon>
                             </td>
                           </tr>

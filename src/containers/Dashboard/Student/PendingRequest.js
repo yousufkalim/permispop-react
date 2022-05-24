@@ -76,7 +76,6 @@ const Index = () => {
   const [commentModal, setCommentModal] = useState(false);
   const [profileData, setProfileData] = useState("");
   const [commentsData, setCommentsData] = useState("");
-  const [chatData, setChatData] = useState("");
   const [updateBookingId, SetUpdateBookingId] = useState("");
   const [selectedRatingValue, setSelectedRatingValue] = useState("");
   const [reminder, setReminder] = useState("");
@@ -150,10 +149,7 @@ const Index = () => {
       }
     });
     if (status == "Complete" || status == "In progress" || status == "Closed") {
-      await API(
-        "get",
-        `Bookings/UpdateBookingsStatus?id=${id}&status=${status}`
-      ).then((res) => {
+      await API("get", `Bookings/UpdateBookingsStatus?id=${id}&status=${status}`).then((res) => {
         getPendingRequestData(user);
         toast.success(t("Status is updated successful"));
         setOpenRatingModal(true);
@@ -175,18 +171,11 @@ const Index = () => {
         instructorName: user.firstName ? user.firstName : "",
         DisputingFrom: user.role ? user.role : "",
         feedBackDate: new Date(),
-        studentName: selectedUserData.firstName
-          ? selectedUserData.firstName
-          : "",
-        studentName: selectedUserData.firstName
-          ? selectedUserData.firstName
-          : "",
+        studentName: selectedUserData.firstName ? selectedUserData.firstName : "",
+        studentName: selectedUserData.firstName ? selectedUserData.firstName : "",
         studentID: user.role === "Student" ? user.id : selectedUserData.id,
       }).then(async (disputeres) => {
-        await API(
-          "get",
-          `Bookings/UpdateBookingsStatus?id=${updateBookingId}&status=Dispute`
-        ).then((res) => {
+        await API("get", `Bookings/UpdateBookingsStatus?id=${updateBookingId}&status=Dispute`).then((res) => {
           getPendingRequestData(user);
           toast.success(t("Dispute is created sucessfully"));
 
@@ -227,20 +216,13 @@ const Index = () => {
         return booking;
       }
     });
-    setChatData(selectedBooking.studentData.id);
-    handleChatRoom();
+    handleChatRoom(selectedBooking.studentData.id);
   };
-  const handleChatRoom = async () => {
-    await API(
-      "get",
-      `Chat/getorcreatechatroom?userA=${userData.id}&userB=${chatData}`
-    )
+  const handleChatRoom = async (userB) => {
+    await API("get", `Chat/getorcreatechatroom?userA=${userData.id}&userB=${userB}`)
       .then((ChatroomResponse) => {
-        localStorage.setItem(
-          "ChatroomId",
-          JSON.stringify(ChatroomResponse.data.data.id)
-        );
-        history.push(`/Instructor/chat`);
+        localStorage.setItem("ChatroomId", JSON.stringify(ChatroomResponse.data.data.id));
+        history.push(`/student/chat`);
       })
       .catch((error) => {
         console.log(error);

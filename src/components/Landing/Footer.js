@@ -87,7 +87,9 @@ const Footer = () => {
           </p>
         </div>
         <Typography align="center" className="footer_copyright">
-          Copyright @ 2022 Permispop
+          © 2022 <b style={{ color: "#199C7D" }}>Permispop</b> , Developed by
+          <b style={{ color: "#2f74ff" }}> Falcon Consulting</b>. All rights
+          reserved.
         </Typography>
       </div>
     </div>
