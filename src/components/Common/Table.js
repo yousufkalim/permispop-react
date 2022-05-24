@@ -17,6 +17,10 @@ import BasicModal from "../../components/Common/BasicModal";
 import { ReactComponent as Comment } from "../../assets/images/ChatIcon.svg";
 import { ReactComponent as Profile } from "../../assets/images/Profile.svg";
 import { ReactComponent as Book } from "../../assets/images/Book.svg";
+import { ReactComponent as ReBook } from "../../assets/images/Rebook.svg";
+import { ReactComponent as Edit } from "../../assets/images/EditIcon.svg";
+import { ReactComponent as Delete } from "../../assets/images/DeleteIcon.svg";
+
 import { useTranslation } from "react-i18next";
 
 export default function DataTable(props) {
@@ -98,12 +102,7 @@ export default function DataTable(props) {
                   // .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                   .map((row, index) => {
                     return (
-                      <TableRow
-                        hover
-                        role="checkbox"
-                        tabIndex={-1}
-                        key={row.bookingwith}
-                      >
+                      <TableRow hover role="checkbox" tabIndex={-1} key={row.bookingwith}>
                         {props.columns.map((column) => {
                           const value = row[column.id];
                           return (
@@ -129,19 +128,13 @@ export default function DataTable(props) {
 
                                     letterSpacing: "-0.03em",
 
-                                    color:
-                                      column.id === "status" ||
-                                      column.id === "gearbox"
-                                        ? "#FFA333"
-                                        : "#81878E",
+                                    color: column.id === "status" || column.id === "gearbox" ? "#FFA333" : "#81878E",
                                   }}
                                   color={row.color}
                                   key={column.id}
                                   align={column.align}
                                 >
-                                  {column.format && typeof value === "number"
-                                    ? column.format(value)
-                                    : value}
+                                  {column.format && typeof value === "number" ? column.format(value) : value}
                                 </TableCell>
                               ) : column.id === "actions" ? (
                                 <TableCell align="right">
@@ -151,18 +144,13 @@ export default function DataTable(props) {
                                       id="demo-simple-select-standard"
                                       value={row.status}
                                       disabled={
-                                        row.status === "Dispute" ||
-                                        row.status === "Complete" ||
-                                        row.status === "Closed"
+                                        row.status === "Dispute" || row.status === "Complete" || row.status === "Closed"
                                           ? true
                                           : false
                                       }
                                       defaultValue={0}
                                       onChange={(e) => {
-                                        props.updateStatus(
-                                          row.id,
-                                          e.target.value
-                                        );
+                                        props.updateStatus(row.id, e.target.value);
                                       }}
                                       sx={{
                                         fontSize: "14px",
@@ -230,15 +218,13 @@ export default function DataTable(props) {
                                 </TableCell>
                               ) : column.id === "historyActions" ? (
                                 <TableCell align="center">
-                                  <Button
-                                    type="submit"
-                                    text={t("Re-Book")}
-                                    color="#149E7A !important"
-                                    width="100% !important"
-                                    margin="0px 0px 10px 0px !important"
-                                    height="50px !important"
+                                  <IconButton
                                     onClick={() => props.handleReBook(row)}
-                                  ></Button>
+                                    className="Profilicon"
+                                    style={{ padding: "2% 2% 1% 2%" }}
+                                  >
+                                    <ReBook style={{ padding: "20%" }} className="profilesvg" />
+                                  </IconButton>
                                 </TableCell>
                               ) : column.id === "action" ? (
                                 <TableCell align="center">
@@ -249,9 +235,7 @@ export default function DataTable(props) {
                                     width="60% !important"
                                     margin="0px 0px 10px 0px !important"
                                     height="50px !important"
-                                    onClick={(e) =>
-                                      props.detachInstructor(index)
-                                    }
+                                    onClick={(e) => props.detachInstructor(index)}
                                   ></Button>
                                   <Button
                                     type="submit"
@@ -260,9 +244,7 @@ export default function DataTable(props) {
                                     width="60% !important"
                                     margin="0px 0px 10px 0px !important"
                                     height="50px !important"
-                                    onClick={(e) =>
-                                      props.deleteInstructor(index)
-                                    }
+                                    onClick={(e) => props.deleteInstructor(index)}
                                   ></Button>
                                   <Button
                                     type="submit"
@@ -275,25 +257,20 @@ export default function DataTable(props) {
                                 </TableCell>
                               ) : column.id === "Vaction" ? (
                                 <TableCell align="center">
-                                  <Button
-                                    type="submit"
-                                    text={t("Edit")}
-                                    width="100% !important"
-                                    margin="0px 0px 10px 0px !important"
-                                    height="50px !important"
+                                  <IconButton
                                     onClick={(e) => props.open(index)}
-                                  ></Button>
-                                  <Button
-                                    type="submit"
-                                    text={t("Delete")}
-                                    color="#149E7A !important"
-                                    width="100% !important"
-                                    margin="0px 0px 10px 0px !important"
-                                    height="50px !important"
-                                    onClick={(e) =>
-                                      props.handleBookingDeleteModal(index)
-                                    }
-                                  ></Button>
+                                    className="Profilicon"
+                                    sx={{ padding: "5%", marginRight: "3%" }}
+                                  >
+                                    <Edit className="profilesvg" style={{ padding: "15%" }} />
+                                  </IconButton>
+                                  <IconButton
+                                    onClick={(e) => props.handleBookingDeleteModal(index)}
+                                    className="Profilicon"
+                                    sx={{ padding: "3.5% 6% 3.5% 6%" }}
+                                  >
+                                    <Delete className="profilesvg" style={{ padding: "15%" }} />
+                                  </IconButton>
                                 </TableCell>
                               ) : column.id === "photo" ? (
                                 <TableCell align="center">
@@ -315,55 +292,95 @@ export default function DataTable(props) {
                                 </TableCell>
                               ) : column.id === "reservations" ? (
                                 <TableCell align="center">
-                                  <Button
-                                    text={t("Reservations")}
-                                    color="#149E7A !important"
-                                    width="100% !important"
-                                    margin="0px 0px 10px 0px !important"
-                                    height="50px !important"
-                                    onClick={() => props.handleReservation(row)}
-                                  />
+                                  <IconButton
+                                    onClick={props.handleReservation}
+                                    className="Profilicon"
+                                    style={{ padding: "2% 3% 2% 3%" }}
+                                  >
+                                    <ReBook style={{ padding: "20%" }} className="profilesvg" />
+                                  </IconButton>
                                 </TableCell>
                               ) : column.id === "profile" ? (
                                 <TableCell align="center">
-                                  <Button
-                                    text={t("Profile")}
-                                    color="#149E7A !important"
-                                    width="100% !important"
-                                    margin="0px 0px 10px 0px !important"
-                                    height="50px !important"
-                                    onClick={() => props.handleProfile(row)}
-                                  />
+                                  <IconButton
+                                    onClick={() => {
+                                      props.setIsSelected(row.id);
+                                      props.handleProfile(row);
+                                    }}
+                                    className={props.isSelected == row.id ? "selectedProfile" : "Profilicon"}
+                                    sx={{
+                                      marginRight: "2%",
+                                      padding: "3% 2% 3% 2% ",
+                                    }}
+                                  >
+                                    <Profile
+                                      style={{ padding: "20%" }}
+                                      className={props.isSelected == row.id ? "SelectedIcon" : "profilesvg"}
+                                    />
+                                  </IconButton>
                                 </TableCell>
                               ) : column.id === "chat" ? (
                                 <TableCell align="center">
-                                  <Button
-                                    text={t("Chat")}
-                                    color="#149E7A !important"
-                                    width="100% !important"
-                                    margin="0px 0px 10px 0px !important"
-                                    height="50px !important"
+                                  <IconButton
                                     onClick={() => props.handleChat(row)}
-                                  />
+                                    className="Profilicon"
+                                    sx={{
+                                      padding: "3% 2% 3% 2% ",
+                                    }}
+                                  >
+                                    <Comment className="profilesvg" style={{ padding: "20%" }} />
+                                  </IconButton>
                                 </TableCell>
                               ) : (
-                                <TableCell align="center">
+                                <TableCell
+                                  align="center"
+                                  // sx={{ width: "30% !important" }}
+                                >
                                   <IconButton
-                                    onClick={() => props.handleProfile(row)}
+                                    onClick={() => {
+                                      props.setIsSelected(row.id);
+                                      props.handleProfile(row);
+                                    }}
+                                    className={props.isSelected == row.id ? "selectedProfile" : "Profilicon"}
+                                    sx={{
+                                      marginRight: "2%",
+                                      padding: "2% 1% 2% 1% ",
+                                    }}
                                   >
-                                    <Profile style={{ width: "1.8rem" }} />
+                                    <Profile
+                                      style={{ padding: "20%" }}
+                                      className={props.isSelected == row.id ? "SelectedIcon" : "profilesvg"}
+                                    />
                                   </IconButton>
+                                  {props.user.role !== "Student" && (
+                                    <IconButton
+                                      onClick={() => {
+                                        props.setIsSelectedBook(row.id);
+                                        props.handleComment(row);
+                                      }}
+                                      className={props.isSelectedBook == row.id ? "selectedProfile" : "Profilicon"}
+                                      style={{
+                                        marginRight: "2%",
+                                        padding: "2% 4% 2% 4% ",
+                                      }}
+                                    >
+                                      <Book
+                                        className={props.isSelectedBook == row.id ? "SelectedIcon" : "profilesvg"}
+                                        style={{ padding: "20%" }}
+                                      />
+                                    </IconButton>
+                                  )}
                                   <IconButton
-                                    onClick={() => props.handleComment(row)}
+                                    onClick={() => {
+                                      props.setIsSelected(row.id);
+                                      props.handleChat(row);
+                                    }}
+                                    className="Profilicon"
+                                    sx={{
+                                      padding: "1.5%",
+                                    }}
                                   >
-                                    {props.user.role !== "Student" && (
-                                      <Book style={{ width: "1.3rem" }} />
-                                    )}
-                                  </IconButton>
-                                  <IconButton
-                                    onClick={() => props.handleChat(row)}
-                                  >
-                                    <Comment style={{ width: "1.8rem" }} />
+                                    <Comment className="profilesvg" style={{ padding: "20%" }} />
                                   </IconButton>
                                 </TableCell>
                               )}
