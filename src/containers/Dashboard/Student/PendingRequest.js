@@ -81,6 +81,8 @@ const Index = () => {
   const [reminder, setReminder] = useState("");
 
   const [openRatingModal, setOpenRatingModal] = useState(false);
+  const [isSelected, setIsSelected] = useState("");
+
   const history = useHistory();
 
   const handleStartdate = (newValue) => {
@@ -189,8 +191,13 @@ const Index = () => {
     }
   };
 
-  const handleProfileModalClose = () => setProfileModal(false);
-  const handleCommentModalClose = () => setCommentModal(false);
+  const handleProfileModalClose = () => {
+    setProfileModal(false);
+    setIsSelected("");
+  };
+  const handleCommentModalClose = () => {
+    setCommentModal(false);
+  };
 
   const handleProfile = (e) => {
     let selectedBooking = allBookingsWithUser.find((booking) => {
@@ -331,6 +338,8 @@ const Index = () => {
           handleProfile={handleProfile}
           handleChat={handleChat}
           handleComment={handleComment}
+          isSelected={isSelected}
+          setIsSelected={setIsSelected}
         ></DataTable>
       )}
       <Modal
