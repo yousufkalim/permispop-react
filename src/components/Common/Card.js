@@ -39,6 +39,11 @@ export default function ActionAreaCard(props) {
         minHeight: "320px",
       },
     },
+    cardMedia: {
+      "& .MuiCardMedia-img": {
+        height: "210px !important",
+      },
+    },
     cardContentDiv: {
       height: props.contentHeight ? props.contentHeight : "100%",
       display: "flex",
@@ -100,7 +105,18 @@ export default function ActionAreaCard(props) {
   const classes = useStyles();
   return (
     <Card className={classes.cardMain} style={props.style}>
-      <CardMedia component="img" image={props.image} alt="services" />
+      <CardMedia
+        component="img"
+        image={props.image}
+        alt="services"
+        className={classes.cardMedia}
+        sx={{
+          "& .MuiCardMedia-root ": {
+            height: "210px !important",
+          },
+        }}
+      />
+
       <CardContent className={classes.cardContentDiv}>
         <Typography
           gutterBottom
