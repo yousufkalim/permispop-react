@@ -55,13 +55,13 @@ export default function RegisterModal(props) {
                 }}
                 onClick={handleStudentRegister}
               >
+                <CardMedia
+                  className="RegisterImg"
+                  component="img"
+                  image={RegisterStudent}
+                  alt="services"
+                />
                 <CardContent>
-                  <CardMedia
-                    className="RegisterImg"
-                    component="img"
-                    image={RegisterStudent}
-                    alt="services"
-                  />
                   <Typography
                     className="Text_content"
                     sx={{
@@ -100,13 +100,13 @@ export default function RegisterModal(props) {
                 }}
                 onClick={(e) => setRegister(false)}
               >
+                <CardMedia
+                  className="RegisterImg"
+                  component="img"
+                  image={RegisterProfessional}
+                  alt="services"
+                />
                 <CardContent>
-                  <CardMedia
-                    className="RegisterImg"
-                    component="img"
-                    image={RegisterProfessional}
-                    alt="services"
-                  />
                   <Typography
                     className="Text_content"
                     sx={{
@@ -139,13 +139,13 @@ export default function RegisterModal(props) {
                 }}
                 onClick={handleInstructorRegister}
               >
+                <CardMedia
+                  className="RegisterImg"
+                  component="img"
+                  image={RegisterProfessional}
+                  alt="services"
+                />
                 <CardContent>
-                  <CardMedia
-                    className="RegisterImg"
-                    component="img"
-                    image={RegisterProfessional}
-                    alt="services"
-                  />
                   <Typography
                     className="Text_content1"
                     sx={{
@@ -182,12 +182,12 @@ export default function RegisterModal(props) {
                 }}
                 onClick={handleDrivingSchoolRegister}
               >
+                <CardMedia
+                  component="img"
+                  image={DrivingSchool}
+                  alt="services"
+                />
                 <CardContent>
-                  <CardMedia
-                    component="img"
-                    image={DrivingSchool}
-                    alt="services"
-                  />
                   <Typography
                     className="Text_content1"
                     sx={{
@@ -224,8 +224,8 @@ export default function RegisterModal(props) {
                 }}
                 onClick={handleRentalCarRegister}
               >
+                <CardMedia component="img" image={RentalCar} alt="services" />
                 <CardContent>
-                  <CardMedia component="img" image={RentalCar} alt="services" />
                   <Typography
                     className="Text_content1"
                     sx={{
