@@ -57,7 +57,7 @@ const Index = () => {
     setLoading(true);
     await API(
       "get",
-      `Profile/GetNearbyProfiles_New/?lat=${user.lat}&log=${user.long}&radius=${filters.Radius}&gearbox=${filters.Gearbox}&gender=${filters.Gender}&role=${filters.Role}&startdate=${filters.startDate}&enddate=${filters.endDate}`
+      `Profile/GetNearbyProfiles_New/?lat=${user.lat}&log=${user.long}&radius=${filters.Radius}&gearbox=${filters?.Gearbox}&gender=${filters?.Gender}&role=${filters?.Role}&startdate=${filters.startDate}&enddate=${filters.endDate}`
     )
       .then((FindInstructorsResponse) => {
         let Profile = FindInstructorsResponse.data.map((item) => {
