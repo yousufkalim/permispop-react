@@ -1,8 +1,8 @@
 import React from "react";
 import Logo from "../../assets/Logo/v.png";
 // import email from "../../assets/images/email.svg";
-import { ReactComponent as Email } from "../../assets/images/email.svg";
-import { ReactComponent as Lock } from "../../assets/images/lockimg.svg";
+import { ReactComponent as Email } from "../../assets/images/Group31.svg";
+import { ReactComponent as Lock } from "../../assets/images/Group32.svg";
 import Button from "../Common/Button";
 import Search from "../Common/Search";
 import Typography from "@mui/material/Typography";
@@ -211,7 +211,7 @@ export default function Header(props) {
                       InputProps={{
                         startAdornment: (
                           <InputAdornment position="start">
-                            <Email />
+                            <Email style={{ color: "#33D4AA" }} />
                           </InputAdornment>
                         ),
                       }}
@@ -247,7 +247,7 @@ export default function Header(props) {
                       }
                       startAdornment={
                         <InputAdornment position="start">
-                          <Lock></Lock>
+                          <Lock style={{ color: "#33D4AA" }} />
                         </InputAdornment>
                       }
                     />
