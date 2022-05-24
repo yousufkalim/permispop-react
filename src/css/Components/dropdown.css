@@ -42,8 +42,24 @@
   .Scrollbar::-webkit-scrollbar {
     display: none;
   }
+  .Profilicon{
+    background-color: #f9f9f9 !important;
 
+  }
+  .selectedProfile{
+    background-color: #149E7A !important;
+  }
+  .Profilicon:hover{
+    background: #149E7A !important;
+  }
+.profilesvg:hover{
+  filter:invert(0) sepia(0) saturate(1) hue-rotate(0deg) brightness(5)  !important;
 
+}
+.SelectedIcon{
+  filter:invert(0) sepia(0) saturate(1) hue-rotate(0deg) brightness(5);
+
+}
   @media (max-width:992px) {
     .MuiInputLabel-formControl {
         font-size: 20px !important;
