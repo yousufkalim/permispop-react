@@ -382,35 +382,24 @@ const Index = () => {
 
   const getVehicleData = async (userData) => {
     let allVehicles = [];
-    await API("get", `Profile/GetProfileByPersonalId?id=${userData.id}`).then(
-      (InsprofileRes) => {
-        if (InsprofileRes.data.data.drivingSchoolVehiclesInfoId) {
-          let vehicleId = JSON.parse(
-            InsprofileRes.data.data.drivingSchoolVehiclesInfoId
-          );
-          allVehicles = Object.entries(vehicleId).map(([key, value]) => {
-            return API(
-              "get",
-              `VehicleDetail/GetVehicleDetailByIdAsync?id=${value}`
-            );
-          });
-          Promise.all(allVehicles).then((res) => {
-            let vehicles = [];
-            res.map((veh) => {
-              veh.data.data.dateOfFirstRegistration = moment(
-                veh.data.data.dateOfFirstRegistration
-              ).format("DD/MM/YYYY");
-              vehicles.push(veh.data.data);
-            });
-            console.log("vehicles", vehicles);
-            setVehicleData(vehicles);
-            setLoading(false);
-          });
-        } else {
-          setLoading(false);
-        }
-      }
-    );
+    await API("get", `Profile/GetProfileByPersonalId?id=${userData.id}`).then((InsprofileRes) => {
+      console.log("InsprofileRes", InsprofileRes);
+
+      let vehicleId = JSON.parse(InsprofileRes.data.data.drivingSchoolVehiclesInfoId);
+      allVehicles = Object.entries(vehicleId).map(([key, value]) => {
+        return API("get", `VehicleDetail/GetVehicleDetailByIdAsync?id=${value}`);
+      });
+      Promise.all(allVehicles).then((res) => {
+        let vehicles = [];
+        res.map((veh) => {
+          veh.data.data.dateOfFirstRegistration = moment(veh.data.data.dateOfFirstRegistration).format("DD/MM/YYYY");
+          vehicles.push(veh.data.data);
+        });
+        console.log("vehicles", vehicles);
+        setVehicleData(vehicles);
+        setLoading(false);
+      });
+    });
   };
 
   const handleFileChange = async (e) => {
@@ -503,15 +492,9 @@ const Index = () => {
       id: selectedInsuranceId?.id,
     }).then(async (vehicleinsRes) => {
       await API("post", "TechnicalControl", {
-        DateofTechnicalControl: vehicleDet.TechControlDate
-          ? vehicleDet.TechControlDate
-          : "",
-        startDateOfTech: vehicleDet.TechControlDate
-          ? vehicleDet.TechControlDate
-          : "",
-        endDateOfTechControl: vehicleDet.TechEndDate
-          ? vehicleDet.TechEndDate
-          : "",
+        DateofTechnicalControl: vehicleDet.TechControlDate ? vehicleDet.TechControlDate : "",
+        startDateOfTech: vehicleDet.TechControlDate ? vehicleDet.TechControlDate : "",
+        endDateOfTechControl: vehicleDet.TechEndDate ? vehicleDet.TechEndDate : "",
         TechnicalControlImagePath: vehicleDet.CtImg ? vehicleDet.CtImg : "",
       }).then(async (Technicalres) => {
         await API("post", "VehicleDetail", {
@@ -522,13 +505,10 @@ const Index = () => {
           Energy: vehicleDet.Energy,
           GearBox: vehicleDet.GearBox,
           NumberPlate: vehicleDet.NumberPlate,
-          VehicleRegistrationCertificatePhotoImagePath:
-            vehicleDet.VehicleRegImg,
+          VehicleRegistrationCertificatePhotoImagePath: vehicleDet.VehicleRegImg,
           VehicleePhotosImagePath: vehicleDet.VehicleImg,
           vehichleInsuranceInfoId: vehicleinsRes?.data?.data?.id,
-          technicalControlInfoID: Technicalres.data.data.id
-            ? Technicalres.data.data.id
-            : "",
+          technicalControlInfoID: Technicalres.data.data.id ? Technicalres.data.data.id : "",
         }).then(async (vehicledetres) => {
           await API("put", `VehicleDetail`, {
             DateOfFirstRegistration: vehicleDet.FristRegDate,
@@ -538,13 +518,10 @@ const Index = () => {
             Energy: vehicleDet.Energy,
             GearBox: vehicleDet.GearBox,
             NumberPlate: vehicleDet.NumberPlate,
-            VehicleRegistrationCertificatePhotoImagePath:
-              vehicleDet.VehicleRegImg,
+            VehicleRegistrationCertificatePhotoImagePath: vehicleDet.VehicleRegImg,
             VehicleePhotosImagePath: vehicleDet.VehicleImg,
             vehichleInsuranceInfoId: vehicleinsRes.data.data.id,
-            technicalControlInfoID: Technicalres?.data?.data?.id
-              ? Technicalres.data.data.id
-              : "",
+            technicalControlInfoID: Technicalres?.data?.data?.id ? Technicalres.data.data.id : "",
             id: vehicalId,
           }).then((editres) => {
             toast.success(t("Vehicle detail updated sucessfully"));
@@ -562,9 +539,7 @@ const Index = () => {
     setEditIndex(index);
     setIsEdit(true);
 
-    let technical = tempArray[index].technicalControlInfoID
-      ? JSON.parse(tempArray[index].technicalControlInfoID)
-      : "";
+    let technical = tempArray[index].technicalControlInfoID ? JSON.parse(tempArray[index].technicalControlInfoID) : "";
     let vehicleIns = JSON.parse(tempArray[index].vehichleInsuranceInfoId);
 
     setSelectedTechnicalId(technical);
@@ -586,8 +561,7 @@ const Index = () => {
       GearBox: tempArray[index].gearBox,
       Energy: tempArray[index].energy,
       VehicleImg: tempArray[index].vehicleePhotosImagePath,
-      VehicleRegImg:
-        tempArray[index].vehicleRegistrationCertificatePhotoImagePath,
+      VehicleRegImg: tempArray[index].vehicleRegistrationCertificatePhotoImagePath,
       VehicleInsurer: vehicleIns.insurer,
       PoliceNumber: vehicleIns.policeNumber,
       StartDate: vehicleIns.startDate,
@@ -603,47 +577,35 @@ const Index = () => {
 
   const handleDeleteVehicle = async (index) => {
     const tempArray = [...vehicleData];
-    await API("get", `Profile/GetProfileByPersonalId?id=${user.id}`).then(
-      async (InsprofileRes) => {
-        let vehicleId = JSON.parse(
-          InsprofileRes.data.data.drivingSchoolVehiclesInfoId
-        );
+    await API("get", `Profile/GetProfileByPersonalId?id=${user.id}`).then(async (InsprofileRes) => {
+      let vehicleId = JSON.parse(InsprofileRes.data.data.drivingSchoolVehiclesInfoId);
 
-        let allVehicles = {};
-        Object.entries(vehicleId).map(([key, value], i) => {
-          if (tempArray[index].id === value) {
-          } else {
-            allVehicles = {
-              ...allVehicles,
-              ["Vehicle" + (Object.keys(allVehicles).length + 1)]: value,
-            };
-          }
-        });
+      let allVehicles = {};
+      Object.entries(vehicleId).map(([key, value], i) => {
+        if (tempArray[index].id === value) {
+        } else {
+          allVehicles = {
+            ...allVehicles,
+            ["Vehicle" + (Object.keys(allVehicles).length + 1)]: value,
+          };
+        }
+      });
 
-        await API(
-          "get",
-          `VehicleDetail/UpdateVehicleDetail/?id=${tempArray[index].id}&Deleted=${bookingDeleted}`
-        ).then(async (vehicleres) => {
+      await API("get", `VehicleDetail/UpdateVehicleDetail/?id=${tempArray[index].id}&Deleted=${bookingDeleted}`).then(
+        async (vehicleres) => {
           await API("post", `Profile/UpdateProfile`, {
             banDate: InsprofileRes.data.data.banDate,
             banStatus: InsprofileRes.data.data.banDate,
             id: InsprofileRes.data.data.id,
             businessInfoId: InsprofileRes.data.data.businessInfoId,
             drivingLisenceInfoId: InsprofileRes.data.data.drivingLisenceInfoId,
-            drivingSchoolApprovalInfoId:
-              InsprofileRes.data.data.drivingSchoolApprovalInfoId,
-            drivingSchoolIdentityInfoId:
-              InsprofileRes.data.data.drivingSchoolIdentityInfoId,
-            drivingSchoolInstructorInfoId:
-              InsprofileRes.data.data.drivingSchoolInstructorInfoId,
-            drivingSchoolManagerInfoId:
-              InsprofileRes.data.data.drivingSchoolManagerInfoId,
-            drivingSchoolVehiclesInfoId:
-              InsprofileRes.data.data.drivingSchoolVehiclesInfoId,
-            exersiceAuthorizationInfoId:
-              InsprofileRes.data.data.exersiceAuthorizationInfoId,
-            insuranceCompanyInfoId:
-              InsprofileRes.data.data.insuranceCompanyInfoId,
+            drivingSchoolApprovalInfoId: InsprofileRes.data.data.drivingSchoolApprovalInfoId,
+            drivingSchoolIdentityInfoId: InsprofileRes.data.data.drivingSchoolIdentityInfoId,
+            drivingSchoolInstructorInfoId: InsprofileRes.data.data.drivingSchoolInstructorInfoId,
+            drivingSchoolManagerInfoId: InsprofileRes.data.data.drivingSchoolManagerInfoId,
+            drivingSchoolVehiclesInfoId: InsprofileRes.data.data.drivingSchoolVehiclesInfoId,
+            exersiceAuthorizationInfoId: InsprofileRes.data.data.exersiceAuthorizationInfoId,
+            insuranceCompanyInfoId: InsprofileRes.data.data.insuranceCompanyInfoId,
             isAdminBan: InsprofileRes.data.data.isAdminBan,
             isEmailSent: InsprofileRes.data.data.isEmailSent,
             lat: InsprofileRes.data.data.lat,
@@ -652,119 +614,103 @@ const Index = () => {
             personalInfos: InsprofileRes.data.data.personalInfos,
             role: InsprofileRes.data.data.role,
             status: InsprofileRes.data.data.status,
-            technicalControlInfoId:
-              InsprofileRes.data.data.technicalControlInfoId,
-            vehicleInsuranceInfoId:
-              InsprofileRes.data.data.vehicleInsuranceInfoId,
-            drivingSchoolVehiclesInfoId:
-              Object.keys(allVehicles).length > 0
-                ? JSON.stringify(allVehicles)
-                : "",
+            technicalControlInfoId: InsprofileRes.data.data.technicalControlInfoId,
+            vehicleInsuranceInfoId: InsprofileRes.data.data.vehicleInsuranceInfoId,
+            drivingSchoolVehiclesInfoId: Object.keys(allVehicles).length > 0 ? JSON.stringify(allVehicles) : "",
           }).then((updateprofileres) => {
             toast.success(t("Vehicle deleted scuccessfully"));
             setOpenBookingDeleteModal(false);
             getVehicleData(user);
           });
-        });
-      }
-    );
+        }
+      );
+    });
   };
 
   const handleAddVehicle = async () => {
-    await API("get", `Profile/GetProfileByPersonalId?id=${user.id}`).then(
-      async (InsprofileRes) => {
-        let allVehicles = {};
-        await API("post", "VehicleInsurance", {
-          Insurer: vehicleDet.VehicleInsurer,
-          PoliceNumber: vehicleDet.PoliceNumber,
-          StartDate: vehicleDet.StartDate,
-          EndDate: vehicleDet.EndDate,
-          GreenCardImagePath: vehicleDet.GreenCard,
-          id: selectedInsuranceId.id,
-        }).then(async (vehicleinsRes) => {
-          await API("post", "TechnicalControl", {
-            DateofTechnicalControl: vehicleDet.TechControlDate,
-            startDateOfTech: vehicleDet.TechControlDate,
-            endDateOfTechControl: vehicleDet.TechEndDate
-              ? vehicleDet.TechEndDate
-              : "",
-            TechnicalControlImagePath: vehicleDet.CtImg,
-            id: selectedTechnicalId.id,
-          }).then(async (Technicalres) => {
-            await API("post", "VehicleDetail", {
-              DateOfFirstRegistration: vehicleDet.FristRegDate,
-              Brand: vehicleDet.Brand,
-              Model: vehicleDet.Model,
-              Color: vehicleDet.Color,
-              Energy: vehicleDet.Energy,
-              GearBox: vehicleDet.GearBox,
-              NumberPlate: vehicleDet.NumberPlate,
-              VehicleRegistrationCertificatePhotoImagePath:
-                vehicleDet.VehicleRegImg,
-              VehicleePhotosImagePath: vehicleDet.VehicleImg,
-              vehichleInsuranceInfoId: vehicleinsRes.data.data.id,
-              technicalControlInfoID: Technicalres.data.data.id,
-            }).then(async (vehicleres) => {
-              allVehicles = JSON.parse(
-                InsprofileRes.data.data.drivingSchoolVehiclesInfoId
-                  ? InsprofileRes.data.data.drivingSchoolVehiclesInfoId
-                  : ""
-              );
+    await API("get", `Profile/GetProfileByPersonalId?id=${user.id}`).then(async (InsprofileRes) => {
+      console.log("InsprofileRes", InsprofileRes.data.data);
+      let allVehicles = {};
+      await API("post", "VehicleInsurance", {
+        Insurer: vehicleDet.VehicleInsurer,
+        PoliceNumber: vehicleDet.PoliceNumber,
+        StartDate: vehicleDet.StartDate,
+        EndDate: vehicleDet.EndDate,
+        GreenCardImagePath: vehicleDet.GreenCard,
+        id: selectedInsuranceId.id,
+      }).then(async (vehicleinsRes) => {
+        await API("post", "TechnicalControl", {
+          DateofTechnicalControl: vehicleDet.TechControlDate,
+          startDateOfTech: vehicleDet.TechControlDate,
+          endDateOfTechControl: vehicleDet.TechEndDate ? vehicleDet.TechEndDate : "",
+          TechnicalControlImagePath: vehicleDet.CtImg,
+          id: selectedTechnicalId.id,
+        }).then(async (Technicalres) => {
+          await API("post", "VehicleDetail", {
+            DateOfFirstRegistration: vehicleDet.FristRegDate,
+            Brand: vehicleDet.Brand,
+            Model: vehicleDet.Model,
+            Color: vehicleDet.Color,
+            Energy: vehicleDet.Energy,
+            GearBox: vehicleDet.GearBox,
+            NumberPlate: vehicleDet.NumberPlate,
+            VehicleRegistrationCertificatePhotoImagePath: vehicleDet.VehicleRegImg,
+            VehicleePhotosImagePath: vehicleDet.VehicleImg,
+            vehichleInsuranceInfoId: vehicleinsRes.data.data.id,
+            technicalControlInfoID: Technicalres.data.data.id,
+          }).then(async (vehicleres) => {
+            if (InsprofileRes.data.data.drivingSchoolVehiclesInfoId) {
+              allVehicles = JSON.parse(InsprofileRes.data.data.drivingSchoolVehiclesInfoId);
+            } else {
+              allVehicles = {};
+            }
 
+            if (Object.keys(allVehicles).length > 0) {
               allVehicles = {
                 ...allVehicles,
-                ["Vehicle" + (Object.keys(allVehicles).length + 1)]:
-                  vehicleres.data.data.id,
+                ["Vehicle" + (Object.keys(allVehicles).length + 1)]: vehicleres.data.data.id,
               };
+            } else {
+              allVehicles = {
+                ...allVehicles,
+                "Vehicle 1": vehicleres.data.data.id,
+              };
+            }
 
-              await API("post", `Profile/UpdateProfile`, {
-                banDate: InsprofileRes.data.data.banDate,
-                banStatus: InsprofileRes.data.data.banDate,
-                id: InsprofileRes.data.data.id,
-                businessInfoId: InsprofileRes.data.data.businessInfoId,
-                drivingLisenceInfoId:
-                  InsprofileRes.data.data.drivingLisenceInfoId,
-                drivingSchoolApprovalInfoId:
-                  InsprofileRes.data.data.drivingSchoolApprovalInfoId,
-                drivingSchoolIdentityInfoId:
-                  InsprofileRes.data.data.drivingSchoolIdentityInfoId,
-                drivingSchoolInstructorInfoId:
-                  InsprofileRes.data.data.drivingSchoolInstructorInfoId,
-                drivingSchoolManagerInfoId:
-                  InsprofileRes.data.data.drivingSchoolManagerInfoId,
-                vehicleDetailInfoId:
-                  InsprofileRes.data.data.vehicleDetailInfoId,
-                exersiceAuthorizationInfoId:
-                  InsprofileRes.data.data.exersiceAuthorizationInfoId,
-                insuranceCompanyInfoId:
-                  InsprofileRes.data.data.insuranceCompanyInfoId,
-                isAdminBan: InsprofileRes.data.data.isAdminBan,
-                isEmailSent: InsprofileRes.data.data.isEmailSent,
-                lat: InsprofileRes.data.data.lat,
-                long: InsprofileRes.data.data.long,
-                personalInfoId: InsprofileRes.data.data.personalInfoId,
-                personalInfos: InsprofileRes.data.data.personalInfos,
-                role: InsprofileRes.data.data.role,
-                status: InsprofileRes.data.data.status,
-                technicalControlInfoId:
-                  InsprofileRes.data.data.technicalControlInfoId,
-                vehicleInsuranceInfoId:
-                  InsprofileRes.data.data.vehicleInsuranceInfoId,
-                drivingSchoolVehiclesInfoId:
-                  Object.keys(allVehicles).length > 0
-                    ? JSON.stringify(allVehicles)
-                    : "",
-              }).then(() => {
-                toast.success(t("Vehicle added scuccessfully"));
-                getVehicleData(user);
-                setAddVehicle(false);
-                setVehicleErrors({});
-              });
+            await API("post", `Profile/UpdateProfile`, {
+              banDate: InsprofileRes.data.data.banDate,
+              banStatus: InsprofileRes.data.data.banDate,
+              id: InsprofileRes.data.data.id,
+              businessInfoId: InsprofileRes.data.data.businessInfoId,
+              drivingLisenceInfoId: InsprofileRes.data.data.drivingLisenceInfoId,
+              drivingSchoolApprovalInfoId: InsprofileRes.data.data.drivingSchoolApprovalInfoId,
+              drivingSchoolIdentityInfoId: InsprofileRes.data.data.drivingSchoolIdentityInfoId,
+              drivingSchoolInstructorInfoId: InsprofileRes.data.data.drivingSchoolInstructorInfoId,
+              drivingSchoolManagerInfoId: InsprofileRes.data.data.drivingSchoolManagerInfoId,
+              vehicleDetailInfoId: InsprofileRes.data.data.vehicleDetailInfoId,
+              exersiceAuthorizationInfoId: InsprofileRes.data.data.exersiceAuthorizationInfoId,
+              insuranceCompanyInfoId: InsprofileRes.data.data.insuranceCompanyInfoId,
+              isAdminBan: InsprofileRes.data.data.isAdminBan,
+              isEmailSent: InsprofileRes.data.data.isEmailSent,
+              lat: InsprofileRes.data.data.lat,
+              long: InsprofileRes.data.data.long,
+              personalInfoId: InsprofileRes.data.data.personalInfoId,
+              personalInfos: InsprofileRes.data.data.personalInfos,
+              role: InsprofileRes.data.data.role,
+              status: InsprofileRes.data.data.status,
+              technicalControlInfoId: InsprofileRes.data.data.technicalControlInfoId,
+              vehicleInsuranceInfoId: InsprofileRes.data.data.vehicleInsuranceInfoId,
+              drivingSchoolVehiclesInfoId: Object.keys(allVehicles).length > 0 ? JSON.stringify(allVehicles) : "",
+            }).then(() => {
+              toast.success(t("Vehicle added scuccessfully"));
+              getVehicleData(user);
+              setAddVehicle(false);
+              setVehicleErrors({});
             });
           });
         });
-      }
-    );
+      });
+    });
   };
 
   const getExcludingMakes = (e) => {
@@ -785,11 +731,7 @@ const Index = () => {
     <>
       {/* <MobileViewFilters title={t("Vehicles")} /> */}
       <div className="Filters">
-        <Grid
-          container
-          spacing={1}
-          sx={{ marginTop: "30px", marginLeft: "70px" }}
-        >
+        <Grid container spacing={1} sx={{ marginTop: "30px", marginLeft: "70px" }}>
           <Grid xs={12} sm={12} md={3}>
             <Typography
               sx={{
@@ -836,11 +778,7 @@ const Index = () => {
           </Grid> */}
         </Grid>
       </div>
-      <Divider
-        width="100%"
-        borderColor="#D5E4E8"
-        margin="0px 0px 0px 0px !important"
-      />
+      <Divider width="100%" borderColor="#D5E4E8" margin="0px 0px 0px 0px !important" />
       <div
         style={{
           display: "flex",
@@ -879,11 +817,7 @@ const Index = () => {
             <Typography style={{ marginLeft: "30px" }} className="Heading1">
               {t("Vehicle Details")}
             </Typography>
-            <Divider
-              width="100%"
-              borderColor="#D5E4E8"
-              margin="2% 0px 2% 0px !important"
-            />
+            <Divider width="100%" borderColor="#D5E4E8" margin="2% 0px 2% 0px !important" />
             <Grid item xs={12} sm={12} md={4} sx={{ marginTop: "9px" }}>
               <DatePicker
                 label={t("Date of the 1st Registration")}
@@ -892,10 +826,7 @@ const Index = () => {
                 name="FristRegDate"
                 required={true}
                 onChange={(e) => {
-                  onChange(
-                    "FristRegDate",
-                    moment(e).format("YYYY-MM-DDThh:mm:ss")
-                  );
+                  onChange("FristRegDate", moment(e).format("YYYY-MM-DDThh:mm:ss"));
                 }}
                 error={vehicleErrors["FristRegDate"] ? true : false}
                 ErrorMsg={vehicleErrors["FristRegDate"]}
@@ -1001,11 +932,7 @@ const Index = () => {
             </Grid>
           </Grid>
           <div className="VehicleSection">
-            <Grid
-              container
-              spacing={4}
-              style={{ display: "flex", alignItems: "flex-end" }}
-            >
+            <Grid container spacing={4} style={{ display: "flex", alignItems: "flex-end" }}>
               <Grid item xs={12} sm={12} md={4}>
                 <FilePicker
                   title={t("Upload your Image")}
@@ -1032,17 +959,9 @@ const Index = () => {
               </Grid>
             </Grid>
           </div>
-          <Divider
-            width="100%"
-            borderColor="#D5E4E8"
-            margin="2% 0px 2% 0px !important"
-          />
+          <Divider width="100%" borderColor="#D5E4E8" margin="2% 0px 2% 0px !important" />
           <Typography className="Heading1">{t("Vehicle Insurance")}</Typography>
-          <Divider
-            width="100%"
-            borderColor="#D5E4E8"
-            margin="2% 0px 2% 0px !important"
-          />
+          <Divider width="100%" borderColor="#D5E4E8" margin="2% 0px 2% 0px !important" />
           <Grid container spacing={4}>
             <Grid item xs={12} sm={12} md={4}>
               <TextField
@@ -1084,10 +1003,7 @@ const Index = () => {
                 padding="20px 0 0 0px !important"
                 width="100% !important"
                 onChange={(e) => {
-                  onChange(
-                    "StartDate",
-                    moment(e).format("YYYY-MM-DDThh:mm:ss")
-                  );
+                  onChange("StartDate", moment(e).format("YYYY-MM-DDThh:mm:ss"));
                 }}
                 error={vehicleErrors["StartDate"] ? true : false}
                 ErrorMsg={vehicleErrors["StartDate"]}
@@ -1127,33 +1043,16 @@ const Index = () => {
             </Grid>
           </div>
           <div className="termsConditionsCheckbox">
-            <Checkbox
-              disabled={disable}
-              className="checkbox"
-              onClick={(e) => setCheckbox1(!checkbox1)}
-            />
-            <Typography
-              variant="body1"
-              className="termsConditionsCheckboxTitle"
-            >
+            <Checkbox disabled={disable} className="checkbox" onClick={(e) => setCheckbox1(!checkbox1)} />
+            <Typography variant="body1" className="termsConditionsCheckboxTitle">
               {t("Technical Control Details if any?")}
             </Typography>
           </div>
           {checkbox1 ? (
             <>
-              <Divider
-                width="100%"
-                borderColor="#D5E4E8"
-                margin="2% 0px 2% 0px"
-              />
-              <Typography className="Heading1">
-                {t("Technical Control")}
-              </Typography>
-              <Divider
-                width="100%"
-                borderColor="#D5E4E8"
-                margin="2% 0px 2% 0px"
-              />
+              <Divider width="100%" borderColor="#D5E4E8" margin="2% 0px 2% 0px" />
+              <Typography className="Heading1">{t("Technical Control")}</Typography>
+              <Divider width="100%" borderColor="#D5E4E8" margin="2% 0px 2% 0px" />
               <Grid container spacing={4}>
                 <Grid item xs={12} sm={12} md={4} sx={{ marginTop: "9px" }}>
                   <DatePicker
@@ -1164,10 +1063,7 @@ const Index = () => {
                     padding="20px 0 0 0px !important"
                     width="100% !important"
                     onChange={(e) => {
-                      onChange(
-                        "TechControlDate",
-                        moment(e).format("YYYY-MM-DDThh:mm:ss")
-                      );
+                      onChange("TechControlDate", moment(e).format("YYYY-MM-DDThh:mm:ss"));
                     }}
                     error={vehicleErrors["TechControlDate"] ? true : false}
                     ErrorMsg={vehicleErrors["TechControlDate"]}
@@ -1182,10 +1078,7 @@ const Index = () => {
                     padding="20px 0 0 0px !important"
                     width="100% !important"
                     onChange={(e) => {
-                      onChange(
-                        "TechEndDate",
-                        moment(e).format("YYYY-MM-DDThh:mm:ss")
-                      );
+                      onChange("TechEndDate", moment(e).format("YYYY-MM-DDThh:mm:ss"));
                     }}
                     error={vehicleErrors["TechEndDate"] ? true : false}
                     ErrorMsg={vehicleErrors["TechEndDate"]}
@@ -1272,10 +1165,7 @@ const Index = () => {
               margin: "1%",
             }}
           >
-            <CancelOutlinedIcon
-              sx={{ cursor: "pointer" }}
-              onClick={() => setOpenBookingDeleteModal(false)}
-            />
+            <CancelOutlinedIcon sx={{ cursor: "pointer" }} onClick={() => setOpenBookingDeleteModal(false)} />
           </div>
           <div style={{ paddingTop: "10%" }}>
             <div
@@ -1286,9 +1176,7 @@ const Index = () => {
                 justifyContent: "center",
               }}
             >
-              <Typography>
-                {t("Do you want to delete booking of this vehicle?")}
-              </Typography>
+              <Typography>{t("Do you want to delete booking of this vehicle?")}</Typography>
             </div>
 
             <div
@@ -1308,11 +1196,7 @@ const Index = () => {
                 width="20%"
                 margin="0 1% 0 0"
               ></Button>
-              <Button
-                text={t("No")}
-                width="20%"
-                onClick={() => handleDeleteVehicle(indexOfDeleteVehicle)}
-              ></Button>
+              <Button text={t("No")} width="20%" onClick={() => handleDeleteVehicle(indexOfDeleteVehicle)}></Button>
             </div>
           </div>
         </Box>

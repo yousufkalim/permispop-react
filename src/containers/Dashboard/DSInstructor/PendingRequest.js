@@ -62,7 +62,7 @@ const Index = () => {
     top: "55%",
     left: "50%",
     width: "30%",
-    height: "80%",
+    height: "70% !important",
     overflow: "scroll",
     transform: "translate(-50%, -50%)",
     bgcolor: "background.paper",
@@ -88,6 +88,8 @@ const Index = () => {
   const [selectedRatingValue, setSelectedRatingValue] = useState("");
   const [openRatingModal, setOpenRatingModal] = useState(false);
   const [updatefield, SetUpdateField] = useState("");
+  const [isSelected, setIsSelected] = useState("");
+  const [isSelectedBook, setIsSelectedBook] = useState("");
 
   const [reminder, setReminder] = useState("");
 
@@ -196,8 +198,14 @@ const Index = () => {
       toast.error(t("Field cannot be empty"));
     }
   };
-  const handleProfileModalClose = () => setProfileModal(false);
-  const handleCommentModalClose = () => setCommentModal(false);
+  const handleProfileModalClose = () => {
+    setIsSelected("");
+    setProfileModal(false);
+  };
+  const handleCommentModalClose = () => {
+    setIsSelectedBook("");
+    setCommentModal(false);
+  };
   const handleProfile = (e) => {
     let selectedBooking = allBookingsWithUser.find((booking) => {
       if (booking.id === e.id) {
@@ -309,6 +317,10 @@ const Index = () => {
           handleProfile={handleProfile}
           handleChat={handleChat}
           handleComment={handleComment}
+          isSelected={isSelected}
+          setIsSelected={setIsSelected}
+          isSelectedBook={isSelectedBook}
+          setIsSelectedBook={setIsSelectedBook}
         />
       )}
 

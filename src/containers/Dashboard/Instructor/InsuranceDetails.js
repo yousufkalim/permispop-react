@@ -55,67 +55,54 @@ const InsuranceDetails = () => {
   }, []);
 
   const getInsuranceData = async (userData) => {
-    await API("get", `Profile/GetProfileByPersonalId?id=${userData.id}`).then(
-      async (InsprofileRes) => {
-        await API(
-          "get",
-          `VehicleInsurance/GetVehicleInsuranceByIdAsync?id=${InsprofileRes.data.data.vehicleInsuranceInfoId}`
-        ).then((Insurancevehicleres) => {
+    await API("get", `Profile/GetProfileByPersonalId?id=${userData.id}`).then(async (InsprofileRes) => {
+      await API("get", `VehicleInsurance/GetVehicleInsuranceByIdAsync?id=${InsprofileRes.data.data.vehicleInsuranceInfoId}`).then(
+        (Insurancevehicleres) => {
           setVehicleInsurance(Insurancevehicleres.data.data);
-        });
-        await API(
-          "get",
-          `InsuranceCompany/GetInsuranceCompanyByIdAsync?id=${InsprofileRes.data.data.insuranceCompanyInfoId}`
-        ).then((Companyinsurance) => {
+        }
+      );
+      await API("get", `InsuranceCompany/GetInsuranceCompanyByIdAsync?id=${InsprofileRes.data.data.insuranceCompanyInfoId}`).then(
+        (Companyinsurance) => {
           setCompanyInsurance(Companyinsurance.data.data);
-        });
-        await API(
-          "get",
-          `DrivingLisence/GetDrivingLisenceByIdAsync?id=${InsprofileRes.data.data.drivingLisenceInfoId}`
-        ).then((drivinglicenseres) => {
+        }
+      );
+      await API("get", `DrivingLisence/GetDrivingLisenceByIdAsync?id=${InsprofileRes.data.data.drivingLisenceInfoId}`).then(
+        (drivinglicenseres) => {
           setDrivingLicense(drivinglicenseres.data.data);
-        });
+        }
+      );
 
-        let vehicle1Id = JSON.parse(
-          InsprofileRes.data.data.vehicleDetailInfoId
-        ).Vehicle1;
+      let vehicle1Id = JSON.parse(InsprofileRes.data.data.vehicleDetailInfoId)["Vehicle 1"];
 
-        await API(
-          "get",
-          `VehicleDetail/GetVehicleDetailByIdAsync?id=${vehicle1Id}`
-        ).then((Vehicledetailres) => {
-          setVehicleDetail(Vehicledetailres.data.data);
-        });
+      await API("get", `VehicleDetail/GetVehicleDetailByIdAsync?id=${vehicle1Id}`).then((Vehicledetailres) => {
+        setVehicleDetail(Vehicledetailres.data.data);
+      });
 
-        await API(
-          "get",
-          `VehicleInsurance/GetVehicleInsuranceByIdAsync?id=${InsprofileRes.data.data.vehicleInsuranceInfoId}`
-        ).then((vehicleinsuranceres) => {
+      await API("get", `VehicleInsurance/GetVehicleInsuranceByIdAsync?id=${InsprofileRes.data.data.vehicleInsuranceInfoId}`).then(
+        (vehicleinsuranceres) => {
           setVehicleInsurance(vehicleinsuranceres.data.data);
-        });
-        await API(
-          "get",
-          `TechnicalControl/GetTechnicalControlByIdAsync?id=${InsprofileRes.data.data.technicalControlInfoId}`
-        ).then((Technicalcontrolres) => {
+        }
+      );
+      await API("get", `TechnicalControl/GetTechnicalControlByIdAsync?id=${InsprofileRes.data.data.technicalControlInfoId}`).then(
+        (Technicalcontrolres) => {
           setTechnicalControl(Technicalcontrolres.data.data);
-        });
+        }
+      );
 
-        await API(
-          "get",
-          `ExersiceAuthorization/GetExersiceAuthorizationByIdAsync?id=${InsprofileRes.data.data.exersiceAuthorizationInfoId}`
-        ).then((exerciseAuthorizationres) => {
-          setExerciseAuthorization(exerciseAuthorizationres.data.data);
-        });
+      await API(
+        "get",
+        `ExersiceAuthorization/GetExersiceAuthorizationByIdAsync?id=${InsprofileRes.data.data.exersiceAuthorizationInfoId}`
+      ).then((exerciseAuthorizationres) => {
+        setExerciseAuthorization(exerciseAuthorizationres.data.data);
+      });
 
-        await API(
-          "get",
-          `Business/GetBusinessStoreByIdAsync?id=${InsprofileRes.data.data.businessInfoId}`
-        ).then((Businessstoreres) => {
+      await API("get", `Business/GetBusinessStoreByIdAsync?id=${InsprofileRes.data.data.businessInfoId}`).then(
+        (Businessstoreres) => {
           setBusinesStore(Businessstoreres.data.data);
-        });
-        setLoading(false);
-      }
-    );
+        }
+      );
+      setLoading(false);
+    });
   };
   const updateProfile = async () => {
     if (description != "") {
@@ -137,12 +124,7 @@ const InsuranceDetails = () => {
   return (
     <>
       <Grid container spacing={1} className="insurancediv">
-        <Typography
-          fontWeight={600}
-          fontSize={25}
-          paddingTop={5}
-          marginLeft={4}
-        >
+        <Typography fontWeight={600} fontSize={25} paddingTop={5} marginLeft={4}>
           {t("Insurance Details")}
         </Typography>
         <Button
@@ -160,65 +142,36 @@ const InsuranceDetails = () => {
       ) : (
         <Grid container paddingTop={3} sx={{ margin: "30px" }}>
           <Grid xs={10.5} md={11} lg={5.6} className="vehicleGrid">
-            <Typography
-              className="GridTitle"
-              paddingTop={2}
-              paddingLeft={3}
-              fontSize={20}
-            >
+            <Typography className="GridTitle" paddingTop={2} paddingLeft={3} fontSize={20}>
               {t("Insurance Company")}
             </Typography>
             <Divider />
             <Grid item xs={12} md={12} className="textdiv">
               <label>{t("Insurer")}</label>
-              <input
-                className="placeH"
-                placeholder="EFU"
-                value={companyinsurance.insurer ? companyinsurance.insurer : ""}
-              />
+              <input className="placeH" placeholder="EFU" value={companyinsurance.insurer ? companyinsurance.insurer : ""} />
             </Grid>
             <Grid item xs={12} md={12} className="textdiv">
               <label>{t("Police Number")}</label>
-              <input
-                placeholder="3222222"
-                value={
-                  companyinsurance.policeNumber
-                    ? companyinsurance.policeNumber
-                    : ""
-                }
-              />
+              <input placeholder="3222222" value={companyinsurance.policeNumber ? companyinsurance.policeNumber : ""} />
             </Grid>
             <Grid item xs={12} md={12} className="textdiv">
               <label>{t("Start Date")}</label>
               <input
                 placeholder={t("invalid date")}
-                value={
-                  companyinsurance.startDate
-                    ? moment(companyinsurance.startDate).format("DD/MM/YYYY")
-                    : ""
-                }
+                value={companyinsurance.startDate ? moment(companyinsurance.startDate).format("DD/MM/YYYY") : ""}
               />
             </Grid>
             <Grid item xs={12} md={12} className="textdiv">
               <label>{t("End Date")}</label>
               <input
                 placeholder="30/05/2021"
-                value={
-                  companyinsurance.endDate
-                    ? moment(companyinsurance.endDate).format("DD/MM/YYYY")
-                    : ""
-                }
+                value={companyinsurance.endDate ? moment(companyinsurance.endDate).format("DD/MM/YYYY") : ""}
               />
             </Grid>
           </Grid>
 
           <Grid xs={10.5} md={11} lg={5.6} className="vehicleGrid">
-            <Typography
-              className="GridTitle"
-              paddingTop={2}
-              paddingLeft={3}
-              fontSize={20}
-            >
+            <Typography className="GridTitle" paddingTop={2} paddingLeft={3} fontSize={20}>
               {t("Driving License")}
             </Typography>
             <Divider />
@@ -227,54 +180,30 @@ const InsuranceDetails = () => {
               <input
                 className="placeH"
                 placeholder="05/07/2021"
-                value={
-                  drivinglicense.lisenceNumber
-                    ? drivinglicense.lisenceNumber
-                    : ""
-                }
+                value={drivinglicense.lisenceNumber ? drivinglicense.lisenceNumber : ""}
               />
             </Grid>
             <Grid item xs={12} md={12} className="textdiv">
               <label>{t("Delivery Place")}</label>
-              <input
-                placeholder="433-34344"
-                value={
-                  drivinglicense.deliveryPlace
-                    ? drivinglicense.deliveryPlace
-                    : ""
-                }
-              />
+              <input placeholder="433-34344" value={drivinglicense.deliveryPlace ? drivinglicense.deliveryPlace : ""} />
             </Grid>
             <Grid item xs={12} md={12} className="textdiv">
               <label>{t("Obtain Date")}</label>
               <input
                 placeholder="05/05/2021"
-                value={
-                  drivinglicense.obtainingDate
-                    ? moment(drivinglicense.obtainingDate).format("DD/MM/YYYY")
-                    : ""
-                }
+                value={drivinglicense.obtainingDate ? moment(drivinglicense.obtainingDate).format("DD/MM/YYYY") : ""}
               />
             </Grid>
             <Grid item xs={12} md={12} className="textdiv">
               <label>{t("Validity Date")}</label>
               <input
                 placeholder="05/05/2021"
-                value={
-                  drivinglicense.validityDate
-                    ? moment(drivinglicense.validityDate).format("DD/MM/YYYY")
-                    : ""
-                }
+                value={drivinglicense.validityDate ? moment(drivinglicense.validityDate).format("DD/MM/YYYY") : ""}
               />
             </Grid>
 
             <Grid xs={10.5} md={11} lg={5.6} className="vehicleGrid">
-              <Typography
-                className="GridTitle"
-                paddingTop={2}
-                paddingLeft={3}
-                fontSize={20}
-              >
+              <Typography className="GridTitle" paddingTop={2} paddingLeft={3} fontSize={20}>
                 {t("Vehicle Detail")}
               </Typography>
               <Divider />
@@ -284,49 +213,30 @@ const InsuranceDetails = () => {
                   placeholder="05/05/2012"
                   value={
                     vehicledetail.dateOfFirstRegistration
-                      ? moment(vehicledetail.dateOfFirstRegistration).format(
-                          "DD/MM/YYYY"
-                        )
+                      ? moment(vehicledetail.dateOfFirstRegistration).format("DD/MM/YYYY")
                       : ""
                   }
                 />
               </Grid>
               <Grid item md={12} className="textdiv">
                 <label>{t("Brand")}</label>
-                <input
-                  placeholder="Audi"
-                  value={vehicledetail.brand ? vehicledetail.brand : ""}
-                />
+                <input placeholder="Audi" value={vehicledetail.brand ? vehicledetail.brand : ""} />
               </Grid>
               <Grid item md={12} className="textdiv">
                 <label>{t("Color")}</label>
-                <input
-                  placeholder="Black"
-                  value={vehicledetail.color ? vehicledetail.color : ""}
-                />
+                <input placeholder="Black" value={vehicledetail.color ? vehicledetail.color : ""} />
               </Grid>
               <Grid item md={12} className="textdiv">
                 <label>{t("Model")}</label>
-                <input
-                  placeholder="Black"
-                  value={vehicledetail.model ? vehicledetail.model : ""}
-                />
+                <input placeholder="Black" value={vehicledetail.model ? vehicledetail.model : ""} />
               </Grid>
               <Grid item md={12} className="textdiv">
                 <label>{t("Gear Box")}</label>
-                <input
-                  placeholder="Auto"
-                  value={vehicledetail.gearBox ? vehicledetail.gearBox : ""}
-                />
+                <input placeholder="Auto" value={vehicledetail.gearBox ? vehicledetail.gearBox : ""} />
               </Grid>
             </Grid>
             <Grid xs={10.5} md={11} lg={5.6} className="vehicleGrid">
-              <Typography
-                className="GridTitle"
-                paddingTop={2}
-                paddingLeft={3}
-                fontSize={20}
-              >
+              <Typography className="GridTitle" paddingTop={2} paddingLeft={3} fontSize={20}>
                 {t("Vehicle Insurance")}
               </Typography>
               <Divider />
@@ -334,32 +244,19 @@ const InsuranceDetails = () => {
                 <label>{t("Start Date")}</label>
                 <input
                   placeholder="05/05/2012"
-                  value={
-                    vehicleInsurance.startDate
-                      ? moment(vehicleInsurance.startDate).format("DD/MM/YYYY")
-                      : ""
-                  }
+                  value={vehicleInsurance.startDate ? moment(vehicleInsurance.startDate).format("DD/MM/YYYY") : ""}
                 />
               </Grid>
               <Grid item md={12} className="textdiv">
                 <label>{t("End Date")}</label>
                 <input
                   placeholder="05/05/2012"
-                  value={
-                    vehicleInsurance.endDate
-                      ? moment(vehicleInsurance.endDate).format("DD/MM/YYYY")
-                      : ""
-                  }
+                  value={vehicleInsurance.endDate ? moment(vehicleInsurance.endDate).format("DD/MM/YYYY") : ""}
                 />
               </Grid>
             </Grid>
             <Grid xs={10.5} md={11} lg={5.6} className="vehicleGrid">
-              <Typography
-                className="GridTitle"
-                paddingTop={2}
-                paddingLeft={3}
-                fontSize={20}
-              >
+              <Typography className="GridTitle" paddingTop={2} paddingLeft={3} fontSize={20}>
                 {t("Technical Control")}
               </Typography>
               <Divider />
@@ -370,9 +267,7 @@ const InsuranceDetails = () => {
                   value={
                     technicalcontrol
                       ? technicalcontrol.startDateOfTech
-                        ? moment(technicalcontrol.startDateOfTech).format(
-                            "DD/MM/YYYY"
-                          )
+                        ? moment(technicalcontrol.startDateOfTech).format("DD/MM/YYYY")
                         : "N/A"
                       : "N/A"
                   }
@@ -385,9 +280,7 @@ const InsuranceDetails = () => {
                   value={
                     technicalcontrol
                       ? technicalcontrol.endDateOfTechControl
-                        ? moment(technicalcontrol.endDateOfTechControl).format(
-                            "DD/MM/YYYY"
-                          )
+                        ? moment(technicalcontrol.endDateOfTechControl).format("DD/MM/YYYY")
                         : "N/A"
                       : "N/A"
                   }
@@ -396,12 +289,7 @@ const InsuranceDetails = () => {
             </Grid>
 
             <Grid xs={10.5} md={11} lg={5.6} className="vehicleGrid">
-              <Typography
-                className="GridTitle"
-                paddingTop={2}
-                paddingLeft={3}
-                fontSize={20}
-              >
+              <Typography className="GridTitle" paddingTop={2} paddingLeft={3} fontSize={20}>
                 {t("Exercise Authorization")}
               </Typography>
               <Divider />
@@ -411,9 +299,7 @@ const InsuranceDetails = () => {
                   placeholder="xxxxxxxxxxx"
                   value={
                     exerciseauthorization.authorizationDate
-                      ? moment(exerciseauthorization.authorizationDate).format(
-                          "DD/MM/YYYY"
-                        )
+                      ? moment(exerciseauthorization.authorizationDate).format("DD/MM/YYYY")
                       : ""
                   }
                 />
@@ -422,11 +308,7 @@ const InsuranceDetails = () => {
                 <label>{t("Issueing Authority")}</label>
                 <input
                   placeholder="xxxxxxxxxxx"
-                  value={
-                    exerciseauthorization.issuingAuthority
-                      ? exerciseauthorization.issuingAuthority
-                      : ""
-                  }
+                  value={exerciseauthorization.issuingAuthority ? exerciseauthorization.issuingAuthority : ""}
                 />
               </Grid>
               <Grid item md={12} className="textdiv">
@@ -434,34 +316,20 @@ const InsuranceDetails = () => {
                 <input
                   placeholder="xxxxxxxxxxx"
                   value={
-                    exerciseauthorization.expirationDate
-                      ? moment(exerciseauthorization.expirationDate).format(
-                          "DD/MM/YYYY"
-                        )
-                      : ""
+                    exerciseauthorization.expirationDate ? moment(exerciseauthorization.expirationDate).format("DD/MM/YYYY") : ""
                   }
                 />
               </Grid>
             </Grid>
 
             <Grid xs={10.5} md={11} lg={5.6} className="vehicleGrid">
-              <Typography
-                className="GridTitle"
-                paddingTop={2}
-                paddingLeft={3}
-                fontSize={20}
-              >
+              <Typography className="GridTitle" paddingTop={2} paddingLeft={3} fontSize={20}>
                 {t("Business Store")}
               </Typography>
               <Divider />
               <Grid item md={12} className="textdiv">
                 <label>{t("Serial Number")}</label>
-                <input
-                  placeholder="xxxxxxxxxx"
-                  value={
-                    businesstore.siretNumber ? businesstore.siretNumber : ""
-                  }
-                />
+                <input placeholder="xxxxxxxxxx" value={businesstore.siretNumber ? businesstore.siretNumber : ""} />
               </Grid>
             </Grid>
             <>
@@ -477,14 +345,8 @@ const InsuranceDetails = () => {
                 }}
               >
                 <Box sx={style}>
-                  <Typography sx={{ color: "#110000" }}>
-                    {t(" Profile Update Request")}
-                  </Typography>
-                  <FormControl
-                    variant=""
-                    sx={{ ml: "-3%" }}
-                    className="MobileView"
-                  >
+                  <Typography sx={{ color: "#110000" }}>{t(" Profile Update Request")}</Typography>
+                  <FormControl variant="" sx={{ ml: "-3%" }} className="MobileView">
                     <Select
                       labelId="demo-simple-select-standard-label"
                       id="demo-simple-select-standard"
@@ -497,11 +359,7 @@ const InsuranceDetails = () => {
                         color: "#110000",
                       }}
                     >
-                      <MenuItem
-                        value={0}
-                        disabled
-                        sx={{ paddingTop: "0px !important" }}
-                      >
+                      <MenuItem value={0} disabled sx={{ paddingTop: "0px !important" }}>
                         {t("Select the options")}
                       </MenuItem>
                       <MenuItem
@@ -511,11 +369,7 @@ const InsuranceDetails = () => {
                       >
                         {t("Insurance Company")}
                       </MenuItem>
-                      <MenuItem
-                        value="DrivingLicense"
-                        name="DrivingLicense"
-                        onChange={(e) => SetUpdateField(e.target.value)}
-                      >
+                      <MenuItem value="DrivingLicense" name="DrivingLicense" onChange={(e) => SetUpdateField(e.target.value)}>
                         {t("Driving License")}
                       </MenuItem>
                       <MenuItem
@@ -525,32 +379,18 @@ const InsuranceDetails = () => {
                       >
                         {t("Exercise Authorization")}
                       </MenuItem>
-                      <MenuItem
-                        value="BusinessDetails"
-                        name="BusinessDetails"
-                        onChange={(e) => SetUpdateField(e.target.value)}
-                      >
+                      <MenuItem value="BusinessDetails" name="BusinessDetails" onChange={(e) => SetUpdateField(e.target.value)}>
                         {t("Business Details")}
                       </MenuItem>
-                      <MenuItem
-                        value="Vehicleinsurance"
-                        name="Vehicleinsurance"
-                        onChange={(e) => SetUpdateField(e.target.value)}
-                      >
+                      <MenuItem value="Vehicleinsurance" name="Vehicleinsurance" onChange={(e) => SetUpdateField(e.target.value)}>
                         {t("Vehicle insurance")}
                       </MenuItem>
-                      <MenuItem
-                        value="TechnicalControl"
-                        name="TechnicalControl"
-                        onChange={(e) => SetUpdateField(e.target.value)}
-                      >
+                      <MenuItem value="TechnicalControl" name="TechnicalControl" onChange={(e) => SetUpdateField(e.target.value)}>
                         {t("Technical Control")}
                       </MenuItem>
                     </Select>
                   </FormControl>
-                  <Typography sx={{ color: "#110000", marginBottom: "3px" }}>
-                    {t("Reason-Information to update")}
-                  </Typography>
+                  <Typography sx={{ color: "#110000", marginBottom: "3px" }}>{t("Reason-Information to update")}</Typography>
                   <TextareaAutosize
                     aria-label="minimum height"
                     minRows={5}

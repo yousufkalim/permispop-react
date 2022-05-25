@@ -51,6 +51,7 @@
   background-color: white !important;
   z-index: 10000 !important;
   position: fixed !important;
+  box-shadow: none !important;
 }
 /* appbar box shadow */
 .css-u4zaln-MuiPaper-root-MuiAppBar-root {
