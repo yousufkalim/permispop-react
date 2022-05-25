@@ -57,6 +57,7 @@ const Calendar = () => {
 
   useEffect(() => {
     const userData = JSON.parse(localStorage.getItem("user"));
+    console.log("userData", userData);
     setUser(userData);
     getAvailabilities(userData);
   }, [update]);
@@ -66,115 +67,107 @@ const Calendar = () => {
       "get",
       `Availability/GetAvailabilityPlusBookingsSetForInstructor_New?id=${userData.id}&start=${startDate}&end=${endDate}`
     ).then((response) => {
-      let meetups = [];
-      let allVehicles = [];
-      let allAvailabilities = [];
-
-      response.data.data.instructorMeetupPointList.map((meetup) => {
-        meetups.push({
-          name: meetup.meetUp + " " + meetup.city + " " + meetup.zipCode,
-          value: meetup.id,
-        });
-      });
-
-      response.data.data.vehicleDetailList.map((e) => {
-        allVehicles.push({
-          name: e.brand + " " + e.model + " (" + e.gearBox + ")",
-          value: e.id,
-        });
-      });
-
-      response.data.data.availabilities.map((availability) => {
-        let date = availability.date.split("-");
-        let start = availability.startTime.split(":");
-        let end = availability.endTime.split(":");
-        let type = "";
-
-        if (availability.vehicleId.includes("Auto")) {
-          type = "Auto";
-        } else if (availability.vehicleId.includes("Manual")) {
-          type = "Manual";
+      console.log("response------??", response);
+      let studentRes = response.data.data.bookings.map((booking) => {
+        if (userData.id === booking.instructionId) {
+          return API("get", `Personal/GetAllById/?id=${booking.studentId}`);
         }
-
-        let i = end[0] - start[0];
-
-        if (end[1] === "30") {
-          i = i + 1;
-        }
-
-        for (let j = 0; j < i; j++) {
-          let startMin = 0;
-          let endingMins = 0;
-          let endingHours = parseInt(start[0]) + j + 1;
-          if (j === 0) {
-            startMin = start[1];
-          }
-          if (j + 1 === i) {
-            if (end[1] === "30") {
-              endingHours = parseInt(start[0]) + j;
+      });
+      Promise.all(studentRes).then((res) => {
+        response.data.data.bookings.map((booking) => {
+          let userdata = res.find((user) => {
+            if (booking.studentId === user.data.data.id) {
+              return user;
+            } else if (booking.instructionId === user.data.data.id) {
+              return user;
             }
-            endingMins = end[1];
-          }
-          allAvailabilities.push({
-            id: availability.id,
-            title: "Availability By " + availability.createdBy,
-            start: new Date(
-              date[0],
-              parseInt(date[1]) - 1,
-              date[2],
-              parseInt(start[0]) + j,
-              startMin,
-              0
-            ),
-            end: new Date(
-              date[0],
-              parseInt(date[1]) - 1,
-              date[2],
-              endingHours,
-              endingMins,
-              0
-            ),
-            status: availability.status,
-            type: type,
           });
-        }
-      });
 
-      response.data.data.bookings.map((booking) => {
-        let date = booking.bookingDate.split("-");
-        let start = booking.startTime.split(":");
-        let end = booking.endTime.split(":");
-
-        allAvailabilities.push({
-          id: booking.id,
-          title: "Booking By " + booking.instructorQuestionFifth,
-          start: new Date(
-            date[0],
-            parseInt(date[1]) - 1,
-            date[2],
-            start[0],
-            start[1],
-            0
-          ),
-          end: new Date(
-            date[0],
-            parseInt(date[1]) - 1,
-            date[2],
-            end[0],
-            end[1],
-            0
-          ),
-          bookingTime: booking.startTime + " - " + booking.endTime,
-          status: booking.status,
-          meetingPlace: booking.meetingPlace,
-          duration: booking.duration,
-          vehicleId: booking.vehicleId,
+          booking["studentData"] = userdata.data.data;
         });
-      });
+        console.log("booking--->>>", res);
+        let meetups = [];
+        let allVehicles = [];
+        let allAvailabilities = [];
 
-      setEvents(allAvailabilities);
-      setmeetupPoints(meetups);
-      setVehicles(allVehicles);
+        response.data.data.instructorMeetupPointList.map((meetup) => {
+          meetups.push({
+            name: meetup.meetUp + " " + meetup.city + " " + meetup.zipCode,
+            value: meetup.id,
+          });
+        });
+
+        response.data.data.vehicleDetailList.map((e) => {
+          allVehicles.push({
+            name: e.brand + " " + e.model + " (" + e.gearBox + ")",
+            value: e.id,
+          });
+        });
+
+        response.data.data.availabilities.map((availability) => {
+          let date = availability.date.split("-");
+          let start = availability.startTime.split(":");
+          let end = availability.endTime.split(":");
+          let type = "";
+
+          if (availability.vehicleId.includes("Auto")) {
+            type = "Auto";
+          } else if (availability.vehicleId.includes("Manual")) {
+            type = "Manual";
+          }
+
+          let i = end[0] - start[0];
+
+          if (end[1] === "30") {
+            i = i + 1;
+          }
+
+          for (let j = 0; j < i; j++) {
+            let startMin = 0;
+            let endingMins = 0;
+            let endingHours = parseInt(start[0]) + j + 1;
+            if (j === 0) {
+              startMin = start[1];
+            }
+            if (j + 1 === i) {
+              if (end[1] === "30") {
+                endingHours = parseInt(start[0]) + j;
+              }
+              endingMins = end[1];
+            }
+            allAvailabilities.push({
+              id: availability.id,
+              title: "Availability By " + availability.createdBy,
+              start: new Date(date[0], parseInt(date[1]) - 1, date[2], parseInt(start[0]) + j, startMin, 0),
+              end: new Date(date[0], parseInt(date[1]) - 1, date[2], endingHours, endingMins, 0),
+              status: availability.status,
+              type: type,
+            });
+          }
+        });
+
+        response.data.data.bookings.map((booking) => {
+          let date = booking.bookingDate.split("-");
+          let start = booking.startTime.split(":");
+          let end = booking.endTime.split(":");
+
+          allAvailabilities.push({
+            id: booking.id,
+            title: "Booking By " + booking.studentData.firstName + " " + booking.studentData.surName,
+            start: new Date(date[0], parseInt(date[1]) - 1, date[2], start[0], start[1], 0),
+            end: new Date(date[0], parseInt(date[1]) - 1, date[2], end[0], end[1], 0),
+            bookingTime: booking.startTime + " - " + booking.endTime,
+            status: booking.status,
+            meetingPlace: booking.meetingPlace,
+            duration: booking.duration,
+            vehicleId: booking.vehicleId,
+          });
+        });
+
+        setEvents(allAvailabilities);
+        setmeetupPoints(meetups);
+        setVehicles(allVehicles);
+      });
     });
   };
 
@@ -279,11 +272,7 @@ const Calendar = () => {
         status: "Available",
       })
         .then((res) => {
-          toast.success(
-            `Availabilty Added for date ${moment(selectedDate).format(
-              "YYYY-DD-MM"
-            )}`
-          );
+          toast.success(`Availabilty Added for date ${moment(selectedDate).format("YYYY-DD-MM")}`);
           setUpdate(!update);
           setOpen(false);
           setLoading(false);
@@ -341,11 +330,7 @@ const Calendar = () => {
         startTime: selectedStartHours + ":" + selectedStartMins,
         status: "Unavailable",
       }).then((res) => {
-        toast.success(
-          `Unavailabilty Added for date ${moment(selectedDate).format(
-            "YYYY-DD-MM"
-          )}`
-        );
+        toast.success(`Unavailabilty Added for date ${moment(selectedDate).format("YYYY-DD-MM")}`);
         setUpdate(!update);
         setDescription("");
         setOpen(false);
@@ -398,11 +383,7 @@ const Calendar = () => {
         startTime: selectedStartHours + ":" + selectedStartMins,
         status: "Personal",
       }).then((res) => {
-        toast.success(
-          `Personal Event Added for date ${moment(selectedDate).format(
-            "YYYY-DD-MM"
-          )}`
-        );
+        toast.success(`Personal Event Added for date ${moment(selectedDate).format("YYYY-DD-MM")}`);
         setUpdate(!update);
         setDescription("");
         setOpen(false);
@@ -414,9 +395,7 @@ const Calendar = () => {
     setLoading(true);
     await API(
       "delete",
-      `Availability/DeleteAvailability_New?AvailabilityId=${
-        selectedEvent.id
-      }&StartTime=${moment(selectedEvent.start).format(
+      `Availability/DeleteAvailability_New?AvailabilityId=${selectedEvent.id}&StartTime=${moment(selectedEvent.start).format(
         "HH:mm"
       )}&Endtime=${moment(selectedEvent.end).format("HH:mm")}&status=deleted`
     )
@@ -449,13 +428,12 @@ const Calendar = () => {
     setdisabled(true);
     await API(
       "delete",
-      `Bookings/DeleteBookingById_Neww?id=${
-        selectedBooking.id
-      }&StartTime=${moment(selectedBooking.start).format(
+      `Bookings/DeleteBookingById_Neww?id=${selectedBooking.id}&StartTime=${moment(selectedBooking.start).format(
         "HH:mm"
       )}&Endtime=${moment(selectedBooking.end).format("HH:mm")}&status=deleted`
     )
       .then((res) => {
+        console.log("res-->", res);
         setUpdate(!update);
         handleBookingClose();
         setdisabled(false);
@@ -496,24 +474,12 @@ const Calendar = () => {
 
         <TabContext value={value}>
           <TabList onChange={handleChange} className="tab-list">
-            <Tab
-              className="tab"
-              label={t("Add Availability")}
-              value="Availability-page"
-            />
+            <Tab className="tab" label={t("Add Availability")} value="Availability-page" />
             <Divider orientation="vertical" flexItem width="4px !important" />
-            <Tab
-              label={t("Add Unavailability")}
-              value="Unavailability-page"
-              className="tab"
-            />
+            <Tab label={t("Add Unavailability")} value="Unavailability-page" className="tab" />
             <Divider orientation="vertical" flexItem width="4px !important" />
 
-            <Tab
-              className="tab"
-              label={t("Add Personal Event")}
-              value="PersonalEvent-page"
-            />
+            <Tab className="tab" label={t("Add Personal Event")} value="PersonalEvent-page" />
           </TabList>
           {/* page 1 */}
           <div className="modal-content">
@@ -1253,12 +1219,7 @@ const Calendar = () => {
                 padding: "10px",
               }}
             >
-              <TextField
-                label={t("User Info")}
-                height="10px"
-                value={selectedBooking.title}
-                disabled={true}
-              />
+              <TextField label={t("User Info")} height="10px" value={selectedBooking.title} disabled={true} />
             </Grid>
             <Grid
               xs={12}
@@ -1268,11 +1229,7 @@ const Calendar = () => {
                 padding: "10px",
               }}
             >
-              <TextField
-                label={t("Booking Date")}
-                disabled={true}
-                value={moment(selectedBooking.start).format("DD-MM-YYYY")}
-              />
+              <TextField label={t("Booking Date")} disabled={true} value={moment(selectedBooking.start).format("DD-MM-YYYY")} />
             </Grid>
             <Grid
               xs={12}
@@ -1282,11 +1239,7 @@ const Calendar = () => {
                 padding: "10px",
               }}
             >
-              <TextField
-                label={t("Booking Time")}
-                disabled={true}
-                value={selectedBooking.bookingTime}
-              />
+              <TextField label={t("Booking Time")} disabled={true} value={selectedBooking.bookingTime} />
             </Grid>
             <Grid
               xs={12}
@@ -1296,11 +1249,7 @@ const Calendar = () => {
                 padding: "10px",
               }}
             >
-              <TextField
-                label={t("Duration")}
-                disabled={true}
-                value={selectedBooking.duration}
-              />
+              <TextField label={t("Duration")} disabled={true} value={selectedBooking.duration} />
             </Grid>
             <Grid
               xs={12}
@@ -1310,11 +1259,7 @@ const Calendar = () => {
                 padding: "10px",
               }}
             >
-              <TextField
-                label={t("Vechicle")}
-                disabled={true}
-                value={selectedBooking.vehicleId}
-              />
+              <TextField label={t("Vechicle")} disabled={true} value={selectedBooking.vehicleId} />
             </Grid>
             <Grid
               xs={12}
@@ -1324,11 +1269,7 @@ const Calendar = () => {
                 padding: "10px",
               }}
             >
-              <TextField
-                label={t("Meetup")}
-                disabled={true}
-                value={selectedBooking.meetingPlace}
-              />
+              <TextField label={t("Meetup")} disabled={true} value={selectedBooking.meetingPlace} />
             </Grid>
           </Grid>
           <div className="booking-btn-div">
