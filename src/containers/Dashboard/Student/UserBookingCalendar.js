@@ -57,6 +57,7 @@ const Calendar = () => {
     let allEvents = [];
     if (selectedInstructor.role === "DrivingSchool") {
       await API("get", `Bookings/GetBookingsByStudent?id=${userData.id}`).then(async (res) => {
+        console.log("ress--->>>", res);
         res.data.data.map((booking) => {
           if (booking.drivingSchoolId === "") {
             let date = moment(booking.bookingDate).format("YYYY-MM-DD");
@@ -149,7 +150,7 @@ const Calendar = () => {
           if (availability.status === "Available") {
             title = "Availability By " + availability.createdBy;
           } else {
-            title = "Booking By " + availability.createdBy;
+            title = "Booking with " + availability.createdBy;
           }
 
           if (end[0] - 12 != start[0]) {
