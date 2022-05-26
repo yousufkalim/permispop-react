@@ -90,13 +90,10 @@ const Profile = (props) => {
     const userData = JSON.parse(localStorage.getItem("user"));
     getUserData(userData.id);
     if (localStorage.getItem("1stLogin") == "true") {
-      toast.success(
-        t("Welcome") + " " + userData.firstName + " " + userData.surName,
-        {
-          position: toast.POSITION.TOP_RIGHT,
-          className: "toast-bar",
-        }
-      );
+      toast.success(t("Welcome") + " " + userData.firstName + " " + userData.surName, {
+        position: toast.POSITION.TOP_RIGHT,
+        className: "toast-bar",
+      });
       localStorage.removeItem("1stLogin");
     }
   }, [update]);
@@ -110,14 +107,8 @@ const Profile = (props) => {
     await API("get", `FeedBacks/GetAllUsersToRate/?id=${id}`).then((res) => {
       if (res.data.data.length > 0) {
         let newData = res.data.data.map(async (feedback) => {
-          return await API(
-            "get",
-            `Personal/GetAllById/?id=${feedback.toId}`
-          ).then(async (personalresponse) => {
-            return await API(
-              "get",
-              `bookings/GetBookingById/?id=${feedback.bookingId}`
-            ).then((bookingres) => {
+          return await API("get", `Personal/GetAllById/?id=${feedback.toId}`).then(async (personalresponse) => {
+            return await API("get", `bookings/GetBookingById/?id=${feedback.bookingId}`).then((bookingres) => {
               feedback.toId = personalresponse.data.data;
               feedback.bookingId = bookingres.data.data;
               return feedback;
@@ -194,28 +185,25 @@ const Profile = (props) => {
   };
 
   const getRatings = async (userData) => {
-    await API("get", `FeedBacks/GetAverageRating?id=${userData.id}`).then(
-      (res) => {
-        setRatings(res.data.data);
-      }
-    );
+    await API("get", `FeedBacks/GetAverageRating?id=${userData.id}`).then((res) => {
+      setRatings(res.data.data);
+    });
   };
 
   const changePassword = async () => {
     setDisabled(true);
     if (newPassword !== "" && confirmPassword !== "" && oldPassword !== "") {
       if (newPassword === confirmPassword) {
-        await API(
-          "post",
-          `Personal/ChangePassword?id=${user.id}&oldPassword=${oldPassword}&newPassword=${newPassword}`
-        ).then((res) => {
-          toast.success(t("Password updated Successfully"));
-          setOldPassword("");
-          setNewPassword("");
-          setConfirmPassword("");
-          setDisabled(false);
-          setOpenModal(false);
-        });
+        await API("post", `Personal/ChangePassword?id=${user.id}&oldPassword=${oldPassword}&newPassword=${newPassword}`).then(
+          (res) => {
+            toast.success(t("Password updated Successfully"));
+            setOldPassword("");
+            setNewPassword("");
+            setConfirmPassword("");
+            setDisabled(false);
+            setOpenModal(false);
+          }
+        );
       } else {
         toast.error(t("New password does not match Confirm password"));
         setDisabled(false);
@@ -247,8 +235,7 @@ const Profile = (props) => {
     await API("post", `Personal/UpdatePersonal`, {
       NEPH: neph === "" ? user.neph : neph,
       noOfHrsWanted: Noofhours === "" ? user.noOfHrsWanted : Noofhours,
-      highWayCodeDate:
-        highwayCodeDate === "" ? user.highWayCodeDate : highwayCodeDate,
+      highWayCodeDate: highwayCodeDate === "" ? user.highWayCodeDate : highwayCodeDate,
 
       absentEndDate: user.absentEndDate,
       absentStartDate: user.absentStartDate,
@@ -293,17 +280,12 @@ const Profile = (props) => {
       workWithOther: user.workWithOther,
       zip: user.zip,
     }).then(async (updatePersonalres) => {
-      await API("get", `Personal/GetAllById/?id=${user.id}`).then(
-        (getPersonalres) => {
-          localStorage.setItem(
-            "user",
-            JSON.stringify(getPersonalres.data.data)
-          );
-          toast.success("Updated sucessfully");
-          seteditProfileModal(false);
-          setUpdate(!update);
-        }
-      );
+      await API("get", `Personal/GetAllById/?id=${user.id}`).then((getPersonalres) => {
+        localStorage.setItem("user", JSON.stringify(getPersonalres.data.data));
+        toast.success("Updated sucessfully");
+        seteditProfileModal(false);
+        setUpdate(!update);
+      });
     });
   };
   const updateProfileImage = async (e) => {
@@ -311,63 +293,61 @@ const Profile = (props) => {
 
     formdata.append("file", e.target.files[0]);
 
-    await API("post", "Personal/UploadProfileImage", formdata).then(
-      async (res) => {
-        await API("post", `Personal/UpdatePersonal`, {
-          NEPH: user.neph,
-          noOfHrsWanted: user.noOfHrsWanted,
-          highWayCodeDate: user.highWayCodeDate,
+    await API("post", "Personal/UploadProfileImage", formdata).then(async (res) => {
+      await API("post", `Personal/UpdatePersonal`, {
+        NEPH: user.neph,
+        noOfHrsWanted: user.noOfHrsWanted,
+        highWayCodeDate: user.highWayCodeDate,
 
-          absentEndDate: user.absentEndDate,
-          absentStartDate: user.absentStartDate,
-          address: user.address,
-          backIDPhoto: user.backIDPhoto,
-          city: user.city,
-          complement: user.complement,
-          contactEmail: user.contactEmail,
-          cpfAccept: user.cpfAccept,
-          dob: user.dob,
-          documentTested: user.documentTested,
-          drivingSchoolID: user.drivingSchoolID,
-          duplicate_id: user.duplicate_id,
-          email: user.email,
-          emailSent: user.emailSent,
-          firstName: user.firstName,
-          frontIDPhoto: user.frontIDPhoto,
-          gender: user.gender,
-          giveOurPlatformTime: user.giveOurPlatformTime,
-          highWayCodeImage: user.highWayCodeImage,
-          id: user.id,
-          instructorMeetupPointInfos: user.instructorMeetupPointInfos,
-          isOnline: user.isOnline,
-          lastActiveTime: user.lastActiveTime,
-          lastSeen: user.lastSeen,
-          lat: user.lat,
-          long: user.long,
-          msgMailCount: user.msgMailCount,
-          paid: user.paid,
-          password: user.password,
-          phone: user.phone,
-          photo: res.data.message === "" ? user.photo : res.data.message,
+        absentEndDate: user.absentEndDate,
+        absentStartDate: user.absentStartDate,
+        address: user.address,
+        backIDPhoto: user.backIDPhoto,
+        city: user.city,
+        complement: user.complement,
+        contactEmail: user.contactEmail,
+        cpfAccept: user.cpfAccept,
+        dob: user.dob,
+        documentTested: user.documentTested,
+        drivingSchoolID: user.drivingSchoolID,
+        duplicate_id: user.duplicate_id,
+        email: user.email,
+        emailSent: user.emailSent,
+        firstName: user.firstName,
+        frontIDPhoto: user.frontIDPhoto,
+        gender: user.gender,
+        giveOurPlatformTime: user.giveOurPlatformTime,
+        highWayCodeImage: user.highWayCodeImage,
+        id: user.id,
+        instructorMeetupPointInfos: user.instructorMeetupPointInfos,
+        isOnline: user.isOnline,
+        lastActiveTime: user.lastActiveTime,
+        lastSeen: user.lastSeen,
+        lat: user.lat,
+        long: user.long,
+        msgMailCount: user.msgMailCount,
+        paid: user.paid,
+        password: user.password,
+        phone: user.phone,
+        photo: res.data.message === "" ? user.photo : res.data.message,
 
-          placeOfBirth: user.placeOfBirth,
-          profileInfo: user.profileInfo,
-          registrationDate: user.registrationDate,
-          role: user.role,
-          secondEmail: user.secondEmail,
-          secondPhone: user.secondPhone,
-          spokenLanguage: user.spokenLanguage,
-          surName: user.surName,
-          whichPlatform: user.whichPlatform,
-          workWithOther: user.workWithOther,
-          zip: user.zip,
-        }).then((e) => {
-          toast.success("Profile Image Changed successfully!");
-          localStorage.setItem("user", JSON.stringify(e.data.data));
-          window.location.reload();
-        });
-      }
-    );
+        placeOfBirth: user.placeOfBirth,
+        profileInfo: user.profileInfo,
+        registrationDate: user.registrationDate,
+        role: user.role,
+        secondEmail: user.secondEmail,
+        secondPhone: user.secondPhone,
+        spokenLanguage: user.spokenLanguage,
+        surName: user.surName,
+        whichPlatform: user.whichPlatform,
+        workWithOther: user.workWithOther,
+        zip: user.zip,
+      }).then((e) => {
+        toast.success("Profile Image Changed successfully!");
+        localStorage.setItem("user", JSON.stringify(e.data.data));
+        window.location.reload();
+      });
+    });
   };
   return (
     <React.Fragment>
@@ -390,25 +370,15 @@ const Profile = (props) => {
             // value={user? user.}
             openPasswordModal={setOpenModal}
             openProfileUpdate={setOpenUpdateProfileModal}
-            languages={
-              user ? (user.spokenLanguage ? user.spokenLanguage : []) : []
-            }
-            ratings={
-              ratings
-                ? ratings === "NaN"
-                  ? t("N/A")
-                  : Math.round(ratings * 10) / 10
-                : ""
-            }
+            languages={user ? (user.spokenLanguage ? user.spokenLanguage : []) : []}
+            ratings={ratings ? (ratings === "NaN" ? t("N/A") : Math.round(ratings * 10) / 10) : ""}
           ></ProfileDetails>
           <div>
             <Grid className="ProfileDetails">
               <Typography className="Abouttitlle">{t("About")}</Typography>
               <Divider className="ProfileDivider"></Divider>
             </Grid>
-            <Typography className="AboutHeading">
-              {t("Contact Information")}
-            </Typography>
+            <Typography className="AboutHeading">{t("Contact Information")}</Typography>
 
             <Grid container spacing={1} className="formdata">
               <Grid sx={12} sm={12} md={2} className="Information">
@@ -447,11 +417,7 @@ const Profile = (props) => {
                 {t("Date of Birth")}:
               </Grid>
               <Grid sx={12} sm={12} md={2} className="RoleInformation">
-                {user
-                  ? user.dob
-                    ? moment(user.dob).format("DD-MM-YYYY")
-                    : "N/A"
-                  : ""}
+                {user ? (user.dob ? moment(user.dob).format("DD/MM/YYYY") : "N/A") : ""}
               </Grid>
             </Grid>
             <Grid container spacing={1} className="formdata">
@@ -499,11 +465,7 @@ const Profile = (props) => {
             <Typography className="AboutHeading">
               {t("Contact Information")}
               <IconButton>
-                <EditIcon
-                  color="secondary"
-                  sx={{ marginLeft: "5%" }}
-                  onClick={(e) => seteditProfileModal(!editProfileModal)}
-                />
+                <EditIcon color="secondary" sx={{ marginLeft: "5%" }} onClick={(e) => seteditProfileModal(!editProfileModal)} />
               </IconButton>
             </Typography>
             <Grid container spacing={1} className="formdata">
@@ -527,11 +489,7 @@ const Profile = (props) => {
                 {t("Highway Code Date")}:
               </Grid>
               <Grid sx={12} sm={12} md={2} className="RoleInformation">
-                {user
-                  ? user.highWayCodeDate
-                    ? moment(user.highWayCodeDate).format("DD-MM-YYYY")
-                    : "N/A"
-                  : ""}
+                {user ? (user.highWayCodeDate ? moment(user.highWayCodeDate).format("DD-MM-YYYY") : "N/A") : ""}
               </Grid>
             </Grid>
           </div>
@@ -604,9 +562,7 @@ const Profile = (props) => {
             }}
           >
             <Box sx={style}>
-              <Typography sx={{ color: "#110000" }}>
-                {t("Profile Update Request")}
-              </Typography>
+              <Typography sx={{ color: "#110000" }}>{t("Profile Update Request")}</Typography>
               <FormControl variant="" sx={{ ml: "-3%" }} className="MobileView">
                 <Select
                   labelId="demo-simple-select-standard-label"
@@ -620,11 +576,7 @@ const Profile = (props) => {
                     color: "#110000",
                   }}
                 >
-                  <MenuItem
-                    value={0}
-                    disabled
-                    sx={{ paddingTop: "0px !important" }}
-                  >
+                  <MenuItem value={0} disabled sx={{ paddingTop: "0px !important" }}>
                     {t("Select the options")}
                   </MenuItem>
                   <MenuItem value="FirstName" name=" FirstName">
@@ -641,9 +593,7 @@ const Profile = (props) => {
                   </MenuItem>
                 </Select>
               </FormControl>
-              <Typography sx={{ color: "#110000", marginBottom: "3px" }}>
-                {t("Reason-Information to update")}
-              </Typography>
+              <Typography sx={{ color: "#110000", marginBottom: "3px" }}>{t("Reason-Information to update")}</Typography>
               <TextareaAutosize
                 aria-label="minimum height"
                 minRows={5}
@@ -681,21 +631,9 @@ const Profile = (props) => {
               <TextField
                 label={t("NEPH")}
                 name="NEPH"
-                value={
-                  user
-                    ? user.neph === "" || user.neph === null
-                      ? neph
-                      : user.neph
-                    : ""
-                }
+                value={user ? (user.neph === "" || user.neph === null ? neph : user.neph) : ""}
                 type="text"
-                disabled={
-                  user
-                    ? user.neph === "" || user.neph === null
-                      ? false
-                      : true
-                    : false
-                }
+                disabled={user ? (user.neph === "" || user.neph === null ? false : true) : false}
                 placeholder={t("NEPH")}
                 sx={{ marginBottom: "2% !important" }}
                 onChange={(e) => {
@@ -706,20 +644,8 @@ const Profile = (props) => {
                 label={t("No of hours")}
                 name="Noofhours"
                 // value={Noofhours}
-                value={
-                  user
-                    ? user.noOfHrsWanted === "" || user.noOfHrsWanted === null
-                      ? Noofhours
-                      : user.noOfHrsWanted
-                    : ""
-                }
-                disabled={
-                  user
-                    ? user.noOfHrsWanted === "" || user.noOfHrsWanted === null
-                      ? false
-                      : true
-                    : false
-                }
+                value={user ? (user.noOfHrsWanted === "" || user.noOfHrsWanted === null ? Noofhours : user.noOfHrsWanted) : ""}
+                disabled={user ? (user.noOfHrsWanted === "" || user.noOfHrsWanted === null ? false : true) : false}
                 type="text"
                 placeholder={t("No of hours")}
                 onChange={(e) => {
@@ -731,20 +657,12 @@ const Profile = (props) => {
                 name="highwayCodeDate"
                 value={
                   user
-                    ? user.highWayCodeDate === "" ||
-                      user.highWayCodeDate === null
+                    ? user.highWayCodeDate === "" || user.highWayCodeDate === null
                       ? highwayCodeDate
                       : user.highWayCodeDate
                     : ""
                 }
-                disabled={
-                  user
-                    ? user.highWayCodeDate === "" ||
-                      user.highWayCodeDate === null
-                      ? false
-                      : true
-                    : false
-                }
+                disabled={user ? (user.highWayCodeDate === "" || user.highWayCodeDate === null ? false : true) : false}
                 onChange={(e) => {
                   setHighwayCodeDate(moment(e).format("YYYY-MM-DDThh:mm:ss"));
                 }}
@@ -804,9 +722,7 @@ const Profile = (props) => {
                             color: "#149E7A",
                           }}
                         >
-                          {feedback.toId.firstName +
-                            " " +
-                            feedback.toId.surName}
+                          {feedback.toId.firstName + " " + feedback.toId.surName}
                         </Typography>
                         <Typography
                           sx={{
@@ -833,21 +749,14 @@ const Profile = (props) => {
                             color: "#49544F",
                           }}
                         >
-                          {moment(feedback.bookingId.bookingDate).format(
-                            "DD/MM/YYYY"
-                          )}
+                          {moment(feedback.bookingId.bookingDate).format("DD/MM/YYYY")}
                         </Typography>
                         <div>
-                          <Ratings
-                            onChange={(e) => handleRatingValue(e, feedback)}
-                          ></Ratings>
+                          <Ratings onChange={(e) => handleRatingValue(e, feedback)}></Ratings>
                         </div>
                       </Grid>
                       <Grid sx={12} sm={12} md={1}>
-                        <Divider
-                          orientation="vertical"
-                          sx={{ margin: "0px !important" }}
-                        />
+                        <Divider orientation="vertical" sx={{ margin: "0px !important" }} />
                       </Grid>
 
                       <Grid sx={12} sm={12} md={8}>
