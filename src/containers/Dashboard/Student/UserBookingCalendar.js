@@ -149,6 +149,10 @@ const Calendar = () => {
           let title = "";
           if (availability.status === "Available") {
             title = "Availability By " + availability.createdBy;
+          } else if (availability.status === "Unavailable") {
+            title = "Unavailability By " + availability.createdBy;
+          } else if (availability.status === "Personal") {
+            title = "Personal event By " + availability.createdBy;
           } else {
             title = "Booking with " + availability.createdBy;
           }
