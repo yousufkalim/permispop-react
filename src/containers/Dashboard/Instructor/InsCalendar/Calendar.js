@@ -137,7 +137,12 @@ const Calendar = () => {
             }
             allAvailabilities.push({
               id: availability.id,
-              title: "Availability By " + availability.createdBy,
+              title:
+                availability.status == "Available"
+                  ? "Availability by " + availability.createdBy
+                  : availability.status == "Unavailable"
+                  ? "Unavailability by " + availability.createdBy
+                  : availability.status == "Personal" && "Personal event by " + availability.createdBy,
               start: new Date(date[0], parseInt(date[1]) - 1, date[2], parseInt(start[0]) + j, startMin, 0),
               end: new Date(date[0], parseInt(date[1]) - 1, date[2], endingHours, endingMins, 0),
               status: availability.status,
@@ -320,7 +325,7 @@ const Calendar = () => {
         VehicleId: "",
         createdAt: new Date(),
         createdBy: user.firstName + " " + user.surName,
-        date: moment(selectedDate).format("YYYY-DD-MM"),
+        date: moment(selectedDate).format("YYYY-MM-DD"),
         day: moment().format("ddd"),
         description: description,
         endTime: selectedEndHours + ":" + selectedEndMins,
@@ -332,6 +337,7 @@ const Calendar = () => {
         startTime: selectedStartHours + ":" + selectedStartMins,
         status: "Unavailable",
       }).then((res) => {
+        console.log("unavailabilty", res);
         toast.success(`Unavailabilty Added for date ${moment(selectedDate).format("YYYY-DD-MM")}`);
         setUpdate(!update);
         setDescription("");
@@ -374,7 +380,7 @@ const Calendar = () => {
         VehicleId: "",
         createdAt: new Date(),
         createdBy: user.firstName + " " + user.surName,
-        date: moment(selectedDate).format("YYYY-DD-MM"),
+        date: moment(selectedDate).format("YYYY-MM-DD"),
         day: moment().format("ddd"),
         description: description,
         endTime: selectedEndHours + ":" + selectedEndMins,
