@@ -293,9 +293,9 @@ export default function DataTable(props) {
                               ) : column.id === "reservations" ? (
                                 <TableCell align="center">
                                   <IconButton
-                                    onClick={props.handleReservation}
+                                    onClick={() => props.handleReservation(row)}
                                     className="Profilicon"
-                                    style={{ padding: "2% 3% 2% 3%" }}
+                                    style={{ padding: "2% 3% 2% 3%", marginRight: "2%" }}
                                   >
                                     <ReBook style={{ padding: "20%" }} className="profilesvg" />
                                   </IconButton>
