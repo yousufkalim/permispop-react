@@ -299,9 +299,7 @@ export default function DataTable(props) {
                                   >
                                     <ReBook style={{ padding: "20%" }} className="profilesvg" />
                                   </IconButton>
-                                </TableCell>
-                              ) : column.id === "profile" ? (
-                                <TableCell align="center">
+
                                   <IconButton
                                     onClick={() => {
                                       props.setIsSelected(row.id);
@@ -318,9 +316,7 @@ export default function DataTable(props) {
                                       className={props.isSelected == row.id ? "SelectedIcon" : "profilesvg"}
                                     />
                                   </IconButton>
-                                </TableCell>
-                              ) : column.id === "chat" ? (
-                                <TableCell align="center">
+
                                   <IconButton
                                     onClick={() => props.handleChat(row)}
                                     className="Profilicon"

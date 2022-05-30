@@ -58,28 +58,25 @@ const Index = () => {
     setLoading(true);
     await API(
       "get",
-      `Profile/GetNearbyProfiles_New/?lat=${user.lat}&log=${user.long}&radius=${filters.Radius}&gearbox=${filters?.Gearbox}&gender=${filters?.Gender}&role=${filters?.Role}&startdate=${filters.startDate}&enddate=${filters.endDate}`
+      `Profile/GetNearbyProfiles_New?lat=${user.lat}&log=${user.long}&radius=${filters.Radius}&gearbox=${
+        filters.Gearbox
+      }&gender=${filters.Gender}&role=${filters.Role}&startdate=${
+        filters.startDate ? moment(filters.startDate).format("YYYY-MM-DD") : null
+      }&enddate=${filters.endDate ? moment(filters.endDate).format("YYYY-MM-DD") : null}`
     )
       .then((FindInstructorsResponse) => {
+        console.log("FindInstructorsResponse", FindInstructorsResponse);
         let Profile = FindInstructorsResponse.data.map((item) => {
           if (item.role === "CarRentalAgent" || item.role === "Instructor") {
-            return API(
-              "get",
-              `Bookings/GetBookingsByInstructor?id=${item.id}`
-            ).then((GetBookingsByInstructor) => {
+            return API("get", `Bookings/GetBookingsByInstructor?id=${item.id}`).then((GetBookingsByInstructor) => {
               let newProfile = item;
-              newProfile["BookingLength"] =
-                GetBookingsByInstructor.data.data.length;
+              newProfile["BookingLength"] = GetBookingsByInstructor.data.data.length;
               return newProfile;
             });
           } else if (item.role === "DrivingSchool") {
-            return API(
-              "get",
-              `Bookings/GetBookingsByDrivingSchool?id=${item.id}`
-            ).then((GetBookingsByDrivingSchool) => {
+            return API("get", `Bookings/GetBookingsByDrivingSchool?id=${item.id}`).then((GetBookingsByDrivingSchool) => {
               let newProfile = item;
-              newProfile["BookingLength"] =
-                GetBookingsByDrivingSchool.data.data.length;
+              newProfile["BookingLength"] = GetBookingsByDrivingSchool.data.data.length;
               return newProfile;
             });
           }
@@ -87,14 +84,12 @@ const Index = () => {
 
         Promise.all(Profile).then(async (e) => {
           let newnewProfile = e.map((pro) => {
-            return API("get", `FeedBacks/GetAverageRating?id=${pro.id}`).then(
-              (GetAverageRatingResponse) => {
-                let newProfile = pro;
+            return API("get", `FeedBacks/GetAverageRating?id=${pro.id}`).then((GetAverageRatingResponse) => {
+              let newProfile = pro;
 
-                newProfile["Rating"] = GetAverageRatingResponse.data.data;
-                return newProfile;
-              }
-            );
+              newProfile["Rating"] = GetAverageRatingResponse.data.data;
+              return newProfile;
+            });
           });
           Promise.all(newnewProfile).then((n) => {
             setInstructors(n);
@@ -114,15 +109,9 @@ const Index = () => {
   };
 
   const handleChat = async (instructorData) => {
-    await API(
-      "get",
-      `Chat/getorcreatechatroom?userA=${user.id}&userB=${instructorData.id}`
-    )
+    await API("get", `Chat/getorcreatechatroom?userA=${user.id}&userB=${instructorData.id}`)
       .then((ChatroomResponse) => {
-        localStorage.setItem(
-          "ChatroomId",
-          JSON.stringify(ChatroomResponse.data.data.id)
-        );
+        localStorage.setItem("ChatroomId", JSON.stringify(ChatroomResponse.data.data.id));
         // history.push("/student/chat");
         window.location = "/student/chat";
       })
@@ -223,8 +212,8 @@ const Index = () => {
               <MenuItem value="20" name="20">
                 20
               </MenuItem>
-              <MenuItem value="30" name="30">
-                30
+              <MenuItem value="500" name="500">
+                500
               </MenuItem>
               <MenuItem value="50" name="50">
                 50
@@ -260,15 +249,11 @@ const Index = () => {
         </div>
         <div style={{ marginLeft: "" }}>
           <FormControl className="MobileView">
-            <label style={{ fontWeight: 500, marginBottom: -5 }}>
-              {t("Start date")}
-            </label>
+            <label style={{ fontWeight: 500, marginBottom: -5 }}>{t("Start date")}</label>
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <DatePicker
-                value={filters.startDate}
-                onChange={(newValue) =>
-                  handleFilterChange("startDate", newValue)
-                }
+                value={filters.startDate ? moment(filters.startDate).format("YYYY-MM-DD") : ""}
+                onChange={(newValue) => handleFilterChange("startDate", newValue)}
                 renderInput={(params) => (
                   <TextField
                     {...params}
@@ -284,12 +269,10 @@ const Index = () => {
         </div>
         <div className="filter-container">
           <FormControl className="MobileView">
-            <label style={{ fontWeight: 500, marginBottom: -5 }}>
-              {t("End date")}
-            </label>
+            <label style={{ fontWeight: 500, marginBottom: -5 }}>{t("End date")}</label>
             <LocalizationProvider dateAdapter={AdapterDateFns}>
               <DatePicker
-                value={filters.endDate}
+                value={filters.endDate ? moment(filters.endDate).format("YYYY-MM-DD") : ""}
                 onChange={(newValue) => handleFilterChange("endDate", newValue)}
                 renderInput={(params) => (
                   <TextField
@@ -332,11 +315,7 @@ const Index = () => {
           setIsSelected={setIsSelected}
         />
       )}
-      <BasicModal
-        open={profileModal}
-        onClose={handleProfileModalClose}
-        modalboxclassName="profile_modal"
-      >
+      <BasicModal open={profileModal} onClose={handleProfileModalClose} modalboxclassName="profile_modal">
         <div>
           <div className="profile_img_div">
             <img
@@ -378,9 +357,7 @@ const Index = () => {
           </div>
 
           <div className="profile_text_div">
-            <p className="profile_text_right">
-              {moment(profileData.dob).format("DD/MM/YYYY")}
-            </p>
+            <p className="profile_text_right">{moment(profileData.dob).format("DD/MM/YYYY")}</p>
           </div>
           <div className="profile_text_div">
             <p className="profile_text_right">{profileData.placeOfBirth}</p>
@@ -404,9 +381,7 @@ const Index = () => {
                 <img src={Rating} alt="" />
               </div>
               <div>
-                <p className="icons_text1">
-                  {profileData.Rating != "NaN" ? profileData.Rating : "N/A"}
-                </p>
+                <p className="icons_text1">{profileData.Rating != "NaN" ? profileData.Rating : "N/A"}</p>
                 <p className="icons_text2">Ratings</p>
               </div>
             </div>

@@ -187,20 +187,20 @@ export const FindInstructorcolumns = [
   { id: "role", label: "Role", align: "center", minWidth: 170 },
   {
     id: "reservations",
-    label: "Reservations",
+    label: "Actions",
     minWidth: 170,
     align: "center",
   },
-  {
-    id: "profile",
-    label: "Profile",
-    minWidth: 170,
-    align: "center",
-  },
-  {
-    id: "chat",
-    label: "Chat",
-    minWidth: 170,
-    align: "center",
-  },
+  // {
+  //   id: "profile",
+  //   label: "Profile",
+  //   minWidth: 170,
+  //   align: "center",
+  // },
+  // {
+  //   id: "chat",
+  //   label: "Chat",
+  //   minWidth: 170,
+  //   align: "center",
+  // },
 ];

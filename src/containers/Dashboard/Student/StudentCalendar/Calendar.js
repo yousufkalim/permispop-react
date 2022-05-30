@@ -35,47 +35,28 @@ const Calendar = () => {
   }, [update]);
 
   const getBookingData = (userData) => {
-    API("get", `Bookings/GetBookingsByStudent?id=${userData.id}`).then(
-      (res) => {
-        let allBookings = [];
-        res.data.data.map((booking) => {
-          let date = moment(booking.bookingDate).format("YYYY-MM-DD");
-          date = date.split("-");
-          let start = booking.startTime.split(":");
-          let end = moment(booking.endTime).format("HH:mm");
-          end = end.split(":");
-          allBookings.push({
-            id: booking.id,
-            title: "Booking By " + booking.instructorQuestionFifth,
-            start: new Date(
-              date[0],
-              parseInt(date[1]) - 1,
-              date[2],
-              parseInt(start[0]) + 5,
-              start[1],
-              0
-            ),
-            end: new Date(
-              date[0],
-              parseInt(date[1]) - 1,
-              date[2],
-              end[0],
-              end[1],
-              0
-            ),
-            bookingTime:
-              booking.startTime +
-              " - " +
-              moment(booking.endTime).format("HH:mm"),
-            status: booking.status,
-            meetingPlace: booking.meetingPlace,
-            duration: booking.duration,
-            vehicleId: booking.vehicleId,
-          });
+    API("get", `Bookings/GetBookingsByStudent?id=${userData.id}`).then((res) => {
+      let allBookings = [];
+      res.data.data.map((booking) => {
+        let date = moment(booking.bookingDate).format("YYYY-MM-DD");
+        date = date.split("-");
+        let start = booking.startTime.split(":");
+        let end = moment(booking.endTime).format("HH:mm");
+        end = end.split(":");
+        allBookings.push({
+          id: booking.id,
+          title: "Booking with" + booking.instructorQuestionFifth,
+          start: new Date(date[0], parseInt(date[1]) - 1, date[2], parseInt(start[0]) + 5, start[1], 0),
+          end: new Date(date[0], parseInt(date[1]) - 1, date[2], end[0], end[1], 0),
+          bookingTime: booking.startTime + " - " + moment(booking.endTime).format("HH:mm"),
+          status: booking.status,
+          meetingPlace: booking.meetingPlace,
+          duration: booking.duration,
+          vehicleId: booking.vehicleId,
         });
-        setBookings(allBookings);
-      }
-    );
+      });
+      setBookings(allBookings);
+    });
   };
 
   //Add booking modal handles
@@ -163,12 +144,7 @@ const Calendar = () => {
                 padding: "10px",
               }}
             >
-              <TextField
-                label={t("User Info")}
-                height="10px"
-                value={selectedBooking.title}
-                disabled={true}
-              />
+              <TextField label={t("User Info")} height="10px" value={selectedBooking.title} disabled={true} />
             </Grid>
             <Grid
               xs={12}
@@ -178,11 +154,7 @@ const Calendar = () => {
                 padding: "10px",
               }}
             >
-              <TextField
-                label={t("Booking Date")}
-                disabled={true}
-                value={moment(selectedBooking.start).format("DD-MM-YYYY")}
-              />
+              <TextField label={t("Booking Date")} disabled={true} value={moment(selectedBooking.start).format("DD-MM-YYYY")} />
             </Grid>
             <Grid
               xs={12}
@@ -192,11 +164,7 @@ const Calendar = () => {
                 padding: "10px",
               }}
             >
-              <TextField
-                label={t("Booking Time")}
-                disabled={true}
-                value={selectedBooking.bookingTime}
-              />
+              <TextField label={t("Booking Time")} disabled={true} value={selectedBooking.bookingTime} />
             </Grid>
             <Grid
               xs={12}
@@ -206,11 +174,7 @@ const Calendar = () => {
                 padding: "10px",
               }}
             >
-              <TextField
-                label={t("Duration")}
-                disabled={true}
-                value={selectedBooking.duration}
-              />
+              <TextField label={t("Duration")} disabled={true} value={selectedBooking.duration} />
             </Grid>
             <Grid
               xs={12}
@@ -220,11 +184,7 @@ const Calendar = () => {
                 padding: "10px",
               }}
             >
-              <TextField
-                label={t("Vechicle")}
-                disabled={true}
-                value={selectedBooking.vehicleId}
-              />
+              <TextField label={t("Vechicle")} disabled={true} value={selectedBooking.vehicleId} />
             </Grid>
             <Grid
               xs={12}
@@ -234,11 +194,7 @@ const Calendar = () => {
                 padding: "10px",
               }}
             >
-              <TextField
-                label={t("Meetup")}
-                disabled={true}
-                value={selectedBooking.meetingPlace}
-              />
+              <TextField label={t("Meetup")} disabled={true} value={selectedBooking.meetingPlace} />
             </Grid>
           </Grid>
           <div className="booking-btn-div">

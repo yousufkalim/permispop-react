@@ -10,6 +10,7 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import { useTranslation } from "react-i18next";
 import Loader from "../../../components/Common/FullScreenLoader";
+import moment from "moment";
 
 const Index = () => {
   const { i18n, t } = useTranslation();
@@ -25,18 +26,12 @@ const Index = () => {
 
   const getDisputes = async (userData) => {
     if (userData.role === "Student") {
-      await API(
-        "get",
-        `Dispute/GetAllDisputeByStudentId/?id=${userData.id}`
-      ).then((res) => {
+      await API("get", `Dispute/GetAllDisputeByStudentId/?id=${userData.id}`).then((res) => {
         setLoading(false);
         setDispute(res.data.data);
       });
     } else {
-      await API(
-        "get",
-        `Dispute/GetAllDisputeByInstructorId/?id=${userData.id}`
-      ).then((res) => {
+      await API("get", `Dispute/GetAllDisputeByInstructorId/?id=${userData.id}`).then((res) => {
         setLoading(false);
         setDispute(res.data.data);
       });
@@ -72,22 +67,14 @@ const Index = () => {
                         },
                       }}
                     >
-                      <TableCell
-                        component="th"
-                        scope="row"
-                        sx={{ padding: "35px 16px !important" }}
-                      >
+                      <TableCell component="th" scope="row" sx={{ padding: "35px 16px !important" }}>
                         {row.dispute ? row.dispute : ""}
                       </TableCell>
                       <TableCell component="th" scope="row">
-                        {row.feedBackDate}
+                        {moment(row.feedBackDate).format("DD/MM/YYYY")}
                       </TableCell>
-                      <TableCell
-                        component="th"
-                        scope="row"
-                        sx={{ color: "#FFA333" }}
-                      >
-                        {row.status}
+                      <TableCell component="th" scope="row" sx={{ color: "#FFA333" }}>
+                        {row.status == null || row.status == "" ? "N/A" : row.status}
                       </TableCell>
                       <TableCell component="th" scope="row">
                         {row.comment}

@@ -71,8 +71,7 @@ const Profile = () => {
   const [ratingModal, setRatingModal] = React.useState(false);
   const [updateFeedback, setUpdateFeedback] = useState(false);
   const [loading, setLoading] = useState(false);
-  const [instructorMeetupPointInfos, setInstructorMeetupPointInfos] =
-    useState("");
+  const [instructorMeetupPointInfos, setInstructorMeetupPointInfos] = useState("");
   const [description, setDescription] = useState("");
   const [update, setUpdate] = useState(false);
 
@@ -85,13 +84,10 @@ const Profile = () => {
     const userData = JSON.parse(localStorage.getItem("user"));
     getUser(userData);
     if (localStorage.getItem("1stLogin") == "true") {
-      toast.success(
-        t("Welcome") + " " + userData.firstName + " " + userData.surName,
-        {
-          position: toast.POSITION.TOP_RIGHT,
-          className: "toast-bar",
-        }
-      );
+      toast.success(t("Welcome") + " " + userData.firstName + " " + userData.surName, {
+        position: toast.POSITION.TOP_RIGHT,
+        className: "toast-bar",
+      });
       localStorage.removeItem("1stLogin");
     }
   }, [update]);
@@ -105,14 +101,8 @@ const Profile = () => {
     await API("get", `FeedBacks/GetAllUsersToRate/?id=${id}`).then((res) => {
       if (res.data.data.length > 0) {
         let newData = res.data.data.map(async (feedback) => {
-          return await API(
-            "get",
-            `Personal/GetAllById/?id=${feedback.toId}`
-          ).then(async (personalresponse) => {
-            return await API(
-              "get",
-              `bookings/GetBookingById/?id=${feedback.bookingId}`
-            ).then((bookingres) => {
+          return await API("get", `Personal/GetAllById/?id=${feedback.toId}`).then(async (personalresponse) => {
+            return await API("get", `bookings/GetBookingById/?id=${feedback.bookingId}`).then((bookingres) => {
               feedback.toId = personalresponse.data.data;
               feedback.bookingId = bookingres.data.data;
               return feedback;
@@ -192,17 +182,12 @@ const Profile = () => {
   };
 
   const getRatings = async (userData) => {
-    await API("get", `FeedBacks/GetAverageRating?id=${userData.id}`).then(
-      (res) => {
-        setRatings(res.data.data);
-      }
-    );
+    await API("get", `FeedBacks/GetAverageRating?id=${userData.id}`).then((res) => {
+      setRatings(res.data.data);
+    });
   };
   const getMeetupPoints = async (userData) => {
-    await API(
-      "get",
-      `InstructorMeetupPoints/GetMeetUpPoints?id=${userData.id}`
-    ).then((res) => {
+    await API("get", `InstructorMeetupPoints/GetMeetUpPoints?id=${userData.id}`).then((res) => {
       setInstructorMeetupPointInfos(res.data.data);
     });
   };
@@ -211,17 +196,16 @@ const Profile = () => {
 
     if (newPassword != "" && confirmPassword != "" && oldPassword != "") {
       if (newPassword === confirmPassword) {
-        await API(
-          "post",
-          `Personal/ChangePassword?id=${user.id}&oldPassword=${oldPassword}&newPassword=${newPassword}`
-        ).then((res) => {
-          toast.success(t("Password updated Successfully"));
-          setOldPassword("");
-          setNewPassword("");
-          setConfirmPassword("");
-          setDisabled(false);
-          setOpenModal(false);
-        });
+        await API("post", `Personal/ChangePassword?id=${user.id}&oldPassword=${oldPassword}&newPassword=${newPassword}`).then(
+          (res) => {
+            toast.success(t("Password updated Successfully"));
+            setOldPassword("");
+            setNewPassword("");
+            setConfirmPassword("");
+            setDisabled(false);
+            setOpenModal(false);
+          }
+        );
       } else {
         toast.error(t("New password does not match Confirm password"));
         setDisabled(false);
@@ -254,61 +238,59 @@ const Profile = () => {
 
     formdata.append("file", e.target.files[0]);
 
-    await API("post", "Personal/UploadProfileImage", formdata).then(
-      async (res) => {
-        await API("post", `Personal/UpdatePersonal`, {
-          photo: res.data.message === "" ? user.photo : res.data.message,
-          NEPH: user.neph,
-          noOfHrsWanted: user.noOfHrsWanted,
-          highWayCodeDate: user.highWayCodeDate,
-          absentEndDate: user.absentEndDate,
-          absentStartDate: user.absentStartDate,
-          address: user.address,
-          backIDPhoto: user.backIDPhoto,
-          city: user.city,
-          complement: user.complement,
-          contactEmail: user.contactEmail,
-          cpfAccept: user.cpfAccept,
-          dob: user.dob,
-          documentTested: user.documentTested,
-          drivingSchoolID: user.drivingSchoolID,
-          duplicate_id: user.duplicate_id,
-          email: user.email,
-          emailSent: user.emailSent,
-          firstName: user.firstName,
-          frontIDPhoto: user.frontIDPhoto,
-          gender: user.gender,
-          giveOurPlatformTime: user.giveOurPlatformTime,
-          highWayCodeImage: user.highWayCodeImage,
-          id: user.id,
-          instructorMeetupPointInfos: user.instructorMeetupPointInfos,
-          isOnline: user.isOnline,
-          lastActiveTime: user.lastActiveTime,
-          lastSeen: user.lastSeen,
-          lat: user.lat,
-          long: user.long,
-          msgMailCount: user.msgMailCount,
-          paid: user.paid,
-          password: user.password,
-          phone: user.phone,
-          placeOfBirth: user.placeOfBirth,
-          profileInfo: user.profileInfo,
-          registrationDate: user.registrationDate,
-          role: user.role,
-          secondEmail: user.secondEmail,
-          secondPhone: user.secondPhone,
-          spokenLanguage: user.spokenLanguage,
-          surName: user.surName,
-          whichPlatform: user.whichPlatform,
-          workWithOther: user.workWithOther,
-          zip: user.zip,
-        }).then((e) => {
-          toast.success("Profile Image Changed successfully!");
-          localStorage.setItem("user", JSON.stringify(e.data.data));
-          window.location.reload();
-        });
-      }
-    );
+    await API("post", "Personal/UploadProfileImage", formdata).then(async (res) => {
+      await API("post", `Personal/UpdatePersonal`, {
+        photo: res.data.message === "" ? user.photo : res.data.message,
+        NEPH: user.neph,
+        noOfHrsWanted: user.noOfHrsWanted,
+        highWayCodeDate: user.highWayCodeDate,
+        absentEndDate: user.absentEndDate,
+        absentStartDate: user.absentStartDate,
+        address: user.address,
+        backIDPhoto: user.backIDPhoto,
+        city: user.city,
+        complement: user.complement,
+        contactEmail: user.contactEmail,
+        cpfAccept: user.cpfAccept,
+        dob: user.dob,
+        documentTested: user.documentTested,
+        drivingSchoolID: user.drivingSchoolID,
+        duplicate_id: user.duplicate_id,
+        email: user.email,
+        emailSent: user.emailSent,
+        firstName: user.firstName,
+        frontIDPhoto: user.frontIDPhoto,
+        gender: user.gender,
+        giveOurPlatformTime: user.giveOurPlatformTime,
+        highWayCodeImage: user.highWayCodeImage,
+        id: user.id,
+        instructorMeetupPointInfos: user.instructorMeetupPointInfos,
+        isOnline: user.isOnline,
+        lastActiveTime: user.lastActiveTime,
+        lastSeen: user.lastSeen,
+        lat: user.lat,
+        long: user.long,
+        msgMailCount: user.msgMailCount,
+        paid: user.paid,
+        password: user.password,
+        phone: user.phone,
+        placeOfBirth: user.placeOfBirth,
+        profileInfo: user.profileInfo,
+        registrationDate: user.registrationDate,
+        role: user.role,
+        secondEmail: user.secondEmail,
+        secondPhone: user.secondPhone,
+        spokenLanguage: user.spokenLanguage,
+        surName: user.surName,
+        whichPlatform: user.whichPlatform,
+        workWithOther: user.workWithOther,
+        zip: user.zip,
+      }).then((e) => {
+        toast.success("Profile Image Changed successfully!");
+        localStorage.setItem("user", JSON.stringify(e.data.data));
+        window.location.reload();
+      });
+    });
   };
 
   return (
@@ -330,24 +312,14 @@ const Profile = () => {
             // value={user? user.}
             openPasswordModal={setOpenModal}
             openProfileUpdate={setOpenUpdateProfileModal}
-            languages={
-              user ? (user.spokenLanguage ? user.spokenLanguage : []) : []
-            }
-            ratings={
-              ratings
-                ? ratings === "NaN"
-                  ? t("N/A")
-                  : Math.round(ratings * 10) / 10
-                : ""
-            }
+            languages={user ? (user.spokenLanguage ? user.spokenLanguage : []) : []}
+            ratings={ratings ? (ratings === "NaN" ? t("N/A") : Math.round(ratings * 10) / 10) : ""}
           ></ProfileDetails>
           <Grid className="ProfileDetails">
             <Typography className="Abouttitlle">{t("About")}</Typography>
             <Divider className="ProfileDivider"></Divider>
           </Grid>
-          <Typography className="AboutHeading">
-            {t("Contact Information")}
-          </Typography>
+          <Typography className="AboutHeading">{t("Contact Information")}</Typography>
 
           <Grid container spacing={1} className="formdata">
             <Grid sx={12} sm={12} md={2} className="Information">
@@ -386,11 +358,7 @@ const Profile = () => {
               {t("Date of Birth")}:
             </Grid>
             <Grid sx={12} sm={12} md={2} className="RoleInformation">
-              {user
-                ? user.dob
-                  ? moment(user.dob).format("DD-MM-YYYY")
-                  : "N/A"
-                : ""}
+              {user ? (user.dob ? moment(user.dob).format("DD/MM/YYYY") : "N/A") : ""}
             </Grid>
           </Grid>
           <Grid container spacing={1} className="formdata">
@@ -435,9 +403,7 @@ const Profile = () => {
           </Grid> */}
           <Divider className="ProfileDivider" />
 
-          <Typography className="AboutHeading">
-            {t("Contact Information")}
-          </Typography>
+          <Typography className="AboutHeading">{t("Contact Information")}</Typography>
           <Grid container spacing={1} className="formdata">
             {instructorMeetupPointInfos &&
               instructorMeetupPointInfos.map((item, index) => {
@@ -522,9 +488,7 @@ const Profile = () => {
             }}
           >
             <Box sx={style}>
-              <Typography sx={{ color: "#110000" }}>
-                {t("Profile Update Request")}
-              </Typography>
+              <Typography sx={{ color: "#110000" }}>{t("Profile Update Request")}</Typography>
               <FormControl variant="" sx={{ ml: "-3%" }} className="MobileView">
                 <Select
                   labelId="demo-simple-select-standard-label"
@@ -538,46 +502,24 @@ const Profile = () => {
                     color: "#110000",
                   }}
                 >
-                  <MenuItem
-                    value={0}
-                    disabled
-                    sx={{ paddingTop: "0px !important" }}
-                  >
+                  <MenuItem value={0} disabled sx={{ paddingTop: "0px !important" }}>
                     {t("Select the options")}
                   </MenuItem>
-                  <MenuItem
-                    value="FirstName"
-                    name=" FirstName"
-                    onChange={(e) => SetUpdateField(e.target.value)}
-                  >
+                  <MenuItem value="FirstName" name=" FirstName" onChange={(e) => SetUpdateField(e.target.value)}>
                     {t("First Name")}
                   </MenuItem>
-                  <MenuItem
-                    value="Surname"
-                    name="Surname"
-                    onChange={(e) => SetUpdateField(e.target.value)}
-                  >
+                  <MenuItem value="Surname" name="Surname" onChange={(e) => SetUpdateField(e.target.value)}>
                     {t("Surname")}
                   </MenuItem>
-                  <MenuItem
-                    value="Dateofbirth"
-                    name="Dateofbirth"
-                    onChange={(e) => SetUpdateField(e.target.value)}
-                  >
+                  <MenuItem value="Dateofbirth" name="Dateofbirth" onChange={(e) => SetUpdateField(e.target.value)}>
                     {t("Date of Birth")}
                   </MenuItem>
-                  <MenuItem
-                    value="Meetuppoints"
-                    name="Meetuppoints"
-                    onChange={(e) => SetUpdateField(e.target.value)}
-                  >
+                  <MenuItem value="Meetuppoints" name="Meetuppoints" onChange={(e) => SetUpdateField(e.target.value)}>
                     {t("Meetup points")}
                   </MenuItem>
                 </Select>
               </FormControl>
-              <Typography sx={{ color: "#110000", marginBottom: "3px" }}>
-                {t("Reason-Information to update")}
-              </Typography>
+              <Typography sx={{ color: "#110000", marginBottom: "3px" }}>{t("Reason-Information to update")}</Typography>
               <TextareaAutosize
                 aria-label="minimum height"
                 minRows={5}
@@ -634,9 +576,7 @@ const Profile = () => {
                             color: "#149E7A",
                           }}
                         >
-                          {feedback.toId.firstName +
-                            " " +
-                            feedback.toId.surName}
+                          {feedback.toId.firstName + " " + feedback.toId.surName}
                         </Typography>
                         <Typography
                           sx={{
@@ -663,21 +603,14 @@ const Profile = () => {
                             color: "#49544F",
                           }}
                         >
-                          {moment(feedback.bookingId.bookingDate).format(
-                            "DD/MM/YYYY"
-                          )}
+                          {moment(feedback.bookingId.bookingDate).format("DD/MM/YYYY")}
                         </Typography>
                         <div>
-                          <Ratings
-                            onChange={(e) => handleRatingValue(e, feedback)}
-                          ></Ratings>
+                          <Ratings onChange={(e) => handleRatingValue(e, feedback)}></Ratings>
                         </div>
                       </Grid>
                       <Grid sx={12} sm={12} md={1}>
-                        <Divider
-                          orientation="vertical"
-                          sx={{ margin: "0px !important" }}
-                        />
+                        <Divider orientation="vertical" sx={{ margin: "0px !important" }} />
                       </Grid>
 
                       <Grid sx={12} sm={12} md={8}>
