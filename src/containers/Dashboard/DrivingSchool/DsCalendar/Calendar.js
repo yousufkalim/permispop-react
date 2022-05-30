@@ -362,7 +362,7 @@ const Calendar = () => {
         VehicleId: "",
         createdAt: new Date(),
         createdBy: user.firstName + " " + user.surName,
-        date: moment(selectedDate).format("YYYY-DD-MM"),
+        date: moment(selectedDate).format("YYYY-MM-DD"),
         day: moment().format("ddd"),
         description: description,
         endTime: end + ":" + selectedEndMins,
@@ -375,6 +375,7 @@ const Calendar = () => {
         status: "Unavailable",
         drivingSchoolId: user.Id,
       }).then((res) => {
+        console.log("Unavbl", res);
         toast.success(`Unavailabilty Added for date ${moment(selectedDate).format("YYYY-DD-MM")}`);
         setUpdate(!update);
         setDescription("");
@@ -426,7 +427,7 @@ const Calendar = () => {
         VehicleId: "",
         createdAt: new Date(),
         createdBy: user.firstName + " " + user.surName,
-        date: moment(selectedDate).format("YYYY-DD-MM"),
+        date: moment(selectedDate).format("YYYY-MM-DD"),
         day: moment().format("ddd"),
         description: description,
         endTime: end + ":" + selectedEndMins,
@@ -825,11 +826,11 @@ const Calendar = () => {
             {/* page 3 */}
             <TabPanel value="Unavailability-page">
               <form>
-                <Grid container spacing={3}>
+                <Grid container spacing={1}>
                   <Grid
                     xs={12}
                     sm={12}
-                    md={12}
+                    md={6}
                     style={{
                       display: "flex",
                       justifyContent: "flex-start",
@@ -847,6 +848,23 @@ const Calendar = () => {
                       padding="20px 0 0 0px !important"
                       width="100% !important"
                     ></DatePicker>
+                  </Grid>
+                  <Grid
+                    xs={12}
+                    sm={12}
+                    md={6}
+                    style={{
+                      padding: "10px",
+                    }}
+                  >
+                    <DropDown
+                      label={t("Select Instructor")}
+                      placeholder={t("Select Instructor")}
+                      name="dsInstructors"
+                      value={selectedDsInstructor}
+                      MenuItem={dsInstructors}
+                      onChange={(e) => handleDsiSelect(e.target.value)}
+                    ></DropDown>
                   </Grid>
                   <Grid
                     xs={12}
@@ -1045,7 +1063,7 @@ const Calendar = () => {
                   <Grid
                     xs={12}
                     sm={12}
-                    md={12}
+                    md={6}
                     style={{
                       display: "flex",
                       justifyContent: "flex-start",
@@ -1063,6 +1081,23 @@ const Calendar = () => {
                       padding="20px 0 0 0px !important"
                       width="100% !important"
                     ></DatePicker>
+                  </Grid>
+                  <Grid
+                    xs={12}
+                    sm={12}
+                    md={6}
+                    style={{
+                      padding: "10px",
+                    }}
+                  >
+                    <DropDown
+                      label={t("Select Instructor")}
+                      placeholder={t("Select Instructor")}
+                      name="dsInstructors"
+                      value={selectedDsInstructor}
+                      MenuItem={dsInstructors}
+                      onChange={(e) => handleDsiSelect(e.target.value)}
+                    ></DropDown>
                   </Grid>
                   <Grid
                     xs={12}
