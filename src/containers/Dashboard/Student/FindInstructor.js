@@ -53,7 +53,6 @@ const Index = () => {
   const handleFilterChange = (name, value) => {
     setFilters({ ...filters, [name]: value });
   };
-
   const getInstructors = async () => {
     setLoading(true);
     await API(
@@ -104,8 +103,14 @@ const Index = () => {
   };
 
   const handleReservation = (item) => {
-    localStorage.setItem("selectedInstructor", JSON.stringify(item));
-    history.push("/student/InstructorBooking");
+    console.log("reservaton");
+    console.log("6537375357357357357", JSON.stringify(item));
+    try {
+      localStorage.setItem("selectedInstructor", JSON.stringify(item));
+    } catch (e) {
+      console.log(e);
+    }
+    window.location = "/student/InstructorBooking";
   };
 
   const handleChat = async (instructorData) => {
