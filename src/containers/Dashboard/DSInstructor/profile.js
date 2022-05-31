@@ -93,6 +93,7 @@ const Profile = () => {
   }, [update]);
   useEffect(() => {
     const userData = JSON.parse(localStorage.getItem("user"));
+    console.log("userData", userData);
     getUserToRate(userData.id);
   }, [updateFeedback]);
 
@@ -606,7 +607,7 @@ const Profile = () => {
                             color: "#49544F",
                           }}
                         >
-                          {moment(feedback.bookingId.bookingDate).format("DD/MM/YYYY")}
+                          {feedback.bookingId.bookingDate && moment(feedback.bookingId.bookingDate).format("DD/MM/YYYY")}
                         </Typography>
                         <div>
                           <Ratings onChange={(e) => handleRatingValue(e, feedback)}></Ratings>
