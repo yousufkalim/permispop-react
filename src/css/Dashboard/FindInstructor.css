@@ -1,0 +1,8 @@
+.FilterButton:hover{
+    background: none !important;
+}
+.FilterButton{
+    padding: 5% !important;
+    display: flex !important;
+    justify-content: flex-start !important;
+}
