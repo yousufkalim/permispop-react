@@ -188,7 +188,7 @@ export const FindInstructorcolumns = [
   {
     id: "reservations",
     label: "Actions",
-    minWidth: 170,
+    minWidth: 200,
     align: "center",
   },
   // {
