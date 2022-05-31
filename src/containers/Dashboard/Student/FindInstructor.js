@@ -23,6 +23,10 @@ import "../../../css/Dashboard/Student/instructor.css";
 import { useTranslation } from "react-i18next";
 import Loader from "../../../components/Common/FullScreenLoader";
 import { ReactComponent as Chatsvg } from "../../../assets/images/ChatIcon.svg";
+import { ReactComponent as Filter } from "../../../assets/images/filters.svg";
+
+import { async } from "validate.js";
+import { IconButton } from "@mui/material";
 
 // component
 const Index = () => {
@@ -64,8 +68,8 @@ const Index = () => {
       }&enddate=${filters.endDate ? moment(filters.endDate).format("YYYY-MM-DD") : null}`
     )
       .then((FindInstructorsResponse) => {
-        console.log("FindInstructorsResponse", FindInstructorsResponse);
-        let Profile = FindInstructorsResponse.data.map((item) => {
+        FindInstructorsResponse = FindInstructorsResponse?.data?.filter((item) => item?.profileInfo?.status !== "Deleted");
+        let Profile = FindInstructorsResponse?.map((item) => {
           if (item.role === "CarRentalAgent" || item.role === "Instructor") {
             return API("get", `Bookings/GetBookingsByInstructor?id=${item.id}`).then((GetBookingsByInstructor) => {
               let newProfile = item;
@@ -80,12 +84,10 @@ const Index = () => {
             });
           }
         });
-
         Promise.all(Profile).then(async (e) => {
           let newnewProfile = e.map((pro) => {
             return API("get", `FeedBacks/GetAverageRating?id=${pro.id}`).then((GetAverageRatingResponse) => {
               let newProfile = pro;
-
               newProfile["Rating"] = GetAverageRatingResponse.data.data;
               return newProfile;
             });
@@ -217,8 +219,8 @@ const Index = () => {
               <MenuItem value="20" name="20">
                 20
               </MenuItem>
-              <MenuItem value="500" name="500">
-                500
+              <MenuItem value="30" name="30">
+                30
               </MenuItem>
               <MenuItem value="50" name="50">
                 50
@@ -292,19 +294,9 @@ const Index = () => {
             </LocalizationProvider>
           </FormControl>
         </div>
-
-        <Button
-          text={t("Apply")}
-          borderRadius="5px"
-          height="60px"
-          height2="60px"
-          height3="60px"
-          height4="60px"
-          width="70% !important"
-          color="#149e7a  !important"
-          margin="3% 0 2px 20% !important"
-          onClick={getInstructors}
-        />
+        <IconButton className="FilterButton" onClick={getInstructors}>
+          <Filter style={{ padding: "5%" }} />
+        </IconButton>
       </div>
       {loading ? (
         <Loader></Loader>
