@@ -208,9 +208,11 @@ const Calendar = () => {
         setHours(array);
         setSelectedAvailability(e);
         setAddBookingModal(true);
-      } else {
+      } else if (e.status !== "Personal" && e.status !== "Unavailable") {
         setSelectedBooking(e);
         setBookingModal(true);
+      } else {
+        toast.error("Cannot select this event");
       }
     } else {
       toast.error("Can not select past event");
@@ -287,6 +289,7 @@ const Calendar = () => {
         studentId: user.id,
       })
         .then((res) => {
+          console.log("res==>>>", res);
           setUpdate(!update);
           toast.success("Booking Added successfully!");
           handleBookingClose();

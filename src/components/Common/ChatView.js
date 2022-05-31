@@ -9,6 +9,9 @@ import Typography from "@mui/material/Typography";
 import { useTranslation } from "react-i18next";
 import NoMessage from "./NoMessage.js";
 import Fab from "@mui/material/Fab";
+import { IconButton } from "@mui/material";
+import { ReactComponent as Block } from "../../assets/images/Block.svg";
+
 const ChatView = (props) => {
   const { i18n, t } = useTranslation();
   const [block, setBlock] = useState();
@@ -85,7 +88,14 @@ const ChatView = (props) => {
               </div>
             </div>
             <div>
-              <button
+              <IconButton
+                onClick={() => {
+                  handleBlockClick();
+                }}
+              >
+                <Block />
+              </IconButton>
+              {/* <button
                 type="submit"
                 className="ChatButton"
                 style={{
@@ -96,7 +106,7 @@ const ChatView = (props) => {
                 }}
               >
                 {block === true ? "Un-Block" : "Block"}
-              </button>
+              </button> */}
               <button
                 type="submit"
                 className="ChatButton"

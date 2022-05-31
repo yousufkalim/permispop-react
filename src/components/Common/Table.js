@@ -20,6 +20,7 @@ import { ReactComponent as Book } from "../../assets/images/Book.svg";
 import { ReactComponent as ReBook } from "../../assets/images/Rebook.svg";
 import { ReactComponent as Edit } from "../../assets/images/EditIcon.svg";
 import { ReactComponent as Delete } from "../../assets/images/DeleteIcon.svg";
+import Tooltip from "@mui/material/Tooltip";
 
 import { useTranslation } from "react-i18next";
 
@@ -218,13 +219,15 @@ export default function DataTable(props) {
                                 </TableCell>
                               ) : column.id === "historyActions" ? (
                                 <TableCell align="center">
-                                  <IconButton
-                                    onClick={() => props.handleReBook(row)}
-                                    className="Profilicon"
-                                    style={{ padding: "2% 2% 1% 2%" }}
-                                  >
-                                    <ReBook style={{ padding: "20%" }} className="profilesvg" />
-                                  </IconButton>
+                                  <Tooltip title="Re-Book">
+                                    <IconButton
+                                      onClick={() => props.handleReBook(row)}
+                                      className="Profilicon"
+                                      style={{ padding: "2% 2% 1% 2%" }}
+                                    >
+                                      <ReBook style={{ padding: "20%" }} className="profilesvg" />
+                                    </IconButton>
+                                  </Tooltip>
                                 </TableCell>
                               ) : column.id === "action" ? (
                                 <TableCell align="center">
@@ -257,20 +260,24 @@ export default function DataTable(props) {
                                 </TableCell>
                               ) : column.id === "Vaction" ? (
                                 <TableCell align="center">
-                                  <IconButton
-                                    onClick={(e) => props.open(index)}
-                                    className="Profilicon"
-                                    sx={{ padding: "5%", marginRight: "3%" }}
-                                  >
-                                    <Edit className="profilesvg" style={{ padding: "15%" }} />
-                                  </IconButton>
-                                  <IconButton
-                                    onClick={(e) => props.handleBookingDeleteModal(index)}
-                                    className="Profilicon"
-                                    sx={{ padding: "3.5% 6% 3.5% 6%" }}
-                                  >
-                                    <Delete className="profilesvg" style={{ padding: "15%" }} />
-                                  </IconButton>
+                                  <Tooltip title="Edit">
+                                    <IconButton
+                                      onClick={(e) => props.open(index)}
+                                      className="Profilicon"
+                                      sx={{ padding: "5%", marginRight: "3%" }}
+                                    >
+                                      <Edit className="profilesvg" style={{ padding: "15%" }} />
+                                    </IconButton>
+                                  </Tooltip>
+                                  <Tooltip title="Delete">
+                                    <IconButton
+                                      onClick={(e) => props.handleBookingDeleteModal(index)}
+                                      className="Profilicon"
+                                      sx={{ padding: "3.5% 6% 3.5% 6%" }}
+                                    >
+                                      <Delete className="profilesvg" style={{ padding: "15%" }} />
+                                    </IconButton>
+                                  </Tooltip>
                                 </TableCell>
                               ) : column.id === "photo" ? (
                                 <TableCell align="center">
@@ -292,92 +299,102 @@ export default function DataTable(props) {
                                 </TableCell>
                               ) : column.id === "reservations" ? (
                                 <TableCell align="center">
-                                  <IconButton
-                                    onClick={() => props.handleReservation(row)}
-                                    className="Profilicon"
-                                    style={{ padding: "2% 3% 2% 3%", marginRight: "2%" }}
-                                  >
-                                    <ReBook style={{ padding: "20%" }} className="profilesvg" />
-                                  </IconButton>
-
-                                  <IconButton
-                                    onClick={() => {
-                                      props.setIsSelected(row.id);
-                                      props.handleProfile(row);
-                                    }}
-                                    className={props.isSelected == row.id ? "selectedProfile" : "Profilicon"}
-                                    sx={{
-                                      marginRight: "2%",
-                                      padding: "3% 2% 3% 2% ",
-                                    }}
-                                  >
-                                    <Profile
-                                      style={{ padding: "20%" }}
-                                      className={props.isSelected == row.id ? "SelectedIcon" : "profilesvg"}
-                                    />
-                                  </IconButton>
-
-                                  <IconButton
-                                    onClick={() => props.handleChat(row)}
-                                    className="Profilicon"
-                                    sx={{
-                                      padding: "3% 2% 3% 2% ",
-                                    }}
-                                  >
-                                    <Comment className="profilesvg" style={{ padding: "20%" }} />
-                                  </IconButton>
+                                  <Tooltip title="Re-Book">
+                                    <IconButton
+                                      onClick={() => props.handleReservation(row)}
+                                      className="Profilicon"
+                                      style={{ padding: "2% 3% 2% 3%", marginRight: "2%" }}
+                                    >
+                                      <ReBook style={{ padding: "20%" }} className="profilesvg" />
+                                    </IconButton>
+                                  </Tooltip>
+                                  <Tooltip title="Profile">
+                                    <IconButton
+                                      onClick={() => {
+                                        props.setIsSelected(row.id);
+                                        props.handleProfile(row);
+                                      }}
+                                      className={props.isSelected == row.id ? "selectedProfile" : "Profilicon"}
+                                      sx={{
+                                        marginRight: "2%",
+                                        padding: "3% 2% 3% 2% ",
+                                      }}
+                                    >
+                                      <Profile
+                                        style={{ padding: "20%" }}
+                                        className={props.isSelected == row.id ? "SelectedIcon" : "profilesvg"}
+                                      />
+                                    </IconButton>
+                                  </Tooltip>
+                                  <Tooltip title="Chat">
+                                    <IconButton
+                                      onClick={() => props.handleChat(row)}
+                                      className="Profilicon"
+                                      sx={{
+                                        padding: "3% 2% 3% 2% ",
+                                      }}
+                                    >
+                                      <Comment className="profilesvg" style={{ padding: "20%" }} />
+                                    </IconButton>
+                                  </Tooltip>
                                 </TableCell>
                               ) : (
                                 <TableCell
                                   align="center"
                                   // sx={{ width: "30% !important" }}
                                 >
-                                  <IconButton
-                                    onClick={() => {
-                                      props.setIsSelected(row.id);
-                                      props.handleProfile(row);
-                                    }}
-                                    className={props.isSelected == row.id ? "selectedProfile" : "Profilicon"}
-                                    sx={{
-                                      marginRight: "2%",
-                                      padding: "2% 1% 2% 1% ",
-                                    }}
-                                  >
-                                    <Profile
-                                      style={{ padding: "20%" }}
-                                      className={props.isSelected == row.id ? "SelectedIcon" : "profilesvg"}
-                                    />
-                                  </IconButton>
-                                  {props.user.role !== "Student" && (
+                                  <Tooltip title="Profile">
                                     <IconButton
                                       onClick={() => {
-                                        props.setIsSelectedBook(row.id);
-                                        props.handleComment(row);
+                                        props.setIsSelected(row.id);
+                                        props.handleProfile(row);
                                       }}
-                                      className={props.isSelectedBook == row.id ? "selectedProfile" : "Profilicon"}
-                                      style={{
+                                      className={props.isSelected == row.id ? "selectedProfile" : "Profilicon"}
+                                      sx={{
                                         marginRight: "2%",
-                                        padding: "2% 4% 2% 4% ",
+                                        padding: "2% 1% 2% 1% ",
                                       }}
                                     >
-                                      <Book
-                                        className={props.isSelectedBook == row.id ? "SelectedIcon" : "profilesvg"}
+                                      <Profile
                                         style={{ padding: "20%" }}
+                                        className={props.isSelected == row.id ? "SelectedIcon" : "profilesvg"}
                                       />
                                     </IconButton>
+                                  </Tooltip>
+                                  {props.user.role !== "Student" && (
+                                    <Tooltip title="Booklet">
+                                      <IconButton
+                                        onClick={() => {
+                                          props.setIsSelectedBook(row.id);
+                                          props.handleComment(row);
+                                        }}
+                                        className={props.isSelectedBook == row.id ? "selectedProfile" : "Profilicon"}
+                                        style={{
+                                          marginRight: "2%",
+                                          padding: "2% 4% 2% 4% ",
+                                        }}
+                                      >
+                                        <Book
+                                          className={props.isSelectedBook == row.id ? "SelectedIcon" : "profilesvg"}
+                                          style={{ padding: "20%" }}
+                                        />
+                                      </IconButton>
+                                    </Tooltip>
                                   )}
-                                  <IconButton
-                                    onClick={() => {
-                                      props.setIsSelected(row.id);
-                                      props.handleChat(row);
-                                    }}
-                                    className="Profilicon"
-                                    sx={{
-                                      padding: "1.5%",
-                                    }}
-                                  >
-                                    <Comment className="profilesvg" style={{ padding: "20%" }} />
-                                  </IconButton>
+                                  <Tooltip title="Chat">
+                                    <IconButton
+                                      onClick={() => {
+                                        props.setIsSelected(row.id);
+                                        props.handleChat(row);
+                                      }}
+                                      className="Profilicon"
+                                      sx={{
+                                        padding: "1.5%",
+                                      }}
+                                    >
+                                      <Comment className="profilesvg" style={{ padding: "20%" }} />
+                                    </IconButton>
+                                  </Tooltip>
                                 </TableCell>
                               )}
                             </>

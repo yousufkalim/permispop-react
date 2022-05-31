@@ -749,7 +749,7 @@ const Profile = (props) => {
                             color: "#49544F",
                           }}
                         >
-                          {moment(feedback.bookingId.bookingDate).format("DD/MM/YYYY")}
+                          {feedback.bookingId.bookingDate && moment(feedback.bookingId.bookingDate).format("DD/MM/YYYY")}
                         </Typography>
                         <div>
                           <Ratings onChange={(e) => handleRatingValue(e, feedback)}></Ratings>
