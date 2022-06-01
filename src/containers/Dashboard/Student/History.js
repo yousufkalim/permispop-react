@@ -19,29 +19,19 @@ function createData(bookingwith, date, startTime, duration, status, id) {
 }
 const Index = () => {
   const { i18n, t } = useTranslation();
-  const [Startvalue, setStartValue] = useState(new Date());
-  const [Endvalue, setEndValue] = useState(new Date());
-  const [pendingRequestsrows, setPendingRequestsrows] = useState([]);
+  const [historyRows, setHistoryRows] = useState([]);
   const [allBookingsWithUser, setAllBookingsWithUser] = useState([]);
   const [user, setUser] = useState();
-  const [selectedUserData, setSelectedUserData] = useState([]);
   const history = useHistory();
   const [loading, setLoading] = useState(true);
 
-  const handleStartdate = (newValue) => {
-    setStartValue(newValue);
-  };
-  const handleEnddate = (newValue) => {
-    setEndValue(newValue);
-  };
-
   useEffect(() => {
     const userData = JSON.parse(localStorage.getItem("user"));
-    getPendingRequestData(userData);
+    getHistoryData(userData);
     setUser(userData);
   }, []);
 
-  const getPendingRequestData = async (userData) => {
+  const getHistoryData = async (userData) => {
     let allBookings = [];
     await API(
       "get",
@@ -76,7 +66,7 @@ const Index = () => {
           }
         });
 
-        setPendingRequestsrows(
+        setHistoryRows(
           temp.map((booking) => {
             return createData(
               booking.studentData.firstName + " " + booking.studentData.surName,
@@ -86,9 +76,7 @@ const Index = () => {
               booking.duration,
               booking.status,
               booking.id,
-              booking.drivingSchoolId
-                ? booking.drivingSchoolId
-                : booking.instructionId
+              booking.drivingSchoolId ? booking.drivingSchoolId : booking.instructionId
             );
           })
         );
@@ -103,10 +91,7 @@ const Index = () => {
         return booking;
       }
     });
-    localStorage.setItem(
-      "selectedInstructor",
-      JSON.stringify(selectedBooking.studentData)
-    );
+    localStorage.setItem("selectedInstructor", JSON.stringify(selectedBooking.studentData));
     history.push("/student/InstructorBooking");
   };
 
@@ -166,12 +151,7 @@ const Index = () => {
       {loading ? (
         <Loader></Loader>
       ) : (
-        <DataTable
-          data={pendingRequestsrows}
-          columns={Historycolumns}
-          user={user}
-          handleReBook={handleReBook}
-        ></DataTable>
+        <DataTable data={historyRows} columns={Historycolumns} user={user} handleReBook={handleReBook}></DataTable>
       )}
     </>
   );
