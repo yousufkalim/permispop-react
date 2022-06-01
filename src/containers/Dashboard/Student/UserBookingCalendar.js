@@ -267,10 +267,10 @@ const Calendar = () => {
       await API("post", `Bookings`, {
         VehicleId: selectedAvailability.vehicle,
         // bookingDate: moment(startDate).add(5, "hours"),
-        bookingDate: `${moment(selectedAvailability.start).format("DD-MM-YYYY")} ${selectedHours}:${selectedMins}`,
+        bookingDate: `${moment(selectedAvailability.start).format("YYYY-MM-DD")}T${selectedHours}:${selectedMins}`,
         drivingSchoolId: selectedInstructor.role === "DrivingSchool" ? selectedInstructor.id : "",
         duration: duration,
-        endTime: `${moment(endDate).format("DD-MM-YYYY")} ${endHours}:${selectedMins}`,
+        endTime: `${moment(endDate).format("YYYY-MM-DD")}T${endHours}:${selectedMins}`,
         instructionId: selectedAvailability.instructorId,
         instructorAbsence: "",
         instructorComments: "",
