@@ -24,6 +24,7 @@ import { useTranslation } from "react-i18next";
 import Loader from "../../../components/Common/FullScreenLoader";
 import { ReactComponent as Chatsvg } from "../../../assets/images/ChatIcon.svg";
 import { ReactComponent as Filter } from "../../../assets/images/filters.svg";
+import Tooltip from "@mui/material/Tooltip";
 
 import { async } from "validate.js";
 import { IconButton } from "@mui/material";
@@ -294,9 +295,11 @@ const Index = () => {
             </LocalizationProvider>
           </FormControl>
         </div>
-        <IconButton className="FilterButton" onClick={getInstructors}>
-          <Filter style={{ padding: "5%" }} />
-        </IconButton>
+        <Tooltip title="Filter">
+          <IconButton className="FilterButton" onClick={getInstructors}>
+            <Filter style={{ padding: "5%" }} />
+          </IconButton>
+        </Tooltip>
       </div>
       {loading ? (
         <Loader></Loader>
