@@ -14,6 +14,9 @@ import FormControl from "@mui/material/FormControl";
 import MenuItem from "@mui/material/MenuItem";
 import { Grid } from "@mui/material";
 import { useTranslation } from "react-i18next";
+import { ReactComponent as Filter } from "../../../../assets/images/filters.svg";
+import { IconButton } from "@mui/material";
+import Tooltip from "@mui/material/Tooltip";
 
 const Maps = (props) => {
   const { i18n, t } = useTranslation();
@@ -39,28 +42,16 @@ const Maps = (props) => {
     )
       .then((GetNearbyProfilesForMapResponse) => {
         let Profile = GetNearbyProfilesForMapResponse.data.map((item) => {
-          if (
-            item.role === "CarRentalAgent" ||
-            item.role === "Instructor" ||
-            item.role === "DSInstructor"
-          ) {
-            return API(
-              "get",
-              `Bookings/GetBookingsByInstructor?id=${item.id}`
-            ).then((GetBookingsByInstructor) => {
+          if (item.role === "CarRentalAgent" || item.role === "Instructor" || item.role === "DSInstructor") {
+            return API("get", `Bookings/GetBookingsByInstructor?id=${item.id}`).then((GetBookingsByInstructor) => {
               let newProfile = item;
-              newProfile["BookingLength"] =
-                GetBookingsByInstructor.data.data.length;
+              newProfile["BookingLength"] = GetBookingsByInstructor.data.data.length;
               return newProfile;
             });
           } else if (item.role === "DrivingSchool") {
-            return API(
-              "get",
-              `Bookings/GetBookingsByDrivingSchool?id=${item.id}`
-            ).then((GetBookingsByDrivingSchool) => {
+            return API("get", `Bookings/GetBookingsByDrivingSchool?id=${item.id}`).then((GetBookingsByDrivingSchool) => {
               let newProfile = item;
-              newProfile["BookingLength"] =
-                GetBookingsByDrivingSchool.data.data.length;
+              newProfile["BookingLength"] = GetBookingsByDrivingSchool.data.data.length;
               return newProfile;
             });
           }
@@ -70,14 +61,12 @@ const Maps = (props) => {
           let newnewProfile = e.map((pro) => {
             if (pro === undefined) {
             } else {
-              return API("get", `FeedBacks/GetAverageRating?id=${pro.id}`).then(
-                (GetAverageRatingResponse) => {
-                  let newProfile = pro;
+              return API("get", `FeedBacks/GetAverageRating?id=${pro.id}`).then((GetAverageRatingResponse) => {
+                let newProfile = pro;
 
-                  newProfile["Rating"] = GetAverageRatingResponse.data.data;
-                  return newProfile;
-                }
-              );
+                newProfile["Rating"] = GetAverageRatingResponse.data.data;
+                return newProfile;
+              });
             }
           });
           Promise.all(newnewProfile).then((n) => {
@@ -90,15 +79,9 @@ const Maps = (props) => {
       });
   };
   const handleChatClick = async (instructorData) => {
-    await API(
-      "get",
-      `Chat/getorcreatechatroom?userA=${studentData.id}&userB=${instructorData.id}`
-    )
+    await API("get", `Chat/getorcreatechatroom?userA=${studentData.id}&userB=${instructorData.id}`)
       .then((ChatroomResponse) => {
-        localStorage.setItem(
-          "ChatroomId",
-          JSON.stringify(ChatroomResponse.data.data.id)
-        );
+        localStorage.setItem("ChatroomId", JSON.stringify(ChatroomResponse.data.data.id));
         // history.push("/student/chat");
         window.location = "/student/chat";
       })
@@ -116,8 +99,7 @@ const Maps = (props) => {
   };
 
   const url = "https://www.nbrc.com.au/images/avatar-placeholder.png";
-  const profileImg =
-    studentData.photo !== null || undefined ? studentData.photo : url;
+  const profileImg = studentData.photo !== null || undefined ? studentData.photo : url;
 
   var greyIcon = new L.Icon({
     iconUrl: profileImg,
@@ -130,14 +112,7 @@ const Maps = (props) => {
   return (
     <div className="main-div_">
       <Grid container spacing={1}>
-        <Grid
-          sx={4}
-          sm={6}
-          md={3.3}
-          lg={2.2}
-          xl={1.5}
-          className="filter_div filter_div1"
-        >
+        <Grid sx={4} sm={6} md={3.3} lg={2.2} xl={1.5} className="filter_div filter_div1">
           <FormControl>
             <label style={{ fontWeight: 500 }}>{t("Gearbox")}</label>
             <Select
@@ -183,7 +158,7 @@ const Maps = (props) => {
             </Select>
           </FormControl>
         </Grid>
-        <Grid sx={4} sm={6} md={3.3} lg={2.2} xl={1.5} className="filter_div">
+        <Grid sx={4} sm={6} md={2} lg={2.2} xl={1.5} className="">
           <FormControl>
             <label style={{ fontWeight: 500 }}>{t("Role")}</label>
             <Select
@@ -207,15 +182,16 @@ const Maps = (props) => {
             </Select>
           </FormControl>
         </Grid>
-        <Grid sx={4} sm={6} md={3.3} lg={2.2} xl={1.5} className="filter_div">
-          <Button
-            text={t("Apply")}
-            color="#149e7a !important"
-            width="9rem !important"
-            className="filter_btn"
-            onClick={ProfilesOnMap}
-            borderRadius="10px !important"
-          ></Button>
+        <Grid sx={4} sm={6} md={2} lg={2.2} xl={1.5} className="">
+          <Tooltip title="Filter">
+            <IconButton
+              className="FilterButton"
+              onClick={ProfilesOnMap}
+              style={{ display: "flex !important", alignItems: "flex-end !important", marginTop: "9%" }}
+            >
+              <Filter style={{ padding: "", marginTop: "10px !important" }} />
+            </IconButton>
+          </Tooltip>
         </Grid>
       </Grid>
       <MapContainer
@@ -236,10 +212,7 @@ const Maps = (props) => {
           attribution='&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
         />
         <MarkerClusterGroup showCoverageOnHover={true}>
-          <Marker
-            position={[studentData.lat, studentData.long]}
-            icon={greyIcon}
-          >
+          <Marker position={[studentData.lat, studentData.long]} icon={greyIcon}>
             <Popup>
               <p className="pop_text">Your Position</p>
             </Popup>
@@ -298,13 +271,7 @@ const Maps = (props) => {
                       <div>
                         <div className="profile_img_div">
                           <img
-                            src={
-                              item?.photo
-                                ? item?.photo
-                                : item.photo === "null" || "undefined"
-                                ? Image
-                                : item.photo
-                            }
+                            src={item?.photo ? item?.photo : item.photo === "null" || "undefined" ? Image : item.photo}
                             alt=""
                             className="profile_img"
                           />
@@ -314,8 +281,7 @@ const Maps = (props) => {
                         </p>
                         <p className="role_text"> {item.role}</p>
                         <p className="role_text">
-                          <LocationOnIcon style={{ marginRight: 5 }} />{" "}
-                          {item.address}
+                          <LocationOnIcon style={{ marginRight: 5 }} /> {item.address}
                           {item.city} {item.zip}
                         </p>
                         <div className="icons">
@@ -324,9 +290,7 @@ const Maps = (props) => {
                               <img src={Project} alt="" />
                             </div>
                             <div className="popup_text">
-                              <p className="icons_text1">
-                                {item.BookingLength}
-                              </p>
+                              <p className="icons_text1">{item.BookingLength}</p>
                               <p className="icons_text2">{t("Bookings")}</p>
                             </div>
                           </div>
@@ -335,11 +299,7 @@ const Maps = (props) => {
                               <img src={Rating} alt="" />
                             </div>
                             <div>
-                              <p className="icons_text1">
-                                {item.Rating != "NaN"
-                                  ? Math.round(item.Rating * 10) / 10
-                                  : "N/A"}
-                              </p>
+                              <p className="icons_text1">{item.Rating != "NaN" ? Math.round(item.Rating * 10) / 10 : "N/A"}</p>
                               <p className="icons_text2">{t("Ratings")}</p>
                             </div>
                           </div>
