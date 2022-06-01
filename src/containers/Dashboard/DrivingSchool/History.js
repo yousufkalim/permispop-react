@@ -19,28 +19,20 @@ function createData(bookingwith, date, startTime, duration, status, id) {
 }
 const Index = () => {
   const { i18n, t } = useTranslation();
-  const [Startvalue, setStartValue] = useState(new Date());
-  const [Endvalue, setEndValue] = useState(new Date());
-  const [pendingRequestsrows, setPendingRequestsrows] = useState([]);
+
+  const [historyRows, setHistoryRows] = useState([]);
   const [allBookingsWithUser, setAllBookingsWithUser] = useState([]);
   const [user, setUser] = useState();
   const history = useHistory();
   const [loading, setLoading] = useState(true);
 
-  const handleStartdate = (newValue) => {
-    setStartValue(newValue);
-  };
-  const handleEnddate = (newValue) => {
-    setEndValue(newValue);
-  };
-
   useEffect(() => {
     const userData = JSON.parse(localStorage.getItem("user"));
-    getPendingRequestData(userData);
+    getHistoryData(userData);
     setUser(userData);
   }, []);
 
-  const getPendingRequestData = async (userData) => {
+  const getHistoryData = async (userData) => {
     let allBookings = [];
     await API(
       "get",
@@ -66,18 +58,17 @@ const Index = () => {
         });
 
         setAllBookingsWithUser(allBookings);
-        setPendingRequestsrows(
-          allBookings.map((booking) => {
-            return createData(
-              booking.studentData.firstName + " " + booking.studentData.surName,
-              moment(booking.bookingDate).format("DD/MM/YYYY"),
-              booking.startTime,
-              booking.duration,
-              booking.status,
-              booking.id
-            );
-          })
-        );
+        let temp = allBookings.map((booking) => {
+          return createData(
+            booking.studentData.firstName + " " + booking.studentData.surName,
+            moment(booking.bookingDate).format("DD/MM/YYYY"),
+            booking.startTime,
+            booking.duration,
+            booking.status,
+            booking.id
+          );
+        });
+        setHistoryRows(temp.filter((item) => item.status !== "In progress"));
         setLoading(false);
       });
     });
@@ -142,12 +133,7 @@ const Index = () => {
       {loading ? (
         <Loader></Loader>
       ) : (
-        <DataTable
-          data={pendingRequestsrows}
-          columns={Historycolumns}
-          user={user}
-          handleReBook={handleReBook}
-        ></DataTable>
+        <DataTable data={historyRows} columns={Historycolumns} user={user} handleReBook={handleReBook}></DataTable>
       )}
     </>
   );
