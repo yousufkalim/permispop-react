@@ -20,8 +20,8 @@ const Calendar = () => {
   const { i18n, t } = useTranslation();
   const [user, setUser] = useState();
   const [selectedInstructor, setSelectedInstructor] = useState();
-  const [drivingSchoolInstructors, setDrivingSchoolInstructors] = useState();
-  const [selectedDSInstructor, setSelectedDSInstructor] = useState();
+  // const [drivingSchoolInstructors, setDrivingSchoolInstructors] = useState();
+  // const [selectedDSInstructor, setSelectedDSInstructor] = useState();
   const [selectedAvailability, setSelectedAvailability] = useState();
   const [update, setUpdate] = useState(false);
   const [disabled, setdisabled] = useState(false);
@@ -57,7 +57,6 @@ const Calendar = () => {
     let allEvents = [];
     if (selectedInstructor.role === "DrivingSchool") {
       await API("get", `Bookings/GetBookingsByStudent?id=${userData.id}`).then(async (res) => {
-        console.log("ress--->>>", res);
         res.data.data.map((booking) => {
           if (booking.drivingSchoolId === "") {
             let date = moment(booking.bookingDate).format("YYYY-MM-DD");
@@ -129,7 +128,7 @@ const Calendar = () => {
     } else {
       await API(
         "get",
-        `Availability/GetAvailabilitySetForInstructor/?id=${selectedInstructor.id}&stuid=${userData.id}&lat=${userData.lat}&lng=${userData.lng}&radius=30&distancematch=false`
+        `Availability/GetAvailabilitySetForInstructor/?id=${selectedInstructor.id}&stuid=${userData.id}&lat=${userData.lat}&lng=${userData.long}&radius=30&distancematch=false`
       ).then((InsAvailabilitiesRes) => {
         InsAvailabilitiesRes.data.data.map((availability) => {
           let date = availability.date.split("T");
@@ -264,14 +263,15 @@ const Calendar = () => {
     } else {
       var startDate = moment(selectedAvailability.start).set("hour", selectedHours);
 
-      var endDate = moment(startDate).add(parseInt(duration) + 5, "hours");
+      var endDate = moment(startDate).add(parseInt(duration), "hours");
 
       await API("post", `Bookings`, {
         VehicleId: selectedAvailability.vehicle,
-        bookingDate: moment(startDate).add(5, "hours"),
+        // bookingDate: moment(startDate).add(5, "hours"),
+        bookingDate: `${moment(selectedAvailability.start).format("DD-MM-YYYY")} ${selectedHours}:${selectedMins}`,
         drivingSchoolId: selectedInstructor.role === "DrivingSchool" ? selectedInstructor.id : "",
         duration: duration,
-        endTime: endDate,
+        endTime: `${moment(endDate).format("DD-MM-YYYY HH:mm")}`,
         instructionId: selectedAvailability.instructorId,
         instructorAbsence: "",
         instructorComments: "",
@@ -593,6 +593,6 @@ const Calendar = () => {
       </BasicModal>
     </>
   );
-};
+}
 
 export default Calendar;
