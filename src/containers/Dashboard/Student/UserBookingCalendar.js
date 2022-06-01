@@ -262,16 +262,15 @@ const Calendar = () => {
       setLoading(false);
     } else {
       var startDate = moment(selectedAvailability.start).set("hour", selectedHours);
-
       var endDate = moment(startDate).add(parseInt(duration), "hours");
-
+      var endHours = selectedHours + parseInt(duration);
       await API("post", `Bookings`, {
         VehicleId: selectedAvailability.vehicle,
         // bookingDate: moment(startDate).add(5, "hours"),
         bookingDate: `${moment(selectedAvailability.start).format("DD-MM-YYYY")} ${selectedHours}:${selectedMins}`,
         drivingSchoolId: selectedInstructor.role === "DrivingSchool" ? selectedInstructor.id : "",
         duration: duration,
-        endTime: `${moment(endDate).format("DD-MM-YYYY HH:mm")}`,
+        endTime: `${moment(endDate).format("DD-MM-YYYY")} ${endHours}:${selectedMins}`,
         instructionId: selectedAvailability.instructorId,
         instructorAbsence: "",
         instructorComments: "",
@@ -288,8 +287,8 @@ const Calendar = () => {
         studentDelay: "",
         studentId: user.id,
       })
-        .then((res) => {
-          console.log("res==>>>", res);
+        .then((BookingsResponce) => {
+          console.log("BookingsResponce==>>", BookingsResponce);
           setUpdate(!update);
           toast.success("Booking Added successfully!");
           handleBookingClose();
@@ -299,6 +298,7 @@ const Calendar = () => {
         .catch((err) => {
           console.log("err", err);
           setdisabled(false);
+          setLoading(false);
         });
     }
   };
