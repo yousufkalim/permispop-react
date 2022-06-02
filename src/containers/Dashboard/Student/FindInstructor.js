@@ -86,12 +86,17 @@ const Index = () => {
           }
         });
         Promise.all(Profile).then(async (e) => {
-          let newnewProfile = e.map((pro) => {
-            return API("get", `FeedBacks/GetAverageRating?id=${pro.id}`).then((GetAverageRatingResponse) => {
-              let newProfile = pro;
-              newProfile["Rating"] = GetAverageRatingResponse.data.data;
-              return newProfile;
-            });
+          let temp = e.filter(function (element) {
+            return element !== undefined;
+          });
+          let newnewProfile = temp.map((pro) => {
+            if (pro?.id) {
+              return API("get", `FeedBacks/GetAverageRating?id=${pro.id}`).then((GetAverageRatingResponse) => {
+                let newProfile = pro;
+                newProfile["Rating"] = GetAverageRatingResponse.data.data;
+                return newProfile;
+              });
+            }
           });
           Promise.all(newnewProfile).then((n) => {
             setInstructors(n);
