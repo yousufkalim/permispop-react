@@ -106,8 +106,6 @@ const Index = () => {
   };
 
   const handleReservation = (item) => {
-    console.log("reservaton");
-    console.log("6537375357357357357", JSON.stringify(item));
     try {
       localStorage.setItem("selectedInstructor", JSON.stringify(item));
     } catch (e) {
