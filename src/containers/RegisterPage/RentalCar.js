@@ -455,9 +455,7 @@ const RentalCar = () => {
         if (step1.Phone === value) {
           if (step1.Phone === "" && value === "") {
           } else {
-            errorMessage = t(
-              "The 2nd phone number cannot be the same as the 1st"
-            );
+            errorMessage = t("The 2nd phone number cannot be the same as the 1st");
           }
         } else if (value.length === 0) {
         } else if (value[0] != "0") {
@@ -469,9 +467,7 @@ const RentalCar = () => {
         if (step1.Phone == value) {
           if (step1.Phone === "" && value === "") {
           } else {
-            errorMessage = t(
-              "The 2nd phone number cannot be the same as the 1st"
-            );
+            errorMessage = t("The 2nd phone number cannot be the same as the 1st");
           }
         } else if (value.length === 0) {
         } else if (value[0] != "0") {
@@ -1042,6 +1038,8 @@ const RentalCar = () => {
       Password: step1.Password,
       NoOfHrsWanted: step1.TimeOnPlatform,
       Email: step1.Email,
+      ContactEmail: step1.Email,
+
       Phone: step1.Phone,
       SecondEmail: step1.Email2,
       SecondPhone: step1.Phone2,
@@ -1090,10 +1088,7 @@ const RentalCar = () => {
                 }
 
                 vehiclesRes.push(
-                  Promise.all([
-                    VehicleInsurancePromise,
-                    TechnicalControlPromise,
-                  ]).then((e) => {
+                  Promise.all([VehicleInsurancePromise, TechnicalControlPromise]).then((e) => {
                     return API("post", "VehicleDetail", {
                       DateOfFirstRegistration: vehicle.FristRegDate,
                       Brand: vehicle.Brand,
@@ -1102,8 +1097,7 @@ const RentalCar = () => {
                       Energy: vehicle.Energy,
                       GearBox: vehicle.GearBox,
                       NumberPlate: vehicle.NumberPlate,
-                      VehicleRegistrationCertificatePhotoImagePath:
-                        vehicle.VehicleRegImg,
+                      VehicleRegistrationCertificatePhotoImagePath: vehicle.VehicleRegImg,
                       VehicleePhotosImagePath: vehicle.VehicleImg,
                       vehichleInsuranceInfoId: e[0].data.data.id,
                       technicalControlInfoID: e[1] ? e[1].data.data.id : "",
@@ -1123,10 +1117,8 @@ const RentalCar = () => {
                   role: "CarRentalAgent",
                   PersonalInfoId: personalRes.data.data.id,
                   VehicleDetailInfoId: JSON.stringify(finalVehicles),
-                  VehicleInsuranceInfoId:
-                    vehicles[0].data.data.vehichleInsuranceInfoId,
-                  TechnicalControlInfoId:
-                    vehicles[0].data.data.technicalControlInfoID,
+                  VehicleInsuranceInfoId: vehicles[0].data.data.vehichleInsuranceInfoId,
+                  TechnicalControlInfoId: vehicles[0].data.data.technicalControlInfoID,
                   BusinessInfoId: BusinessRes.data.data.id,
                   InsuranceCompanyInfoId: InsuranceCompanyRes.data.data.id,
                   lat: step1.Address.Lat,
@@ -1169,9 +1161,7 @@ const RentalCar = () => {
   const getRentalCarForm = async () => {
     await API("get", "CMS/GetPageData?page=register")
       .then((getRentalCarFormResponse) => {
-        const RentalCarFormData = getRentalCarFormResponse.data.data.find(
-          (item) => item.sectionName === "Rental Car Agent"
-        );
+        const RentalCarFormData = getRentalCarFormResponse.data.data.find((item) => item.sectionName === "Rental Car Agent");
         setRentalCarForm(RentalCarFormData);
       })
       .catch((error) => console.log("error------->", error));
@@ -1180,20 +1170,8 @@ const RentalCar = () => {
     <React.Fragment>
       <RegisterHeader
         src={CrRegisterImg}
-        title={
-          lng === "en"
-            ? rentalCarForm?.headingEnglish
-            : lng === "fr"
-            ? rentalCarForm?.headingFrench
-            : ""
-        }
-        subtitle1={
-          lng === "en"
-            ? rentalCarForm?.textEnglish
-            : lng === "fr"
-            ? rentalCarForm?.textFrench
-            : ""
-        }
+        title={lng === "en" ? rentalCarForm?.headingEnglish : lng === "fr" ? rentalCarForm?.headingFrench : ""}
+        subtitle1={lng === "en" ? rentalCarForm?.textEnglish : lng === "fr" ? rentalCarForm?.textFrench : ""}
       />
       <div
         style={{
@@ -1229,19 +1207,11 @@ const RentalCar = () => {
               ""
             )}
           </Typography>
-          <Stepper
-            alternativeLabel
-            activeStep={activeStep}
-            connector={<ColorlibConnector />}
-            className="stepper"
-          >
+          <Stepper alternativeLabel activeStep={activeStep} connector={<ColorlibConnector />} className="stepper">
             {steps.map((label, index) => (
               <Step key={label}>
                 <StepLabel StepIconComponent={ColorlibStepIcon}>
-                  <span
-                    className="steplabel"
-                    style={{ fontfamily: "Inter", color: "black" }}
-                  >
+                  <span className="steplabel" style={{ fontfamily: "Inter", color: "black" }}>
                     {t(label)}
                   </span>
                 </StepLabel>
@@ -1257,9 +1227,7 @@ const RentalCar = () => {
             <Box sx={{ width: "83%" }}>
               {activeStep === steps.length ? (
                 <React.Fragment>
-                  <Typography sx={{ mt: 2, mb: 1 }}>
-                    {t("All steps completed - you're finished")}
-                  </Typography>
+                  <Typography sx={{ mt: 2, mb: 1 }}>{t("All steps completed - you're finished")}</Typography>
                   <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
                     <Box sx={{ flex: "1 1 auto" }} />
                     <Button
@@ -1278,19 +1246,9 @@ const RentalCar = () => {
                 <React.Fragment>
                   <Typography sx={{ mt: 2, mb: 1 }}>
                     {activeStep === 1 ? (
-                      <Step1
-                        step1={step1}
-                        setStep1={setStep1}
-                        onChange={handleStep1}
-                        step1Errors={step1Errors}
-                      />
+                      <Step1 step1={step1} setStep1={setStep1} onChange={handleStep1} step1Errors={step1Errors} />
                     ) : activeStep === 2 ? (
-                      <Step2
-                        step2={step2}
-                        setStep2={setStep2}
-                        onChange={handleStep2}
-                        step2Errors={step2Errors}
-                      />
+                      <Step2 step2={step2} setStep2={setStep2} onChange={handleStep2} step2Errors={step2Errors} />
                     ) : activeStep === 3 ? (
                       <Step3
                         step3={step3}
@@ -1326,21 +1284,13 @@ const RentalCar = () => {
                     <Button
                       endIcon={<ArrowForwardIcon sx={{ color: "#fff" }} />}
                       type="submit"
-                      text={
-                        activeStep === steps.length - 1
-                          ? t("Finish")
-                          : t("Next")
-                      }
+                      text={activeStep === steps.length - 1 ? t("Finish") : t("Next")}
                       buttonLableStyle="btn_main"
                       style={{ marginTop: "24px" }}
                       customWidth1="100%"
                       height="48px"
                       height2="48px"
-                      onClick={
-                        activeStep === steps.length - 1
-                          ? handleSubmit
-                          : handleNext
-                      }
+                      onClick={activeStep === steps.length - 1 ? handleSubmit : handleNext}
                       disabled={
                         disable
                           ? true
@@ -1358,10 +1308,8 @@ const RentalCar = () => {
                               step1Errors.Password === "" &&
                               step1Errors.ConfirmPassword === "" &&
                               step1Errors.FrontSideimg === null &&
-                              (step1Errors.Phone2 === undefined ||
-                                step1Errors.Phone2 === "") &&
-                              (step1Errors.Email2 === undefined ||
-                                step1Errors.Email2 === "") &&
+                              (step1Errors.Phone2 === undefined || step1Errors.Phone2 === "") &&
+                              (step1Errors.Email2 === undefined || step1Errors.Email2 === "") &&
                               step1Errors.BackSideimg === null) ||
                             (activeStep === 2 &&
                               step2Errors.Siret === "" &&

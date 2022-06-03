@@ -73,6 +73,9 @@ export default function BasicDatePicker(props) {
                 fontStyle: "initial",
                 boxShadow: "",
               }}
+              inputProps={{
+                placeholder: "dd/mm/yyyy",
+              }}
               error={props.error ? true : false}
               InputLabelProps={{ shrink: true }}
             />

@@ -267,10 +267,12 @@ const Calendar = () => {
       await API("post", `Bookings`, {
         VehicleId: selectedAvailability.vehicle,
         // bookingDate: moment(startDate).add(5, "hours"),
-        bookingDate: `${moment(selectedAvailability.start).format("YYYY-MM-DD")}T${selectedHours}:${selectedMins}`,
+        bookingDate: `${moment(selectedAvailability.start).format("YYYY-MM-DD")}T${
+          selectedHours < 10 ? `0${selectedHours}` : selectedHours
+        }:${selectedMins}`,
         drivingSchoolId: selectedInstructor.role === "DrivingSchool" ? selectedInstructor.id : "",
         duration: duration,
-        endTime: `${moment(endDate).format("YYYY-MM-DD")}T${endHours}:${selectedMins}`,
+        endTime: `${moment(endDate).format("YYYY-MM-DD")}T${endHours < 10 ? `0${endHours}` : endHours}:${selectedMins}`,
         instructionId: selectedAvailability.instructorId,
         instructorAbsence: "",
         instructorComments: "",
@@ -593,6 +595,6 @@ const Calendar = () => {
       </BasicModal>
     </>
   );
-}
+};
 
 export default Calendar;
