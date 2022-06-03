@@ -74,6 +74,7 @@ export default function BasicDatePicker(props) {
                 boxShadow: "",
               }}
               inputProps={{
+                ...params.inputProps,
                 placeholder: "dd/mm/yyyy",
               }}
               error={props.error ? true : false}
