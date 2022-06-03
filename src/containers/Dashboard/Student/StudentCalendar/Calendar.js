@@ -46,7 +46,7 @@ const Calendar = () => {
         allBookings.push({
           id: booking.id,
           title: "Booking with" + booking.instructorQuestionFifth,
-          start: new Date(date[0], parseInt(date[1]) - 1, date[2], parseInt(start[0]) + 5, start[1], 0),
+          start: new Date(date[0], parseInt(date[1]) - 1, date[2], parseInt(start[0]), start[1], 0),
           end: new Date(date[0], parseInt(date[1]) - 1, date[2], end[0], end[1], 0),
           bookingTime: booking.startTime + " - " + moment(booking.endTime).format("HH:mm"),
           status: booking.status,
