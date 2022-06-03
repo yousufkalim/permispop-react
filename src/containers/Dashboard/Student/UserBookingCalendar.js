@@ -260,6 +260,13 @@ const Calendar = () => {
       toast.warning("Booking time cannot exceed availability end time!");
       setdisabled(false);
       setLoading(false);
+    } else if (
+      selectedHours === new Date(selectedAvailability.start).getHours() &&
+      selectedMins < new Date(selectedAvailability.start).getMinutes()
+    ) {
+      toast.warning("Booking time cannot less then availability start time!");
+      setdisabled(false);
+      setLoading(false);
     } else {
       var startDate = moment(selectedAvailability.start).set("hour", selectedHours);
       var endDate = moment(startDate).add(parseInt(duration), "hours");
