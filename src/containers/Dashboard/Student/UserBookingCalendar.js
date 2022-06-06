@@ -268,7 +268,7 @@ const Calendar = () => {
       setdisabled(false);
       setLoading(false);
     } else {
-      var startDate = moment(selectedAvailability.start).set("hour", selectedHours);
+      var startDate = moment(selectedAvailability.start).set("hour", selectedHours).set("minutes", selectedMins);
       var endDate = moment(startDate).add(parseInt(duration), "hours");
       var endHours = selectedHours + parseInt(duration);
       await API("post", `Bookings`, {
