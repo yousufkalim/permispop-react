@@ -1058,7 +1058,7 @@ const RentalCar = () => {
               PoliceNumber: step2.CompanyPoliceNumber,
               StartDate: step2.InsuranceDateExp,
               EndDate: step2.InsuranceDateExp,
-              GreenCardImagePath: step2.RcPro,
+              insuranceImagePath: step2.RcPro,
             }).then(async (InsuranceCompanyRes) => {
               let finalVehicles = {};
 
