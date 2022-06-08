@@ -111,13 +111,7 @@ const MapNative = (props) => {
         <Grid xs={5} sm={5} style={{ margin: "3px" }}>
           <Select
             name="Gearbox"
-            value={
-              instructorType.Gearbox === "All"
-                ? isGearBox
-                  ? "GearBox"
-                  : instructorType.Gearbox
-                : instructorType.Gearbox
-            }
+            value={instructorType.Gearbox === "All" ? (isGearBox ? "GearBox" : instructorType.Gearbox) : instructorType.Gearbox}
             onChange={(e) => handleChange("Gearbox", e.target.value)}
             className="dropdown1"
           >
@@ -134,13 +128,7 @@ const MapNative = (props) => {
         <Grid xs={5} sm={5} style={{ margin: "3px" }}>
           <Select
             name="Gender"
-            value={
-              instructorType.Gender === "All"
-                ? isGender
-                  ? "Gender"
-                  : instructorType.Gender
-                : instructorType.Gender
-            }
+            value={instructorType.Gender === "All" ? (isGender ? "Gender" : instructorType.Gender) : instructorType.Gender}
             onChange={(e) => handleChange("Gender", e.target.value)}
             className="dropdown1"
           >
@@ -156,13 +144,7 @@ const MapNative = (props) => {
         <Grid xs={5} sm={5} style={{ margin: "3px" }}>
           <Select
             name="Role"
-            value={
-              instructorType.Role === "All"
-                ? isRole
-                  ? "Role"
-                  : instructorType.Role
-                : instructorType.Role
-            }
+            value={instructorType.Role === "All" ? (isRole ? "Role" : instructorType.Role) : instructorType.Role}
             onChange={(e) => handleChange("Role", e.target.value)}
             className="dropdown1"
           >
@@ -179,7 +161,10 @@ const MapNative = (props) => {
           <div className="btn_filter">
             <Button1
               className="filter_btn"
-              onClick={ProfilesOnMap}
+              onClick={() => {
+                ProfilesOnMap();
+                window.location = `/isBooking/userId=`;
+              }}
               variant="contained"
               fullWidth
             >
@@ -206,10 +191,7 @@ const MapNative = (props) => {
           attribution='&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
         />
         <MarkerClusterGroup showCoverageOnHover={true}>
-          <Marker
-            position={[studentData.lat, studentData.long]}
-            icon={greyIcon}
-          >
+          <Marker position={[studentData.lat, studentData.long]} icon={greyIcon}>
             <Popup>
               <p className="pop_text">{t("Your Position")}</p>
             </Popup>
