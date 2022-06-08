@@ -268,13 +268,7 @@ const MapNative = (props) => {
                       <div>
                         <div className="profile_img_div">
                           <img
-                            src={
-                              item?.photo
-                                ? item?.photo
-                                : item.photo === "null" || "undefined"
-                                ? Image
-                                : item.photo
-                            }
+                            src={item?.photo ? item?.photo : item.photo === "null" || "undefined" ? Image : item.photo}
                             alt=""
                             className="profile_img"
                           />
@@ -284,8 +278,7 @@ const MapNative = (props) => {
                         </p>
                         <p className="role_text"> {item.role}</p>
                         <p className="role_text">
-                          <LocationOnIcon style={{ marginRight: 5 }} />{" "}
-                          {item.address}
+                          <LocationOnIcon style={{ marginRight: 5 }} /> {item.address}
                           {item.city} {item.zip}
                         </p>
                         <div className="icons">
@@ -294,9 +287,7 @@ const MapNative = (props) => {
                               <img src={Project} alt="" />
                             </div>
                             <div className="popup_text">
-                              <p className="icons_text1">
-                                {item.BookingLength}
-                              </p>
+                              <p className="icons_text1">{item.BookingLength}</p>
                               <p className="icons_text2">{t("Bookings")}</p>
                             </div>
                           </div>
@@ -305,9 +296,7 @@ const MapNative = (props) => {
                               <img src={Rating} alt="" />
                             </div>
                             <div>
-                              <p className="icons_text1">
-                                {item.Rating != "NaN" ? item.Rating : "N/A"}
-                              </p>
+                              <p className="icons_text1">{item.Rating != "NaN" ? item.Rating : "N/A"}</p>
                               <p className="icons_text2">{t("Ratings")}</p>
                             </div>
                           </div>
@@ -319,9 +308,7 @@ const MapNative = (props) => {
                             width="50% !important"
                             textColor="#f4f4f4 !important"
                             className="popup_btn"
-                            onClick={() =>
-                              history.push(`/isBooking/userId=${item.id}`)
-                            }
+                            onClick={() => (window.location = `/isBooking/userId=${item.id}`)}
                           />
                           <Button
                             text="Chat"
@@ -331,9 +318,7 @@ const MapNative = (props) => {
                             textColor="#f4f4f4 !important"
                             color="#149e7a  !important"
                             className="popup_btn"
-                            onClick={() =>
-                              history.push(`/isChat/userId=${item.id}`)
-                            }
+                            onClick={() => (window.location = `/isChat/userId=${item.id}`)}
                           />
                         </div>
                       </div>
