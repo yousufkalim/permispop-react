@@ -80,7 +80,7 @@ const Index = () => {
   const [commentModal, setCommentModal] = useState(false);
   const [profileData, setProfileData] = useState("");
   const [commentsData, setCommentsData] = useState("");
-  // const [chatData, setChatData] = useState("");
+  const [stop, setStop] = useState(false);
   const [updatefield, SetUpdateField] = useState("");
   const [updateBookingId, SetUpdateBookingId] = useState("");
   const [selectedBooking, setSelectedBooking] = useState([]);
@@ -106,7 +106,9 @@ const Index = () => {
     getPendingRequestData(userData);
     setUser(userData);
   }, []);
-
+  useEffect(() => {
+    if (allBookingsWithUser.length > 0) handleProfileUpdated();
+  }, [stop]);
   const getPendingRequestData = async (userData) => {
     let allBookings = [];
     await API(
@@ -146,6 +148,7 @@ const Index = () => {
           })
         );
         setLoading(false);
+        setStop(true);
       });
     });
   };
@@ -203,6 +206,42 @@ const Index = () => {
     setIsSelectedBook("");
 
     setCommentModal(false);
+  };
+  const handleProfileUpdated = async () => {
+    let insdata = allBookingsWithUser.filter((item) => item?.studentData?.profileInfo?.status !== "Deleted");
+    let Profile = insdata?.map((item) => {
+      if (
+        // item.studentData.role === "CarRentalAgent" ||
+        // item.studentData.role === "Instructor" ||
+        item.studentData.role === "Student"
+      ) {
+        return API("get", `Bookings/GetBookingsByInstructor?id=${item.studentData.id}`).then((GetBookingsByInstructor) => {
+          let newProfile = item;
+          newProfile.studentData["BookingLength"] = GetBookingsByInstructor.data.data.length;
+          return newProfile;
+        });
+      }
+      // else if (item.studentData.role === "DrivingSchool") {
+      //   return API("get", `Bookings/GetBookingsByDrivingSchool?id=${item.id}`).then((GetBookingsByDrivingSchool) => {
+      //     let newProfile = item;
+      //     newProfile.studentData["BookingLength"] = GetBookingsByDrivingSchool.data.data.length;
+      //     return newProfile;
+      //   });
+      // }
+    });
+    Promise.all(Profile).then(async (e) => {
+      let newnewProfile = e?.map((pro) => {
+        return API("get", `FeedBacks/GetAverageRating?id=${pro?.studentData?.id}`).then((GetAverageRatingResponse) => {
+          let newProfile = pro;
+          newProfile.studentData["Rating"] = GetAverageRatingResponse?.data?.data;
+          return newProfile;
+        });
+      });
+      Promise.all(newnewProfile).then((n) => {
+        setAllBookingsWithUser(n);
+        // setLoading(false);
+      });
+    });
   };
   const handleProfile = (e) => {
     let selectedBooking = allBookingsWithUser.find((booking) => {
@@ -465,8 +504,11 @@ const Index = () => {
                 <img src={Project} alt="" />
               </div>
               <div className="popup_text">
-                {/* <p className="icons_text1">{profileData.BookingLength}</p> */}
-                <p className="icons_text2">{t("Bookings")}</p>
+
+                <p className="icons_text1">{profileData.BookingLength}</p>
+                               <p className="icons_text2">{t("Bookings")}</p>
+
+
               </div>
             </div>
             <div className="profile_icons_div">
@@ -474,8 +516,11 @@ const Index = () => {
                 <img src={Rating} alt="" />
               </div>
               <div>
-                <p className="icons_text1">{/* {profileData.Rating != "NaN" ? profileData.Rating : "N/A"} */}</p>
-                <p className="icons_text2">{t("Ratings")}</p>
+
+                <p className="icons_text1">{profileData.Rating != "NaN" ? profileData.Rating : "N/A"}</p>
+                                <p className="icons_text2">{t("Ratings")}</p>
+
+
               </div>
             </div>
           </div>

@@ -111,13 +111,7 @@ const MapNative = (props) => {
         <Grid xs={5} sm={5} style={{ margin: "3px" }}>
           <Select
             name="Gearbox"
-            value={
-              instructorType.Gearbox === "All"
-                ? isGearBox
-                  ? "GearBox"
-                  : instructorType.Gearbox
-                : instructorType.Gearbox
-            }
+            value={instructorType.Gearbox === "All" ? (isGearBox ? "GearBox" : instructorType.Gearbox) : instructorType.Gearbox}
             onChange={(e) => handleChange("Gearbox", e.target.value)}
             className="dropdown1"
           >
@@ -134,13 +128,7 @@ const MapNative = (props) => {
         <Grid xs={5} sm={5} style={{ margin: "3px" }}>
           <Select
             name="Gender"
-            value={
-              instructorType.Gender === "All"
-                ? isGender
-                  ? "Gender"
-                  : instructorType.Gender
-                : instructorType.Gender
-            }
+            value={instructorType.Gender === "All" ? (isGender ? "Gender" : instructorType.Gender) : instructorType.Gender}
             onChange={(e) => handleChange("Gender", e.target.value)}
             className="dropdown1"
           >
@@ -156,13 +144,7 @@ const MapNative = (props) => {
         <Grid xs={5} sm={5} style={{ margin: "3px" }}>
           <Select
             name="Role"
-            value={
-              instructorType.Role === "All"
-                ? isRole
-                  ? "Role"
-                  : instructorType.Role
-                : instructorType.Role
-            }
+            value={instructorType.Role === "All" ? (isRole ? "Role" : instructorType.Role) : instructorType.Role}
             onChange={(e) => handleChange("Role", e.target.value)}
             className="dropdown1"
           >
@@ -179,7 +161,9 @@ const MapNative = (props) => {
           <div className="btn_filter">
             <Button1
               className="filter_btn"
-              onClick={ProfilesOnMap}
+              onClick={() => {
+                ProfilesOnMap();
+              }}
               variant="contained"
               fullWidth
             >
@@ -206,10 +190,7 @@ const MapNative = (props) => {
           attribution='&copy; <a href="https://stadiamaps.com/">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/">OpenMapTiles</a> &copy; <a href="http://openstreetmap.org">OpenStreetMap</a> contributors'
         />
         <MarkerClusterGroup showCoverageOnHover={true}>
-          <Marker
-            position={[studentData.lat, studentData.long]}
-            icon={greyIcon}
-          >
+          <Marker position={[studentData.lat, studentData.long]} icon={greyIcon}>
             <Popup>
               <p className="pop_text">{t("Your Position")}</p>
             </Popup>
@@ -268,13 +249,7 @@ const MapNative = (props) => {
                       <div>
                         <div className="profile_img_div">
                           <img
-                            src={
-                              item?.photo
-                                ? item?.photo
-                                : item.photo === "null" || "undefined"
-                                ? Image
-                                : item.photo
-                            }
+                            src={item?.photo ? item?.photo : item.photo === "null" || "undefined" ? Image : item.photo}
                             alt=""
                             className="profile_img"
                           />
@@ -284,8 +259,7 @@ const MapNative = (props) => {
                         </p>
                         <p className="role_text"> {item.role}</p>
                         <p className="role_text">
-                          <LocationOnIcon style={{ marginRight: 5 }} />{" "}
-                          {item.address}
+                          <LocationOnIcon style={{ marginRight: 5 }} /> {item.address}
                           {item.city} {item.zip}
                         </p>
                         <div className="icons">
@@ -294,9 +268,7 @@ const MapNative = (props) => {
                               <img src={Project} alt="" />
                             </div>
                             <div className="popup_text">
-                              <p className="icons_text1">
-                                {item.BookingLength}
-                              </p>
+                              <p className="icons_text1">{item.BookingLength}</p>
                               <p className="icons_text2">{t("Bookings")}</p>
                             </div>
                           </div>
@@ -305,9 +277,7 @@ const MapNative = (props) => {
                               <img src={Rating} alt="" />
                             </div>
                             <div>
-                              <p className="icons_text1">
-                                {item.Rating != "NaN" ? item.Rating : "N/A"}
-                              </p>
+                              <p className="icons_text1">{item.Rating != "NaN" ? item.Rating : "N/A"}</p>
                               <p className="icons_text2">{t("Ratings")}</p>
                             </div>
                           </div>
@@ -319,9 +289,7 @@ const MapNative = (props) => {
                             width="50% !important"
                             textColor="#f4f4f4 !important"
                             className="popup_btn"
-                            onClick={() =>
-                              history.push(`/isBooking/userId=${item.id}`)
-                            }
+                            onClick={() => (window.location = `/isBooking/userId=${item.id}`)}
                           />
                           <Button
                             text="Chat"
@@ -331,9 +299,7 @@ const MapNative = (props) => {
                             textColor="#f4f4f4 !important"
                             color="#149e7a  !important"
                             className="popup_btn"
-                            onClick={() =>
-                              history.push(`/isChat/userId=${item.id}`)
-                            }
+                            onClick={() => (window.location = `/isChat/userId=${item.id}`)}
                           />
                         </div>
                       </div>
