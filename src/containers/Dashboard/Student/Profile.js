@@ -129,9 +129,9 @@ const Profile = (props) => {
 
   const handleRating = async (feedback) => {
     if (selectedRatingValue === "" || selectedRatingValue === 0) {
-      toast.warning("Rating cannot be zero");
+      toast.warning(t("Rating cannot be zero"));
     } else if (reminder === "") {
-      toast.warning("Reminder cannot be empty");
+      toast.warning(t("Reminder cannot be empty"));
     } else {
       await API("post", `FeedBacks/UpdateFeedbacks`, {
         bookingId: feedback.bookingId.id,
@@ -150,7 +150,7 @@ const Profile = (props) => {
             ReminderComment: reminder,
           })
             .then((reminderres) => {
-              toast.success("Rating submitted successfully");
+              toast.success(t("Rating submitted successfully"));
               setUpdateFeedback(!updateFeedback);
             })
             .catch((e) => {
@@ -343,7 +343,7 @@ const Profile = (props) => {
         workWithOther: user.workWithOther,
         zip: user.zip,
       }).then((e) => {
-        toast.success("Profile Image Changed successfully!");
+        toast.success(t("Profile Image Changed successfully!"));
         localStorage.setItem("user", JSON.stringify(e.data.data));
         window.location.reload();
       });
