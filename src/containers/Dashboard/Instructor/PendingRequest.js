@@ -260,9 +260,9 @@ const Index = () => {
 
   const handleRating = async () => {
     if (selectedRatingValue === "" || selectedRatingValue === 0) {
-      toast.warning("Rating cannot be zero");
+      toast.warning(t("Rating cannot be zero"));
     } else if (reminder === "") {
-      toast.warning("Reminder cannot be empty");
+      toast.warning(t("Reminder cannot be empty"));
     } else {
       await API("post", `FeedBacks/AddFeedback`, {
         bookingId: selectedBooking.id,
@@ -281,7 +281,7 @@ const Index = () => {
           ReminderComment: reminder,
         }).then((reminderres) => {
           console.log("reminderres", reminderres);
-          toast.success("Rating submitted successfully");
+          toast.success(t("Rating submitted successfully"));
           setOpenRatingModal(false);
         });
       });
@@ -473,7 +473,7 @@ const Index = () => {
               </div>
               <div className="popup_text">
                 {/* <p className="icons_text1">{profileData.BookingLength}</p> */}
-                <p className="icons_text2">Bookings</p>
+                <p className="icons_text2">{t("Bookings")}</p>
               </div>
             </div>
             <div className="profile_icons_div">
@@ -482,7 +482,7 @@ const Index = () => {
               </div>
               <div>
                 <p className="icons_text1">{/* {profileData.Rating != "NaN" ? profileData.Rating : "N/A"} */}</p>
-                <p className="icons_text2">Ratings</p>
+                <p className="icons_text2">{t("Ratings")}</p>
               </div>
             </div>
           </div>
@@ -513,7 +513,7 @@ const Index = () => {
               marginBottom: "4%",
             }}
           >
-            <Typography sx={{ fontSize: "32px", fontWeight: "600", color: "#49544F" }}>Give Feedback</Typography>
+            <Typography sx={{ fontSize: "32px", fontWeight: "600", color: "#49544F" }}>{t("Give Feedback")}</Typography>
           </div>
           <div style={{ display: "flex", justifyContent: "center" }}>
             <img src={selectedUserData.photo} className="profile_img" style={{ marginBottom: "4%" }} />
@@ -523,7 +523,7 @@ const Index = () => {
           </Grid>
           <div style={{ display: "flex", justifyContent: "center" }}>
             <Typography sx={{ fontSize: "20px", fontWeight: "500", color: "#49544F" }}>
-              Learn Car Driving with Permispop
+              {t("Learn Car Driving with Permispop")}
             </Typography>
           </div>
           <div
