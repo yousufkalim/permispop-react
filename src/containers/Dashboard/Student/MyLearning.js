@@ -14,6 +14,7 @@ import Paper from "@mui/material/Paper";
 import API from "../../../api/index";
 import moment from "moment";
 import RadioButton from "../../../components/Common/RadioButton";
+import { useTranslation } from "react-i18next";
 
 const style = {
   position: "absolute",
@@ -32,6 +33,8 @@ const style = {
 const user = JSON.parse(localStorage.getItem("user"));
 
 function Mylearning() {
+  const { i18n, t } = useTranslation();
+
   const [comments, setComments] = useState([]);
   const [commentLevel, setCommentLevel] = useState([]);
   const [objomment, setObjComment] = useState([]);
@@ -73,16 +76,14 @@ function Mylearning() {
   }, [update, step]);
 
   const Booklet = async () => {
-    return API("get", `Booklet/GetAllByStudentId/?id=${user.id}`).then(
-      (GetAllBookletResponse) => {
-        let array = GetAllBookletResponse?.data?.data?.map((e) => {
-          return e.bookletItemId;
-        });
+    return API("get", `Booklet/GetAllByStudentId/?id=${user.id}`).then((GetAllBookletResponse) => {
+      let array = GetAllBookletResponse?.data?.data?.map((e) => {
+        return e.bookletItemId;
+      });
 
-        setCommentLevel(GetAllBookletResponse?.data?.data);
-        return GetAllBookletResponse?.data?.data;
-      }
-    );
+      setCommentLevel(GetAllBookletResponse?.data?.data);
+      return GetAllBookletResponse?.data?.data;
+    });
   };
 
   const HandleChangeRadio = async (e, obj, index) => {
@@ -102,20 +103,17 @@ function Mylearning() {
   };
 
   const BookletComments = async () => {
-    await API(
-      "get",
-      `Booklet/GetAllBookletComments/?studentId=${user.id}&bookletItemId=all`
-    ).then((GetAllBookletCommentsResponse) => {
-      setComments(GetAllBookletCommentsResponse.data.data);
-    });
+    await API("get", `Booklet/GetAllBookletComments/?studentId=${user.id}&bookletItemId=all`).then(
+      (GetAllBookletCommentsResponse) => {
+        setComments(GetAllBookletCommentsResponse.data.data);
+      }
+    );
   };
 
   const handleOpen = (index) => {
     setOpen(true);
     const IndexId = index;
-    const FindCommentId = comments.filter(
-      (p) => parseInt(p.bookletItemId) === IndexId
-    );
+    const FindCommentId = comments.filter((p) => parseInt(p.bookletItemId) === IndexId);
     setObjComment(FindCommentId);
   };
 
@@ -185,15 +183,10 @@ function Mylearning() {
   };
   return (
     <div style={{ padding: "0% 5% 5% 5%" }}>
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
+      <Modal open={open} onClose={handleClose} aria-labelledby="modal-modal-title" aria-describedby="modal-modal-description">
         <Box sx={style}>
           <Typography id="modal-modal-title" variant="h6" component="h2">
-            Comments
+            {t("Comments")}
           </Typography>
           <Typography id="modal-modal-description" sx={{ mt: 2 }}>
             {objomment?.length ? (
@@ -203,42 +196,33 @@ function Mylearning() {
                     <div className="comment-box">
                       <div className="comment-box-inner">
                         {" "}
-                        {items?.comments === "" ||
-                        items?.comments === null ||
-                        objomment?.length === 0 ? (
-                          <h5 style={{ color: "red" }}>Comment is Empty</h5>
+                        {items?.comments === "" || items?.comments === null || objomment?.length === 0 ? (
+                          <h5 style={{ color: "red" }}>{t("Comment is Empty")}</h5>
                         ) : (
                           <p>
-                            <h4>{items?.instructorName}</h4> <br></br>{" "}
-                            {items?.comments}{" "}
+                            <h4>{items?.instructorName}</h4> <br></br> {items?.comments}{" "}
                           </p>
                         )}
                       </div>
                       <div className="triangle-comment"></div>
-                      <p className="comment-date">
-                        {moment(items?.timeStamp).format("DD/MM/YYYY HH:mm")}
-                      </p>
+                      <p className="comment-date">{moment(items?.timeStamp).format("DD/MM/YYYY HH:mm")}</p>
                     </div>
                   );
                 })}
               </div>
             ) : (
-              <h1 style={{ color: "gray" }}>Not Found</h1>
+              <h1 style={{ color: "gray" }}>{t("Not Found")}</h1>
             )}
           </Typography>
         </Box>
       </Modal>
 
       <Typography className="Mylearning_title">My Learning</Typography>
-      <Divider
-        width="100%"
-        borderColor="#D5E4E8"
-        margin="1% 0px 1% 0px !important"
-      />
+      <Divider width="100%" borderColor="#D5E4E8" margin="1% 0px 1% 0px !important" />
       <Grid container spacing={1} className="Mylearning_buttons">
         <Grid sx={6} sm={6} md={3} className="Buttonsec">
           <Button
-            text="I - Master"
+            text={t("I - Master")}
             color={step === 1 ? "#149E7A !important" : "white !important"}
             variant="outlined"
             textColor={step === 1 ? "#fff !important" : "#333"}
@@ -250,7 +234,7 @@ function Mylearning() {
         </Grid>
         <Grid sx={6} sm={6} md={3} className="Buttonsec">
           <Button
-            text="II - Apprehend"
+            text={t("II - Apprehend")}
             color={step === 2 ? "#149E7A !important" : "white !important"}
             variant="outlined"
             margin="0px 10px 0px 0px !important"
@@ -262,7 +246,7 @@ function Mylearning() {
         </Grid>
         <Grid sx={6} sm={6} md={3} className="Buttonsec">
           <Button
-            text="III - Driving"
+            text={t("III - Driving")}
             color={step === 3 ? "#149E7A !important" : "white !important"}
             variant="outlined"
             margin="0px 10px 0px 0px !important"
@@ -274,7 +258,7 @@ function Mylearning() {
         </Grid>
         <Grid sx={6} sm={6} md={3} className="Buttonsec">
           <Button
-            text="IV - Practice "
+            text={t("IV - Practice")}
             color={step === 4 ? "#149E7A !important" : "white !important"}
             variant="outlined"
             margin="0px 10px 0px 0px !important"
@@ -285,31 +269,24 @@ function Mylearning() {
             onClick={(e) => handleSetStep4()}
           ></Button>
         </Grid>
-        <Divider
-          width="100%"
-          borderColor="#D5E4E8"
-          margin="1% 0px 1% 0px !important"
-        />
+        <Divider width="100%" borderColor="#D5E4E8" margin="1% 0px 1% 0px !important" />
       </Grid>
       {step === 1 ? (
         <>
           <Typography className="Mylearning_heading">
-            Practice the handling of the vehicle in light or no traffic
+            {t("Practice the handling of the vehicle in light or no traffic")}
           </Typography>
-          <TableContainer
-            component={Paper}
-            sx={{ marginTop: "20px", width: "95%" }}
-          >
+          <TableContainer component={Paper} sx={{ marginTop: "20px", width: "95%" }}>
             <Table size="large" className="Learning_table">
               <tr className="Headingsdiv">
                 <th className="Heading_data" align="center">
-                  Accquired
+                  {t("Accquired")}
                 </th>
                 <th className="Heading_data" align="center">
-                  Wording
+                  {t("Wording")}
                 </th>
                 <th className="Heading_data" align="center">
-                  Comments
+                  {t("Comments")}
                 </th>
               </tr>
 
@@ -322,46 +299,19 @@ function Mylearning() {
                           <tr key="">
                             <td align="center" style={{ display: "flex" }}>
                               <RadioButton
-                                checked1={
-                                  row.level ? row?.level?.level === "1" : true
-                                }
-                                checked2={
-                                  row.level ? row?.level?.level === "2" : false
-                                }
-                                checked3={
-                                  row.level ? row?.level?.level === "3" : false
-                                }
-                                onChange1={(e) =>
-                                  HandleChangeRadio(
-                                    e,
-                                    row?.level?.level,
-                                    index + 1
-                                  )
-                                }
-                                onChange2={(e) =>
-                                  HandleChangeRadio(
-                                    e,
-                                    row?.level?.level,
-                                    index + 1
-                                  )
-                                }
-                                onChange3={(e) =>
-                                  HandleChangeRadio(
-                                    e,
-                                    row?.level?.level,
-                                    index + 1
-                                  )
-                                }
+                                checked1={row.level ? row?.level?.level === "1" : true}
+                                checked2={row.level ? row?.level?.level === "2" : false}
+                                checked3={row.level ? row?.level?.level === "3" : false}
+                                onChange1={(e) => HandleChangeRadio(e, row?.level?.level, index + 1)}
+                                onChange2={(e) => HandleChangeRadio(e, row?.level?.level, index + 1)}
+                                onChange3={(e) => HandleChangeRadio(e, row?.level?.level, index + 1)}
                               />
                             </td>
                             <td align="start" className="MyProcedureWording">
                               {index + 1}.{row?.row?.wording}
                             </td>
                             <td align="center">
-                              <ForumIcon
-                                onClick={() => handleOpen(index + 1)}
-                                style={{ fill: "#149E7A" }}
-                              ></ForumIcon>
+                              <ForumIcon onClick={() => handleOpen(index + 1)} style={{ fill: "#149E7A" }}></ForumIcon>
                             </td>
                           </tr>
                         );
@@ -375,22 +325,19 @@ function Mylearning() {
       ) : step === 2 ? (
         <>
           <Typography className="Mylearning_heading">
-            Apprehend the handling of the vehicle in light or no traffic
+            {t("Apprehend the handling of the vehicle in light or no traffic")}
           </Typography>
-          <TableContainer
-            component={Paper}
-            sx={{ marginTop: "20px", width: "95%" }}
-          >
+          <TableContainer component={Paper} sx={{ marginTop: "20px", width: "95%" }}>
             <Table size="large" className="Learning_table">
               <tr className="Headingsdiv">
                 <th className="Heading_data" align="center">
-                  Accquired
+                  {t("Accquired")}
                 </th>
                 <th className="Heading_data" align="center">
-                  Wording
+                  {t("Wording")}
                 </th>
                 <th className="Heading_data" align="center">
-                  Comments
+                  {t("Comments")}
                 </th>
               </tr>
               <TableBody>
@@ -401,46 +348,19 @@ function Mylearning() {
                         <tr key="">
                           <td align="center" style={{ display: "flex" }}>
                             <RadioButton
-                              checked1={
-                                row.level ? row?.level?.level === "1" : true
-                              }
-                              checked2={
-                                row.level ? row?.level?.level === "2" : false
-                              }
-                              checked3={
-                                row.level ? row?.level?.level === "3" : false
-                              }
-                              onChange1={(e) =>
-                                HandleChangeRadio(
-                                  e,
-                                  row?.level?.level,
-                                  index + 10
-                                )
-                              }
-                              onChange2={(e) =>
-                                HandleChangeRadio(
-                                  e,
-                                  row?.level?.level,
-                                  index + 10
-                                )
-                              }
-                              onChange3={(e) =>
-                                HandleChangeRadio(
-                                  e,
-                                  row?.level?.level,
-                                  index + 10
-                                )
-                              }
+                              checked1={row.level ? row?.level?.level === "1" : true}
+                              checked2={row.level ? row?.level?.level === "2" : false}
+                              checked3={row.level ? row?.level?.level === "3" : false}
+                              onChange1={(e) => HandleChangeRadio(e, row?.level?.level, index + 10)}
+                              onChange2={(e) => HandleChangeRadio(e, row?.level?.level, index + 10)}
+                              onChange3={(e) => HandleChangeRadio(e, row?.level?.level, index + 10)}
                             />
                           </td>
                           <td align="start" className="MyProcedureWording">
                             {index + 10}.{row?.row?.wording}
                           </td>
                           <td align="center">
-                            <ForumIcon
-                              onClick={() => handleOpen(index + 10)}
-                              style={{ fill: "#149E7A" }}
-                            ></ForumIcon>
+                            <ForumIcon onClick={() => handleOpen(index + 10)} style={{ fill: "#149E7A" }}></ForumIcon>
                           </td>
                         </tr>
                       );
@@ -453,23 +373,18 @@ function Mylearning() {
         </>
       ) : step === 3 ? (
         <>
-          <Typography className="Mylearning_heading">
-            Drive the handling of the vehicle in light or no traffic
-          </Typography>
-          <TableContainer
-            component={Paper}
-            sx={{ marginTop: "20px", width: "95%" }}
-          >
+          <Typography className="Mylearning_heading">{t("Drive the handling of the vehicle in light or no traffic")}</Typography>
+          <TableContainer component={Paper} sx={{ marginTop: "20px", width: "95%" }}>
             <Table size="large" className="Learning_table">
               <tr className="Headingsdiv">
                 <th className="Heading_data" align="center">
-                  Accquired
+                  {t("Accquired")}
                 </th>
                 <th className="Heading_data" align="center">
-                  Wording
+                  {t("Wording")}
                 </th>
                 <th className="Heading_data" align="center">
-                  Comments
+                  {t("Comments")}
                 </th>
               </tr>
               <TableBody>
@@ -481,36 +396,12 @@ function Mylearning() {
                           <td align="center" style={{ display: "flex" }}>
                             <>
                               <RadioButton
-                                checked1={
-                                  row.level ? row?.level?.level === "1" : true
-                                }
-                                checked2={
-                                  row.level ? row?.level?.level === "2" : false
-                                }
-                                checked3={
-                                  row.level ? row?.level?.level === "3" : false
-                                }
-                                onChange1={(e) =>
-                                  HandleChangeRadio(
-                                    e,
-                                    row?.level?.level,
-                                    index + 18
-                                  )
-                                }
-                                onChange2={(e) =>
-                                  HandleChangeRadio(
-                                    e,
-                                    row?.level?.level,
-                                    index + 18
-                                  )
-                                }
-                                onChange3={(e) =>
-                                  HandleChangeRadio(
-                                    e,
-                                    row?.level?.level,
-                                    index + 18
-                                  )
-                                }
+                                checked1={row.level ? row?.level?.level === "1" : true}
+                                checked2={row.level ? row?.level?.level === "2" : false}
+                                checked3={row.level ? row?.level?.level === "3" : false}
+                                onChange1={(e) => HandleChangeRadio(e, row?.level?.level, index + 18)}
+                                onChange2={(e) => HandleChangeRadio(e, row?.level?.level, index + 18)}
+                                onChange3={(e) => HandleChangeRadio(e, row?.level?.level, index + 18)}
                               />
                             </>
                           </td>
@@ -518,10 +409,7 @@ function Mylearning() {
                             {index + 18}.{row?.row?.wording}
                           </td>
                           <td align="center">
-                            <ForumIcon
-                              onClick={() => handleOpen(index + 18)}
-                              style={{ fill: "#149E7A" }}
-                            ></ForumIcon>
+                            <ForumIcon onClick={() => handleOpen(index + 18)} style={{ fill: "#149E7A" }}></ForumIcon>
                           </td>
                         </tr>
                       );
@@ -534,23 +422,18 @@ function Mylearning() {
         </>
       ) : step === 4 ? (
         <>
-          <Typography className="Mylearning_heading">
-            Master the handling of the vehicle in light or no traffic
-          </Typography>
-          <TableContainer
-            component={Paper}
-            sx={{ marginTop: "20px", width: "95%" }}
-          >
+          <Typography className="Mylearning_heading">{t("Master the handling of the vehicle in light or no traffic")}</Typography>
+          <TableContainer component={Paper} sx={{ marginTop: "20px", width: "95%" }}>
             <Table size="large" className="Learning_table">
               <tr className="Headingsdiv">
                 <th className="Heading_data" align="center">
-                  Accquired
+                  {t("Accquired")}
                 </th>
                 <th className="Heading_data" align="center">
-                  Wording
+                  {t("Wording")}
                 </th>
                 <th className="Heading_data" align="center">
-                  Comments
+                  {t("Comments")}
                 </th>
               </tr>
 
@@ -563,36 +446,12 @@ function Mylearning() {
                           <td align="center" style={{ display: "flex" }}>
                             <>
                               <RadioButton
-                                checked1={
-                                  row.level ? row?.level?.level === "1" : true
-                                }
-                                checked2={
-                                  row.level ? row?.level?.level === "2" : false
-                                }
-                                checked3={
-                                  row.level ? row?.level?.level === "3" : false
-                                }
-                                onChange1={(e) =>
-                                  HandleChangeRadio(
-                                    e,
-                                    row?.level?.level,
-                                    index + 25
-                                  )
-                                }
-                                onChange2={(e) =>
-                                  HandleChangeRadio(
-                                    e,
-                                    row?.level?.level,
-                                    index + 25
-                                  )
-                                }
-                                onChange3={(e) =>
-                                  HandleChangeRadio(
-                                    e,
-                                    row?.level?.level,
-                                    index + 25
-                                  )
-                                }
+                                checked1={row.level ? row?.level?.level === "1" : true}
+                                checked2={row.level ? row?.level?.level === "2" : false}
+                                checked3={row.level ? row?.level?.level === "3" : false}
+                                onChange1={(e) => HandleChangeRadio(e, row?.level?.level, index + 25)}
+                                onChange2={(e) => HandleChangeRadio(e, row?.level?.level, index + 25)}
+                                onChange3={(e) => HandleChangeRadio(e, row?.level?.level, index + 25)}
                               />
                             </>
                           </td>
@@ -600,10 +459,7 @@ function Mylearning() {
                             {index + 25}.{row.row.wording}
                           </td>
                           <td align="center">
-                            <ForumIcon
-                              onClick={() => handleOpen(index + 25)}
-                              style={{ fill: "#149E7A" }}
-                            ></ForumIcon>
+                            <ForumIcon onClick={() => handleOpen(index + 25)} style={{ fill: "#149E7A" }}></ForumIcon>
                           </td>
                         </tr>
                       );
