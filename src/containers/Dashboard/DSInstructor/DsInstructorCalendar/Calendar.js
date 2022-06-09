@@ -231,17 +231,17 @@ const Calendar = () => {
     var minutes = duration.asMinutes();
 
     if (selectedVehicle === "") {
-      toast.warning("Must select a vehicle to book!");
+      toast.warning(t("Must select a vehicle to book!"));
     } else if (selectedMeetup === "") {
-      toast.warning("Must select a meetup point!");
+      toast.warning(t("Must select a meetup point!"));
     } else if (moment(startDate).isSame(endDate)) {
-      toast.warning("Start and End date cannot be same!");
+      toast.warning(t("Start and End date cannot be same!"));
     } else if (moment(startDate).isAfter(endDate)) {
-      toast.warning("Start date cannot be after End date!");
+      toast.warning(t("Start date cannot be after End date!"));
     } else if (moment(startDate).isAfter(endDate)) {
-      toast.warning("Start date cannot be after End date!");
+      toast.warning(t("Start date cannot be after End date!"));
     } else if (minutes === 30) {
-      toast.warning("Cannot create a availability for 30 minutes!");
+      toast.warning(t("Cannot create a availability for 30 minutes!"));
     } else {
       let vehicleData = vehicles.find((vehicle) => {
         return selectedVehicle === vehicle.value;
@@ -268,12 +268,12 @@ const Calendar = () => {
         status: "Available",
       })
         .then((res) => {
-          toast.success(`Availabilty Added for date ${moment(selectedDate).format("YYYY-DD-MM")}`);
+          toast.success(t(`Availabilty Added for date ${moment(selectedDate).format("YYYY-DD-MM")}`));
           setUpdate(!update);
           setOpen(false);
         })
         .catch((err) => {
-          toast.warning(`Availabilty already exists for this time slot!`);
+          toast.warning(t(`Availabilty already exists for this time slot!`));
           console.log("err", err);
         });
     }
@@ -297,15 +297,15 @@ const Calendar = () => {
     var minutes = duration.asMinutes();
 
     if (description === "") {
-      toast.warning("Please enter a description!");
+      toast.warning(t(t("Please enter a description!")));
     } else if (moment(startDate).isSame(endDate)) {
-      toast.warning("Start and End date cannot be same!");
+      toast.warning(t("Start and End date cannot be same!"));
     } else if (moment(startDate).isAfter(endDate)) {
-      toast.warning("Start date cannot be after End date!");
+      toast.warning(t("Start date cannot be after End date!"));
     } else if (moment(startDate).isAfter(endDate)) {
-      toast.warning("Start date cannot be after End date!");
+      toast.warning(t("Start date cannot be after End date!"));
     } else if (minutes === 30) {
-      toast.warning("Cannot create a availability for 30 minutes!");
+      toast.warning(t("Cannot create a availability for 30 minutes!"));
     } else {
       await API("post", "Availability", {
         VehicleId: "",
@@ -323,7 +323,7 @@ const Calendar = () => {
         startTime: selectedStartHours + ":" + selectedStartMins,
         status: "Unavailable",
       }).then((res) => {
-        toast.success(`Unavailabilty Added for date ${moment(selectedDate).format("YYYY-DD-MM")}`);
+        toast.success(t(`Unavailabilty Added for date ${moment(selectedDate).format("YYYY-DD-MM")}`));
         setUpdate(!update);
         setDescription("");
         setOpen(false);
@@ -349,15 +349,15 @@ const Calendar = () => {
     var minutes = duration.asMinutes();
 
     if (description === "") {
-      toast.warning("Please enter a description!");
+      toast.warning(t("Please enter a description!"));
     } else if (moment(startDate).isSame(endDate)) {
-      toast.warning("Start and End date cannot be same!");
+      toast.warning(t("Start and End date cannot be same!"));
     } else if (moment(startDate).isAfter(endDate)) {
-      toast.warning("Start date cannot be after End date!");
+      toast.warning(t("Start date cannot be after End date!"));
     } else if (moment(startDate).isAfter(endDate)) {
-      toast.warning("Start date cannot be after End date!");
+      toast.warning(t("Start date cannot be after End date!"));
     } else if (minutes === 30) {
-      toast.warning("Cannot create a availability for 30 minutes!");
+      toast.warning(t("Cannot create a availability for 30 minutes!"));
     } else {
       await API("post", "Availability", {
         VehicleId: "",
