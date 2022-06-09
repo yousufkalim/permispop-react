@@ -98,7 +98,7 @@ const Calendar = () => {
 
           let title = "";
           if (availability.status === "Available") {
-            title = "Availability By " + availability.createdBy;
+            title = "Availability By" + availability.createdBy;
           } else {
             title = "Booking By " + availability.createdBy;
           }
@@ -211,10 +211,10 @@ const Calendar = () => {
         setSelectedBooking(e);
         setBookingModal(true);
       } else {
-        toast.error("Cannot select this event");
+        toast.error(t("Cannot select this event"));
       }
     } else {
-      toast.error("Can not select past event");
+      toast.error(t("Can not select past event"));
     }
   };
 
@@ -243,7 +243,7 @@ const Calendar = () => {
         setUpdate(!update);
         handleBookingClose();
         setdisabled(false);
-        toast.success("Booking Deleted successfully!");
+        toast.success(t("Booking Deleted successfully!"));
         setLoading(false);
       })
       .catch((err) => {
@@ -257,14 +257,14 @@ const Calendar = () => {
     setLoading(true);
 
     if (parseInt(selectedAvailability.startHour) + parseInt(duration) > parseInt(selectedAvailability.endHour)) {
-      toast.warning("Booking time cannot exceed availability end time!");
+      toast.warning(t("Booking time cannot exceed availability end time!"));
       setdisabled(false);
       setLoading(false);
     } else if (
       selectedHours === new Date(selectedAvailability.start).getHours() &&
       selectedMins < new Date(selectedAvailability.start).getMinutes()
     ) {
-      toast.warning("Booking time cannot less then availability start time!");
+      toast.warning(t("Booking time cannot less then availability start time!"));
       setdisabled(false);
       setLoading(false);
     } else {
@@ -299,7 +299,7 @@ const Calendar = () => {
         .then((BookingsResponce) => {
           console.log("BookingsResponce==>>", BookingsResponce);
           setUpdate(!update);
-          toast.success("Booking Added successfully!");
+          toast.success(t("Booking Added successfully!"));
           handleBookingClose();
           setdisabled(false);
           setLoading(false);
