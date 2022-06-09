@@ -163,7 +163,6 @@ const MapNative = (props) => {
               className="filter_btn"
               onClick={() => {
                 ProfilesOnMap();
-                window.location = `/isBooking/userId=`;
               }}
               variant="contained"
               fullWidth
