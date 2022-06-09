@@ -438,6 +438,12 @@ i18n
           "Master the handling of the vehicle in light or no traffic":
             "Master the handling of the vehicle in light or no traffic",
           "Learn Car Driving with Permispop": "Learn Car Driving with Permispop",
+          "Cannot select this event": "Cannot select this event",
+          "Can not select past event": "Can not select past event",
+          "Booking Deleted successfully!": "Booking Deleted successfully!",
+          "Booking time cannot exceed availability end time!": "Booking time cannot exceed availability end time!",
+          "Booking time cannot less then availability start time!": "Booking time cannot less then availability start time!",
+          "Booking Added successfully!": "Booking Added successfully!",
           //-------------------------------------------------text paragraph
           "Reg-para1":
             "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.",
@@ -1678,6 +1684,14 @@ i18n
           "Master the handling of the vehicle in light or no traffic":
             "Maîtriser la tenue de route du véhicule en circulation faible ou nulle",
           "Learn Car Driving with Permispop": "Apprendre la conduite automobile avec Permispop",
+          "Cannot select this event": "Impossible de sélectionner cet événement",
+          "Can not select past event": "Impossible de sélectionner un événement passé",
+          "Booking Deleted successfully!": "Réservation supprimée avec succès !",
+          "Booking time cannot exceed availability end time!":
+            "L'heure de réservation ne peut pas dépasser l'heure de fin de disponibilité !",
+          "Booking time cannot less then availability start time!":
+            "L'heure de réservation ne peut pas être inférieure à l'heure de début de la disponibilité !",
+          "Booking Added successfully!": "Réservation ajoutée avec succès !",
           // REGISTRATION INPUTS AND ERROR
           "SIRET Number": "N° de SIRET",
           "The SIRET number must be 14 digits": "Le n° de SIRET doit comporter 14 chiffres",
