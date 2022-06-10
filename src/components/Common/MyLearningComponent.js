@@ -17,6 +17,8 @@ import RadioButton from "./RadioButton";
 import TextareaAutosize from "@mui/material/TextareaAutosize";
 import Fab from "@mui/material/Fab";
 import SendVector from "../../assets/images/SendVector.png";
+import { useTranslation } from "react-i18next";
+
 import { x } from "joi";
 import { toast } from "react-toastify";
 import CommentsModal from "./CommentsModal";
@@ -24,6 +26,8 @@ import CommentsModal from "./CommentsModal";
 const user = JSON.parse(localStorage.getItem("user"));
 
 function MyLearningComponent(props) {
+  const { i18n, t } = useTranslation();
+
   const [comments, setComments] = useState([]);
   const [commentLevel, setCommentLevel] = useState([]);
   const [objomment, setObjComment] = useState([]);
@@ -63,10 +67,7 @@ function MyLearningComponent(props) {
   }, [update, step]);
 
   const Booklet = async () => {
-    return API(
-      "get",
-      `Booklet/GetAllByStudentId/?id=${props.commentsData.id}`
-    ).then((GetAllBookletResponse) => {
+    return API("get", `Booklet/GetAllByStudentId/?id=${props.commentsData.id}`).then((GetAllBookletResponse) => {
       let array = GetAllBookletResponse?.data?.data?.map((e) => {
         return e.bookletItemId;
       });
@@ -91,12 +92,11 @@ function MyLearningComponent(props) {
     });
   };
   const BookletComments = async () => {
-    await API(
-      "get",
-      `Booklet/GetAllBookletComments/?studentId=${props.commentsData.id}&bookletItemId=all`
-    ).then((GetAllBookletCommentsResponse) => {
-      setComments(GetAllBookletCommentsResponse.data.data);
-    });
+    await API("get", `Booklet/GetAllBookletComments/?studentId=${props.commentsData.id}&bookletItemId=all`).then(
+      (GetAllBookletCommentsResponse) => {
+        setComments(GetAllBookletCommentsResponse.data.data);
+      }
+    );
   };
   const AddComments = async () => {
     await API("post", `Booklet/UpdateBookletComments`, {
@@ -113,9 +113,7 @@ function MyLearningComponent(props) {
     setCurrentIndex(index);
     BookletComments();
     const IndexId = index;
-    const FindCommentId = comments.filter(
-      (p) => parseInt(p.bookletItemId) === IndexId
-    );
+    const FindCommentId = comments.filter((p) => parseInt(p.bookletItemId) === IndexId);
     setObjComment(FindCommentId);
     setOpen(true);
   };
@@ -192,7 +190,7 @@ function MyLearningComponent(props) {
     setOpen(false);
     AddComments(currentIndex, message);
     setMessage("");
-    toast.success("Comment added successfully");
+    toast.success(t("Comment added successfully"));
   };
   return (
     <div style={{ padding: "0% 5% 5% 5%" }}>
@@ -206,16 +204,12 @@ function MyLearningComponent(props) {
         open={open}
       />
 
-      <Typography className="Mylearning_title">My Learning</Typography>
-      <Divider
-        width="100%"
-        borderColor="#D5E4E8"
-        margin="1% 0px 1% 0px !important"
-      />
+      <Typography className="Mylearning_title">{t("My Learning")}</Typography>
+      <Divider width="100%" borderColor="#D5E4E8" margin="1% 0px 1% 0px !important" />
       <Grid container spacing={1} className="Mylearning_buttons">
         <Grid sx={6} sm={6} md={3} className="Buttonsec">
           <Button
-            text="I - Master"
+            text={t("I - Master")}
             color={step === 1 ? "#149E7A !important" : "white !important"}
             variant="outlined"
             textColor={step === 1 ? "#fff !important" : "#333"}
@@ -227,7 +221,7 @@ function MyLearningComponent(props) {
         </Grid>
         <Grid sx={6} sm={6} md={3} className="Buttonsec">
           <Button
-            text="II - Apprehend"
+            text={t("II - Apprehend")}
             color={step === 2 ? "#149E7A !important" : "white !important"}
             variant="outlined"
             margin="0px 10px 0px 0px !important"
@@ -239,7 +233,7 @@ function MyLearningComponent(props) {
         </Grid>
         <Grid sx={6} sm={6} md={3} className="Buttonsec">
           <Button
-            text="III - Driving"
+            text={t("III - Driving")}
             color={step === 3 ? "#149E7A !important" : "white !important"}
             variant="outlined"
             margin="0px 10px 0px 0px !important"
@@ -251,7 +245,7 @@ function MyLearningComponent(props) {
         </Grid>
         <Grid sx={6} sm={6} md={3} className="Buttonsec">
           <Button
-            text="IV - Practice "
+            text={t("IV - Practice")}
             color={step === 4 ? "#149E7A !important" : "white !important"}
             variant="outlined"
             margin="0px 10px 0px 0px !important"
@@ -262,31 +256,24 @@ function MyLearningComponent(props) {
             onClick={(e) => handleSetStep4(e)}
           ></Button>
         </Grid>
-        <Divider
-          width="100%"
-          borderColor="#D5E4E8"
-          margin="1% 0px 1% 0px !important"
-        />
+        <Divider width="100%" borderColor="#D5E4E8" margin="1% 0px 1% 0px !important" />
       </Grid>
       {step === 1 ? (
         <>
           <Typography className="MylearningComponent_heading">
-            Practice the handling of the vehicle in light or no traffic
+            {t("Practice the handling of the vehicle in light or no traffic")}
           </Typography>
-          <TableContainer
-            component={Paper}
-            sx={{ marginTop: "20px", width: "95%" }}
-          >
+          <TableContainer component={Paper} sx={{ marginTop: "20px", width: "95%" }}>
             <Table size="large" className="Learning_table">
               <tr className="Headingsdiv">
                 <th className="Heading_data" align="center">
-                  Accquired
+                  {t("Accquired")}
                 </th>
                 <th className="Heading_data" align="center">
-                  Wording
+                  {t("Wording")}
                 </th>
                 <th className="Heading_data" align="center">
-                  Add Comments
+                  {t("Add Comments")}
                 </th>
               </tr>
 
@@ -299,42 +286,15 @@ function MyLearningComponent(props) {
                           <tr key="">
                             <td align="center" style={{ display: "flex" }}>
                               <RadioButton
-                                checked1={
-                                  row.level ? row?.level?.level === "1" : true
-                                }
-                                checked2={
-                                  row.level ? row?.level?.level === "2" : false
-                                }
-                                checked3={
-                                  row.level ? row?.level?.level === "3" : false
-                                }
-                                onChange1={(e) =>
-                                  HandleChangeRadio(
-                                    e,
-                                    row?.level?.level,
-                                    index + 1
-                                  )
-                                }
-                                onChange2={(e) =>
-                                  HandleChangeRadio(
-                                    e,
-                                    row?.level?.level,
-                                    index + 1
-                                  )
-                                }
-                                onChange3={(e) =>
-                                  HandleChangeRadio(
-                                    e,
-                                    row?.level?.level,
-                                    index + 1
-                                  )
-                                }
+                                checked1={row.level ? row?.level?.level === "1" : true}
+                                checked2={row.level ? row?.level?.level === "2" : false}
+                                checked3={row.level ? row?.level?.level === "3" : false}
+                                onChange1={(e) => HandleChangeRadio(e, row?.level?.level, index + 1)}
+                                onChange2={(e) => HandleChangeRadio(e, row?.level?.level, index + 1)}
+                                onChange3={(e) => HandleChangeRadio(e, row?.level?.level, index + 1)}
                               />
                             </td>
-                            <td
-                              align="start"
-                              className="My_Learning_Component_Wording"
-                            >
+                            <td align="start" className="My_Learning_Component_Wording">
                               {index + 1}.{row?.row?.wording}
                             </td>
                             <td align="center">
@@ -359,22 +319,19 @@ function MyLearningComponent(props) {
       ) : step === 2 ? (
         <>
           <Typography className="MylearningComponent_heading">
-            Apprehend the handling of the vehicle in light or no traffic
+            {t("Apprehend the handling of the vehicle in light or no traffic")}
           </Typography>
-          <TableContainer
-            component={Paper}
-            sx={{ marginTop: "20px", width: "95%" }}
-          >
+          <TableContainer component={Paper} sx={{ marginTop: "20px", width: "95%" }}>
             <Table size="large" className="Learning_table">
               <tr className="Headingsdiv">
                 <th className="Heading_data" align="center">
-                  Accquired
+                  {t("Accquired")}
                 </th>
                 <th className="Heading_data" align="center">
-                  Wording
+                  {t("Wording")}
                 </th>
                 <th className="Heading_data" align="center">
-                  Add Comments
+                  {t("Add Comments")}
                 </th>
               </tr>
               <TableBody>
@@ -385,42 +342,15 @@ function MyLearningComponent(props) {
                         <tr key="">
                           <td align="center" style={{ display: "flex" }}>
                             <RadioButton
-                              checked1={
-                                row.level ? row?.level?.level === "1" : true
-                              }
-                              checked2={
-                                row.level ? row?.level?.level === "2" : false
-                              }
-                              checked3={
-                                row.level ? row?.level?.level === "3" : false
-                              }
-                              onChange1={(e) =>
-                                HandleChangeRadio(
-                                  e,
-                                  row?.level?.level,
-                                  index + 10
-                                )
-                              }
-                              onChange2={(e) =>
-                                HandleChangeRadio(
-                                  e,
-                                  row?.level?.level,
-                                  index + 10
-                                )
-                              }
-                              onChange3={(e) =>
-                                HandleChangeRadio(
-                                  e,
-                                  row?.level?.level,
-                                  index + 10
-                                )
-                              }
+                              checked1={row.level ? row?.level?.level === "1" : true}
+                              checked2={row.level ? row?.level?.level === "2" : false}
+                              checked3={row.level ? row?.level?.level === "3" : false}
+                              onChange1={(e) => HandleChangeRadio(e, row?.level?.level, index + 10)}
+                              onChange2={(e) => HandleChangeRadio(e, row?.level?.level, index + 10)}
+                              onChange3={(e) => HandleChangeRadio(e, row?.level?.level, index + 10)}
                             />
                           </td>
-                          <td
-                            align="start"
-                            className="My_Learning_Component_Wording"
-                          >
+                          <td align="start" className="My_Learning_Component_Wording">
                             {index + 10}.{row?.row?.wording}
                           </td>
                           <td align="center">
@@ -443,22 +373,19 @@ function MyLearningComponent(props) {
       ) : step === 3 ? (
         <>
           <Typography className="MylearningComponent_heading">
-            Drive the handling of the vehicle in light or no traffic
+            {t("Drive the handling of the vehicle in light or no traffic")}
           </Typography>
-          <TableContainer
-            component={Paper}
-            sx={{ marginTop: "20px", width: "95%" }}
-          >
+          <TableContainer component={Paper} sx={{ marginTop: "20px", width: "95%" }}>
             <Table size="large" className="Learning_table">
               <tr className="Headingsdiv">
                 <th className="Heading_data" align="center">
-                  Accquired
+                  {t("Accquired")}
                 </th>
                 <th className="Heading_data" align="center">
-                  Wording
+                  {t("Wording")}
                 </th>
                 <th className="Heading_data" align="center">
-                  Add Comments
+                  {t("Add Comments")}
                 </th>
               </tr>
               <TableBody>
@@ -470,43 +397,16 @@ function MyLearningComponent(props) {
                           <td align="center" style={{ display: "flex" }}>
                             <>
                               <RadioButton
-                                checked1={
-                                  row.level ? row?.level?.level === "1" : true
-                                }
-                                checked2={
-                                  row.level ? row?.level?.level === "2" : false
-                                }
-                                checked3={
-                                  row.level ? row?.level?.level === "3" : false
-                                }
-                                onChange1={(e) =>
-                                  HandleChangeRadio(
-                                    e,
-                                    row?.level?.level,
-                                    index + 18
-                                  )
-                                }
-                                onChange2={(e) =>
-                                  HandleChangeRadio(
-                                    e,
-                                    row?.level?.level,
-                                    index + 18
-                                  )
-                                }
-                                onChange3={(e) =>
-                                  HandleChangeRadio(
-                                    e,
-                                    row?.level?.level,
-                                    index + 18
-                                  )
-                                }
+                                checked1={row.level ? row?.level?.level === "1" : true}
+                                checked2={row.level ? row?.level?.level === "2" : false}
+                                checked3={row.level ? row?.level?.level === "3" : false}
+                                onChange1={(e) => HandleChangeRadio(e, row?.level?.level, index + 18)}
+                                onChange2={(e) => HandleChangeRadio(e, row?.level?.level, index + 18)}
+                                onChange3={(e) => HandleChangeRadio(e, row?.level?.level, index + 18)}
                               />
                             </>
                           </td>
-                          <td
-                            align="start"
-                            className="My_Learning_Component_Wording"
-                          >
+                          <td align="start" className="My_Learning_Component_Wording">
                             {index + 18}.{row?.row?.wording}
                           </td>
                           <td align="center">
@@ -529,22 +429,19 @@ function MyLearningComponent(props) {
       ) : step === 4 ? (
         <>
           <Typography className="MylearningComponent_heading">
-            Master the handling of the vehicle in light or no traffic
+            {t("Master the handling of the vehicle in light or no traffic")}
           </Typography>
-          <TableContainer
-            component={Paper}
-            sx={{ marginTop: "20px", width: "95%" }}
-          >
+          <TableContainer component={Paper} sx={{ marginTop: "20px", width: "95%" }}>
             <Table size="large" className="Learning_table">
               <tr className="Headingsdiv">
                 <th className="Heading_data" align="center">
-                  Accquired
+                  {t("Accquired")}
                 </th>
                 <th className="Heading_data" align="center">
-                  Wording
+                  {t("Wording")}
                 </th>
                 <th className="Heading_data" align="center">
-                  Add Comments
+                  {t("Add Comments")}
                 </th>
               </tr>
 
@@ -557,43 +454,16 @@ function MyLearningComponent(props) {
                           <td align="center" style={{ display: "flex" }}>
                             <>
                               <RadioButton
-                                checked1={
-                                  row.level ? row?.level?.level === "1" : true
-                                }
-                                checked2={
-                                  row.level ? row?.level?.level === "2" : false
-                                }
-                                checked3={
-                                  row.level ? row?.level?.level === "3" : false
-                                }
-                                onChange1={(e) =>
-                                  HandleChangeRadio(
-                                    e,
-                                    row?.level?.level,
-                                    index + 25
-                                  )
-                                }
-                                onChange2={(e) =>
-                                  HandleChangeRadio(
-                                    e,
-                                    row?.level?.level,
-                                    index + 25
-                                  )
-                                }
-                                onChange3={(e) =>
-                                  HandleChangeRadio(
-                                    e,
-                                    row?.level?.level,
-                                    index + 25
-                                  )
-                                }
+                                checked1={row.level ? row?.level?.level === "1" : true}
+                                checked2={row.level ? row?.level?.level === "2" : false}
+                                checked3={row.level ? row?.level?.level === "3" : false}
+                                onChange1={(e) => HandleChangeRadio(e, row?.level?.level, index + 25)}
+                                onChange2={(e) => HandleChangeRadio(e, row?.level?.level, index + 25)}
+                                onChange3={(e) => HandleChangeRadio(e, row?.level?.level, index + 25)}
                               />
                             </>
                           </td>
-                          <td
-                            align="start"
-                            className="My_Learning_Component_Wording"
-                          >
+                          <td align="start" className="My_Learning_Component_Wording">
                             {index + 25}.{row.row.wording}
                           </td>
                           <td align="center">

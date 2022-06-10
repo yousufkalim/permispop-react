@@ -618,44 +618,36 @@ const Index = () => {
 
   const getInstructorData = async (userData) => {
     let allInstructor = [];
-    await API("get", `Profile/GetProfileByPersonalId?id=${userData.id}`).then(
-      (Dsprofileres) => {
-        let instructorId = JSON.parse(
-          Dsprofileres.data.data.drivingSchoolInstructorInfoId
-        );
-        allInstructor = Object.entries(instructorId).map(([key, value]) => {
-          return API("get", `Personal/GetAllById/?id=${value}`);
-        });
-        Promise.all(allInstructor).then((res) => {
-          let newInstructor = res.map(async (ins) => {
-            if (ins.data.data != null) {
-              return await API(
-                "get",
-                `Profile/GetProfileByPersonalId?id=${ins.data.data.id}`
-              ).then((insProfileRes) => {
-                let instructor = ins.data.data;
-                instructor["name"] =
-                  ins.data.data.firstName + " " + ins.data.data.surName;
-                instructor["status"] = insProfileRes.data.data.status;
+    await API("get", `Profile/GetProfileByPersonalId?id=${userData.id}`).then((Dsprofileres) => {
+      let instructorId = JSON.parse(Dsprofileres.data.data.drivingSchoolInstructorInfoId);
+      allInstructor = Object.entries(instructorId).map(([key, value]) => {
+        return API("get", `Personal/GetAllById/?id=${value}`);
+      });
+      Promise.all(allInstructor).then((res) => {
+        let newInstructor = res.map(async (ins) => {
+          if (ins.data.data != null) {
+            return await API("get", `Profile/GetProfileByPersonalId?id=${ins.data.data.id}`).then((insProfileRes) => {
+              let instructor = ins.data.data;
+              instructor["name"] = ins.data.data.firstName + " " + ins.data.data.surName;
+              instructor["status"] = insProfileRes.data.data.status;
 
-                return instructor;
-              });
+              return instructor;
+            });
+          }
+        });
+
+        Promise.all(newInstructor).then((res) => {
+          let items = [];
+          res.map((e) => {
+            if (e != undefined) {
+              items.push(e);
             }
           });
-
-          Promise.all(newInstructor).then((res) => {
-            let items = [];
-            res.map((e) => {
-              if (e != undefined) {
-                items.push(e);
-              }
-            });
-            setInstructorData(items);
-            setLoading(false);
-          });
+          setInstructorData(items);
+          setLoading(false);
         });
-      }
-    );
+      });
+    });
   };
   const studentSchema = {
     Address: Joi.string()
@@ -836,7 +828,7 @@ const Index = () => {
       personalInfos: "",
     }).then((res) => {
       console.log("ressssss", res);
-      toast.success("Meetup points added successfully");
+      toast.success(t("Meetup points added successfully"));
       setOPenMeetupModal(false);
     });
   };
@@ -844,184 +836,143 @@ const Index = () => {
   const detachInstructor = async (index) => {
     const tempArray = [...instructorData];
 
-    await API("get", `Profile/GetProfileByPersonalId?id=${user.id}`).then(
-      async (dsInsres) => {
-        let instructorId = JSON.parse(
-          dsInsres.data.data.drivingSchoolInstructorInfoId
-        );
+    await API("get", `Profile/GetProfileByPersonalId?id=${user.id}`).then(async (dsInsres) => {
+      let instructorId = JSON.parse(dsInsres.data.data.drivingSchoolInstructorInfoId);
 
-        let allInstructor = {};
-        Object.entries(instructorId).map(async ([key, value], i) => {
-          if (tempArray[index].id === value || value === null) {
-          } else {
-            allInstructor = {
-              ...allInstructor,
-              ["instructor" + (Object.keys(allInstructor).length + 1)]: value,
-            };
-          }
-        });
+      let allInstructor = {};
+      Object.entries(instructorId).map(async ([key, value], i) => {
+        if (tempArray[index].id === value || value === null) {
+        } else {
+          allInstructor = {
+            ...allInstructor,
+            ["instructor" + (Object.keys(allInstructor).length + 1)]: value,
+          };
+        }
+      });
 
-        await API("post", `Profile/UpdateProfile`, {
-          banDate: dsInsres.data.data.banDate,
-          banStatus: dsInsres.data.data.banDate,
-          id: dsInsres.data.data.id,
-          businessInfoId: dsInsres.data.data.businessInfoId,
-          drivingLisenceInfoId: dsInsres.data.data.drivingLisenceInfoId,
-          drivingSchoolApprovalInfoId:
-            dsInsres.data.data.drivingSchoolApprovalInfoId,
-          drivingSchoolIdentityInfoId:
-            dsInsres.data.data.drivingSchoolIdentityInfoId,
-          drivingSchoolInstructorInfoId:
-            Object.keys(allInstructor).length > 0
-              ? JSON.stringify(allInstructor)
-              : "",
-          drivingSchoolManagerInfoId:
-            dsInsres.data.data.drivingSchoolManagerInfoId,
+      await API("post", `Profile/UpdateProfile`, {
+        banDate: dsInsres.data.data.banDate,
+        banStatus: dsInsres.data.data.banDate,
+        id: dsInsres.data.data.id,
+        businessInfoId: dsInsres.data.data.businessInfoId,
+        drivingLisenceInfoId: dsInsres.data.data.drivingLisenceInfoId,
+        drivingSchoolApprovalInfoId: dsInsres.data.data.drivingSchoolApprovalInfoId,
+        drivingSchoolIdentityInfoId: dsInsres.data.data.drivingSchoolIdentityInfoId,
+        drivingSchoolInstructorInfoId: Object.keys(allInstructor).length > 0 ? JSON.stringify(allInstructor) : "",
+        drivingSchoolManagerInfoId: dsInsres.data.data.drivingSchoolManagerInfoId,
 
-          exersiceAuthorizationInfoId:
-            dsInsres.data.data.exersiceAuthorizationInfoId,
-          insuranceCompanyInfoId: dsInsres.data.data.insuranceCompanyInfoId,
-          isAdminBan: dsInsres.data.data.isAdminBan,
-          isEmailSent: dsInsres.data.data.isEmailSent,
-          lat: dsInsres.data.data.lat,
-          long: dsInsres.data.data.long,
-          personalInfoId: dsInsres.data.data.personalInfoId,
-          personalInfos: dsInsres.data.data.personalInfos,
-          role: dsInsres.data.data.role,
-          status: dsInsres.data.data.status,
-          technicalControlInfoId: dsInsres.data.data.technicalControlInfoId,
-          vehicleInsuranceInfoId: dsInsres.data.data.vehicleInsuranceInfoId,
-          drivingSchoolVehiclesInfoId:
-            dsInsres.data.data.drivingSchoolVehiclesInfoId,
-        }).then(async (profileres) => {
-          await API(
-            "get",
-            `Profile/GetProfileByPersonalId?id=${tempArray[index].id}`
-          ).then(async (dsInsprofileres) => {
-            await API("post", `DrivingLisence`, {
-              already_have_license:
-                dsInsprofileres.data.data.already_have_license,
-              deliveryPlace: dsInsprofileres.data.data.deliveryPlace,
-              drivingLisenceImagePath:
-                dsInsprofileres.data.data.drivingLisenceImagePath,
+        exersiceAuthorizationInfoId: dsInsres.data.data.exersiceAuthorizationInfoId,
+        insuranceCompanyInfoId: dsInsres.data.data.insuranceCompanyInfoId,
+        isAdminBan: dsInsres.data.data.isAdminBan,
+        isEmailSent: dsInsres.data.data.isEmailSent,
+        lat: dsInsres.data.data.lat,
+        long: dsInsres.data.data.long,
+        personalInfoId: dsInsres.data.data.personalInfoId,
+        personalInfos: dsInsres.data.data.personalInfos,
+        role: dsInsres.data.data.role,
+        status: dsInsres.data.data.status,
+        technicalControlInfoId: dsInsres.data.data.technicalControlInfoId,
+        vehicleInsuranceInfoId: dsInsres.data.data.vehicleInsuranceInfoId,
+        drivingSchoolVehiclesInfoId: dsInsres.data.data.drivingSchoolVehiclesInfoId,
+      }).then(async (profileres) => {
+        await API("get", `Profile/GetProfileByPersonalId?id=${tempArray[index].id}`).then(async (dsInsprofileres) => {
+          await API("post", `DrivingLisence`, {
+            already_have_license: dsInsprofileres.data.data.already_have_license,
+            deliveryPlace: dsInsprofileres.data.data.deliveryPlace,
+            drivingLisenceImagePath: dsInsprofileres.data.data.drivingLisenceImagePath,
+            folder: dsInsprofileres.data.data.folder,
+            id: dsInsprofileres.data.data.id,
+            licenses_for: dsInsprofileres.data.data.licenses_for,
+            licenses_type: dsInsprofileres.data.data.licenses_type,
+            lisenceNumber: dsInsprofileres.data.data.lisenceNumber,
+            obtainingDate: dsInsprofileres.data.data.obtainingDate,
+            validityDate: dsInsprofileres.data.data.validityDate,
+          }).then(async (drivinglicesnseres) => {
+            await API("post", `ExersiceAuthorization`, {
+              authorizationDate: dsInsprofileres.data.data.authorizationDate,
+              authorizationImagePath: dsInsprofileres.data.data.authorizationImagePath,
+              authorizationImagePathBack: dsInsprofileres.data.data.authorizationImagePathBack,
+              authorizationNumber: dsInsprofileres.data.data.authorizationNumber,
+              expirationDate: dsInsprofileres.data.data.expirationDate,
               folder: dsInsprofileres.data.data.folder,
               id: dsInsprofileres.data.data.id,
-              licenses_for: dsInsprofileres.data.data.licenses_for,
-              licenses_type: dsInsprofileres.data.data.licenses_type,
-              lisenceNumber: dsInsprofileres.data.data.lisenceNumber,
-              obtainingDate: dsInsprofileres.data.data.obtainingDate,
-              validityDate: dsInsprofileres.data.data.validityDate,
-            }).then(async (drivinglicesnseres) => {
-              await API("post", `ExersiceAuthorization`, {
-                authorizationDate: dsInsprofileres.data.data.authorizationDate,
-                authorizationImagePath:
-                  dsInsprofileres.data.data.authorizationImagePath,
-                authorizationImagePathBack:
-                  dsInsprofileres.data.data.authorizationImagePathBack,
-                authorizationNumber:
-                  dsInsprofileres.data.data.authorizationNumber,
-                expirationDate: dsInsprofileres.data.data.expirationDate,
+              issuingAuthority: dsInsprofileres.data.data.issuingAuthority,
+            }).then(async (exersiceAuthorizationres) => {
+              await API("post", `Business`, {
                 folder: dsInsprofileres.data.data.folder,
                 id: dsInsprofileres.data.data.id,
-                issuingAuthority: dsInsprofileres.data.data.issuingAuthority,
-              }).then(async (exersiceAuthorizationres) => {
-                await API("post", `Business`, {
-                  folder: dsInsprofileres.data.data.folder,
-                  id: dsInsprofileres.data.data.id,
-                  siretNumber: dsInsprofileres.data.data.siretNumber,
-                }).then(async (businessres) => {
-                  await API("post", `Profile/UpdateProfile`, {
-                    BusinessInfoId: businessres.data.data.id,
-                    DrivingLisenceInfoId: drivinglicesnseres.data.data.id,
-                    ExersiceAuthorizationInfoId:
-                      exersiceAuthorizationres.data.data.id,
+                siretNumber: dsInsprofileres.data.data.siretNumber,
+              }).then(async (businessres) => {
+                await API("post", `Profile/UpdateProfile`, {
+                  BusinessInfoId: businessres.data.data.id,
+                  DrivingLisenceInfoId: drivinglicesnseres.data.data.id,
+                  ExersiceAuthorizationInfoId: exersiceAuthorizationres.data.data.id,
 
-                    banDate: dsInsres.data.data.banDate,
-                    banStatus: dsInsres.data.data.banDate,
-                    id: dsInsres.data.data.id,
+                  banDate: dsInsres.data.data.banDate,
+                  banStatus: dsInsres.data.data.banDate,
+                  id: dsInsres.data.data.id,
 
-                    drivingSchoolApprovalInfoId:
-                      dsInsres.data.data.drivingSchoolApprovalInfoId,
-                    drivingSchoolIdentityInfoId:
-                      dsInsres.data.data.drivingSchoolIdentityInfoId,
-                    drivingSchoolInstructorInfoId:
-                      Object.keys(allInstructor).length > 0
-                        ? JSON.stringify(allInstructor)
-                        : "",
-                    drivingSchoolManagerInfoId:
-                      dsInsres.data.data.drivingSchoolManagerInfoId,
+                  drivingSchoolApprovalInfoId: dsInsres.data.data.drivingSchoolApprovalInfoId,
+                  drivingSchoolIdentityInfoId: dsInsres.data.data.drivingSchoolIdentityInfoId,
+                  drivingSchoolInstructorInfoId: Object.keys(allInstructor).length > 0 ? JSON.stringify(allInstructor) : "",
+                  drivingSchoolManagerInfoId: dsInsres.data.data.drivingSchoolManagerInfoId,
 
-                    exersiceAuthorizationInfoId:
-                      dsInsres.data.data.exersiceAuthorizationInfoId,
-                    insuranceCompanyInfoId:
-                      dsInsres.data.data.insuranceCompanyInfoId,
-                    isAdminBan: dsInsres.data.data.isAdminBan,
-                    isEmailSent: dsInsres.data.data.isEmailSent,
-                    lat: dsInsres.data.data.lat,
-                    long: dsInsres.data.data.long,
-                    personalInfoId: dsInsres.data.data.personalInfoId,
-                    personalInfos: dsInsres.data.data.personalInfos,
-                    role: "Instructor",
-                    status: dsInsres.data.data.status,
-                    technicalControlInfoId:
-                      dsInsres.data.data.technicalControlInfoId,
-                    vehicleInsuranceInfoId:
-                      dsInsres.data.data.vehicleInsuranceInfoId,
-                    drivingSchoolVehiclesInfoId:
-                      dsInsres.data.data.drivingSchoolVehiclesInfoId,
-                  }).then(async (res) => {
-                    await API(
-                      "get",
-                      `Personal/GetAllById/?id=${tempArray[index].id}`
-                    ).then(async (getpresonalres) => {
-                      await API("post", `Personal/UpdatePersonal`, {
-                        absentEndDate: getpresonalres.data.data.absentEndDate,
-                        address: getpresonalres.data.data.address,
-                        backIDPhoto: getpresonalres.data.data.backIDPhoto,
-                        city: getpresonalres.data.data.city,
-                        complement: getpresonalres.data.data.complement,
-                        contactEmail: getpresonalres.data.data.contactEmail,
-                        cpfAccept: getpresonalres.data.data.cpfAccept,
-                        T19: getpresonalres.data.data.T19,
-                        documentTested: getpresonalres.data.data.documentTested,
-                        drivingSchoolID:
-                          getpresonalres.data.data.drivingSchoolID,
-                        firstName: getpresonalres.data.data.firstName,
-                        frontIDPhoto: getpresonalres.data.data.frontIDPhoto,
-                        gender: getpresonalres.data.data.gender,
-                        giveOurPlatformTime:
-                          getpresonalres.data.data.giveOurPlatformTime,
-                        highWayCodeDate:
-                          getpresonalres.data.data.highWayCodeDate,
-                        highWayCodeImage:
-                          getpresonalres.data.data.highWayCodeImage,
-                        id: getpresonalres.data.data.id,
-                        instructorMeetupPointInfos:
-                          getpresonalres.data.data.instructorMeetupPointInfos,
-                        isOnline: getpresonalres.data.data.isOnline,
-                        lastActiveTime: getpresonalres.data.data.lastActiveTime,
-                        lastSeen: getpresonalres.data.data.lastSeen,
-                        lat: getpresonalres.data.data.lat,
-                        long: getpresonalres.data.data.long,
-                        noOfHrsWanted: getpresonalres.data.data.noOfHrsWanted,
-                        paid: getpresonalres.data.data.paid,
-                        password: getpresonalres.data.data.password,
-                        phone: getpresonalres.data.data.phone,
-                        photo: getpresonalres.data.data.photo,
-                        registrationDate:
-                          getpresonalres.data.data.registrationDate,
-                        role: "Instructor",
-                        secondEmail: getpresonalres.data.data.secondEmail,
-                        secondPhone: getpresonalres.data.data.secondPhone,
-                        spokenLanguage: getpresonalres.data.data.spokenLanguage,
-                        surName: getpresonalres.data.data.surName,
-                        whichPlatform: getpresonalres.data.data.whichPlatform,
-                        workWithOther: getpresonalres.data.data.workWithOther,
-                        zip: getpresonalres.data.data.zip,
-                      }).then(() => {
-                        toast.success("Detach successfully");
-                        getInstructorData(user);
-                      });
+                  exersiceAuthorizationInfoId: dsInsres.data.data.exersiceAuthorizationInfoId,
+                  insuranceCompanyInfoId: dsInsres.data.data.insuranceCompanyInfoId,
+                  isAdminBan: dsInsres.data.data.isAdminBan,
+                  isEmailSent: dsInsres.data.data.isEmailSent,
+                  lat: dsInsres.data.data.lat,
+                  long: dsInsres.data.data.long,
+                  personalInfoId: dsInsres.data.data.personalInfoId,
+                  personalInfos: dsInsres.data.data.personalInfos,
+                  role: "Instructor",
+                  status: dsInsres.data.data.status,
+                  technicalControlInfoId: dsInsres.data.data.technicalControlInfoId,
+                  vehicleInsuranceInfoId: dsInsres.data.data.vehicleInsuranceInfoId,
+                  drivingSchoolVehiclesInfoId: dsInsres.data.data.drivingSchoolVehiclesInfoId,
+                }).then(async (res) => {
+                  await API("get", `Personal/GetAllById/?id=${tempArray[index].id}`).then(async (getpresonalres) => {
+                    await API("post", `Personal/UpdatePersonal`, {
+                      absentEndDate: getpresonalres.data.data.absentEndDate,
+                      address: getpresonalres.data.data.address,
+                      backIDPhoto: getpresonalres.data.data.backIDPhoto,
+                      city: getpresonalres.data.data.city,
+                      complement: getpresonalres.data.data.complement,
+                      contactEmail: getpresonalres.data.data.contactEmail,
+                      cpfAccept: getpresonalres.data.data.cpfAccept,
+                      T19: getpresonalres.data.data.T19,
+                      documentTested: getpresonalres.data.data.documentTested,
+                      drivingSchoolID: getpresonalres.data.data.drivingSchoolID,
+                      firstName: getpresonalres.data.data.firstName,
+                      frontIDPhoto: getpresonalres.data.data.frontIDPhoto,
+                      gender: getpresonalres.data.data.gender,
+                      giveOurPlatformTime: getpresonalres.data.data.giveOurPlatformTime,
+                      highWayCodeDate: getpresonalres.data.data.highWayCodeDate,
+                      highWayCodeImage: getpresonalres.data.data.highWayCodeImage,
+                      id: getpresonalres.data.data.id,
+                      instructorMeetupPointInfos: getpresonalres.data.data.instructorMeetupPointInfos,
+                      isOnline: getpresonalres.data.data.isOnline,
+                      lastActiveTime: getpresonalres.data.data.lastActiveTime,
+                      lastSeen: getpresonalres.data.data.lastSeen,
+                      lat: getpresonalres.data.data.lat,
+                      long: getpresonalres.data.data.long,
+                      noOfHrsWanted: getpresonalres.data.data.noOfHrsWanted,
+                      paid: getpresonalres.data.data.paid,
+                      password: getpresonalres.data.data.password,
+                      phone: getpresonalres.data.data.phone,
+                      photo: getpresonalres.data.data.photo,
+                      registrationDate: getpresonalres.data.data.registrationDate,
+                      role: "Instructor",
+                      secondEmail: getpresonalres.data.data.secondEmail,
+                      secondPhone: getpresonalres.data.data.secondPhone,
+                      spokenLanguage: getpresonalres.data.data.spokenLanguage,
+                      surName: getpresonalres.data.data.surName,
+                      whichPlatform: getpresonalres.data.data.whichPlatform,
+                      workWithOther: getpresonalres.data.data.workWithOther,
+                      zip: getpresonalres.data.data.zip,
+                    }).then(() => {
+                      toast.success(t("Detach successfully"));
+                      getInstructorData(user);
                     });
                   });
                 });
@@ -1029,156 +980,124 @@ const Index = () => {
             });
           });
         });
-      }
-    );
+      });
+    });
   };
   const deleteInstructor = async (index) => {
     const _tempArray = [...instructorData];
-    await API("get", `Profile/GetProfileByPersonalId?id=${user.id}`).then(
-      async (dsres) => {
-        let _instructorId = JSON.parse(
-          dsres.data.data.drivingSchoolInstructorInfoId
-        );
+    await API("get", `Profile/GetProfileByPersonalId?id=${user.id}`).then(async (dsres) => {
+      let _instructorId = JSON.parse(dsres.data.data.drivingSchoolInstructorInfoId);
 
-        let _allInstructor = {};
-        Object.entries(_instructorId).map(async ([key, value], i) => {
-          if (_tempArray[index].id === value || value === null) {
-          } else {
-            _allInstructor = {
-              ..._allInstructor,
-              ["instructor" + (Object.keys(_allInstructor).length + 1)]: value,
-            };
-          }
-        });
+      let _allInstructor = {};
+      Object.entries(_instructorId).map(async ([key, value], i) => {
+        if (_tempArray[index].id === value || value === null) {
+        } else {
+          _allInstructor = {
+            ..._allInstructor,
+            ["instructor" + (Object.keys(_allInstructor).length + 1)]: value,
+          };
+        }
+      });
 
-        await API("post", `Profile/UpdateProfile`, {
-          banDate: dsres.data.data.banDate,
-          banStatus: dsres.data.data.banDate,
-          id: dsres.data.data.id,
-          businessInfoId: dsres.data.data.businessInfoId,
-          drivingLisenceInfoId: dsres.data.data.drivingLisenceInfoId,
-          drivingSchoolApprovalInfoId:
-            dsres.data.data.drivingSchoolApprovalInfoId,
-          drivingSchoolIdentityInfoId:
-            dsres.data.data.drivingSchoolIdentityInfoId,
-          drivingSchoolInstructorInfoId:
-            Object.keys(_allInstructor).length > 0
-              ? JSON.stringify(_allInstructor)
-              : "",
-          drivingSchoolManagerInfoId:
-            dsres.data.data.drivingSchoolManagerInfoId,
+      await API("post", `Profile/UpdateProfile`, {
+        banDate: dsres.data.data.banDate,
+        banStatus: dsres.data.data.banDate,
+        id: dsres.data.data.id,
+        businessInfoId: dsres.data.data.businessInfoId,
+        drivingLisenceInfoId: dsres.data.data.drivingLisenceInfoId,
+        drivingSchoolApprovalInfoId: dsres.data.data.drivingSchoolApprovalInfoId,
+        drivingSchoolIdentityInfoId: dsres.data.data.drivingSchoolIdentityInfoId,
+        drivingSchoolInstructorInfoId: Object.keys(_allInstructor).length > 0 ? JSON.stringify(_allInstructor) : "",
+        drivingSchoolManagerInfoId: dsres.data.data.drivingSchoolManagerInfoId,
 
-          exersiceAuthorizationInfoId:
-            dsres.data.data.exersiceAuthorizationInfoId,
-          insuranceCompanyInfoId: dsres.data.data.insuranceCompanyInfoId,
-          isAdminBan: dsres.data.data.isAdminBan,
-          isEmailSent: dsres.data.data.isEmailSent,
-          lat: dsres.data.data.lat,
-          long: dsres.data.data.long,
-          personalInfoId: dsres.data.data.personalInfoId,
-          personalInfos: dsres.data.data.personalInfos,
-          role: dsres.data.data.role,
-          status: dsres.data.data.status,
-          technicalControlInfoId: dsres.data.data.technicalControlInfoId,
-          vehicleInsuranceInfoId: dsres.data.data.vehicleInsuranceInfoId,
-          drivingSchoolVehiclesInfoId:
-            dsres.data.data.drivingSchoolVehiclesInfoId,
-        }).then(async (updatedsprofileres) => {
-          await API(
-            "get",
-            `Personal/GetAllById/?id=${_tempArray[index].id}`
-          ).then(async (dsInspersonalres) => {
-            await API("post", `Personal/UpdatePersonal`, {
-              absentEndDate: dsInspersonalres.data.data.absentEndDate,
-              address: dsInspersonalres.data.data.address,
-              backIDPhoto: dsInspersonalres.data.data.backIDPhoto,
-              city: dsInspersonalres.data.data.city,
-              complement: dsInspersonalres.data.data.complement,
-              contactEmail: dsInspersonalres.data.data.contactEmail,
-              cpfAccept: dsInspersonalres.data.data.cpfAccept,
-              T19: dsInspersonalres.data.data.T19,
-              documentTested: dsInspersonalres.data.data.documentTested,
-              drivingSchoolID: dsInspersonalres.data.data.drivingSchoolID,
-              firstName: dsInspersonalres.data.data.firstName,
-              frontIDPhoto: dsInspersonalres.data.data.frontIDPhoto,
-              gender: dsInspersonalres.data.data.gender,
-              giveOurPlatformTime:
-                dsInspersonalres.data.data.giveOurPlatformTime,
-              highWayCodeDate: dsInspersonalres.data.data.highWayCodeDate,
-              highWayCodeImage: dsInspersonalres.data.data.highWayCodeImage,
-              id: dsInspersonalres.data.data.id,
-              instructorMeetupPointInfos:
-                dsInspersonalres.data.data.instructorMeetupPointInfos,
-              isOnline: dsInspersonalres.data.data.isOnline,
-              lastActiveTime: dsInspersonalres.data.data.lastActiveTime,
-              lastSeen: dsInspersonalres.data.data.lastSeen,
-              lat: dsInspersonalres.data.data.lat,
-              long: dsInspersonalres.data.data.long,
-              noOfHrsWanted: dsInspersonalres.data.data.noOfHrsWanted,
-              paid: dsInspersonalres.data.data.paid,
-              password: dsInspersonalres.data.data.password,
-              phone: dsInspersonalres.data.data.phone,
-              photo: dsInspersonalres.data.data.photo,
-              registrationDate: dsInspersonalres.data.data.registrationDate,
-              role: "Deleted DsInstructor",
-              secondEmail: dsInspersonalres.data.data.secondEmail,
-              secondPhone: dsInspersonalres.data.data.secondPhone,
-              spokenLanguage: dsInspersonalres.data.data.spokenLanguage,
-              surName: dsInspersonalres.data.data.surName,
-              whichPlatform: dsInspersonalres.data.data.whichPlatform,
-              workWithOther: dsInspersonalres.data.data.workWithOther,
-              zip: dsInspersonalres.data.data.zip,
-            }).then(async (res) => {
-              await API(
-                "get",
-                `Profile/GetProfileByPersonalId?id=${_tempArray[index].id}`
-              ).then(async (insprofileress) => {
-                await API("post", `Profile/UpdateProfile`, {
-                  banDate: insprofileress.data.data.banDate,
-                  banStatus: insprofileress.data.data.banDate,
-                  id: insprofileress.data.data.id,
-                  businessInfoId: insprofileress.data.data.businessInfoId,
-                  drivingLisenceInfoId:
-                    insprofileress.data.data.drivingLisenceInfoId,
-                  drivingSchoolApprovalInfoId:
-                    insprofileress.data.data.drivingSchoolApprovalInfoId,
-                  drivingSchoolIdentityInfoId:
-                    insprofileress.data.data.drivingSchoolIdentityInfoId,
-                  drivingSchoolInstructorInfoId:
-                    Object.keys(_allInstructor).length > 0
-                      ? JSON.stringify(_allInstructor)
-                      : "",
-                  drivingSchoolManagerInfoId:
-                    insprofileress.data.data.drivingSchoolManagerInfoId,
+        exersiceAuthorizationInfoId: dsres.data.data.exersiceAuthorizationInfoId,
+        insuranceCompanyInfoId: dsres.data.data.insuranceCompanyInfoId,
+        isAdminBan: dsres.data.data.isAdminBan,
+        isEmailSent: dsres.data.data.isEmailSent,
+        lat: dsres.data.data.lat,
+        long: dsres.data.data.long,
+        personalInfoId: dsres.data.data.personalInfoId,
+        personalInfos: dsres.data.data.personalInfos,
+        role: dsres.data.data.role,
+        status: dsres.data.data.status,
+        technicalControlInfoId: dsres.data.data.technicalControlInfoId,
+        vehicleInsuranceInfoId: dsres.data.data.vehicleInsuranceInfoId,
+        drivingSchoolVehiclesInfoId: dsres.data.data.drivingSchoolVehiclesInfoId,
+      }).then(async (updatedsprofileres) => {
+        await API("get", `Personal/GetAllById/?id=${_tempArray[index].id}`).then(async (dsInspersonalres) => {
+          await API("post", `Personal/UpdatePersonal`, {
+            absentEndDate: dsInspersonalres.data.data.absentEndDate,
+            address: dsInspersonalres.data.data.address,
+            backIDPhoto: dsInspersonalres.data.data.backIDPhoto,
+            city: dsInspersonalres.data.data.city,
+            complement: dsInspersonalres.data.data.complement,
+            contactEmail: dsInspersonalres.data.data.contactEmail,
+            cpfAccept: dsInspersonalres.data.data.cpfAccept,
+            T19: dsInspersonalres.data.data.T19,
+            documentTested: dsInspersonalres.data.data.documentTested,
+            drivingSchoolID: dsInspersonalres.data.data.drivingSchoolID,
+            firstName: dsInspersonalres.data.data.firstName,
+            frontIDPhoto: dsInspersonalres.data.data.frontIDPhoto,
+            gender: dsInspersonalres.data.data.gender,
+            giveOurPlatformTime: dsInspersonalres.data.data.giveOurPlatformTime,
+            highWayCodeDate: dsInspersonalres.data.data.highWayCodeDate,
+            highWayCodeImage: dsInspersonalres.data.data.highWayCodeImage,
+            id: dsInspersonalres.data.data.id,
+            instructorMeetupPointInfos: dsInspersonalres.data.data.instructorMeetupPointInfos,
+            isOnline: dsInspersonalres.data.data.isOnline,
+            lastActiveTime: dsInspersonalres.data.data.lastActiveTime,
+            lastSeen: dsInspersonalres.data.data.lastSeen,
+            lat: dsInspersonalres.data.data.lat,
+            long: dsInspersonalres.data.data.long,
+            noOfHrsWanted: dsInspersonalres.data.data.noOfHrsWanted,
+            paid: dsInspersonalres.data.data.paid,
+            password: dsInspersonalres.data.data.password,
+            phone: dsInspersonalres.data.data.phone,
+            photo: dsInspersonalres.data.data.photo,
+            registrationDate: dsInspersonalres.data.data.registrationDate,
+            role: "Deleted DsInstructor",
+            secondEmail: dsInspersonalres.data.data.secondEmail,
+            secondPhone: dsInspersonalres.data.data.secondPhone,
+            spokenLanguage: dsInspersonalres.data.data.spokenLanguage,
+            surName: dsInspersonalres.data.data.surName,
+            whichPlatform: dsInspersonalres.data.data.whichPlatform,
+            workWithOther: dsInspersonalres.data.data.workWithOther,
+            zip: dsInspersonalres.data.data.zip,
+          }).then(async (res) => {
+            await API("get", `Profile/GetProfileByPersonalId?id=${_tempArray[index].id}`).then(async (insprofileress) => {
+              await API("post", `Profile/UpdateProfile`, {
+                banDate: insprofileress.data.data.banDate,
+                banStatus: insprofileress.data.data.banDate,
+                id: insprofileress.data.data.id,
+                businessInfoId: insprofileress.data.data.businessInfoId,
+                drivingLisenceInfoId: insprofileress.data.data.drivingLisenceInfoId,
+                drivingSchoolApprovalInfoId: insprofileress.data.data.drivingSchoolApprovalInfoId,
+                drivingSchoolIdentityInfoId: insprofileress.data.data.drivingSchoolIdentityInfoId,
+                drivingSchoolInstructorInfoId: Object.keys(_allInstructor).length > 0 ? JSON.stringify(_allInstructor) : "",
+                drivingSchoolManagerInfoId: insprofileress.data.data.drivingSchoolManagerInfoId,
 
-                  exersiceAuthorizationInfoId:
-                    insprofileress.data.data.exersiceAuthorizationInfoId,
-                  insuranceCompanyInfoId:
-                    insprofileress.data.data.insuranceCompanyInfoId,
-                  isAdminBan: insprofileress.data.data.isAdminBan,
-                  isEmailSent: insprofileress.data.data.isEmailSent,
-                  lat: insprofileress.data.data.lat,
-                  long: insprofileress.data.data.long,
-                  personalInfoId: insprofileress.data.data.personalInfoId,
-                  personalInfos: insprofileress.data.data.personalInfos,
-                  role: insprofileress.data.data.role,
-                  status: "Deleted",
-                  technicalControlInfoId:
-                    insprofileress.data.data.technicalControlInfoId,
-                  vehicleInsuranceInfoId:
-                    insprofileress.data.data.vehicleInsuranceInfoId,
-                  drivingSchoolVehiclesInfoId:
-                    insprofileress.data.data.drivingSchoolVehiclesInfoId,
-                }).then((finalres) => {
-                  toast.success("Instructor deleted successfully");
-                  getInstructorData(user);
-                });
+                exersiceAuthorizationInfoId: insprofileress.data.data.exersiceAuthorizationInfoId,
+                insuranceCompanyInfoId: insprofileress.data.data.insuranceCompanyInfoId,
+                isAdminBan: insprofileress.data.data.isAdminBan,
+                isEmailSent: insprofileress.data.data.isEmailSent,
+                lat: insprofileress.data.data.lat,
+                long: insprofileress.data.data.long,
+                personalInfoId: insprofileress.data.data.personalInfoId,
+                personalInfos: insprofileress.data.data.personalInfos,
+                role: insprofileress.data.data.role,
+                status: "Deleted",
+                technicalControlInfoId: insprofileress.data.data.technicalControlInfoId,
+                vehicleInsuranceInfoId: insprofileress.data.data.vehicleInsuranceInfoId,
+                drivingSchoolVehiclesInfoId: insprofileress.data.data.drivingSchoolVehiclesInfoId,
+              }).then((finalres) => {
+                toast.success(t("Instructor deleted successfully"));
+                getInstructorData(user);
               });
             });
           });
         });
-      }
-    );
+      });
+    });
   };
   const handleFileChange = async (e) => {
     const formdata = new FormData();
@@ -1199,134 +1118,116 @@ const Index = () => {
   };
 
   const handleAddInstructor = async () => {
-    await API("get", `Profile/GetProfileByPersonalId?id=${user.id}`).then(
-      async (Dsprofile) => {
-        let allInstructor = {};
-        await API("post", `Personal`, {
-          firstName: instructorDetail.Firstname,
-          surName: instructorDetail.Surname,
-          dob: instructorDetail.Dob,
-          placeOfBirth: instructorDetail.Pob,
-          gender: instructorDetail.Gender,
-          ContactEmail: instructorDetail.Email,
-          email: instructorDetail.Email,
-          secondEmail: instructorDetail.Email2,
-          phone: instructorDetail.Phone,
-          secondPhone: instructorDetail.Phone2,
-          complement: instructorDetail.Complement,
-          password: instructorDetail.Password,
-          photo: instructorDetail.ProfileImg,
-          SpokenLanguage: instructorDetail.languageArray,
-          address: instructorDetail.Address.Label,
-          zip: instructorDetail.Address.Zip,
-          city: instructorDetail.Address.City,
-          lat: instructorDetail.Address.Lat,
-          long: instructorDetail.Address.Lat,
-          Role: "DSInstructor",
-        }).then(async (personalres) => {
-          await API("post", `DrivingLisence`, {
-            drivingLisenceImagePath: instructorDetail.DriverLicenseFrontImg,
-            drivingLisenceImagePathBack: instructorDetail.DriverLicenseBackImg,
-            lisenceNumber: instructorDetail.DriverLicenseNumber,
-            obtainingDate: instructorDetail.DriverLicenseStartDate,
-            validityDate: instructorDetail.DriverLicenseEndDate,
-          }).then(async (drivinglicenseres) => {
-            await API("post", `ExersiceAuthorization`, {
-              authorizationDate: instructorDetail.ExcAuthStartDate,
-              authorizationImagePath: instructorDetail.ExcAuthFrontImg,
-              authorizationImagePathBack: instructorDetail.ExcAuthBackImg,
-              authorizationNumber: instructorDetail.ExcAuthNumber,
-              expirationDate: instructorDetail.ExcAuthEndDate,
-              issuingAuthority: instructorDetail.ExcAuthIssueAuth,
-            }).then(async (exersiceAuthorizationres) => {
-              await API("post", `Business`, {
-                siretNumber: "",
-              }).then(async (Businessres) => {
-                await API("post", `InstructorMeetupPoints`, {
-                  ZipCode: instructorDetail.Address.Zip,
-                  city: instructorDetail.Address.City,
-                  instructorId: personalres.data.data.id,
-                  lat: instructorDetail.Address.Lat,
-                  long: instructorDetail.Address.Lng,
-                  meetup: instructorDetail.Address.Label,
-                }).then(async (InstructorMeetupPointsres) => {
-                  allInstructor = JSON.parse(
-                    Dsprofile.data.data.drivingSchoolInstructorInfoId
-                  );
-                  allInstructor = {
-                    ...allInstructor,
-                    ["Instructor" + (Object.keys(allInstructor).length + 1)]:
-                      personalres.data.data.id,
-                  };
+    await API("get", `Profile/GetProfileByPersonalId?id=${user.id}`).then(async (Dsprofile) => {
+      let allInstructor = {};
+      await API("post", `Personal`, {
+        firstName: instructorDetail.Firstname,
+        surName: instructorDetail.Surname,
+        dob: instructorDetail.Dob,
+        placeOfBirth: instructorDetail.Pob,
+        gender: instructorDetail.Gender,
+        ContactEmail: instructorDetail.Email,
+        email: instructorDetail.Email,
+        secondEmail: instructorDetail.Email2,
+        phone: instructorDetail.Phone,
+        secondPhone: instructorDetail.Phone2,
+        complement: instructorDetail.Complement,
+        password: instructorDetail.Password,
+        photo: instructorDetail.ProfileImg,
+        SpokenLanguage: instructorDetail.languageArray,
+        address: instructorDetail.Address.Label,
+        zip: instructorDetail.Address.Zip,
+        city: instructorDetail.Address.City,
+        lat: instructorDetail.Address.Lat,
+        long: instructorDetail.Address.Lat,
+        Role: "DSInstructor",
+      }).then(async (personalres) => {
+        await API("post", `DrivingLisence`, {
+          drivingLisenceImagePath: instructorDetail.DriverLicenseFrontImg,
+          drivingLisenceImagePathBack: instructorDetail.DriverLicenseBackImg,
+          lisenceNumber: instructorDetail.DriverLicenseNumber,
+          obtainingDate: instructorDetail.DriverLicenseStartDate,
+          validityDate: instructorDetail.DriverLicenseEndDate,
+        }).then(async (drivinglicenseres) => {
+          await API("post", `ExersiceAuthorization`, {
+            authorizationDate: instructorDetail.ExcAuthStartDate,
+            authorizationImagePath: instructorDetail.ExcAuthFrontImg,
+            authorizationImagePathBack: instructorDetail.ExcAuthBackImg,
+            authorizationNumber: instructorDetail.ExcAuthNumber,
+            expirationDate: instructorDetail.ExcAuthEndDate,
+            issuingAuthority: instructorDetail.ExcAuthIssueAuth,
+          }).then(async (exersiceAuthorizationres) => {
+            console.log("exersiceAuthorizationres", exersiceAuthorizationres);
+            await API("post", `Business`, {
+              siretNumber: "",
+            }).then(async (Businessres) => {
+              await API("post", `InstructorMeetupPoints`, {
+                ZipCode: instructorDetail.Address.Zip,
+                city: instructorDetail.Address.City,
+                instructorId: personalres.data.data.id,
+                lat: instructorDetail.Address.Lat,
+                long: instructorDetail.Address.Lng,
+                meetup: instructorDetail.Address.Label,
+              }).then(async (InstructorMeetupPointsres) => {
+                allInstructor = JSON.parse(Dsprofile.data.data.drivingSchoolInstructorInfoId);
+                allInstructor = {
+                  ...allInstructor,
+                  ["Instructor" + (Object.keys(allInstructor).length + 1)]: personalres.data.data.id,
+                };
 
-                  await API("post", `profile`, {
-                    PersonalInfoId: personalres.data.data.id,
+                await API("post", `profile`, {
+                  PersonalInfoId: personalres.data.data.id,
+                  drivingLisenceInfoId: drivinglicenseres.data.data.id,
+                  exersiceAuthorizationInfoId: exersiceAuthorizationres.data.data.id,
+                  businessInfoId: Businessres.data.data.id,
+
+                  Role: "DSInstructor",
+                  status: "Active",
+                  drivingSchoolIdentityInfoId: Dsprofile.data.data.drivingSchoolIdentityInfoId,
+                  isAdminBan: Dsprofile.data.data.isAdminBan,
+                  isEmailSent: Dsprofile.data.data.isEmailSent,
+                }).then(async (DSIprofileRes) => {
+                  await API("post", `Profile/UpdateProfile`, {
                     drivingLisenceInfoId: drivinglicenseres.data.data.id,
-                    exersiceAuthorizationInfoId:
-                      exersiceAuthorizationres.data.data.id,
+                    exersiceAuthorizationInfoId: exersiceAuthorizationres.data.data.id,
                     businessInfoId: Businessres.data.data.id,
+                    drivingSchoolInstructorInfoId: Object.keys(allInstructor).length > 0 ? JSON.stringify(allInstructor) : "",
 
-                    Role: "DSInstructor",
+                    Role: "DrivingSchool",
                     status: "Active",
-                    drivingSchoolIdentityInfoId:
-                      Dsprofile.data.data.drivingSchoolIdentityInfoId,
+
+                    banDate: Dsprofile.data.data.banDate,
+                    banStatus: Dsprofile.data.data.banStatus,
+                    drivingSchoolApprovalInfoId: Dsprofile.data.data.drivingSchoolApprovalInfoId,
+                    // drivingSchoolIdentityInfoId:
+                    //   Dsprofile.data.data.drivingSchoolIdentityInfoId,
+                    drivingSchoolInsuranceInfoId: Dsprofile.data.data.drivingSchoolInsuranceInfoId,
+                    drivingSchoolManagerInfoId: Dsprofile.data.data.drivingSchoolManagerInfoId,
+                    drivingSchoolVehiclesInfoId: Dsprofile.data.data.drivingSchoolVehiclesInfoId,
+                    id: Dsprofile.data.data.id,
+                    insuranceCompanyInfoId: Dsprofile.data.data.insuranceCompanyInfoId,
                     isAdminBan: Dsprofile.data.data.isAdminBan,
                     isEmailSent: Dsprofile.data.data.isEmailSent,
-                  }).then(async (DSIprofileRes) => {
-                    await API("post", `Profile/UpdateProfile`, {
-                      drivingLisenceInfoId: drivinglicenseres.data.data.id,
-                      exersiceAuthorizationInfoId:
-                        exersiceAuthorizationres.data.data.id,
-                      businessInfoId: Businessres.data.data.id,
-                      drivingSchoolInstructorInfoId:
-                        Object.keys(allInstructor).length > 0
-                          ? JSON.stringify(allInstructor)
-                          : "",
+                    lat: Dsprofile.data.data.lat,
+                    long: Dsprofile.data.data.long,
+                    personalInfos: Dsprofile.data.data.personalInfos,
 
-                      Role: "DrivingSchool",
-                      status: "Active",
-
-                      banDate: Dsprofile.data.data.banDate,
-                      banStatus: Dsprofile.data.data.banStatus,
-                      drivingSchoolApprovalInfoId:
-                        Dsprofile.data.data.drivingSchoolApprovalInfoId,
-                      // drivingSchoolIdentityInfoId:
-                      //   Dsprofile.data.data.drivingSchoolIdentityInfoId,
-                      drivingSchoolInsuranceInfoId:
-                        Dsprofile.data.data.drivingSchoolInsuranceInfoId,
-                      drivingSchoolManagerInfoId:
-                        Dsprofile.data.data.drivingSchoolManagerInfoId,
-                      drivingSchoolVehiclesInfoId:
-                        Dsprofile.data.data.drivingSchoolVehiclesInfoId,
-                      id: Dsprofile.data.data.id,
-                      insuranceCompanyInfoId:
-                        Dsprofile.data.data.insuranceCompanyInfoId,
-                      isAdminBan: Dsprofile.data.data.isAdminBan,
-                      isEmailSent: Dsprofile.data.data.isEmailSent,
-                      lat: Dsprofile.data.data.lat,
-                      long: Dsprofile.data.data.long,
-                      personalInfos: Dsprofile.data.data.personalInfos,
-
-                      technicalControlInfoId:
-                        Dsprofile.data.data.technicalControlInfoId,
-                      vehicleDetailInfoId:
-                        Dsprofile.data.data.vehicleDetailInfoId,
-                      vehicleInsuranceInfoId:
-                        Dsprofile.data.data.vehicleInsuranceInfoId,
-                      personalInfoId: user.id,
-                    }).then((profileres) => {
-                      toast.success("Instrcutor added successfully");
-                      setAddInstructor(false);
-                      setUpdate(!update);
-                    });
+                    technicalControlInfoId: Dsprofile.data.data.technicalControlInfoId,
+                    vehicleDetailInfoId: Dsprofile.data.data.vehicleDetailInfoId,
+                    vehicleInsuranceInfoId: Dsprofile.data.data.vehicleInsuranceInfoId,
+                    personalInfoId: user.id,
+                  }).then((profileres) => {
+                    toast.success(t("Instrcutor added successfully"));
+                    setAddInstructor(false);
+                    setUpdate(!update);
                   });
                 });
               });
             });
           });
         });
-      }
-    );
+      });
+    });
   };
   //   const handleAddInstructor = async () => {
   //     let instructorsRes = [];
@@ -1363,11 +1264,7 @@ const Index = () => {
     <>
       {/* <MobileViewFilters title={t("Instructor")} /> */}
       <div className="Filters">
-        <Grid
-          container
-          spacing={1}
-          sx={{ marginTop: "30px", marginLeft: "70px" }}
-        >
+        <Grid container spacing={1} sx={{ marginTop: "30px", marginLeft: "70px" }}>
           <Grid xs={12} sm={12} md={3}>
             <Typography
               sx={{
@@ -1414,11 +1311,7 @@ const Index = () => {
           </Grid> */}
         </Grid>
       </div>
-      <Divider
-        width="100%"
-        borderColor="#D5E4E8"
-        margin="0px 0px 0px 0px !important"
-      />
+      <Divider width="100%" borderColor="#D5E4E8" margin="0px 0px 0px 0px !important" />
       <div
         style={{
           display: "flex",
@@ -1459,7 +1352,7 @@ const Index = () => {
         }}
       >
         <Box sx={style}>
-          <Typography sx={{ color: "#110000" }}>Add Meetup Location</Typography>
+          <Typography sx={{ color: "#110000" }}>{t("Add Meetup Location")}</Typography>
           <Grid item xs={12} sm={12} md={12}>
             <AutoComplete
               name="Address"
@@ -1754,26 +1647,16 @@ const Index = () => {
                 type="file"
                 label="ProfileImg"
                 name="ProfileImg"
-                value={instructorDetail.ProfileImg.split("_")
-                  .slice(1)
-                  .join("_")}
+                value={instructorDetail.ProfileImg.split("_").slice(1).join("_")}
                 onChange={handleFileChange}
                 // error={step6Errors['ProfileImg']?true:false}
                 // ErrorMsg={step6Errors['ProfileImg']}
               />
             </Grid>
           </Grid>
-          <Divider
-            width="100%"
-            borderColor="#D5E4E8"
-            margin="2% 0px 2% 0px !important"
-          />
-          <Typography className="Heading1">Driver’s License</Typography>
-          <Divider
-            width="100%"
-            borderColor="#D5E4E8"
-            margin="2% 0px 2% 0px !important"
-          />
+          <Divider width="100%" borderColor="#D5E4E8" margin="2% 0px 2% 0px !important" />
+          <Typography className="Heading1">{t("Driver’s License")}</Typography>
+          <Divider width="100%" borderColor="#D5E4E8" margin="2% 0px 2% 0px !important" />
           <Grid container spacing={4}>
             <Grid item xs={12} sm={12} md={4}>
               <TextField
@@ -1799,10 +1682,7 @@ const Index = () => {
                 value={instructorDetail.DriverLicenseStartDate}
                 maxDate={new Date()}
                 onChange={(e) => {
-                  onChange(
-                    "DriverLicenseStartDate",
-                    moment(e).format("YYYY-MM-DDThh:mm:ss")
-                  );
+                  onChange("DriverLicenseStartDate", moment(e).format("YYYY-MM-DDThh:mm:ss"));
                 }}
                 error={step6Errors["DriverLicenseStartDate"] ? true : false}
                 ErrorMsg={step6Errors["DriverLicenseStartDate"]}
@@ -1818,10 +1698,7 @@ const Index = () => {
                 value={instructorDetail.DriverLicenseEndDate}
                 minDate={new Date()}
                 onChange={(e) => {
-                  onChange(
-                    "DriverLicenseEndDate",
-                    moment(e).format("YYYY-MM-DDThh:mm:ss")
-                  );
+                  onChange("DriverLicenseEndDate", moment(e).format("YYYY-MM-DDThh:mm:ss"));
                 }}
                 error={step6Errors["DriverLicenseEndDate"] ? true : false}
                 ErrorMsg={step6Errors["DriverLicenseEndDate"]}
@@ -1834,9 +1711,7 @@ const Index = () => {
                 name="DriverLicenseFrontImg"
                 type="file"
                 label="DriverLicenseFrontImg"
-                value={instructorDetail.DriverLicenseFrontImg.split("_")
-                  .slice(1)
-                  .join("_")}
+                value={instructorDetail.DriverLicenseFrontImg.split("_").slice(1).join("_")}
                 onChange={handleFileChange}
                 error={step6Errors["DriverLicenseFrontImg"] ? true : false}
                 ErrorMsg={step6Errors["DriverLicenseFrontImg"]}
@@ -1849,28 +1724,16 @@ const Index = () => {
                 name="DriverLicenseBackImg"
                 type="file"
                 label="DriverLicenseBackImg"
-                value={instructorDetail.DriverLicenseBackImg.split("_")
-                  .slice(1)
-                  .join("_")}
+                value={instructorDetail.DriverLicenseBackImg.split("_").slice(1).join("_")}
                 onChange={handleFileChange}
                 error={step6Errors["DriverLicenseBackImg"] ? true : false}
                 ErrorMsg={step6Errors["DriverLicenseBackImg"]}
               />
             </Grid>
           </Grid>
-          <Divider
-            width="100%"
-            borderColor="#D5E4E8"
-            margin="2% 0px 2% 0px !important"
-          />
-          <Typography className="Heading1">
-            Authorization to Exercise
-          </Typography>
-          <Divider
-            width="100%"
-            borderColor="#D5E4E8"
-            margin="2% 0px 2% 0px !important"
-          />
+          <Divider width="100%" borderColor="#D5E4E8" margin="2% 0px 2% 0px !important" />
+          <Typography className="Heading1">{t("Authorization to Exercise")}</Typography>
+          <Divider width="100%" borderColor="#D5E4E8" margin="2% 0px 2% 0px !important" />
           <Grid container spacing={4}>
             <Grid item xs={12} sm={12} md={4} sx={{ marginTop: "9px" }}>
               <DatePicker
@@ -1882,10 +1745,7 @@ const Index = () => {
                 value={instructorDetail.ExcAuthStartDate}
                 maxDate={new Date()}
                 onChange={(e) => {
-                  onChange(
-                    "ExcAuthStartDate",
-                    moment(e).format("YYYY-MM-DDThh:mm:ss")
-                  );
+                  onChange("ExcAuthStartDate", moment(e).format("YYYY-MM-DDThh:mm:ss"));
                 }}
                 error={step6Errors["ExcAuthStartDate"] ? true : false}
                 ErrorMsg={step6Errors["ExcAuthStartDate"]}
@@ -1900,10 +1760,7 @@ const Index = () => {
                 width="100% !important"
                 minDate={new Date()}
                 onChange={(e) => {
-                  onChange(
-                    "ExcAuthEndDate",
-                    moment(e).format("YYYY-MM-DDThh:mm:ss")
-                  );
+                  onChange("ExcAuthEndDate", moment(e).format("YYYY-MM-DDThh:mm:ss"));
                 }}
                 error={step6Errors["ExcAuthEndDate"] ? true : false}
                 ErrorMsg={step6Errors["ExcAuthEndDate"]}
@@ -1948,9 +1805,7 @@ const Index = () => {
                   label="ExcAuthFrontImg"
                   name="ExcAuthFrontImg"
                   type="file"
-                  value={instructorDetail.ExcAuthFrontImg.split("_")
-                    .slice(1)
-                    .join("_")}
+                  value={instructorDetail.ExcAuthFrontImg.split("_").slice(1).join("_")}
                   onChange={handleFileChange}
                   error={step6Errors["ExcAuthFrontImg"] ? true : false}
                   ErrorMsg={step6Errors["ExcAuthFrontImg"]}
@@ -1963,9 +1818,7 @@ const Index = () => {
                   required={true}
                   name="ExcAuthBackImg"
                   type="file"
-                  value={instructorDetail.ExcAuthBackImg.split("_")
-                    .slice(1)
-                    .join("_")}
+                  value={instructorDetail.ExcAuthBackImg.split("_").slice(1).join("_")}
                   onChange={handleFileChange}
                   error={step6Errors["ExcAuthBackImg"] ? true : false}
                   ErrorMsg={step6Errors["ExcAuthBackImg"]}
@@ -1973,14 +1826,8 @@ const Index = () => {
               </Grid>
             </Grid>
           </div>
-          <Divider
-            width="100%"
-            borderColor="#D5E4E8"
-            margin="2% 0px 2% 0px !important"
-          />
-          <Typography className="Heading1">
-            Type Of Contract With Driving School
-          </Typography>
+          <Divider width="100%" borderColor="#D5E4E8" margin="2% 0px 2% 0px !important" />
+          <Typography className="Heading1">{t("Type Of Contract With Driving School")}</Typography>
           <Typography className="HeadingContent">
             <RadioGroup
               defaultValue="Employee"
@@ -1989,23 +1836,11 @@ const Index = () => {
                 display: "flex",
               }}
             >
-              <FormControlLabel
-                value="Employee"
-                control={<Radio />}
-                label="Employee"
-              />
-              <FormControlLabel
-                value="External Provider"
-                control={<Radio />}
-                label="External Provider"
-              />
+              <FormControlLabel value="Employee" control={<Radio />} label="Employee" />
+              <FormControlLabel value="External Provider" control={<Radio />} label="External Provider" />
             </RadioGroup>
           </Typography>
-          <Divider
-            width="100%"
-            borderColor="#D5E4E8"
-            margin="2% 0px 2% 0px !important"
-          />
+          <Divider width="100%" borderColor="#D5E4E8" margin="2% 0px 2% 0px !important" />
 
           <div
             style={{
@@ -2015,7 +1850,7 @@ const Index = () => {
             }}
           >
             <Button
-              text="Add"
+              text={t("Add")}
               buttonLableStyle="btn_main"
               style={{ marginTop: "24px", marginRight: "10px" }}
               width="10%"
