@@ -446,6 +446,11 @@ i18n
           "Booking Added successfully!": "Booking Added successfully!",
           "Unavailabilty Added for date": "Unavailabilty Added for date",
           "Personal Event Added for date": "Personal Event Added for date",
+          "Late delivery": "Late delivery",
+          "Payment issue": "Payment issue",
+          Harassment: "Harassment",
+          "Abusing Language": "Abusing Language",
+          "Create Dispute": "Create Dispute",
           //-------------------------------------------------text paragraph
           "Reg-para1":
             "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.",
@@ -1696,6 +1701,11 @@ i18n
           "Booking Added successfully!": "Réservation ajoutée avec succès !",
           "Unavailabilty Added for date": "Indisponibilité Ajouté pour date",
           "Personal Event Added for date": "Événement personnel ajouté pour date",
+          "Late delivery": "Livraison tardive",
+          "Payment issue": "Problème de paiement",
+          Harassment: "Harcèlement",
+          "Abusing Language": "Abus de langage",
+          "Create Dispute": "Créer un litige",
           // REGISTRATION INPUTS AND ERROR
           "SIRET Number": "N° de SIRET",
           "The SIRET number must be 14 digits": "Le n° de SIRET doit comporter 14 chiffres",
