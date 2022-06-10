@@ -297,7 +297,7 @@ const Calendar = () => {
     var minutes = duration.asMinutes();
 
     if (description === "") {
-      toast.warning(t(t("Please enter a description!")));
+      toast.warning(t("Please enter a description!"));
     } else if (moment(startDate).isSame(endDate)) {
       toast.warning(t("Start and End date cannot be same!"));
     } else if (moment(startDate).isAfter(endDate)) {
