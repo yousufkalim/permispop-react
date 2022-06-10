@@ -16,13 +16,14 @@
   margin-top: 2% !important;
   /* height: 90% !important; */
 
-  border-radius: 15px !important;
+  border-radius: 5px !important;
 }
 
 .tab {
   font-weight: 600 !important;
   color: #8f9b96 !important;
-  font-size: 1rem !important;
+  font-size: 14px !important;
+  text-transform: capitalize !important;
 }
 .tab-list .css-17vx6qt-MuiTabs-indicator {
   display: none !important;
@@ -42,22 +43,23 @@
   justify-content: flex-end !important;
 }
 .booking-modal {
-  width: 70% !important;
-  border-radius: 15px !important;
+  width: 45% !important;
+  border-radius: 5px !important;
   overflow: hidden !important;
-  margin-bottom: 24px !important;
+  font-size: 2px !important;
+  /* margin-bottom: 24px !important; */
 }
 .booking-modal-title {
   color: #000000 !important;
   font-weight: 600 !important;
-  font-size: 28px !important;
+  font-size: 20px !important;
   margin-left: 40px !important;
 }
 .booking-content {
-  margin: 40px 40px 10px 40px !important;
+  margin: 20px 20px 0px 32px !important;
 }
 .booking-btn-div {
-  margin-top: 3rem !important;
+  /* margin-top: 3rem !important; */
 }
 .delete-availability {
   width: 600px !important;

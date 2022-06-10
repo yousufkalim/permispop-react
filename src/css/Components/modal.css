@@ -9,7 +9,7 @@
   top: 50% !important ;
   left: 50% !important;
   width: 30% !important;
-  padding: 2rem !important;
+  padding: 10px !important;
   transform: translate(-50%, -50%) !important;
   background-color: rgb(255, 255, 255) !important;
   border-radius: 40px !important;
@@ -21,12 +21,13 @@
 }
 .Main-title {
   font-weight: 600 !important;
-  font-size: 30px !important;
+  font-size: 20px !important;
+  margin-left: 2% !important;
 }
 .close {
   display: flex !important;
   margin-left: auto !important;
-  margin-right: 1rem !important;
+  /* margin-right: 1rem !important; */
   border: none !important;
   background-color: white !important;
   cursor: pointer !important;

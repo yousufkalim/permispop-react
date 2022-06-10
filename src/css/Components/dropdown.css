@@ -7,7 +7,7 @@
     font-family: Inter !important;
     font-style: normal !important;
     font-weight: 400 !important;
-    font-size: 24px !important;
+    font-size: 20px !important;
     line-height: 200.02%;
     color: #363557 !important;
   }
@@ -30,7 +30,9 @@
   .css-1cccqvr:focus{
     background-color: #fff !important;
   }
-
+.modalClass{
+  font-size: 14px !important;
+}
   .Scrollbar{
   
     overflow-x: auto;
