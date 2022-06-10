@@ -513,7 +513,7 @@ const Index = () => {
               </div>
               <div>
                 <p className="icons_text1">{profileData.Rating != "NaN" ? profileData.Rating : "N/A"}</p>
-                <p className="icons_text2">{"Ratings"}</p>
+                <p className="icons_text2">{t("Ratings")}</p>
               </div>
             </div>
           </div>
