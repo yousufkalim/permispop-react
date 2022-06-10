@@ -15,11 +15,8 @@ export default function BasicModal(props) {
         {...props.modalProps}
       >
         <>
-          <Box
-            className={[props.modalboxclassName, "box"].join(" ")}
-            {...props.modalboxProps}
-          >
-            <div style={{ display: "flex", marginBottom: 15 }}>
+          <Box className={[props.modalboxclassName, "box"].join(" ")} {...props.modalboxProps}>
+            <div style={{ display: "flex", marginBottom: 15, alignItems: "baseline" }}>
               {/* added a main title typography */}
               {props.modalMainTitle ? (
                 <Typography
@@ -39,7 +36,7 @@ export default function BasicModal(props) {
                   onClick={props.onClose}
                   {...props.closebtnProps}
                 >
-                  <Modalclosebtn style={{ width: "22px" }} />
+                  <Modalclosebtn style={{ width: "15px" }} />
                 </IconButton>
               ) : null}
             </div>
