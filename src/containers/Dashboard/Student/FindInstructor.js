@@ -25,13 +25,27 @@ import Loader from "../../../components/Common/FullScreenLoader";
 import { ReactComponent as Chatsvg } from "../../../assets/images/ChatIcon.svg";
 import { ReactComponent as Filter } from "../../../assets/images/filters.svg";
 import Tooltip from "@mui/material/Tooltip";
+import frLocale from "date-fns/locale/fr";
+import enLocale from "date-fns/locale/en-US";
 
 import { async } from "validate.js";
 import { IconButton } from "@mui/material";
+const localeMap = {
+  en: enLocale,
+  fr: frLocale,
+};
 
+const maskMap = {
+  fr: "__/__/____",
+  en: "__/__/____",
+};
 // component
 const Index = () => {
   const { i18n, t } = useTranslation();
+  const [lng, setLng] = React.useState();
+  React.useEffect(() => {
+    setLng(localStorage.getItem("i18nextLng"));
+  }, [localStorage.getItem("i18nextLng")]);
   const user = JSON.parse(localStorage.getItem("user"));
 
   const history = useHistory();
@@ -261,8 +275,9 @@ const Index = () => {
         <div style={{ marginLeft: "" }}>
           <FormControl className="MobileView">
             <label style={{ fontWeight: 500, marginBottom: -5 }}>{t("Start date")}</label>
-            <LocalizationProvider dateAdapter={AdapterDateFns}>
+            <LocalizationProvider dateAdapter={AdapterDateFns} locale={localeMap[lng]}>
               <DatePicker
+                mask={maskMap[lng]}
                 value={filters.startDate ? moment(filters.startDate).format("YYYY-MM-DD") : ""}
                 onChange={(newValue) => handleFilterChange("startDate", newValue)}
                 renderInput={(params) => (
@@ -281,8 +296,9 @@ const Index = () => {
         <div className="filter-container">
           <FormControl className="MobileView">
             <label style={{ fontWeight: 500, marginBottom: -5 }}>{t("End date")}</label>
-            <LocalizationProvider dateAdapter={AdapterDateFns}>
+            <LocalizationProvider dateAdapter={AdapterDateFns} locale={localeMap[lng]}>
               <DatePicker
+                mask={maskMap[lng]}
                 value={filters.endDate ? moment(filters.endDate).format("YYYY-MM-DD") : ""}
                 onChange={(newValue) => handleFilterChange("endDate", newValue)}
                 renderInput={(params) => (
