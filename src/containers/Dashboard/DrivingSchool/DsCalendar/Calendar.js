@@ -307,7 +307,8 @@ const Calendar = () => {
         drivingSchoolId: user.id,
       })
         .then((res) => {
-          toast.success(t(`Availabilty Added for date ${moment(selectedDate).format("YYYY-DD-MM")}`));
+          toast.success(t("Availabilty Added for date") + " " + `${moment(selectedDate).format("YYYY-DD-MM")}`);
+
           setUpdate(!update);
           setOpen(false);
           setLoading(false);
@@ -376,7 +377,8 @@ const Calendar = () => {
         drivingSchoolId: user.Id,
       }).then((res) => {
         console.log("Unavbl", res);
-        toast.success(t(`Unavailabilty Added for date ${moment(selectedDate).format("YYYY-DD-MM")}`));
+        toast.success(t("Unavailabilty Added for date") + " " + `${moment(selectedDate).format("YYYY-DD-MM")}`);
+
         setUpdate(!update);
         setDescription("");
         setOpen(false);
@@ -440,7 +442,8 @@ const Calendar = () => {
         status: "Personal",
         drivingSchoolId: user.id,
       }).then((res) => {
-        toast.success(`Personal Event Added for date ${moment(selectedDate).format("YYYY-DD-MM")}`);
+        toast.success(t("Personal Event Added for date") + " " + `${moment(selectedDate).format("YYYY-DD-MM")}`);
+
         setUpdate(!update);
         setDescription("");
         setOpen(false);

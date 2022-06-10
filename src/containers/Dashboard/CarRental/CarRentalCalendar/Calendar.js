@@ -277,7 +277,8 @@ const Calendar = () => {
         status: "Available",
       })
         .then((res) => {
-          toast.success(t(`Availabilty Added for date ${moment(selectedDate).format("YYYY-DD-MM")}`));
+          toast.success(t("Availabilty Added for date") + " " + `${moment(selectedDate).format("YYYY-DD-MM")}`);
+
           setUpdate(!update);
           setOpen(false);
           setLoading(false);
@@ -335,7 +336,7 @@ const Calendar = () => {
         startTime: selectedStartHours + ":" + selectedStartMins,
         status: "Unavailable",
       }).then((res) => {
-        toast.success(t(`Unavailabilty Added for date ${moment(selectedDate).format("YYYY-DD-MM")}`));
+        toast.success(t("Unavailabilty Added for date") + " " + `${moment(selectedDate).format("YYYY-DD-MM")}`);
         setUpdate(!update);
         setDescription("");
         setOpen(false);
@@ -388,7 +389,7 @@ const Calendar = () => {
         startTime: selectedStartHours + ":" + selectedStartMins,
         status: "Personal",
       }).then((res) => {
-        toast.success(`Personal Event Added for date ${moment(selectedDate).format("YYYY-DD-MM")}`);
+        toast.success(t("Personal Event Added for date ") + " " + `${moment(selectedDate).format("YYYY-DD-MM")}`);
         setUpdate(!update);
         setDescription("");
         setOpen(false);
