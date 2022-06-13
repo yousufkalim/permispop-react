@@ -374,12 +374,12 @@ const Index = () => {
         <Box sx={style1}>
           <FormControl>
             <FormLabel id="demo-radio-buttons-group-label" sx={{ fontWeight: "550" }}>
-              {t("Give disputes")}
+              {t("Create disputes")}
             </FormLabel>
-            <RadioGroup>
+            <RadioGroup sx={{ width: "100% !important" }}>
               <FormControlLabel
                 value="Latedelivery"
-                control={<Radio />}
+                control={<Radio sx={{ marginRight: "0px !important" }} />}
                 label={t("Late delivery")}
                 onChange={(e) => SetUpdateField(e.target.value)}
               />
@@ -392,7 +392,7 @@ const Index = () => {
               <FormControlLabel
                 value="Harrasment"
                 control={<Radio />}
-                label={t("Harrasment")}
+                label={t("Harassment")}
                 onChange={(e) => SetUpdateField(e.target.value)}
               />
               <FormControlLabel

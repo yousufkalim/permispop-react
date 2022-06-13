@@ -195,17 +195,20 @@ function Mylearning() {
                   return (
                     <div className="comment-box">
                       <div className="comment-box-inner">
-                        {" "}
                         {items?.comments === "" || items?.comments === null || objomment?.length === 0 ? (
                           <h5 style={{ color: "red" }}>{t("Comment is Empty")}</h5>
                         ) : (
                           <p>
-                            <h4>{items?.instructorName}</h4> <br></br> {items?.comments}{" "}
+                            <h4>{items?.instructorName}</h4>
+                            {items?.comments}
                           </p>
                         )}
                       </div>
-                      <div className="triangle-comment"></div>
-                      <p className="comment-date">{moment(items?.timeStamp).format("DD/MM/YYYY HH:mm")}</p>
+                      {/* <div className="triangle-comment"></div> */}
+                      <p className="comment-date" style={{ marginBottom: "" }}>
+                        {moment(items?.timeStamp).format("DD/MM/YYYY HH:mm")}
+                      </p>
+                      <Divider width="100%" margin="10px !important" />
                     </div>
                   );
                 })}

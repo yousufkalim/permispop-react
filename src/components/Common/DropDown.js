@@ -91,6 +91,7 @@ export default function DropDown(props) {
           labelId="demo-simple-select-standard-label"
           id="demo-simple-select-standard"
           onChange={props.onChange}
+          className={props.className}
           value={props.value}
           defaultValue={0}
           MenuProps={{ PaperProps: { sx: { maxHeight: 200 } } }}
@@ -101,10 +102,7 @@ export default function DropDown(props) {
             props.MenuItem.length > 0 ? (
               props.MenuItem.map((item) => {
                 return (
-                  <MenuItem
-                    value={item.value}
-                    sx={{ maxHeight: "50% !important" }}
-                  >
+                  <MenuItem value={item.value} sx={{ maxHeight: "50% !important" }}>
                     {item.name}
                   </MenuItem>
                 );

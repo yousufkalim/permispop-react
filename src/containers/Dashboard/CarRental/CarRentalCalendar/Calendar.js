@@ -489,7 +489,7 @@ const Calendar = () => {
           </TabList>
           {/* page 1 */}
           <div className="modal-content">
-            <TabPanel value="Availability-page">
+            <TabPanel value="Availability-page" sx={{ padding: "20px 20px 0px 20px !important" }}>
               <form>
                 <Grid container spacing={3}>
                   <Grid
@@ -699,7 +699,7 @@ const Calendar = () => {
                 </Grid>
                 {/* page 2 */}
                 <Grid align="right">
-                  <Button
+                  {/* <Button
                     text={t("Cancel")}
                     onClick={handleClose}
                     variant="outlined"
@@ -709,7 +709,7 @@ const Calendar = () => {
                     textColor="#363557"
                     margin=" 10px 10px 0 0"
                     color="white"
-                  />
+                  /> */}
 
                   <LoadingButton
                     loading={loading}
@@ -1225,7 +1225,13 @@ const Calendar = () => {
                 padding: "10px",
               }}
             >
-              <TextField label={t("User Info")} height="10px" value={selectedBooking.title} disabled={true} />
+              <TextField
+                className="textFieldFont"
+                label={t("User Info")}
+                height="10px"
+                value={selectedBooking.title}
+                disabled={true}
+              />
             </Grid>
             <Grid
               xs={12}
@@ -1235,7 +1241,12 @@ const Calendar = () => {
                 padding: "10px",
               }}
             >
-              <TextField label={t("Booking Date")} disabled={true} value={moment(selectedBooking.start).format("DD-MM-YYYY")} />
+              <TextField
+                className="textFieldFont"
+                label={t("Booking Date")}
+                disabled={true}
+                value={moment(selectedBooking.start).format("DD-MM-YYYY")}
+              />
             </Grid>
             <Grid
               xs={12}
@@ -1245,7 +1256,12 @@ const Calendar = () => {
                 padding: "10px",
               }}
             >
-              <TextField label={t("Booking Time")} disabled={true} value={selectedBooking.bookingTime} />
+              <TextField
+                className="textFieldFont"
+                label={t("Booking Time")}
+                disabled={true}
+                value={selectedBooking.bookingTime}
+              />
             </Grid>
             <Grid
               xs={12}
@@ -1255,7 +1271,7 @@ const Calendar = () => {
                 padding: "10px",
               }}
             >
-              <TextField label={t("Duration")} disabled={true} value={selectedBooking.duration} />
+              <TextField className="textFieldFont" label={t("Duration")} disabled={true} value={selectedBooking.duration} />
             </Grid>
             <Grid
               xs={12}
@@ -1265,7 +1281,7 @@ const Calendar = () => {
                 padding: "10px",
               }}
             >
-              <TextField label={t("Vechicle")} disabled={true} value={selectedBooking.vehicleId} />
+              <TextField className="textFieldFont" label={t("Vechicle")} disabled={true} value={selectedBooking.vehicleId} />
             </Grid>
             <Grid
               xs={12}
@@ -1275,7 +1291,7 @@ const Calendar = () => {
                 padding: "10px",
               }}
             >
-              <TextField label={t("Meetup")} disabled={true} value={selectedBooking.meetingPlace} />
+              <TextField className="textFieldFont" label={t("Meetup")} disabled={true} value={selectedBooking.meetingPlace} />
             </Grid>
           </Grid>
           <div className="booking-btn-div">

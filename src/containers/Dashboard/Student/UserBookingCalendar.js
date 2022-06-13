@@ -356,7 +356,13 @@ const Calendar = () => {
                 padding: "10px",
               }}
             >
-              <TextField label="User Info" height="10px" value={selectedBooking.title} disabled={true} />
+              <TextField
+                className="textFieldFont"
+                label="User Info"
+                height="10px"
+                value={selectedBooking.title}
+                disabled={true}
+              />
             </Grid>
             <Grid
               xs={12}
@@ -366,7 +372,12 @@ const Calendar = () => {
                 padding: "10px",
               }}
             >
-              <TextField label="Booking Date" disabled={true} value={moment(selectedBooking.start).format("DD-MM-YYYY")} />
+              <TextField
+                className="textFieldFont"
+                label="Booking Date"
+                disabled={true}
+                value={moment(selectedBooking.start).format("DD-MM-YYYY")}
+              />
             </Grid>
             <Grid
               xs={12}
@@ -378,6 +389,7 @@ const Calendar = () => {
             >
               <TextField
                 label="Booking Time"
+                className="textFieldFont"
                 disabled={true}
                 value={
                   selectedInstructor && selectedInstructor.role === "DrivingSchool"
@@ -396,6 +408,7 @@ const Calendar = () => {
             >
               <TextField
                 label="Duration"
+                className="textFieldFont"
                 disabled={true}
                 value={
                   selectedInstructor && selectedInstructor.role === "DrivingSchool"
@@ -414,6 +427,7 @@ const Calendar = () => {
             >
               <TextField
                 label="Vechicle"
+                className="textFieldFont"
                 disabled={true}
                 value={
                   selectedInstructor && selectedInstructor.role === "DrivingSchool"
@@ -432,6 +446,7 @@ const Calendar = () => {
             >
               <TextField
                 label="Meetup"
+                className="textFieldFont"
                 disabled={true}
                 value={
                   selectedInstructor && selectedInstructor.role === "DrivingSchool"
@@ -458,10 +473,10 @@ const Calendar = () => {
                 sx={{
                   color: "#FFFFFF",
                   background: "#149E7A",
-                  width: "120px",
                   height: "55px",
                   marginTop: "10px",
                   borderRadius: "10px",
+                  textTransform: "capitalize",
                 }}
                 className="LoadingButton"
               >
@@ -493,6 +508,7 @@ const Calendar = () => {
               }}
             >
               <DropDown
+                className="modalClass"
                 label="Select Hours"
                 placeholder="Select Hours"
                 name="Select Hours"
@@ -531,8 +547,10 @@ const Calendar = () => {
             >
               <TextField
                 label="Booking Date"
+                className="textFieldFont"
                 value={selectedAvailability && moment(selectedAvailability.start).format("YYYY-MM-DD")}
                 disabled={true}
+                sx={{ fontSize: "14px" }}
               />
             </Grid>
             <Grid
@@ -565,7 +583,12 @@ const Calendar = () => {
                 padding: "10px",
               }}
             >
-              <TextField label="Vechicle" value={selectedAvailability && selectedAvailability.vehicle} disabled={true} />
+              <TextField
+                className="textFieldFont"
+                label="Vechicle"
+                value={selectedAvailability && selectedAvailability.vehicle}
+                disabled={true}
+              />
             </Grid>
             <Grid
               xs={12}
@@ -575,7 +598,12 @@ const Calendar = () => {
                 padding: "10px",
               }}
             >
-              <TextField label="Meetup" value={selectedAvailability && selectedAvailability.meetUp} disabled={true} />
+              <TextField
+                className="textFieldFont"
+                label="Meetup"
+                value={selectedAvailability && selectedAvailability.meetUp}
+                disabled={true}
+              />
             </Grid>
           </Grid>
           <div className="booking-btn-div">
@@ -587,10 +615,12 @@ const Calendar = () => {
                 sx={{
                   color: "#FFFFFF",
                   background: "#149E7A",
-                  width: "120px",
+                  // width: "120px",
                   height: "55px",
                   marginTop: "10px",
                   borderRadius: "10px",
+                  fontSize: "12px",
+                  textTransform: "capitalize",
                 }}
                 className="LoadingButton"
               >
