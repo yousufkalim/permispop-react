@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { MapContainer, TileLayer, Marker, Popup } from "react-leaflet";
 import MarkerClusterGroup from "react-leaflet-markercluster";
-import Button1 from "@mui/material/Button";
 import Button from "../../../../components/Common/Button";
 import L from "leaflet";
 import { useHistory } from "react-router-dom";
@@ -12,8 +11,11 @@ import API from "../../../../api/index";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import Select from "@mui/material/Select";
 import MenuItem from "@mui/material/MenuItem";
-import { Grid } from "@mui/material";
+import { Grid, IconButton } from "@mui/material";
 import { useTranslation } from "react-i18next";
+import { ReactComponent as Chat } from "../../../../assets/WebViewIcons/Chat.svg";
+import { ReactComponent as Booking } from "../../../../assets/WebViewIcons/Reservation.svg";
+import { ReactComponent as Filter } from "../../../../assets/WebViewIcons/Filter.svg";
 
 const MapNative = (props) => {
   const { i18n, t } = useTranslation();
@@ -42,23 +44,15 @@ const MapNative = (props) => {
       .then((GetNearbyProfilesForMapResponse) => {
         let Profile = GetNearbyProfilesForMapResponse.data.map((item) => {
           if (item.role === "CarRentalAgent" || item.role === "Instructor") {
-            return API(
-              "get",
-              `Bookings/GetBookingsByInstructor?id=${item.id}`
-            ).then((GetBookingsByInstructor) => {
+            return API("get", `Bookings/GetBookingsByInstructor?id=${item.id}`).then((GetBookingsByInstructor) => {
               let newProfile = item;
-              newProfile["BookingLength"] =
-                GetBookingsByInstructor.data.data.length;
+              newProfile["BookingLength"] = GetBookingsByInstructor.data.data.length;
               return newProfile;
             });
           } else if (item.role === "DrivingSchool") {
-            return API(
-              "get",
-              `Bookings/GetBookingsByDrivingSchool?id=${item.id}`
-            ).then((GetBookingsByDrivingSchool) => {
+            return API("get", `Bookings/GetBookingsByDrivingSchool?id=${item.id}`).then((GetBookingsByDrivingSchool) => {
               let newProfile = item;
-              newProfile["BookingLength"] =
-                GetBookingsByDrivingSchool.data.data.length;
+              newProfile["BookingLength"] = GetBookingsByDrivingSchool.data.data.length;
               return newProfile;
             });
           }
@@ -66,14 +60,12 @@ const MapNative = (props) => {
 
         Promise.all(Profile).then(async (e) => {
           let newnewProfile = e.map((pro) => {
-            return API("get", `FeedBacks/GetAverageRating?id=${pro.id}`).then(
-              (GetAverageRatingResponse) => {
-                let newProfile = pro;
+            return API("get", `FeedBacks/GetAverageRating?id=${pro.id}`).then((GetAverageRatingResponse) => {
+              let newProfile = pro;
 
-                newProfile["Rating"] = GetAverageRatingResponse.data.data;
-                return newProfile;
-              }
-            );
+              newProfile["Rating"] = GetAverageRatingResponse.data.data;
+              return newProfile;
+            });
           });
           Promise.all(newnewProfile).then((n) => {
             setData(n);
@@ -85,17 +77,12 @@ const MapNative = (props) => {
       });
   };
   const handleChange = (name, value) => {
-    name === "Gearbox"
-      ? setIsGearBox(false)
-      : name === "Gearbox"
-      ? setIsGender(false)
-      : setIsRole(false);
+    name === "Gearbox" ? setIsGearBox(false) : name === "Gearbox" ? setIsGender(false) : setIsRole(false);
     setInstructorType({ ...instructorType, [name]: value });
   };
 
   const url = "https://www.nbrc.com.au/images/avatar-placeholder.png";
-  const profileImg =
-    studentData.photo !== null || undefined ? studentData.photo : url;
+  const profileImg = studentData.photo !== null || undefined ? studentData.photo : url;
 
   var greyIcon = new L.Icon({
     iconUrl: profileImg,
@@ -159,16 +146,10 @@ const MapNative = (props) => {
         </Grid>
         <Grid xs={5} sm={5} style={{ margin: "3px" }}>
           <div className="btn_filter">
-            <Button1
-              className="filter_btn"
-              onClick={() => {
-                ProfilesOnMap();
-              }}
-              variant="contained"
-              fullWidth
-            >
+            <Filter onClick={ProfilesOnMap} />
+            {/* <button className="filter_btn_1" >
               {t("Apply")}
-            </Button1>
+            </button> */}
           </div>
         </Grid>
       </Grid>
@@ -251,10 +232,10 @@ const MapNative = (props) => {
                           <img
                             src={item?.photo ? item?.photo : item.photo === "null" || "undefined" ? Image : item.photo}
                             alt=""
-                            className="profile_img"
+                            className="profile_img_1"
                           />
                         </div>
-                        <p className="bold_text">
+                        <p className="bold_text_1">
                           {item.firstName} {item.surName}
                         </p>
                         <p className="role_text"> {item.role}</p>
@@ -283,15 +264,18 @@ const MapNative = (props) => {
                           </div>
                         </div>
                         <div className="popup_button_div">
-                          <Button
+                          <Booking
+                            onClick={() => (window.location = `/isBooking/userId=${item.id}`)}
+                            style={{ width: "3.5rem" }}
+                          />
+                          {/* <Button
                             text="Book Now"
                             borderRadius="5px"
                             width="50% !important"
                             textColor="#f4f4f4 !important"
                             className="popup_btn"
-                            onClick={() => (window.location = `/isBooking/userId=${item.id}`)}
-                          />
-                          <Button
+                          /> */}
+                          {/* <Button
                             text="Chat"
                             borderRadius="5px"
                             width="50% !important"
@@ -299,7 +283,10 @@ const MapNative = (props) => {
                             textColor="#f4f4f4 !important"
                             color="#149e7a  !important"
                             className="popup_btn"
+                          /> */}
+                          <Chat
                             onClick={() => (window.location = `/isChat/userId=${item.id}`)}
+                            style={{ marginLeft: 50, width: "3.5rem" }}
                           />
                         </div>
                       </div>
