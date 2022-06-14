@@ -7,6 +7,10 @@
 .leaflet-popup-content p {
   margin: 0 !important;
 }
+.leaflet-popup-content-wrapper , .leaflet-popup-tip{
+  height: 26.5rem !important;
+  width: 20rem !important;
+}
 .markercluster-map {
   /* margin: 5px !important; */
   /* width: 100% !important; */
@@ -55,6 +59,13 @@
   font-size: 1.5rem;
   font-weight: 600;
 }
+.bold_text_1 {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  font-weight: 600;
+}
 .role_text{
   display: flex;
   align-items: center;
@@ -77,14 +88,32 @@
   padding: 5px;
   border: 4px solid #149e7a;
 }
+.profile_img_1 {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  overflow: hidden;
+  border-radius: 50%; 
+  padding: 5px;
+  border: 4px solid #149e7a;
+}
 .filter_btn{
   background-color: #149e7a !important;
   color: white !important;
   height: 3.8rem !important;
   margin-top: 1.7rem !important;
 }
+.filter_btn_1{
+  background-color: #149e7a !important;
+  color: white !important;
+  height: 3.8rem !important;
+  font-size: 18px;
+  width: 100%;
+  border: none;
+  border-radius: 10px;
+}
 .btn_filter{
-  width: 30%;
+  width: 90%;
 }
 
 .icons {
