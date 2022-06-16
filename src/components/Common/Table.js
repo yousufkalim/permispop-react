@@ -426,17 +426,20 @@ export default function DataTable(props) {
           </Table>
         </TableContainer>
       </Paper>
-      {/* <Pagination
-        count={10}
+      <Pagination
+        count={props.totalPages}
         color="secondary"
         shape="rounded"
+        page={props.currentPage}
+        defaultPage={props.currentPage}
+        onChange={(e, value) => props.setCurrentPage(value)}
         sx={{
           marginTop: "20px",
           display: "flex",
           justifyContent: "center",
           alignContent: "center",
         }}
-      /> */}
+      />
     </div>
   );
 }
