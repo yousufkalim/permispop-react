@@ -50,7 +50,7 @@ const Index = () => {
     top: "55%",
     left: "50%",
     width: "30%",
-    height: "70 !important%",
+    height: "70% !important",
     overflow: "scroll",
     transform: "translate(-50%, -50%)",
     bgcolor: "background.paper",
@@ -91,6 +91,8 @@ const Index = () => {
   const [isSelectedBook, setIsSelectedBook] = useState("");
   const [openRatingModal, setOpenRatingModal] = useState(false);
   const [stop, setStop] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState();
 
   const history = useHistory();
   const handleStartdate = (newValue) => {
@@ -104,18 +106,24 @@ const Index = () => {
 
   useEffect(() => {
     const userData = JSON.parse(localStorage.getItem("user"));
-    getPendingRequestData(userData);
     setUser(userData);
   }, []);
   useEffect(() => {
     if (allBookingsWithUser.length > 0) handleProfileUpdated();
   }, [stop]);
+
+  useEffect(() => {
+    if (userData && currentPage) getPendingRequestData(userData);
+  }, [currentPage, userData]);
+
   const getPendingRequestData = async (userData) => {
     let allBookings = [];
     await API(
       "get",
-      `Bookings/GetBookingsByIdForAllUsers_New?id=${userData.id}&role=${userData.role}&sortvalue=FirstName&sortorder=ascend&QuerySearch.firstName=&pageSize=100&pageNumber=1&startDate=&endDate=`
+      `Bookings/GetBookingsByIdForAllUsers_New?id=${userData.id}&role=${userData.role}&sortvalue=FirstName&sortorder=ascend&QuerySearch.firstName=&pageSize=10&pageNumber=${currentPage}&startDate=&endDate=`
     ).then(async (GetBookingres) => {
+      setPendingRequestsrows([]);
+      setTotalPages(GetBookingres.data.totalPages);
       let studentRes = GetBookingres.data.data.map((booking) => {
         if (userData.id === booking.instructionId) {
           return API("get", `Personal/GetAllById/?id=${booking.studentId}`);
@@ -362,6 +370,9 @@ const Index = () => {
           setIsSelected={setIsSelected}
           isSelectedBook={isSelectedBook}
           setIsSelectedBook={setIsSelectedBook}
+          totalPages={totalPages}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
         />
       )}
 
