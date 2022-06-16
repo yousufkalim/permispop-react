@@ -7,7 +7,7 @@ import { makeStyles } from "@mui/styles";
 import { useTranslation } from "react-i18next";
 
 export default function UseFormControl(props) {
-  const { i18n , t } = useTranslation();
+  const { i18n, t } = useTranslation();
 
   // const useStyles = makeStyles((theme) => ({
   //   formControl: {
@@ -63,18 +63,14 @@ export default function UseFormControl(props) {
       variant={props.variant || "standard"}
       {...props.FormControlProps}
     >
-      <InputLabel
-        className="inputLabels"
-        shrink={true}
-        {...props.inputLabelProps}
-      >
-      <>{t(props.label)} </>  
-        
-        
-        {props.required? <div style={{color:'red'}}> *</div>:''}
+      <InputLabel className="inputLabels" shrink={true} {...props.inputLabelProps}>
+        <>{t(props.label)} </>
+
+        {props.required ? <div style={{ color: "red" }}> *</div> : ""}
       </InputLabel>
       <Input
-        className="input"
+        // className="input"
+        className={props.className || "input"}
         name={props.name}
         maxLength={props.maxLength}
         type={props.type}
@@ -85,9 +81,7 @@ export default function UseFormControl(props) {
         {...props.inputProps}
         autoComplete="########TextFields"
       />
-      {props.error && (
-        <FormHelperText {...props.helperProps}>{props.ErrorMsg}</FormHelperText>
-      )}
+      {props.error && <FormHelperText {...props.helperProps}>{props.ErrorMsg}</FormHelperText>}
     </FormControl>
   );
 }

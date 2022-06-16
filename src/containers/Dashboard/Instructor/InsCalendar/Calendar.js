@@ -19,6 +19,16 @@ import Button from "../../../../components/Common/Button";
 import TimePicker from "../../../../components/Common/TimePicker";
 import API from "../../../../api/index";
 import LoadingButton from "@mui/lab/LoadingButton";
+import { ReactComponent as Delete } from "../../../../assets/images/BookingDelete.svg";
+import { ReactComponent as Profile } from "../../../../assets/images/Profile.svg";
+import IconButton from "@mui/material/IconButton";
+import Tooltip from "@mui/material/Tooltip";
+import Ratings from "../../../../components/Common/Rating";
+import Rating from "../../../../assets/images/path2006.svg";
+import LocationOnIcon from "@mui/icons-material/LocationOn";
+import Project from "../../../../assets/images/form.svg";
+import { ReactComponent as Comment } from "../../../../assets/images/ChatIcon.svg";
+import { useHistory } from "react-router-dom";
 
 import { useTranslation } from "react-i18next";
 
@@ -26,8 +36,12 @@ const Calendar = () => {
   const currentDate = moment();
   const [open, setOpen] = useState(false);
   const [update, setUpdate] = useState(false);
-  const [user, setUser] = useState();
+  const [user, setUser] = useState(JSON.parse(localStorage.getItem("user")));
   const [eventDeleteModal, setEventDeleteModal] = useState(false);
+  const [allBookingsWithUser, setAllBookingsWithUser] = useState([]);
+  const [selectedBooking, setSelectedBooking] = useState([]);
+  const [selectedUserData, setSelectedUserData] = useState([]);
+
   const [bookingModal, setBookingModal] = useState(false);
   const [availabilities, setAvailabilities] = useState([]);
   const [events, setEvents] = useState([]);
@@ -44,14 +58,16 @@ const Calendar = () => {
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
   const [selectedEvent, setSelectedEvent] = useState({});
-  const [selectedBooking, setSelectedBooking] = useState({});
   const [disabled, setdisabled] = useState(false);
   const [value, setValue] = useState("Availability-page");
   const { i18n, t } = useTranslation();
   const [loading, setLoading] = React.useState(false);
+  const [profileModal, setProfileModal] = useState(false);
+  const [profilesData, setProfileData] = useState({});
+  const [stop, setStop] = useState(false);
 
   const [lng, setLng] = useState();
-
+  const history = useHistory();
   useEffect(() => {
     onNavigate(new Date(), "week");
     setLng(localStorage.getItem("i18nextLng"));
@@ -62,8 +78,16 @@ const Calendar = () => {
     setUser(userData);
     getAvailabilities(userData);
   }, [update]);
+  useEffect(() => {
+    if (allBookingsWithUser.length > 0) handleProfileUpdated();
+  }, [stop]);
+  const handleProfileModalClose = () => {
+    setProfileModal(false);
+  };
 
   const getAvailabilities = async (userData) => {
+    let allBookings = [];
+
     API(
       "get",
       `Availability/GetAvailabilityPlusBookingsSetForInstructor_New?id=${userData.id}&start=${startDate}&end=${endDate}`
@@ -84,8 +108,9 @@ const Calendar = () => {
           });
 
           booking["studentData"] = userdata.data.data;
+          allBookings.push(booking);
         });
-        console.log("booking--->>>", res);
+        setAllBookingsWithUser(allBookings);
         let meetups = [];
         let allVehicles = [];
         let allAvailabilities = [];
@@ -175,7 +200,6 @@ const Calendar = () => {
       });
     });
   };
-
   const handleOpen = (e) => {
     setSelectedStartHours(moment(e.start).format("HH"));
     setSelectedEndHours(moment(e.end).format("HH"));
@@ -194,9 +218,10 @@ const Calendar = () => {
   const handleClose = (e) => {
     setOpen(false);
   };
-
   //handle Event click
   const handleEventClick = (e) => {
+    setStop(!stop);
+
     if (e.status === "booking" || e.status === "Booking") {
       setSelectedBooking(e);
       setBookingModal(true);
@@ -240,17 +265,17 @@ const Calendar = () => {
     var minutes = duration.asMinutes();
 
     if (selectedVehicle === "") {
-      toast.warning("Must select a vehicle to book!");
+      toast.warning(t("Must select a vehicle to book!"));
     } else if (selectedMeetup === "") {
-      toast.warning("Must select a meetup point!");
+      toast.warning(t("Must select a meetup point!"));
     } else if (moment(startDate).isSame(endDate)) {
-      toast.warning("Start and End date cannot be same!");
+      toast.warning(t("Start and End date cannot be same!"));
     } else if (moment(startDate).isAfter(endDate)) {
-      toast.warning("Start date cannot be after End date!");
+      toast.warning(t("Start date cannot be after End date!"));
     } else if (moment(startDate).isAfter(endDate)) {
-      toast.warning("Start date cannot be after End date!");
+      toast.warning(t("Start date cannot be after End date!"));
     } else if (minutes === 30) {
-      toast.warning("Cannot create a availability for 30 minutes!");
+      toast.warning(t("Cannot create a availability for 30 minutes!"));
     } else {
       let vehicleData = vehicles.find((vehicle) => {
         return selectedVehicle === vehicle.value;
@@ -278,13 +303,13 @@ const Calendar = () => {
         status: "Available",
       })
         .then((res) => {
-          toast.success(`Availabilty Added for date ${moment(selectedDate).format("YYYY-DD-MM")}`);
+          toast.success(t("Availabilty Added for date") + " " + `${moment(selectedDate).format("YYYY-DD-MM")}`);
           setUpdate(!update);
           setOpen(false);
           setLoading(false);
         })
         .catch((err) => {
-          toast.warning(`Availabilty already exists for this time slot!`);
+          toast.warning(t(`Availabilty already exists for this time slot!`));
           console.log("err", err);
           setLoading(false);
         });
@@ -309,15 +334,15 @@ const Calendar = () => {
     var minutes = duration.asMinutes();
 
     if (description === "") {
-      toast.warning("Please enter a description!");
+      toast.warning(t("Please enter a description!"));
     } else if (moment(startDate).isSame(endDate)) {
-      toast.warning("Start and End date cannot be same!");
+      toast.warning(t("Start and End date cannot be same!"));
     } else if (moment(startDate).isAfter(endDate)) {
-      toast.warning("Start date cannot be after End date!");
+      toast.warning(t("Start date cannot be after End date!"));
     } else if (moment(startDate).isAfter(endDate)) {
-      toast.warning("Start date cannot be after End date!");
+      toast.warning(t("Start date cannot be after End date!"));
     } else if (minutes === 30) {
-      toast.warning("Cannot create a availability for 30 minutes!");
+      toast.warning(t("Cannot create a availability for 30 minutes!"));
     } else {
       setLoading(true);
 
@@ -337,8 +362,7 @@ const Calendar = () => {
         startTime: selectedStartHours + ":" + selectedStartMins,
         status: "Unavailable",
       }).then((res) => {
-        console.log("unavailabilty", res);
-        toast.success(`Unavailabilty Added for date ${moment(selectedDate).format("YYYY-DD-MM")}`);
+        toast.success(t("Unavailabilty Added for date") + " " + `${moment(selectedDate).format("YYYY-DD-MM")}`);
         setUpdate(!update);
         setDescription("");
         setOpen(false);
@@ -365,15 +389,15 @@ const Calendar = () => {
     var minutes = duration.asMinutes();
 
     if (description === "") {
-      toast.warning("Please enter a description!");
+      toast.warning(t("Please enter a description!"));
     } else if (moment(startDate).isSame(endDate)) {
-      toast.warning("Start and End date cannot be same!");
+      toast.warning(t("Start and End date cannot be same!"));
     } else if (moment(startDate).isAfter(endDate)) {
-      toast.warning("Start date cannot be after End date!");
+      toast.warning(t("Start date cannot be after End date!"));
     } else if (moment(startDate).isAfter(endDate)) {
-      toast.warning("Start date cannot be after End date!");
+      toast.warning(t("Start date cannot be after End date!"));
     } else if (minutes === 30) {
-      toast.warning("Cannot create a availability for 30 minutes!");
+      toast.warning(t("Cannot create a availability for 30 minutes!"));
     } else {
       setLoading(true);
       await API("post", "Availability", {
@@ -392,7 +416,8 @@ const Calendar = () => {
         startTime: selectedStartHours + ":" + selectedStartMins,
         status: "Personal",
       }).then((res) => {
-        toast.success(`Personal Event Added for date ${moment(selectedDate).format("YYYY-DD-MM")}`);
+        toast.success(t("Personal Event Added for date") + " " + `${moment(selectedDate).format("YYYY-DD-MM")}`);
+
         setUpdate(!update);
         setDescription("");
         setOpen(false);
@@ -453,9 +478,57 @@ const Calendar = () => {
         setdisabled(false);
       });
   };
+  const handleProfile = (e, id) => {
+    let selectedBookings = allBookingsWithUser.find((booking) => {
+      if (selectedBooking.id === booking.id) {
+        return booking;
+      }
+    });
+    setSelectedUserData(selectedBookings.studentData);
+    setSelectedBooking(selectedBookings);
+    setProfileModal(true);
+  };
+  const handleProfileUpdated = async () => {
+    let insdata = allBookingsWithUser.filter((item) => item?.studentData?.profileInfo?.status !== "Deleted");
+    let Profile = insdata?.map((item) => {
+      if (item.studentData.role === "Student") {
+        return API("get", `Bookings/GetBookingsByInstructor?id=${item.studentData.id}`).then((GetBookingsByInstructor) => {
+          let newProfile = item;
+          newProfile.studentData["BookingLength"] = GetBookingsByInstructor.data.data.length;
+          return newProfile;
+        });
+      }
+    });
+    Promise.all(Profile).then(async (e) => {
+      let newnewProfile = e?.map((pro) => {
+        return API("get", `FeedBacks/GetAverageRating?id=${pro?.studentData?.id}`).then((GetAverageRatingResponse) => {
+          let newProfile = pro;
+          newProfile.studentData["Rating"] = GetAverageRatingResponse?.data?.data;
+          return newProfile;
+        });
+      });
+      Promise.all(newnewProfile).then((n) => {
+        setAllBookingsWithUser(n);
+      });
+    });
+  };
 
+  const handleChatClick = async () => {
+    console.log("userDatauserData", user.id);
+    await API("get", `Chat/getorcreatechatroom?userA=${user.id}&userB=${selectedUserData.id}`)
+      .then((ChatroomResponse) => {
+        console.log("ChatroomResponse", ChatroomResponse);
+        localStorage.setItem("ChatroomId", JSON.stringify(ChatroomResponse.data.data.id));
+        // history.push("/student/chat");
+        history.push(`/Instructor/chat`);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
   return (
     <>
+      {console.log("selectedUserData", selectedUserData.id)}
       <CalendarComponent
         view={{ week: true, day: true }}
         events={events}
@@ -475,7 +548,7 @@ const Calendar = () => {
         closebtn={true}
         onClose={handleClose}
         modalMainTitle={t("Add Event")}
-        modalTitleProps={{ align: "left" }}
+        modalTitleProps={{ align: "left", marginLeft: "2%" }}
         modalboxclassName="availability-modal"
       >
         <Divider width="100% !important" margin="2% 0px 2% 0px" />
@@ -491,7 +564,7 @@ const Calendar = () => {
           </TabList>
           {/* page 1 */}
           <div className="modal-content">
-            <TabPanel value="Availability-page">
+            <TabPanel value="Availability-page" sx={{ padding: "20px 20px 0px 20px !important" }}>
               <form>
                 <Grid container spacing={3}>
                   <Grid
@@ -701,7 +774,7 @@ const Calendar = () => {
                 </Grid>
                 {/* page 2 */}
                 <Grid align="right">
-                  <Button
+                  {/* <Button
                     text={t("Cancel")}
                     onClick={handleClose}
                     variant="outlined"
@@ -711,7 +784,7 @@ const Calendar = () => {
                     textColor="#363557"
                     margin=" 10px 10px 0 0"
                     color="white"
-                  />
+                  /> */}
 
                   <LoadingButton
                     loading={loading}
@@ -724,6 +797,7 @@ const Calendar = () => {
                       height: "55px",
                       marginTop: "10px",
                       borderRadius: "10px",
+                      textTransform: "capitalize",
                     }}
                     className="LoadingButton"
                   >
@@ -733,7 +807,7 @@ const Calendar = () => {
               </form>
             </TabPanel>
             {/* page 3 */}
-            <TabPanel value="Unavailability-page">
+            <TabPanel value="Unavailability-page" sx={{ padding: "20px 20px 0px 20px !important" }}>
               <form>
                 <Grid container spacing={3}>
                   <Grid
@@ -909,6 +983,7 @@ const Calendar = () => {
                   <Grid xs={12} sm={12} md={12}>
                     <TextField
                       label={t("Description")}
+                      className="textFieldFont"
                       placeholder={t("Description")}
                       name="Description"
                       value={description}
@@ -918,7 +993,7 @@ const Calendar = () => {
                 </Grid>
 
                 <Grid align="right" style={{ marginTop: "15px" }}>
-                  <Button
+                  {/* <Button
                     text={t("Cancel")}
                     onClick={handleClose}
                     variant="outlined"
@@ -928,7 +1003,7 @@ const Calendar = () => {
                     textColor="#363557"
                     margin=" 10px 10px 0 0"
                     color="white"
-                  />
+                  /> */}
 
                   <LoadingButton
                     loading={loading}
@@ -941,6 +1016,7 @@ const Calendar = () => {
                       height: "55px",
                       marginTop: "10px",
                       borderRadius: "10px",
+                      textTransform: "capitalize",
                     }}
                     className="LoadingButton"
                   >
@@ -950,7 +1026,7 @@ const Calendar = () => {
               </form>
             </TabPanel>
 
-            <TabPanel value="PersonalEvent-page">
+            <TabPanel value="PersonalEvent-page" sx={{ padding: "20px 20px 0px 20px !important" }}>
               <form>
                 <Grid container spacing={3}>
                   <Grid
@@ -1127,6 +1203,7 @@ const Calendar = () => {
                     <TextField
                       label={t("Description")}
                       placeholder={t("Description")}
+                      className="textFieldFont"
                       name="Description"
                       value={description}
                       onChange={(e) => setDescription(e.target.value)}
@@ -1135,7 +1212,7 @@ const Calendar = () => {
                 </Grid>
 
                 <Grid align="right">
-                  <Button
+                  {/* <Button
                     onClick={handleClose}
                     text={t("Cancel")}
                     variant="outlined"
@@ -1145,7 +1222,7 @@ const Calendar = () => {
                     textColor="#363557"
                     margin=" 10px 10px 0 0"
                     color="white"
-                  />
+                  /> */}
 
                   <LoadingButton
                     loading={loading}
@@ -1158,6 +1235,7 @@ const Calendar = () => {
                       height: "55px",
                       marginTop: "10px",
                       borderRadius: "10px",
+                      textTransform: "capitalize",
                     }}
                     className="LoadingButton"
                   >
@@ -1232,7 +1310,13 @@ const Calendar = () => {
                 padding: "10px",
               }}
             >
-              <TextField label={t("User Info")} height="10px" value={selectedBooking.title} disabled={true} />
+              <TextField
+                className="textFieldFont"
+                label={t("User Info")}
+                height="10px"
+                value={selectedBooking.title}
+                disabled={true}
+              />
             </Grid>
             <Grid
               xs={12}
@@ -1242,7 +1326,12 @@ const Calendar = () => {
                 padding: "10px",
               }}
             >
-              <TextField label={t("Booking Date")} disabled={true} value={moment(selectedBooking.start).format("DD-MM-YYYY")} />
+              <TextField
+                className="textFieldFont"
+                label={t("Booking Date")}
+                disabled={true}
+                value={moment(selectedBooking.start).format("DD-MM-YYYY")}
+              />
             </Grid>
             <Grid
               xs={12}
@@ -1252,7 +1341,12 @@ const Calendar = () => {
                 padding: "10px",
               }}
             >
-              <TextField label={t("Booking Time")} disabled={true} value={selectedBooking.bookingTime} />
+              <TextField
+                className="textFieldFont"
+                label={t("Booking Time")}
+                disabled={true}
+                value={selectedBooking.bookingTime}
+              />
             </Grid>
             <Grid
               xs={12}
@@ -1262,7 +1356,7 @@ const Calendar = () => {
                 padding: "10px",
               }}
             >
-              <TextField label={t("Duration")} disabled={true} value={selectedBooking.duration} />
+              <TextField className="textFieldFont" label={t("Duration")} disabled={true} value={selectedBooking.duration} />
             </Grid>
             <Grid
               xs={12}
@@ -1272,7 +1366,7 @@ const Calendar = () => {
                 padding: "10px",
               }}
             >
-              <TextField label={t("Vechicle")} disabled={true} value={selectedBooking.vehicleId} />
+              <TextField className="textFieldFont" label={t("Vechicle")} disabled={true} value={selectedBooking.vehicleId} />
             </Grid>
             <Grid
               xs={12}
@@ -1282,41 +1376,118 @@ const Calendar = () => {
                 padding: "10px",
               }}
             >
-              <TextField label={t("Meetup")} disabled={true} value={selectedBooking.meetingPlace} />
+              <TextField className="textFieldFont" label={t("Meetup")} disabled={true} value={selectedBooking.meetingPlace} />
             </Grid>
           </Grid>
           <div className="booking-btn-div">
             <Grid align="right">
-              <Button
-                text={t("Close")}
-                onClick={handleBookingClose}
-                disabled={disabled}
-                variant="outlined"
-                borderRadius="7px"
-                borderColor="#363557"
-                width="10%"
-                textColor="#363557"
-                margin=" 10px 10px 0 0"
-                color="white"
-              />
-
-              <LoadingButton
-                loading={loading}
-                loadingPosition="start"
-                onClick={handleBookingDelete}
-                sx={{
-                  color: "#FFFFFF",
-                  background: "#149E7A",
-                  width: "120px",
-                  height: "55px",
-                  marginTop: "10px",
-                  borderRadius: "10px",
-                }}
-                className="LoadingButton"
-              >
-                {t("Delete")}
-              </LoadingButton>
+              <Tooltip title="Chat">
+                <IconButton
+                  onClick={handleChatClick}
+                  className="Profilicon"
+                  sx={{
+                    padding: ".1% 0% 0% .1%",
+                  }}
+                >
+                  <Comment className="profilesvg" style={{ padding: "25%" }} />
+                </IconButton>
+              </Tooltip>
+              <Tooltip title="Profile">
+                <IconButton
+                  // className={props.isSelected == row.id ? "selectedProfile" : "Profilicon"}
+                  onClick={handleProfile}
+                  className="Profilicon"
+                  sx={{
+                    margin: "0 1% 0 1%",
+                    padding: ".3% 0% 0% .3%",
+                  }}
+                >
+                  <Profile
+                    style={{ padding: "25%" }}
+                    // className={props.isSelected == row.id ? "SelectedIcon" : "profilesvg"}
+                    className="profilesvg"
+                  />
+                </IconButton>
+              </Tooltip>
+              <Tooltip title="Delete">
+                <IconButton onClick={handleBookingDelete} className="Profilicon" sx={{ padding: "0.5% 1% 0.5% 1%" }}>
+                  <Delete className="" style={{ padding: "18%" }} />
+                </IconButton>
+              </Tooltip>
             </Grid>
+          </div>
+        </div>
+      </BasicModal>
+      <BasicModal open={profileModal} onClose={handleProfileModalClose} modalboxclassName="profile_modal">
+        <div>
+          <div className="profile_img_div">
+            <img
+              src={
+                selectedUserData?.photo
+                  ? selectedUserData?.photo
+                  : selectedUserData.photo === "null" || "undefined"
+                  ? selectedUserData
+                  : selectedUserData.photo
+              }
+              alt=""
+              className="profile_img"
+            />
+          </div>
+          <div className="profile_text_div">
+            <p className="profile_text_left">{selectedUserData?.firstName + " " + selectedUserData?.surName}</p>
+          </div>
+          <div className="profile_text_div">
+            <p
+              className="profile_text_right"
+              style={{
+                display: "flex",
+                alignItems: "flex-start",
+                justifyContent: "flex-start",
+              }}
+            >
+              <LocationOnIcon style={{ marginTop: -5, marginLeft: 10 }} />
+              {selectedUserData.address}
+              {selectedUserData.zip} {selectedUserData.city}
+            </p>
+          </div>
+          <div className="profile_text_div">
+            <p className="profile_text_right">{selectedUserData.contactEmail}</p>
+          </div>
+          <div className="profile_text_div">
+            <p className="profile_text_right">{selectedUserData.gender}</p>
+          </div>
+
+          <div className="profile_text_div">
+            <p className="profile_text_right">{moment(selectedUserData.dob).format("DD/MM/YYYY")}</p>
+          </div>
+          <div className="profile_text_div">
+            <p className="profile_text_right">{selectedUserData.placeOfBirth}</p>
+          </div>
+          <div className="profile_text_div">
+            <p className="profile_text_right">{selectedUserData.complement} </p>
+          </div>
+
+          <div className="icons">
+            <div className="profile_icons_div">
+              <div className="icon_style_div">
+                <img src={Project} alt="" />
+              </div>
+              <div className="popup_text">
+                <p className="icons_text1">{selectedUserData.BookingLength}</p>
+                <p className="icons_text2">{t("Bookings")}</p>
+              </div>
+            </div>
+            <div className="profile_icons_div">
+              <div className="icon_style_div">
+                <img src={Rating} alt="" />
+              </div>
+              <div>
+                <p className="icons_text1">
+                  {selectedUserData.Rating != "NaN" && selectedUserData.Rating ? selectedUserData.Rating : "N/A"}
+                </p>
+                <p className="icons_text2">{t("Ratings")}</p>
+              </div>
+            </div>
           </div>
         </div>
       </BasicModal>

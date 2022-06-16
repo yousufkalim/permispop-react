@@ -5,7 +5,7 @@
   font-family: Inter !important;
   font-style: normal !important;
   font-weight: 550 !important;
-  font-size: 24px !important;
+  font-size: 20px !important;
   color: #363557 !important;
   display: flex !important;
   max-width: 160% !important;
@@ -15,13 +15,23 @@
   border-bottom: none !important;
   font-family: Inter !important;
   font-style: normal !important;
-  font-size: 18px !important;
+  font-size: 12px !important;
   color: black !important;
   font-weight: 300 !important;
-  
 }
+/* .css-1x51dt5-MuiInputBase-input-MuiInput-input .input{
+
+  color: red !important;
+  font-weight: 900;
+} */
 .css-1x51dt5-MuiInputBase-input-MuiInput-input {
+
   color: black !important;
+}
+.textFieldFont{
+  font-size: 14px !important;
+  height: 70px !important;
+
 }
 .css-mnn31{
   color: black !important;

@@ -1058,7 +1058,7 @@ const RentalCar = () => {
               PoliceNumber: step2.CompanyPoliceNumber,
               StartDate: step2.InsuranceDateExp,
               EndDate: step2.InsuranceDateExp,
-              GreenCardImagePath: step2.RcPro,
+              insuranceImagePath: step2.RcPro,
             }).then(async (InsuranceCompanyRes) => {
               let finalVehicles = {};
 
@@ -1283,7 +1283,7 @@ const RentalCar = () => {
                     ></Button>
                     <Button
                       endIcon={<ArrowForwardIcon sx={{ color: "#fff" }} />}
-                      type="submit"
+                      type={t("submit")}
                       text={activeStep === steps.length - 1 ? t("Finish") : t("Next")}
                       buttonLableStyle="btn_main"
                       style={{ marginTop: "24px" }}

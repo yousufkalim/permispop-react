@@ -74,7 +74,7 @@ const Index = () => {
                         {moment(row.feedBackDate).format("DD/MM/YYYY")}
                       </TableCell>
                       <TableCell component="th" scope="row" sx={{ color: "#FFA333" }}>
-                        {row.status == null || row.status == "" ? "N/A" : row.status}
+                        {row.status == null || row.status == "" ? "Pending" : row.status}
                       </TableCell>
                       <TableCell component="th" scope="row">
                         {row.comment}
