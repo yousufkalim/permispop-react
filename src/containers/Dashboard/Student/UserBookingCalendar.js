@@ -15,8 +15,8 @@ import Box from "@mui/material/Box";
 import CircularProgress from "@mui/material/CircularProgress";
 import LoadingButton from "@mui/lab/LoadingButton";
 import SaveIcon from "@mui/icons-material/Save";
-// import { ReactComponent as Delete } from "../../../assets/images/BookingDelete.svg";
-// import { ReactComponent as Profile } from "../../../assets/images/Profile.svg”";
+import { ReactComponent as Delete } from "../../../assets/images/BookingDelete.svg";
+import { ReactComponent as Profile } from "../../../assets/images/Profile.svg";
 import IconButton from "@mui/material/IconButton";
 import Tooltip from "@mui/material/Tooltip";
 import Ratings from "../../../components/Common/Rating";
@@ -24,14 +24,14 @@ import Rating from "../../../assets/images/path2006.svg";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import Project from "../../../assets/images/form.svg";
 import { ReactComponent as Comment } from "../../../assets/images/ChatIcon.svg";
-import { ReactComponent as Profile } from "../../../assets/images/ChatIcon.svg";
+import { useHistory } from "react-router-dom";
+
 const Calendar = () => {
   const currentDate = moment();
+  const history = useHistory();
   const { i18n, t } = useTranslation();
   const [user, setUser] = useState();
   const [selectedInstructor, setSelectedInstructor] = useState();
-  // const [drivingSchoolInstructors, setDrivingSchoolInstructors] = useState();
-  // const [selectedDSInstructor, setSelectedDSInstructor] = useState();
   const [selectedAvailability, setSelectedAvailability] = useState();
   const [update, setUpdate] = useState(false);
   const [disabled, setdisabled] = useState(false);
@@ -376,7 +376,17 @@ const Calendar = () => {
   const handleProfileModalClose = () => {
     setUserModal(false);
   };
-
+  const handleChatClick = async () => {
+    await API("get", `Chat/getorcreatechatroom?userA=${user.id}&userB=${selectedBooking.instructorId}`)
+      .then((ChatroomResponse) => {
+        console.log("ChatroomResponse", ChatroomResponse);
+        localStorage.setItem("ChatroomId", JSON.stringify(ChatroomResponse.data.data.id));
+        history.push("/student/chat");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
   return (
     <>
       <CalendarComponent
@@ -513,7 +523,7 @@ const Calendar = () => {
             <Grid align="right">
               <Tooltip title="Chat">
                 <IconButton
-                  // onClick={handleChatClick}
+                  onClick={handleChatClick}
                   className="Profilicon"
                   sx={{
                     padding: ".1% 0% 0% .1%",
@@ -524,25 +534,18 @@ const Calendar = () => {
               </Tooltip>
               <Tooltip title="Profile">
                 <IconButton
-                  // className={props.isSelected == row.id ? “selectedProfile” : “Profilicon”}
-                  // onClick={handleProfile}
                   className="Profilicon"
                   sx={{
                     margin: "0 1% 0 1%",
                     padding: ".3% 0% 0% .3%",
                   }}
                 >
-                  <Profile
-                    style={{ padding: "25%" }}
-                    // className={props.isSelected == row.id ? “SelectedIcon” : “profilesvg”}
-                    onClick={handleProfile}
-                    className="profilesvg"
-                  />
+                  <Profile style={{ padding: "25%" }} onClick={handleProfile} className="profilesvg" />
                 </IconButton>
               </Tooltip>
               <Tooltip title="Delete">
                 <IconButton onClick={handleBookingDelete} className="Profilicon" sx={{ padding: "0.5% 1% 0.5% 1%" }}>
-                  {/* <Delete style={{ padding: "18%" }} /> */}
+                  <Delete style={{ padding: "18%" }} />
                 </IconButton>
               </Tooltip>
             </Grid>
@@ -764,6 +767,6 @@ const Calendar = () => {
       </BasicModal>
     </>
   );
-};;;;;;
+};
 
 export default Calendar;

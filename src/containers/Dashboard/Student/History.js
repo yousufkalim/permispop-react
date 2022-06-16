@@ -24,23 +24,31 @@ const Index = () => {
   const [user, setUser] = useState();
   const history = useHistory();
   const [loading, setLoading] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState();
 
   useEffect(() => {
     const userData = JSON.parse(localStorage.getItem("user"));
-    getHistoryData(userData);
     setUser(userData);
   }, []);
 
-  const getHistoryData = async (userData) => {
+  useEffect(() => {
+    if (user && currentPage) getHistoryData(user);
+  }, [user, currentPage]);
+
+  const getHistoryData = async () => {
     let allBookings = [];
     await API(
       "get",
-      `Bookings/GetBookingsByIdForAllUsers_New?id=${userData.id}&role=${userData.role}&sortvalue=FirstName&sortorder=ascend&QuerySearch.firstName=&pageSize=100&pageNumber=1&startDate=&endDate=`
+      `Bookings/GetBookingsByIdForAllUsers_New?id=${user.id}&role=${user.role}&sortvalue=FirstName&sortorder=ascend&QuerySearch.firstName=&pageSize=10&pageNumber=${currentPage}&startDate=&endDate=`
     ).then(async (GetBookingres) => {
+      console.log("GetBookingres", GetBookingres);
+      setHistoryRows([]);
+      setTotalPages(GetBookingres.data.totalPages);
       let studentRes = GetBookingres.data.data.map((booking) => {
-        if (userData.id === booking.instructionId) {
+        if (user.id === booking.instructionId) {
           return API("get", `Personal/GetAllById/?id=${booking.studentId}`);
-        } else if (userData.id === booking.studentId) {
+        } else if (user.id === booking.studentId) {
           return API("get", `Personal/GetAllById/?id=${booking.instructionId}`);
         }
       });
@@ -151,7 +159,15 @@ const Index = () => {
       {loading ? (
         <Loader></Loader>
       ) : (
-        <DataTable data={historyRows} columns={Historycolumns} user={user} handleReBook={handleReBook}></DataTable>
+        <DataTable
+          data={historyRows}
+          columns={Historycolumns}
+          user={user}
+          handleReBook={handleReBook}
+          totalPages={totalPages}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+        ></DataTable>
       )}
     </>
   );

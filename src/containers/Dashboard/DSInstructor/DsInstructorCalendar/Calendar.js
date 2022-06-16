@@ -1240,7 +1240,7 @@ const Calendar = () => {
           </Grid>
           <div className="booking-btn-div">
             <Grid align="right">
-              <Button
+              {/* <Button
                 text="Close"
                 onClick={handleBookingClose}
                 disabled={disabled}
@@ -1251,7 +1251,7 @@ const Calendar = () => {
                 textColor="#363557"
                 margin=" 10px 10px 0 0"
                 color="white"
-              />
+              /> */}
               <Button
                 text="Delete"
                 onClick={handleBookingDelete}
