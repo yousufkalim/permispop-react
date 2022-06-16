@@ -15,6 +15,16 @@ import Box from "@mui/material/Box";
 import CircularProgress from "@mui/material/CircularProgress";
 import LoadingButton from "@mui/lab/LoadingButton";
 import SaveIcon from "@mui/icons-material/Save";
+// import { ReactComponent as Delete } from "../../../assets/images/BookingDelete.svg";
+// import { ReactComponent as Profile } from "../../../assets/images/Profile.svg”";
+import IconButton from "@mui/material/IconButton";
+import Tooltip from "@mui/material/Tooltip";
+import Ratings from "../../../components/Common/Rating";
+import Rating from "../../../assets/images/path2006.svg";
+import LocationOnIcon from "@mui/icons-material/LocationOn";
+import Project from "../../../assets/images/form.svg";
+import { ReactComponent as Comment } from "../../../assets/images/ChatIcon.svg";
+import { ReactComponent as Profile } from "../../../assets/images/ChatIcon.svg";
 const Calendar = () => {
   const currentDate = moment();
   const { i18n, t } = useTranslation();
@@ -37,7 +47,8 @@ const Calendar = () => {
   const [endDate, setEndDate] = useState("");
   const [lng, setLng] = useState();
   const [loading, setLoading] = React.useState(false);
-
+  const [userModal, setUserModal] = React.useState(false);
+  const [profileData, setProfileData] = React.useState();
   useEffect(() => {
     onNavigate(new Date(), "week");
     setLng(localStorage.getItem("i18nextLng"));
@@ -125,6 +136,7 @@ const Calendar = () => {
         });
         setBookings(allEvents);
       });
+      console.log("bookings--------->", bookings);
     } else {
       await API(
         "get",
@@ -322,6 +334,48 @@ const Calendar = () => {
       setUpdate(!update);
     }
   };
+  const handleProfile = async () => {
+    await API("get", `Personal/GetAllById/?id=${selectedBooking.instructorId}`).then(async (PersonalResponse) => {
+      let Profile = "";
+      console.log("first", PersonalResponse.data.data);
+
+      if (PersonalResponse.data.data.role === "CarRentalAgent" || PersonalResponse.data.data.role === "Instructor") {
+        await API("get", `Bookings/GetBookingsByInstructor?id=${PersonalResponse.data.data.id}`).then(
+          (GetBookingsByInstructor) => {
+            console.log("in");
+            let newProfile = PersonalResponse.data.data;
+            newProfile["BookingLength"] = GetBookingsByInstructor.data.data.length;
+            Profile = newProfile;
+          }
+        );
+      } else if (PersonalResponse.data.data.role === "DrivingSchool" || PersonalResponse.data.data.role === "DSInstructor") {
+        await API("get", `Bookings/GetBookingsByDrivingSchool?id=${PersonalResponse.data.data.id}`).then(
+          (GetBookingsByDrivingSchool) => {
+            console.log("GetBookingsByDrivingSchool", GetBookingsByDrivingSchool);
+            let newProfile = PersonalResponse.data.data;
+            newProfile["BookingLength"] = GetBookingsByDrivingSchool.data.data.length;
+            Profile = newProfile;
+          }
+        );
+      }
+
+      let newnewProfile = await API("get", `FeedBacks/GetAverageRating?id=${Profile.id}`).then((GetAverageRatingResponse) => {
+        console.log("Profile", Profile);
+        let newProfile = Profile;
+
+        console.log("newProfile", newProfile);
+        newProfile["Rating"] = GetAverageRatingResponse.data.data;
+        return newProfile;
+      });
+      setProfileData(newnewProfile);
+      setUserModal(true);
+      setBookingModal(false);
+    });
+  };
+
+  const handleProfileModalClose = () => {
+    setUserModal(false);
+  };
 
   return (
     <>
@@ -337,7 +391,6 @@ const Calendar = () => {
         }}
         lng={lng}
       />
-
       {/* View Booking modal */}
       <BasicModal
         open={bookingModal}
@@ -458,35 +511,44 @@ const Calendar = () => {
           </Grid>
           <div className="booking-btn-div">
             <Grid align="right">
-              {/* <Button
-                text="Delete"
-                textColor="#FFFFFF !important"
-                width="110px !important"
-                color="#149E7A !important"
-                onClick={handleBookingDelete}
-                disabled={disabled}
-              /> */}
-              <LoadingButton
-                loading={loading}
-                loadingPosition="start"
-                onClick={handleBookingDelete}
-                sx={{
-                  color: "#FFFFFF",
-                  background: "#149E7A",
-                  height: "55px",
-                  marginTop: "10px",
-                  borderRadius: "10px",
-                  textTransform: "capitalize",
-                }}
-                className="LoadingButton"
-              >
-                {t("Delete")}
-              </LoadingButton>
+              <Tooltip title="Chat">
+                <IconButton
+                  // onClick={handleChatClick}
+                  className="Profilicon"
+                  sx={{
+                    padding: ".1% 0% 0% .1%",
+                  }}
+                >
+                  <Comment className="profilesvg" style={{ padding: "25%" }} />
+                </IconButton>
+              </Tooltip>
+              <Tooltip title="Profile">
+                <IconButton
+                  // className={props.isSelected == row.id ? “selectedProfile” : “Profilicon”}
+                  // onClick={handleProfile}
+                  className="Profilicon"
+                  sx={{
+                    margin: "0 1% 0 1%",
+                    padding: ".3% 0% 0% .3%",
+                  }}
+                >
+                  <Profile
+                    style={{ padding: "25%" }}
+                    // className={props.isSelected == row.id ? “SelectedIcon” : “profilesvg”}
+                    onClick={handleProfile}
+                    className="profilesvg"
+                  />
+                </IconButton>
+              </Tooltip>
+              <Tooltip title="Delete">
+                <IconButton onClick={handleBookingDelete} className="Profilicon" sx={{ padding: "0.5% 1% 0.5% 1%" }}>
+                  {/* <Delete style={{ padding: "18%" }} /> */}
+                </IconButton>
+              </Tooltip>
             </Grid>
           </div>
         </div>
       </BasicModal>
-
       {/* add booking modal */}
       <BasicModal
         open={AddBookingModal}
@@ -630,8 +692,78 @@ const Calendar = () => {
           </div>
         </div>
       </BasicModal>
+      // profile modal
+      <BasicModal open={userModal} onClose={handleProfileModalClose} modalboxclassName="profile_modal">
+        <div>
+          <div className="profile_img_div">
+            <img
+              src={
+                profileData?.photo
+                  ? profileData?.photo
+                  : profileData?.photo === "null" || "undefined"
+                  ? profileData
+                  : profileData?.photo
+              }
+              alt=""
+              className="profile_img"
+            />
+          </div>
+          <div className="profile_text_div">
+            <p className="profile_text_left">{profileData?.firstName + " " + profileData?.surName}</p>
+          </div>
+          <div className="profile_text_div">
+            <p
+              className="profile_text_right"
+              style={{
+                display: "flex",
+                alignItems: "flex-start",
+                justifyContent: "flex-start",
+              }}
+            >
+              <LocationOnIcon style={{ marginTop: -5, marginLeft: 10 }} />
+              {profileData?.address}
+              {profileData?.zip} {profileData?.city}
+            </p>
+          </div>
+          <div className="profile_text_div">
+            <p className="profile_text_right">{profileData?.contactEmail}</p>
+          </div>
+          <div className="profile_text_div">
+            <p className="profile_text_right">{profileData?.gender}</p>
+          </div>
+          <div className="profile_text_div">
+            <p className="profile_text_right">{moment(profileData?.dob).format("DD/MM/YYYY")}</p>
+          </div>
+          <div className="profile_text_div">
+            <p className="profile_text_right">{profileData?.placeOfBirth}</p>
+          </div>
+          <div className="profile_text_div">
+            <p className="profile_text_right">{profileData?.complement} </p>
+          </div>
+          <div className="icons">
+            <div className="profile_icons_div">
+              <div className="icon_style_div">
+                <img src={Project} alt="" />
+              </div>
+              <div className="popup_text">
+                <p className="icons_text1">{profileData?.BookingLength}</p>
+                <p className="icons_text2">{t("Bookings")}</p>
+              </div>
+            </div>
+            <div className="profile_icons_div">
+              <div className="icon_style_div">
+                <img src={Rating} alt="" />
+              </div>
+              <div>
+                <p className="icons_text1">{profileData?.Rating != "NaN" && profileData?.Rating ? profileData?.Rating : "N/A"}</p>
+                <p className="icons_text2">{t("Ratings")}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </BasicModal>
     </>
   );
-};
+};;;;;;
 
 export default Calendar;
