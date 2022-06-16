@@ -24,7 +24,7 @@
     justify-content: space-around;
   }
   .profile_modal{
-      overflow: hidden !important;
+      /* overflow: hidden !important; */
       width: 30% !important;
       height: 65% !important;
   }
@@ -57,6 +57,7 @@
       }
       .profile_modal{
           width: 38% !important;
+          min-height: 75% !important;
       }
 }
 
