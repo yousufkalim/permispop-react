@@ -185,7 +185,7 @@ const Index = () => {
         DisputingFrom: user.role ? user.role : "",
         feedBackDate: new Date(),
         studentName: selectedUserData.firstName ? selectedUserData.firstName : "",
-        studentName: selectedUserData.firstName ? selectedUserData.firstName : "",
+        BookingId: selectedBooking.id,
         studentID: user.role === "Student" ? user.id : selectedUserData.id,
       }).then(async (disputeres) => {
         await API("get", `Bookings/UpdateBookingsStatus?id=${updateBookingId}&status=Dispute`).then((res) => {
