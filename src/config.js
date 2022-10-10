@@ -2,7 +2,7 @@ let frontUrl = "";
 let baseUrl = "";
 let chatUrl = "";
 
-if (window.location.host === "permispop.fr") {
+if (window.location.host === "permispop.fr" || window.location.host === "www.permispop.fr") {
   frontUrl = "https://permispop.fr";
   baseUrl = "https://api.permispop.fr/api/";
   chatUrl = "https://chat.permispop.fr";
