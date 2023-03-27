@@ -38,16 +38,16 @@ const Cookies = () => {
             <div style={{ width: "95%" }}>
               <Typography className="cookies_heading_text">
                 {lng === "en"
-                  ? cookies.headingEnglish
+                  ? cookies?.headingEnglish
                   : lng === "fr"
-                  ? cookies.headingFrench
+                  ? cookies?.headingFrench
                   : ""}
               </Typography>
               <Typography className="cookies_body_text">
                 {lng === "en"
-                  ? cookies.textEnglish
+                  ? cookies?.textEnglish
                   : lng === "fr"
-                  ? cookies.textFrench
+                  ? cookies?.textFrench
                   : ""}
               </Typography>
             </div>
