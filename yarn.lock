@@ -6706,9 +6706,9 @@ lodash.uniq@^4.5.0:
   integrity sha512-xfBaXQd9ryd9dlSDvnvI0lvxfLJlYAZzXomUYzLKtUeOQvOP5piqAWuGtrhWeqaXK9hhoM/iyJc5AV+XfsX3HQ==
 
 lodash.unset@^4.5.2:
-  version "4.5.2"
-  resolved "https://registry.yarnpkg.com/lodash.unset/-/lodash.unset-4.5.2.tgz#370d1d3e85b72a7e1b0cdf2d272121306f23e4ed"
-  integrity sha512-bwKX88k2JhCV9D1vtE8+naDKlLiGrSmf8zi/Y9ivFHwbmRfA8RxS/aVJ+sIht2XOwqoNr4xUPUkGZpc1sHFEKg==
+  version "4.18.0"
+  resolved "https://registry.yarnpkg.com/lodash.unset/-/lodash.unset-4.18.0.tgz#5ab4bdee0f73cbe9142a74eb809b7933dbb7e0a6"
+  integrity sha512-7B95k5zjcJtuGuLqxOjT91g0Txwv1PWBlBDGzjW4kM8qgw2qfSgBo1QcIWGUpW9uN/1ZSKX9NHJzVJIgbeR5PQ==
 
 lodash@^4.17.11, lodash@^4.17.15, lodash@^4.17.20, lodash@^4.17.21, lodash@^4.7.0:
   version "4.17.21"
